@@ -13,6 +13,7 @@
     }
 
 .layout__header--menuContenedorOfertas {
+    background-color: #FFF !important;
     -moz-box-shadow: 1px 2px 12px rgba(0,0,0,.14);
     -webkit-box-shadow: 1px 2px 12px rgba(0,0,0,.14);
     box-shadow: 1px 2px 12px rgba(0,0,0,.14);
@@ -22,9 +23,9 @@
         max-width: 1222px;
     }
 
-.menu__contenedor__carrusel__wrapper {
-    margin-bottom: 0;
-}
+    .menu__contenedor__carrusel__wrapper {
+        margin-bottom: 0;
+    }
 
     .menu__contenedor__carrusel__wrapper,
     .menu__contenedor__carrusel__wrapper .slick-arrow,

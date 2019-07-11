@@ -1,12 +1,15 @@
-﻿
+﻿@using Portal.Consultoras.Web.Models.CaminoBrillante
+@using Portal.Consultoras.Common
 @{
-    ViewBag.CaminoBrillante = true;
+    //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var data = ViewBag.Informacion;
     var categoria = ViewBag.Vista;
+  
 }
 
 @section css{
+
     <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
     <style>
         div.content_responsive {
@@ -33,39 +36,69 @@
 </section>
 
 <br />
-<div class="container" id="logros"></div>
+
+<div class="top-boxlogros">
+    <div class="foto_perfil_home">
+        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil">
+    </div>
+
+    <span class="top-anios"><img src="~/Content/CaminoBrillante/imgs/corazon.png">10 años</span>
+    <p class="frase-logros">¡Gracias por este tiempo</p>
+
+    <ul class="bar-logros">
+        <li>
+            <span>Escala Máxima</span>
+            <p>25%</p>
+        </li>
+        <li>
+            <span>Constancia del periodo</span>
+            <p>5 de 6</p>
+        </li>
+        <li>
+            <span>Incremento Máximo</span>
+            <p>25%</p>
+        </li>
+    </ul>
+
+</div>
+
+<div class="container" id="logros">
+
+
+    
+</div>
 <br />
 
 <script id="template-logros" type="text/x-handlebars-template">
-    <h2 class="title">{{Titulo}}</h2>
+
+
+
+
     {{#IsNullOrEmpty Descripcion '!='}}
     {{/IsNullOrEmpty}}
     {{#each Indicadores}}
+
+    {{#if_eq Titulo 'Cambio de nivel'}}
+
+    {{else if_eq Titulo 'Constancia'}}
+
+    {{else}}
     <div class="box-camb">
-        <input type="hidden" id="txttitulo" value="{{Titulo}}" />
+
         <p class="text-bold">{{Titulo}}</p>
+
         <div class="cambio-crec">
             {{#each Medallas }}
+
+            {{#if_eq Tipo 'PIE'}}
+
+            {{else if_eq Tipo 'NIV'}}
+
+            {{else}}
             <div class="itm">
-                {{#if_eq Tipo 'PIE'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
-                </div>
-                {{else if_eq Tipo 'CIRC'}}
-                <div class="circle-porcent {{#if Estado}}crec-activo{{else}}crec-inactivo{{/if}}">
+                {{#if_eq Tipo 'CIRC'}}
+                <div class="bord circle-porcent {{#if Estado}}crec-activo{{else}}crec-inactivo{{/if}}">
                     <span>{{Valor}}</span>
-                </div>
-                {{else if_eq Tipo 'NIV'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
-                </div>
-                {{else if_eq Tipo 'PED'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
-                </div>
-                {{else if_eq Tipo 'TIME'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
                 </div>
                 {{/if_eq}}
 
@@ -126,18 +159,190 @@
                 {{/IsNullOrEmpty}}
                 {{/if}}
             </div>
+            {{/if_eq}}
+
+
             {{/each}}
         </div>
     </div>
+    {{/if_eq}}
+
+
     {{/each}}
     <div class="clear"></div>
+
 </script>
+<div class=" cambio-crec logreg">
+    <p class="text-bold">Constancia del periodo: C04 a C09</p>
+    <section class="regular  slider">
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C01</span>
+                </div>
+                <span class="como-log inactivo">C01</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C03</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C01</span>
+                </div>
+                <span class="como-log inactivo">C04</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C05</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C06</span>
+            </div>
+
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C03</span>
+                </div>
+                <span class="como-log inactivo">C03</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C04</span>
+                </div>
+                <span class="como-log inactivo">C04</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C05</span>
+                </div>
+                <span class="como-log inactivo">C05</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C06</span>
+                </div>
+                <span class="como-log inactivo">C06</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C07</span>
+                </div>
+                <span class="como-log inactivo">C07</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+        </div>
+
+    </section>
+</div>  
+
+
 
 @section scripts{
     <script>
         var urlGetLogros = '@Url.Action("GetLogros", "CaminoBrillante")';
         var categoriaLogro = "@categoria";
     </script>
+
+    <script>
+        $(document).on('ready', function () {
+
+            $('.carousel').carousel({
+                interval: 1000,
+                pause: false,
+                interval: false
+            });
+
+            $(".regular").slick({
+                dots: false,
+                infinite: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                //initialSlide: 2,
+                prevArrow: '<a style="display: block;left: 0;margin-left: -2%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                nextArrow: '<a style="display: block;right: 0;margin-right: -2%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+
+                            slidesToShow: 1, slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
+
 }

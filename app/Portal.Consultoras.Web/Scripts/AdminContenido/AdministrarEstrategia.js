@@ -1,5 +1,4 @@
 ﻿var AdministrarEstrategia = (function (config) {
-
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || "",
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || "",
@@ -374,7 +373,7 @@
         };
         return $.post(_config.getFiltrarEstrategiaAction, params)
             .done(
-                _obtenerFiltrarEstrategiaSuccess(data, id)
+            _obtenerFiltrarEstrategiaSuccess(data, id)
             );
     };
 
@@ -386,7 +385,7 @@
                 closeWaitingDialog();
                 return false;
             }
-            
+
             $("#div-lan-app .inforRdText").html(data.AppOfertasHomeImgAncho + " x " + data.AppOfertasHomeImgAlto + " pixeles");
             $("#nombre-img-fondo-app").attr("imageextension", data.AppOfertasHomeImgAncho);
             $("#nombre-img-fondo-app").attr("imagewidth", data.AppOfertasHomeImgAncho);
@@ -583,8 +582,8 @@
             else $("#chkOfertaUltimoMinuto").attr("checked", false);
             $(".checksPedidosAsociados")
                 .append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' +
-                    data.NumeroPedido +
-                    '" readonly /></div>');
+                data.NumeroPedido +
+                '" readonly /></div>');
 
             _agregarCamposLanzamiento("img-fondo-desktop", data.ImgFondoDesktop);
             _agregarCamposLanzamiento("img-fondo-mobile", data.ImgFondoMobile);
@@ -615,10 +614,7 @@
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-
-        var imagen = $("#imgSeleccionada").attr('src');
-        var ultimoSlash = imagen.lastIndexOf("/");
-        var nombreImagen = imagen.substring(ultimoSlash + 1);
+        
         var params = {
             paisID: data.paisID,
             estragiaId: data.EstrategiaID,
@@ -702,63 +698,63 @@
     };
 
     var _uploadFileLanzamineto = function (divId) {
-         var uploader = new qq.FileUploader({
-             allowedExtensions: ["jpg", "png", "jpeg"],
-             element: document.getElementById(divId),
-             action: _config.urlImageLanzamientoUpload,
-             onComplete: function (id, fileName, responseJSON) {
-                 if (checkTimeout(responseJSON)) {
-                     if (responseJSON.success) {
-                         $("#nombre-" + divId).val(responseJSON.name);
-                         $("#src-" + divId).attr("src", _config.rutaTemporal + responseJSON.name);
-                     } else _toastHelper.error(responseJSON.message);
-                 }
-                 return false;
-             },
-             onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
-             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
-             onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
-         });
-         return false;
-     };
+        var uploader = new qq.FileUploader({
+            allowedExtensions: ["jpg", "png", "jpeg"],
+            element: document.getElementById(divId),
+            action: _config.urlImageLanzamientoUpload,
+            onComplete: function (id, fileName, responseJSON) {
+                if (checkTimeout(responseJSON)) {
+                    if (responseJSON.success) {
+                        $("#nombre-" + divId).val(responseJSON.name);
+                        $("#src-" + divId).attr("src", _config.rutaTemporal + responseJSON.name);
+                    } else _toastHelper.error(responseJSON.message);
+                }
+                return false;
+            },
+            onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
+            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+            onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
+        });
+        return false;
+    };
 
-     function _uploadFileLanzamientoApp(tag) {
-         var tipoFileTag = $("#nombre-" + tag).attr("imageextension");
-         var tipoFile = tipoFileTag.split(",");
+    function _uploadFileLanzamientoApp(tag) {
+        var tipoFileTag = $("#nombre-" + tag).attr("imageextension");
+        var tipoFile = tipoFileTag.split(",");
 
-         var params = {};
-         params["width"] = $("#nombre-" + tag).attr("imagewidth");
-         params["height"] = $("#nombre-" + tag).attr("imageheight");
-         params["messageSize"] = $("#nombre-" + tag).attr("messageSize");
+        var params = {};
+        params["width"] = $("#nombre-" + tag).attr("imagewidth");
+        params["height"] = $("#nombre-" + tag).attr("imageheight");
+        params["messageSize"] = $("#nombre-" + tag).attr("messageSize");
 
-         new qq.FileUploader({
-             allowedExtensions: tipoFile,
-             element: document.getElementById(tag),
-             action: _config.urlImageLanzamientoUpload,
-             params: params,
-             messages: {
-                 typeError: $("#nombre-" + tag).attr("messageFormat")
-             },
-             onComplete: function (id, fileName, responseJSON) {
-                 closeWaitingDialog();
-                 if (checkTimeout(responseJSON)) {
-                     if (responseJSON.success) {
-                         $("#nombre-" + tag).val(responseJSON.name);
-                         $("#src-" + tag).attr("src", _config.rutaTemporal + responseJSON.name);
-                     }
-                     else {
-                         alert(responseJSON.message);
-                     }
-                 }
-                 return false;
-             },
-             onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); waitingDialog({}); },
-             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
-             onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
-         });
+        new qq.FileUploader({
+            allowedExtensions: tipoFile,
+            element: document.getElementById(tag),
+            action: _config.urlImageLanzamientoUpload,
+            params: params,
+            messages: {
+                typeError: $("#nombre-" + tag).attr("messageFormat")
+            },
+            onComplete: function (id, fileName, responseJSON) {
+                closeWaitingDialog();
+                if (checkTimeout(responseJSON)) {
+                    if (responseJSON.success) {
+                        $("#nombre-" + tag).val(responseJSON.name);
+                        $("#src-" + tag).attr("src", _config.rutaTemporal + responseJSON.name);
+                    }
+                    else {
+                        alert(responseJSON.message);
+                    }
+                }
+                return false;
+            },
+            onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); waitingDialog({}); },
+            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+            onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
+        });
 
-         return false;
-     };
+        return false;
+    };
 
     var _createGridUpdated = function (list) {
         var gridJson = { page: 1, total: 2, records: 10, rows: list };
@@ -855,7 +851,7 @@
         var remove = "";
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") != _codigoTipoEstrategia.ArmaTuPack) {
             remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "',event);\" >"
-            + "<img src='" + admConfig.Config.rutaImagenDisable + "' alt='Deshabilitar' border='0' /></a>";
+                + "<img src='" + admConfig.Config.rutaImagenDisable + "' alt='Deshabilitar' border='0' /></a>";
         }
 
         return edit + remove;
@@ -1263,7 +1259,7 @@
 
         var colNameActions = "";
         var hideColProducts = true;
-        
+
         if (codigo == _codigoTipoEstrategia.ArmaTuPack
             || codigo == _codigoTipoEstrategia.ShowRoom) {
             colNameActions = 'Tácticas';
@@ -1453,15 +1449,15 @@
                 }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
             pager: jQuery("#pager"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
@@ -1546,15 +1542,15 @@
                             var item = $(this)[0];
                             $(".checksPedidosAsociados")
                                 .append(
-                                    '<div class="titB" style="width:9px;"><input type="checkbox" class="chkclass" id="PedidoAsociado_' +
-                                    item +
-                                    '" name="PedidoAsociado_' +
-                                    item +
-                                    '" value=' +
-                                    item +
-                                    " >" +
-                                    item +
-                                    "</div>");
+                                '<div class="titB" style="width:9px;"><input type="checkbox" class="chkclass" id="PedidoAsociado_' +
+                                item +
+                                '" name="PedidoAsociado_' +
+                                item +
+                                '" value=' +
+                                item +
+                                " >" +
+                                item +
+                                "</div>");
                         });
                 }
                 closeWaitingDialog();
@@ -1700,15 +1696,15 @@
                 { name: "IDAux", index: "IDAux", width: 0, editable: true, resizable: false, hidden: true }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
             pager: jQuery("#pagerTC"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
@@ -1751,7 +1747,7 @@
     }
 
     // SHOWROOM-INICIO
-    
+
     var _limpiarDatosEventoShowRoom = function () {
         $("#hd_id").val('');
         $("#txtEventoNombre").val("");
@@ -1939,15 +1935,15 @@
                 { name: "Options", width: 60, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsEvento }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: false,
-                cell: "",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: false,
+                    cell: "",
+                    id: "id"
+                },
             pager: jQuery("#pagerEvento"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
@@ -2198,7 +2194,7 @@
             }
         });
     }
-    
+
     var _vistaNuevoProductoShowroon = function () {
         $("#seccionTallaColor").hide();
         $("#seccionOfertaUltimoMinuto").hide();
@@ -2345,9 +2341,9 @@
                             $(this).ColorPickerSetColor(this.value);
                         }
                     })
-                    .bind("keyup", function () {
-                        $(this).ColorPickerSetColor(this.value);
-                    });
+                        .bind("keyup", function () {
+                            $(this).ColorPickerSetColor(this.value);
+                        });
                     if ($("#AppColorTexto").val() === "") $("#AppColorTexto").val("#ffffff");
                 }
                 else {
@@ -2355,296 +2351,296 @@
                 }
             },
             buttons:
-            {
-                "Guardar": function () {
+                {
+                    "Guardar": function () {
 
-                    if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ArmaTuPack) {
-                        $('#txtOrden').val(1);                    
-                    }
+                        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ArmaTuPack) {
+                            $('#txtOrden').val(1);
+                        }
 
-                    if ($("#mensajeErrorCUV").val() != "") {
-                        _toastHelper.error($("#mensajeErrorCUV").val());
-                        return false;
-                    }
-                    if ($("#mensajeErrorCUV2").val() != "") {
-                        _toastHelper.error($("#mensajeErrorCUV2").val());
-                        return false;
-                    }
-                    if ($(".DatosNuevas").css("display") == "block") {
-                        if ($("#ddlCampaniaFin").val() == "") {
-                            _toastHelper.error("Seleccione la campaña de vigencia hasta.");
+                        if ($("#mensajeErrorCUV").val() != "") {
+                            _toastHelper.error($("#mensajeErrorCUV").val());
                             return false;
                         }
-                        var campaniaIni = $("#spanCampania").val();
-                        var campaniaFin = $("#ddlCampaniaFin").val();
-                        if (parseInt(campaniaFin) < parseInt(campaniaIni)) {
-                            _toastHelper.error(
-                                "La campaña de vigencia final  no puede ser menor a la campaña de inicio.");
+                        if ($("#mensajeErrorCUV2").val() != "") {
+                            _toastHelper.error($("#mensajeErrorCUV2").val());
                             return false;
                         }
-                    }
+                        if ($(".DatosNuevas").css("display") == "block") {
+                            if ($("#ddlCampaniaFin").val() == "") {
+                                _toastHelper.error("Seleccione la campaña de vigencia hasta.");
+                                return false;
+                            }
+                            var campaniaIni = $("#spanCampania").val();
+                            var campaniaFin = $("#ddlCampaniaFin").val();
+                            if (parseInt(campaniaFin) < parseInt(campaniaIni)) {
+                                _toastHelper.error(
+                                    "La campaña de vigencia final  no puede ser menor a la campaña de inicio.");
+                                return false;
+                            }
+                        }
 
-                    var valor = $("#txtDescripcion").val();
-                    if ($.trim(valor) == "") {
-                        _toastHelper.error("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
-                        return false;
-                    }
-                    var m = "";
-
-                    if (($.trim($("#txtCUV").val()) != "" && $.trim($("#txtPrecio").val()) == "") ||
-                        ($.trim($("#txtCUV").val()) != "" && $.isNumeric($("#txtPrecio").val()) == false)) {
-                        m += "- Digite un valor correspondiente para el precio." + "\n";
-                    }
-                    if ($.trim($("#txtCUV").val()) != "" && $("#txtPrecio").val() <= 0) {
-                        m += "- Ingrese un valor para el precio mayor a cero." + "\n";
-                    }
-
-                    if ($.trim($("#txtCUV2").val()) == "") {
-                        m += "- Ingrese un valor para el CUV2." + "\n";
-                    }
-
-                    if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
-                        m += "- Digite un valor correspondiente para el precio." + "\n";
-                    }
-                    if ($("#txtPrecio2").val() <= 0) {
-                        m += "- Ingrese un valor para el precio mayor a cero." + "\n";
-                    }
-                    if (m != "") {
-                        _toastHelper.error(m);
-                        return false;
-                    }
-
-                    if ($("#idEstrella").css("display") == "block") {
-                        if (!$("#chkEstrella").attr("checked")) {
-                            _toastHelper.error("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
+                        var valor = $("#txtDescripcion").val();
+                        if ($.trim(valor) == "") {
+                            _toastHelper.error("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
                             return false;
                         }
-                    }
+                        var m = "";
 
-                    if ($('#ddlTipoEstrategia option:selected').data("codigo") != _codigoTipoEstrategia.ArmaTuPack) {
-                        if ($(".chkImagenProducto:checked").length == 0) {
-                            _toastHelper.error("Seleccione una imagen a mostrar.");
+                        if (($.trim($("#txtCUV").val()) != "" && $.trim($("#txtPrecio").val()) == "") ||
+                            ($.trim($("#txtCUV").val()) != "" && $.isNumeric($("#txtPrecio").val()) == false)) {
+                            m += "- Digite un valor correspondiente para el precio." + "\n";
+                        }
+                        if ($.trim($("#txtCUV").val()) != "" && $("#txtPrecio").val() <= 0) {
+                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                        }
+
+                        if ($.trim($("#txtCUV2").val()) == "") {
+                            m += "- Ingrese un valor para el CUV2." + "\n";
+                        }
+
+                        if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
+                            m += "- Digite un valor correspondiente para el precio." + "\n";
+                        }
+                        if ($("#txtPrecio2").val() <= 0) {
+                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                        }
+                        if (m != "") {
+                            _toastHelper.error(m);
                             return false;
                         }
 
-                        if (_variables.imagen == "") {
-                            _toastHelper.error("Seleccione una imagen a mostrar.");
+                        if ($("#idEstrella").css("display") == "block") {
+                            if (!$("#chkEstrella").attr("checked")) {
+                                _toastHelper.error("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
+                                return false;
+                            }
+                        }
+
+                        if ($('#ddlTipoEstrategia option:selected').data("codigo") != _codigoTipoEstrategia.ArmaTuPack) {
+                            if ($(".chkImagenProducto:checked").length == 0) {
+                                _toastHelper.error("Seleccione una imagen a mostrar.");
+                                return false;
+                            }
+
+                            if (_variables.imagen == "") {
+                                _toastHelper.error("Seleccione una imagen a mostrar.");
+                                return false;
+                            }
+                        }
+
+                        var aux2 = $("#ddlTipoEstrategia").find(":selected").data("id");
+                        var aux3 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+                        if (aux2 !== 4 &&
+                            aux2 !== 7 &&
+                            aux2 !== 20 &&
+                            aux2 !== 9 &&
+                            aux2 !== 10 &&
+                            aux2 !== 11 &&
+                            aux2 !== 12 &&
+                            aux2 !== 13 &&
+                            aux2 !== 30) {
+                            if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
+                                _toastHelper.error("Ingrese un orden para mostrar.");
+                                return false;
+                            }
+                            if ($("#txtOrden").val() <= 0) {
+                                _toastHelper.error("Ingrese un valor para el orden a mostrar mayor a cero.");
+                                return false;
+                            }
+                        }
+
+                        if ($.trim($("#txtLimite").val()) == "" || $.isNumeric($("#txtLimite").val()) == false) {
+                            _toastHelper.error("Ingrese un valor para el limite de venta.");
                             return false;
                         }
-                    }
-
-                    var aux2 = $("#ddlTipoEstrategia").find(":selected").data("id");
-                    var aux3 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
-                    if (aux2 !== 4 &&
-                        aux2 !== 7 &&
-                        aux2 !== 20 &&
-                        aux2 !== 9 &&
-                        aux2 !== 10 &&
-                        aux2 !== 11 &&
-                        aux2 !== 12 &&
-                        aux2 !== 13 &&
-                        aux2 !== 30) {
-                        if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
-                            _toastHelper.error("Ingrese un orden para mostrar.");
+                        if ($("#txtLimite").val() <= 0) {
+                            _toastHelper.error("Ingrese un valor para el limite de venta mayor a cero.");
                             return false;
                         }
-                        if ($("#txtOrden").val() <= 0) {
-                            _toastHelper.error("Ingrese un valor para el orden a mostrar mayor a cero.");
-                            return false;
+
+                        var TipoEstrategiaCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+                        if (TipoEstrategiaCodigo == _config.tipoEstrategiaLanzamiento && !_variables.isNuevo) {
+                            var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
+                            var AppColorTexto = $("#AppColorTexto").val();
+                            if (AppColorTexto == "") {
+                                _toastHelper.error("El color de texto es un campo obligatorio. Vuelve a intentar, por favor.");
+                                return false;
+                            }
+                            if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
+                                _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
+                                return false;
+                            }
                         }
-                    }
 
-                    if ($.trim($("#txtLimite").val()) == "" || $.isNumeric($("#txtLimite").val()) == false) {
-                        _toastHelper.error("Ingrese un valor para el limite de venta.");
-                        return false;
-                    }
-                    if ($("#txtLimite").val() <= 0) {
-                        _toastHelper.error("Ingrese un valor para el limite de venta mayor a cero.");
-                        return false;
-                    }
+                        var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
 
-                    var TipoEstrategiaCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
-                    if (TipoEstrategiaCodigo == _config.tipoEstrategiaLanzamiento && !_variables.isNuevo) {
-                        var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
-                        var AppColorTexto = $("#AppColorTexto").val();
-                        if (AppColorTexto == "") {
-                            _toastHelper.error("El color de texto es un campo obligatorio. Vuelve a intentar, por favor.");
-                            return false;
+                        var EstrategiaID = 0;
+                        if (!_variables.isNuevo)
+                            EstrategiaID = $("#hdEstrategiaID").val();
+                        var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+                        var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+
+                        var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
+                        var CampaniaID = $("#hdCampania").val();
+                        var CampaniaIDFin = $("#ddlCampaniaFin").val();
+                        var Activo = ($("#chkHabilitarOferta").attr("checked")) ? "1" : "0";
+                        var ImagenURL = imagenEstrategiaProducto.substr(imagenEstrategiaProducto.lastIndexOf("/") + 1);
+                        var LimiteVenta = $("#txtLimite").val();
+                        var DescripcionCUV2 = $("#txtDescripcion").val();
+                        var FlagDescripcion = (DescripcionCUV2 != "") ? "1" : "0";
+                        var CUV = $("#txtCUV").val();
+                        var EtiquetaID = $("#hdnEtiqueta1").val();
+                        var Precio = $("#txtPrecio").val();
+                        var FlagCEP = (CUV != "") ? "1" : "0";
+                        var CUV2 = $("#txtCUV2").val();
+                        var EtiquetaID2 = $("#hdnEtiqueta2").val();
+                        var Precio2 = $("#txtPrecio2").val();
+                        var FlagCEP2 = (CUV2 != "") ? "1" : "0";
+                        var TextoLibre = $("#txtTextoLibre").val();
+                        var FlagTextoLibre = (TextoLibre != "") ? "1" : "0";
+                        var Cantidad = "";
+                        var FlagCantidad = "0";
+                        var Zona = $("#hdZonas").val();
+                        var Orden = $("#txtOrden").val();
+                        var flagEstrella = ($("#chkOfertaUltimoMinuto").attr("checked")) ? "1" : "0";
+                        var colorFondo = $("#hdColorFondo").val();
+
+                        var NumeroPedidoAsociado = $(".checksPedidosAsociados input:checked").map(function () {
+                            return $(this).val();
+                        }).get().join(",");
+
+                        if (NumeroPedidoAsociado == "" && $("#txtPedidoAsociado").length) {
+                            NumeroPedidoAsociado = $("#txtPedidoAsociado").val();
                         }
-                        if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
-                            _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
-                            return false;
-                        }
-                    }
+                        //valores para el carrusel de la estrategia de lanzamiento
+                        var imgFondoDesktop = $("#nombre-img-fondo-desktop").val();
+                        var imgFichaDesktop = $("#nombre-img-ficha-desktop").val();
+                        var urlVideoDesktop = $("#url-video-desktop").val();
+                        var imgFondoMobile = $("#nombre-img-fondo-mobile").val();
+                        var imgFichaMobile = $("#nombre-img-ficha-mobile").val();
+                        var urlVideoMobile = $("#url-video-mobile").val();
+                        var imgFichaFondoDesktop = $("#nombre-img-ficha-fondo-desktop").val();
+                        var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
+                        var imgHomeDesktop = $("#nombre-img-home-desktop").val();
+                        var imgHomeMobile = $("#nombre-img-home-mobile").val();
+                        var imgFondoApp = $("#nombre-img-fondo-app").val();
+                        var colorTextoApp = $("#AppColorTexto").val();
 
-                    var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
+                        var ganancia = $("#txtGanancia").val();
+                        var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
+                        var ImagenMiniaturaURL = $("#imgMiniSeleccionada").attr("src").substr($("#imgMiniSeleccionada").attr("src").lastIndexOf("/") + 1);
+                        var EsSubCampania = ($("#chkEsSubCampania").attr("checked")) ? true : false;
+                        var niveles = $("#hdNiveles").val() || "";
+                        var flagIndividual = $("#chkFlagIndividual").is(":checked");
+                        var _idVal = $("#_id").val();
 
-                    var EstrategiaID = 0;
-                    if (!_variables.isNuevo)
-                        EstrategiaID = $("#hdEstrategiaID").val();
-                    var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
-                    var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+                        var CodigoEstrategiaVal = $('#CodigoEstrategia').val();
+                        var ImagenVal = 1;
+                        var DescripcionEstrategiaVal = $('#spanTipoEstrategia').val();
+                        var MarcaIDVal = $('#MarcaID').val();
+                        var DescripcionMarcaVal = $('#MarcaDescripcion').val();
+                        var CodigoProductoVal = $('#hdnCodigoSAP').val();
+                        var IdMatrizComercial = $('#hdnIdMatrizComercial').val();
+                        var CodigoSAPVal = $('#hdnCodigoSAP').val();
+                        var slogan = $("#txtSlogan").val() || "";
 
-                    var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
-                    var CampaniaID = $("#hdCampania").val();
-                    var CampaniaIDFin = $("#ddlCampaniaFin").val();
-                    var Activo = ($("#chkHabilitarOferta").attr("checked")) ? "1" : "0";
-                    var ImagenURL = imagenEstrategiaProducto.substr(imagenEstrategiaProducto.lastIndexOf("/") + 1);
-                    var LimiteVenta = $("#txtLimite").val();
-                    var DescripcionCUV2 = $("#txtDescripcion").val();
-                    var FlagDescripcion = (DescripcionCUV2 != "") ? "1" : "0";
-                    var CUV = $("#txtCUV").val();
-                    var EtiquetaID = $("#hdnEtiqueta1").val();
-                    var Precio = $("#txtPrecio").val();
-                    var FlagCEP = (CUV != "") ? "1" : "0";
-                    var CUV2 = $("#txtCUV2").val();
-                    var EtiquetaID2 = $("#hdnEtiqueta2").val();
-                    var Precio2 = $("#txtPrecio2").val();
-                    var FlagCEP2 = (CUV2 != "") ? "1" : "0";
-                    var TextoLibre = $("#txtTextoLibre").val();
-                    var FlagTextoLibre = (TextoLibre != "") ? "1" : "0";
-                    var Cantidad = "";
-                    var FlagCantidad = "0";
-                    var Zona = $("#hdZonas").val();
-                    var Orden = $("#txtOrden").val();
-                    var flagEstrella = ($("#chkOfertaUltimoMinuto").attr("checked")) ? "1" : "0";
-                    var colorFondo = $("#hdColorFondo").val();
+                        var params = {
+                            EstrategiaID: EstrategiaID,
+                            TipoEstrategiaID: TipoEstrategiaID,
+                            CampaniaID: CampaniaID,
+                            CampaniaIDFin: CampaniaIDFin,
+                            NumeroPedido: NumeroPedidoAsociado,
+                            Activo: Activo,
+                            ImagenURL: ImagenURL,
+                            LimiteVenta: LimiteVenta,
+                            DescripcionCUV2: DescripcionCUV2,
+                            FlagDescripcion: FlagDescripcion,
+                            CUV: CUV,
+                            EtiquetaID: EtiquetaID,
+                            Precio: Precio,
+                            FlagCEP: FlagCEP,
+                            CUV2: CUV2,
+                            EtiquetaID2: EtiquetaID2,
+                            Precio2: Precio2,
+                            FlagCEP2: FlagCEP2,
+                            TextoLibre: TextoLibre,
+                            FlagTextoLibre: FlagTextoLibre,
+                            Cantidad: Cantidad,
+                            FlagCantidad: FlagCantidad,
+                            Zona: Zona,
+                            Orden: Orden,
+                            ColorFondo: colorFondo,
+                            FlagEstrella: flagEstrella,
+                            CodigoTipoEstrategia: aux3,
+                            ImgFondoDesktop: imgFondoDesktop,
+                            ImgFichaDesktop: imgFichaDesktop,
+                            UrlVideoDesktop: urlVideoDesktop,
+                            ImgFondoMobile: imgFondoMobile,
+                            ImgFichaMobile: imgFichaMobile,
+                            UrlVideoMobile: urlVideoMobile,
+                            ImgFichaFondoDesktop: imgFichaFondoDesktop,
+                            ImgFichaFondoMobile: imgFichaFondoMobile,
+                            ImgHomeDesktop: imgHomeDesktop,
+                            ImgHomeMobile: imgHomeMobile,
+                            ImgFondoApp: imgFondoApp,
+                            ColorTextoApp: colorTextoApp,
+                            PrecioAnt: $("#hdEstrategiaPrecioAnt").val(),
+                            EsOfertaIndependiente: esOfertaIndependiente,
+                            Ganancia: ganancia,
+                            RutaImagenCompleta: imagenEstrategiaProducto,
+                            ImagenMiniaturaURL: ImagenMiniaturaURL,
+                            ImagenMiniaturaURLAnterior: $("#hdImagenMiniaturaURLAnterior").val(),
+                            EsSubCampania: EsSubCampania,
+                            Niveles: niveles,
+                            CodigoEstrategia: CodigoEstrategiaVal,
+                            Imagen: ImagenVal,
+                            DescripcionEstrategia: DescripcionEstrategiaVal,
+                            MarcaID: MarcaIDVal,
+                            DescripcionMarca: DescripcionMarcaVal,
+                            CodigoProducto: CodigoProductoVal,
+                            CodigoSAP: CodigoSAPVal,
+                            IdMatrizComercial: IdMatrizComercial,
+                            _id: _idVal,
+                            FlagIndividual: flagIndividual,
+                            Slogan: slogan,
+                            _flagRecoProduc: flagRecoProduc,
+                            _flagRecoPerfil: flagRecoPerfil
+                        };
 
-                    var NumeroPedidoAsociado = $(".checksPedidosAsociados input:checked").map(function () {
-                        return $(this).val();
-                    }).get().join(",");
+                        waitingDialog({});
 
-                    if (NumeroPedidoAsociado == "" && $("#txtPedidoAsociado").length) {
-                        NumeroPedidoAsociado = $("#txtPedidoAsociado").val();
-                    }
-                    //valores para el carrusel de la estrategia de lanzamiento
-                    var imgFondoDesktop = $("#nombre-img-fondo-desktop").val();
-                    var imgFichaDesktop = $("#nombre-img-ficha-desktop").val();
-                    var urlVideoDesktop = $("#url-video-desktop").val();
-                    var imgFondoMobile = $("#nombre-img-fondo-mobile").val();
-                    var imgFichaMobile = $("#nombre-img-ficha-mobile").val();
-                    var urlVideoMobile = $("#url-video-mobile").val();
-                    var imgFichaFondoDesktop = $("#nombre-img-ficha-fondo-desktop").val();
-                    var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
-                    var imgHomeDesktop = $("#nombre-img-home-desktop").val();
-                    var imgHomeMobile = $("#nombre-img-home-mobile").val();
-                    var imgFondoApp = $("#nombre-img-fondo-app").val();
-                    var colorTextoApp = $("#AppColorTexto").val();
+                        jQuery.ajax({
+                            type: "POST",
+                            url: baseUrl + "AdministrarEstrategia/RegistrarEstrategia",
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(params),
+                            async: true,
+                            success: function (data) {
+                                closeWaitingDialog();
 
-                    var ganancia = $("#txtGanancia").val();
-                    var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
-                    var ImagenMiniaturaURL = $("#imgMiniSeleccionada").attr("src").substr($("#imgMiniSeleccionada").attr("src").lastIndexOf("/") + 1);
-                    var EsSubCampania = ($("#chkEsSubCampania").attr("checked")) ? true : false;
-                    var niveles = $("#hdNiveles").val() || "";
-                    var flagIndividual = $("#chkFlagIndividual").is(":checked");
-                    var _idVal = $("#_id").val();
-
-                    var CodigoEstrategiaVal = $('#CodigoEstrategia').val();
-                    var ImagenVal = 1;
-                    var DescripcionEstrategiaVal = $('#spanTipoEstrategia').val();
-                    var MarcaIDVal = $('#MarcaID').val();
-                    var DescripcionMarcaVal = $('#MarcaDescripcion').val();
-                    var CodigoProductoVal = $('#hdnCodigoSAP').val();
-                    var IdMatrizComercial = $('#hdnIdMatrizComercial').val();
-                    var CodigoSAPVal = $('#hdnCodigoSAP').val();
-                    var slogan = $("#txtSlogan").val() || "";
-
-                    var params = {
-                        EstrategiaID: EstrategiaID,
-                        TipoEstrategiaID: TipoEstrategiaID,
-                        CampaniaID: CampaniaID,
-                        CampaniaIDFin: CampaniaIDFin,
-                        NumeroPedido: NumeroPedidoAsociado,
-                        Activo: Activo,
-                        ImagenURL: ImagenURL,
-                        LimiteVenta: LimiteVenta,
-                        DescripcionCUV2: DescripcionCUV2,
-                        FlagDescripcion: FlagDescripcion,
-                        CUV: CUV,
-                        EtiquetaID: EtiquetaID,
-                        Precio: Precio,
-                        FlagCEP: FlagCEP,
-                        CUV2: CUV2,
-                        EtiquetaID2: EtiquetaID2,
-                        Precio2: Precio2,
-                        FlagCEP2: FlagCEP2,
-                        TextoLibre: TextoLibre,
-                        FlagTextoLibre: FlagTextoLibre,
-                        Cantidad: Cantidad,
-                        FlagCantidad: FlagCantidad,
-                        Zona: Zona,
-                        Orden: Orden,
-                        ColorFondo: colorFondo,
-                        FlagEstrella: flagEstrella,
-                        CodigoTipoEstrategia: aux3,
-                        ImgFondoDesktop: imgFondoDesktop,
-                        ImgFichaDesktop: imgFichaDesktop,
-                        UrlVideoDesktop: urlVideoDesktop,
-                        ImgFondoMobile: imgFondoMobile,
-                        ImgFichaMobile: imgFichaMobile,
-                        UrlVideoMobile: urlVideoMobile,
-                        ImgFichaFondoDesktop: imgFichaFondoDesktop,
-                        ImgFichaFondoMobile: imgFichaFondoMobile,
-                        ImgHomeDesktop: imgHomeDesktop,
-                        ImgHomeMobile: imgHomeMobile,
-                        ImgFondoApp: imgFondoApp,
-                        ColorTextoApp: colorTextoApp,
-                        PrecioAnt: $("#hdEstrategiaPrecioAnt").val(),
-                        EsOfertaIndependiente: esOfertaIndependiente,
-                        Ganancia: ganancia,
-                        RutaImagenCompleta: imagenEstrategiaProducto,
-                        ImagenMiniaturaURL: ImagenMiniaturaURL,
-                        ImagenMiniaturaURLAnterior: $("#hdImagenMiniaturaURLAnterior").val(),
-                        EsSubCampania: EsSubCampania,
-                        Niveles: niveles,
-                        CodigoEstrategia: CodigoEstrategiaVal,
-                        Imagen: ImagenVal,
-                        DescripcionEstrategia: DescripcionEstrategiaVal,
-                        MarcaID: MarcaIDVal,
-                        DescripcionMarca: DescripcionMarcaVal,
-                        CodigoProducto: CodigoProductoVal,
-                        CodigoSAP: CodigoSAPVal,
-                        IdMatrizComercial: IdMatrizComercial,
-                        _id: _idVal,
-                        FlagIndividual: flagIndividual,
-                        Slogan: slogan,
-                        _flagRecoProduc: flagRecoProduc,
-                        _flagRecoPerfil: flagRecoPerfil
-                    };
-
-                    waitingDialog({});
-
-                    jQuery.ajax({
-                        type: "POST",
-                        url: baseUrl + "AdministrarEstrategia/RegistrarEstrategia",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(params),
-                        async: true,
-                        success: function (data) {
-                            closeWaitingDialog();
-
-                            if (data.success) {
-                                _toastHelper.success(data.message);
-                                $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
-                                HideDialog("DialogAdministracionEstrategia");
-                                $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
-                            } else {
+                                if (data.success) {
+                                    _toastHelper.success(data.message);
+                                    $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
+                                    HideDialog("DialogAdministracionEstrategia");
+                                    $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
+                                } else {
+                                    _toastHelper.error(data.message);
+                                }
+                            },
+                            error: function (data, error) {
+                                closeWaitingDialog();
                                 _toastHelper.error(data.message);
                             }
-                        },
-                        error: function (data, error) {
-                            closeWaitingDialog();
-                            _toastHelper.error(data.message);
-                        }
-                    });
+                        });
 
-                },
-                "Salir": function () {
-                    $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
-                    HideDialog("DialogAdministracionEstrategia");
+                    },
+                    "Salir": function () {
+                        $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
+                        HideDialog("DialogAdministracionEstrategia");
+                    }
                 }
-            }
         });
 
         $("#DialogZona").dialog({
@@ -2658,30 +2654,30 @@
             close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
-            {
-                "Guardar": function () {
-                    var zonas = "";
-                    $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
-                        if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
-                            return true;
+                {
+                    "Guardar": function () {
+                        var zonas = "";
+                        $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
+                            if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                                return true;
+                            }
+                            zonas += this.id + ",";
+                        });
+                        if (zonas != "") {
+                            zonas = zonas.substring(0, zonas.length - 1);
                         }
-                        zonas += this.id + ",";
-                    });
-                    if (zonas != "") {
-                        zonas = zonas.substring(0, zonas.length - 1);
+                        if (zonas == "") {
+                            _toastHelper.error("No se ha marcado ninguna zona o región.");
+                            return false;
+                        }
+                        $("#hdZonas").val(zonas);
+                        _toastHelper.success("Se agregaron las zonas seleccionadas.");
+                        HideDialog("DialogZona");
+                    },
+                    "Salir": function () {
+                        HideDialog("DialogZona");
                     }
-                    if (zonas == "") {
-                        _toastHelper.error("No se ha marcado ninguna zona o región.");
-                        return false;
-                    }
-                    $("#hdZonas").val(zonas);
-                    _toastHelper.success("Se agregaron las zonas seleccionadas.");
-                    HideDialog("DialogZona");
-                },
-                "Salir": function () {
-                    HideDialog("DialogZona");
                 }
-            }
         });
 
         $("#divVistaPrevia").dialog({
@@ -2693,26 +2689,26 @@
             draggable: false,
             title: "Vista previa",
             buttons:
-            {
-                "Cerrar": function () {
-                    if (_variables.isVistaPreviaOpened) {
-                        var params = {
-                            paisID: $("#ddlPais").val(),
-                            EstrategiaID: $("#hdEstrategiaID").val(),
-                            CampaniaID: $("#ddlCampania").val(),
-                            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-                            CUV2: $("#txtCUV2").val()
-                        };
-                        _obtenerImagenes(params, 1, true).done(function () {
-                            showDialog("matriz-comercial-dialog");
-                            closeWaitingDialog();
-                        });
-                    }
-                    _variables.isVistaPreviaOpened = false;
+                {
+                    "Cerrar": function () {
+                        if (_variables.isVistaPreviaOpened) {
+                            var params = {
+                                paisID: $("#ddlPais").val(),
+                                EstrategiaID: $("#hdEstrategiaID").val(),
+                                CampaniaID: $("#ddlCampania").val(),
+                                TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                                CUV2: $("#txtCUV2").val()
+                            };
+                            _obtenerImagenes(params, 1, true).done(function () {
+                                showDialog("matriz-comercial-dialog");
+                                closeWaitingDialog();
+                            });
+                        }
+                        _variables.isVistaPreviaOpened = false;
 
-                    HideDialog("divVistaPrevia");
+                        HideDialog("divVistaPrevia");
+                    }
                 }
-            }
         });
 
         $("#DialogTonoMarca").dialog({
@@ -2726,19 +2722,19 @@
             close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
-            {
-                "Nueva Talla/Color": function () {
-                    $("#hdTallaColorID").val("0");
-                    $("#ddlTallaColor").val("0");
-                    $("#txtDescripcionTC").val("");
-                    $("#txtCUVTC").val("");
-                    $("#txtDescripcionCUVTC").val("");
-                    $("#txtPrecioCUVTC").val("");
-                    $("#txtCUVTC").attr("readonly", false);
-                    showDialog("DialogEditarTallaColor");
-                },
-                "Salir": _cerrarTallaColor
-            }
+                {
+                    "Nueva Talla/Color": function () {
+                        $("#hdTallaColorID").val("0");
+                        $("#ddlTallaColor").val("0");
+                        $("#txtDescripcionTC").val("");
+                        $("#txtCUVTC").val("");
+                        $("#txtDescripcionCUVTC").val("");
+                        $("#txtPrecioCUVTC").val("");
+                        $("#txtCUVTC").attr("readonly", false);
+                        showDialog("DialogEditarTallaColor");
+                    },
+                    "Salir": _cerrarTallaColor
+                }
         });
 
         $("#DialogEditarTallaColor").dialog({
@@ -2750,74 +2746,74 @@
             draggable: false,
             title: "Registro Talla/Color",
             buttons:
-            {
-                "Guardar": function () {
-                    var msj = "";
+                {
+                    "Guardar": function () {
+                        var msj = "";
 
-                    if ($("#txtCUVTC").val() == "") {
-                        msj += "- Ingrese un CUV." + "\n";
-                    }
+                        if ($("#txtCUVTC").val() == "") {
+                            msj += "- Ingrese un CUV." + "\n";
+                        }
 
-                    if ($("#ddlTallaColor").val() == "0") {
-                        msj += "- Seleccione el tipo (Talla/Color)." + "\n";
-                    }
+                        if ($("#ddlTallaColor").val() == "0") {
+                            msj += "- Seleccione el tipo (Talla/Color)." + "\n";
+                        }
 
-                    if ($("#txtDescripcionTC").val() == "") {
-                        msj += "- Ingrese descripción (Talla/Color)." + "\n";
-                    }
+                        if ($("#txtDescripcionTC").val() == "") {
+                            msj += "- Ingrese descripción (Talla/Color)." + "\n";
+                        }
 
-                    if (msj != "") {
-                        _toastHelper.error(msj);
-                        return false;
-                    }
+                        if (msj != "") {
+                            _toastHelper.error(msj);
+                            return false;
+                        }
 
-                    var id = $("#hdTallaColorID").val();
-                    var cuv = $("#txtCUVTC").val();
-                    var campaniaID = $("#ddlCampania").val();
-                    var tipo = $("#ddlTallaColor").val();
-                    var descripcion = $("#txtDescripcionTC").val();
-                    var CUVPadre = $("#txtCUV2").val();
-                    var xmlString = "<params>";
+                        var id = $("#hdTallaColorID").val();
+                        var cuv = $("#txtCUVTC").val();
+                        var campaniaID = $("#ddlCampania").val();
+                        var tipo = $("#ddlTallaColor").val();
+                        var descripcion = $("#txtDescripcionTC").val();
+                        var CUVPadre = $("#txtCUV2").val();
+                        var xmlString = "<params>";
 
-                    xmlString += "<param ";
-                    xmlString += ' ID = "' + id + '"';
-                    xmlString += ' CampaniaID = "' + campaniaID + '"';
-                    xmlString += ' CUV = "' + cuv + '"';
-                    xmlString += ' Tipo = "' + tipo + '"';
-                    xmlString += ' Descripcion = "' + descripcion + '"';
-                    xmlString += ' CUVPadre = "' + CUVPadre + '"';
-                    xmlString += " />";
-                    xmlString += "</params>";
+                        xmlString += "<param ";
+                        xmlString += ' ID = "' + id + '"';
+                        xmlString += ' CampaniaID = "' + campaniaID + '"';
+                        xmlString += ' CUV = "' + cuv + '"';
+                        xmlString += ' Tipo = "' + tipo + '"';
+                        xmlString += ' Descripcion = "' + descripcion + '"';
+                        xmlString += ' CUVPadre = "' + CUVPadre + '"';
+                        xmlString += " />";
+                        xmlString += "</params>";
 
-                    var params = {
-                        xmlTallaColor: xmlString
-                    };
+                        var params = {
+                            xmlTallaColor: xmlString
+                        };
 
-                    jQuery.ajax({
-                        type: "POST",
-                        url: baseUrl + "AdministrarEstrategia/RegistrarTallaColor",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(params),
-                        async: true,
-                        success: function (data) {
-                            if (data.success) {
-                                _toastHelper.success(data.message);
-                                _fnGrillaTC();
-                                HideDialog("DialogEditarTallaColor");
-                            } else {
+                        jQuery.ajax({
+                            type: "POST",
+                            url: baseUrl + "AdministrarEstrategia/RegistrarTallaColor",
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(params),
+                            async: true,
+                            success: function (data) {
+                                if (data.success) {
+                                    _toastHelper.success(data.message);
+                                    _fnGrillaTC();
+                                    HideDialog("DialogEditarTallaColor");
+                                } else {
+                                    _toastHelper.error(data.message);
+                                }
+                            },
+                            error: function (data, error) {
                                 _toastHelper.error(data.message);
                             }
-                        },
-                        error: function (data, error) {
-                            _toastHelper.error(data.message);
-                        }
-                    });
-                },
-                "Salir": function () {
-                    HideDialog("DialogEditarTallaColor");
+                        });
+                    },
+                    "Salir": function () {
+                        HideDialog("DialogEditarTallaColor");
+                    }
                 }
-            }
         });
 
         $("#DialogDescMasivo").dialog({
@@ -2870,33 +2866,33 @@
             draggable: true,
             title: "Carga de Evento ShowRoom",
             buttons:
-            {
-                "Guardar": function () {
-                    var vMessage = "";
-                    if (jQuery.trim($("#txtEventoNombre").val()) == "")
-                        vMessage += "- Debe ingresar el Nombre del Evento.\n";
-                    if (jQuery.trim($("#txtEventoTema").val()) == "")
-                        vMessage += "- Debe ingresar el Tema del Evento.\n";
-                    if (jQuery.trim($("#txtEventoDiasAntes").val()) == "")
-                        vMessage += "- Debe ingresar la cantidad de dias antes de la Facturación.\n";
-                    if (parseInt(jQuery.trim($("#txtEventoDiasAntes").val())) <= 0)
-                        vMessage += "- La cantidad de dias antes de la Facturación debe ser mayor a cero.\n";
-                    if (jQuery.trim($("#txtEventoDiasDespues").val()) == "")
-                        vMessage += "- Debe ingresar la cantidad de dias después de la Facturación.\n";
-                    if (parseInt(jQuery.trim($("#txtEventoDiasDespues").val())) <= 0)
-                        vMessage += "- La cantidad de dias después de la Facturación debe ser mayor a cero.\n";
+                {
+                    "Guardar": function () {
+                        var vMessage = "";
+                        if (jQuery.trim($("#txtEventoNombre").val()) == "")
+                            vMessage += "- Debe ingresar el Nombre del Evento.\n";
+                        if (jQuery.trim($("#txtEventoTema").val()) == "")
+                            vMessage += "- Debe ingresar el Tema del Evento.\n";
+                        if (jQuery.trim($("#txtEventoDiasAntes").val()) == "")
+                            vMessage += "- Debe ingresar la cantidad de dias antes de la Facturación.\n";
+                        if (parseInt(jQuery.trim($("#txtEventoDiasAntes").val())) <= 0)
+                            vMessage += "- La cantidad de dias antes de la Facturación debe ser mayor a cero.\n";
+                        if (jQuery.trim($("#txtEventoDiasDespues").val()) == "")
+                            vMessage += "- Debe ingresar la cantidad de dias después de la Facturación.\n";
+                        if (parseInt(jQuery.trim($("#txtEventoDiasDespues").val())) <= 0)
+                            vMessage += "- La cantidad de dias después de la Facturación debe ser mayor a cero.\n";
 
-                    if (vMessage != "") {
-                        alert(vMessage);
-                        return false;
-                    } else {
-                        _guardarShowRoomEvento();
+                        if (vMessage != "") {
+                            alert(vMessage);
+                            return false;
+                        } else {
+                            _guardarShowRoomEvento();
+                        }
+                    },
+                    "Cancelar": function () {
+                        HideDialog("DialogDatosShowRoom");
                     }
-                },
-                "Cancelar": function () {
-                    HideDialog("DialogDatosShowRoom");
                 }
-            }
         });
 
         $("#DialogPersonalizacionDetalle").dialog({
@@ -2908,33 +2904,33 @@
             draggable: true,
             title: "Detalle de Personalizacion por Nivel",
             buttons:
-            {
-                "Guardar": function () {
-                    var vMessage = "";
+                {
+                    "Guardar": function () {
+                        var vMessage = "";
 
-                    var eventoId = $("#hdEventoID").val();
-                    var nivelId = $("#cbNivelEvento").val();
-                    var idEventoMongoId = $("#hd_id").val();
+                        var eventoId = $("#hdEventoID").val();
+                        var nivelId = $("#cbNivelEvento").val();
+                        var idEventoMongoId = $("#hd_id").val();
 
-                    if (eventoId == "")
-                        vMessage += "- Debe seleccionar el evento.\n";
+                        if (eventoId == "")
+                            vMessage += "- Debe seleccionar el evento.\n";
 
-                    if (nivelId == "")
-                        vMessage += "- Debe seleccionar el nivel de la personalización.\n";
+                        if (nivelId == "")
+                            vMessage += "- Debe seleccionar el nivel de la personalización.\n";
 
-                    if (vMessage != "") {
-                        alert(vMessage);
+                        if (vMessage != "") {
+                            alert(vMessage);
+                            return false;
+                        }
+                        else {
+                            _registrarShowRoomPersonalizacionNivel(eventoId, nivelId, idEventoMongoId);
+                        }
                         return false;
+                    },
+                    "Cancelar": function () {
+                        HideDialog("DialogPersonalizacionDetalle");
                     }
-                    else {
-                        _registrarShowRoomPersonalizacionNivel(eventoId, nivelId, idEventoMongoId);
-                    }
-                    return false;
-                },
-                "Cancelar": function () {
-                    HideDialog("DialogPersonalizacionDetalle");
                 }
-            }
         });
 
         // SHOWROOM-FIN
@@ -3481,7 +3477,7 @@
 
             showDialog("DialogDatosShowRoom");
         },
-        
+
         clickDescripcionMasivoProd: function () {
             $("#hdTipoCargaShowroom").val("ProductoShowroom");
             $("#fileDescMasivo").val("");
@@ -4131,7 +4127,7 @@
         });
         return false;
     }
-    
+
     function AddTitleCustom() {
         $('[name^=picture-]').each(function () {
             var img = document.getElementById($(this).attr('id'));

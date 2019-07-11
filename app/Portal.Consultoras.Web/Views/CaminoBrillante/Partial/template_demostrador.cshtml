@@ -3,14 +3,16 @@
         <div class="camino_brillante" data-OrigenPedidoWeb="@ViewBag.origenPedido">
             <div class="row flex-row justify-content-center ml-0 mr-0">
                 <div class="camino_brillante" data-estrategia="{{JSON2string this}}"></div>
-                <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center producto_img_home">
-                    {{#IsNullOrEmpty FotoProductoMedium '!='}}
-                    <img class="" src="{{FotoProductoMedium}}">
-                    {{/IsNullOrEmpty}}
-                    {{#IsNullOrEmpty FotoProductoMedium '=='}}
-                    <img class="" src="@ViewBag.RutaImagenNoDisponible">
-                    {{/IsNullOrEmpty}}
-                    <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle" onclick="javascript:OnClickFichaDetalle(event.target)">VER DETALLE</a>
+                <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center producto_img_home">                    
+                    <a href="javascript:;" data-item-tag="verdetalle" onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target)">
+                        {{#IsNullOrEmpty FotoProductoMedium '!='}}
+                        <img class="" src="{{FotoProductoMedium}}">
+                        {{/IsNullOrEmpty}}
+                        {{#IsNullOrEmpty FotoProductoMedium '=='}}
+                        <img class="" src="@ViewBag.RutaImagenNoDisponible">
+                        {{/IsNullOrEmpty}}
+                        <span class="ver_detalle_carrusel">VER DETALLE</span>                        
+                    </a>
                 </figure>
                 <div style="display:none;">
                     <div data-demostrador="{{JSON2string this}}"></div>
@@ -22,11 +24,10 @@
                     <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha">
                         {{DescripcionCUV}}
                     </div>
-
                 </div>
                 <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
                     <div>
-                        <div style="text-align: left;padding-right: 15px; font-size: 12px;">Precio normal<br /><div style="text-decoration:line-through;">{{SimboloMoneda}} {{PrecioValorizadoFormat}}</div></div>
+                        <div style="text-align: left;padding-right: 15px; font-size: 12px;">Precio<br /><div style="text-decoration:line-through;">{{SimboloMoneda}} {{PrecioValorizadoFormat}}</div></div>
                     </div>
                     <div>
                         <div style="font-size: 12px;text-align: left;">Precio para ti <br /><b>{{SimboloMoneda}} {{PrecioCatalogoFormat}}</b></div>

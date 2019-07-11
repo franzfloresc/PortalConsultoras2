@@ -512,7 +512,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDD GetPedidoDDByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
 
         [OperationContract]
-        
+
         void InsPedidoDD(BEPedidoDD bePedidoDD);
 
         [OperationContract]
@@ -1352,10 +1352,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
-        
-        //INI HD-4200
+
         [OperationContract]
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
-        //FIN HD-4200
+
+
+        [OperationContract]
+        bool InsertKitSE(BEUsuario usuario);
     }
 }

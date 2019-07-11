@@ -251,7 +251,6 @@
         },
         quitarFiltroMarcado: function (idFiltro) {
             var filtro = get_local_storage(_config.filtrosLocalStorage);
-            var conteo = 0;
             filtro = !filtro ? [] : filtro;
 
             for (var i = 0; i < filtro.length; i++) {
@@ -332,10 +331,7 @@
             e.preventDefault();
 
             var divPadre = $(this).parents("[data-item='buscadorCriterios']").eq(0);
-            var idFiltro = $(divPadre).find(".CriteriosFiltrosId").val();
             var filtroLabel = $(divPadre).find(".CriteriosFiltrosLabel").val();
-
-            var filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro)
 
             if (_config.isMobile) {
                 _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
@@ -416,25 +412,31 @@
             var dpwOrdenar = $('#dpw-ordenar');
 
             evt = evt || window.event;
-            var isEscape = false;
-            if ("key" in evt) {
-                isEscape = (evt.key == "Escape" || evt.key == "Esc");
-            } else {
-                isEscape = (evt.keyCode == 27);
+
+            if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
+                $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
+                $('#ul-ordenar').addClass('d-none');
             }
 
-            if (isEscape) {
-                if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
-                    $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
-                    $('#ul-ordenar').addClass('d-none');
-                }
-            }
-            else {
-                if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
-                    $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
-                    $('#ul-ordenar').addClass('d-none');
-                }
-            }
+            //var isEscape = false;
+            //if ("key" in evt) {
+            //    isEscape = (evt.key == "Escape" || evt.key == "Esc");
+            //} else {
+            //    isEscape = (evt.keyCode == 27);
+            //}
+
+            //if (isEscape) {
+            //    if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
+            //        $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
+            //        $('#ul-ordenar').addClass('d-none');
+            //    }
+            //}
+            //else {
+            //    if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
+            //        $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
+            //        $('#ul-ordenar').addClass('d-none');
+            //    }
+            //}
 
         },
         ClickItemOrdenar: function () {
@@ -593,13 +595,13 @@
             localStorage.setItem('valorBuscador', _config.textoBusqueda);
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
-                var UrlDetalle = GetPalanca(codigoEstrategia, origenPedidoWeb);
-                var UrlGeneral = "";
+                var UrlDetalle = FichaVerDetalle.GetPalanca(codigoEstrategia, origenPedidoWeb);
 
                 if (UrlDetalle == "") return false;
 
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
 
+                var UrlGeneral = "";
                 if (_config.isMobile) {
                     UrlGeneral = "/Mobile" + UrlDetalle;
                 } else {

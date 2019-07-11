@@ -83,7 +83,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.CantidadProductos = modelo.ListaDetalle.Sum(p => p.Cantidad);
             model.GananciaFormat = Util.DecimalToStringFormat(model.MontoAhorroCatalogo + model.MontoAhorroRevista, userData.CodigoISO);
-            model.FormatoMontoAhorroCatalogo = Util.DecimalToStringFormat(model.MontoAhorroCatalogo, userData.CodigoISO);
             model.FormatoMontoAhorroRevista = Util.DecimalToStringFormat(model.MontoAhorroRevista, userData.CodigoISO);
             model.ListaClientes = GetClientesByConsultora(userData) ?? new List<BECliente>();
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
@@ -140,21 +139,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return clientesByConsultora;
-        }
-
-        public ActionResult virtualCoach(string param = "")
-        {
-            try
-            {
-                string cuv = param.Substring(0, 5);
-                string campanaId = param.Substring(5, 6);
-                int campana = Convert.ToInt32(campanaId);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-            return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param = param }));
         }
 
         public ActionResult Detalle(bool autoReservar = false)

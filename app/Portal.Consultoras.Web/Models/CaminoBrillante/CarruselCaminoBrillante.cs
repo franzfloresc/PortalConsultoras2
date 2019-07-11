@@ -11,13 +11,28 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
 
     public class OfertaCaminoBrillanteModel
     {
+        public string CodigoEstrategia
+        {
+            get
+            {
+                return TipoOferta == 1 ? "036" : "035";
+            }
+        }
+
+        public string CUV2
+        {
+            get
+            {
+                return CUV.ToString();
+            }
+        }
+
         public int TipoOferta { get; set; }
 
         public string PaisISO { private get; set; }
         public int CampaniaID { get; set; }
 
         public int EstrategiaID { get; set; }
-        public string CodigoEstrategia { get; set; }
         public int TipoEstrategiaID { get; set; }
 
         public string CUV { get; set; }

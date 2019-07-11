@@ -17,7 +17,7 @@
         var padre = obj.parents("[data-item]");
         var article = $(padre).find("[data-compartir-campos]").eq(0);
 
-        var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
+        //var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
 
         CompartirRedesSocialesInsertar(article, tipoRedes);
     }
@@ -48,8 +48,6 @@
         if (_palanca === "FAV") {
             pcDetalle += "|" + _vol + "|" + _descProd;
         }
-        try {
-        } catch (e) { console.log(e); }
 
         var Item = {
             mCUV: $(article).find(".CUV").val(),
@@ -92,7 +90,7 @@
 
         if (!(typeof AnalyticsPortalModule === 'undefined'))
             AnalyticsPortalModule.MarcaCompartirRedesSociales(tipoRedes, ruta);
-        var url = "";
+
         if (tipoRedes == "FB") {
             var popWwidth = 570;
             var popHeight = 420;
@@ -114,10 +112,7 @@
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaRedesSocialesBuscador('Whatsapp', ruta);
 
-
-
         }
-
 
     }
 
@@ -134,33 +129,31 @@
         return "whatsapp://send?text=" + texto;
     }
 
-    var CompartirRedesSocialesAnalytics = function (tipoRedes, ruta, nombre) {
+    //var CompartirRedesSocialesAnalytics = function (tipoRedes, ruta, nombre) {
 
-        try {
-            if (typeof origenPedidoWebEstrategia !== "undefined" && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-                rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
-            } else {
+    //    try {
+    //        if (typeof origenPedidoWebEstrategia !== "undefined" && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+    //            rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
+    //        } else {
 
-                if (tipoRedes === "FB") {
-                    dataLayer.push({
-                        'event': 'socialEvent',
-                        'network': 'Facebook',
-                        'action': 'Share',
-                        'target': ruta
-                    });
-                } else if (tipoRedes == "WA") {
-                    dataLayer.push({
-                        'event': 'socialEvent',
-                        'network': 'Whatsapp',
-                        'action': 'Compartir',
-                        'target': ruta
-                    });
-                }
-            }
-        } catch (e) { console.log(e) }
-
-
-    }
+    //            if (tipoRedes === "FB") {
+    //                dataLayer.push({
+    //                    'event': 'socialEvent',
+    //                    'network': 'Facebook',
+    //                    'action': 'Share',
+    //                    'target': ruta
+    //                });
+    //            } else if (tipoRedes == "WA") {
+    //                dataLayer.push({
+    //                    'event': 'socialEvent',
+    //                    'network': 'Whatsapp',
+    //                    'action': 'Compartir',
+    //                    'target': ruta
+    //                });
+    //            }
+    //        }
+    //    } catch (e) { console.log(e) }
+    //}
 
     // catalogo compartir por Facebook
     var CompartirFacebook = function (catalogo, campaniaCatalogo, btn) {
@@ -216,8 +209,8 @@
 
         var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
         $("#divCheckbox [data-cat]").fadeOut(100);
-        for (var i = 0; i < cata.length; i++) {
-            var cat = $(cata[i]).attr("data-cat");
+        for (var iCata = 0; iCata < cata.length; iCata++) {
+            var cat = $(cata[iCata]).attr("data-cat");
             $("#divCheckbox [data-cat='" + cat + "']").fadeIn(100);
         }
     }
@@ -265,11 +258,11 @@
         else {
 
             var divs = document.getElementById('divCheckbox').children;
-            for (var i = 0; i < divs.length; i++) {
-                var atribute = divs[i].getAttribute("data-cat");
+            for (var idiv = 0; idiv < divs.length; idiv++) {
+                var atribute = divs[idiv].getAttribute("data-cat");
                 if (atribute == tipoCatalogo) {
-                    divs[i].firstElementChild.firstElementChild.setAttribute("checked", "checked");
-                    divs[i].firstElementChild.lastElementChild.click();
+                    divs[idiv].firstElementChild.firstElementChild.setAttribute("checked", "checked");
+                    divs[idiv].firstElementChild.lastElementChild.click();
                 }
             }
 

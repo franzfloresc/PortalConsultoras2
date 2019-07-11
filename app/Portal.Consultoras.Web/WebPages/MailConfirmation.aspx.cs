@@ -75,7 +75,7 @@ namespace Portal.Consultoras.Web.WebPages
             var urlPortal = ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE];
             var area = EsDispositivoMovil() ? "/Mobile" : "";
             var marca = WebConfig.PaisesEsika.Contains(paisISO) ? Constantes.MarcaNombre.Esika : Constantes.MarcaNombre.LBel;
-            linkMainPage.NavigateUrl = urlPortal + area + "/MiPerfil/Index";
+            linkMainPage.NavigateUrl = urlPortal + area + "/Bienvenida";
             linkSomosBelcorp.NavigateUrl = linkMainPage.NavigateUrl;            
             linkAppEsikaConmigo.NavigateUrl = marca == Constantes.MarcaNombre.Esika ? Constantes.RedireccionAndroidApp.EsikaConmigo : Constantes.RedireccionAndroidApp.LbelConmigo;
             btnAppEsikaConmigo.NavigateUrl = linkAppEsikaConmigo.NavigateUrl;            

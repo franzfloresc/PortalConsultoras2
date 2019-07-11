@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.BizLogic.Pedido;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Entities;
@@ -15,7 +16,7 @@ namespace Portal.Consultoras.BizLogic
     {
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IProductoBusinessLogic _blProducto;
-        private readonly IProgramaNuevasBusinessLogic _blProgramaNuevas;
+        private readonly IProgramaNuevasBusinessLogic _blProgramaNuevas;        
 
         private readonly BLPedidoWeb _blPedidoWeb;
         private readonly BLUsuario _blUsuario;
@@ -26,7 +27,7 @@ namespace Portal.Consultoras.BizLogic
         public BLPedidoWebDetalle() : this(
             new BLConsultoraConcurso(),
             new BLProducto(),
-            new BLProgramaNuevas()
+            new BLProgramaNuevas()            
         ) { }
 
         public BLPedidoWebDetalle(
@@ -43,7 +44,7 @@ namespace Portal.Consultoras.BizLogic
             _blProducto = new BLProducto();
             _blUsuario = new BLUsuario();
             _blEstrategia = new BLEstrategia();
-            _blOfertaProducto = new BLOfertaProducto();
+            _blOfertaProducto = new BLOfertaProducto();            
         }
 
         /// <summary>
@@ -414,6 +415,6 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        #endregion
+        #endregion        
     }
 }

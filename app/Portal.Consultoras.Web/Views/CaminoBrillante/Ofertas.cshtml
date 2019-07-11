@@ -1,9 +1,10 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models.CaminoBrillante
+
 @{
-    ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
-    //var Demostradores = ViewBag.Demostradores;
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido;
+    ViewBag.origenPedido = origenPedido;
 }
 
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/filtros-busqueda.css")" rel="stylesheet" />
@@ -12,15 +13,57 @@
 <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
 <input type="hidden" id="moneda" value="@ViewBag.Moneda">
 
+
+<div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div id="mensajeInformacion" class="mensaje_alerta"></div>
+        <a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar"><b>OK</b></a>
+    </div>
+</div>
+
+<div id="popupInformacion2" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion2').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div id="mensajeInformacion2" class="mensaje_alerta"></div>
+        <a href="javascript:;" onclick="ModificarPedido2('2');" class="btn_ok_mobile btn-aceptar" style="width:152px;"><b>Modificar mi pedido</b></a>
+    </div>
+</div>
+
+<div id="popupInformacionValidado" class="MensajeAlertaMobile pedido detalle" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>
+        <div class="icono_alerta check_icono_mobile" style="display: none;"></div>
+        <div class="contet_alert">
+            <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
+            <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
+        </div>
+        <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+    </div>
+</div>
+
 <div class="subbox" data-menu-codigo="">
     <div class="op-menu-horizontal">
         <ul class="subnavegador" data-es-suscrita="" data-es-activa="">
             <li data-campania="" data-activo="1" data-codigo="" data-es-ancla="">
-                <a href="javascript:void(0);" class="default-dorado activado-dorado" id="Tab-kits">Kits</a>
+                <a href="javascript:void(0)" class="default-dorado activado-dorado" id="Tab-kits">Kits</a>
             </li>
             <li data-campania="" data-activo="1" data-codigo="" data-es-ancla="">
-                <a href="javascript:void(0);"
-                   class="default-dorado" id="Tab-Demostradores">Demostradores</a>
+                <a class="default-dorado" id="Tab-Demostradores">Demostradores</a>
             </li>
         </ul>
     </div>
@@ -42,8 +85,8 @@
 
 <div class="ml-0 mr-0 mx-auto layout__content__fichaProductos clearboth opOrdenar" style="display:none">
     <div>
-        <select id="ddlOrdenar" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden"></select>        
         <select id="ddlfiltros" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca"></select>
+        <select id="ddlOrdenar" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden"></select>
 
     </div>
 </div>
@@ -53,11 +96,8 @@
         <section class="col-12 col-lg-6 col-xl-6 busqueda__productos__encontrados__wrapper pr-lg-0 pr-xl-0">
             <br />
             <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo"></h1>
-            <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
-
-            </p>
+            <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados"></p>
         </section>
-
         <div id="divresultadosKit">
         </div>
         <section class="col-12 fichas__productos__wrapper text-center" id="kits"></section>
@@ -69,10 +109,26 @@
 </div>
 
 <style>
-    .hide { display: none; }
-    #ddlfiltros option, #ddlOrdenar option, #ddlfiltros, #ddlOrdenar { text-transform: uppercase; }
-    #ddlfiltros option, #ddlOrdenar option { padding: 4px; font-size: 12px; }
-    #ddlfiltros, #ddlOrdenar { font-size: 12px; }
+    .hide {
+        display: none;
+    }
+
+    .boxgrid {
+        display: grid !important;
+    }
+
+    #ddlfiltros option, #ddlOrdenar option, #ddlfiltros, #ddlOrdenar {
+        text-transform: uppercase;
+    }
+
+        #ddlfiltros option, #ddlOrdenar option {
+            padding: 4px;
+            font-size: 12px;
+        }
+
+    #ddlfiltros, #ddlOrdenar {
+        font-size: 12px;
+    }
 </style>
 
 @Html.Partial("Partial/template_kit")
@@ -91,17 +147,24 @@
 
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/ofertas")
     <script type="text/javascript">
 
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
         var urlGetDemostradores = '@Url.Action("GetDemostradores", "CaminoBrillante", new { area = "" })';
         var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
-        var origenPedidoWeb = @origenPedido;
+        var _origenPedidoWeb = @origenPedido;
         var nroRegistrosDemostradores = 12;
         var nroRegistrosKits = 12;
+        var TineCarrusel = '1';//solo para ofertas.cshtml siempre sera 1.
         var urlObtenerFiltros = '@Url.Action("GetFiltrosCaminoBrillante", "CaminoBrillante", new { area = "" })';
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/ofertas")
+    <script>
+        /* temporal Eliminar con el Homologado  */
+        function isMobile() {
+            return "True" === "@ViewBag.EsMobile";
+        }
     </script>
 }

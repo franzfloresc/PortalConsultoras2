@@ -1,4 +1,6 @@
-﻿using Portal.Consultoras.Common;
+﻿using ClosedXML.Excel;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.TusClientes;
@@ -6,11 +8,10 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using ClosedXML.Excel;
 using System.IO;
+using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -101,7 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (client == null) throw new ArgumentNullException("client", "client parameter is null");
+                if (client == null) throw new ClientInformationException("client client parameter is null");
 
                 var clienteNuevo = client.ClienteID == 0;
 

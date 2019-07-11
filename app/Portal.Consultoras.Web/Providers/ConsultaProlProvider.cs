@@ -11,8 +11,6 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ConsultaProl;
 using Portal.Consultoras.Web.ServiceOferta;
 
-
-
 namespace Portal.Consultoras.Web.Providers
 {
     public class ConsultaProlProvider
@@ -100,7 +98,7 @@ namespace Portal.Consultoras.Web.Providers
                 if (!string.IsNullOrEmpty(diasAntesStock))
                 {
                     var iDiasAntesStock = int.Parse(diasAntesStock);
-                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
+                    if (Util.GetDiaActual(userData.ZonaHoraria) >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
                     {
                         validar = true;
                     }
@@ -108,7 +106,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             return validar;
         }
-
+        
         public List<BEEstrategia> ActualizarEstrategiaStockPROL(List<BEEstrategia> lista, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
         {
             if (lista.Count == 0) return lista;
@@ -143,7 +141,7 @@ namespace Portal.Consultoras.Web.Providers
                         var temp = respuesta.FirstOrDefault(r => r.COD_VENTA_PADRE == x.CUV2);
                         if (temp != null)
                         {
-                            x.TieneStock = (temp.STOCK == 1 ? true : false);
+                            x.TieneStock = temp.STOCK == 1;
                         }
                     });
                 }

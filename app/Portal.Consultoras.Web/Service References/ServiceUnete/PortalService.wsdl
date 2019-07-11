@@ -339,17 +339,17 @@
   <wsdl:message name="IPortalService_ObtenerReporteDiasEspera_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerReporteDiasEsperaResponse" />
   </wsdl:message>
-  <wsdl:message name="IPortalService_ConsultarTipoPostulante_InputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulante" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ConsultarTipoPostulante_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulanteResponse" />
-  </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarPagodeKitLog_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarPagodeKitLog" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarPagodeKitLog_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarPagodeKitLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarTipoPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarTipoPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulanteResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarSolicitudesPostulanteV2" />
@@ -615,6 +615,12 @@
   <wsdl:message name="IPortalService_ValidarZonaDigital_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarZonaDigitalResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_EnvioCorreoValidacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnvioCorreoValidacion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EnvioCorreoValidacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnvioCorreoValidacionResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_GetKitInicioEdit_InputMessage">
     <wsdl:part name="parameters" element="tns:GetKitInicioEdit" />
   </wsdl:message>
@@ -638,6 +644,18 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_SaveKitInicioCatalogos_OutputMessage">
     <wsdl:part name="parameters" element="tns:SaveKitInicioCatalogosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCampoFormularioSimplificadoSolicitudPrepostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCampoFormularioSimplificadoSolicitudPrepostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCampoFormularioSimplificadoSolicitudPrepostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCampoFormularioSimplificadoSolicitudPrepostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_InsertarSolicitantePrePostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarSolicitantePrePostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_InsertarSolicitantePrePostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarSolicitantePrePostulanteResponse" />
   </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
@@ -856,13 +874,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEspera" message="tns:IPortalService_ObtenerReporteDiasEspera_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEsperaResponse" message="tns:IPortalService_ObtenerReporteDiasEspera_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ConsultarTipoPostulante">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante" message="tns:IPortalService_ConsultarTipoPostulante_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse" message="tns:IPortalService_ConsultarTipoPostulante_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ConsultarPagodeKitLog">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" message="tns:IPortalService_ConsultarPagodeKitLog_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarPagodeKitLogResponse" message="tns:IPortalService_ConsultarPagodeKitLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTipoPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante" message="tns:IPortalService_ConsultarTipoPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse" message="tns:IPortalService_ConsultarTipoPostulante_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage" />
@@ -1040,6 +1058,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarZonaDigital" message="tns:IPortalService_ValidarZonaDigital_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarZonaDigitalResponse" message="tns:IPortalService_ValidarZonaDigital_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EnvioCorreoValidacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnvioCorreoValidacion" message="tns:IPortalService_EnvioCorreoValidacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EnvioCorreoValidacionResponse" message="tns:IPortalService_EnvioCorreoValidacion_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetKitInicioEdit">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioEdit" message="tns:IPortalService_GetKitInicioEdit_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioEditResponse" message="tns:IPortalService_GetKitInicioEdit_OutputMessage" />
@@ -1055,6 +1077,14 @@
     <wsdl:operation name="SaveKitInicioCatalogos">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/SaveKitInicioCatalogos" message="tns:IPortalService_SaveKitInicioCatalogos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/SaveKitInicioCatalogosResponse" message="tns:IPortalService_SaveKitInicioCatalogos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCampoFormularioSimplificadoSolicitudPrepostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarCampoFormularioSimplificadoSolicitudPrepostulante" message="tns:IPortalService_ValidarCampoFormularioSimplificadoSolicitudPrepostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarCampoFormularioSimplificadoSolicitudPrepostulanteResponse" message="tns:IPortalService_ValidarCampoFormularioSimplificadoSolicitudPrepostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarSolicitantePrePostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/InsertarSolicitantePrePostulante" message="tns:IPortalService_InsertarSolicitantePrePostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/InsertarSolicitantePrePostulanteResponse" message="tns:IPortalService_InsertarSolicitantePrePostulante_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -1545,8 +1575,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarTipoPostulante">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarTipoPostulante" style="document" />
+    <wsdl:operation name="ConsultarPagodeKitLog">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1554,8 +1584,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarPagodeKitLog">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" style="document" />
+    <wsdl:operation name="ConsultarTipoPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarTipoPostulante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1959,6 +1989,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EnvioCorreoValidacion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/EnvioCorreoValidacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetKitInicioEdit">
       <soap:operation soapAction="http://tempuri.org/IPortalService/GetKitInicioEdit" style="document" />
       <wsdl:input>
@@ -1988,6 +2027,24 @@
     </wsdl:operation>
     <wsdl:operation name="SaveKitInicioCatalogos">
       <soap:operation soapAction="http://tempuri.org/IPortalService/SaveKitInicioCatalogos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCampoFormularioSimplificadoSolicitudPrepostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarCampoFormularioSimplificadoSolicitudPrepostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarSolicitantePrePostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/InsertarSolicitantePrePostulante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
