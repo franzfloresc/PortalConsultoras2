@@ -1383,7 +1383,7 @@ var PedidoRegistroModule = function () {
     };
 
     var InsertarProductoPasePedido = function (form) {
-
+        
         var flag = $("#hdfEsBusquedaSR").val();
 
         if (flag == "true") {
@@ -1445,8 +1445,11 @@ var PedidoRegistroModule = function () {
                     } else {
                         mensaje = _mensajeAgregarPedido.normal;
                     }
-
-                    AbrirMensaje25seg(mensaje);
+                    /*HD-4635*/
+                    if (response.flagCantidaPedido==0)
+                        AbrirMensaje25seg(mensaje);
+                    else
+                        alert_msg(response.mensajeCantidad);
                 }
                 else {
                     var errorCliente = response.errorCliente || false;

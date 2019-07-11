@@ -2634,7 +2634,7 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager.SetDetallesPedidoSetAgrupado(null);
             SessionManager.SetMisPedidosDetallePorCampania(null);
 
-            var listaDetalle = GetPedidoWebDetalle(mobil);
+            var listaDetalle = ObtenerPedidoWebDetalle();
 
             foreach (var item in listaDetalle)
             {
