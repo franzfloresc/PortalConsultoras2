@@ -646,20 +646,17 @@
     </div>
 </div>
 <div id="DialogAdministracionTipoEstrategia" style="display: none;">
-    <input type="hidden" id="hdPais" value="" />
+    @*<input type="hidden" id="hdPais" value="" />
     <input type="hidden" id="hdofertas" value="" />
     <input type="hidden" id="hdofertaid" value="0" />
-    <input type="hidden" id="hdTipoEstrategiaID" value="0" />
+    <input type="hidden" id="hdTipoEstrategiaID" value="0" />*@
+    <
     <div class="Content_modal">
         <div class="div-3">
             <div class="titB">País:</div>
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtPaisModal" readonly="readonly" />
             </div>
-            @*<div class="titB">Nivel:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="ddlNivelModal" />
-            </div>*@
             <div class="titA">Nivel:</div>
             <div class="selectA borde_redondeado">
                 @Html.DropDownListFor(model => model.CodigoNivel, new SelectList(Model.listaNiveles, "CodigoNivel", "DescripcionNivel"), "-- Seleccionar --", new { id = "ddlNivelModal" })

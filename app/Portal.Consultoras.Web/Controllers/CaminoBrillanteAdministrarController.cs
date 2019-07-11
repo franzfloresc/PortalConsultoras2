@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using static Portal.Consultoras.Web.Models.CaminoBrillante.NivelCaminoBrillanteModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -31,8 +30,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var lst = Consulta == "1" ? GetListaBeneficiosByNivel(paisID, CodigoNivel) : new List<BeneficioCaminoBrillanteModel>();
-                lst = lst ?? new List<BeneficioCaminoBrillanteModel>();
+                var lst = Consulta == "1" ? GetListaBeneficiosByNivel(paisID, CodigoNivel) : new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
+                lst = lst ?? new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
 
                 //if (lst.Count > 0)
                 //{
@@ -47,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                IEnumerable<BeneficioCaminoBrillanteModel> items = lst;
+                IEnumerable<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> items = lst;
 
                 #region Sort Section
                 //if (sord == "asc")
@@ -119,7 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegistrarBeneficio(int paisID, BeneficioCaminoBrillanteModel model)
+        public JsonResult RegistrarBeneficio(int paisID, NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel model)
         {
             string operacion = "registró";
             try

@@ -9,8 +9,6 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServiceSAC;
-using static Portal.Consultoras.Web.Models.CaminoBrillante.NivelCaminoBrillanteModel;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -111,11 +109,11 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Obtiene solamente el listado de Beneficos para administrador de contenidos.
         /// </summary>
-        public List<BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
+        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
         {
             using (var svc = new UsuarioServiceClient())
             {
-                return Mapper.Map<List<BeneficioCaminoBrillanteModel>>(svc.GetBeneficiosCaminoBrillante(paisID, codigoNivel).ToList());  
+                return Mapper.Map<List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>>(svc.GetBeneficiosCaminoBrillante(paisID, codigoNivel).ToList());  
             }
         }
         #endregion
@@ -811,7 +809,7 @@ namespace Portal.Consultoras.Web.Providers
         #endregion
 
         #region Mantenedor Beneficios
-        public void InsBeneficioCaminoBrillante(BeneficioCaminoBrillanteModel model)
+        public void InsBeneficioCaminoBrillante(NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel model)
         {
             var entidad = Mapper.Map<BEBeneficioCaminoBrillante>(model) ?? new BEBeneficioCaminoBrillante();
             using (var svc = new UsuarioServiceClient())
