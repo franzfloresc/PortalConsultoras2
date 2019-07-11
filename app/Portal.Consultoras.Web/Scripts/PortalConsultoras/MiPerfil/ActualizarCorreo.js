@@ -1,6 +1,6 @@
-﻿'use strict';
+﻿var MiPerfil_ActualizarCorreo = function (_config) {
+    'use strict';
 
-var MiPerfil_ActualizarCorreo = function (_config) {
     var config = {
         UrlPaginaPrevia: _config.UrlPaginaPrevia || '',
         UrlActualizarEnviarCorreo: _config.UrlActualizarEnviarCorreo || '',
@@ -13,24 +13,11 @@ var MiPerfil_ActualizarCorreo = function (_config) {
     //INI HD-3897
     var activaGuardar = function () {
         var btn = $("#btnActualizarCorreo");
-        btn.removeClass('btn_deshabilitado')
+        btn.removeClass('btn_deshabilitado');
         if (getDataArrayError(getData()).length > 0 || !$('#chkAceptoContratoMD').prop('checked')) btn.addClass('btn_deshabilitado');
 
     }
-    var mensajeError = function () {
-        var obj = getData().correoNuevo;
-        var band;
-        showError("");
 
-        if (obj == "") band = null;
-        else if (obj != "" && !validateEmail(obj)) {
-            showError(getDataArrayError(getData()).join('<br>'));
-            band = false;
-        } else band = true;
-
-
-        activaCheck(band);
-    }
     var activaCheck = function (band) {
         var obj = $("div[vista-id=1] .grupo_form_cambio_datos");
         obj.removeClass("grupo_form_cambio_datos--validacionExitosa");
@@ -92,7 +79,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         }
         //FIN HD-3897
         if (document.getElementById('chkAceptoContratoMD').checked == false) {
-            alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
+            showError('Debe aceptar los términos y condiciones para poder actualizar sus datos');
             return false;
         }
 
@@ -112,7 +99,20 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         irVista(2);
         $('#txtCorreoEnviado').html(email);
     }
+    var mensajeError = function () {
+        var obj = getData().correoNuevo;
+        var band;
+        showError("");
 
+        if (obj == "") band = null;
+        else if (obj != "" && !validateEmail(obj)) {
+            showError(getDataArrayError(getData()).join('<br>'));
+            band = false;
+        } else band = true;
+
+
+        activaCheck(band);
+    }
     var asignarEventos = function () {
 
 
@@ -159,6 +159,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
 
             }
             //FIN HD-3897
-        }
+        },
+		actualizarEnviarCorreo: actualizarEnviarCorreo
     }
 }

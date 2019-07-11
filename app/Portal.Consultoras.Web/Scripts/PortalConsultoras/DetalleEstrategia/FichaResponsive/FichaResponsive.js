@@ -58,7 +58,9 @@ $(document).ready(function () {
         estrategia.CodigoProducto,
         estrategia.Precio2,
         estrategia.Hermanos,
-        estrategia.TieneStock);
+        estrategia.TieneStock,
+        estrategia.MostrarUpselling
+    );
 
     carruselPresenter.initialize(carruselModel, carruselView);
 });
