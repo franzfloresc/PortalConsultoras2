@@ -1356,8 +1356,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
             int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
-            int PaginaActual, string CodigoConsultora, int? PDigital, int? PTradicional, int MostrarPaso1y2SE = 1,
-            int TipoPago = -1)
+            int PaginaActual, string CodigoConsultora, int? PDigital, int? PTradicional, int TipoPago,
+            int MostrarPaso1y2SE = 1 )
         {
 
             using (var sv = new PortalServiceClient())
