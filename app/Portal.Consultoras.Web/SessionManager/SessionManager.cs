@@ -143,14 +143,16 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRMotivoOperacion] = datos;
         }
-        //HD-3703 EINCA
-        public bool? GetFlagIsSetsOrPack() {
+
+        public bool? GetFlagIsSetsOrPack()
+        {
             return (bool)HttpContext.Current.Session[Constantes.ConstSession.CDRFlagIsSetsOrPacks];
         }
-        //HD-3703 EINCA
-        public void SetFlagIsSetsOrPack(bool? flag) {
+
+        public void SetFlagIsSetsOrPack(bool? flag)
+        {
             HttpContext.Current.Session[Constantes.ConstSession.CDRFlagIsSetsOrPacks] = flag;
-        }      
+        }
 
         #endregion
 
@@ -633,6 +635,21 @@ namespace Portal.Consultoras.Web.SessionManager
                 return 0;
         }
 
+        public void SetMiAcademiaPdf(int value)
+        {
+            HttpContext.Current.Session["FlagAcademiaPdf"] = value;
+        }
+
+        public int GetMiAcademiaPdf()
+        {
+            if (HttpContext.Current.Session["FlagAcademiaPdf"] != null)
+
+                return (int)HttpContext.Current.Session["FlagAcademiaPdf"];
+            else
+                return 0;
+        }
+
+
         public void SetMiAcademiaParametro(string value)
         {
             HttpContext.Current.Session["SapParametros"] = value;
@@ -658,15 +675,15 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
         }
 
-        void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;
-        }
+        //void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
+        //{
+        //    HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;
+        //}
 
-        EstrategiaPersonalizadaProductoModel ISessionManager.GetProductoTemporal()
-        {
-            return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
-        }
+        //EstrategiaPersonalizadaProductoModel ISessionManager.GetProductoTemporal()
+        //{
+        //    return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+        //}
 
 
         public void SetPedidoValidado(bool validado)
@@ -697,10 +714,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["LimElectivosProgNuevas"] = limElectivos; }
         List<PremioElectivoModel> ISessionManager.GetListPremioElectivo() { return (List<PremioElectivoModel>)HttpContext.Current.Session["ListPremioElectivo"]; }
         void ISessionManager.SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo) { HttpContext.Current.Session["ListPremioElectivo"] = listPremioElectivo; }
-        //INI HD-4200
+
         bool ISessionManager.GetProcesoSuscripcionSE() { return (bool)(HttpContext.Current.Session["ProcesoSuscripcionSE"] ?? false); }
         void ISessionManager.SetProcesoSuscripcionSE(bool proceso) { HttpContext.Current.Session["ProcesoSuscripcionSE"] = proceso; }
-        //FIN HD-4200
+
         Dictionary<string, PremioProgNuevasOFModel> ISessionManager.GetDictPremioProgNuevasOF()
         {
             return (Dictionary<string, PremioProgNuevasOFModel>)HttpContext.Current.Session["DictPremioProgNuevasOF"];
@@ -738,16 +755,6 @@ namespace Portal.Consultoras.Web.SessionManager
         dynamic ISessionManager.GetPrimeraVezSessionMobile()
         {
             return (dynamic)HttpContext.Current.Session["PrimeraVezSessionMobile"];
-        }
-
-        void ISessionManager.SetIngresoPortalConsultoras(bool val)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.IngresoPortalConsultoras] = val;
-        }
-
-        dynamic ISessionManager.GetIngresoPortalConsultoras()
-        {
-            return (dynamic)HttpContext.Current.Session[Constantes.ConstSession.IngresoPortalConsultoras];
         }
 
         void ISessionManager.SetConsultoraNuevaBannerAppMostrar(dynamic val)
@@ -1084,18 +1091,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEShowRoomOferta>)val;
         }
 
-        void ISessionManager.SetActualizarDatosConsultora(bool val)
-        {
-            HttpContext.Current.Session["ActualizarDatosConsultora"] = val;
-        }
-
-        bool ISessionManager.GetActualizarDatosConsultora()
-        {
-            var val = HttpContext.Current.Session["ActualizarDatosConsultora"];
-            if (val == null) { return false; }
-            return (bool)val;
-        }
-
         void ISessionManager.SetSuenioNavidad(int val)
         {
             HttpContext.Current.Session["SuenioNavidad"] = val;
@@ -1177,18 +1172,6 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             var val = HttpContext.Current.Session["ZonaCodigoEliminar"];
             return (string)val;
-        }
-
-        void ISessionManager.SetIngresoPortalLideres(bool val)
-        {
-            HttpContext.Current.Session["IngresoPortalLideres"] = val;
-        }
-
-        bool ISessionManager.GetIngresoPortalLideres()
-        {
-            var val = HttpContext.Current.Session["IngresoPortalLideres"];
-            if (val == null) { return false; }
-            return (bool)val;
         }
 
         void ISessionManager.Seterrores(List<MatrizCampaniaModel> val)
@@ -1438,6 +1421,15 @@ namespace Portal.Consultoras.Web.SessionManager
         public BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante()
         {
             return (BEOrdenFiltroConfiguracion)HttpContext.Current.Session[Constantes.ConstSession.FiltrosCaminoBrillante];
+        }
+
+        public void SetConfiguracionCaminoBrillante(List<BEConfiguracionCaminoBrillante> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionCaminoBrillante] = val;
+        }
+        public List<BEConfiguracionCaminoBrillante> GetConfiguracionCaminoBrillante()
+        {
+            return (List<BEConfiguracionCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionCaminoBrillante];
         }
         #endregion
 

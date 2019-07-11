@@ -101,5 +101,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BESegmentoBanner> GetSegmentoInternoBanner(int PaisID);
 
+        [OperationContract]
+        IList<BEZona> GetZonasByRegion(int PaisID, int RegionID);
+
+        [OperationContract]
+        IList<BERegion> GetRegionByPaisZonaActivas(int paisID);
+
     }
 }

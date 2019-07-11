@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.CaminoBrillante = true;
+    //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var data = ViewBag.Informacion;
     var categoria = ViewBag.Vista;
@@ -8,6 +8,11 @@
 
 @section css{
     <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
+    <style>
+        div.content_responsive {
+            margin-top: 0px;
+        }
+    </style>
 }
 
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">

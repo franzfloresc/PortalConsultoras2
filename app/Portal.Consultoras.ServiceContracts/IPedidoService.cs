@@ -512,7 +512,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDD GetPedidoDDByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
 
         [OperationContract]
-        
+
         void InsPedidoDD(BEPedidoDD bePedidoDD);
 
         [OperationContract]
@@ -1342,13 +1342,22 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisID, bool isApp);
 
+        [OperationContract]
+        BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad);
+
+        [OperationContract]
+        BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV);
+
         #endregion
 
         [OperationContract]
         void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
-        //INI HD-4200
+
         [OperationContract]
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
-        //FIN HD-4200
+
+
+        [OperationContract]
+        bool InsertKitSE(BEUsuario usuario);
     }
 }

@@ -20,9 +20,8 @@ namespace Portal.Consultoras.Web.Controllers
                 int campaniaId = userData.CampaniaID;
                 string iso = userData.CodigoISO;
                 bool isDigital = IndicadorConsultoraDigital();
-                
-                    /* INI HD-4086*/
-                if (paisId==Constantes.PaisID.Peru && isDigital)
+
+                if (paisId == Constantes.PaisID.Peru && isDigital)
                 {
                     string NumeroDocumento = userData.DocumentoIdentidad;
                     if (iso == Constantes.CodigosISOPais.Peru)
@@ -42,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     ViewBag.Token = token;
                     return View("IndexExterno");
-                    /* FIN HD-4086*/
+
                 }
                 else
                 {
@@ -80,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View(new IncentivosModel());
         }
-        /* INI HD-4086*/
+
         public ActionResult IndexExterno()
         {
             try
@@ -112,6 +111,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-        /* FIN HD-4086*/
+
     }
 }

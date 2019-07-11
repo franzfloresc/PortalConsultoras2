@@ -24,6 +24,7 @@
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
+    var claseCajaProductoLiquidacion = "";
 }
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -59,14 +60,7 @@
                     </div>
                 </div>
                 <div class="foto_perfil_home">
-                    @if (ViewBag.FotoPerfilAncha)
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: auto; height: 100%;" />
-                    }
-                    else
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: 100%; height: auto;" />
-                    }
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
                 </div>
             }
             <div class="clear"></div>
@@ -1143,25 +1137,12 @@
         <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
             <div id="slide1_container" class="shadow">
                 <div id="slide1_images">
-                    @if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Peru ||
-                         ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
-                    {
-                        <div class="imagen_tutorial img_slide1 fondo1"></div>
-                        <div class="imagen_tutorial img_slide2 fondo2"></div>
-                        <div class="imagen_tutorial img_slide3 fondo3"></div>
-                        <div class="imagen_tutorial img_slide4 fondo4"></div>
-                        <div class="imagen_tutorial img_slide5 fondo5"></div>
-                        <div class="imagen_tutorial img_slide6 fondo6"></div>
-                    }
-                    else
-                    {
-                        <div class="imagen_tutorial img_slide1"></div>
-                        <div class="imagen_tutorial img_slide2"></div>
-                        <div class="imagen_tutorial img_slide3"></div>
-                        <div class="imagen_tutorial img_slide4"></div>
-                        <div class="imagen_tutorial img_slide5"></div>
-                        <div class="imagen_tutorial img_slide6"></div>
-                    }
+                    <div class="imagen_tutorial img_slide1"></div>
+                    <div class="imagen_tutorial img_slide2"></div>
+                    <div class="imagen_tutorial img_slide3"></div>
+                    <div class="imagen_tutorial img_slide4"></div>
+                    <div class="imagen_tutorial img_slide5"></div>
+                    <div class="imagen_tutorial img_slide6"></div>
                     <div class="imagen_tutorial img_slide7"></div>
                     <div class="imagen_tutorial img_slide8"></div>
                     <div class="imagen_tutorial img_slide9"></div>
@@ -1275,7 +1256,15 @@
 <script id="liquidacion-template" type="text/x-handlebars-template">
     {{#each this}}
     <div>
-        <div class="content_item_carrusel caja-borde">
+        @if (@ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+        {
+            claseCajaProductoLiquidacion = "content_item_carrusel--liquidacion";
+        }
+        else
+        {
+            claseCajaProductoLiquidacion = "";
+        }
+        <div class="content_item_carrusel caja-borde @claseCajaProductoLiquidacion">
             <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
             <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
             <input type="hidden" id="CUV" value="{{CUV}}" />
@@ -1294,6 +1283,12 @@
                 <p class="nombre_producto">
                     <b>{{Descripcion}}</b>
                 </p>
+                @*INI HD-4009*@
+                @if (@ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+                {
+                <div class="text-center {{#if ValPUM}}producto_pum{{else}}producto_pum_hidden{{/if}}"><span>{{UnidadMedida}} a </span>{{SimboloMoneda}}{{PUM}}</div>
+                }
+                @*FIN HD-4009*@
                 <div class="producto_precio">
                     <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioString}}</b></span>
                 </div>
@@ -2055,7 +2050,7 @@
         var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
         var urlShowRoomVenta = '@Url.Action("Index", "ShowRoom")';
         var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
-        var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
+        @*var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';*@
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarrusel';
         var DesktopHomeLiquidacion = @Constantes.OrigenPedidoWeb.DesktopHomeLiquidacionCarrusel;
@@ -2076,7 +2071,7 @@
         var telefonoTrabajo = '@Model.TelefonoTrabajo';
         var sobreNombre = '@Model.SobreNombre';
         var nombreGerenteZonal =  '@Model.NombreGerenteZonal';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
+        @*var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';*@
         var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
         var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
         var popupCambioClave = '@Model.OpcionCambiaClave';

@@ -107,12 +107,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.CambioClave = userData.CambioClave;
 
-                if (SessionManager.GetIngresoPortalConsultoras() == null)
-                {
-                    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    SessionManager.SetIngresoPortalConsultoras(true);
-                }
-
                 model.PrimeraVezSession = 0;
                 if (SessionManager.GetPrimeraVezSessionMobile() == null)
                 {
@@ -158,7 +152,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
-                #endregion
+                #endregion              
             }
             catch (FaultException ex)
             {

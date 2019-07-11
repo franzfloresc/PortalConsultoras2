@@ -48,5 +48,8 @@ namespace Portal.Consultoras.Web.Models
         }
 
         public bool TieneFichaEnriquecidaActiva { get; set; }
+        public string UnidadMedidaContenido { get; set; }
+        public string PrecioContenidoStr { get; set; }
+        public double PrecioContenido { get; set; }
     }
 }

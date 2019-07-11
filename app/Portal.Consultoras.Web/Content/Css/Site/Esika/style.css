@@ -1063,6 +1063,10 @@ header {
     margin-bottom: 0;
 }
 
+.liquidacion_descripcion--paisColombia{
+    min-height:68px;
+}
+
 .liquidacion_cantidad {
     margin-left: 15px;
     margin-right: 15px;
@@ -1091,6 +1095,20 @@ header {
         font-size: 13pt;
         color: #e81c36;
     }
+
+/* INI HD-4009 */
+.liquidacion_pum,
+.liquidacion_pum_hidden {
+    margin-bottom: 0;
+    min-height:18px;
+}
+    .liquidacion_pum span {
+        color: #000;
+    }
+.liquidacion_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
 
 .liquidacion_rango_wrapper {
     margin: 0;
@@ -1672,6 +1690,20 @@ a.subir_carousel, a.bajar_carousel {
     top: -1px;
 }
 
+/* INI HD-4009 */
+.producto_pum,
+.producto_pum_hidden {
+    margin-bottom: 0;
+    min-height: 18px;
+}
+    .producto_pum span {
+        color: #000;
+    }
+.producto_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
+
 .producto_precio_oferta {
     margin: 0;
     padding: 0;
@@ -2248,7 +2280,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 100%;
     height: 102.4%;
     position: absolute;
-    top: -60px;
+    top: -61px;
     z-index: 10001;
     background-color:rgba(0,0,0,0.8);
 }
@@ -17272,6 +17304,7 @@ label.checkpop.c_on {
     -webkit-transition-property: color;
     transition-property: color;
     transition-duration: .3s;
+    overflow:hidden;
 }
 
     .boton_home_guardar:hover {
@@ -17839,6 +17872,10 @@ label.checkpop.c_on {
     margin-right: 7%;
     background: white;
 }
+
+    .content_item_carrusel.content_item_carrusel--liquidacion {
+        height: 349px!important;
+    }
 
 .content_item_carrusel_width_ODD {
     width: 260px;
@@ -19139,7 +19176,10 @@ body {
     }
 
 .content_carrusel_liquidacion .content_item_carrusel {
-    height: 330px;
+    /* INI HD-4009 */
+    /* height: 330px;*/
+    /* FIN HD-4009 */
+    height: 340px;
 }
 
 .content_carrusel_liquidacion .producto_precio {
@@ -24300,6 +24340,18 @@ input[type='checkbox']:checked + span:after {
     margin-bottom: 20px;
 }
 
+.mensaje_cantidad_pedidos_pendientes_por_aprobar {
+    font-size: 20px;
+    color: #454549;
+    margin-bottom:56px;
+}
+
+    .enlace__sb--irAPedidosPendientes,
+    .enlace__sb--irAPedidosPendientes:hover,
+    .enlace__sb--irAPedidosPendientes:active{
+        color: #ff335a;
+    }
+
 .esika {
     background: #e81c36;
 }
@@ -25757,48 +25809,30 @@ a#cierreMotivoRechazo img {
     }
 
     #slide1_images .img_slide1 {
-        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika1.jpg') no-repeat center top;
+        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika1A.jpg') no-repeat center top;
         z-index: 9;
     }
 
-#slide1_images .fondo1 {
-    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika1A.jpg') no-repeat center top;
-}
-
     #slide1_images .img_slide2 {
-        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika2.jpg') no-repeat center top;
+        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika2A.jpg') no-repeat center top;
         z-index: 8;
     }
 
-#slide1_images .fondo2 {
-    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika2A.jpg') no-repeat center top;
-}
-
     #slide1_images .img_slide3 {
-        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika3.jpg') no-repeat center top;
+        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika3A.jpg') no-repeat center top;
         z-index: 7;
     }
 
-#slide1_images .fondo3 {
-    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika3A.jpg') no-repeat center top;
-}
     #slide1_images .img_slide4 {
-        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika4.jpg') no-repeat center top;
+        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika4A.jpg') no-repeat center top;
         z-index: 6;
     }
 
-#slide1_images .fondo4 {
-    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika4A.jpg') no-repeat center top;
-}
-
     #slide1_images .img_slide5 {
-        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika5.jpg') no-repeat center top;
+        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika5A.jpg') no-repeat center top;
         z-index: 5;
     }
 
-#slide1_images .fondo5 {
-    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika5A.jpg') no-repeat center top;
-}
 
 .texto_pedidos_pendientes.tips {
     margin: 0;
@@ -25983,12 +26017,8 @@ div.motivoRechazo textarea {
     }
 
 #slide1_images .img_slide6 {
-    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika6.jpg') no-repeat center top;
-    z-index: 4;
-}
-
-#slide1_images .fondo6 {
     background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika6A.png') no-repeat center top;
+    z-index: 4;
 }
 
 #slide1_images .img_slide7 {
