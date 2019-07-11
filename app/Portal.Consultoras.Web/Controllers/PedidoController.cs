@@ -2541,9 +2541,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+
+
                 /*HD-4635*/
                 GetValidaActualizaPedido(mobil);
-
                 var listaDetalle = GetPedidoWebDetalle(mobil);
 
                 if (mobil)
@@ -2625,7 +2626,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         #region HD-4635
         private void GetValidaActualizaPedido(bool mobil)
         {
@@ -2685,6 +2685,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         #endregion
+
 
         private bool AgregarCuvsAutomatico()
         {
