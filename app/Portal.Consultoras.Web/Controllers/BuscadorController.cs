@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var buscadorPromocionEstaActivo = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
                     userData.PaisID,
                     ConsTablaLogica.FlagFuncional.TablaLogicaId,
-                    ConsTablaLogica.FlagFuncional.PromocionesBuscador,
+                    ConsTablaLogica.FlagFuncional.Promociones,
                     true
                 );
 
