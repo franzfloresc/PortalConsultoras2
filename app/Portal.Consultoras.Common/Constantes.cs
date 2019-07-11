@@ -3271,6 +3271,9 @@ namespace Portal.Consultoras.Common
 
             public static class Promociones
             {
+                /// <summary>
+                /// api/Promociones/{isoPais}/{campania}/{cuv}
+                /// </summary>
                 public static readonly string UrlGetPromociones = "Promociones/{0}/{1}/{2}";
             }
         }
