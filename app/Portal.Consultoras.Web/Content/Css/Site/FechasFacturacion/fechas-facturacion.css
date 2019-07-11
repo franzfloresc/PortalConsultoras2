@@ -1,0 +1,85 @@
+﻿
+/* HD-4639 - FECHAS DE FACTURACIÓN */
+
+.layout__header--menuContenedorOfertas{
+    display:none;
+}
+
+.layout__view__title__text--fechasFacturacion span {
+    font-size: 20px;
+}
+
+.layout__container--fechasFacturacion{
+    line-height:19px;
+}
+
+    .seccion__campania__actual {
+        padding-top: 16px;
+        padding-bottom: 24px;
+        padding-left:16px;
+        padding-right:16px;
+    }
+
+    .seccion__campania__actual{
+        flex: 0 0 92.225%;
+        max-width:92.225%;
+    }
+
+        .datos__campania > div{
+            margin-bottom:8px;
+        }
+
+            .datos__campania > div:last-child{
+                margin-bottom:0;
+            }
+
+            .num__campania {
+                min-width: 80px;
+                margin-right:8px;
+                padding-right:8px;
+            }
+
+                .num__campania span:first-child{
+                    font-size:12px;
+                }
+
+                .num__campania span:last-child{
+                    font-size:20px;
+                }
+
+            .datos__campania{
+                color:#000;
+            }
+
+    .seccion__campanias__anteriores__y__siguientes{
+        flex:0 0 100%;
+        max-width:100%;
+    }
+
+        .nav__tab__sb__link--fechasFacturacion{
+            font-size:16px;
+        }
+
+        .card__sb__container--fechasFacturacion{
+            justify-content:center;
+            align-items:flex-start;
+        }
+
+            .card__sb--fechaFacturacion{
+                justify-content:space-between;
+                align-items:center;
+            }
+
+                .card__sb--fechaFacturacion:last-child{
+                    margin-bottom:32px;
+                }
+
+                .card__sb--fechaFacturacion .num__campania span:first-child{
+                    font-size:10px!important;
+                }
+
+                .card__sb--fechaFacturacion span {
+                    color: #808080;
+                }
+
+/* FIN - HD-4639 - FECHAS DE FACTURACIÓN */
