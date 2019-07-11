@@ -2,12 +2,8 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.Search.ResponsePromociones;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -43,8 +39,9 @@ namespace Portal.Consultoras.Web.Providers
             {
                 if (!httpResponse.IsSuccessStatusCode) return estrategia;
                 jsonString =  httpResponse.Content.ReadAsStringAsync().Result;
-                if (string.IsNullOrWhiteSpace(jsonString)) return estrategia;
             }
+
+            if (string.IsNullOrWhiteSpace(jsonString)) return estrategia;
 
             estrategia = JsonConvert.DeserializeObject<OutputPromociones>(jsonString);
             estrategia = estrategia  ?? new OutputPromociones();

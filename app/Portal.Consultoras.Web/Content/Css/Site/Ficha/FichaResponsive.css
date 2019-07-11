@@ -13,6 +13,10 @@
     width: 100%;
 }
 
+.seccion_ficha_sintop {
+    margin-top: 0px !important;
+}
+
 .contenedor_detalle {
     margin: 0 auto;
     max-width: 1105px;
@@ -516,7 +520,6 @@ ul.breadcumbs li a {
 
     .ficha_detalle {
         padding: 0 15px !important;
-        
         margin-top: 30px; /* Modificado para el carrusel de imagenes responsive - tesla */
         background-image: none;
     }
