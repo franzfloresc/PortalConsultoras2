@@ -1,0 +1,239 @@
+﻿@model Portal.Consultoras.Web.Models.ReporteEncuestaSatisfaccionModel
+@{
+    ViewBag.Title = "Reporte Encuesta de Satisfacción";
+}
+<script src="@Url.Content("~/Scripts/DatetimePicker/datetimepicker_css.js")"></script>
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1><span>Reporte Pago en Línea</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titG">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre", Model.PaisID), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titB">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titG">Región:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaRegiones, "RegionID", "Codigo"), "-- Todas --", new { id = "ddlRegion" })
+                </div>
+
+                <div class="titB">Zona:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Nombre"), "-- Todas --", new { id = "ddlZona" })
+                </div>
+
+                <input type="hidden" id="hdNombreAnt" />
+            </div>
+
+            <div class="div-3">
+                <div class="titG">&nbsp;</div>
+                <div class="input_horizontal">
+                    <div class="input_search">
+                        <input type="submit" name="" id="btnBuscar" value="Buscar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper" style="overflow-x:scroll;">
+
+            <table id="list"></table>
+            <div id="pager"></div>
+
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix" style="text-align: center">
+        <div class="input_global">
+            <input type="button" value="Exportar Excel" id="btnExportarExcel" name="btnExportarExcel" onclick="ExportarExcel();">
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $("#btnBuscar").click(function () {
+            if (jQuery.trim($("#ddlPais").val()) == "") {
+                alert("Debe seleccionar un País, verifique");
+                return false;
+            }
+
+           if (jQuery.trim($("#ddlCampania").val()) == "") {
+                alert("Debe seleccionar una Campania, verifique");
+                return false;
+            }
+
+            fnGrilla();
+        });
+
+
+        $('#ddlRegion').change(function () {
+            LimpiarCombo($('#ddlZona'));
+
+            var regionId = $('#ddlRegion').val();
+            var paisId = $('#ddlPais').val();
+            if (regionId == "") return false;
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'PagoEnLinea/ObtenerZonasByRegion',
+                dataType: 'json',
+                data: { PaisId: paisId, RegionId: regionId },
+                async: true,
+                success: function (data) {
+                    if (!checkTimeout(data)) return false;
+
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        var ddlZona = $('#ddlZona');
+                        $.each(data.listaZonas, function (ind, item) {
+                            ddlZona.append($('<option/>', { value: item.ZonaID, text: item.Nombre }));
+                        });
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+                    }
+                }
+            });
+        });
+    });
+
+    function fnGrilla() {
+
+           var item = {
+                PaisID: $("#ddlPais").val(),
+                CodigoCampania: $("#ddlCampania").val(),
+                RegionID: $.trim($("#ddlRegion").val()),
+                ZonaID: $.trim($("#ddlZona").val()),
+
+            }
+
+        jQuery("#list").jqGrid({
+            url: baseUrl + "RespuestaEncuestaSatisfacion/ConsultaReporte",
+            hidegrid: false,
+            datatype: 'json',
+            postData: {
+                obj: JSON.stringify(item)
+            } ,
+            mtype: 'POST',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Campaña', 'CodigoConsultora', 'Consultora', 'Calificación', 'Motivo'],
+            colModel: [
+                { name: 'CodigoCampania', index: 'CodigoCampania', width: 10, editable: true, resizable: false },
+                { name: 'CodigoConsultora', index: 'CodigoConsultora', width: 25, editable: true, resizable: false, align: 'center' },
+                { name: 'Consultora', index: 'Consultora', width: 25, editable: true, resizable: false, align: 'center' },
+                { name: 'Calificacion', index: 'Calificacion', width: 10, editable: true, resizable: false, align: 'center' },
+                { name: 'Motivo', index: 'Motivo', width: 10, editable: true, resizable: false, align: 'center' }
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+            },
+            contentType: "application/json",
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 2000,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function ExportarExcel() {
+        if (jQuery.trim($("#ddlPais").val()) == "") {
+            alert("Debe seleccionar un País, verifique");
+            return false;
+        }
+
+        var PaisID = jQuery.trim($("#ddlPais").val());
+        var CodigoCampania = jQuery.trim($("#ddlCampania").val());
+        var RegionID = jQuery.trim($("#ddlRegion").val());
+        var ZonaID = jQuery.trim($("#ddlZona").val());
+        waitingDialog({});
+
+        setTimeout(function () {
+            DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID)
+        }, 0);
+    }
+
+    function DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID) {
+        if (checkTimeout()) {
+            var content = baseUrl + "ReporteEncuestaSatisfaccion/ExportarExcel?CampaniaID=" + CodigoCampania + "&RegionID=" + RegionID + "&ZonaID="
+                + ZonaID + "&PaisID=" + PaisID;
+            var iframe_ = document.createElement("iframe");
+            iframe_.style.display = "none";
+            iframe_.setAttribute("src", content);
+
+            if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+                iframe_.onreadystatechange = function () {
+                    switch (this.readyState) {
+                        case "loading":
+                            waitingDialog({});
+                            break;
+                        case "complete":
+                        case "interactive":
+                        case "uninitialized":
+                            closeWaitingDialog();
+                            break;
+                        default:
+                            closeWaitingDialog();
+                            break;
+                    }
+                };
+            }
+            else {
+                // Si es Firefox o Chrome
+                $(iframe_).ready(function () {
+                    closeWaitingDialog();
+                });
+            }
+            document.body.appendChild(iframe_);
+        }
+    }
+
+    function LimpiarCombo($combo) {
+        $combo.empty();
+        $combo.append($('<option/>', { value: "", text: "-- Seleccionar --" }));
+    }
+
+</script>

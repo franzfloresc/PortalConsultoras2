@@ -240,6 +240,7 @@
     <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\CaminoBrillanteAdministrarController.cs" />
     <Compile Include="Controllers\ConfiguracionZonasModel.cs" />
+    <Compile Include="Controllers\ReporteEncuestaSatisfaccionController.cs" />
     <Compile Include="Controllers\FakeErrorController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
     <Compile Include="Controllers\CaminoBrillanteController.cs" />
@@ -325,6 +326,7 @@
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
+    <Compile Include="Models\ReporteEncuestaSatisfaccionModel.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\CDRProductoRespuestaServicioModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
@@ -5965,6 +5967,7 @@
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
+    <Content Include="Views\ReporteEncuestaSatisfaccion\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
