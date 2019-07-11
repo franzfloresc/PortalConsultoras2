@@ -87,7 +87,7 @@ strong {
 .boxtom {
     display: none;
 }
-    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after, .cambio-crec:after, .cent-mant:after{
+    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after, .cambio-crec:after, .cent-mant:after, .right-m:after{
         content: "";
         display: block;
         clear: both
@@ -2403,8 +2403,17 @@ div .ficha__producto__precio__normal {
 
 
 
-@media only screen and (max-width: 900px) and (min-width: 521px) {
-    .right-banner {
+
+
+
+
+
+
+
+
+
+    @media only screen and (max-width: 900px) and (min-width: 521px) {
+        .right-banner {
         background: rgba(255, 255, 255, 0.8);
         padding: 20px;
         right: 0;
@@ -2562,7 +2571,7 @@ div .ficha__producto__precio__normal {
     margin: 0 auto;
     margin-bottom: 50px;
     display: block;
-     max-width: 700px; 
+    max-width: 646px; 
     width: 90%;
 }
 .logreg a.slick-arrow {
@@ -2850,7 +2859,20 @@ div .ficha__producto__precio__normal {
         margin-bottom: 70px;
     }
 }
+@media screen and (min-width:621px) {
+    #activo {
+        display: none !important;
+    }
 
+    .mo-3 .logreg .bigitem {
+        width: 16%;
+    }
+
+    .mo-3 .logreg .right-m {
+        width: 84%;
+        float: left;
+    }
+}
 @media screen and (max-width:620px) {
     .modal-dialog {
         margin: 1.5rem;
@@ -3325,11 +3347,7 @@ div .ficha__producto__precio__normal {
 }
 
 
-@media screen and (min-width:621px) {
-    #activo{
-        display:none !important;
-    }
-}
+
 
     @media screen and (max-width:600px) {
 
