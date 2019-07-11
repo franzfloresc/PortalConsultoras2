@@ -2,12 +2,10 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceUsuario;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using static Portal.Consultoras.Web.Models.CaminoBrillante.NivelCaminoBrillanteModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -159,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
             return _caminoBrillanteProvider.GetListaNiveles();
         }
 
-        public List<BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
+        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
         {
             return _caminoBrillanteProvider.GetListaBeneficiosByNivel(paisID, codigoNivel);
         }
