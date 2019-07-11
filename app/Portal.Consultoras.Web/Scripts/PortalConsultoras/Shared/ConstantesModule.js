@@ -158,7 +158,7 @@ var ConstantesModule = (function() {
         CaminoBrillanteDesktopPedido_Carrusel: "1201901",
         CaminoBrillanteMobilePedido_Carrusel: "2201901",
         CaminoBrillanteAppMobilePedido_Home: "4181902",
-        CaminoBrillanteAppMobilePedido_Home: "4201901",
+        CaminoBrillanteAppMobilePedido_Ficha: "4201901",
         CaminoBrillanteAppMobilePedido_Carrusel: "4201902",
 
         DesktopHomeOfertaDeliaBannerSuperior: "1010306",

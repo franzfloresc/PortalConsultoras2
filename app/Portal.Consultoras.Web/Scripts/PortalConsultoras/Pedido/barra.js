@@ -400,7 +400,6 @@ function MostrarBarra(datax, destino) {
                 else {
                     if (caminoBrillante == "True") {
                         txtDscto = "";
-                        (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
                     } else {
                         txtDscto = "DSCTO";
                         txtDetalle = indPuntoLimite - 1 != ind ? "" :
@@ -2351,7 +2350,6 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                         }
 
-
                     }
 
                 }
@@ -2366,7 +2364,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
                             document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                            AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
+                            AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 10) + '%';
                             document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                         } else {
@@ -2374,7 +2372,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                             document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
 
-                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%';
+                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 4) + '%';
                             document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
                         }
@@ -2614,7 +2612,7 @@ function ReordenarMontosBarra() {
 
     var monto = 0;
     if (IsoPais == 'CO')
-        monto = 150000;
+        monto = 250000;
     else if (IsoPais == 'CR')
         monto = 10000;
     else if (IsoPais == 'CL')
@@ -2639,9 +2637,9 @@ function ReordenarMontosBarra() {
         if (diferencia1 <= monto && (diferencia2 <= monto && diferencia2 != 0)) {
 
             if (IsoPais == 'CO') {
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2.5) + '%';
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 2) + '%';
-                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%';
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 - 1.3) + '%';
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 ) + '%';
+                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 1) + '%';
             }
             else if (IsoPais == 'CR') {
                 if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%';
