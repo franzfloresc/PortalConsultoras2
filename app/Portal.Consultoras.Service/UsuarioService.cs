@@ -983,6 +983,21 @@ namespace Portal.Consultoras.Service
         {
             return _caminoBrillanteBusinessLogic.GetCaminoBrillanteConfiguracion(paisID, esApp);
         }
+
+        public List<BENivelCaminoBrillante> GetNiveles(int paisID)
+        {
+            return _caminoBrillanteBusinessLogic.GetNiveles(paisID);
+        }
+
+        public List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel)
+        {
+            return _caminoBrillanteBusinessLogic.GetBeneficiosCaminoBrillante(paisID, codigoNivel);
+        }
+
+        public void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad)
+        {
+            _caminoBrillanteBusinessLogic.InsBeneficioCaminoBrillante(paisId, entidad);
+        }
         #endregion
 
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
@@ -1020,7 +1035,5 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ListarValidacionDatos(beValidacionDatos);
         }
-
-
     }
 }

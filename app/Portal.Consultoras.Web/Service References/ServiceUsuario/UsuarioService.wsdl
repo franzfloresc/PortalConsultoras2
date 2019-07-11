@@ -413,6 +413,24 @@
   <wsdl:message name="IUsuarioService_GetCaminoBrillanteConfiguracion_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCaminoBrillanteConfiguracionResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetNiveles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNiveles" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetNiveles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNivelesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetBeneficiosCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBeneficiosCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetBeneficiosCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBeneficiosCaminoBrillanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsBeneficioCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsBeneficioCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsBeneficioCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsBeneficioCaminoBrillanteResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarValidacionDatos_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarValidacionDatos" />
   </wsdl:message>
@@ -1213,6 +1231,18 @@
     <wsdl:operation name="GetCaminoBrillanteConfiguracion">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion" message="tns:IUsuarioService_GetCaminoBrillanteConfiguracion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracionResponse" message="tns:IUsuarioService_GetCaminoBrillanteConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNiveles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetNiveles" message="tns:IUsuarioService_GetNiveles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetNivelesResponse" message="tns:IUsuarioService_GetNiveles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBeneficiosCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante" message="tns:IUsuarioService_GetBeneficiosCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillanteResponse" message="tns:IUsuarioService_GetBeneficiosCaminoBrillante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsBeneficioCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante" message="tns:IUsuarioService_InsBeneficioCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillanteResponse" message="tns:IUsuarioService_InsBeneficioCaminoBrillante_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ActualizarValidacionDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos" message="tns:IUsuarioService_ActualizarValidacionDatos_InputMessage" />
@@ -2136,6 +2166,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetCaminoBrillanteConfiguracion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNiveles">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetNiveles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBeneficiosCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsBeneficioCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3526,6 +3583,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetCaminoBrillanteConfiguracion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNiveles">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetNiveles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBeneficiosCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsBeneficioCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
