@@ -486,23 +486,23 @@ input.field__checkbox__sb{
             }
 
             .encuesta__satisfaccion__estado--pesimo{
-                animation-delay:0.7s;
-            }
-
-            .encuesta__satisfaccion__estado--malo{
-                animation-delay:0.8s;
-            }
-
-            .encuesta__satisfaccion__estado--regular{
-                animation-delay:0.9s;
-            }
-
-            .encuesta__satisfaccion__estado--bueno{
                 animation-delay:1s;
             }
 
-            .encuesta__satisfaccion__estado--excelente{
+            .encuesta__satisfaccion__estado--malo{
                 animation-delay:1.1s;
+            }
+
+            .encuesta__satisfaccion__estado--regular{
+                animation-delay:1.2s;
+            }
+
+            .encuesta__satisfaccion__estado--bueno{
+                animation-delay:1.3s;
+            }
+
+            .encuesta__satisfaccion__estado--excelente{
+                animation-delay:1.4s;
             }
 
         .motivo__adicional__otro{

@@ -21,8 +21,8 @@
         },
         mostrarMotivosCalificacionSegunEstado: function (e) {
             $(_elementos.motivosCalificacion).removeClass('seccion__encuesta__satisfaccion__motivosCalificacion--mostrar');
-            $(_elementos.motivosCalificacion).fadeOut(15);
-            $(_elementos.motivosCalificacion).fadeIn(15);
+            $(_elementos.motivosCalificacion).fadeOut(10);
+            $(_elementos.motivosCalificacion).fadeIn(10);
             $(_elementos.motivosCalificacion).addClass('seccion__encuesta__satisfaccion__motivosCalificacion--mostrar');
         }
     };
