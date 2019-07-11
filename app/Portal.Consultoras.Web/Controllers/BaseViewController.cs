@@ -490,6 +490,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
             modelo.MostrarCliente = GetMostrarCliente(esEditar);
+
+            modelo.MostrarUpselling = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId,
+                            ConsTablaLogica.ConfiguracionesFicha.FuncionalidadUpSelling,
+                            true
+                            );
             return modelo;
         }
 
@@ -497,7 +504,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string codigoPalanca = string.Empty;
 
-            bool noQuitar = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+            Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
 
             var modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca);
 
@@ -527,10 +534,6 @@ namespace Portal.Consultoras.Web.Controllers
                             true
                             );
 
-//#if DEBUG
-//            modelo.CuvPromocion = cuv;
-//#endif
-
             #region Promociones
             if(modelo.MostrarPromociones && !string.IsNullOrEmpty(modelo.CuvPromocion))
             {
@@ -541,24 +544,26 @@ namespace Portal.Consultoras.Web.Controllers
                     promociones.result.Any(x => x.Promocion != null && x.Condiciones.Any()))
                 {
                     promociones.result = promociones.result.Where(x => x.Promocion != null && x.Condiciones.Any()).ToList();
-                    modelo.Promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result.First().Promocion);
-                    modelo.Condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
+                    var promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result.First().Promocion);
+                    var condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
 
-                    //
-                    modelo.Promocion.EsPromocion = true;
-                    metodo(modelo.Promocion);
-                    foreach (var item in modelo.Condiciones)
+                    ActualizarInformacionPreciosYAgregado(promocion);
+                    foreach (var condicio in condiciones)
                     {
-                        metodo(item);
+                        ActualizarInformacionPreciosYAgregado(condicio);
                     }
-                    
-                    modelo.Condiciones = modelo.Condiciones
-                        .Where(e =>
-                            e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloPackNuevas
-                            || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloNormal
-                            || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.EligeOpcion
-                        )
-                        .ToList();
+                    condiciones = condiciones.Where(e =>
+                    {
+                        return e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloPackNuevas
+                        || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloNormal
+                        || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.EligeOpcion;
+                    }).ToList();
+                    //
+                    modelo.EsPromocion = modelo.CuvPromocion == cuv;
+                    modelo.Condiciones = condiciones;
+                    modelo.Promocion = promocion;
+                    modelo.Promocion.EsPromocion = true;
+                    modelo.Promocion.Condiciones = condiciones;
                 }
             }
             #endregion
@@ -566,7 +571,7 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo;
         }
 
-        private void metodo(EstrategiaPersonalizadaProductoModel item)
+        private void ActualizarInformacionPreciosYAgregado(EstrategiaPersonalizadaProductoModel item)
         {
             var pedidos = SessionManager.GetDetallesPedido();
             var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV2).ToList();
@@ -581,16 +586,6 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.esConsultoraLider,
                 false,
                 item.CodigoVariante);
-
-            //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
-            //item.CodigoEstrategia =
-            //    item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-            //    && item.MaterialGanancia
-            //    && sessionMg.TieneMG
-            //    && revistaDigital.TieneRDC
-            //    && revistaDigital.EsActiva
-            //    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
-            //    : item.CodigoEstrategia;
         }
 
         private string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
@@ -683,21 +678,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int GetAccionNavegarSegunOrigen(int origen)
         {
-            return EsProductoRecomendado(origen) ? Constantes.TipoAccionNavegar.Volver : Constantes.TipoAccionNavegar.BreadCrumbs;
+            return UtilOrigenPedidoWeb.EsProductoRecomendado(origen) ? Constantes.TipoAccionNavegar.Volver : Constantes.TipoAccionNavegar.BreadCrumbs;
         }
-
-        private bool EsProductoRecomendado(int origen)
-        {
-            var modelo = UtilOrigenPedidoWeb.GetModelo(origen.ToString());
-            if (origen == 0) return false;
-
-            return modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.Recomendado) ||
-                   modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
-        }
-
+        
         private bool GetValidationHasCarrusel(int origen, bool esEditar)
         {
-            if (EsProductoRecomendado(origen))
+            if (UtilOrigenPedidoWeb.EsProductoRecomendado(origen))
             {
                 return false;
             }
@@ -708,7 +694,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool GetTieneCompartir(string palanca, bool esEditar, int origen)
         {
             if (UtilOrigenPedidoWeb.EsCaminoBrillante(origen)) return false;
-            if (EsProductoRecomendado(origen)) return false;
+            if (UtilOrigenPedidoWeb.EsProductoRecomendado(origen)) return false;
             return !esEditar && !MobileAppConfiguracion.EsAppMobile &&
                 !(Constantes.NombrePalanca.HerramientasVenta == palanca
                 || Constantes.NombrePalanca.PackNuevas == palanca);

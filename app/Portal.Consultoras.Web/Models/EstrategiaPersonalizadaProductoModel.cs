@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Models
             ListaDescripcionDetalle = new List<string>();
             Hermanos = new List<EstrategiaComponenteModel>();
             ListaPrecioNiveles = new List<string>();
+            Condiciones = new List<EstrategiaPersonalizadaProductoModel>();
         }
 
         // Mejorar para solo utilizar un solo array de string
@@ -97,11 +98,17 @@ namespace Portal.Consultoras.Web.Models
         // true = MaterialGanancia == 1
         public bool MaterialGanancia { get; set; }
 
-        public bool EsPromocion { get; set; }
-        
         /// <summary>
         /// Tipo Oferta Camino Brillante
         /// </summary>
         public int TipoOfertaCaminoBrillante { get; set; }
+
+        public string CuvPromocion { get; set; }
+
+        public bool EsPromocion { get; set; }
+
+        public EstrategiaPersonalizadaProductoModel Promocion { get; set; }
+
+        public List<EstrategiaPersonalizadaProductoModel> Condiciones { get; set; }
     }
 }

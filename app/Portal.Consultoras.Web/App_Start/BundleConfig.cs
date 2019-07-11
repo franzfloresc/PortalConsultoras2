@@ -248,7 +248,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Notificacion.css",
                "~/Content/Css/Site/Esika/nuevo-look-and-feel.css",
                "~/Content/Css/Site/Shared/Buscador/BuscadorCarrusel.css"
-
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(

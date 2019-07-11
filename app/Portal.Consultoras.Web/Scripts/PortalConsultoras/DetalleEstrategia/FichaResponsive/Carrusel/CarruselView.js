@@ -156,41 +156,4 @@ class CarruselView {
         })[0];
     }
 
-    //reorderFichaCarrusel(model){
-    //    var orden = 0;
-    //    var _this = this;
-
-    //    // _this.hiddenSinStock(model);
-
-    //    $.each($(this.divCarruselFicha.ficha), function(indice, elemento){
-    //        $(elemento).css("order", "");
-    //    });
-
-    //    this.divCarrusel.capa.forEach(function (ficha) {
-    //        var encontrado = _this.filterFichaVisible(ficha);
-    //        if (encontrado != undefined) {
-    //            $(encontrado).css("order", orden);
-
-    //            if (orden == 0 && _this.filterFichaVisible(_this.fichaEnriquecida.capa) != undefined) {
-    //                $(_this.fichaEnriquecida.id).css("order", orden + 1);
-    //                orden++;
-    //            }
-
-    //            orden++;
-    //        }
-    //    });
-    //}
-
-    // hiddenSinStock(model) {
-    //     var _this = this;
-
-    //     if (!model.tieneStock && _this.filterFichaVisible(_this.divFichaCarrusel_Suggested.capa)) {
-    //         this.divCarrusel.id.forEach(function (ficha) {
-    //             $(ficha).hide();
-    //         });
-
-    //         $(_this.divFichaCarrusel_Suggested.id).show();
-    //     }
-    // }
-
 }

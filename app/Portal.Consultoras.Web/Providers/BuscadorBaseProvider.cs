@@ -76,12 +76,13 @@ namespace Portal.Consultoras.Web.Providers
             bool home,
             bool recomendaciones,
             bool suscrita,
-            bool flagLaMasGanadoras = false)
+            bool flagLaMasGanadoras = false,
+            bool flagPromocion = false,
+            string CodigoTipoOfertaPremio = "")
         {
-            //var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
             if (!productos.Any()) return new List<Productos>();
-
+            
             foreach (var item in productos)
             {
                 var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
@@ -104,6 +105,12 @@ namespace Portal.Consultoras.Web.Providers
                 item.Stock = !item.Stock;
                 item.DescripcionCompleta = item.Descripcion;
                 item.SimboloMoneda = userData.Simbolo;
+
+                if (flagPromocion)
+                {
+                    if (item.CodigoTipoOferta != "")
+                        item.TienePremio = CodigoTipoOfertaPremio.Contains(item.CodigoTipoOferta);
+                }
             }
 
             return productos;

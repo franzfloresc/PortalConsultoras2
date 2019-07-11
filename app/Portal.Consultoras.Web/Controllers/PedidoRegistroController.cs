@@ -20,13 +20,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
-        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public PedidoRegistroController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
             _productoFaltanteProvider = new ProductoFaltanteProvider();
-            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [HttpPost]
@@ -247,11 +245,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
                 
-                //var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
-
                 #region VirtualCoach
-                if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
-                    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachMobilePedido)
+                if (model.OrigenPedidoWeb == ConsOrigenPedidoWeb.VirtualCoachDesktopPedido ||
+                    model.OrigenPedidoWeb == ConsOrigenPedidoWeb.VirtualCoachMobilePedido)
                 {
                     var ficha = SessionManager.GetFichaProductoTemporal();
                     if (ficha == null)

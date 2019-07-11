@@ -10,6 +10,7 @@ class CarruselModel
         tituloCarrusel,
         productosHermanos,
         tieneStock,
+        mostrarUpselling,
         tipoCarrusell,
         codigoProducto,
         precioProducto)
@@ -25,6 +26,7 @@ class CarruselModel
         this.precioProducto = precioProducto;
         this.productosHermanos = productosHermanos;
         this.tieneStock = tieneStock;
+        this.mostrarUpselling = mostrarUpselling;
         this.tipoCarrusell = tipoCarrusell;
     }
 }
