@@ -656,7 +656,7 @@ input[type="checkbox"].switch__control,
         color:#808080!important;
     }
 
-        .nav__tab__sb__link--active {
+        .nav__tab__sb__link.nav__tab__sb__link--active {
             color: #B9007E !important;
             border-bottom: 2px solid #B9007E;
         }
@@ -705,7 +705,9 @@ input[type="checkbox"].switch__control,
 /* FIN - CARDS */
 
 /* FIN - COMPONENTES UI */
+
 /* HELPERS CSS (DESKTOP) */
+
 .ml-0 {
     margin-left: 0;
 }

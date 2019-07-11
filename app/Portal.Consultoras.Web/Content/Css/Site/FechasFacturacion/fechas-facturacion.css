@@ -60,26 +60,30 @@
             font-size:16px;
         }
 
-        .card__sb__container--fechasFacturacion{
-            justify-content:center;
-            align-items:flex-start;
+        .tabs__content__sb__wrapper--fechasFacturacion{
+            min-height:412px;
         }
 
-            .card__sb--fechaFacturacion{
-                justify-content:space-between;
-                align-items:center;
+            .card__sb__container--fechasFacturacion{
+                justify-content:center;
+                align-items:flex-start;
             }
 
-                .card__sb--fechaFacturacion:last-child{
-                    margin-bottom:32px;
+                .card__sb--fechaFacturacion{
+                    justify-content:space-between;
+                    align-items:center;
                 }
 
-                .card__sb--fechaFacturacion .num__campania span:first-child{
-                    font-size:10px!important;
-                }
+                    .card__sb--fechaFacturacion:last-child{
+                        margin-bottom:32px;
+                    }
 
-                .card__sb--fechaFacturacion span {
-                    color: #808080;
-                }
+                    .card__sb--fechaFacturacion .num__campania span:first-child{
+                        font-size:10px!important;
+                    }
+
+                    .card__sb--fechaFacturacion span {
+                        color: #808080;
+                    }
 
 /* FIN - HD-4639 - FECHAS DE FACTURACIÓN */
