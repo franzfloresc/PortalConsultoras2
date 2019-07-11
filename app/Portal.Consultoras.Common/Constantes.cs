@@ -3714,6 +3714,7 @@ namespace Portal.Consultoras.Common
                 public const string COMPROMISO = "COMPROMISO";
                 public const string CRECIMIENTO = "CRECIMIENTO";
                 public const string RESUMEN = "RESUMEN";
+                public const string RESUMEN_UNIFICADO = "RESUMEN_UNIFICADO";
 
                 public static class Indicadores
                 {
@@ -3927,7 +3928,16 @@ namespace Portal.Consultoras.Common
                 public const string app_ganancias = "app_ganancias";
                 public const string app_barraMontoAcumulado = "app_barraMonto";
                 public const string app_enterateMas = "app_enterateMas";
+
+                public const string sb_puntajeGranBrillante = "pto_granBrillante";
+                public const string app_puntajeGranBrillante = "pto_granBrillante";
             }
+
+            public static class Version {                
+                public const int VER_01 = 1;
+                public const int VER_02 = 2;
+            }
+
         }
 
         public static class CodigoContenido
