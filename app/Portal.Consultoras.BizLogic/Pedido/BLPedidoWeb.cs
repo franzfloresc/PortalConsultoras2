@@ -2622,20 +2622,12 @@ namespace Portal.Consultoras.BizLogic
                         svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                         var result = svr.ejecutarProcesoPEDPedidoRechazado(PedidoWeb);
                         if (result.mensajeError != "") throw new Exception(result.mensajeError);
-                        double valorConvert = 0;
-
-                        double.TryParse(result.totalDesc.ToString(), out valorConvert);
-                        bePedidoWeb.STPDescuento = valorConvert;
-
+                        bePedidoWeb.STPDescuento = result.totalDesc;
+                        bePedidoWeb.STPPagoTotalSinDeuda = result.totalPaga;
                         bePedidoWeb.STPDeudaLog = result.deuda;
-                        double.TryParse(result.deuda.ToString(), out valorConvert);
-                        bePedidoWeb.STPDeuda = valorConvert;
-
-                        double.TryParse(result.totalPaga.ToString(), out valorConvert);
-                        bePedidoWeb.STPTotalPagar = valorConvert - bePedidoWeb.STPDeuda;
-
-                        double.TryParse(result.totalFlet.ToString(),out valorConvert);
-                        bePedidoWeb.STPGastTransporte = valorConvert;
+                        bePedidoWeb.STPDeuda = (string.IsNullOrEmpty(result.deuda)) ? 0 : Convert.ToDouble(result.deuda.Replace(",", ""));
+                        bePedidoWeb.STPPagoTotal = bePedidoWeb.STPPagoTotalSinDeuda + bePedidoWeb.STPDeuda;
+                        bePedidoWeb.STPGastTransporte = result.totalFlet;
                     }
 
                     /*Actualizar Log*/
@@ -2662,7 +2654,10 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (reader.Read()) obj = new BEPedidoWeb(reader);
             }
-            if (obj.STPId == 0) obj = UpdPedidoTotalPagoContado(bePedidoWeb);
+
+            obj = obj ?? UpdPedidoTotalPagoContado(bePedidoWeb);
+            obj.STPDeuda = (string.IsNullOrEmpty(obj.STPDeudaLog)) ? 0 : Convert.ToDouble(obj.STPDeudaLog.Replace(",", ""));
+            obj.STPTotalPagar = obj.STPPagoTotalSinDeuda + obj.STPDeuda;
             return obj;
         }
     }

@@ -1509,7 +1509,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     var objPedidoTotal = _pedidoWebBusinessLogic.UpdPedidoTotalPagoContado(pedido);
                     pedido.STPPagoTotal = objPedidoTotal.STPTotalPagar;
-                    pedido.STPPagoTotal = objPedidoTotal.STPTotalPagar;
+                    pedido.STPDeuda = objPedidoTotal.STPDeuda;
+                    pedido.STPDescuento = objPedidoTotal.STPDescuento;
+                    pedido.STPGastTransporte = objPedidoTotal.STPGastTransporte;
                 }
             }
             catch (Exception ex)

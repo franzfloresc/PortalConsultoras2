@@ -156,13 +156,10 @@ namespace Portal.Consultoras.Entities
         public double STPDeuda { get; set; }
 
         [DataMember]
-        public double STPTotalconDeuda { get; set; }
+        public double STPPagoTotalSinDeuda { get; set; }
 
         [DataMember]
         public string STPDeudaLog { get; set; }
-
-        [DataMember]
-        public int STPId { get; set; }
 
         public BEPedidoWeb() { }
 
@@ -211,10 +208,11 @@ namespace Portal.Consultoras.Entities
             GananciaWeb = row.ToDecimal("GananciaWeb");
             GananciaOtros = row.ToDecimal("GananciaOtros");
 
-            STPTotalPagar = DataRecord.HasColumn(row, "TotalPagar") ? row.ToDouble("TotalPagar") : 0;
+            STPPagoTotalSinDeuda = DataRecord.HasColumn(row, "PagoTotalSinDeuda") ? row.ToDouble("PagoTotalSinDeuda") : 0;
+            STPPagoTotal = DataRecord.HasColumn(row, "PagoTotal") ? row.ToDouble("PagoTotal") : 0;
             STPDescuento = DataRecord.HasColumn(row, "TotalDescuento") ? row.ToDouble("TotalDescuento") : 0;
             STPGastTransporte = DataRecord.HasColumn(row, "TotalFlete") ? row.ToDouble("TotalFlete") : 0;
-            STPId = DataRecord.HasColumn(row, "LogConsultoraPagoContadoID") ? row.ToInt32("LogConsultoraPagoContadoID") : 0;
+            STPDeudaLog = row.ToString("TotalDeuda");
         }
     }
 }

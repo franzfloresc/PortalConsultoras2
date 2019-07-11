@@ -615,13 +615,13 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         private string periodoField;
         
-        private System.Nullable<double> totalDescField;
+        private double totalDescField;
         
-        private System.Nullable<double> totalDetaField;
+        private double totalDetaField;
         
-        private System.Nullable<double> totalFletField;
+        private double totalFletField;
         
-        private System.Nullable<double> totalPagaField;
+        private double totalPagaField;
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
@@ -793,7 +793,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> totalDesc {
+        public double totalDesc {
             get {
                 return this.totalDescField;
             }
@@ -805,7 +805,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> totalDeta {
+        public double totalDeta {
             get {
                 return this.totalDetaField;
             }
@@ -817,7 +817,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> totalFlet {
+        public double totalFlet {
             get {
                 return this.totalFletField;
             }
@@ -829,7 +829,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> totalPaga {
+        public double totalPaga {
             get {
                 return this.totalPagaField;
             }
