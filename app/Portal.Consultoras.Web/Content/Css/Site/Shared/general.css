@@ -651,9 +651,13 @@ input[type="checkbox"].switch__control,
     .nav__tab__sb__link {
         justify-content: center;
         align-items: center;
-        min-height:38px;
+        min-height: 38px;
         border-bottom: 2px solid #FFF;
-        color:#808080!important;
+        color: #808080 !important;
+        -moz-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
     }
 
         .nav__tab__sb__link.nav__tab__sb__link--active {
