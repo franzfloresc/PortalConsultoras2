@@ -2654,7 +2654,10 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (reader.Read()) obj = new BEPedidoWeb(reader);
             }
-            if (obj.STPId == 0) obj = UpdPedidoTotalPagoContado(bePedidoWeb);
+
+            obj = obj ?? UpdPedidoTotalPagoContado(bePedidoWeb);
+            obj.STPDeuda = (string.IsNullOrEmpty(obj.STPDeudaLog)) ? 0 : Convert.ToDouble(obj.STPDeudaLog.Replace(",", ""));
+            obj.STPTotalPagar = obj.STPPagoTotalSinDeuda + obj.STPDeuda;
             return obj;
         }
     }
