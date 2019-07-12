@@ -322,6 +322,15 @@ namespace Portal.Consultoras.BizLogic
                 usuario.PuedeConfirmarAllEmail = (verificacionResult != null && verificacionResult.OpcionConfirmarEmail);
                 usuario.PuedeConfirmarAllSms = (verificacionResult != null && verificacionResult.OpcionConfirmarSms);
 
+                //HD-4513
+                var tienePagoContadoActivo = tabla.GetListCache(paisID, ConsTablaLogica.PagoContado.Id);
+                bool FalgPagoContado = false;
+
+                if (tienePagoContadoActivo!= null)
+                    FalgPagoContado = tienePagoContadoActivo.FirstOrDefault().Valor == "1";
+
+                usuario.PagoContado = usuario.PagoContado && FalgPagoContado;
+
                 return usuario;
             }
             catch (Exception ex)
@@ -658,7 +667,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (opcionesUsuarioConfig != null)
                     usuario.NotificacionesWhatsapp = opcionesUsuarioConfig.CheckBox;
-                
+
                 return usuario;
             }
             catch (Exception ex)

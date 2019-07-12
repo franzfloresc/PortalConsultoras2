@@ -632,5 +632,10 @@ namespace Portal.Consultoras.Common
             public const string PanelKey = "PANEL_KEY";
         }
 
+        public static class PagoContado
+        {
+            public const short Id = 232;
+        }
+
     }
 }
