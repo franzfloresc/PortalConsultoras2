@@ -12,11 +12,10 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://ssiccecl.galileo.ebel/ssicceclbprd/services/ProcesoPEDPedidoRechazadoWebSe" +
-        "rvice", ConfigurationName="ServiceTotalPagarSiccEC.ProcesoPEDPedidoRechazadoWebServiceImpl")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://pelnx2041:7003/ssicceclbpdp/services/ProcesoPEDPedidoRechazadoWebService", ConfigurationName="ServiceTotalPagarSiccEC.ProcesoPEDPedidoRechazadoWebServiceImpl")]
     public interface ProcesoPEDPedidoRechazadoWebServiceImpl {
         
-        // CODEGEN: Se está generando un contrato de mensaje, ya que el espacio de nombres de contenedor (http://impl.ws.pedido.spusicc.service.ssicc.belcorp.biz) del mensaje ejecutarProcesoPEDPedidoRechazadoRequest no coincide con el valor predeterminado (http://ssiccecl.galileo.ebel/ssicceclbprd/services/ProcesoPEDPedidoRechazadoWebService)
+        // CODEGEN: Se está generando un contrato de mensaje, ya que el espacio de nombres de contenedor (http://impl.ws.pedido.spusicc.service.ssicc.belcorp.biz) del mensaje ejecutarProcesoPEDPedidoRechazadoRequest no coincide con el valor predeterminado (http://pelnx2041:7003/ssicceclbpdp/services/ProcesoPEDPedidoRechazadoWebService)
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ProcesoPEDPedidoMensajesRechazadoWebServiceResponse))]
@@ -615,13 +614,13 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         private string periodoField;
         
-        private System.Nullable<double> totalDescField;
+        private double totalDescField;
         
-        private System.Nullable<double> totalDetaField;
+        private double totalDetaField;
         
-        private System.Nullable<double> totalFletField;
+        private double totalFletField;
         
-        private System.Nullable<double> totalPagaField;
+        private double totalPagaField;
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
@@ -793,7 +792,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> totalDesc {
+        public double totalDesc {
             get {
                 return this.totalDescField;
             }
@@ -805,7 +804,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> totalDeta {
+        public double totalDeta {
             get {
                 return this.totalDetaField;
             }
@@ -817,7 +816,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> totalFlet {
+        public double totalFlet {
             get {
                 return this.totalFletField;
             }
@@ -829,7 +828,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> totalPaga {
+        public double totalPaga {
             get {
                 return this.totalPagaField;
             }
@@ -916,8 +915,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="ejecutarProcesoPEDPedidoRechazadoResponse", WrapperNamespace="http://ssiccecl.galileo.ebel/ssicceclbprd/services/ProcesoPEDPedidoRechazadoWebSe" +
-        "rvice", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ejecutarProcesoPEDPedidoRechazadoResponse", WrapperNamespace="http://pelnx2041:7003/ssicceclbpdp/services/ProcesoPEDPedidoRechazadoWebService", IsWrapped=true)]
     public partial class ejecutarProcesoPEDPedidoRechazadoResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="", Order=0)]

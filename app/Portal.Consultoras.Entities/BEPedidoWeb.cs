@@ -154,9 +154,9 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public double STPDeuda { get; set; }
-
+        
         [DataMember]
-        public double STPTotalconDeuda { get; set; }
+        public double STPPagoTotalSinDeuda { get; set; }
 
         [DataMember]
         public string STPDeudaLog { get; set; }
