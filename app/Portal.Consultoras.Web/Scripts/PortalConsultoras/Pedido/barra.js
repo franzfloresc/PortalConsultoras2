@@ -2638,8 +2638,24 @@ function ReordenarMontosBarra() {
 
             if (IsoPais == 'CO') {
                 if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 - 1.3) + '%';
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 ) + '%';
-                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 1) + '%';
+
+                // 32% 
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 10) + '%';
+                if (document.getElementById('barra_' + (i - 1).toString()) != null) document.getElementById('barra_' + (i - 1).toString()).style.left = (document.getElementById('barra_' + (i - 1).toString()).style.left.substring(0, document.getElementById('barra_' + (i - 1).toString()).style.left.length - 1) * 1 + 12) + '%';
+
+                // 30%
+                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 + 8) + '%';
+                if (document.getElementById('barra_' + (i - 2).toString()) != null) document.getElementById('barra_' + (i - 2).toString()).style.left = (document.getElementById('barra_' + (i - 2).toString()).style.left.substring(0, document.getElementById('barra_' + (i - 2).toString()).style.left.length - 1) * 1 + 10) + '%';
+
+                // 28%
+                if (document.getElementById('punto_' + (i - 3).toString()) != null) document.getElementById('punto_' + (i - 3).toString()).style.left = (document.getElementById('punto_' + (i - 3).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 3).toString()).style.left.length - 1) * 1 + 8) + '%';
+                if (document.getElementById('barra_' + (i - 3).toString()) != null) document.getElementById('barra_' + (i - 3).toString()).style.left = (document.getElementById('barra_' + (i - 3).toString()).style.left.substring(0, document.getElementById('barra_' + (i - 3).toString()).style.left.length - 1) * 1 + 10) + '%';
+
+                // 25%
+                if (document.getElementById('punto_' + (i - 4).toString()) != null) document.getElementById('punto_' + (i - 4).toString()).style.left = (document.getElementById('punto_' + (i - 4).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 4).toString()).style.left.length - 1) * 1 + 5) + '%';
+                if (document.getElementById('barra_' + (i - 4).toString()) != null) document.getElementById('barra_' + (i - 4).toString()).style.left = (document.getElementById('barra_' + (i - 4).toString()).style.left.substring(0, document.getElementById('barra_' + (i - 4).toString()).style.left.length - 1) * 1 + 6) + '%';
+
+
             }
             else if (IsoPais == 'CR') {
                 if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%';
