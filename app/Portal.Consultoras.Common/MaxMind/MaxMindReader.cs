@@ -416,10 +416,14 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// 
-        public Country() { }
+        public Country()
+        {
+        }
 
-        public Country(int? confidence = null, int? geoNameId = null, string isoCode = null,
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        public Country(int? confidence, int? geoNameId = null, string isoCode = null,
             IDictionary<string, string> names = null, IEnumerable<string> locales = null)
             : base(geoNameId, names, locales)
         {
@@ -543,10 +547,14 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// 
-        public Continent() { }
+        public Continent()
+        {
+        }
 
-        public Continent(string code = null, int? geoNameId = null, IDictionary<string, string> names = null,
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        public Continent(string code, int? geoNameId = null, IDictionary<string, string> names = null,
             IEnumerable<string> locales = null)
             : base(geoNameId, names, locales)
         {
@@ -579,9 +587,14 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// 
-        public RepresentedCountry() { }
-        public RepresentedCountry(string type = null, int? confidence = null, int? geoNameId = null,
+        public RepresentedCountry()
+        {
+        }
+
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        public RepresentedCountry(string type, int? confidence = null, int? geoNameId = null,
             string isoCode = null, IDictionary<string, string> names = null, IEnumerable<string> locales = null)
             : base(confidence, geoNameId, isoCode, names, locales)
         {
