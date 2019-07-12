@@ -2571,7 +2571,8 @@ div .ficha__producto__precio__normal {
     margin: 0 auto;
     margin-bottom: 50px;
     display: block;
-    max-width: 646px; 
+    max-width: 646px;
+    /*max-width: 700px;*/
     width: 90%;
 }
 .logreg a.slick-arrow {
