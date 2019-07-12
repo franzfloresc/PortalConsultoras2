@@ -446,7 +446,8 @@ input[type="checkbox"].switch__control,
         -webkit-transition: all 0.2s ease;
         transition: all 0.2s ease;
     }
-
+        
+        .nav__tab__sb__link:hover,
         .nav__tab__sb__link.nav__tab__sb__link--active {
             color: #B9007E !important;
             border-bottom: 2px solid #B9007E;
