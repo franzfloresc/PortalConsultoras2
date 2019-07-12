@@ -2358,11 +2358,17 @@ function CalculoPosicionMinimoMaximoDestokp() {
                 else {
                     limite = dataBarra.ListaEscalaDescuento.length - 1;
 
+                    var mMinimo = dataBarra.ListaEscalaDescuento[0].MontoDesde;
+                    var adjuste = 1;
+                    if (mMinimo <= dataBarra.ListaEscalaDescuento[1].MontoDesde && mMinimo != 0) {
+                        adjuste = 0;
+                        limite = dataBarra.ListaEscalaDescuento.length;
+                    }
 
                     for (var i = 0; i < limite; i++) {
 
                         if (i == 0) {
-                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i + 1].MontoDesde;
+                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i + adjuste].MontoDesde;
                             var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
                             document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
@@ -2370,7 +2376,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                         } else {
-                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[i + 1].MontoDesde;
+                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[i + adjuste].MontoDesde;
                             var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                             document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
 
@@ -2378,7 +2384,6 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
                         }
-
 
                     }
 
@@ -2541,6 +2546,12 @@ function tryLoadPedidoDetalle() {
     }
 }
 
+function FixPorcentajes(barra) {
+    var fixBarra = new Array();
+
+    return fixBarra;
+}
+
 function AgregarPremio(premio) {
 
     /*HD-3710 - 2_3_Popup elige tu regalo - Click en botón cambiar -  Web - Mobile*/
@@ -2611,10 +2622,13 @@ function ClosePopupRegaloElectivo(valor) {
 
 function ReordenarMontosBarra() {
     var barra = dataBarra.ListaEscalaDescuento;
+    var barraFix = new Array();
 
     var monto = 0;
-    if (IsoPais == 'CO')
-        monto = 150000;
+    if (IsoPais == 'CO') {
+        monto = 1000;
+        barraFix = FixPorcentajes(barra);
+    }
     else if (IsoPais == 'CR')
         monto = 10000;
     else if (IsoPais == 'CL')
