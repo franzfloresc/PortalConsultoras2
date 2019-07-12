@@ -95,7 +95,8 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.NombreBeneficio,
                                    a.Descripcion,
                                    a.Orden.ToString(),
-                                   a.UrlIcono
+                                   a.UrlIcono,
+                                   a.Estado.ToString()
                                    //a.Orden.ToString(),
                                    //a.ImagenEstrategia,
                                    //a.OfertaID,

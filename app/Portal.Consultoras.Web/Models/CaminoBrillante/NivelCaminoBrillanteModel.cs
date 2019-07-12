@@ -82,6 +82,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 }
             }
             public int Orden { get; set; }
+            public bool Estado { get; set; }
         }
     }
 }
