@@ -66,6 +66,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
 
         public class BeneficioCaminoBrillanteModel{
 
+            public int Registro { get; set; }
             public string CodigoNivel { get; set; }
             public string CodigoBeneficio { get; set; }
             public string NombreBeneficio { get; set; }
@@ -80,6 +81,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                     return null;
                 }
             }
+            public int Orden { get; set; }
         }
     }
 }

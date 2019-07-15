@@ -320,6 +320,7 @@
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\CaminoBrillante\AdministrarCaminoBrillanteModel.cs" />
     <Compile Include="Models\ChatActivation.cs" />
     <Compile Include="Models\CaminoBrillante\CarruselCaminoBrillante.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
@@ -1467,11 +1468,14 @@
     <Content Include="Content\CaminoBrillante\css\estilos.css" />
     <Content Include="Content\CaminoBrillante\imgs\add-to-cart.svg" />
     <Content Include="Content\CaminoBrillante\imgs\add_to_cart2.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\bannerlogros.png" />
     <Content Include="Content\CaminoBrillante\imgs\bg-modal.png" />
     <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\corazon.png" />
     <Content Include="Content\CaminoBrillante\imgs\down.svg" />
     <Content Include="Content\CaminoBrillante\imgs\flag.svg" />
     <Content Include="Content\CaminoBrillante\imgs\icon-s.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\mobile-logros.svg" />
     <Content Include="Content\CaminoBrillante\imgs\up.svg" />
     <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Css\Button\style.css" />

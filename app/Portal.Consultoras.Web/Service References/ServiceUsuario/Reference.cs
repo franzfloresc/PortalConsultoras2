@@ -4587,6 +4587,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool AceptoContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivaNotificacionesWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5016,6 +5019,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string NombrePaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool NotificacionesWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NovedadBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5340,6 +5346,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.AceptoContratoField.Equals(value) != true)) {
                     this.AceptoContratoField = value;
                     this.RaisePropertyChanged("AceptoContrato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActivaNotificacionesWhatsapp {
+            get {
+                return this.ActivaNotificacionesWhatsappField;
+            }
+            set {
+                if ((this.ActivaNotificacionesWhatsappField.Equals(value) != true)) {
+                    this.ActivaNotificacionesWhatsappField = value;
+                    this.RaisePropertyChanged("ActivaNotificacionesWhatsapp");
                 }
             }
         }
@@ -7199,6 +7218,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombrePaisField, value) != true)) {
                     this.NombrePaisField = value;
                     this.RaisePropertyChanged("NombrePais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool NotificacionesWhatsapp {
+            get {
+                return this.NotificacionesWhatsappField;
+            }
+            set {
+                if ((this.NotificacionesWhatsappField.Equals(value) != true)) {
+                    this.NotificacionesWhatsappField = value;
+                    this.RaisePropertyChanged("NotificacionesWhatsapp");
                 }
             }
         }
@@ -11658,10 +11690,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IconoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreBeneficioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegistroField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -11713,6 +11754,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Icono {
             get {
                 return this.IconoField;
@@ -11734,6 +11788,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombreBeneficioField, value) != true)) {
                     this.NombreBeneficioField = value;
                     this.RaisePropertyChanged("NombreBeneficio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Orden {
+            get {
+                return this.OrdenField;
+            }
+            set {
+                if ((this.OrdenField.Equals(value) != true)) {
+                    this.OrdenField = value;
+                    this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Registro {
+            get {
+                return this.RegistroField;
+            }
+            set {
+                if ((this.RegistroField.Equals(value) != true)) {
+                    this.RegistroField = value;
+                    this.RaisePropertyChanged("Registro");
                 }
             }
         }
@@ -18179,6 +18259,24 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion", ReplyAction="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracionResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[]> GetCaminoBrillanteConfiguracionAsync(int paisID, string esApp);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNiveles", ReplyAction="http://tempuri.org/IUsuarioService/GetNivelesResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[] GetNiveles(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNiveles", ReplyAction="http://tempuri.org/IUsuarioService/GetNivelesResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]> GetNivelesAsync(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillanteResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[] GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillanteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[]> GetBeneficiosCaminoBrillanteAsync(int paisID, string codigoNivel);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillanteResponse")]
+        void InsBeneficioCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillanteResponse")]
+        System.Threading.Tasks.Task InsBeneficioCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
         int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
         
@@ -19267,6 +19365,30 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[]> GetCaminoBrillanteConfiguracionAsync(int paisID, string esApp) {
             return base.Channel.GetCaminoBrillanteConfiguracionAsync(paisID, esApp);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[] GetNiveles(int paisID) {
+            return base.Channel.GetNiveles(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]> GetNivelesAsync(int paisID) {
+            return base.Channel.GetNivelesAsync(paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[] GetBeneficiosCaminoBrillante(int paisID, string codigoNivel) {
+            return base.Channel.GetBeneficiosCaminoBrillante(paisID, codigoNivel);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[]> GetBeneficiosCaminoBrillanteAsync(int paisID, string codigoNivel) {
+            return base.Channel.GetBeneficiosCaminoBrillanteAsync(paisID, codigoNivel);
+        }
+        
+        public void InsBeneficioCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante entidad) {
+            base.Channel.InsBeneficioCaminoBrillante(paisId, entidad);
+        }
+        
+        public System.Threading.Tasks.Task InsBeneficioCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante entidad) {
+            return base.Channel.InsBeneficioCaminoBrillanteAsync(paisId, entidad);
         }
         
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2) {
