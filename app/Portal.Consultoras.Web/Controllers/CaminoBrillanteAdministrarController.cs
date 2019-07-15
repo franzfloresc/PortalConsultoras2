@@ -90,13 +90,13 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.CodigoBeneficio,
                                cell = new string[]
                                {
-                                   a.CodigoBeneficio,
+                                   a.CodigoBeneficio,                                   
                                    a.Registro.ToString(),
                                    a.NombreBeneficio,
                                    a.Descripcion,
                                    a.Orden.ToString(),
-                                   a.UrlIcono,
-                                   a.Estado.ToString()
+                                   a.FlagActivo,
+                                   a.UrlIcono,                                   
                                    //a.Orden.ToString(),
                                    //a.ImagenEstrategia,
                                    //a.OfertaID,

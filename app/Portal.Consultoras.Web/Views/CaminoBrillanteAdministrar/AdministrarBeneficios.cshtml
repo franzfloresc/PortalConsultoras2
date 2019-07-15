@@ -16,9 +16,24 @@
                 alert("Debe seleccionar el País, verifique.");
                 return false;
             }
-            $.ajaxSetup({ cache: false });
+            if ($("#ddlNivel").val() == "") {
+                alert("Debe seleccionar un Nivel, verifique.");
+                return false;
+            }
+            $.ajaxSetup({ cache: false });            
+            $("#divtxtnivel").hide();
+            $("#divddlnivel").show();
             var _ddlNivel = $("#ddlNivel").val();
             $("#ddlNivelModal").val(_ddlNivel);
+
+            /*** Limpiando ***/
+            $("#txtNombreBeneficioModal").val("");
+            $("#txtDescripcionModal").val("");
+            $("#txtordenModal").val();
+            $('#chkActivoModal').attr("checked", false);
+
+
+
             $("#chkNueva").attr("checked", false);
             $("#chkRecoProduc").attr("checked", false);
             $("#chkRecoPerfil").attr("checked", false);
@@ -176,15 +191,17 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             //colNames: ['TipoEstrategiaID', 'Código de Estrategia', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente', 'ImagenOfertaIndependiente', 'FlagValidarImagen', 'PesoMaximoImagen'],
-            colNames: ['Codigo Beneficio', 'Nro', 'Nombre Beneficio', 'Descripción', 'Orden', 'Icono', 'Opcion'],
+            colNames: ['Codigo Beneficio', 'Nro', 'Nombre Beneficio', 'Descripción', 'Orden', 'Activo', 'Icono', 'Opcion'],
             colModel: [
-                { name: 'CodigoBeneficio', index: 'CodigoBeneficio', width: 20, editable: true, resizable: false, hidden: true },
+                { name: 'CodigoBeneficio', index: 'CodigoBeneficio', editable: true, resizable: false, hidden: true },
                 { name: 'Registro', index: 'Registro', width: 20, editable: true, resizable: false },
                 { name: 'NombreBeneficio', index: 'NombreBeneficio', width: 230, editable: true, resizable: false},
-                { name: 'Descripcion', index: 'Descripcion', width: 230, editable: true, resizable: false},
-                { name: 'Orden', index: 'Orden', width: 35, editable: true, align: 'center', hidden: false, formatter: true },
+                { name: 'Descripcion', index: 'Descripcion', width: 160, editable: true, resizable: false},
+                { name: 'Orden', index: 'Orden', width: 35, editable: true, align: 'center', formatter: true },
+                { name: 'FlagActivo', index: 'FlagActivo', width: 40, editable: true, resizable: false, align: 'center' },
                 { name: 'UrlIcono', index: 'UrlIcono', width: 70, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'Opcion', index: 'Opcion', width: 70, editable: true, resizable: false, sortable: true, align: 'center', formatter: ShowActions },
+                { name: 'Opcion', index: 'Opcion', width: 70, editable: true, resizable: false, sortable: true, align: 'center', formatter: ShowActions }, 
+                
                 //{ name: 'OfertaID', index: 'OfertaID', width: 0, editable: true, resizable: false, hidden: true },
                 //{ name: 'FlagActivo', index: 'FlagActivo', width: 40, align: 'center', editable: true, resizable: false, formatter: ShowActions },
                 //{ name: 'FlagNueva', index: 'FlagNueva', width: 0, editable: true, resizable: false, hidden: true },
@@ -489,14 +506,21 @@
 
     $.jgrid.extend({
         //Editar: function (id, codigo, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente, flagValidarImagen, pesoMaximoImagen) {
-        Editar: function (CodigoBeneficio, nro, nombreBeneficio, descripcion, orden, urlIcono, opcion) {
+        Editar: function (CodigoBeneficio, nro, nombreBeneficio, descripcion, orden, flagActivo, urlIcono, opcion) {
             
             if (CodigoBeneficio) {
-                $("#hdCodigoNivel").val(CodigoBeneficio);
+                $("#divddlnivel").hide();
+                $("#divtxtnivel").show();
+                $("#txtPaisModal").val($("#ddlPais option:selected").html());                
+                $("#txtNivelModal").val($("#ddlNivel option:selected").html());
+                $("#txtNivelModal").attr('readonly', true);
                 $("#txtNombreBeneficioModal").val(nombreBeneficio);
                 $("#txtDescripcionModal").val(descripcion);
                 $("#txtordenModal").val(orden);
-                $('#chkActivoModal').attr("checked", (opcion == "1"))
+                $('#chkActivoModal').attr("checked", (flagActivo.toLowerCase() == "si" ? "1" : "0"));
+
+                $("#hdPais").val($("#ddlPais").val());
+                $("#hdCodigoNivel").val($("#ddlNivel").val());
                 //$("#txtPaisModal").val($("#ddlPais option:selected").html());
                 //$("#hdPais").val($("#ddlPais").val());
                 //$("#txCodigoOriginalModal").val(codigo)
@@ -653,9 +677,10 @@
 </div>
 <div id="DialogAdministracionTipoEstrategia" style="display: none;">
     @*<input type="hidden" id="hdPais" value="" />
-    <input type="hidden" id="hdofertas" value="" />
-    <input type="hidden" id="hdofertaid" value="0" />
-    <input type="hidden" id="hdTipoEstrategiaID" value="0" />*@
+        <input type="hidden" id="hdofertas" value="" />
+        <input type="hidden" id="hdofertaid" value="0" />
+        <input type="hidden" id="hdTipoEstrategiaID" value="0" />*@
+    <input type="hidden" id="hdPais" value="" />
     <input type="hidden" id="hdCodigoNivel" value="" />
     <div class="Content_modal">
         <div class="div-3">
@@ -663,15 +688,19 @@
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtPaisModal" readonly="readonly" />
             </div>
-            <div class="titA">Nivel:</div>
-            <div class="selectA borde_redondeado">
+
+            <div class="titB">Nivel:</div>
+            <div id="divtxtnivel" class="selectP2 borde_redondeado" style="display:none;">
+                <input type="text" id="txtNivelModal" />
+            </div>
+            <div id="divddlnivel" class="selectA borde_redondeado">
                 @Html.DropDownListFor(model => model.CodigoNivel, new SelectList(Model.listaNiveles, "CodigoNivel", "DescripcionNivel"), "-- Seleccionar --", new { id = "ddlNivelModal" })
             </div>
         </div>
         <div class="div-3">
             <div class="titB">Nombre Beneficio:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtNombreBeneficioModal" />
+            <div class="selectP2 borde_redondeado" style="width:535px">
+                <input type="text" id="txtNombreBeneficioModal" style="width:100%" />
             </div>
         </div>
         <div class="div-3">
@@ -735,7 +764,7 @@
                                         onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
                                         onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
                                     });
-                                    </script>
+                                </script>
                             </div>
                         </div>
                     </div>
