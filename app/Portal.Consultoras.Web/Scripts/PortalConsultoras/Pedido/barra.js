@@ -43,7 +43,7 @@ function MostrarBarra(datax, destino) {
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
         initCarruselPremios(dataBarra);
-        if (datax.data && datax.data.CUV) {            
+        if (datax.data && datax.data.CUV) {
             trySetPremioElectivo(datax.data.CUV);
         } else {
             savePedidoDetails(datax);
@@ -316,24 +316,24 @@ function MostrarBarra(datax, destino) {
         htmlTippintPoint = htmlTippintPoint
             .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
             .replace('{barra_tooltip}',
-            dataTP.ActiveTooltip ?
-                '<div class="tooltip_regalo_meta_tippingPoint">'
-                + '<div class="tooltip_producto_regalo_img">'
-                + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
-                + '</div>'
-                + '{barra_tooltip_descripcion}'
-                + '</div>' :
-                ''
+                dataTP.ActiveTooltip ?
+                    '<div class="tooltip_regalo_meta_tippingPoint">'
+                    + '<div class="tooltip_producto_regalo_img">'
+                    + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                    + '</div>'
+                    + '{barra_tooltip_descripcion}'
+                    + '</div>' :
+                    ''
             )
             .replace('{barra_monto}',
-            dataTP.ActiveMonto ?
-                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
-                ''
+                dataTP.ActiveMonto ?
+                    '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
+                    ''
             )
             .replace('{barra_tooltip_descripcion}',
-            dataTP.ActiveMonto ?
-                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
-                '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+                dataTP.ActiveMonto ?
+                    '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                    '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
             );
     }
 
@@ -400,6 +400,7 @@ function MostrarBarra(datax, destino) {
                 else {
                     if (caminoBrillante == "True") {
                         txtDscto = "";
+                        (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
                     } else {
                         txtDscto = "DSCTO";
                         txtDetalle = indPuntoLimite - 1 != ind ? "" :
@@ -2350,33 +2351,56 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                         }
 
+
                     }
 
                 }
                 else {
                     limite = dataBarra.ListaEscalaDescuento.length - 1;
 
+                    var mMinimo = dataBarra.ListaEscalaDescuento[0].MontoDesde;
+                    var adjuste = 1;
+                    if (mMinimo <= dataBarra.ListaEscalaDescuento[1].MontoDesde && mMinimo != 0) {
+                        adjuste = 0;
+                        limite = dataBarra.ListaEscalaDescuento.length;
+                    }
 
                     for (var i = 0; i < limite; i++) {
 
                         if (i == 0) {
-                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i + 1].MontoDesde;
+                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i + adjuste].MontoDesde;
                             var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
                             document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                            AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 10) + '%';
+                            AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
                             document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                         } else {
-                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[i + 1].MontoDesde;
+                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[i + adjuste].MontoDesde;
                             var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                             document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
 
-                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 4) + '%';
+                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%';
                             document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
                         }
 
+                        if (limite >= 6 && montoMaximo1 == 185000) {
+                            document.getElementById('punto_0').style.left = '2%';
+                            document.getElementById('punto_1').style.left = '15%';
+                            document.getElementById('punto_2').style.left = '21.8%';
+                            document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
+                            document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
+
+                        } else {
+                            document.getElementById('divBarraEspacioLimite').style.width = '16%';
+                            document.getElementById('barra_0').style.left = '16%';
+                            document.getElementById('punto_0').style.left = '2%';
+                            document.getElementById('punto_1').style.left = '15%';
+                            document.getElementById('punto_2').style.left = '21.8%';
+                            document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
+                            document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
+                        }
 
                     }
 
@@ -2539,6 +2563,12 @@ function tryLoadPedidoDetalle() {
     }
 }
 
+function FixPorcentajes(barra) {
+    var fixBarra = new Array();
+
+    return fixBarra;
+}
+
 function AgregarPremio(premio) {
 
     /*HD-3710 - 2_3_Popup elige tu regalo - Click en botón cambiar -  Web - Mobile*/
@@ -2609,10 +2639,13 @@ function ClosePopupRegaloElectivo(valor) {
 
 function ReordenarMontosBarra() {
     var barra = dataBarra.ListaEscalaDescuento;
+    var barraFix = new Array();
 
     var monto = 0;
-    if (IsoPais == 'CO')
-        monto = 250000;
+    if (IsoPais == 'CO') {
+        monto = 1000;
+        barraFix = FixPorcentajes(barra);
+    }
     else if (IsoPais == 'CR')
         monto = 10000;
     else if (IsoPais == 'CL')
@@ -2637,25 +2670,9 @@ function ReordenarMontosBarra() {
         if (diferencia1 <= monto && (diferencia2 <= monto && diferencia2 != 0)) {
 
             if (IsoPais == 'CO') {
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 - 1.3) + '%';
-
-                // 32% 
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 10) + '%';
-                if (document.getElementById('barra_' + (i - 1).toString()) != null) document.getElementById('barra_' + (i - 1).toString()).style.left = (document.getElementById('barra_' + (i - 1).toString()).style.left.substring(0, document.getElementById('barra_' + (i - 1).toString()).style.left.length - 1) * 1 + 12) + '%';
-
-                // 30%
-                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 + 8) + '%';
-                if (document.getElementById('barra_' + (i - 2).toString()) != null) document.getElementById('barra_' + (i - 2).toString()).style.left = (document.getElementById('barra_' + (i - 2).toString()).style.left.substring(0, document.getElementById('barra_' + (i - 2).toString()).style.left.length - 1) * 1 + 10) + '%';
-
-                // 28%
-                if (document.getElementById('punto_' + (i - 3).toString()) != null) document.getElementById('punto_' + (i - 3).toString()).style.left = (document.getElementById('punto_' + (i - 3).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 3).toString()).style.left.length - 1) * 1 + 8) + '%';
-                if (document.getElementById('barra_' + (i - 3).toString()) != null) document.getElementById('barra_' + (i - 3).toString()).style.left = (document.getElementById('barra_' + (i - 3).toString()).style.left.substring(0, document.getElementById('barra_' + (i - 3).toString()).style.left.length - 1) * 1 + 10) + '%';
-
-                // 25%
-                if (document.getElementById('punto_' + (i - 4).toString()) != null) document.getElementById('punto_' + (i - 4).toString()).style.left = (document.getElementById('punto_' + (i - 4).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 4).toString()).style.left.length - 1) * 1 + 5) + '%';
-                if (document.getElementById('barra_' + (i - 4).toString()) != null) document.getElementById('barra_' + (i - 4).toString()).style.left = (document.getElementById('barra_' + (i - 4).toString()).style.left.substring(0, document.getElementById('barra_' + (i - 4).toString()).style.left.length - 1) * 1 + 6) + '%';
-
-
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2.5) + '%';
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 2) + '%';
+                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%';
             }
             else if (IsoPais == 'CR') {
                 if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%';
