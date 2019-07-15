@@ -21,7 +21,6 @@ var CarruselAyuda = function () {
     var _obtenerSlideMostrar = function (slick, currentSlide, nextSlide) {
 
         var indexMostrar = nextSlide == undefined ? currentSlide : nextSlide;
-        //var indexActive = -1;
 
         var cantActive = $(slick.$slider).find('.slick-active').length;
         var indexCurrent = parseInt($(slick.$slider).find('.slick-current').attr("data-slick-index"));
@@ -56,13 +55,14 @@ var CarruselAyuda = function () {
         }
     };
 
-    var obtenerEstrategiaSlick = function (slick, currentSlide, nextSlide) {
+    var obtenerEstrategiaSlick = function (slick, currentSlide, nextSlide, origen) {
 
         var objMostrar = _obtenerSlideMostrar(slick, currentSlide, nextSlide);
         var item = objMostrar.SlideMostrar;
         var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
 
         if (estrategia === "") {
+            origen = origen || {};
             if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
                 estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
             }
@@ -71,15 +71,7 @@ var CarruselAyuda = function () {
         return estrategia || {};
     };
 
-    //var _obtenerPantalla = function (origen) {
-    //    var pagina = origen.Pagina;
-    //    var palanca = origen.Palanca;
-    //    var seccion = origen.Seccion;
-    //    return pagina;
-    //}
-
     var _eliminarDuplicadosArray = function (arr, comp) {
-        //emac5
         var unique = arr.map(function (e) {
             return e[comp];
         }).map(function (e, i, final) {
@@ -148,8 +140,7 @@ var CarruselAyuda = function () {
             };
 
             AnalyticsPortalModule.MarcaGenericaLista("", obj);
-
-            //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
+            
             var programNuevas = arrayItems.filter(function (pn) {
                 return pn.EsBannerProgNuevas == true;
             });
@@ -162,7 +153,6 @@ var CarruselAyuda = function () {
                     AnalyticsPortalModule.MarcaPromotionView(ConstantesModule.CodigoPalanca.DP, uniqueProgramNuevas, pos);
                 }
             }
-            //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
 
 
 
@@ -182,16 +172,7 @@ var CarruselAyuda = function () {
 
             var objMostrar = _obtenerSlideMostrar(slick, currentSlide, nextSlide);
 
-            //var item = objMostrar.SlideMostrar;
-            //var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
-
-            //if (estrategia === "") {
-            //    if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
-            //        estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
-            //    }
-            //}
-
-            var estrategia = obtenerEstrategiaSlick(slick, currentSlide, nextSlide);
+            var estrategia = obtenerEstrategiaSlick(slick, currentSlide, nextSlide, origen);
 
             estrategia = estrategia || "";
             if (estrategia != "") {
@@ -203,7 +184,7 @@ var CarruselAyuda = function () {
                     Direccion: objMostrar.Direccion
                 };
 
-                AnalyticsPortalModule.MarcaGenericaLista("", obj);//Analytics Change Generico
+                AnalyticsPortalModule.MarcaGenericaLista("", obj);
             }
 
         } catch (e) {
@@ -316,15 +297,13 @@ var CarruselAyuda = function () {
 
         $(slick.$list).attr('data-currentSlide', currentSlide);
     }
-
-    //Función que llama la la funcion de marcacion analytics cuando se visualiza el ultimo botón dorado de "ver más"
+    
     var _marcaAnalyticsViewVerMas = function (origen) {
         if (typeof AnalyticsPortalModule !== "undefined") {
             AnalyticsPortalModule.MarcaPromotionViewCarrusel(origen);
         }
     }
-
-    //HD-3473 EINCA Marcar Analytic, cuando se hace clic en el banner de duo perfecto
+    
     var marcaAnalycticCarruselProgramasNuevas = function (e, url) {
         try {
             var category = (isHome()) ? "Home - Dúo Perfecto" : "Pedido - Dúo Perfecto";

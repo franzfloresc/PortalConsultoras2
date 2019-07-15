@@ -84,6 +84,10 @@ namespace Portal.Consultoras.Common.OrigenPedidoWeb
             public const string AppMaquilladorPendienteDeAprobarProducto = "14";
             public const string CarruselUpselling = "15";
             public const string FichaUpselling = "16";
+            public const string CarruselCrossSelling = "18";
+            public const string FichaCrossSelling = "19";
+            public const string CarruselSugeridos = "20";
+            public const string FichaSugeridos = "21";
         }
 
         public const string IncorrectoDispositivo = "0";
