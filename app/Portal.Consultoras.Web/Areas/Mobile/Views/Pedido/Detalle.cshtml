@@ -389,7 +389,13 @@
         <span id="lblTotalResumen">
             Total :
         </span>
-
+         @*HD-4513*@
+        @if (ViewBag.PagoContado)
+        {
+        <span id="lblTotalPagoContado" style="padding-bottom:6px">
+            Total a Pagar:
+        </span>
+        }
         <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
         <input type="hidden" id="hdePieEscala" value="@pieEscala" />
         <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
@@ -402,6 +408,11 @@
     <div class="montos_resumen">
         <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;Unidad(es)</span>
         <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
+         @*HD-4513*@
+        @if (ViewBag.PagoContado)
+        {
+            <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-stppagototalResumen="">0.00</b></span>
+        }
         <span class="mi_ganancia"><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
     </div>
     <div class="contenedor_cupon" id="cupon-pedido-mobile" style="display: none;">
@@ -753,6 +764,32 @@
                     <span>{{SimboloMoneda}} <span data-pedidocondescuento="">{{FormatoTotalConDescuento}}</span></span>
                 </span>
             </div>
+                        @*HD-4513*@
+        @if (ViewBag.PagoContado){
+            <div class="ganancia-info first-color">
+                <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
+                <span class="ganancia-total first-color" data-stpdescuento>
+                </span>
+            </div>
+            <div class="ganancia-info first-color">
+                <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
+                <span class="ganancia-total first-color" data-stpflete>
+                    0.00
+                </span>
+            </div>  
+            <div class="ganancia-info first-color">
+                <span class="info_mis_descuentos">(+) Saldo Campaña Anterior:</span>
+                <span class="ganancia-total first-color" data-stpdeuda>
+                    0.00
+                </span>
+            </div>  
+            <div class="ganancia-info total_a_pagar_wrapper pb-2">
+                <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
+                <span class="ganancia-total first-color" data-stppagototal>
+                    0.00
+                </span>
+            </div>
+        }
             @*@if (!Model.IsShowGananciaConsultora)
             {
                 <div class="ganancia-info">

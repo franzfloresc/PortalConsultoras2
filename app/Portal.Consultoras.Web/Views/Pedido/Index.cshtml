@@ -457,6 +457,34 @@
 
                                             </span>
                                         </div>
+                                        @*HD-4513*@
+                                        @if (ViewBag.PagoContado){
+                                            <div class="ganancia-info first-color">
+                                                <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
+                                                <span class="ganancia-total first-color" data-stpdescuento>
+                                                       0.00
+                                                </span>
+                                            </div>
+                                            <div class="ganancia-info first-color">
+                                                <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
+                                                <span class="ganancia-total first-color" data-stpflete>
+                                                    0.00
+                                                </span>
+                                            </div>  
+                                            <div class="ganancia-info first-color">
+                                                <span class="info_mis_descuentos">(+) Saldo Campaña Anterior:</span>
+                                                <span class="ganancia-total first-color" data-stpdeuda>
+                                                    0.00
+                                                </span>
+                                            </div>  
+                                            <div class="ganancia-info total_a_pagar_wrapper pb-2">
+                                                <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
+                                                <span class="ganancia-total first-color" data-stppagototal>
+                                                    0.00
+                                                </span>
+                                            </div>
+                                        }
+
                                         @*@if (!Model.IsShowGananciaConsultora)
                                             {
                                                 <div class="ganancia-info">

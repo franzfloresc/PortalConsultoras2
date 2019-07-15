@@ -95,6 +95,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\ServiceTotalPagarSiccEC\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="DAActivarPremioNuevas.cs" />
     <Compile Include="DAAfiliaClienteConsultora.cs" />
     <Compile Include="DAAsesoraOnline.cs" />
@@ -330,6 +335,13 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServiceDirecciondeEntrega\ProcesoMAEActualizarDireccionEntregaWebService.wsdl" />
+    <None Include="Connected Services\ServiceTotalPagarSiccEC\Portal.Consultoras.Data.ServiceTotalPagarSiccEC.ejecutarProcesoPEDPedidoRechazadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceTotalPagarSiccEC\Portal.Consultoras.Data.ServiceTotalPagarSiccEC.ProcesoPEDPedidoRechazadoWebServiceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceTotalPagarSiccEC\ProcesoPEDPedidoRechazadoWebService1.wsdl" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -410,6 +422,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ServiceActualizarFlagBoletaImpresa\" />
     <WCFMetadataStorage Include="Connected Services\ServiceDirecciondeEntrega\" />
+    <WCFMetadataStorage Include="Connected Services\ServiceTotalPagarSiccEC\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceDirecciondeEntrega\configuration91.svcinfo" />
@@ -431,6 +444,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceActualizarFlagBoletaImpresa\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceTotalPagarSiccEC\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceTotalPagarSiccEC\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceTotalPagarSiccEC\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -166,6 +166,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public decimal? GananciaWeb { get; set; }
         public decimal? GananciaOtros { get; set; }
 
+        /*HD-4315*/
+        public string STPDescuento { get; set; }
+        public string STPFlete { get; set; }
+        public string STPDeuda { get; set; }
+        public string STPPagoTotal { get; set; }
+
         public string FormatoMontoAhorroCatalogo
         {
             get

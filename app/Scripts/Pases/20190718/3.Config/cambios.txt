@@ -1,3 +1,7 @@
 1.PortalConsultoras2 Web
 	Actualizar:
 		<add key="URL_LIDER" value="https://ffvvtest.somosbelcorp.com/IngresoSistema/IngresoExterno"/> (Diferente en PRD)
+
+2.PortalConsultorasWCF2
+	Agregar:
+		<add key="ServicioTotalPagarSicc_EC" value="http://pelnx2041:7003/ssicceclbpdp/services/ProcesoPEDPedidoRechazadoWebService?wsdl"/>
