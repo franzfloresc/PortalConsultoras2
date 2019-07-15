@@ -2301,7 +2301,7 @@ div .ficha__producto__precio__normal {
 
 .bglogros {
     width: 100%;
-    max-width: 1250px;
+    max-width: 1000px;
     margin: 35px auto;
 }
 
@@ -2316,7 +2316,7 @@ div .ficha__producto__precio__normal {
 
 .right-banner {
     position: absolute;
-    right: 18%;
+    right: 4%;
     top: 0;
     height: 158px;
     bottom: 0;
@@ -2343,7 +2343,7 @@ div .ficha__producto__precio__normal {
         color: #fff !important;
         border-radius: 5px;
         border: 0;
-        padding: 12px 20px;
+        padding: 10px 20px;
         max-width: 175px;
         text-align: center;
         margin-top: 10px;
@@ -2384,7 +2384,7 @@ div .ficha__producto__precio__normal {
     width: 20px;
     height: 197px;
 }
-.trunktext {
+.trunktext, .ficha__producto__descrip__nom {
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
@@ -3190,9 +3190,9 @@ div .ficha__producto__precio__normal {
         text-indent: 19px
     }
 
-    .ficha__producto__descrip__nom {
+    /*.ficha__producto__descrip__nom {
         min-height: 47px !important
-    }
+    }*/
 
     .ficha__producto__precio {
         min-height: inherit
@@ -3473,18 +3473,18 @@ div .ficha__producto__precio__normal {
         }
 
         .valor-final {
-            right: -10px;
+            right: -8px;
             top: -6px;
             width: 78px;
         }
 
             .valor-final p {
-                font-size: 14px;
+                font-size: 13px;
                 text-align: left;
             }
 
             .valor-final span {
-                font-size: 12px;
+                font-size: 11px;
                 text-align: left;
             }
 
@@ -3498,7 +3498,7 @@ div .ficha__producto__precio__normal {
         }
         .flagimg {
             width: 18px;
-            right: -25px;
+            right: -23px;
             top: -10px;
         }
     }
@@ -3690,6 +3690,6 @@ div .ficha__producto__precio__normal {
         }
 
         .right-banner p {
-            font-size: 17px;
+            font-size: 16px;
         }
     }
