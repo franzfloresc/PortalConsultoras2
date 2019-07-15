@@ -144,7 +144,8 @@ var AnalyticsPortalModule = (function () {
         IdBannerGanadorasVerMas: "000123",
         IdBannerArmaTuPack: "000124",
         // Fin - Analytics Ofertas
-        IdBennerDuoPerfecto: "347301"
+        IdBennerDuoPerfecto: "347301",
+        IdBannerPromocionBuscador: "23456"
     };
 
     var _origenPedidoWebEstructura = {
@@ -1242,6 +1243,27 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    var marcaPromotionViewBuscador = function (position, name) {
+        try {
+            dataLayer.push({
+                'event': _evento.promotionView,
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': _constantes.IdBannerPromocionBuscador,
+                                'name': name,
+                                'position': 'Buscador - ' + position,
+                                'creative': 'Banner Promoción'
+                            }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Evento Promotion View
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -1318,6 +1340,27 @@ var AnalyticsPortalModule = (function () {
 
         } catch (e) {
             document.location = url;
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    var marcaPromotionClickBuscador = function (position, name) {
+        try {
+            dataLayer.push({
+                'event': _evento.promotionClick,
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': _constantes.IdBannerPromocionBuscador,
+                                'name': name,
+                                'position': 'Buscador - ' + position,
+                                'creative': 'Banner Promoción'
+                            }]
+                    }
+                }
+            });
+        } catch (e) {
             console.log(_texto.excepcion + e);
         }
     }
@@ -2784,6 +2827,7 @@ var AnalyticsPortalModule = (function () {
         MarcaPromotionView: marcaPromotionView,
         MarcaPromotionViewCarrusel: marcaPromotionViewCarrusel,
         MarcaPromotionViewArmaTuPack: marcaPromotionViewArmaTuPack,
+        MarcaPromotionViewBuscador: marcaPromotionViewBuscador,
         // Fin - Analytics Evento Promotion View
 
         // Ini - Metodos Iniciales
@@ -2893,6 +2937,7 @@ var AnalyticsPortalModule = (function () {
         MarcaFichaResumidaClickDetalleCliente: marcaFichaResumidaClickDetalleCliente,
         MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar,
         MarcaPromotionClickArmaTuPack: marcaPromotionClickArmaTuPack,
+        MarcaPromotionClickBuscador: marcaPromotionClickBuscador,
         MarcaEligeloClickArmaTuPack: marcaEligeloClickArmaTuPack,
         MarcaEliminaClickArmaTuPack: marcaEliminaClickArmaTuPack,
         //MarcarAddCarArmaTuPack: marcarAddCarArmaTuPack,
