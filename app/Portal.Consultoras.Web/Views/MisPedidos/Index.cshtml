@@ -217,6 +217,7 @@
                         @*<div class="pack_documentario texto_gris_cabeceraMisPedidos">Paq. Document.</div>*@
                         <div class="pack_documentario texto_gris_cabeceraMisPedidos">Paquete documentario</div>
                         <div class="estado_detalles texto_gris_cabeceraMisPedidos">Ver estado / detalle</div>
+                        <div class="estado_encuesta_satisfaccion texto_gris_cabeceraMisPedidos">Satisfacción</div>
                     </div>
                     <div class="linea_separadora" style="margin-top:-1px"></div>
                     @foreach (var item in Model.ListaFacturados)
@@ -274,6 +275,14 @@
                     </a>
                 </span>
             </div>
+        </div>
+        <div class="text-center estado_encuesta_satisfaccion">
+            <a href="#" title="Estado de encuesta de satisfacción" class="d-inline-block estado_encuesta_satisfaccion_enlace estado">
+                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/encuesta_pendiente.svg")" alt="Encuesta de satisfacción pendiente" />
+            </a>
+            <a href="#" title="Estado de encuesta de satisfacción" class="d-inline-block estado_encuesta_satisfaccion_enlace encuesta_satisfaccion_enlace--realizado" style="display:none;">
+                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/encuesta_realizada.svg")" alt="Encuesta de satisfacción realizada" />
+            </a>
         </div>
     </div>
 }

@@ -1568,6 +1568,8 @@
     <Content Include="Content\Images\btn-back.svg" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\bueno.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\encuesta_pendiente.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\encuesta_realizada.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\excelente.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\mal.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\pesimo.svg" />
