@@ -2372,7 +2372,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
                             document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                            AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
+                            AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 10) + '%';
                             document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                         } else {
@@ -2389,17 +2389,21 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             document.getElementById('punto_0').style.left = '2%';
                             document.getElementById('punto_1').style.left = '15%';
                             document.getElementById('punto_2').style.left = '21.8%';
+                            document.getElementById('punto_5').style.left = '94%';
                             document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
                             document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
 
+
                         } else {
-                            document.getElementById('divBarraEspacioLimite').style.width = '16%';
-                            document.getElementById('barra_0').style.left = '16%';
-                            document.getElementById('punto_0').style.left = '2%';
-                            document.getElementById('punto_1').style.left = '15%';
-                            document.getElementById('punto_2').style.left = '21.8%';
-                            document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
-                            document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
+                            if (limite >= 6 && montoMaximo1 == 195000) {
+                                document.getElementById('divBarraEspacioLimite').style.width = '16%';
+                                document.getElementById('barra_0').style.left = '16%';
+                                document.getElementById('punto_0').style.left = '2%';
+                                document.getElementById('punto_1').style.left = '15%';
+                                document.getElementById('punto_2').style.left = '21.8%';
+                                document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
+                                document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
+                            }
                         }
 
                     }
