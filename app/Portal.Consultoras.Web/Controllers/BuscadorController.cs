@@ -21,11 +21,19 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<JsonResult> BusquedaProductos(BuscadorModel model)
         {
             BuscadorYFiltrosModel productosModel;
-            var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
-
+            
             try
             {
                 var CodigoTipoOfertaPremio = base._configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoTipoOfertaPremio);
+
+                var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
+
+                var buscadorPromocionEstaActivo = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                    userData.PaisID,
+                    ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                    ConsTablaLogica.FlagFuncional.Promociones,
+                    true
+                );
 
                 await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
                 productosModel = await _buscadorYFiltrosProvider.GetBuscador(model);
@@ -38,22 +46,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.IsHome, 
                     false,
                     SessionManager.GetRevistaDigital().EsSuscrita,
-                    flagLaMasGanadoras);
-
-                var buscadorPromocionEstaActivo = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
-                    userData.PaisID,
-                    ConsTablaLogica.FlagFuncional.TablaLogicaId,
-                    ConsTablaLogica.FlagFuncional.PromocionesBuscador,
-                    true
-                );
-                if (buscadorPromocionEstaActivo)
-                {
-                    foreach (var producto in productosModel.productos)
-                    {
-                        if(producto.CodigoTipoOferta != "")
-                            producto.TienePremio = CodigoTipoOfertaPremio.Contains(producto.CodigoTipoOferta);
-                    }
-                }
+                    flagLaMasGanadoras,
+                    buscadorPromocionEstaActivo,
+                    CodigoTipoOfertaPremio);
             }
             catch (Exception ex)
             {

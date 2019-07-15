@@ -77,7 +77,6 @@ var FichaVerDetalle = (function () {
             return url;
         }
 
-        //origenPedidoWeb = origenPedidoWeb || -1;
         esUrl = esUrl === undefined || esUrl;
         if (esUrl) {
             url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
@@ -123,12 +122,6 @@ var FichaVerDetalle = (function () {
                         url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
                 }
                 break;
-            //case ConstantesModule.TipoEstrategia.PackAltoDesembolso:
-            //    url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
-            //    break;
-            //case ConstantesModule.TipoEstrategia.RevistaDigital:
-            //    url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
-            //    break;
             case ConstantesModule.TipoEstrategia.LosMasVendidos:
                 url += ConstantesModule.TipoEstrategiaTexto.LosMasVendidos;
                 break;

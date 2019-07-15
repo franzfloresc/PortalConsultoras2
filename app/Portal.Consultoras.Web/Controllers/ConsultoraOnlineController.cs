@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Pedido;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -1143,10 +1142,7 @@ namespace Portal.Consultoras.Web.Controllers
                         default:
                             break;
                     }
-
-
-                    double totalPedido = 0;
-
+                    
                     String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
                                            userData.PrimerApellido + " - " + medio;
                     StringBuilder mensajecliente = new StringBuilder();

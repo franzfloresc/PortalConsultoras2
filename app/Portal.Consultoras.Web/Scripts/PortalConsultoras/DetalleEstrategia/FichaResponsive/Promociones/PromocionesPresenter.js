@@ -11,16 +11,11 @@
         if (typeof value === "undefined") {
             return _estrategiaInstance;
         } else if (value !== null) {
+            value.EsPromocion || false;
             value.MostrarPromociones || false;
-            value.Promocion = value.Promocion || null;
-            //
-            value.Condiciones = value.Condiciones || [];
-            value.lista = value.Condiciones;
-            //
-            if (value.Condiciones.length > 0) {
-                value.Promocion.Condiciones = JSON.parse(JSON.stringify(value.Condiciones));
-            }
-            
+            value.Promocion = value.Promocion || {};
+            value.Promocion.Condiciones = value.Promocion.Condiciones || [];
+            value.Promocion.lista = value.Promocion.Condiciones;
             //
             _estrategiaInstance = value;
         }
@@ -48,7 +43,7 @@
 
         _config.promocionesView.showModalPromociones();
         _config.promocionesView.showConditions(estrategia);
-        _config.promocionesView.showPromotion(estrategia.Promocion);
+        _config.promocionesView.showPromotion(estrategia);
 
         return true;
     };

@@ -556,6 +556,12 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 151;
         }
+        
+        public static class CierreSession
+        {
+            public const int TablaLogicaId = 153;
+            public const short CierreSessionValidado = 15301;
+        }
 
         public static class PilotoCatalogoDigital
         {
@@ -615,6 +621,11 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteFiltro = 174;
             public const short CaminoBrillanteOrden = 175;
             public const short CaminoBrillanteConfigurar = 176;
+        }
+
+        public static class MsjPopupBloqueadas
+        {
+            public const int TablaLogicaId = 230;
         }
 
         public static class AdministradorHistoria
