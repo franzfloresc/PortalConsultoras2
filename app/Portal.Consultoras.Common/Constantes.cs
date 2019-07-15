@@ -2832,6 +2832,7 @@ namespace Portal.Consultoras.Common
                     public const string RECURSO = "RECURSO";
                     public const string MENSAJE = "MENSAJE";
                     public const string MENSAJE_OPTIN = "MENSAJE_OPTIN";
+                    public const string FROM = "FROM";
                 }
             }
 
