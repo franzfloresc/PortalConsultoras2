@@ -17,11 +17,10 @@ namespace Portal.Consultoras.Data.Encuesta
 
         }
 
-        public IDataReader ObtenerDataEncuesta(int encuestaId)
+        public IDataReader ObtenerDataEncuesta(string codigoConsultora)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarDataConfigEncuesta");
-            Context.Database.AddInParameter(command, "@EncuestaId", DbType.Int32, encuestaId);
-
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerDataEncuesta");
+            Context.Database.AddInParameter(command, "CodigoConsultora", DbType.String, codigoConsultora);
             return Context.ExecuteReader(command);
         }
     }

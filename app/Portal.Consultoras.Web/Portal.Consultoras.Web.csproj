@@ -324,6 +324,13 @@
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
+    <Compile Include="Models\Encuesta\EntityBaseModel.cs" />
+    <Compile Include="Models\Encuesta\EncuestaModel.cs" />
+    <Compile Include="Models\Encuesta\EncuestaCalificacionModel.cs" />
+    <Compile Include="Models\Encuesta\EncuestaMotivoModel.cs" />
+    <Compile Include="Models\Encuesta\EncuestaResultadoModel.cs" />
+    <Compile Include="Models\Encuesta\EncuestaResultadoDetalle.cs" />
+    <Compile Include="Models\Encuesta\DataConfigEncuestaModel.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\CDRProductoRespuestaServicioModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
@@ -873,6 +880,7 @@
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\ConsultaProlProvider.cs" />
     <Compile Include="Providers\ConsultoraOnlineProvider.cs" />
+    <Compile Include="Providers\EncuestaProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
@@ -939,6 +947,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\ServiceContenido\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceEncuesta\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -4782,6 +4795,12 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
+    <None Include="Service References\ServiceEncuesta\configuration91.svcinfo" />
+    <None Include="Service References\ServiceEncuesta\configuration.svcinfo" />
+    <None Include="Service References\ServiceEncuesta\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Views\Shared\VistaParcialResponisve\_MenuContenedorResponsive.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
@@ -4920,6 +4939,16 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceContenido\ContenidoService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceEncuesta\EncuestaService.wsdl" />
+    <None Include="Service References\ServiceEncuesta\EncuestaService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceEncuesta\EncuestaService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceEncuesta\EncuestaService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceODS\ODSService.wsdl" />
@@ -6400,6 +6429,7 @@
     <WCFMetadataStorage Include="Service References\ServiceCliente\" />
     <WCFMetadataStorage Include="Service References\ServiceComunidad\" />
     <WCFMetadataStorage Include="Service References\ServiceContenido\" />
+    <WCFMetadataStorage Include="Service References\ServiceEncuesta\" />
     <WCFMetadataStorage Include="Service References\ServiceEvaluacionCrediticia\" />
     <WCFMetadataStorage Include="Service References\ServiceODS\" />
     <WCFMetadataStorage Include="Service References\ServiceOferta\" />

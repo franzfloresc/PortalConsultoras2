@@ -6,18 +6,18 @@ using System.Collections.Generic;
 namespace Portal.Consultoras.Service
 {
 
-    public class EncuetaService : IEncuestaService 
+    public class EncuestaService : IEncuestaService 
     {
         private readonly BLEncuesta bLEncuesta;
-        public EncuetaService()
+        public EncuestaService()
         {
             if (bLEncuesta == null)
                 bLEncuesta = new BLEncuesta();
 
         }
-        public List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId, int encuestaId)
+        public List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId,string codigoConsultora)
         {
-            return bLEncuesta.ObtenerDataEncuesta(paisId, encuestaId);
+            return bLEncuesta.ObtenerDataEncuesta(paisId,codigoConsultora);
         }
     }
 

@@ -17,12 +17,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
         private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
+        private readonly EncuestaProvider _encuestaProvider;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
             _caminoBrillanteProvider = new CaminoBrillanteProvider();
+            _encuestaProvider = new EncuestaProvider();
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -31,6 +33,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new BienvenidaModel();
             try
             {
+                var data = _encuestaProvider.ObtenerEncuesta(userData.PaisID);
+
+
                 if (userData.RolID != Constantes.Rol.Consultora)
                     if (userData.RolID == 0)
                         return RedirectToAction("LogOut", "Login");

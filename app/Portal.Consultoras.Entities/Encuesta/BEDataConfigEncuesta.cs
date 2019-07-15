@@ -1,17 +1,27 @@
 ﻿using Portal.Consultoras.Common;
 using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Encuesta
 {
+    [DataContract]
     public class BEDataConfigEncuesta
     {
+        [DataMember]
         public int EncuestaId { get; set; }
+        [DataMember]
         public string NombreEncuesta { get; set; }
+        [DataMember]
         public int CalificacionId { get; set; }
+        [DataMember]
         public string Calificacion { get; set; }
+        [DataMember]
         public int TipoCalificacion { get; set; }
+        [DataMember]
         public int MotivoId { get; set; }
+        [DataMember]
         public int TipoMotivo { get; set; }
+        [DataMember]
         public string Motivo { get; set; }
 
         public BEDataConfigEncuesta(IDataRecord row)

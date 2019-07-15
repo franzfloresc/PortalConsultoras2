@@ -2,13 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Portal.Consultoras.ServiceContracts
 {
+    [ServiceContract]
     public interface IEncuestaService
     {
-        List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId, int encuestaId);
+        [OperationContract]
+        List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId,string codigoConsultora);
     }
 }

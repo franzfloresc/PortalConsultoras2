@@ -17,6 +17,7 @@ using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
+using Portal.Consultoras.Web.Models.Encuesta;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -531,5 +532,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetConfiguracionCaminoBrillante(List<BEConfiguracionCaminoBrillante> val);
         List<BEConfiguracionCaminoBrillante> GetConfiguracionCaminoBrillante();
+
+        void SetDataConfigEncuesta(List<DataConfigEncuestaModel> dataConfigEncuesta);
+        List<DataConfigEncuestaModel> GetDataConfigEncuesta();
     }
 }

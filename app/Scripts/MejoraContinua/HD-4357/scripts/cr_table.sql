@@ -10,10 +10,7 @@ DetalleEncunestaResultado
 
 */
 
---USE BelcorpPeru_MC
---go
-
-use Demo01
+USE BelcorpPeru_MC
 go
 
 IF EXISTS(SELECT * FROM sys.tables WHERE name = N'EncuestaResultadoDetalle' and schema_id = 1)

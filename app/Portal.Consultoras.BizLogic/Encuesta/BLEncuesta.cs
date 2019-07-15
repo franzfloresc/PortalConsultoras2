@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic.Encuesta
 {
-    public class BLEncuesta : IEncuestaBusinessLogic
+    public class BLEncuesta
     {
-        public List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId, int encuestaId)
+        public List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId,string codigoConsultora)
         {
             List<BEDataConfigEncuesta> listaDataConfigEncuesta = new List<BEDataConfigEncuesta>();
-            using (IDataReader reader = new DAEncuesta(paisId).ObtenerDataEncuesta(encuestaId))
+            using (IDataReader reader = new DAEncuesta(paisId).ObtenerDataEncuesta(codigoConsultora))
             {
                 while (reader.Read())
                 {
@@ -24,10 +24,5 @@ namespace Portal.Consultoras.BizLogic.Encuesta
             }
             return listaDataConfigEncuesta;
         }
-    }
-
-    public interface IEncuestaBusinessLogic
-    {
-        List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId, int encuestaId);
     }
 }
