@@ -11,7 +11,7 @@ var ancho = 681;
 var correoRecuperar = "";
 var nroIntentosCo = 0;
 var nroIntentosSms = 0;
-var t; //Temporisador sms.
+var t;
 var tipoOpcion = 0;
 var procesoSms = false;
 var procesoEmail = false;
@@ -87,13 +87,7 @@ $(document).ready(function () {
     $("#ddlPais").change(function () {
         imgISO = $("#ddlPais").val();
         analytics.invocarAnalyticsByCodigoIso(imgISO);
-
-        if (imgISO == "PE" || imgISO == "CO") {
-            $("#RecuadroComunidad").hide();
-        } else {
-            $("#RecuadroComunidad").show();
-        }
-
+        $("#RecuadroComunidad").hide();
         if (imgISO == "MX") {
             $("#AvisoASP").show();
         } else {
@@ -674,7 +668,7 @@ function AbrirMensajeLogin(tipo, close) {
     }
     if ($(".DropDown").val() == "00") return;
     if (tipo == 1) {
-        //val_Usuario = !val_Usuario;
+
         switch ($(".DropDown").val()) {
             case "PE": $('.alerta_red_peru_user').toggleClass("alerta_red_block"); break;
             case "BO": $('.alerta_red_bolivia_user').toggleClass("alerta_red_block"); break;
@@ -692,7 +686,7 @@ function AbrirMensajeLogin(tipo, close) {
         }
     }
     else {
-        //val_Password = !val_Password;
+
         switch ($(".DropDown").val()) {
             case "PE": $('.alerta_red_peru_clave').toggleClass("alerta_red_block"); break;
             case "BO": $('.alerta_red_bolivia_clave').toggleClass("alerta_red_block"); break;
@@ -869,10 +863,8 @@ function login2() {
         url: '/Login/Login',
         data: postData,
         dataType: 'json',
-        //contentType: 'application/json; charset=utf-8',
         success: function (response) {
-
-            //var resul = "";
+            
             if (response.data != null) {
                 analytics.invocarCompleteRegistrationPixel();
 
@@ -1054,8 +1046,6 @@ function RecuperarContrasenia() {
                 $("#hddHabilitarChatBot").val(response.habilitarChatBot);
 
                 OcultarContenidoPopup();
-                //var nroCelular = $.trim(datos.Celular);
-                //var email = $.trim(datos.Correo);
                 var primerNombre = $.trim(datos.PrimerNombre);
 
                 var tituloPopup = "CAMBIO DE <b>CONTRASEÑA</b>"

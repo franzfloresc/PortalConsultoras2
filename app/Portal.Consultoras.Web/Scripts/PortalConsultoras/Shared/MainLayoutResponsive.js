@@ -6,7 +6,8 @@
         enlaceConSubmenuMobile: ".menu__link--conSubmenuMobile",
         itemFooter: ".layout__footer--mobile .footer__item__title",
         idUrlContactanos: "#urlContactanos",
-        belcorpResponde: "·aBelcorpResponde"
+        belcorpResponde: "·aBelcorpResponde",
+        btnChatMessenger: ".btn_chat_messenger"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches
@@ -18,6 +19,8 @@
                     left: 0 + "%"
                 },
                 150);
+            $(_elements.btnChatMessenger).css('z-index', '999');
+
         },
         CerrarMenuMobile: function(e) {
             e.preventDefault();
@@ -26,6 +29,7 @@
                 },
                 150);
             $(_elements.enlaceConSubmenuMobile).next().slideUp(80);
+            $(_elements.btnChatMessenger).css('z-index', '');
         },
         AbrirSubmenuMobile: function(e) {
             e.preventDefault();
