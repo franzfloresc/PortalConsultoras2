@@ -39,7 +39,7 @@ $(document).ready(function () {
     $("#ddlCampania").on("change", function () {
         $("#txtCantidad").val("1");
         $("#divMotivo").html("");
-        $(reclamo.form.resultadosBusquedaCuv).empty(); //HD-7303 EINCA
+        $(reclamo.form.resultadosBusquedaCuv).empty();
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
         $(reclamo.form.txtCuv).val("");
         if ($(this).val() == "0") {
@@ -62,7 +62,7 @@ $(document).ready(function () {
         $("#divMotivo").html("");
         $("#txtCantidad").val("1");
         $(reclamo.form.txtCuv).val("");
-        $(reclamo.form.resultadosBusquedaCuv).empty(); //HD-7303 EINCA
+        $(reclamo.form.resultadosBusquedaCuv).empty();
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
         if ($(this).val() == "0") {
             $("#txtPedidoID").val("");
@@ -158,8 +158,6 @@ $(document).ready(function () {
         }
     }).on("keyup", function () {
         if ($(this).val().length === 0) {
-            //$(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
-            //$(reclamo.form.resultadosBusquedaCuv).fadeOut(100);
             $(".resultado_busqueda_por_cuv").fadeIn(100);
         } else {
             $(reclamo.form.resultadosBusquedaCuv).fadeIn(100);
@@ -178,10 +176,7 @@ $(document).ready(function () {
             alert_msg(mensajeGestionCdrInhabilitada);
             return false;
         }
-        //if (!($("#ddlCampania").val() > 0)) {
-        //    alert_msg(mensajeCdrFueraDeFechaCompleto);
-        //    return false;
-        //}
+
         $("#hdfCUVDescripcion").val("");
         $("#txtCantidad").val("1");
         $("#divMotivo").html('');
@@ -1454,8 +1449,6 @@ function SeleccionarContenido(control) {
     control.select();
 }
 
-
-//HD-3703 EINCA
 function EscogerSolucion(opcion, event) {
     var tagCheck = $("#divOperacion input[type=checkbox]");
     var tagDivInfo = $('#infoOpcionesDeCambio');
@@ -1535,7 +1528,6 @@ function SetMontoCampaniaTotal() {
     $("#spnNumeroCampaniaReclamo").html(numeroCampania);
 }
 
-//HD-3703 EINCA
 function AgregarODisminuirCantidad(event, opcion) {
     if (opcion === 1) {
         EstrategiaAgregarModule.AdicionarCantidad(event);
@@ -1545,13 +1537,12 @@ function AgregarODisminuirCantidad(event, opcion) {
     }
     var precio = $("#hdCuvPrecio2").val() == "" ? 0 : parseFloat($("#hdCuvPrecio2").val());
     var cantidad = parseInt($("#txtCantidad2").val());
-    cantidad = cantidad == 99 ? 99 : cantidad; //+ 1;
+    cantidad = cantidad == 99 ? 99 : cantidad;
     var importeTotal = precio * cantidad;
     $("#hdImporteTotal2").val(importeTotal);
     $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
 }
 
-//HD-3703 EINCA
 function IrAFinalizar() {
     var fnPreValidacion = PreValidacionIrFinalizar();
     if (fnPreValidacion.result) {
@@ -1631,7 +1622,6 @@ function PreValidacionIrFinalizar() {
     return { result: true, id: id, };
 }
 
-//HD-3703 EINCA 
 function EliminarDetalle(el) {
     var pedidodetalleid = $.trim($(el).attr("data-pedidodetalleid"));
     var grupoid = $.trim($(el).attr("data-detalle-grupoid"));

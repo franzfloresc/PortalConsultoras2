@@ -10,7 +10,6 @@ var listaLAN = listaLAN || "LANLista";
 
 var CONS_TIPO_PRESENTACION = {
     CarruselSimple: 1,
-    //CarruselPrevisuales: 2,
     SimpleCentrado: 3,
     Banners: 4,
     ShowRoom: 5,
@@ -31,7 +30,7 @@ var CONS_CODIGO_SECCION = {
     HV: "HV",
     MG: 'MG',
     ATP: 'ATP',
-    DP: 'DP' //HD-3473 EINCA 
+    DP: 'DP'
 };
 
 var listaSeccion = {};
@@ -126,7 +125,7 @@ function SeccionCargarProductos(objConsulta) {
         $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
-    //HD-3473 EINCA 
+
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.DP) {
         AnalyticsPortalModule.MarcaPromotionViewBanner('Contenedor - Inicio');
     }
@@ -360,7 +359,6 @@ function SeccionMostrarProductos(data) {
                 .replace('#PrecioTotal', variablesPortal.SimboloMoneda + " " + data.lista[0].PrecioVenta);
 
             pSubtitulo.html(subTitulo);
-            //btnRedirect.attr('data-cuv', data.lista[0].CUV2);
 
             if (data.estaEnPedido) {
                 btnRedirect.attr('data-popup', true);
@@ -371,9 +369,8 @@ function SeccionMostrarProductos(data) {
                 btnRedirect.html(btnRedirect.data('crea'));
             }
             $('#' + data.Seccion.Codigo).find('.seccion-content-contenedor').fadeIn();
-            //Analytics ATP
+
             if (!(typeof AnalyticsPortalModule === 'undefined'))
-            //data.estaEnPedido = false is new and true is modified
             {
                 var codigoubigeoportal = $('#' + data.Seccion.Codigo).attr('data-codigoubigeoportal');
                 AnalyticsPortalModule.MarcaPromotionViewArmaTuPack(codigoubigeoportal, data.lista[0], data.estaEnPedido);

@@ -42,6 +42,8 @@ $(document).ready(function () {
                 $('body').on('click', '#CerrarPopupUbicacionDireccionEntrega', me.Eventos.CerrarPopupUbicacionDireccionEntrega);
                 $('body').on('click', '#btnConfirmarUbicacionDireccionEntrega', me.Eventos.ConfirmarUbicacionDireccionEntrega);
                 $('body').on('change', '#Ubigeo1,#Ubigeo2', me.Eventos.UbigeoChanged);
+                //INI HD-4358
+               $('body').on('keyup', '#txtCelularMD', me.Eventos.HabilitarCheck);
 
             },
 
@@ -63,18 +65,14 @@ $(document).ready(function () {
                     $('#btnCambiarEmail').bind('click', false);
                     $('#btnAgregarOtroNumero').bind('click', false);
                     $('#btnGuardar').prop('disabled', true);
-                    //INI HD-3897
                     $('.btn_confirmar_dato').bind('click', false);
-                    //FIN HD-3897
                 }
             },
             PuedeCambiarTelefono: function () {
                 var smsFlag = $('#hdn_ServicioSMS').val();
                 if (smsFlag == '0' || smsFlag == false) {
                     $('#btnCambiarCelular').hide();
-                    //INI HD-3897
                     $('#grupo_form_cambio_datos_sms_opcionsms').hide();
-                    //FIN HD-3897
                 } else {
                     $('#txtCelularMD').prop('readonly', true);
                 }
@@ -87,7 +85,7 @@ $(document).ready(function () {
                     }
                 });
             },
-            //INI HD-3897
+
             ValidacionCheck: function () {
 
 
@@ -104,9 +102,9 @@ $(document).ready(function () {
                         $("#btn_confirmar_dato_sms").show();
 
                     }
-                        //------btnConfirmar
-                        if ($('#txtCelularMD').val().trim() == "") $("#btn_confirmar_dato_sms").hide();
-                        else if ($('#hdn_PuedeConfirmarAllSms').val()) $("#btn_confirmar_dato_sms").show();
+                    //------btnConfirmar
+                    if ($('#txtCelularMD').val().trim() == "") $("#btn_confirmar_dato_sms").hide();
+                    else if ($('#hdn_PuedeConfirmarAllSms').val()) $("#btn_confirmar_dato_sms").show();
 
                     //EMAIL
                     if ($("#hdn_FlgCheckEMAIL").val()) {
@@ -121,16 +119,16 @@ $(document).ready(function () {
 
                     }
 
-                        //------btnConfirmar
-                        if ($('#txtEMailMD').val().trim() == "") $("#btn_confirmar_dato_email").hide();
-                        else if ($('#hdn_PuedeConfirmarAllEmail').val()) $("#btn_confirmar_dato_email").show();
+                    //------btnConfirmar
+                    if ($('#txtEMailMD').val().trim() == "") $("#btn_confirmar_dato_email").hide();
+                    else if ($('#hdn_PuedeConfirmarAllEmail').val()) $("#btn_confirmar_dato_email").show();
 
                 } else {
                     $("#grupo_form_cambio_datos_email_opcionemail").hide();
                     $("#grupo_form_cambio_datos_sms_opcionsms").hide();
                 }
             },
-            //FIN HD-3897
+
             EvitandoCopiarPegar: function () {
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtTelefonoMD');
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtTelefonoTrabajoMD');
@@ -206,21 +204,7 @@ $(document).ready(function () {
                 }
             },
             isMobile: function () {
-                if (sessionStorage.desktop)
-                    return false;
-                else if (localStorage.mobile)
-                    return true;
-                var mobile = [
-                    'iphone', 'ipad', 'android', 'blackberry', 'nokia', 'opera mini', 'windows mobile', 'windows phone',
-                    'iemobile'
-                ];
-                for (var i = 0; i < mobile.length; i++) {
-                    if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0)
-                        return true;
-                }
-
-
-                return false;
+                return isMobileBrowser();
             },
             CloseLoading: function () {
                 if (me.Funciones.isMobile()) {
@@ -359,8 +343,7 @@ $(document).ready(function () {
                     var IdDependiente = '#Ubigeo' + (parseInt(Identity) + 1);
                     var Nivel = $(context).attr('Nivel');
                     var IdPadre = $(context).val() == "" ? "" : $(context).val();
-                    //var optVal = $('#' + IdName + ' option:selected').val();
-                    //var optionSelected = $("option:selected", this).attr('value');
+
                     _googleMap.Funciones.LimpiarControlesMap();
                     if ($(IdDependiente)[0] == undefined)
                         return;
@@ -386,6 +369,18 @@ $(document).ready(function () {
                         }
                     });
 
+                },
+                HabilitarCheck: function () {
+                    if ($("#txtCelularMD").val() != "") {
+                        $(".optCelCheckbox").prop("checked", true);
+                        $(".optCelCheckbox").prop("disabled", false);
+                    } else {
+                        $(".optCelCheckbox").prop("checked", false);
+                        $(".optCelCheckbox").prop("disabled", true);
+                    }
+
+
+
                 }
             },
             me.Inicializar = function () {
@@ -396,14 +391,14 @@ $(document).ready(function () {
                 me.Funciones.mostrarTelefono();
                 me.Funciones.PuedeActualizar();
                 me.Funciones.PuedeCambiarTelefono();
-                //INI HD-3897
                 me.Funciones.ValidacionCheck();
-                //FIN HD-3897
                 me.Funciones.EvitandoCopiarPegar();
                 me.Funciones.ValidacionSoloLetras();
                 me.Funciones.ValidacionDireccion();
                 if ($('#Operacion').val() == OperacionDb.Editar)
                     me.Funciones.ModoEdicion();
+
+                // INI HD-4358
             }
     }
 
@@ -598,6 +593,18 @@ function actualizarDatos() {
                 OpcionesUsuarioId: $(this).attr("data-tipoOpcion")
             })
         });
+
+        //HD-4358
+        $(".optCelCheckbox").each(function () {
+            if (typeof  $(this).attr("disabled")=="undefined") { 
+                permisos.push({
+                    Codigo: $(this).attr("id"),
+                    CheckBox: this.checked,
+                    OpcionesUsuarioId: $(this).attr("data-tipoOpcion")
+                })
+             }
+        });
+        //HD-4358
     }
     /*** Fin Seccion Permisos Cuenta ***/
 
@@ -1100,13 +1107,9 @@ var GoogleMap = function () {
 
             marker.setPosition(place.geometry.location);
             marker.setVisible(true);
-            //var address = '';
+
             if (place.address_components) {
-                //address = [
-                //    (place.address_components[0] && place.address_components[0].short_name || ''),
-                //    (place.address_components[1] && place.address_components[1].short_name || ''),
-                //    (place.address_components[2] && place.address_components[2].short_name || '')
-                //].join(' ');
+
                 me.Propiedades.directionText = place.formatted_address;
                 $("#RouteDirection").html(place.formatted_address);
             }
