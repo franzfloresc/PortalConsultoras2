@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
@@ -7,8 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.UI;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -88,9 +93,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
+        public ActionResult MiRevista(string campaniaRevista)
+        {
+            ViewBag.Campania = campaniaRevista;
+            return View();
+        }
         [HttpPost]
-        public JsonResult ObtenerPortadaRevista(string codigoRevista)
+        public async Task<JsonResult> ObtenerPortadaRevista(string codigoRevista)
         {
             string url;
             var urlNotFound = Url.Content("~/Content/Images/revista_no_disponible.jpg");
@@ -98,10 +107,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 codigoRevista = _issuuProvider.GetRevistaCodigoIssuuRDR(codigoRevista, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+                url = await _issuuProvider.GetUrlThumbnail(userData.CodigoISO, codigoRevista);
+                if (string.IsNullOrEmpty(url))
+                    url = urlNotFound;
+                else
+                {
 
-                string stringIssuuRevista = GetStringIssuRevista(codigoRevista);
-                dynamic item = new JavaScriptSerializer().Deserialize<object>(stringIssuuRevista);
-                url = item["thumbnail_url"];
+                    HttpContext.Response.Cache.SetCacheability(HttpCacheability.Server); 
+                    HttpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(1)); 
+                    HttpContext.Response.Cache.SetValidUntilExpires(true);
+                    HttpContext.Response.Cache.VaryByParams["*"] = true;
+
+                }
             }
             catch (FaultException faulException)
             {
@@ -116,24 +133,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return Json(url);
         }
-
-        private string GetStringIssuRevista(string codigoRevista)
-        {
-            string stringIssuuRevista;
-            using (var client = new WebClient())
-            {
-                var urlIssuuRevista = string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista);
-                stringIssuuRevista = client.DownloadString(urlIssuuRevista);
-            }
-
-            return stringIssuuRevista;
-        }
-
-        public ActionResult MiRevista(string campaniaRevista)
-        {
-            ViewBag.Campania = campaniaRevista;
-            return View();
-        }
-
     }
 }

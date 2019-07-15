@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
@@ -51,10 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
             var OfertaATP = listModel.FirstOrDefault();
 
             var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaDisenoModel>(OfertaATP);
-
-            #region Obtiene variables portal
-            var listaVariable = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo);
-            #endregion
+            
             #region Asignacion de propiedades de diseño
             var listaSeccion = _confiOfertasHomeProvider
                 .ObtenerConfiguracionSeccion(revistaDigital, esMobile)
@@ -66,7 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.ColorFondo = listaSeccion.ColorFondo;
                 modelo.SubTitulo = listaSeccion.SubTitulo
                     .Replace("#Cantidad", modelo.CantidadPack.ToString())
-                    .Replace("#PrecioTotal", listaVariable.SimboloMoneda + " " + modelo.PrecioVenta);
+                    .Replace("#PrecioTotal", userData.Simbolo + " " + modelo.PrecioVenta);
                 modelo.ColorTexto = listaSeccion.ColorTexto;
             }
             #endregion
@@ -77,7 +75,16 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.IsMobile = esMobile;
             modelo.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPack;
 
-            modelo.OrigenAgregar = esMobile ? Constantes.OrigenPedidoWeb.MobileArmaTuPackFicha : Constantes.OrigenPedidoWeb.DesktopArmaTuPackFicha;
+
+            var modeloOrigenPedido = new OrigenPedidoWebModel
+            {
+                Dispositivo = esMobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop,
+                Pagina = ConsOrigenPedidoWeb.Pagina.ArmaTuPackDetalle,
+                Palanca = ConsOrigenPedidoWeb.Palanca.ArmaTuPack,
+                Seccion = ConsOrigenPedidoWeb.Seccion.Ficha
+            };
+
+            modelo.OrigenAgregar = UtilOrigenPedidoWeb.ToInt(modeloOrigenPedido);
 
             return View(modelo);
         }

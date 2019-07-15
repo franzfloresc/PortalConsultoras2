@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using AutoMapper.Internal;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.Providers;
@@ -24,7 +26,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
-
+using BEConsultora = Portal.Consultoras.Web.ServicePedido.BEConsultora;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -156,7 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "validar";
-                    if (model.EstadoPedido == 1) //Reservado
+                    if (model.EstadoPedido == Constantes.EstadoPedido.Registrado)
                         model.Prol = "MODIFICA TU PEDIDO";
                     else
                         model.Prol = "RESERVA TU PEDIDO";
@@ -196,6 +198,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoDescuento = pedidoWeb.DescuentoProl;
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
+                    model.GananciaRevista = pedidoWeb.GananciaRevista;
+                    model.GananciaWeb = pedidoWeb.GananciaWeb;
+                    model.GananciaOtros = pedidoWeb.GananciaOtros;
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
@@ -330,7 +335,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
-                ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 var ofertaFinal = SessionManager.GetOfertaFinalModel();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
@@ -368,6 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
+            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
 
             return View("Index", model);
         }
@@ -1539,6 +1544,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
                 model.TotalConDescuento = model.Total - model.MontoDescuento;
+                model.IsEmailConfirmado = IsEmailConfirmado();
+                model.EMail = userData.EMail;
                 SetMensajesBotonesProl(model);
 
                 var listPermiteOfertaFinal = new List<Enumeradores.ResultadoReserva> {
@@ -1582,14 +1589,54 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// Fecha actual según el pais.
-        /// </summary>
-        /// <returns></returns>
-        private DateTime GetDiaActual()
-        {
-            return DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+        public bool IsEmailConfirmado() { 
+                bool flag = false;
+            try
+            {
+                using (var sv = new UsuarioServiceClient())
+                {
+                    flag = sv.Select(userData.PaisID, userData.CodigoUsuario).FlgCheckEMAIL;
+                }
+            }
+            catch (Exception ex)
+            {
+                flag = false;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return flag;
         }
+        public JsonResult ActualizarEnviarCorreo(string correoNuevo)
+        {
+            try
+            {
+                ServiceUsuario.BERespuestaServicio respuesta;
+                ServiceUsuario.BEUsuario usuario = Mapper.Map<ServiceUsuario.BEUsuario>(userData);
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    respuesta = sv.ActualizarEmail(usuario, correoNuevo);
+                }
+                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
+                ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
+                return Json(new { success = respuesta.Succcess, message = respuesta.Message });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.UpdCorreoConsultora);
+            }
+        }
+         private void ActualizarValidacionDatosUnique(bool isMobile, string codigoUsuario, string tipoEnvio)
+        {
+            var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+            string ipDispositivo = request.ClientIPFromRequest(skipPrivate: true);
+            ipDispositivo = ipDispositivo == null ? String.Empty : ipDispositivo;
+
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoUsuario, userData.PaisID, codigoUsuario, tipoEnvio, string.Empty);
+            }
+        }
+
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
@@ -1861,6 +1908,12 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
             ViewBag.MontoDescuento = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
 
+            model.CodigoIso = userData.CodigoISO;
+            model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+            model.GananciaRevista = pedidoWeb.GananciaRevista;
+            model.GananciaWeb = pedidoWeb.GananciaWeb;
+            model.GananciaOtros = pedidoWeb.GananciaOtros;
+
             var horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             var diaActual = DateTime.Today.Add(horaCierrePortal);
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
@@ -1913,6 +1966,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
+            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
 
             return View(model);
         }
@@ -2282,17 +2336,13 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new PedidoServiceClient())
                 {
                     var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
+               
+                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido )
                     {
                         mensaje = result.Mensaje;
                         estado = true;
                     }
-
-                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado)
-                    {
-                        mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-                        estado = true;
-                    }
+                 
                 }
 
                 return Json(new
@@ -2338,8 +2388,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoReservado = (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria));
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
-                if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-
                 return Json(new
                 {
                     success = estado,
@@ -2541,7 +2589,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaginaDe = "1";
                 }
 
-                model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetalle;
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
                 model.Simbolo = userData.Simbolo;
 
@@ -2633,22 +2680,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!valorConfi) return 0;
 
-            if (
-                (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel)
-                || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
-                || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
-                || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas
+            var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(producto.OrigenPedidoWeb);
+            if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.ProductoSugerido
+                || modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertaFinal
+                || (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.Showroom
+                    && modeloOrigenPedido.Seccion == ConsOrigenPedidoWeb.Seccion.SubCampania) 
                 )
+            {
                 return 0;
-
+            }
+            
             switch (producto.TipoEstrategiaCodigo)
             {
                 case Constantes.TipoEstrategiaCodigo.MasGanadoras:
@@ -3397,5 +3438,79 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        #region /*Switch Consultora 100% */
+
+        /// <summary>
+        /// Guarda los datos de la persona que recepcionará el pedido
+        /// </summary>
+        /// <param name="nombreYApellido">Nombres de la persona que recibirá el pedido</param>
+        /// /// <param name="numeroDocumento">DNI de la persona que recibirá el pedido</param>
+        /// <returns>Retorna un valor que indica si la acción se realizó o no</returns>
+        public JsonResult GuardarRecepcionPedidoRequest(string nombreYApellido, string numeroDocumento)
+        {
+            int result = 0;
+            try
+            {
+                result = GuardarRecepcionPedido(nombreYApellido, numeroDocumento, userData.PedidoID, userData.PaisID);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// Deshace los datos de la persona que recibirá el pedido
+        /// </summary>
+        /// <returns>Un valor que deterina la acción</returns>
+        public JsonResult DeshacerRecepcionPedidoRequest()
+        {
+            int result = 0;
+            try
+            {
+                result = DeshacerRecepcionPedido(userData.PedidoID, userData.PaisID);
+
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// Verifica si la consultoar es 100% digital
+        /// </summary>
+        /// <param name="codigoConsultora">Cósigo de la consultora</param>
+        /// <returns>Retorna los datos de la consultora 100% digital</returns>
+        public JsonResult VerificarConsultoraDigitalRequest(string codigoConsultora)
+        {
+            BEConsultora objConsultoraFicticiaModel;
+            try
+            {
+                objConsultoraFicticiaModel = VerificarConsultoraDigital(codigoConsultora, userData.PedidoID, userData.PaisID);
+                return Json(objConsultoraFicticiaModel, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
     }
 }

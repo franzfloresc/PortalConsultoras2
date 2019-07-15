@@ -1,0 +1,37 @@
+﻿@* MC - HD-4288 - POPUP RECEPCIÓN PEDIDO *@
+
+<link href="@Url.Content("~/Content/Css/Site/Pedido/PopupRecepcionPedido.css")" rel="stylesheet" />
+
+<div class="popup__wrapper bg__popups__default bg__popups__default--popupRecepcionPedido" id="PopupRecepcionPedido">
+    <div class="popup__somos__belcorp popup__somos__belcorp--popupRecepcionPedido">
+        <div class="popup__somos__belcorp__cabecera">
+            <a onclick="javascript: $('#PopupRecepcionPedido').fadeOut(100);" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--popupRecepcionPedido">
+                <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+            </a>
+            <h1 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--popupRecepcionPedido">
+                Recepción de pedido
+            </h1>
+        </div>
+        <div class="popup__somos__belcorp__contenido popup__somos__belcorp__contenido--popupRecepcionPedido text-left">
+            <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--datosPersona">
+                Ingresa los datos de la persona
+            </h2>
+            <div class="d-block form__group__fields form__group__fields--nombreApellido">
+                <input class="d-block w-100 text-bold text__field__sb" onkeypress="return FuncionesGenerales.ValidarSoloLetras(event);" id="txtNombreYApellido" type="text" value="" />
+                <label class="d-block w-100 label__field__sb" for="txtNombreYApellido">Nombre y apellido</label>
+                <span class="d-block w-100 text-bold validation__message"></span>
+            </div>
+            <div class="d-block form__group__fields form__group__fields--numeroDocumento">
+                <input class="d-block w-100 text-bold text__field__sb" maxlength="8" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" id="txtNumeroDocumento" type="text" value="" />
+                <label class="d-block w-100 label__field__sb" for="txtNumeroDocumento">Número de documento (DNI)</label>
+                <span class="d-block w-100 text-bold validation__message"></span>
+            </div>
+            <button class="center-block text-center text-bold border-radius-4 btn__sb--disabled btn__sb btn__sb__primary--multimarca popup__somos__belcorp__btn--next"
+                    onclick="javascript:$('#PopupRecepcionPedido').fadeOut(100);">
+                Continuar
+            </button>
+        </div>
+    </div>
+</div>
+
+@*FIN - MC - HD-4288 - POPUP RECEPCIÓN PEDIDO *@

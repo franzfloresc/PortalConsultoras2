@@ -1,4 +1,6 @@
-﻿var animacion = true;
+﻿var UR_DESHACERRECEPCION_PEDIDO = baseUrl + "Pedido/DeshacerRecepcionPedidoRequest",
+    URL_VERIFICAR_CONSULTORA_DIGITAL = baseUrl + "Pedido/VerificarConsultoraDigitalRequest"
+var animacion = true;
 var contadorNext = 2;
 var positionCarrousel = 0;
 var posicionInicial = 0;
@@ -7,7 +9,6 @@ var posicionTotal = 0;
 var salto = 3;
 
 var arrayOfertasParaTi = [];
-//var array_odd = [];
 var arrayProductosSugeridos = [];
 var arrayProductosGuardadoExito = [];
 var numImagen = 1;
@@ -23,9 +24,7 @@ var listaMensajeMeta = listaMensajeMeta;
 var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsCuponNuevas = false;
-//INI HD-3908
 var _flagNueva = false;
-//FIN HD-3908
 var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
@@ -63,7 +62,7 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
- 
+
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -224,8 +223,6 @@ $(document).ready(function () {
     $("#txtCUV").on('input', function () {
         if (isNaN($("#txtCUV").val()) == true) {
             $("#txtCUV").val("");
-            //document.getElementById('divObservaciones').style.display = 'block';
-            //$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>El codigo CUV debe ser un número</div></div>");
             return false;
         }
     });
@@ -279,7 +276,6 @@ $(document).ready(function () {
 
         e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
     });
-    
 
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var rowElement = $(this).closest(".contenido_ingresoPedido");
@@ -440,11 +436,10 @@ $(document).ready(function () {
         if (cuv.substring(0, 3) == '999') {
             sessionStorage.setItem('cuvPack', cuv);
         }
-
+        
         ProcesarActualizacionMostrarContenedorCupon();
         ProductoRecomendadoModule.OcultarProductosRecomendados();
         $("#btnAgregar").removeAttr("disabled");
-
         return false;
     });
     $("body").on("click", "[data-paginacion]", function (e) {
@@ -476,11 +471,9 @@ $(document).ready(function () {
 
     CrearDialogs();
     MostrarBarra();
-
-    //INI HD-4200
-    ValidarSuscripcionSE(function () { CargarDetallePedido();},0);
-    //FIN HD-4200
     
+    ValidarSuscripcionSE(function () { CargarDetallePedido(); }, 0);
+
     CargarCarouselEstrategias();
     CargarAutocomplete();
     CargarDialogMesajePostulantePedido();
@@ -530,9 +523,12 @@ $(document).ready(function () {
         HideDialog("observaciones_alerta");
         return false;
     });
-
-
+    //
+    //doWhatYouNeed();
 });
+
+//paco
+
 
 function CargarDetallePedido(page, rows, asyncrono) {
     $(".pMontoCliente").css("display", "none");
@@ -654,6 +650,8 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     }
                 }
 
+                /* Switch Consultora 100% */
+                doWhatYouNeed()
             }
         })
         .fail(function (response, error) {
@@ -981,17 +979,6 @@ function ValidarDescripcion() {
     }
 }
 
-//function PreValidarCUV(event) {
-
-//    event = event || window.event;
-
-//    if (event.keyCode == 13) {
-//        if ($("#btnAgregar")[0].disabled == false) {
-//            PedidoRegistroModule.AgregarProductoListadoPasePedido();
-//        }
-//    }
-//}
-
 function SeleccionarContenido(control) {
     control.select();
 }
@@ -1215,11 +1202,10 @@ function BuscarByCUV(CUV) {
                 if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
-                //INI HD-3908
                 _flagNueva = (data[0].FlagNueva == "1") ? true : false;
                 $("#hdfCodigoPalanca").val(data[0].CodigoPalanca);
                 $("#hdfCampaniaID").val(data[0].CampaniaID);
-                //FIN HD-3908
+
                 CargarProductosRecomendados(data[0]);
 
             } else {
@@ -1319,76 +1305,58 @@ function ObtenerProductosSugeridos(CUV) {
                 } else {
                     accion = "prev";
                 }
-                var posicionEstrategia, recomendado, arraySugerido;
+                var posicionEstrategia;
+                var txt_virtualEvent_label = '';
                 if (accion == "prev") {
                     var posicionPrimerActivo = $($("#divCarruselSugerido").find(".slick-active")[0]).find(".hdPosicionSugerido").val();
                     posicionEstrategia = posicionPrimerActivo == 1 ? arrayProductosSugeridos.length - 1 : posicionPrimerActivo - 2;
-                    recomendado = arrayProductosSugeridos[posicionEstrategia];
-                    arraySugerido = [];
 
-                    var impresionSugerido = {
-                        'name': recomendado.Descripcion,
-                        'id': recomendado.CUV,
-                        'price': recomendado.PrecioCatalogoString,
-                        'brand': recomendado.DescripcionMarca,
-                        'category': "NO DISPONIBLE",
-                        'variant': (recomendado.DescripcionEstrategia == "" || recomendado.DescripcionEstrategia == null) ? "Estándar" : recomendado.DescripcionEstrategia,
-                        'list': "Productos de reemplazo - Pedido",
-                        'position': recomendado.posicion
-                    };
+                    txt_virtualEvent_label = "Ver anterior";
 
-                    arraySugerido.push(impresionSugerido);
-
-                    dataLayer.push({
-                        'event': "productImpression",
-                        'ecommerce': {
-                            'impressions': arraySugerido
-                        }
-                    });
-                    dataLayer.push({
-                        'event': "virtualEvent",
-                        'category': "Ingresa tu pedido",
-                        'action': "Productos de reemplazo",
-                        'label': "Ver anterior"
-                    });
                 } else if (accion == "next") {
                     var posicionUltimoActivo = $($("#divCarruselSugerido").find(".slick-active").slice(-1)[0]).find(".hdPosicionSugerido").val();
                     posicionEstrategia = arrayProductosSugeridos.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-                    recomendado = arrayProductosSugeridos[posicionEstrategia];
-                    arraySugerido = [];
-
-                    var impresionSugerido = {
-                        'name': recomendado.Descripcion,
-                        'id': recomendado.CUV,
-                        'price': recomendado.PrecioCatalogoString,
-                        'brand': recomendado.DescripcionMarca,
-                        'category': "NO DISPONIBLE",
-                        'variant': (recomendado.DescripcionEstrategia == "" || recomendado.DescripcionEstrategia == null) ? "Estándar" : recomendado.DescripcionEstrategia,
-                        'list': "Productos de reemplazo - Pedido",
-                        'position': recomendado.posicion
-                    };
-
-                    arraySugerido.push(impresionSugerido);
-
-                    dataLayer.push({
-                        'event': "productImpression",
-                        'ecommerce': {
-                            'impressions': arraySugerido
-                        }
-                    });
-                    dataLayer.push({
-                        'event': "virtualEvent",
-                        'category': "Ingresa tu pedido",
-                        'action': "Productos de reemplazo",
-                        'label': "Ver siguiente"
-                    });
+                    txt_virtualEvent_label = "Ver siguiente";
                 }
+
+                var recomendado = arrayProductosSugeridos[posicionEstrategia];
+
+                var impresionSugerido = {
+                    'name': recomendado.Descripcion,
+                    'id': recomendado.CUV,
+                    'price': recomendado.PrecioCatalogoString,
+                    'brand': recomendado.DescripcionMarca,
+                    'category': "NO DISPONIBLE",
+                    'variant': (recomendado.DescripcionEstrategia == "" || recomendado.DescripcionEstrategia == null) ? "Estándar" : recomendado.DescripcionEstrategia,
+                    'list': "Productos de reemplazo - Pedido",
+                    'position': recomendado.posicion
+                };
+
+                var arraySugerido = [];
+                arraySugerido.push(impresionSugerido);
+
+                dataLayer.push({
+                    'event': "productImpression",
+                    'ecommerce': {
+                        'impressions': arraySugerido
+                    }
+                });
+                dataLayer.push({
+                    'event': "virtualEvent",
+                    'category': "Ingresa tu pedido",
+                    'action': "Productos de reemplazo",
+                    'label': txt_virtualEvent_label
+                });
             });
 
             $("#divCarruselSugerido").prepend($(".js-slick-prev-h"));
             $("#divCarruselSugerido").prepend($(".js-slick-next-h"));
             TagManagerCarruselSugeridosInicio(data);
-
+            // Ver zoom producto en los productos sugeridos
+            setTimeout(function () {
+                productoSugeridoZoom.init('#ProductoSugeridoCarruselWrapper');
+            }, 1000);
+            // FIN - Ver zoom producto en los productos sugeridos
         },
         error: function (data, error) {
             CerrarSplash();
@@ -1766,6 +1734,11 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
             MostrarBarra(data);
 
+            var ActualizaGananciasLoad = typeof ActualizaGanancias === 'function';
+            if (ActualizaGananciasLoad) {
+                ActualizaGanancias(data);
+            }
+
             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
             microefectoPedidoGuardado();
             TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
@@ -2111,15 +2084,27 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
-    $("#dialog_divReservaSatisfactoria").show();
+
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
+
+    if (!response.data.IsEmailConfirmado) {
+       
+        configActualizarCorreo.UrlPedidoValidado = (!ultimoDiaFacturacion) ? configActualizarCorreo.UrlPedido: configActualizarCorreo.UrlPedidoValidado;
+        new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
+
+    }else {
+        $("#dialog_divReservaSatisfactoria").show();
     
-    if (ultimoDiaFacturacion) {
-	    RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
-    } else {
-	    location.reload();
+        if (ultimoDiaFacturacion) {
+	        RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
+        } else {
+	        location.reload();
+        }
     }
+ 
+
 }
+
 
 function EliminarPedido() {
     AbrirSplash();
@@ -2159,17 +2144,10 @@ function EliminarPedido() {
             }
 
             if (data.success != true) {
+                
+                messageInfoError(data.message);
+                CerrarSplash();
 
-                //INI HD-3693
-                //messageInfoError(data.message);
-                //CerrarSplash();
-                var msjBloq = validarpopupBloqueada(data.message);
-                if (msjBloq != "") { alert_msg_bloqueadas(msjBloq); }
-                else {
-                    messageInfoError(data.message);
-                    CerrarSplash();
-                }
-                //FIN HD-3693
                 return false;
             }
 
@@ -2727,7 +2705,6 @@ $.fn.CreateSelected = function (array, val, text, etiqueta, index) {
         }
 
         $.each(array, function (i, item) {
-            //var objtemp = item;
             $(obj).append('<option value="' + item[val] + '">' + item[text] + "</option>");
         });
     } catch (e) {
@@ -2862,14 +2839,9 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                     location.href = urlValidadoPedido;
                 }
             }
-            //INI HD-3693
-            //else if (mostrarAlerta == true) AbrirMensaje(data.message);
-            else if (mostrarAlerta == true) {
-                var msjBloq = validarpopupBloqueada(data.message);
-                if (msjBloq != "") { alert_msg_bloqueadas(msjBloq); }
-                else AbrirMensaje(data.message);
-            }
-            //FIN HD-3693
+
+            else if (mostrarAlerta == true) AbrirMensaje(data.message);
+
         },
         error: function (error, x) {
             AbrirMensaje("Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.");
@@ -2899,6 +2871,7 @@ function ConfirmarModificar() {
                 }
                 else {
                     closeWaitingDialog();
+                    HideDialog("divConfirmValidarPROL2");
                     messageInfoError(data.message);
                 }
             }
@@ -3052,3 +3025,125 @@ function PedidosPendientesPorAprobar() {
     }
     window.location.href = '/ConsultoraOnline/Pendientes';
 }
+
+/* Switch Consultora 100% */
+function doWhatYouNeed() {
+    var object = { codigoConsultora: userData.codigoConsultora}
+
+    $.ajax({
+        type: "POST",
+        url: URL_VERIFICAR_CONSULTORA_DIGITAL,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(object),
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            
+            if (checkTimeout(data)) {
+                if (data != null) {
+                    if (data.IndicadorConsultoraDigital) {
+                        if (document.getElementById("bPedidoPaginarRegistrosTotal") != undefined && document.getElementById("bPedidoPaginarRegistrosTotal").innerHTML > 0 ) {
+                            if (data.IndicadorRecepcion) {
+                                $("div.contenedor_info_recepcion_pedido").css("display", "flex");
+                                $(".info_recepcion_pedido").css("display", "block");
+                                $(".switch__control").prop("checked", true);
+                                cargarDatosrecepcion(data);
+                            } else {
+                                $("div.contenedor_info_recepcion_pedido").css("display", "flex");
+                                $(".info_recepcion_pedido").css("display", "none");
+                                $(".switch__control").prop("checked", false);
+                            }
+
+                        } else {
+                            $("div.contenedor_info_recepcion_pedido").css("display", "none");
+                            $(".info_recepcion_pedido").css("display", "none");
+                            $(".switch__control").prop("checked", false);
+                        }
+                    } else $("div.contenedor_info_recepcion_pedido").css("display", "none")
+                }
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+
+
+}
+
+$("input:checkbox[class=switch__control]").change(function () {
+    // 
+    if (!document.querySelectorAll("input[type=checkbox]:not(:checked )").length) {
+        LimpiarCamposRecepcionPoput();
+        $('#PopupRecepcionPedido').fadeIn(100);
+    } else {
+        DeshacerRecepcionpedido();
+    }
+
+});
+
+
+function DeshacerRecepcionpedido() {
+    $.ajax({
+        type: "POST",
+        url: UR_DESHACERRECEPCION_PEDIDO,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data > 0) {
+                    $(".info_recepcion_pedido").css("display", "none");
+                }
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+}
+
+function cargarDatosrecepcion(object) {
+    var ListChildren = document.getElementsByClassName("datos__receptor__pedido")[0].children;
+    ListChildren[0].textContent = object.nombreYApellido;
+    ListChildren[1].textContent = object.numeroDocumento;
+}
+
+
+function LimpiarCamposRecepcionPoput() {
+    $("#txtNombreYApellido").removeClass('text__field__sb--withContent');
+    $("#txtNumeroDocumento").removeClass('text__field__sb--withContent');
+    document.getElementsByClassName("form__group__fields--nombreApellido")[0].children[2].textContent = "";
+    document.getElementsByClassName("form__group__fields--numeroDocumento")[0].children[2].textContent = "";
+    $("#txtNombreYApellido").val("");
+    $("#txtNumeroDocumento").val("");
+    $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");  
+        
+    object = {};
+}
+
+$(".popup__somos__belcorp__icono__cerrar--popupRecepcionPedido").click(function () {
+    ActualizarCheck(); 
+})
+
+$(".btn__sb--cambiarPersona").click(function () {
+    $("#txtNombreYApellido").addClass('text__field__sb--withContent');
+    $("#txtNumeroDocumento").addClass('text__field__sb--withContent');
+    $("#txtNombreYApellido").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[0].textContent);
+    $("#txtNumeroDocumento").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[1].textContent);
+    $(".btn__sb__primary--multimarca").removeClass("btn__sb--disabled");  
+});
+
+
+function ActualizarCheck() {
+    LimpiarCamposRecepcionPoput();
+    if ($(".info_recepcion_pedido").css("display") == "none") {
+        $(".switch__control").prop("checked", false);
+    }
+}
+
+/* Switch Consultora 100% - FIN*/

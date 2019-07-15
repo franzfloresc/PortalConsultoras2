@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa;
@@ -549,6 +550,7 @@ namespace Portal.Consultoras.BizLogic
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.PagoLinea.TablaLogicaId));
                 var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
                 var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.GanaNativo.TablaLogicaId));
+                var opcionesUsuario = Task.Run(() => GetUsuarioOpciones(paisID, usuario.CodigoUsuario));
 
                 var lstConfiguracionPais = new List<string>();
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
@@ -578,7 +580,8 @@ namespace Portal.Consultoras.BizLogic
                                 usuarioPaisTask,
                                 pagoEnLineaTask,
                                 tieneChatbotTask,
-                                tieneGanaMasNativo);
+                                tieneGanaMasNativo,
+                                opcionesUsuario);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -649,6 +652,13 @@ namespace Portal.Consultoras.BizLogic
                 usuario.GanaMasNativo = (tieneGanaMasNativo.Result.Select(x => x.Valor).FirstOrDefault() == "1");
                 usuario.EsUltimoDiaFacturacion = (usuario.FechaFinFacturacion - Common.Util.GetDiaActual(usuario.ZonaHoraria)).Days == 0;
 
+
+                //Para mostrar u ocultar el check de notificaciones de Whatsapp 
+                var opcionesUsuarioConfig = opcionesUsuario.Result.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.NotificarWhatsApp);
+                usuario.ActivaNotificacionesWhatsapp = (opcionesUsuarioConfig != null);
+
+                if (opcionesUsuarioConfig != null)
+                    usuario.NotificacionesWhatsapp = opcionesUsuarioConfig.CheckBox;
 
                 return usuario;
             }
@@ -1903,6 +1913,12 @@ namespace Portal.Consultoras.BizLogic
         {
             string resultado = string.Empty;
 
+            var DAUsuario = new DAUsuario(usuario.PaisID);
+            var usuarioOpciones = new BEUsuarioOpciones();
+            usuarioOpciones.OpcionesUsuarioId = Constantes.OpcionesUsuario.NotificarWhatsApp;
+            usuarioOpciones.CheckBox = usuario.NotificacionesWhatsapp;
+
+
             try
             {
                 if (usuario.EMail != string.Empty)
@@ -1916,6 +1932,7 @@ namespace Portal.Consultoras.BizLogic
                     else
                     {
                         this.UpdateDatos(usuario, CorreoAnterior);
+                        if (usuario.ActivaNotificacionesWhatsapp) DAUsuario.InsertarUsuarioOpciones(usuarioOpciones, usuario.CodigoUsuario);
 
                         if (usuario.EMail != CorreoAnterior)
                         {
@@ -1931,6 +1948,7 @@ namespace Portal.Consultoras.BizLogic
                 else if (usuario.PaisID == Constantes.PaisID.Colombia || usuario.PaisID == Constantes.PaisID.Chile)
                 {
                     this.UpdateDatos(usuario, CorreoAnterior);
+                    if (usuario.ActivaNotificacionesWhatsapp) DAUsuario.InsertarUsuarioOpciones(usuarioOpciones, usuario.CodigoUsuario);
                     resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
                 }
             }
@@ -2860,57 +2878,57 @@ namespace Portal.Consultoras.BizLogic
         {
             switch (paisID)
             {
-                case 2:
+                case Constantes.PaisID.Bolivia:
                     {
-                        return "901-105678"; //BOLIVIA
+                        return "901-105678";
                     }
-                case 3:
+                case Constantes.PaisID.Chile:
                     {
-                        return "02-28762100"; //CHILE
+                        return "02-28762100";
                     }
-                case 4:
+                case Constantes.PaisID.Colombia:
                     {
-                        return "01-8000-9-37452,5948060"; //COLOMBIA
+                        return "01-8000-9-37452,5948060";
                     }
-                case 5:
+                case Constantes.PaisID.CostaRica:
                     {
-                        return "800-000-5235,22019601,22019602"; //COSTA RICA
+                        return "800-000-5235,22019601,22019602";
                     }
-                case 6:
+                case Constantes.PaisID.Ecuador:
                     {
-                        return "1800-76667"; //ECUADOR
+                        return "1800-76667";
                     }
-                case 7:
+                case Constantes.PaisID.ElSalvador:
                     {
-                        return "800-37452-000,25101198,25101199"; //EL SALVADOR
+                        return "800-37452-000,25101198,25101199";
                     }
-                case 8:
+                case Constantes.PaisID.Guatemala:
                     {
-                        return "1-801-81-37452,22856185,23843795";  //GUATEMALA
+                        return "1-801-81-37452,22856185,23843795";
                     }
-                case 9:
+                case Constantes.PaisID.Mexico:
                     {
-                        return "01-800-2352677"; //MEXICO
+                        return "01-800-2352677";
                     }
-                case 10:
+                case Constantes.PaisID.Panama:
                     {
-                        return "800-5235,377-9399"; //PANAMA
+                        return "800-5235,377-9399";
                     }
-                case 11:
+                case Constantes.PaisID.Peru:
                     {
-                        return "01-2113614,080-11-3030"; //PERU
+                        return "01-2113614,080-11-3030";
                     }
-                case 12:
+                case Constantes.PaisID.PuertoRico:
                     {
-                        return "1-866-366-3235,787-622-3235"; //PUERTO RICO
+                        return "1-866-366-3235,787-622-3235";
                     }
-                case 13:
+                case Constantes.PaisID.RepublicaDominicana:
                     {
-                        return "1-809-200-5235,809-620-5235"; //REPUBLICA DOMINICANA
+                        return "1-809-200-5235,809-620-5235";
                     }
-                case 14:
+                case Constantes.PaisID.Venezuela:
                     {
-                        return "0501-2352677"; //VENEZUELA
+                        return "0501-2352677";
                     }
             }
             return "";
@@ -3319,36 +3337,13 @@ namespace Portal.Consultoras.BizLogic
                 string titulo = "Confirmación de Correo";
                 string displayname = oUsu.PrimerNombre;
                 string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-                string nomconsultora = oUsu.PrimerNombre; //(string.IsNullOrEmpty(beusuario.PrimerNombre) ? beusuario.PrimerNombre : beusuario.Sobrenombre);
+                string nomconsultora = oUsu.PrimerNombre;
 
                 string[] parametros = new string[] { oUsu.CodigoUsuario, Common.Util.GetPaisID(oUsu.CodigoIso).ToString(), oUsu.Correo };
                 string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
                 LogManager.SaveLog(new Exception(), oUsu.CodigoUsuario, oUsu.CodigoIso, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
 
-                //INI HD-3897//
-                //bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
-                //string logo = Globals.RutaCdn + (esEsika ? "/ImagenesPortal/Iconos/logo.png" : "/ImagenesPortal/Iconos/logod.png");
-                //string fondo = (esEsika ? "e81c36" : "642f80");
-
                 MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
-                //FIN HD-3897//
-
-
-
-                //string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
-                //string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
-                //var esEsika = paisesEsika.Contains(paisISO);
-                //string emailFrom = "no-responder@somosbelcorp.com";
-                //string emailTo = oUsu.Correo;
-                //string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
-                //string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
-                //string nombrecorreo = oUsu.PrimerNombre.Trim();
-
-                //string displayname = "Somos Belcorp";
-                //string codigoGenerado = Common.Util.GenerarCodigoRandom();
-                //Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
-                //if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
-                //InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
                 return true;
             }
             catch (Exception ex)
@@ -3550,7 +3545,7 @@ namespace Portal.Consultoras.BizLogic
         private BERevistaDigital ConfiguracionPaisDatosRevistaDigital(BERevistaDigital revistaDigitalModel, List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigoIso)
         {
             if (revistaDigitalModel == null)
-                throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
+                throw new ClientInformationException("revistaDigitalModel no puede ser nulo");
 
             if (configuracionesPaisDatos == null || !configuracionesPaisDatos.Any() || string.IsNullOrEmpty(codigoIso))
                 return revistaDigitalModel;
@@ -3915,7 +3910,7 @@ namespace Portal.Consultoras.BizLogic
 
                     if (lst[0] == "0")
                     {
-                        throw new Exception(lst[2]);
+                        throw new ClientInformationException(lst[2]);
                     }
 
                     /*Insertar dirección entrega*/
@@ -3942,7 +3937,7 @@ namespace Portal.Consultoras.BizLogic
                                 objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
                                 var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
                                 if (result.estado == 1)
-                                    throw new Exception(result.mensaje);
+                                    throw new ClientInformationException(result.mensaje);
                             }
 
                         }
@@ -4032,7 +4027,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                     var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
-                    if (result.codigo == "2") throw new Exception(result.mensaje);
+                    if (result.codigo == "2") throw new ClientInformationException(result.mensaje);
                 }
 
                 if (conTransaccion) ts.Complete();
@@ -4040,7 +4035,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 if (conTransaccion) LogManager.SaveLog(ex, direccionEntrega.ConsultoraID, direccionEntrega.PaisID);
-                throw new Exception("Exception BLUsuario - RegistrarDireccionEntrega", ex);
+                throw new ClientInformationException("Exception BLUsuario - RegistrarDireccionEntrega", ex);
             }
             finally
             {
