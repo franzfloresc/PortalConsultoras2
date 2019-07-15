@@ -133,13 +133,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var reservado = false;
                     var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(pedidoDetalle.OrigenPedidoWeb);
 
-                    //if (!(pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
-                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
-                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
-                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
-                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
-                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
-                    if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal)
+                    if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal &&
+                        !UtilOrigenPedidoWeb.EsCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
                     {
                         var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                         if (respuesta != null)
@@ -512,12 +507,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             #region CaminoBrillante
 
-            var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(pedidoDetalle.OrigenPedidoWeb);
-
-            //if (pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
-            //    pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
-            //    pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido)
-            if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertasEspeciales)
+            if (UtilOrigenPedidoWeb.EsCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
             {
                 if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, usuario.NivelCaminoBrillante, pedidoDetalle.Producto.CUV))
                 {
@@ -1441,31 +1431,36 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     lstDetalle.Where(x => x.ClienteID == 0).Update(x => x.Nombre = usuario.Nombre);
 
-                    lstDetalle.Update(x => x.DescripcionEstrategia = Util.obtenerNuevaDescripcionProductoDetalle(
-                        x.ConfiguracionOfertaID,
-                        pedidoValidado,
-                        x.FlagConsultoraOnline,
-                        x.OrigenPedidoWeb,
-                        lista,
-                        suscritaActiva,
-                        x.TipoEstrategiaCodigo,
-                        x.MarcaID,
-                        x.CodigoCatalago,
-                        x.DescripcionOferta,
-                        x.EsCuponNuevas,
-                        x.EsElecMultipleNuevas,
-                        x.EsPremioElectivo,
-                        x.EsCuponIndependiente,
-                        null,
-                        x.EsKitCaminoBrillante || x.EsDemCaminoBrillante));
+                    lstDetalle.Update(x =>
+                    {
+                        x.DescripcionEstrategia = Util.obtenerNuevaDescripcionProductoDetalle(
+                                                        x.ConfiguracionOfertaID,
+                                                        pedidoValidado,
+                                                        x.FlagConsultoraOnline,
+                                                        x.OrigenPedidoWeb,
+                                                        lista,
+                                                        suscritaActiva,
+                                                        x.TipoEstrategiaCodigo,
+                                                        x.MarcaID,
+                                                        x.CodigoCatalago,
+                                                        x.DescripcionOferta,
+                                                        x.EsCuponNuevas,
+                                                        x.EsElecMultipleNuevas,
+                                                        x.EsPremioElectivo,
+                                                        x.EsCuponIndependiente,
+                                                        null,
+                                                        x.EsKitCaminoBrillante || x.EsDemCaminoBrillante);
+
+                        var lstCatalogos = Util.GetCodigosCatalogo();
+                        var esCatalogo = lstCatalogos.Any(item => item == x.CodigoCatalago.ToString());
+                        x.TipoPersonalizacion = esCatalogo ? Constantes.TipoPersonalizacion.Catalogo : Util.GetTipoPersonalizacionByCodigoEstrategia(x.TipoEstrategiaCodigo);
+                    });
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
                     lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0 && !x.EsKitCaminoBrillante && !x.EsDemCaminoBrillante)
                         .Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);
 
                     lstDetalle.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).Update(item => item.EsArmaTuPack = true);
-
-                    pedido.olstBEPedidoWebDetalle = lstDetalle;
 
                     pedido.CantidadProductos = lstDetalle.Sum(p => p.Cantidad);
                     pedido.CantidadCuv = lstDetalle.Count;
@@ -1492,22 +1487,32 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     if (tippingPoint.IndExigVent == "0" || tippingPoint.MontoVentaExigido == 0) pedido.TippingPoint = config.MontoMinimoPedido;
                     else pedido.TippingPoint = tippingPoint.MontoVentaExigido;
 
-                    List<BEEstrategia> LstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
-                    LstEstrategia = LstEstrategia == null ? new List<BEEstrategia>() : LstEstrategia;
-
-                    if (LstEstrategia.Count > 0 && pedido.olstBEPedidoWebDetalle !=null)
-                        pedido.olstBEPedidoWebDetalle.ForEach(p => p.EsPremioElectivo = LstEstrategia.Any(c => c.CUV2 == p.CUV));
+                    var lstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
+                    if (lstEstrategia.Any() && lstDetalle.Any()) lstDetalle.ForEach(p => p.EsPremioElectivo = lstEstrategia.Any(c => c.CUV2 == p.CUV));
                 }
 
                 //Duo Perfecto
-                if (usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
-                    lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas)
-                        .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+                if (!string.IsNullOrEmpty(usuario.CodigoPrograma) && usuario.ConsecutivoNueva > 0)
+                {
+                    lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas).Update(detalle =>
+                    {
+                        detalle.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, detalle.CUV);
+                    });
+                }
+
+                //Web set y detalle
+                lstDetalle.Where(filtro => filtro.SetID > 0).Update(detalle =>
+                {
+                    detalle.PedidoWebSet = _pedidoWebSetBusinessLogic.Obtener(usuario.PaisID, detalle.SetID);
+                });
+
+                pedido.olstBEPedidoWebDetalle = lstDetalle;
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, usuario.ConsultoraID, usuario.PaisID);
             }
+
             return pedido;
         }
 
@@ -2191,9 +2196,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 switch (pedidoDetalle.TipoPersonalizacion)
                 {
-                    case Constantes.CodigoEstrategiaBuscador.Liquidacion:
+                    case Constantes.TipoPersonalizacion.Liquidacion:
                         return RegistroLiquidacion(pedidoDetalle);
-                    case Constantes.CodigoEstrategiaBuscador.Catalogo:
+                    case Constantes.TipoPersonalizacion.Catalogo:
                         return PedidoInsertarBuscador(pedidoDetalle);
                     default:
                         return PedidoAgregarProducto(pedidoDetalle);
@@ -4019,7 +4024,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var lstKitSE = _pedidoWebBusinessLogic.GetCuvSuscripcionSE(bEPedidoWeb);
 
             //Valida que se tenga kits para la consultora
-            if (!lstKitSE.Any()) return false;
+            if (!lstKitSE.Any()) return true;
 
             //Validamos si ya exite en el pedido.
             var bePedidoWebDetalleParametros = new BEPedidoBuscar
@@ -4033,12 +4038,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
 
             var PedidoID = 0;
-            var lstDetalle = ObtenerPedidoWebDetalle(bePedidoWebDetalleParametros, out PedidoID);
+            var lstDetalle = ObtenerPedidoWebDetalle(bePedidoWebDetalleParametros, out PedidoID) ?? new List<BEPedidoWebDetalle>();
 
             //Agrega los CUV del kit SC
             foreach (var item in lstKitSE)
             {
-                if (lstDetalle.Any(x => x.CUV == item.CUV))
+                var fndProd = lstDetalle.Any(x => x.CUV == item.CUV);
+                if (!fndProd)
                 {
                     var detalle = new BEPedidoDetalle()
                     {

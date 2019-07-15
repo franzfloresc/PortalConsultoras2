@@ -57,7 +57,6 @@ var ComponentesPresenter = function (config) {
         _estrategiaModel(estrategiaModel);
 
         if (!_config.componentesView.renderComponente(_estrategiaModel())) throw "componenteView do not render model";
-        // if (!_config.componentesView.showMessageTypeAndTonesSpent(_estrategiaModel())) throw "Type and tones spented.";
 
         return true;
     };
@@ -214,20 +213,7 @@ var ComponentesPresenter = function (config) {
 
     var _removeSelectedItem = function (selectedItems, selectedItem, selectedIndex) {
         if (typeof selectedItems == "undefined" || typeof selectedItem == "undefined") return selectedItems;
-
-        //if (typeof selectedIndex == undefined) {
-        //    var tmp = $.extend(true, [], selectedItems);
-        //    tmp = tmp.reverse();
-        //    selectedIndex = -1;
-        //    $.each(tmp, function (idxTmpSelectedItem, tmpSelectedItem) {
-        //        if (selectedItem.Grupo == tmpSelectedItem.Grupo && selectedItem.Cuv == tmpSelectedItem.Cuv) {
-        //            selectedIndex = idxTmpSelectedItem;
-        //            return false;
-        //        }
-        //    });
-        //    if (selectedIndex >= 0) selectedIndex = selectedItems.length - selectedIndex - 1;
-        //}
-
+        
         selectedItems.splice(selectedIndex, 1);
 
         return selectedItems;
@@ -290,7 +276,7 @@ var ComponentesPresenter = function (config) {
 
                     estaEnResumen = true;
                     componenteAplicado.cantidadAplicada++;
-                    //
+
                     return false;
                 }
             });
@@ -387,8 +373,7 @@ var ComponentesPresenter = function (config) {
                     componente.selectComponentTitle = "Cambia tus " + componente.FactorCuadre + " opciones";
 
                 result = result && _config.componentesView.setTitle(componente.selectComponentTitle);
-
-                //
+                
                 return false;
             }
         });

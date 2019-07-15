@@ -19,11 +19,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public PedidoRegistroController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
             _productoFaltanteProvider = new ProductoFaltanteProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [HttpPost]
@@ -243,9 +245,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
                 #endregion
-
-
-                var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
+                
+                //var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
 
                 #region VirtualCoach
                 if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
@@ -313,10 +314,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var esCaminoBrillante = false;
                 #region Camino Brillante
-                //if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
-                //    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido)
-                if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertasEspeciales)
+                if (UtilOrigenPedidoWeb.EsCaminoBrillante(model.OrigenPedidoWeb))
                 {
+                    model.CuvTonos = Util.Trim(model.CUV);
                     esCaminoBrillante = true;
                     SessionManager.SetDemostradoresCaminoBrillante(null);
                 }
@@ -373,10 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
-                if (pedidoDetalleResult.CodigoRespuesta == Constantes.PedidoValidacion.Code.ERROR_CONSULTORA_BLOQUEADA)
-                    pedidoDetalleResult.MensajeRespuesta = Constantes.TipoPopupAlert.Bloqueado + pedidoDetalleResult.MensajeRespuesta;
-
-                var esReservado =
+				var esReservado =
                     pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR)
                     || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR);
 

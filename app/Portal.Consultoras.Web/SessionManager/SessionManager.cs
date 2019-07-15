@@ -675,17 +675,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
         }
 
-        //void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
-        //{
-        //    HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;
-        //}
-
-        //EstrategiaPersonalizadaProductoModel ISessionManager.GetProductoTemporal()
-        //{
-        //    return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
-        //}
-
-
         public void SetPedidoValidado(bool validado)
         {
             HttpContext.Current.Session["PedidoValidado"] = validado;
@@ -1421,6 +1410,15 @@ namespace Portal.Consultoras.Web.SessionManager
         public BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante()
         {
             return (BEOrdenFiltroConfiguracion)HttpContext.Current.Session[Constantes.ConstSession.FiltrosCaminoBrillante];
+        }
+
+        public void SetConfiguracionCaminoBrillante(List<BEConfiguracionCaminoBrillante> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionCaminoBrillante] = val;
+        }
+        public List<BEConfiguracionCaminoBrillante> GetConfiguracionCaminoBrillante()
+        {
+            return (List<BEConfiguracionCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionCaminoBrillante];
         }
         #endregion
 

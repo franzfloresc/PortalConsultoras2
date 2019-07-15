@@ -14,7 +14,6 @@ belcorp.estrategia.subscribe("onProductoAgregado", function (data) {
 var fechaMostrarBanner = Date.now();
 var codigoAnclaOdd = codigoAnclaOdd || "";
 var baseUrl = baseUrl || "";
-//var array_odd = array_odd || {};
 var variablesPortal = variablesPortal || {};
 var usuarioNombre = usuarioNombre || "";
 
@@ -68,7 +67,6 @@ var OfertaDelDiaModule = function () {
     var props = {
         UrlActual: window.location.href.toLowerCase(),
         UrlValidarStockEstrategia: "Pedido/ValidarStockEstrategia",
-        //UrlAgregarProducto: "Pedido/AgregarProductoZE",
         TipoOrigenPantallaODD: TipoOrigenPantallaODD,
         OrigenDesktopODD: OrigenDesktopODD //para Analytics
     };
@@ -228,7 +226,7 @@ var OfertaDelDiaModule = function () {
             $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
             $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').show();
         }
-        //var slidesToScroll = cantidadProductos;
+
         if (cantidadProductos > 2) {
             var slidesToShow = 2;
             EstablecerLazyCarrusel("#divOddCarrusel");
@@ -292,7 +290,6 @@ var OfertaDelDiaModule = function () {
         OfertaDelDiaProvider
             .pedidoGetOfertaDelDiaPromise()
             .done(function (response) {
-                //var array_odd = response.data;
 
                 if (!EsValidoResponseGetOfertaDelDia(response))
                     return false;
@@ -406,53 +403,12 @@ var OfertaDelDiaModule = function () {
         return false;
     };
 
-    //var ConstruirDescripcionOferta = function (arrDescripcion) {
-    //    var descripcion = "";
-    //    $.each(arrDescripcion,
-    //        function (index, value) {
-    //            value = value.replace("<br />", "");
-    //            value = value.replace("<br/>", "");
-    //            descripcion += "+ " + value + "<br />";
-    //        });
-    //    return descripcion;
-    //};
-
-    //var AsignarPosicionAListaOfertas = function (listaOfertas) {
-    //    var posicion = 0;
-    //    var nuevaListaOfertas = [];
-    //    $.each(listaOfertas,
-    //        function (index, value) {
-    //            posicion++;
-    //            value.Posicion = posicion;
-    //            value.DescripcionOferta = (value.DescripcionOferta == "" || value.DescripcionOferta == null)
-    //                ? ""
-    //                : ConstruirDescripcionOferta(value.DescripcionOferta.split("+"));
-    //            nuevaListaOfertas.push(value);
-    //        });
-
-    //    return nuevaListaOfertas;
-    //};
-
-    //var AsignarClaseCssAPalabraGratisMobile = function (listaOfertas) {
-    //    var listaOfertasConClases = [];
-
-    //    $.each(listaOfertas,
-    //        function (index, value) {
-    //            value.DescripcionOferta =
-    //                value.DescripcionOferta.replace("(¡GRATIS!)", "<span class='color-por-marca'>¡GRATIS!</span>");
-    //            listaOfertasConClases.push(value);
-    //        });
-
-    //    return listaOfertasConClases;
-    //};
-
     var CargarODDMobile = function () {
         MostrarRelojOfertaDelDia($(".clock").data("total-seconds"));
 
         OfertaDelDiaProvider
             .pedidoGetOfertaDelDiaPromise()
             .done(function (data) {
-                //array_odd = data.data;
 
                 if (!EsValidoResponseGetOfertaDelDia(data))
                     return false;
@@ -461,7 +417,6 @@ var OfertaDelDiaModule = function () {
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
                 $("#txtCantidad").val("1");
-                //var overflowY = "auto";
                 $("body").css({ 'overflow-y': "auto" });
                 return false;
             })
