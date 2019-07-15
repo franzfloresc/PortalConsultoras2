@@ -22,6 +22,8 @@ namespace Portal.Consultoras.Web.Models
         public int MotivoID { get; set; }
         public string Calificacion { get; set; }
         public string Motivo { get; set; }
+        public string Region { get; set; }
+        public string Zona { get; set; }
 
     }
 }

@@ -8,7 +8,7 @@
     <div class="filtros2">
         <div class="elements">
             <div class="div-2">
-                <h1><span>Reporte Pago en Línea</span></h1>
+                <h1><span>Reporte Encuesta de Satisfacción</span></h1>
             </div>
             <div class="div-3">
                 <div class="titG">País:</div>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="titB">Campaña:</div>
                 <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                    @Html.DropDownListFor(model => model.CodigoCampania, new SelectList(Model.listaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
                 </div>
             </div>
 
@@ -60,7 +60,7 @@
 <div class="wrap">
     <div class="container clearfix" style="text-align: center">
         <div class="input_global">
-            <input type="button" value="Exportar Excel" id="btnExportarExcel" name="btnExportarExcel" onclick="ExportarExcel();">
+            <input type="button" value="Exportar Excel" id="btnExportarExcel" name="btnExportarExcel" onclick="ExportarExcel();" >
         </div>
     </div>
 </div>
@@ -68,6 +68,7 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function () {
+        _itemFiltros = {};
         $("#btnBuscar").click(function () {
             if (jQuery.trim($("#ddlPais").val()) == "") {
                 alert("Debe seleccionar un País, verifique");
@@ -92,8 +93,8 @@
 
             waitingDialog({});
             jQuery.ajax({
-                type: 'POST',
-                url: baseUrl + 'PagoEnLinea/ObtenerZonasByRegion',
+                type: 'GET',
+                url: baseUrl + 'ReporteEncuestaSatisfaccion/GetZonasByRegion',
                 dataType: 'json',
                 data: { PaisId: paisId, RegionId: regionId },
                 async: true,
@@ -101,7 +102,7 @@
                     if (!checkTimeout(data)) return false;
 
                     closeWaitingDialog();
-                    if (data.success == true) {
+                    if (data.listaZonas.length > 0) {
                         var ddlZona = $('#ddlZona');
                         $.each(data.listaZonas, function (ind, item) {
                             ddlZona.append($('<option/>', { value: item.ZonaID, text: item.Nombre }));
@@ -120,30 +121,32 @@
 
     function fnGrilla() {
 
-           var item = {
+           _itemFiltros = {
                 PaisID: $("#ddlPais").val(),
                 CodigoCampania: $("#ddlCampania").val(),
-                RegionID: $.trim($("#ddlRegion").val()),
-                ZonaID: $.trim($("#ddlZona").val()),
+                RegionID: $.trim($("#ddlRegion").val())==""?"0":$.trim($("#ddlRegion").val()),
+                ZonaID: $.trim($("#ddlZona").val()==""?"0":$.trim($("#ddlZona").val()))
 
             }
 
+        $("#list").jqGrid("GridUnload");
         jQuery("#list").jqGrid({
-            url: baseUrl + "RespuestaEncuestaSatisfacion/ConsultaReporte",
+            url: baseUrl + "ReporteEncuestaSatisfaccion/Consultar",
             hidegrid: false,
             datatype: 'json',
             postData: {
-                obj: JSON.stringify(item)
+                obj: JSON.stringify(_itemFiltros)
             } ,
             mtype: 'POST',
-            contentType: "application/json; charset=utf-8",
-            colNames: ['Campaña', 'CodigoConsultora', 'Consultora', 'Calificación', 'Motivo'],
+            colNames: ['Campaña','Region','Zona', 'Codigo Consultora', 'Consultora', 'Calificación', 'Motivo'],
             colModel: [
-                { name: 'CodigoCampania', index: 'CodigoCampania', width: 10, editable: true, resizable: false },
-                { name: 'CodigoConsultora', index: 'CodigoConsultora', width: 25, editable: true, resizable: false, align: 'center' },
-                { name: 'Consultora', index: 'Consultora', width: 25, editable: true, resizable: false, align: 'center' },
-                { name: 'Calificacion', index: 'Calificacion', width: 10, editable: true, resizable: false, align: 'center' },
-                { name: 'Motivo', index: 'Motivo', width: 10, editable: true, resizable: false, align: 'center' }
+                { name: 'CodigoCampania', index: 'CodigoCampania', width: 5, editable: true, resizable: false , align: 'center' },
+                { name: 'Region', index: 'Region', width: 5, editable: true, resizable: false , align: 'center' },
+                { name: 'Zona', index: 'Zona', width: 5, editable: true, resizable: false , align: 'center' },
+                { name: 'CodigoConsultora', index: 'CodigoConsultora', width: 5, editable: true, resizable: false, align: 'center' },
+                { name: 'Consultora', index: 'Consultora', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'Calificacion', index: 'Calificacion', width: 5, editable: true, resizable: false, align: 'center' },
+                { name: 'Motivo', index: 'Motivo', width: 15, editable: true, resizable: false, align: 'center' }
             ],
             jsonReader:
                 {
@@ -163,43 +166,44 @@
             rowNum: 10,
             scrollOffset: 0,
             rowList: [10, 20, 30, 40, 50],
-            sortname: 'Nombre',
+            sortname: 'Consultora',
             sortorder: 'asc',
             viewrecords: true,
             multiselect: false,
             height: 'auto',
-            width: 2000,
+            width: 1400,
             pgtext: 'Pág: {0} de {1}',
             altRows: true,
             altclass: 'jQGridAltRowClass',
+            rowattr: function (rd) {
+                return {"data": "row"};
+            },
             loadComplete: function () { },
-            gridComplete: function () { }
+            gridComplete: function () { },
+
+
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
     function ExportarExcel() {
-        if (jQuery.trim($("#ddlPais").val()) == "") {
-            alert("Debe seleccionar un País, verifique");
-            return false;
+        var data = $("#list tbody tr[class*='jqgrow'").length;
+        if (data > 0) {
+            waitingDialog({});
+
+            setTimeout(function () {
+                DownloadAttachExcel()
+            }, 0);
+        } else {
+               alert("Debe realizar una búsqueda, verifique");
+               return false;
         }
-
-        var PaisID = jQuery.trim($("#ddlPais").val());
-        var CodigoCampania = jQuery.trim($("#ddlCampania").val());
-        var RegionID = jQuery.trim($("#ddlRegion").val());
-        var ZonaID = jQuery.trim($("#ddlZona").val());
-        waitingDialog({});
-
-        setTimeout(function () {
-            DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID)
-        }, 0);
     }
 
-    function DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID) {
+    function DownloadAttachExcel() {
         if (checkTimeout()) {
-            var content = baseUrl + "ReporteEncuestaSatisfaccion/ExportarExcel?CampaniaID=" + CodigoCampania + "&RegionID=" + RegionID + "&ZonaID="
-                + ZonaID + "&PaisID=" + PaisID;
+            var content = baseUrl + "ReporteEncuestaSatisfaccion/ExportarExcel?obj=" + JSON.stringify(_itemFiltros);
             var iframe_ = document.createElement("iframe");
             iframe_.style.display = "none";
             iframe_.setAttribute("src", content);
@@ -233,7 +237,7 @@
 
     function LimpiarCombo($combo) {
         $combo.empty();
-        $combo.append($('<option/>', { value: "", text: "-- Seleccionar --" }));
+        $combo.append($('<option/>', { value: "", text: "-- Todas --" }));
     }
 
 </script>

@@ -503,6 +503,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEPedidoWeb>();
 
+            Mapper.CreateMap<ReporteEncuestaSatisfaccionModel, BEEncuestaReporte>();
+
         }
     }
 }
