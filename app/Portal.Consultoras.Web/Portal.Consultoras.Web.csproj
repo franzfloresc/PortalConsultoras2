@@ -1554,6 +1554,7 @@
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
     <Content Include="Content\Css\Site\Pedido\PopupRecepcionPedido.css" />
+    <Content Include="Content\Css\Site\Login2\popup-actualizacion-contrasenia.css" />
     <Content Include="Content\Css\Site\Pedido\GananciaEstimada.css" />
     <Content Include="Content\Css\Site\Pedido\ProductosSugeridos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-reserva-pedido.css" />
@@ -3730,6 +3731,7 @@
     <Content Include="Content\Images\MontoMinimoBannerVE.jpg" />
     <Content Include="Content\Images\MontoMinimoBannerVEC4.jpg" />
     <Content Include="Content\Images\more.png" />
+    <Content Include="Content\Images\mostrar-password.svg" />
     <Content Include="Content\Images\mujer-seccion-revista-bienvenida.png" />
     <Content Include="Content\Images\multi_facil.png" />
     <Content Include="Content\Images\nav-arrow.png" />
@@ -3746,6 +3748,7 @@
     <Content Include="Content\Images\no_image.gif" />
     <Content Include="Content\Images\nuevo-producto.png" />
     <Content Include="Content\Images\nuevo_tuclientes.svg" />
+    <Content Include="Content\Images\ocultar-password.svg" />
     <Content Include="Content\Images\oferta-sin-imagen-sin-fondo.svg" />
     <Content Include="Content\Images\oferta-sin-imagen.svg" />
     <Content Include="Content\Images\oferta-ultimo-minuto.png" />
@@ -4332,6 +4335,7 @@
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
     <Content Include="Scripts\knockout.extensions.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
+    <Content Include="Scripts\PortalConsultoras\Login\ActualizarContrasenia.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Banner.js" />
@@ -5988,6 +5992,9 @@
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\popup-ficha-enriquecida-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
     <Content Include="Views\Unete\_PosibleFraudeUbicaciones.cshtml" />
+    <Content Include="Views\Login\_PopupActualizacionContrasenia.cshtml" />
+    <Content Include="Views\Login\ActualizarContrasenia.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
