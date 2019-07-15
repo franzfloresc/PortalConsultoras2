@@ -31,23 +31,22 @@ namespace Portal.Consultoras.Web.Providers
             return ",|.|2";
         }
 
-        public string ObtenerRutaImagenResize(string rutaImagen, string rutaNombreExtension, string codigoIso)
+        public string ObtenerRutaImagenResize(string rutaImagen, string rutaNombreExtension, string codigoIso,string campaniaid = null, bool isProductoSugerido = false)
         {
             string ruta = "";
 
             if (string.IsNullOrEmpty(rutaImagen))
                 return ruta;
+            string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+            string soloExtension = Path.GetExtension(rutaImagen);
 
-            var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
+            if (isProductoSugerido)
+                ruta = ConfigCdn.GetUrlFileCdnMatrizCampania(codigoIso, soloImagen + rutaNombreExtension + soloExtension,campaniaid: campaniaid);
 
-            if (rutaImagen.ToLower().Contains(valorAppCatalogo))
-            {
-                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
-                string soloExtension = Path.GetExtension(rutaImagen);
-                
+            if (string.IsNullOrEmpty(ruta))
                 ruta = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, soloImagen + rutaNombreExtension + soloExtension);
-            }
-            else
+
+            if (string.IsNullOrEmpty(ruta))
             {
                 ruta = Util.GenerarRutaImagenResize(rutaImagen, rutaNombreExtension);
             }
