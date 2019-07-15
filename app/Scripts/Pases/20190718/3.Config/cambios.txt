@@ -1,0 +1,3 @@
+1.PortalConsultoras2 Web
+	Actualizar:
+		<add key="URL_LIDER" value="https://ffvvtest.somosbelcorp.com/IngresoSistema/IngresoExterno"/> (Diferente en PRD)
