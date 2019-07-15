@@ -526,7 +526,7 @@
                         <input type="hidden" id="ArchivoPortadaAnterior" name="ArchivoPortadaAnterior" />
                         <div id="fpUpload">
                             <script type="text/javascript">
-                                var uploader = new qq.FileUploader({
+                                new qq.FileUploader({
                                     allowedExtensions: ['jpg', 'png', 'jpeg'],
                                     element: document.getElementById('fpUpload'),
                                     action: '@Url.Action("ImageIncentivoUpload", "FileUpload")',
