@@ -10,7 +10,10 @@ DetalleEncunestaResultado
 
 */
 
-USE BelcorpPeru_MC
+--USE BelcorpPeru_MC
+--go
+
+use Demo01
 go
 
 IF EXISTS(SELECT * FROM sys.tables WHERE name = N'EncuestaResultadoDetalle' and schema_id = 1)
@@ -60,13 +63,16 @@ GO
 CREATE TABLE dbo.Encuesta(
 Id INT IDENTITY(1,1) NOT NULL,
 Descripcion NVARCHAR(60) NOT NULL,
+FechaDesde DATETIME NOT NULL,
+FechaHasta DATETIME NOT NULL,
+Prioridad INT NOT NULL,
 CreatedBy NVARCHAR(30) NOT NULL,
 CreatedOn DATETIME NOT NULL CONSTRAINT DF_Encuesta_CreatedOn DEFAULT (GETDATE()),
 CreatedHost NVARCHAR(20) NULL,
 ModifiedBy NVARCHAR(30) NULL,
 ModifiedOn DATETIME NULL,
 ModifiedHost NVARCHAR(20) NULL,
-Status BIT NOT NULL CONSTRAINT DF_Encuesta_Status DEFAULT (1)
+Status AS CASE WHEN FechaHasta > FechaDesde THEN 1 ELSE 0 END
 )
 GO
 
@@ -141,7 +147,7 @@ ALTER TABLE dbo.EncuestaResultadoDetalle ADD CONSTRAINT FK_EncuestaResultadoDeta
 --Insertar data
 
 SET IDENTITY_INSERT [dbo].[Encuesta] ON 
-INSERT [dbo].[Encuesta] ([Id], [Descripcion], [CreatedBy]) VALUES (1, N'Encuesta de satisfacción de campaña', N'EINCA')
+INSERT [dbo].[Encuesta] ([Id], [Descripcion],[FechaDesde],[FechaHasta],[Prioridad], [CreatedBy]) VALUES (1, N'Encuesta de satisfacción de campaña',getdate(),GETDATE()+100,1, N'EINCA')
 SET IDENTITY_INSERT [dbo].[Encuesta] OFF
 
 --Mal	Regular	Bien	Muy bien	Excelente

@@ -12,12 +12,7 @@ END
 
 GO
 
-
-
-CREATE PROCEDURE ObtenerDataEncuesta 
-(
-@EncuestaId INT = 0
-)
+CREATE PROCEDURE ObtenerDataEncuesta
 AS
 BEGIN
 SELECT
@@ -31,8 +26,8 @@ SELECT
 FROM dbo.EncuestaMotivo as EM 
 INNER JOIN dbo.EncuestaCalificacion EC on EM.EncuestaCalificacionId = EC.Id
 INNER JOIN dbo.Encuesta as E ON EC.EncuestaId = E.Id
-WHERE E.Id = @EncuestaId
-AND E.Status = 1
+WHERE E.Status = 1
+AND E.Prioridad = 1
 END
 GO
 
