@@ -11,6 +11,8 @@ namespace Portal.Consultoras.Web.Models
         public int OrigenAgregarCarrusel { get; set; }
         public int OrigenAgregarCarruselCroselling { get; set; }
         public int OrigenAgregarCarruselSugeridos { get; set; }
+        public int OrigenAgregarPromocion{ get; set; }
+        public int OrigenAgregarCondiciones { get; set; }
         public string CodigoUbigeoPortal { get; set; } //util para la marcación analytics de Ficha Resumida
         public string Palanca { get; set; }
         public bool TieneSession { get; set; }

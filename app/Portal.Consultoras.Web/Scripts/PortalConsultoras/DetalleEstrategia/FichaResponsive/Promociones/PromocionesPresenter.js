@@ -42,8 +42,8 @@
         if (estrategia.Promocion == null || estrategia.Condiciones.length == 0) return true;
 
         _config.promocionesView.showModalPromociones();
-        _config.promocionesView.showConditions(estrategia.Promocion);
-        _config.promocionesView.showPromotion(estrategia.Promocion);
+        _config.promocionesView.showConditions(estrategia);
+        _config.promocionesView.showPromotion(estrategia);
 
         return true;
     };
