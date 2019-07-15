@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEContenidoAppDetaAct : BaseEntidad
+    public class BEContenidoAppDetaAct
     {
         [DataMember]
         [Column("IdContenidoAct")]
@@ -31,6 +31,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("Activo")]
         public bool Activo { get; set; }
+
+        [DataMember]
+        public int PaisID { get; set; }
+
+        public BEContenidoAppDetaAct()
+        { }
 
         public BEContenidoAppDetaAct(IDataRecord row)
         {

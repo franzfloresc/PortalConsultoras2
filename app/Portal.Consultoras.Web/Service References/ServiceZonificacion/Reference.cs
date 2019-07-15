@@ -1128,6 +1128,9 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ParentField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -1201,6 +1204,19 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
                 if ((this.OrdenField.Equals(value) != true)) {
                     this.OrdenField = value;
                     this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
                 }
             }
         }
@@ -1408,11 +1424,13 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct", ReplyAction="http://tempuri.org/IZonificacionService/GetContenidoAppDetaActResponse")]
         Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[] GetContenidoAppDetaAct(int paisId, int parent);
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetZonasByRegion", ReplyAction="http://tempuri.org/IZonificacionService/GetZonasByRegionResponse")]
-        Portal.Consultoras.Web.ServiceZonificacion.BEZona[] GetZonasByRegion(int PaisID, int RegionID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct", ReplyAction="http://tempuri.org/IZonificacionService/GetContenidoAppDetaActResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[]> GetContenidoAppDetaActAsync(int paisId, int parent);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetZonasByRegion", ReplyAction="http://tempuri.org/IZonificacionService/GetZonasByRegionResponse")]
+        Portal.Consultoras.Web.ServiceZonificacion.BEZona[] GetZonasByRegion(int PaisID, int RegionID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetZonasByRegion", ReplyAction="http://tempuri.org/IZonificacionService/GetZonasByRegionResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEZona[]> GetZonasByRegionAsync(int PaisID, int RegionID);
         
@@ -1680,6 +1698,14 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BESegmentoBanner[]> GetSegmentoInternoBannerAsync(int PaisID) {
             return base.Channel.GetSegmentoInternoBannerAsync(PaisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[] GetContenidoAppDetaAct(int paisId, int parent) {
+            return base.Channel.GetContenidoAppDetaAct(paisId, parent);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[]> GetContenidoAppDetaActAsync(int paisId, int parent) {
+            return base.Channel.GetContenidoAppDetaActAsync(paisId, parent);
         }
         
         public Portal.Consultoras.Web.ServiceZonificacion.BEZona[] GetZonasByRegion(int PaisID, int RegionID) {

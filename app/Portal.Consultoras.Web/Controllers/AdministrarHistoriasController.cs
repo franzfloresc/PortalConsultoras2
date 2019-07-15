@@ -444,7 +444,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                List<BEContenidoAppDetaAct> listaDatos;
+                List<ServiceContenido.BEContenidoAppDetaAct> listaDatos;
                 using (var sv = new ContenidoServiceClient())
                 {
                     listaDatos = sv.GetContenidoAppDetaActList(userData.PaisID).ToList();
@@ -452,7 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var lista = from a in listaDatos
                             where a.Parent == Parent
                             select a;
-                listaEntidad = Mapper.Map<IList<BEContenidoAppDetaAct>, List<AdministrarHistorialDetaActModel>>(lista.ToList());
+                listaEntidad = Mapper.Map<IList<ServiceContenido.BEContenidoAppDetaAct>, List<AdministrarHistorialDetaActModel>>(lista.ToList());
 
             }
             catch (Exception ex)
