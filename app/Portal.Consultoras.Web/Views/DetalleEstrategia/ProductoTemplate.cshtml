@@ -7,6 +7,8 @@
 <script id="ficha_producto_template" type="text/x-handlebars-template">
     <div data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregar}}" data-OrigenPedidoEditar="{{CodigoUbigeoPortal}}">
         <div id="dvSeccionIzquierdo" class="ficha_producto">
+
+            {{#iff this.FotosCarrusel.length '==' 0 }}
             <div id="dvSeccionFoto">
                 <div id="FichaImagenProducto" class="contenedor_imagen">
                     <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
@@ -21,6 +23,39 @@
                 </div>
 
             </div>
+            {{else}}
+            <div class="container">
+                <div class="row FichaCarrusel">
+                    <div class="col-3 d-none d-sm-none d-md-none d-lg-block">
+                        <div class="contenedor_imagen_thumbnail slider-nav-detail">
+                            <div class="contenedor_carrusel">
+                                <img src="{{ImgUrl FotoProducto01}}" class="img-fluid" />
+                            </div>
+                            {{#each this.FotosCarrusel as |foto|}}
+                            <div class="contenedor_carrusel">
+                                <img src="{{foto}}" class="img-fluid" />
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-12 ">
+                        <div class="contenedor_imagen slider-for-detail">
+                            <div class="contenedor_carrusel">
+                                <img src="{{ImgUrl FotoProducto01}}">
+                            </div>
+                            {{#each this.FotosCarrusel as |foto|}}
+                            <div class="contenedor_carrusel">
+                                <img src="{{foto}}">
+                            </div>
+                            {{/each}}
+                        </div>
+                        {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
+                        <p class="text-center pt-5 pt-md-2">* Foto Referencial</p>
+                        {{/iff}}
+                    </div>
+                </div>
+            </div>
+            {{/iff}}
             <!--compartir-->
             {{#if TieneCompartir}}
             <hr class="clear">
@@ -277,7 +312,8 @@
                         </a>
                     </div>
                 </div>
-                <a id="btnAgregalo" class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                <a id="btnAgregalo"
+                   class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
                    onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true, {{esEditable}}); ">
                     AGRÉGALO

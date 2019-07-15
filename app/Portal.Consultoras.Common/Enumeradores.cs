@@ -346,5 +346,21 @@
             CuvYaAgregadoEnPeriodo = 3,
             CuvBloqueadoNivel = 4
         }
+
+        public enum AppFuenteEstadoTelefonico
+        {
+            FFVV_WEB = 1,
+            FFVV_APP = 2,
+            SAC = 3
+        }
+
+        public enum EstadoBuroSAC
+        {
+            SI_PUEDE_SER_CONSULTORA_Datacredito_con_error_de_escritura_en_sus_BD = 2,
+            SI_PUEDE_SER_CONSULTORA_Documento_existe_en_fuentes_oficiales = 5,
+            SI_PUEDE_SER_CONSULTORA_Nombres_o_Apellidos_corresponden_al_Documento = 6,
+            NO_PUEDE_SER_CONSULTORA = 3,
+            PODRIA_SER_CONSULTORA_SIEMPRE_Y_CUANDO_TENGA_AVAL = 4
+        }
     }
 }

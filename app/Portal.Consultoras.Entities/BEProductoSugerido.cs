@@ -57,6 +57,14 @@ namespace Portal.Consultoras.Entities
             FechaModificacion = row.ToDateTime("FechaModificacion");
             UsuarioModificacion = row.ToString("UsuarioModificacion");
             MostrarAgotado = row.ToInt32("MostrarAgotado");
+            //INI HD-4289
+            ConfiguracionZona = (row.HasColumn("ConfiguracionZona") ? row.ToString("ConfiguracionZona") : "");
+            //FIN HD-4289
         }
+
+        //INI HD-4289
+        [DataMember]
+        public string ConfiguracionZona { get; set; }
+        //FIN HD-4289
     }
 }
