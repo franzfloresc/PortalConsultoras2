@@ -288,6 +288,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
+            model.EsDiaProl = userData.DiaPROL;
+
             var pedidoWeb = ObtenerPedidoWeb();
             var pedidoModel = new PedidoSb2Model
             {

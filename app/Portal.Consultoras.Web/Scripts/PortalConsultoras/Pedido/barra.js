@@ -37,8 +37,8 @@ function MostrarBarra(datax, destino) {
     datax = datax || new Object();
     var data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
     dataBarra = data;
-
-    ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
+    if (typeof (dataBarra.TippingPointBarra) !== "undefined")
+        ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
 
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
@@ -100,7 +100,12 @@ function MostrarBarra(datax, destino) {
         wPrimer = wmin;
     }
 
-    var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn;
+    var TippingPointBarraActive = false;
+    if (dataBarra.hasOwnProperty("TippingPointBarra"))
+        TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
+
+    var valTopTotal = destino == '2' && TippingPointBarraActive && tp > 0 ? tp : mn;
+
     if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
     listaEscalaDescuento = listaEscalaDescuento || new Array();
     var listaEscala = new Array();

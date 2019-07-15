@@ -202,7 +202,6 @@
         <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
         <input type="hidden" id="hdfTotal" value="@Model.Total" />
         <input type="hidden" id="hdfTotalCliente" value="@Model.TotalCliente" />
-
         <div class="content_T_T" style="position:relative; z-index:100">
             <div class="bloque_left"></div>
             @*<div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
@@ -2042,6 +2041,8 @@
 
 </script>
 
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidoGuardado.cshtml", new ViewDataDictionary { { "isMobile", false } })
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidosPendientes.cshtml", new ViewDataDictionary { { "isMobile", false } })
 @section scripts{
 
     <script type="text/javascript">
@@ -2071,7 +2072,8 @@
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new {area = ""})';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         //var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
-        var cantPedidosPendientes = '@ViewBag.CantPedidoPendientes';
+        var cantPedidosPendientes = '@ViewBag.CantPedidosPendientes';
+        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl)); 
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';

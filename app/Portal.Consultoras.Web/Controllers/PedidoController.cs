@@ -183,6 +183,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                model.EsDiaProl = userData.DiaPROL;
+
                 #endregion
 
                 #region Pedido Web y Detalle
@@ -291,23 +293,11 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
-
-                if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
+                var cantidad = ObtenerCantidadPedidosPendientes();
+                if (cantidad > 0)
                 {
-                    var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
-                    if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
-                    {
-                        using (var svc = new UsuarioServiceClient())
-                        {
-                            var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                            if (cantPedidosPendientes > 0)
-                            {
-                                ViewBag.MostrarPedidosPendientes = "1";
-                                ViewBag.CantPedidosPendientes = cantPedidosPendientes;
-
-                            }
-                        }
-                    }
+                    ViewBag.MostrarPedidosPendientes = "1";
+                    ViewBag.CantPedidosPendientes = cantidad;
                 }
 
                 #endregion
@@ -345,9 +335,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
 
                 #region Camino Brillante 
-
                 ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();
-
                 #endregion
 
             }
@@ -375,6 +363,31 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
 
             return View("Index", model);
+        }
+
+        private int ObtenerCantidadPedidosPendientes()
+        {
+            int resultado = 0;
+            try
+            {
+                if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
+                {
+                    var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
+                    if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
+                    {
+                        using (var svc = new UsuarioServiceClient())
+                        {
+                            resultado = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                resultado = 0;
+            }
+            return resultado;
         }
 
         public ActionResult virtualCoach(string param = "")
@@ -1485,6 +1498,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+
+
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
                 var input = Mapper.Map<BEInputReservaProl>(userData);
                 input.EnviarCorreo = enviarCorreo;
@@ -1541,7 +1556,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Total = listPedidoWebDetalle.Sum(d => d.ImporteTotal),
                     EsDiaProl = userData.DiaPROL,
                     CodigoIso = userData.CodigoISO,
-                    CodigoMensajeProl = resultado.CodigoMensaje
+                    CodigoMensajeProl = resultado.CodigoMensaje,
+                    CantPedidosPendientes = ObtenerCantidadPedidosPendientes()
                 };
                 model.TotalConDescuento = model.Total - model.MontoDescuento;
                 model.IsEmailConfirmado = IsEmailConfirmado();
@@ -1556,6 +1572,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
+
                 return Json(new
                 {
                     success = true,

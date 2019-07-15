@@ -19669,6 +19669,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string IngresoExternoOrigenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsPedidoPendienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int LimiteVentaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -19911,6 +19914,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.IngresoExternoOrigenField, value) != true)) {
                     this.IngresoExternoOrigenField = value;
                     this.RaisePropertyChanged("IngresoExternoOrigen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsPedidoPendiente {
+            get {
+                return this.IsPedidoPendienteField;
+            }
+            set {
+                if ((this.IsPedidoPendienteField.Equals(value) != true)) {
+                    this.IsPedidoPendienteField = value;
+                    this.RaisePropertyChanged("IsPedidoPendiente");
                 }
             }
         }

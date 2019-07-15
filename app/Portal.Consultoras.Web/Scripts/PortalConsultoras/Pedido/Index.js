@@ -29,7 +29,6 @@ var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
     ValidarKitNuevas();
-
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
@@ -61,8 +60,6 @@ $(document).ready(function () {
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
-
-
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -264,6 +261,7 @@ $(document).ready(function () {
         }
     });
     $("#btnValidarPROL").on("click", function (e) {
+
         if (gTipoUsuario == 2) { //Postulante
             var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
             $("#dialog_MensajePostulante #tituloContenido").text("IMPORTANTE");
@@ -276,6 +274,7 @@ $(document).ready(function () {
 
         e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
     });
+
 
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var rowElement = $(this).closest(".contenido_ingresoPedido");
@@ -498,8 +497,6 @@ $(document).ready(function () {
     }
 
 
-
-
     $("#observaciones_alerta").dialog({
         modal: true,
         draggable: false,
@@ -525,10 +522,21 @@ $(document).ready(function () {
     });
     //
     //doWhatYouNeed();
+
+    $(window).bind("load", function () { //se ejecuta al finalizar la carga de la página
+        if (typeof cantPedidosPendientes !== "undefined" && typeof esDiaProl !== "undefined") {
+            if (cantPedidosPendientes > 0 && esDiaProl) {
+                $("#spnCantidadPendientes").text(cantPedidosPendientes);
+                $("#accionIgnorar").hide();
+                setTimeout(function () {
+                    $("#PopupPedidosPendientes").fadeIn(250);
+                }, 200);
+            }
+        }
+    });
 });
 
 //paco
-
 
 function CargarDetallePedido(page, rows, asyncrono) {
     $(".pMontoCliente").css("display", "none");
@@ -774,15 +782,15 @@ function CrearDialogs() {
         }
     });
     $("#divConfirmValidarPROL2").dialog({
-	    autoOpen: false,
-	    resizable: false,
-	    modal: true,
-	    closeOnEscape: true,
-	    width: 550,
-	    draggable: true,
-	    close: function (event, ui) {
-		    HideDialog("divConfirmValidarPROL");
-	    }
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 550,
+        draggable: true,
+        close: function (event, ui) {
+            HideDialog("divConfirmValidarPROL");
+        }
     });
 
     $("#divReservaSatisfactoria").dialog({
@@ -1660,6 +1668,7 @@ function CerrarProductoAgregado() {
 
 function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, esElecMultipleNuevas) {
 
+
     ValidDeleteElectivoNuevas(
         cuv,
         esElecMultipleNuevas,
@@ -1720,7 +1729,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             if (data.success != true) {
                 btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
                 messageInfoError(data.message);
-                
+
                 return false;
             }
 
@@ -1904,7 +1913,7 @@ function EsValidoMontoTotalReserva() {
 }
 
 function EjecutarServicioPROL() {
-	
+
     PedidoProvider
         .PedidoEjecutarServicioProlPromise()
         .done(function (response) {
@@ -1912,9 +1921,10 @@ function EjecutarServicioPROL() {
             if (!checkTimeout(response)) return;
             if (!response.success) {
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
-                return;
+                return false;
             }
 
+            //abre el mensaje de la olla
             if (response.mensajeCondicional) {
                 AbrirMensajeImagen(response.mensajeCondicional);
             }
@@ -1924,7 +1934,6 @@ function EjecutarServicioPROL() {
             AnalyticsPortalModule.MarcarGuardaTuPedido();
 
             if (RespuestaEjecutarServicioPROL(response.data)) return;
-
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
         })
         .fail(function (data, error) {
@@ -1961,7 +1970,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(data, inicio) {
-
     if (data.ErrorProl) {
         MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
         return true;
@@ -1978,15 +1986,14 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
     }
     else {
         mensajeBloqueante = false;
-
         if (data.ObservacionRestrictiva) {
             CrearPopupObservaciones(data, inicio);
         }
         else {
             $('#divMensajeObservacionesPROL').data('prop-NotExito', data.ObservacionRestrictiva);
-            ArmarPopupObsReserva("¡Lo lograste! Tu pedido fue guardado con éxito", "");
+            data.MostrarMensajeExito = true;
+            $("#spnCantidadPendientes").text(data.CantPedidosPendientes);
         }
-
     }
 
     AlmacenarRespuestaReservaEnHidden(data);
@@ -2073,18 +2080,40 @@ function ActualizarBtnGuardar(data) {
 function MostrarMensajeProl(response, fnOfertaFinal) {
     var cumpleOferta = fnOfertaFinal(response);
     if (cumpleOferta) return;
-
-    if (!response.data.Reserva) {
-        ShowPopupObservacionesReserva();
-        return;
+    var res = response.data;
+    if (!res.Reserva) {
+        if (res.hasOwnProperty("MostrarMensajeExito")) {
+            console.info(res.MostrarMensajeExito);
+            if (res.MostrarMensajeExito) {
+                var idPedidoGuardado = "#PopupPedidoGuardado", idPedidoPendiente = "#PopupPedidosPendientes", accionIgnorar = "#accionIgnorar";
+                $(accionIgnorar).hide();
+                $(idPedidoGuardado).fadeIn(250);
+                //setContainerLluvia(idPedidoGuardado);
+                //mostrarLluvia();
+                setTimeout(function () {
+                    var cantidad = res.hasOwnProperty("CantPedidosPendientes") ? res.CantPedidosPendientes : 0;
+                    $(idPedidoGuardado).fadeOut(500);
+                    if (cantidad > 0) {
+                        $(idPedidoPendiente).delay(300);
+                        $(idPedidoPendiente).fadeIn(500);
+                    }
+                }, 3750);
+                return false;
+            }
+        } else {
+            ShowPopupObservacionesReserva();
+            return false;
+        }
     }
-
     EjecutarAccionesReservaExitosa(response);
 }
 
-function EjecutarAccionesReservaExitosa(response) {
-    if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
+function CerrarPopUpGrabadoConExito() {
 
+}
+
+function EjecutarAccionesReservaExitosa(response) {
+    if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();    
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
 
     if (!response.data.IsEmailConfirmado) {
@@ -2093,8 +2122,13 @@ function EjecutarAccionesReservaExitosa(response) {
         new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
 
     }else {
-        $("#dialog_divReservaSatisfactoria").show();
-    
+        var idPedidoGuardado = "#PopupPedidoGuardado", msgReservado = "#msgPedidoReservado", msgGuardado = "#msgPedidoGuardado";
+        $(msgGuardado).hide();
+        $(msgReservado).show();
+        setContainerLluvia(idPedidoGuardado);
+        mostrarLluvia();
+        $(idPedidoGuardado).fadeIn(250);
+
         if (ultimoDiaFacturacion) {
 	        RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
         } else {
@@ -2637,12 +2671,12 @@ function CargarProductoAgotados(identificador) {
         CargarFiltrosProductoAgotados();
 
     var data =
-        {
-            cuv: $("#producto-faltante-busqueda-cuv").val(),
-            descripcion: $("#producto-faltante-busqueda-descripcion").val(),
-            categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
-            revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
-        };
+    {
+        cuv: $("#producto-faltante-busqueda-cuv").val(),
+        descripcion: $("#producto-faltante-busqueda-descripcion").val(),
+        categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
+        revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
+    };
 
     AbrirSplash();
     jQuery.ajax({
@@ -2828,7 +2862,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 restringido = false;
                 return false;
             }
-            
+
             if (data.pedidoReservado) {
                 if (mostrarAlerta == true) {
                     CerrarSplash();
@@ -2895,16 +2929,11 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 }
 
 function closeDialogObservacionesProl() {
-
     var notExitoFromProl = $('#divMensajeObservacionesPROL').data('prop-NotExito');
-
     if (!notExitoFromProl)
         if (!(typeof AnalyticsPortalModule === 'undefined'))
             AnalyticsPortalModule.MarcaGuardarPedidoExito(arrayProductosGuardadoExito);
-
-
     HideDialog("divObservacionesPROL");
-
 }
 
 function ArmarPopupObsReserva(titulo, mensaje) {
@@ -2936,13 +2965,13 @@ function InsertarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, es
     var _cuvprecio = esAceptado == true ? precio : DecimalToStringFormat($("#txtPrecioR").val());
     waitingDialog({});
     var model =
-        {
-            CUV: cuvbuscado,
-            CUVSugerido: cuvSugerido,
-            PrecioUnidad: _cuvprecio,
-            Cantidad: cantidad,
-            CuvEsAceptado: esAceptado
-        };
+    {
+        CUV: cuvbuscado,
+        CUVSugerido: cuvSugerido,
+        PrecioUnidad: _cuvprecio,
+        Cantidad: cantidad,
+        CuvEsAceptado: esAceptado
+    };
 
     jQuery.ajax({
         type: "POST",
@@ -3011,11 +3040,11 @@ function CargarProductosRecomendados(item) {
 }
 
 function ModificarPedido() {
-	showDialog("divConfirmValidarPROL2");
+    showDialog("divConfirmValidarPROL2");
 }
 
 function CerrarDialogo(dialog) {
-	HideDialog(dialog);
+    HideDialog(dialog);
 }
 
 function PedidosPendientesPorAprobar() {

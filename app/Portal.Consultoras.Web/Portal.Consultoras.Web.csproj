@@ -1561,6 +1561,7 @@
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Css\Site\TuVozOnline\TuVozOnline.css" />
     <Content Include="Content\Css\Site\styleBase.css" />
+    <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-pedidos-pendientes.css" />
     <Content Include="Content\Images\alerta-icono.png" />
     <Content Include="Content\Images\add-to-cart-disable.png" />
     <Content Include="Content\Images\add-to-cart-white.png" />
@@ -5972,6 +5973,8 @@
     <Content Include="Views\Pedido\_PopupRecepcionPedido.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\imagen-estrategia-template.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupPedidosPendientes.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupPedidoGuardado.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\estrategia-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\compartir-estrategia-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\tabs-ficha-enriquecida-template.cshtml" />
