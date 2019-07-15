@@ -441,7 +441,7 @@ colModel: [
                     <input type="hidden" id="ArchivoLogoAnterior" name="ArchivoLogoAnterior" />
                     <div id="fpUpload">
                         <script type="text/javascript">
-                            var uploader = new qq.FileUploader({
+                            new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg'],
                                 element: document.getElementById('fpUpload'),
                                 action: '@Url.Action("ImageLugaresPagoUpload", "FileUpload")',
