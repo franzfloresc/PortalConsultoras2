@@ -283,4 +283,4 @@
 
         return RegExpression.test(key);
     }
-}(jQuery));
+}());

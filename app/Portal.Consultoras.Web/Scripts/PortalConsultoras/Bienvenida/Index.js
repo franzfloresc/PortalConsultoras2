@@ -447,7 +447,6 @@ $(document).ready(function () {
         CargarProductoLiquidacionPopup(objProducto, objHidden);
     });
     $(document).on('click', '.js-agregar-popup-liquidacion', function () {
-
         var contenedor = $(this).parents('#divTonosTallas');
         PedidoRegistroModule.AgregarProductoLiquidacionBienvenida(contenedor);
     });
@@ -612,7 +611,6 @@ function mostrarVideoIntroductorio() {
         }
         primeraVezVideo = false;
         return true;
-        
     } catch (e) {
 
     }
@@ -2530,7 +2528,7 @@ function ActualizarVisualizoComunicado(comunicadoId) {
         data: JSON.stringify(params),
         contentType: 'application/json',
         success: function (data) {
-            //
+            checkTimeout(data);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -2792,7 +2790,6 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
 }
 
 function MostrarPopupInicial() {
-
     if (showPopupMisDatos == '1' || popupCambioClave == "1") {
         CargarMisDatos();
         return;

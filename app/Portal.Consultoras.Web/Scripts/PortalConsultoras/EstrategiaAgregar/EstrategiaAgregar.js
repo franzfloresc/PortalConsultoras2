@@ -244,11 +244,10 @@ var EstrategiaAgregarModule = (function () {
     var _getClienteIdSelected = function () {
         var clientId = 0;
 
-        var $divFichaReumida = $('#DivPopupFichaResumida');
-        
-            if ($divFichaReumida.find("#hfClienteId").length > 0) {
-                clientId = $($divFichaReumida.find("#hfClienteId")[0]).val();
-            }
+        var $divFichaReumida = $('#DivPopupFichaResumida');        
+        if ($divFichaReumida.find("#hfClienteId").length > 0) {
+            clientId = $($divFichaReumida.find("#hfClienteId")[0]).val();
+        }
         
 
         return clientId;

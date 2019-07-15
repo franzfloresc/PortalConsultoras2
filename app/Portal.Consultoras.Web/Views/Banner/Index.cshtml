@@ -2154,7 +2154,7 @@
                     <div id="flUpload">
                         <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
-                            var uploader = new qq.FileUploader({
+                            new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg','gif'],
                                 element: document.getElementById('flUpload'),
                                 action: '@Url.Action("ImageMatrizUpload", "Banner")',
