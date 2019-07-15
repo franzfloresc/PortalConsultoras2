@@ -3910,7 +3910,7 @@ namespace Portal.Consultoras.BizLogic
                     resultado = ActualizarMisDatos(usuario, usuario.CorreoAnterior);
                     lst = resultado.Split('|');
 
-                    if (lst != null && lst[0] == "0")
+                    if (lst[0] == "0")
                     {
                         string _mensajeError = TemplateCustomError("RegistrarPerfil", "ActualizarMisDatos", lst[2]);
                         LogManager.SaveLog(new ClientInformationException(_mensajeError), string.Empty, usuario.PaisID);
