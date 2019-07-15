@@ -2384,7 +2384,7 @@ div .ficha__producto__precio__normal {
     width: 20px;
     height: 197px;
 }
-.trunktext {
+.trunktext, .ficha__producto__descrip__nom {
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
@@ -3190,9 +3190,9 @@ div .ficha__producto__precio__normal {
         text-indent: 19px
     }
 
-    .ficha__producto__descrip__nom {
+    /*.ficha__producto__descrip__nom {
         min-height: 47px !important
-    }
+    }*/
 
     .ficha__producto__precio {
         min-height: inherit
