@@ -87,7 +87,7 @@ strong {
 .boxtom {
     display: none;
 }
-    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after, .cambio-crec:after, .cent-mant:after{
+    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after, .cambio-crec:after, .cent-mant:after, .right-m:after{
         content: "";
         display: block;
         clear: both
@@ -607,7 +607,7 @@ div .owl-carousel .owl-stage-outer {
     top: -5px;
     left: -5px;
     z-index: 5;
-    transform: rotate(50deg);
+    transform: rotate(174deg);
 }
 .cent-mant {
     margin: 30px auto;
@@ -859,15 +859,22 @@ div .owl-carousel .owl-stage-outer {
     margin-top: 20px
 }
 
-.itm {
+/*.itm {
     width: 24%;
     float: left;
     max-width: 85px;
     display: block;
     padding: 0 1%;
     margin-bottom: 18px
+}*/
+.itm {
+    width: 24%;
+    float: left;
+    max-width: 108px;
+    display: block;
+    padding: 0 1%;
+    margin-bottom: 15px;
 }
-
 .contain-camb {
     width: 100%;
     max-width: 740px;
@@ -1069,16 +1076,14 @@ div.opOrdenar {
     margin-bottom: 40px;
 }
 
-.box-camb .text-bold, .owl-stage-outer .text-bold, .txt-benf .text-bold {
-    color: #000;
-    font-size: 14px;
-    text-align: left;
-    font-weight: 700;
-    line-height: 17px;
-    margin-bottom: 20px;
-}
 .box-camb .text-bold {
     font-size: 17px;
+
+}
+.mo-3 .text-bold {
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 20px;
 }
     .box-left-ganancias, .box-right-ganancias {
         display: block;
@@ -1638,7 +1643,9 @@ button.close {
     display: block;
     margin: 0 auto
 }
-
+.cambio-crec .regular .itm img {
+    min-width: 54px;
+}
 .cambio-crec > .col-3 {
     margin-bottom: 20px
 }
@@ -1680,7 +1687,7 @@ button.close {
 }
 
 .como-log {
-    margin-top: 12px !important
+    margin-top: 8px !important
 }
 
 header.layout__header {
@@ -2350,8 +2357,63 @@ div .ficha__producto__precio__normal {
     display: none;
 }
 
-@media only screen and (max-width: 900px) and (min-width: 521px) {
-    .right-banner {
+
+.cambio-crec .logreg {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+/*.conta li {
+    list-style-type: none;
+    width: 15em;
+    border: 5px solid green;
+}*/
+
+.mo-2 .slick-arrow {
+    width: 10px;
+    height: 30px;
+}
+
+.slick-arrow img {
+    width: 100%;
+    display: block;
+}
+
+.slick-arrow {
+    width: 20px;
+    height: 197px;
+}
+.trunktext {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    min-height: 34px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @media only screen and (max-width: 900px) and (min-width: 521px) {
+        .right-banner {
         background: rgba(255, 255, 255, 0.8);
         padding: 20px;
         right: 0;
@@ -2509,7 +2571,8 @@ div .ficha__producto__precio__normal {
     margin: 0 auto;
     margin-bottom: 50px;
     display: block;
-     max-width: 700px; 
+    max-width: 646px;
+    /*max-width: 700px;*/
     width: 90%;
 }
 .logreg a.slick-arrow {
@@ -2614,14 +2677,10 @@ div .ficha__producto__precio__normal {
     left: -8px;
 }
 .regular .itm {
-    width: 10.5%;
-    margin: 0 3%;
     float: left;
-    max-width: 85px;
-    display: block;
     padding: 0 1%;
     padding-top: 2px;
-    margin-bottom: 0;
+
 }
 
 .snackbar-align {
@@ -2801,7 +2860,20 @@ div .ficha__producto__precio__normal {
         margin-bottom: 70px;
     }
 }
+@media screen and (min-width:621px) {
+    #activo {
+        display: none !important;
+    }
 
+    .mo-3 .logreg .bigitem {
+        width: 16%;
+    }
+
+    .mo-3 .logreg .right-m {
+        width: 84%;
+        float: left;
+    }
+}
 @media screen and (max-width:620px) {
     .modal-dialog {
         margin: 1.5rem;
@@ -3077,7 +3149,7 @@ div .ficha__producto__precio__normal {
         margin-right: 3%;
     }
 
-    .slick-arrow {
+    .camino_brillante .slick-arrow {
         display: none !important;
     }
 
@@ -3185,7 +3257,7 @@ div .ficha__producto__precio__normal {
         float: none;
         margin: 0 auto;
         margin-bottom: 8px;
-        margin-left: 8%;
+        margin-left: 5%;
         font-size: 14px;
     }
     
@@ -3227,14 +3299,56 @@ div .ficha__producto__precio__normal {
     .logreg > .text-bold {
         text-align:left;
     }
-}
-
-
-@media screen and (min-width:621px) {
-    #activo{
-        display:none !important;
+    /*nuevo logros unif*/
+    .cambio-crec .bigitem {
+        width: 25%;
+        display: block;
+        float: left;
+        max-width: 80px;
+        margin: 0 2%;
+        margin-right: 5%;
     }
+    .right-m {
+        width: 68%;
+        display:block;
+        float:right;
+    }
+    .bigitem .circle-porcent {
+        width: 70px;
+        height: 70px;
+        border-radius: 70px;
+    }
+    .bigitem .bord:before {
+        display: none;
+    }
+    .right-m .itm {
+        width: 25%;
+        margin: 0 4%;
+        margin-bottom: 15px;
+    }
+    .bigitem .circle-porcent span {
+        font-size: 22px;
+        line-height: 72px;
+    }
+    .logreg .text-bold span {
+        display: block;
+        font-size: 16px;
+    }
+    .cambio-crec .logreg {
+        display: block;
+    }
+    .mo-3 .text-bold {
+        text-align:left;
+    }
+    .cambio-crec .regular .itm img {
+        min-width:inherit;
+        max-width:44px;
+    }
+
 }
+
+
+
 
     @media screen and (max-width:600px) {
 
@@ -3331,11 +3445,15 @@ div .ficha__producto__precio__normal {
             min-height: 17px !important
         }
 
-        .slick-list {
+        .camino_brillante .slick-list {
             padding: 0 15px !important;
         }
+        /*.logreg .slick-list {
+          
+            padding-left: 22px !important;
+        }*/
 
-        .slick-track {
+        .camino_brillante .slick-track {
             margin-left: -20px;
         }
 
@@ -3351,17 +3469,17 @@ div .ficha__producto__precio__normal {
         .progress-barnew {
             width: 62%;
             margin-bottom: 80px;
-            margin-left: 10%;
+            margin-left: 9%;
         }
 
         .valor-final {
-            right: -3px;
+            right: -10px;
             top: -6px;
             width: 78px;
         }
 
             .valor-final p {
-                font-size: 15px;
+                font-size: 14px;
                 text-align: left;
             }
 
@@ -3377,6 +3495,11 @@ div .ficha__producto__precio__normal {
 
         .etiq-mant {
             margin-left: 10%;
+        }
+        .flagimg {
+            width: 18px;
+            right: -25px;
+            top: -10px;
         }
     }
 

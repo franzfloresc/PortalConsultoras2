@@ -1463,6 +1463,7 @@
     <Content Include="Content\Banners\FolderContent.txt" />
     <Content Include="Content\CaminoBrillante\Content.css" />
     <Content Include="Content\CaminoBrillante\css\estilos.css" />
+    <Content Include="Content\CaminoBrillante\imgs\activo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\add-to-cart.svg" />
     <Content Include="Content\CaminoBrillante\imgs\add_to_cart2.svg" />
     <Content Include="Content\CaminoBrillante\imgs\bannerlogros.png" />

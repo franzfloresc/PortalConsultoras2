@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var data = ViewBag.Informacion;
     var categoria = ViewBag.Vista;
-  
+
 }
 
 @section css{
@@ -65,7 +65,7 @@
 <div class="container" id="logros">
 
 
-    
+
 </div>
 <br />
 
@@ -172,7 +172,8 @@
     <div class="clear"></div>
 
 </script>
-<div class=" cambio-crec logreg">
+
+@*<div class="container cambio-crec logreg">
     <p class="text-bold">Constancia del periodo: C04 a C09</p>
     <section class="regular  slider">
         <div>
@@ -260,89 +261,273 @@
                 <span class="como-log inactivo">C03</span>
             </div>
         </div>
-        <div>
+
+    </section>
+</div>*@
+
+<div class="container">
+
+    <div class="box-camb mo-1">
+        <p class="text-bold">Cambio de escala</p>
+        <div class="cambio-crec">
+
+            <div class="itm bigitem">
+                <div class="bord circle-porcent crec-activo">
+                    <span>20%</span>
+                </div>
+
+                <a href="#" class="inactivo"></a>
+
+                <span class="como-log inactivo">¡Ya lo tienes!</span>
+            </div>
+            <div class="right-m ">
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>25%</span>
+                    </div>
+
+                    <a href="#" class="inactivo"></a>
+
+                    <span class="como-log inactivo">¡Ya lo tienes!</span>
+                </div>
+
+                <div class="itm">
+                    <div class="bord circle-porcent crec-inactivo">
+                        <span>28%</span>
+                    </div>
+
+                    <a href="#" class="inactivo"></a>
+
+                    <span data-toggle="modal" class=" como-log " data-target="#medalla-ESCALA-2" onclick="ComoLograrlo('Crecimiento','Cambio de escala','Cambio de escala 28%','Pasa un monto de pedido superior a <b>Bs 757.99</b>')">¿Cómo lograrlo?</span>
+                    <div class="modal fade" id="medalla-ESCALA-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('Crecimiento','')">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('Crecimiento','Cambio de escala','Cambio de escala 28%')">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <div class="modal-body pad-center">
+                                    <div class="indicador-nivel">
+                                        <div class="circle-porcent crec-activo">
+                                            <span>28%</span>
+                                        </div>
+                                        <div class="left-mod">
+                                            <h2>Cambio de escala 28%</h2>
+                                            <p>Pasa un monto de pedido superior a <b>Bs 757.99</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="itm">
+                    <div class="bord circle-porcent crec-inactivo">
+                        <span>30%</span>
+                    </div>
+
+                    <a href="#" class="inactivo"></a>
+
+                    <span data-toggle="modal" class=" como-log " data-target="#medalla-ESCALA-3" onclick="ComoLograrlo('Crecimiento','Cambio de escala','Cambio de escala 30%','Pasa un monto de pedido superior a <b>Bs 1,384.99</b>')">¿Cómo lograrlo?</span>
+                    <div class="modal fade" id="medalla-ESCALA-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('Crecimiento','')">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('Crecimiento','Cambio de escala','Cambio de escala 30%')">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <div class="modal-body pad-center">
+                                    <div class="indicador-nivel">
+                                        <div class="circle-porcent crec-activo">
+                                            <span>30%</span>
+                                        </div>
+                                        <div class="left-mod">
+                                            <h2>Cambio de escala 30%</h2>
+                                            <p>Pasa un monto de pedido superior a <b>Bs 1,384.99</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="itm">
+                    <div class="bord circle-porcent crec-inactivo">
+                        <span>35%</span>
+                    </div>
+
+                    <a href="#" class="inactivo"></a>
+
+                    <span data-toggle="modal" class=" como-log " data-target="#medalla-ESCALA-4" onclick="ComoLograrlo('Crecimiento','Cambio de escala','Cambio de escala 35%','Pasa un monto de pedido superior a <b>Bs 2,428.99</b>')">¿Cómo lograrlo?</span>
+                    <div class="modal fade" id="medalla-ESCALA-4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('Crecimiento','')">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('Crecimiento','Cambio de escala','Cambio de escala 35%')">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <div class="modal-body pad-center">
+                                    <div class="indicador-nivel">
+                                        <div class="circle-porcent crec-activo">
+                                            <span>35%</span>
+                                        </div>
+                                        <div class="left-mod">
+                                            <h2>Cambio de escala 35%</h2>
+                                            <p>Pasa un monto de pedido superior a <b>Bs 2,428.99</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="box-camb mo-2">
+        <p class="text-bold">Cambio de escala</p>
+        <div class="cambio-crec">
+            <section class="regular  slider">
+                <div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+               
+                    </div>
+                <div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                    <div class="itm">
+                        <img src="~/Content/CaminoBrillante/imgs/activo.svg" />
+                    </div>
+                </div>
+            </section>
+           
+        </div>
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+
+<div class="container cambio-crec mo-3">
+    <p class="text-bold">Constancia del periodo: <span>C04 a C09</span></p>
+    <div class="logreg">
+        <div class="itm bigitem">
+            <div class=" circle-porcent crec-activo">
+                <span>C01</span>
+            </div>
+            <span class="como-log inactivo">C01</span>
+        </div>
+        <div class="right-m ">
             <div class="itm">
                 <div class="bord circle-porcent crec-activo">
-                    <span>C04</span>
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C03</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C01</span>
                 </div>
                 <span class="como-log inactivo">C04</span>
             </div>
-        </div>
-        <div>
             <div class="itm">
                 <div class="bord circle-porcent crec-activo">
-                    <span>C05</span>
+                    <span>C02</span>
                 </div>
                 <span class="como-log inactivo">C05</span>
             </div>
-        </div>
-        <div>
             <div class="itm">
                 <div class="bord circle-porcent crec-activo">
-                    <span>C06</span>
+                    <span>C02</span>
                 </div>
                 <span class="como-log inactivo">C06</span>
             </div>
+
         </div>
-        <div>
-            <div class="itm">
-                <div class="bord circle-porcent crec-activo">
-                    <span>C07</span>
-                </div>
-                <span class="como-log inactivo">C07</span>
-            </div>
-        </div>
-        <div>
-            <div class="itm">
-                <div class="bord circle-porcent crec-activo">
-                    <span>C08</span>
-                </div>
-                <span class="como-log inactivo">C08</span>
-            </div>
-        </div>
-
-    </section>
-</div>  
+     </div>
+</div>
 
 
 
-@section scripts{
-    <script>
+<div class="clear"></div>
+
+
+    @section scripts{
+        <script>
         var urlGetLogros = '@Url.Action("GetLogros", "CaminoBrillante")';
         var categoriaLogro = "@categoria";
-    </script>
+        </script>
 
-    <script>
-        $(document).on('ready', function () {
+        <script>
+            $(document).on('ready', function () {
 
-            $('.carousel').carousel({
-                interval: 1000,
-                pause: false,
-                interval: false
-            });
+                //$('.carousel').carousel({
+                //    interval: 1000,
+                //    pause: false,
+                //    interval: false
+                //});
 
-            $(".regular").slick({
-                dots: false,
-                infinite: false,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                //initialSlide: 2,
-                prevArrow: '<a style="display: block;left: 0;margin-left: -2%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
-                nextArrow: '<a style="display: block;right: 0;margin-right: -2%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-
-                            slidesToShow: 1, slidesToScroll: 1
+                $(".regular").slick({
+                    dots: false,
+                    infinite: false,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    //initialSlide: 2,
+                    prevArrow: '<a style="display: block;left: 0;margin-left: -3%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                    nextArrow: '<a style="display: block;right: 0;margin-right: 2%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                                prevArrow: '<a style="display: block;left: 0;margin-left: -4%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                                nextArrow: '<a style="display: block;right: 0;margin-right: 0%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                            }
                         }
-                    }
-                ]
+                    ]
+                });
             });
-        });
-    </script>
+        </script>
 
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
 
-}
+    }
