@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE [BelcorpBolivia]
 GO
 
@@ -84,7 +84,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -454,7 +454,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -825,7 +825,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -1195,7 +1195,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -1565,7 +1565,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -1935,7 +1935,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -2305,7 +2305,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -2675,7 +2675,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -3045,7 +3045,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -3416,7 +3416,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -3786,7 +3786,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -4156,7 +4156,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campa�a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);

@@ -1,8 +1,8 @@
-GO
+锘縂O
 USE BelcorpPeru
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -14,7 +14,7 @@ GO
 USE BelcorpMexico
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -26,7 +26,7 @@ GO
 USE BelcorpColombia
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -38,7 +38,7 @@ GO
 USE BelcorpSalvador
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -50,7 +50,7 @@ GO
 USE BelcorpPuertoRico
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -62,7 +62,7 @@ GO
 USE BelcorpPanama
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -74,7 +74,7 @@ GO
 USE BelcorpGuatemala
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -86,7 +86,7 @@ GO
 USE BelcorpEcuador
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -98,7 +98,7 @@ GO
 USE BelcorpDominicana
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -110,7 +110,7 @@ GO
 USE BelcorpCostaRica
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -122,7 +122,7 @@ GO
 USE BelcorpChile
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232
@@ -134,7 +134,7 @@ GO
 USE BelcorpBolivia
 GO
 BEGIN
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=232

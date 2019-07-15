@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
 if not exists (select 1 from sysobjects where name='LogConsultoraPagoContado' and xtype='U')

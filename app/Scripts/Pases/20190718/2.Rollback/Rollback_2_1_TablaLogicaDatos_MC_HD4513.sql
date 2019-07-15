@@ -1,8 +1,8 @@
-GO
+锘縂O
 USE BelcorpPeru
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -13,7 +13,7 @@ GO
 USE BelcorpMexico
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -24,7 +24,7 @@ GO
 USE BelcorpColombia
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -35,7 +35,7 @@ GO
 USE BelcorpSalvador
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -46,7 +46,7 @@ GO
 USE BelcorpPuertoRico
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -57,7 +57,7 @@ GO
 USE BelcorpPanama
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -68,7 +68,7 @@ GO
 USE BelcorpGuatemala
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -79,7 +79,7 @@ GO
 USE BelcorpEcuador
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -90,7 +90,7 @@ GO
 USE BelcorpDominicana
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -101,7 +101,7 @@ GO
 USE BelcorpCostaRica
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -112,7 +112,7 @@ GO
 USE BelcorpChile
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201
@@ -123,7 +123,7 @@ GO
 USE BelcorpBolivia
 GO
 BEGIN
-	/*Tabla L骻ica Datos */
+	/*Tabla L贸gica Datos */
 	IF EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
 	BEGIN
 		 DELETE FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201

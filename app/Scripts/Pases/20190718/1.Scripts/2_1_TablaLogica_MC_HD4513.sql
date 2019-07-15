@@ -1,9 +1,9 @@
-GO
+锘縂O
 USE BelcorpPeru
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -22,7 +22,7 @@ USE BelcorpMexico
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -41,7 +41,7 @@ USE BelcorpColombia
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -60,7 +60,7 @@ USE BelcorpSalvador
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -79,7 +79,7 @@ USE BelcorpPuertoRico
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -98,7 +98,7 @@ USE BelcorpPanama
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -117,7 +117,7 @@ USE BelcorpGuatemala
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -136,7 +136,7 @@ USE BelcorpEcuador
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -155,7 +155,7 @@ USE BelcorpDominicana
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -174,7 +174,7 @@ USE BelcorpCostaRica
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -193,7 +193,7 @@ USE BelcorpChile
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
@@ -212,7 +212,7 @@ USE BelcorpBolivia
 GO
 BEGIN
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=232)
 	BEGIN
 		INSERT INTO TablaLogica
