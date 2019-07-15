@@ -4,7 +4,7 @@
 }
 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
 <script type="text/javascript" src="~/Scripts/jquery.form.js"></script>
-<script type="text/ecmascript">
+<script type="text/javascript">
     var isoPAIS = "";
     jQuery(document).ready(function () {
         $("input[name$='grupoUrlPDF']").click(function () {
@@ -139,6 +139,29 @@
 
             }
         }
+
+        $("#ddlPaisDialogo").change(function () {
+            waitingDialog({});
+            var value = this.value;
+            if (value !== "") {
+                CargarSegmentoPais();
+                var strZonas = $('#Zona').val();
+                ConfigurarArbol(strZonas);
+            }
+            else {
+                $("#arbolRegionZona").html("");
+                $('#ddlSegmento').empty();
+            }
+            closeWaitingDialog();
+        });
+
+        $("#chkSeleccionar").click(function () {
+            if (this.checked)
+                $.jstree._reference($("#arbolRegionZona")).check_all();
+            else
+                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+        });
+
     });
 
     function IniDialogRegistroIncentivos() {
@@ -154,6 +177,97 @@
             {
                 "Guardar": function () {
                     var vMessage = "";
+                    var fileValue = $('#flArchivoPDF').val();
+
+                    var extensiones = ['pdf'];
+                    var get_ext;
+
+                    var message = "";
+
+                    if (jQuery.trim($('#ddlPaisDialogo').val()) == "")
+                        message += "- Debe seleccionar un País.\n";
+
+                    if (jQuery.trim($('#ddlCampaniaInicioDialogo').val()) == "")
+                        message += "- Debe seleccionar una Campaña de Inicio.\n";
+
+                    if (jQuery.trim($('#ddlCampaniaFinDialogo').val()) == "")
+                        message += "- Debe seleccionar una Campaña de Fin.\n";
+
+                    if (jQuery.trim($('#Titulo').val()) == "")
+                        message += "- Debe ingresar el Titulo.\n";
+
+                    if (jQuery.trim($('#ArchivoPortada').val()) == "")
+                        message += "- Debe ingresar el archivo o url de la Portada.\n";
+
+                    var urlpdf = $('input[name=grupoUrlPDF]:checked', '#frmIncentivo').val();
+
+                    if (urlpdf == "url") {
+                        if (jQuery.trim($('#Url').val()) == "") {
+                            message += "- Debe ingresar la url del Incentivo.\n";
+                        }
+                    }
+                    if (urlpdf == "pdf") {
+                        if (jQuery.trim($('#ArchivoPDF').val()) == "" && fileValue == "") {
+                            message += "- Debe ingresar el pdf del Incentivo.\n";
+                        }
+                        else {
+                            get_ext = fileValue.split('.');
+                            get_ext = get_ext.reverse();
+
+                            if ($.inArray(get_ext[0].toLowerCase(), extensiones) == -1 && fileValue.length > 0)
+                                message += '- El tipo de archivo es inválido, asegúrese de seleccionar un documento PDF (*.pdf).'
+                        }
+                    }
+
+                    if (jQuery('#IncentivoID').val() == "0")
+                        jQuery('#PaisID').val(jQuery('#ddlPaisDialogo').val());
+
+                    if ($('#ddlPaisDialogo').val() != "") { 
+                        var SegmentoInterno = "";
+                        $("#ddlSegmento").find('input[type="checkbox"]').each(function () {
+                            if ($(this).attr("checked")) {
+                                SegmentoInterno += $(this).val() + ",";
+                            }
+                        });
+
+                        if (SegmentoInterno == "") {
+                            message += "- No se ha marcado ningún Segmento.\n";
+                        }
+
+                        if (SegmentoInterno != "") {
+                            SegmentoInterno = SegmentoInterno.substring(0, SegmentoInterno.length - 1);
+                            $("#Segmento").val(SegmentoInterno);
+                        }
+                        else {
+                            $("#Segmento").val("");
+                        }
+
+                        var zonas = "";
+                        $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
+                            if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                                return true;
+                            }
+                            zonas += this.id + ",";
+                        });
+
+                        if (zonas == "") {
+                            message += "- No se ha marcado ninguna zona o región.\n";
+                        }
+
+                        if (zonas != "") {
+                            zonas = zonas.substring(0, zonas.length - 1);
+                            $("#Zona").val(zonas);
+                        }
+                        else {
+                            $("#Zona").val("");
+                        }
+                    }
+                   
+
+                    if (message.length > 0) {
+                        alert(message);
+                        return false;
+                    }
                     $('#frmIncentivo').submit();
                 },
                 "Cerrar": function () {
@@ -178,7 +292,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['IncentivoID', 'PaisID', 'CampaniaIDInicio', 'CampaniaIDFin', 'ArchivoPortada', 'CampañaInicio', 'CampañaFin', 'Titulo', 'Subtitulo', 'Portada', 'Url', 'ArchivoPDF', 'Opcion', 'UrlOculto', 'ArchivoPDFOculto'],
+            colNames: ['IncentivoID', 'PaisID', 'CampaniaIDInicio', 'CampaniaIDFin', 'ArchivoPortada', 'CampañaInicio', 'CampañaFin', 'Titulo', 'Subtitulo', 'Portada', 'Url', 'ArchivoPDF', 'Opcion', 'UrlOculto', 'ArchivoPDFOculto', 'ZonaOculto', 'SegmentoOculto'],
             colModel: [
                 { name: 'IncentivoID', index: 'IncentivoID', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'PaisID', index: 'PaisID', width: 0, editable: true, resizable: false, hidden: true },
@@ -194,7 +308,9 @@
                 { name: 'ArchivoPDF', index: 'ArchivoPDF', width: 30, editable: true, resizable: false, formatter: ShowPdf },
                 { name: 'Activo', index: 'Activo', width: 15, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
                 { name: 'UrlOculto', index: 'UrlOculto', width: 30, editable: true, resizable: false, hidden: true },
-                { name: 'ArchivoPDFOculto', index: 'ArchivoPDF', width: 30, editable: true, resizable: false, hidden: true }
+                { name: 'ArchivoPDFOculto', index: 'ArchivoPDF', width: 30, editable: true, resizable: false, hidden: true },
+                { name: 'ZonaOculto', index: 'ZonaOculto', width: 30, editable: true, resizable: false, hidden: true },
+                { name: 'SegmentoOculto', index: 'SegmentoOculto', width: 30, editable: true, resizable: false, hidden: true }
             ],
             jsonReader:
                 {
@@ -281,6 +397,8 @@
                 $('#Subtitulo').val(jQuery("#gvwIncentivos").jqGrid('getCell', Id, 'Subtitulo'));
                 $('#ArchivoPortada').val($("#gvwIncentivos").jqGrid('getCell', Id, 'ArchivoPortada'));
                 $('#ArchivoPortadaAnterior').val($("#gvwIncentivos").jqGrid('getCell', Id, 'ArchivoPortada'));
+                $('#Zona').val($("#gvwIncentivos").jqGrid('getCell', Id, 'ZonaOculto'));
+                $('#Segmento').val($("#gvwIncentivos").jqGrid('getCell', Id, 'SegmentoOculto'));
 
                 if ($.trim($("#ArchivoPortada").val()) != "") {
                     $('#imgPreviaLogo').attr('src', $("#ArchivoPortada").val());
@@ -315,6 +433,7 @@
                 if ($.trim($("#ArchivoPDF").val()) != "")
                     $("input[name=grupoUrlPDF][value=pdf]").attr('checked', 'checked').click();
 
+                $('#ddlPaisDialogo').change();
                 showDialog("DialogRegistroIncentivos");
             } else {
                 alert("No selecciono el Incentivo");
@@ -379,6 +498,7 @@
 
         limpiarPopup();
         MostrarDialogo();
+        $('#ddlPaisDialogo').change();
     }
 
     function limpiarPopup() {
@@ -395,6 +515,9 @@
         $('#ArchivoPortada').val("");
         $('#ArchivoPDF').val("");
         $('#Url').val("");
+        $('#Zona').val("");
+        $('#Segmento').val("");
+        $("#chkSeleccionar").prop('checked', false);
 
         var control = $("#flArchivoPDF");
         control.replaceWith(control = control.clone(true));
@@ -402,6 +525,93 @@
         $('#IncentivoID').val("0");
         $("input[name=grupoUrlPDF][value=url]").attr('checked', 'checked').click();
     }
+
+    function CargarSegmentoPais() {
+        var PaisId = $('#ddlPaisDialogo').val();
+        if (PaisId != -1) {
+        $.ajaxSetup({
+            cache: false,
+            async: false
+        });
+        $.getJSON(baseUrl + 'AdministrarIncentivos/ObtenerSegmento', { PaisId: PaisId }, function (data) {
+            if (checkTimeout(data)) {
+                var ddlSegmento = $('#ddlSegmento');
+                ddlSegmento.empty();
+                if (data.listasegmento.length > 0) {
+                    for (var item in data.listasegmento) {
+
+                        if (data.listasegmento.hasOwnProperty(+item)) {
+                            ddlSegmento.append('<div style="display:block"><div style="float:left"><input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" style="display:inline-block !important; height: 15px !important;" /></div><div style="float:left;">' + data.listasegmento[item].BannerSegmentoDes + '</div> <div style="clear: both"></div></div>');
+                        }
+                    }
+
+                    var segmentosVal = $("#Segmento").val();
+                    if (segmentosVal != "") {
+                        var segmentosInternos = segmentosVal.split(',');
+                        $("#ddlSegmento").find('input[type="checkbox"]').each(function () {
+
+                            var valor = $(this).attr('value');
+                            if ($.inArray(valor, segmentosInternos) > -1) {
+                                $(this).attr("checked", true);
+                            }
+                        });
+                    }
+
+                }
+            }
+        });
+        }
+        else {
+            $('#ddlSegmento').empty();
+        }
+        return false;
+    }
+
+           function ConfigurarArbol(Zonas) {
+            $.ajaxSetup({
+                cache: false
+            });
+            $("#arbolRegionZona").jstree({
+                json_data: {
+                    ajax: {
+                        url: baseUrl + "AdministrarIncentivos/CargarArbolRegionesZonas",
+                        data: function (n) {
+                            return { pais: $("#ddlPaisDialogo").val() };
+                        },
+                        type: "GET",
+                        error: function (XMLHttpRequest, textStatus, errorThrown) { },
+                        success: function (data, textStatus, jqXHR) { },
+                        complete: function () {
+                            $("#arbolRegionZona").jstree("set_theme", "apple", "@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")");
+
+                            var strZonas = Zonas;
+                            if (strZonas != "") {
+                                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+                                var strZonasArreglo = strZonas.split(",");
+                                for (i = 0; i < strZonasArreglo.length; i++) {
+                                    $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
+                                }
+                                $("#chkSeleccionar").attr("checked", true);
+                                $.jstree._reference($("#arbolRegionZona")).get_unchecked(null, true).each(function () {
+                                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                                        return true;
+                                    }
+                                    $("#chkSeleccionar").attr("checked", false);
+                                });
+                            }
+                            $('#arbolRegionZona').jstree('close_all');
+                        }
+                    }
+                },
+                "themes": {
+                    "theme": "apple",
+                    "dots": true,
+                    "icons": false
+                },
+                plugins: ["themes", "json_data", "ui", "checkbox"]
+            });
+            return false;
+        }
 </script>
 
 <div class="wrap_cab">
@@ -453,85 +663,87 @@
 <div id="DialogRegistroIncentivos" style="display: none;">
     @using (Html.BeginForm("Mantener", "AdministrarIncentivos", FormMethod.Post, new { id = "frmIncentivo", enctype = "multipart/form-data" }))
     {
-        <div class="Content_modal">
-            @Html.Hidden("IncentivoID")
-            @Html.Hidden("PaisID")
-            <div class="div-3">
-                <div class="titB">País:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPaisDialogo" })
+    <div class="Content_modal">
+        @Html.Hidden("IncentivoID")
+        @Html.Hidden("PaisID")
+        @Html.Hidden("Zona")
+        @Html.Hidden("Segmento")
+        <div class="div-3">
+            <div class="titB">País:</div>
+            <div class="selectA borde_redondeado">
+                @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPaisDialogo" })
+            </div>
+            <div class="titB line_height">Campaña Inicio:</div>
+            <div class="selectA borde_redondeado">
+                @Html.DropDownListFor(model => model.CampaniaIDInicio, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaInicioDialogo" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Portada:</div>
+            <div class="selectA borde_redondeado aligncenter" style="height: 200px;">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgPreviaLogo" style="max-width: 220px; max-height: 140px;" />
+            </div>
+            <div style="float: left; width: 368px;">
+                <div class="div-3">
+                    <div class="titB line_height">Campaña Fin:</div>
+                    <div class="selectA borde_redondeado">
+                        @Html.DropDownListFor(model => model.CampaniaIDFin, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaFinDialogo" })
+                    </div>
                 </div>
-                <div class="titB line_height">Campaña Inicio:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.CampaniaIDInicio, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaInicioDialogo" })
+                <div class="div-3">
+                    <div class="titB">Titulo:</div>
+                    <div class="selectA borde_redondeado">
+                        @Html.TextBox("Titulo", null, new { maxlength = 80 })
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titB">Subtitulo:</div>
+                    <div class="selectA borde_redondeado">
+                        @Html.TextBox("Subtitulo", null, new { maxlength = 80 })
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titB">PDF:</div>
+                    <div class="titAuto">
+                        <label for="">
+                            <input name="grupoUrlPDF" type="radio" value="url">
+                            Url Incentivo
+                        </label>
+                        <label for="">
+                            <input name="grupoUrlPDF" type="radio" value="pdf">
+                            PDF Incentivo
+                        </label>
+                    </div>
+                </div>
+                <div class="div-3 zona" style="display: none;" id="zonaurl">
+                    <div class="titB"></div>
+                    <div class="selectA borde_redondeado">
+                        @Html.TextBox("Url", null, new { maxlength = 80 })
+                    </div>
+                </div>
+                <div class="div-3 zona" id="zonapdf">
+                    <div class="titB"></div>
+                    <div class="selectA borde_redondeado" style="border: none; background: none;">
+                        @Html.TextBox("ArchivoPDF", null, new { maxlength = 80 })
+                        <input type="file" id="flArchivoPDF" name="flArchivoPDF" />
+                    </div>
                 </div>
             </div>
-            <div class="div-3">
-                <div class="titB">Portada:</div>
-                <div class="selectA borde_redondeado aligncenter" style="height: 280px;">
-                    <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgPreviaLogo" />
-                </div>
-                <div style="float: left; width: 368px;">
-                    <div class="div-3">
-                        <div class="titB line_height">Campaña Fin:</div>
-                        <div class="selectA borde_redondeado">
-                            @Html.DropDownListFor(model => model.CampaniaIDFin, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaFinDialogo" })
-                        </div>
-                    </div>
-                    <div class="div-3">
-                        <div class="titB">Titulo:</div>
-                        <div class="selectA borde_redondeado">
-                            @Html.TextBox("Titulo", null, new { maxlength = 80 })
-                        </div>
-                    </div>
-                    <div class="div-3">
-                        <div class="titB">Subtitulo:</div>
-                        <div class="selectA borde_redondeado">
-                            @Html.TextBox("Subtitulo", null, new { maxlength = 80 })
-                        </div>
-                    </div>
-                    <div class="div-3">
-                        <div class="titB">PDF:</div>
-                        <div class="titAuto">
-                            <label for="">
-                                <input name="grupoUrlPDF" type="radio" value="url">
-                                Url Incentivo
-                            </label>
-                            <label for="">
-                                <input name="grupoUrlPDF" type="radio" value="pdf">
-                                PDF Incentivo
-                            </label>
-                        </div>
-                    </div>
-                    <div class="div-3 zona" style="display: none;" id="zonaurl">
-                        <div class="titB"></div>
-                        <div class="selectA borde_redondeado">
-                            @Html.TextBox("Url", null, new { maxlength = 80 })
-                        </div>
-                    </div>
-                    <div class="div-3 zona" id="zonapdf">
-                        <div class="titB"></div>
-                        <div class="selectA borde_redondeado" style="border: none; background: none;">
-                            @Html.TextBox("ArchivoPDF", null, new { maxlength = 80 })
-                            <input type="file" id="flArchivoPDF" name="flArchivoPDF" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="titB"></div>
-                <div class="titB" style="width: 180px;">
-                    <div class="input_search">
-                        <input type="hidden" id="ArchivoPortada" name="ArchivoPortada" />
-                        <input type="hidden" id="ArchivoPortadaAnterior" name="ArchivoPortadaAnterior" />
-                        <div id="fpUpload">
-                            <script type="text/javascript">
+        </div>
+        <div class="div-3">
+            <div class="titB"></div>
+            <div class="titB" style="width: 180px;">
+                <div class="input_search">
+                    <input type="hidden" id="ArchivoPortada" name="ArchivoPortada" />
+                    <input type="hidden" id="ArchivoPortadaAnterior" name="ArchivoPortadaAnterior" />
+                    <div id="fpUpload">
+                        <script type="text/javascript">
                                 new qq.FileUploader({
                                     allowedExtensions: ['jpg', 'png', 'jpeg'],
                                     element: document.getElementById('fpUpload'),
                                     action: '@Url.Action("ImageIncentivoUpload", "FileUpload")',
                                     onComplete: function (id, fileName, responseJSON) {
-                                        
+
                                         if (checkTimeout(responseJSON)) {
                                             $(".qq-upload-list").css("display", "none");
                                             if (responseJSON.success) {
@@ -547,12 +759,47 @@
                                     onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
                                     onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
                                 });
-                            </script>
-                        </div>
+                        </script>
                     </div>
                 </div>
             </div>
-            @Html.ValidationSummary(null, new { @class = "validation-error-server", @id = "divMensaje" })
         </div>
+
+        <div class="div-3">
+            <div style="float:left">
+                <div class="div-3">
+                    <div class="titC">Segmento:</div>
+                    <div class="selectA borde_redondeado">
+                        <ul id="ddlSegmento"></ul>&nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <div style="float:left">
+                <div class="div-3">
+                    <div class="titC">Jerarquía:</div>
+                    <div class="treeview_content borde_redondeado">
+                        <div id="arbolRegionZona" class="demo">
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titH">
+                        <div style="float:left">
+                            <label id="lblSeleccionar">
+                                <input type="checkbox" id="chkSeleccionar" />
+
+                            </label>
+                        </div>
+                        <div style="float:left; margin-top:10px">
+                            Seleccionar todo
+                        </div>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+        @Html.ValidationSummary(null, new { @class = "validation-error-server", @id = "divMensaje" })
+    </div>
     }
 </div>
