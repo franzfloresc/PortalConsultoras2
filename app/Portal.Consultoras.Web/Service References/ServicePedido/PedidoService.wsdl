@@ -85,6 +85,18 @@
   <wsdl:message name="IPedidoService_VerificarConsultoraDigital_OutputMessage">
     <wsdl:part name="parameters" element="tns:VerificarConsultoraDigitalResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdPedidoTotalPagoContado_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdPedidoTotalPagoContado" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdPedidoTotalPagoContado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdPedidoTotalPagoContadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidoTotalPagoContado_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoTotalPagoContado" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidoTotalPagoContado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoTotalPagoContadoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetReporteMovimientosPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteMovimientosPedido" />
   </wsdl:message>
@@ -2660,6 +2672,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/VerificarConsultoraDigital" message="tns:IPedidoService_VerificarConsultoraDigital_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/VerificarConsultoraDigitalResponse" message="tns:IPedidoService_VerificarConsultoraDigital_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdPedidoTotalPagoContado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContado" message="tns:IPedidoService_UpdPedidoTotalPagoContado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContadoResponse" message="tns:IPedidoService_UpdPedidoTotalPagoContado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoTotalPagoContado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContado" message="tns:IPedidoService_GetPedidoTotalPagoContado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContadoResponse" message="tns:IPedidoService_GetPedidoTotalPagoContado_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetReporteMovimientosPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteMovimientosPedido" message="tns:IPedidoService_GetReporteMovimientosPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteMovimientosPedidoResponse" message="tns:IPedidoService_GetReporteMovimientosPedido_OutputMessage" />
@@ -4410,6 +4430,24 @@
     </wsdl:operation>
     <wsdl:operation name="VerificarConsultoraDigital">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/VerificarConsultoraDigital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdPedidoTotalPagoContado">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoTotalPagoContado">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8293,6 +8331,24 @@
     </wsdl:operation>
     <wsdl:operation name="VerificarConsultoraDigital">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/VerificarConsultoraDigital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdPedidoTotalPagoContado">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoTotalPagoContado">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
