@@ -44,7 +44,7 @@ else
                     </a>
                     <div id="fpImagenPerfilFoto" style="display: none;">
                         <script type="text/javascript">
-                            var uploaderFoto = new qq.FileUploader({
+                            new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
                                 element: document.getElementById('fpImagenPerfilFoto'),
                                 action: '@Url.Action("MoverFotoPerfil", "MiPerfil", new { area = "" })',

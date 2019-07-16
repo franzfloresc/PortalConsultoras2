@@ -1549,3 +1549,15 @@ input.permiso_cuenta_opcion_checkbox
 }
 
 /* FIN - CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */
+
+
+/*HD-4520*/
+.infoActual {
+    border: 5px solid #D1D1D4 !important;
+    border-radius: 10px;
+}
+
+.infoActualDetalle {
+    color: #D1D1D4 !important;
+    font-weight: bold;
+}

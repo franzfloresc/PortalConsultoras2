@@ -167,9 +167,9 @@ namespace Portal.Consultoras.Service
         {
             return BLZonificacion.GetZonasByRegion(PaisID , RegionID);
         }
-        public IList<BERegion> GetRegionByPaisZonaActivas(int PaisID)
+        public IList<BERegion> GetRegionByPaisZonaActivas(int paisID)
         {
-            return BLZonificacion.GetRegionByPaisZonaActivas(PaisID);
+            return BLZonificacion.GetRegionByPaisZonaActivas(paisID);
         }
     }
 }

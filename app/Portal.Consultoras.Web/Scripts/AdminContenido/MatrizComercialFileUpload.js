@@ -44,8 +44,7 @@ var MatrizComercialFileUpload = function (config) {
     };
 
     var _crearFileUpload = function (data) {
-
-        _uploader = new qq.FileUploader({
+        new qq.FileUploader({
             allowedExtensions: _config.allowedExtensions,
             element: document.getElementById(data.elementId),
             action: _config.actualizarMatrizComercialAction,

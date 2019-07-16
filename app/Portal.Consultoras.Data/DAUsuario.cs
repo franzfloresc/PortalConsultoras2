@@ -1077,7 +1077,22 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        #region VerificaCambioClaveUnete
+        public IDataReader GetUsuarioCambioClave(string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioCambioClave");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);            
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader ContraseniaRepetida(string codigoUsuario, string contrasenia)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ContraseniaRepetida");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, contrasenia);
 
+            return Context.ExecuteReader(command);
+        }
+        #endregion
 
     }
 }

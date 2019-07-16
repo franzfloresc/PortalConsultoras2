@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Common.MagickNet
         /// </summary>
         /// <param name="lista">Lista con los valores de cada imagen a generar</param>
         /// <returns>Proceso correctamente retorna vacio, sino retorna un mensaje de error</returns>
-        public static string GuardarImagenesResize(List<EntidadMagickResize> lista, bool actualizar = false)
+        public static string GuardarImagenesResize(List<EntidadMagickResize> lista, bool actualizar = false,string campaniaId = null)
         {
             var txtBuil = new StringBuilder();
             foreach (var item in lista)
@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Common.MagickNet
                 if (!Util.ExisteUrlRemota(item.RutaImagenResize) || actualizar)
                 {
                     var nombreImagen = Path.GetFileName(item.RutaImagenResize);
-                    var resultadoImagenResize = GuardarImagenResize(item.CodigoIso, item.RutaImagenOriginal, nombreImagen, item.Width, item.Height, actualizar);
+                    var resultadoImagenResize = GuardarImagenResize(item.CodigoIso, item.RutaImagenOriginal, nombreImagen, item.Width, item.Height, actualizar,campaniaId:campaniaId);
 
                     if (!resultadoImagenResize)
                     {
@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Common.MagickNet
         }
 
         private static bool GuardarImagenResize(string codigoIso, string rutaImagenOriginal, string nombreImagenGuardar, int width, 
-            int height, bool actualizar = false, bool temporal = true)
+            int height, bool actualizar = false, bool temporal = true,string campaniaId = null)
         {
             var resultado = true;
 
@@ -102,7 +102,7 @@ namespace Portal.Consultoras.Common.MagickNet
                 {
                     var esOk = GuardarImagenToTemporal(codigoIso, rutaImagenOriginal, rutaImagenTemporal);
 
-                    if (esOk) esOk = GuardarImagen(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, actualizar);
+                    if (esOk) esOk = GuardarImagen(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, actualizar, campaniaId: campaniaId);
 
                     File.Delete(rutaImagenTemporal);
 
@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Common.MagickNet
                 }
                 else
                 {
-                    resultado = GuardarImagen(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, actualizar);
+                    resultado = GuardarImagen(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, actualizar, campaniaId: campaniaId);
                 }
             }
 
@@ -139,7 +139,7 @@ namespace Portal.Consultoras.Common.MagickNet
             return resultado;
         }
 
-        private static bool GuardarImagen(string codigoIso, string rutaImagenOriginal, int width, int height, string nombreImagenGuardar, bool actualizar = false)
+        private static bool GuardarImagen(string codigoIso, string rutaImagenOriginal, int width, int height, string nombreImagenGuardar, bool actualizar = false, string campaniaId = null)
         {
             var resultado = true;
 
@@ -159,7 +159,11 @@ namespace Portal.Consultoras.Common.MagickNet
                 }
 
                 //Guardar la imagen resize a Amazon
-                var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
+                string carpetaPais = "";
+                if (campaniaId != null)
+                    carpetaPais = string.Concat(Globals.UrlMatriz, "/", codigoIso, "/", campaniaId);
+                else
+                    carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
                 ConfigS3.SetFileS3(rutaTemporalGuardar, carpetaPais, nombreImagenGuardar, actualizar);
             }
             catch (Exception ex)
