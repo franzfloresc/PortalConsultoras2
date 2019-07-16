@@ -2,12 +2,12 @@
 var scrollLogros = true
 
 $(document).ready(function () {
-    Carusel();    
+    Carusel();
     if ($("#template-kit").length > 0) {
         Handlebars.registerPartial("kit_template", $("#template-kit").html());
         Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
     }
-    if (TineCarrusel == "1") CargarCarrusel();    
+    if (TineCarrusel == "1") CargarCarrusel();
 
     if (TieneGanancias == "1") CargarGanancias();
 
@@ -118,7 +118,7 @@ $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
     var imagenProducto = obj.FotoProductoMedium;
     if (obj.TipoOferta == 1) {
         descTipoOferta = "kits";
-    } else if (obj.TipoOferta == 2){
+    } else if (obj.TipoOferta == 2) {
         descTipoOferta = "Demostradores";
         var cantidad = $(contenedor).find("#txtCantidad").val();
         if (cantidad <= 0) {
@@ -127,7 +127,7 @@ $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
         }
     }
     AgregarProducto(obj, cantidad, imagenProducto, contenedor, descTipoOferta, false);
-    if (obj.TipoOferta == 1) { $(contenedor).addClass("producto_desactivado");}
+    if (obj.TipoOferta == 1) { $(contenedor).addClass("producto_desactivado"); }
 });
 
 function TagVerTodos(MisLogros) {
@@ -216,7 +216,7 @@ function CargarCarrusel() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 ArmarCarrusel(data);
             }
         },
@@ -269,6 +269,7 @@ function ArmarMisGanancias(data) {
         serie.push(item.ValorSerie);
         titles.push(item.ValorSerieFormat);
         backgroundColors.push(colorBar);
+
         if (item.FlagSeleccionMisGanancias) {
             indexSeleccion = x;
         }
@@ -356,11 +357,8 @@ function ArmarMisGanancias(data) {
 
                     dataset.backgroundColor[index] = colorBarSelected;
                     dataset.hoverBackgroundColor[index] = colorBarSelected;
-                    // 
-                } else {
-                
-
                 }
+
                 myBar.update();
             },
             tooltips: {
