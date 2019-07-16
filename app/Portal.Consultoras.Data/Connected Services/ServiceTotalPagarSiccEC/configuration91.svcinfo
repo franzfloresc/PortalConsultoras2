@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="C0o4Mi7NvnYpHoZcJJ2A6Yi1fYQ=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="+j2QMcpgHDb4wTKnEJVyJ+dIx4Y=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="ProcesoPEDPedidoRechazadoWebServiceSoapBinding">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="ProcesoPEDPedidoRechazadoWebService" contract="ServiceTotalPagarSiccEC.ProcesoPEDPedidoRechazadoWebServiceImpl" bindingType="basicHttpBinding" address="http://ssiccecl.galileo.ebel/ssicceclbprd/services/ProcesoPEDPedidoRechazadoWebService" bindingConfiguration="ProcesoPEDPedidoRechazadoWebServiceSoapBinding">
+    <endpoint name="ProcesoPEDPedidoRechazadoWebService" contract="ServiceTotalPagarSiccEC.ProcesoPEDPedidoRechazadoWebServiceImpl" bindingType="basicHttpBinding" address="http://pelnx2041:7003/ssicceclbpdp/services/ProcesoPEDPedidoRechazadoWebService" bindingConfiguration="ProcesoPEDPedidoRechazadoWebServiceSoapBinding">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://ssiccecl.galileo.ebel/ssicceclbprd/services/ProcesoPEDPedidoRechazadoWebService</serializedValue>
+          <serializedValue>http://pelnx2041:7003/ssicceclbpdp/services/ProcesoPEDPedidoRechazadoWebService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

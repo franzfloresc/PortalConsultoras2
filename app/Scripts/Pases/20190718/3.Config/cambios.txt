@@ -1,0 +1,16 @@
+1.PortalConsultoras2 Web
+	Actualizar:
+		<add key="URL_LIDER" value="https://ffvvtest.somosbelcorp.com/IngresoSistema/IngresoExterno"/> (Diferente en PRD)
+
+2.PortalConsultorasWCF2
+	Agregar:
+		<add key="ServicioTotalPagarSicc_EC" value="http://pelnx2041:7003/ssicceclbpdp/services/ProcesoPEDPedidoRechazadoWebService?wsdl"/>
+
+3.SBMicroservicios: Personalizacion.SearchNode
+	Agregar:
+		app.endpoint:
+			promocion: '/promociones'
+
+	Agregar a nivel raiz:
+		prol: { promociones: {
+	            	url: 'http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/BelcorpSupport/api/Validacion/ValidacionOferta'}}

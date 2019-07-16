@@ -45,6 +45,14 @@ namespace Portal.Consultoras.Common
             var carpetaPais = string.Format("{0}/{1}", Globals.UrlMatriz, isoPais);
             return GetUrlCdn(carpetaPais);
         }
+        public static string GetUrlFileCdnMatrizCampania(string isoPais, string fileName, string campaniaid)
+        {
+            var carpetaPais = string.Format("{0}/{1}/{2}", Globals.UrlMatriz, isoPais, campaniaid);
+            if (ConfigS3.ExistFileS3(carpetaPais, fileName))
+                return GetUrlFileCdn(carpetaPais, fileName);
+
+            return null;
+        }
 
         public static string GetUrlFileRDCdn(string carpetaPais, string fileName)
         {

@@ -1045,6 +1045,7 @@ namespace Portal.Consultoras.Common
 
         public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null)
         {
+            bool resu = false;
             if (string.IsNullOrEmpty(strPara))
                 return false;
 
@@ -1061,6 +1062,7 @@ namespace Portal.Consultoras.Common
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
             MailMessage objMail = new MailMessage();
+           // objMail.SubjectEncoding = System.Text.Encoding.UTF8;
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
@@ -1083,6 +1085,78 @@ namespace Portal.Consultoras.Common
             objClient.EnableSsl = true;
             objClient.Credentials = credentials;
 
+
+            try
+            {
+                objClient.Send(objMail);
+                resu = true;
+            }
+            catch (Exception ex)
+            {
+                resu = false;
+                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+            }
+            finally
+            {
+                objMail.Dispose();
+            }
+            return resu;
+        }
+
+        public static bool EnviarMailBase(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string displayNameDe)
+        {
+            if (string.IsNullOrEmpty(strPara))
+                return true;
+
+            if (strPara.ToLower().Contains("ñ") || strPara.ToLower().Contains("á") || strPara.ToLower().Contains("é") ||
+                strPara.ToLower().Contains("í") || strPara.ToLower().Contains("ó") || strPara.ToLower().Contains("ú"))
+                return true;
+
+            RegexUtilities emailutil = new RegexUtilities();
+            if (!emailutil.IsValidEmail(strPara))
+                return true;
+
+            string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
+            string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
+            string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
+
+            MailMessage objMail = new MailMessage();
+            SmtpClient objClient = new SmtpClient(strServidor);
+
+            AlternateView avHtml = AlternateView.CreateAlternateViewFromString(String.Format(strMensaje, "Logo"), null, MediaTypeNames.Text.Html);
+
+            LinkedResource logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/logotipo_belcorp_05.png"), MediaTypeNames.Image.Gif);
+            logo.ContentId = "Logo";
+            avHtml.LinkedResources.Add(logo);
+
+            if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
+            {
+                strPara = strUsuario;
+            }
+            objMail.AlternateViews.Add(avHtml);
+            objMail.To.Add(strPara);
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
+                ? new MailAddress(strDe)
+                : new MailAddress(strDe, displayNameDe);
+            var css = "a,body,table,td{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}table,td{mso-table-lspace:0;mso-table-rspace:0}img{-ms-interpolation-mode:bicubic}img{border:0;height:auto;line-height:100%;outline:0;text-decoration:none}a.disable-link{pointer-events:none;cursor:default}table{border-collapse:collapse!important}body{height:100%!important;margin:0!important;padding:0!important;width:100%!important}a[x-apple-data-detectors=true]{color:inherit!important;text-decoration:none!important;font-size:inherit!important;font-family:inherit!important;font-weight:inherit!important;line-height:inherit!important}@media screen and (max-width:480px){.mobile-hide{display:none!important}.mobile-center{text-align:center!important}.centerImage{width:100%!important}.centerMobile{text-align:center}.noPaddingTop{padding-top:35px!important}a[class=disable-link]{pointer-events:auto!important;cursor:auto!important;text-decoration:underline!important}}div[style*='margin: 16px 0;']{margin:0!important}";
+            var head = "<head> <meta charset = 'UTF-8'>  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0' >    <meta http-equiv = 'X-UA-Compatible' content = 'ie=edge' ><link href = 'https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i' rel = 'stylesheet'><style type='text/css'>" + css + "</style></head>";
+
+            StringBuilder body = new StringBuilder();
+            body.Append("<HTML>" + head + "<body topmargin='0' leftmargin='0' marginheight='0' marginwidth='0' style='font-family:Lato, Arial, Helvetica, Arial, sans-serif;'> ");
+
+            body.Append(String.Format(strMensaje, logo.ContentId));
+
+            body.Append("</body></HTML>");
+
+
+            objMail.Subject = strTitulo;
+            objMail.Body = body.ToString();
+            objMail.IsBodyHtml = isHTML;
+
+            NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
+            objClient.EnableSsl = true;
+            objClient.Credentials = credentials;
+
             try
             {
                 objClient.Send(objMail);
@@ -1097,7 +1171,6 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-      
         /// <summary>
         /// Metodo que permite llenar la entidad de páginación para grillas sin filtros
         /// </summary>
@@ -2999,6 +3072,17 @@ namespace Portal.Consultoras.Common
         /// <param name="pais">CodigoISO del Pais. Ejm PE</param>
         /// <returns></returns>
         public static string DecimalToStringFormat(decimal valor, string pais)
+        {
+            if (string.IsNullOrEmpty(pais)) return "";
+
+            var importe = string.Format("{0:#,##0.00}", valor);
+            string listaPaises = ParseString(ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "");
+            if (listaPaises.Contains(pais)) importe = importe.Split('.')[0].Replace(",", ".");
+
+            return importe;
+        }
+
+        public static string DoubleToStringFormat(double valor, string pais)
         {
             if (string.IsNullOrEmpty(pais)) return "";
 

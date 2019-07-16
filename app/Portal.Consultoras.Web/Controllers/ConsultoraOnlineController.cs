@@ -824,7 +824,7 @@ namespace Portal.Consultoras.Web.Controllers
             return indiceActualPagina;
         }
 
-        private List<BEPedidoWebDetalle> AgregarDetallePedido(PedidoSb2Model model)
+        private List<BEPedidoWebDetalle> AgregarDetallePedido(PedidoSb2Model model,bool IsPedidoPendiente = false)
         {
             try
             {
@@ -857,7 +857,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.EsSugerido = model.EsSugerido;
                 pedidoDetalle.EsKitNueva = model.EsKitNueva;
                 pedidoDetalle.OfertaWeb = model.OfertaWeb;
-
+                pedidoDetalle.IsPedidoPendiente = IsPedidoPendiente;
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
                 if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
@@ -2439,22 +2439,11 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult AceptarPedidoPendiente(ConsultoraOnlinePedidoModel parametros)
         {
             BEMisPedidos pedidoAux = new BEMisPedidos();
-            string mensajeR;
-
             string mensajeaCliente =
                 string.Format(
                     "Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.",
                     userData.NombreConsultora);
-            var noPasa = ReservadoEnHorarioRestringido(out mensajeR);
-            if (noPasa)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = mensajeR,
-                    code = 2
-                }, JsonRequestBehavior.AllowGet);
-            }
+           
 
             var pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
 
@@ -2550,7 +2539,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
                         pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
-                        
                     });
 
                     SessionManager.SetPedidoWeb(null);
@@ -2592,7 +2580,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     OrigenPedidoWeb = GetOrigenPedidoWeb(pedido.FlagMedio, detalle.MarcaID, parametros.Dispositivo, parametros.OrigenTipoVista)
                                 };
 
-                                var olstPedidoWebDetalle = AgregarDetallePedido(model);
+                                var olstPedidoWebDetalle = AgregarDetallePedido(model,true);
 
                                 if (olstPedidoWebDetalle != null)
                                 {

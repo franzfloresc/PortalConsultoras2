@@ -638,5 +638,6 @@ namespace Portal.Consultoras.Common
         {
             public const short Id = 232;
         }
+
     }
 }

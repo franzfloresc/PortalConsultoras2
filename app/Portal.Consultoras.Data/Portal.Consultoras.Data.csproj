@@ -107,6 +107,7 @@
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
     <Compile Include="DACategoria.cs" />
+    <Compile Include="DAConfiguracionPaisFFVV.cs" />
     <Compile Include="DAContenidoAppResumen.cs" />
     <Compile Include="DAContenidoApp.cs" />
     <Compile Include="DADireccionEntega.cs" />

@@ -197,6 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var imagenAppCatalogo = model.ImagenAppCatalogo;
                 var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
 
                 entidad.Estado = 1;
@@ -209,9 +210,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string rutaImagen = entidad.ImagenProducto.Clone().ToString();
 
-                var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
-
-                _renderImgProvider.ImagenesResizeProceso(entidad.ImagenProducto, userData.CodigoISO, rutaImagen.ToLower().Contains(valorAppCatalogo));
+                _renderImgProvider.ImagenesResizeProceso(entidad.ImagenProducto, userData.CodigoISO, imagenAppCatalogo,campaniaID: model.CampaniaID.ToString());
 
                 #endregion
 

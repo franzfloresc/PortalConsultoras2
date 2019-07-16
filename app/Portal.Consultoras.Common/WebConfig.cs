@@ -239,6 +239,8 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        /*INI HD-4513*/
+        #region ServicioTotalPagarSicc
         public static string ServicioTotalPagarSicc_EC
         {
             get
@@ -246,5 +248,8 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["ServicioTotalPagarSicc_EC"] ?? string.Empty;
             }
         }
+        #endregion ServicioTotalPagarSicc
+        /*INI HD-4513*/
+
     }
 }

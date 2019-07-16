@@ -2509,5 +2509,17 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.VerificarConsultoraDigital(codigoConsultora, pedidoID, paisID);
         }
         #endregion
+        /*HD-4513*/
+        #region Consultora Pago Contado
+        public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb)
+        {
+            return _pedidoWebBusinessLogic.UpdPedidoTotalPagoContado(bEPedidoWeb);
+        }
+
+        public BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb)
+        {
+            return _pedidoWebBusinessLogic.GetPedidoTotalPagoContado(bEPedidoWeb);
+        }
+        #endregion
     }
 }

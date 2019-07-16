@@ -17,6 +17,7 @@ using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Web.Script.Serialization;
+using Portal.Consultoras.Data.ServiceTotalPagarSiccEC;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -2613,7 +2614,8 @@ namespace Portal.Consultoras.BizLogic
                 lista.Add(Constantes.ODSCodigoCatalogo.WebPortalFFVV);
             return lista;
         }
-
+        /*HD-4513*/
+        #region Consultora Pago Contado
         public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
         {
             DAPedidoWeb daPedidoWeb = new DAPedidoWeb(bePedidoWeb.PaisID);
@@ -2626,12 +2628,12 @@ namespace Portal.Consultoras.BizLogic
 
                     List<PedidoDetalleWebServiceParameter> PedidoWebDetallePrm = null;
 
-                    PedidoWebDetallePrm = bePedidoWeb.olstBEPedidoWebDetalle.Select(x => new PedidoDetalleWebServiceParameter
-                    {
-                        cuv = x.CUV,
-                        unidadesSol = x.Cantidad
-                    }).ToList();
-
+                    PedidoWebDetallePrm= bePedidoWeb.olstBEPedidoWebDetalle.Select(x => new PedidoDetalleWebServiceParameter
+                                        {
+                                            cuv = x.CUV,
+                                            unidadesSol = x.Cantidad
+                                        }).ToList();
+              
                     var PedidoWeb = new PedidoWebServiceParameter
                     {
                         accion = "8",
@@ -2643,13 +2645,13 @@ namespace Portal.Consultoras.BizLogic
                     };
                     using (var svr = new ProcesoPEDPedidoRechazadoWebServiceImplClient(new BasicHttpBinding(), remoteAddress))
                     {
-                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 50);
+                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0,50);
                         var result = svr.ejecutarProcesoPEDPedidoRechazado(PedidoWeb);
                         if (result.mensajeError != "") throw new Exception(result.mensajeError);
                         bePedidoWeb.STPDescuento = result.totalDesc;
                         bePedidoWeb.STPPagoTotalSinDeuda = result.totalPaga;
                         bePedidoWeb.STPDeudaLog = result.deuda;
-                        bePedidoWeb.STPDeuda = (string.IsNullOrEmpty(result.deuda)) ? 0 : Convert.ToDouble(result.deuda.Replace(",", ""));
+                        bePedidoWeb.STPDeuda = (string.IsNullOrEmpty(result.deuda)) ? 0 : Convert.ToDouble(result.deuda.Replace(",",""));
                         bePedidoWeb.STPPagoTotal = bePedidoWeb.STPPagoTotalSinDeuda + bePedidoWeb.STPDeuda;
                         bePedidoWeb.STPGastTransporte = result.totalFlet;
                     }
@@ -2657,17 +2659,19 @@ namespace Portal.Consultoras.BizLogic
                     /*Actualizar Log*/
                     daPedidoWeb.UpdLogConsultoraPagoContado(bePedidoWeb);
                 }
-
-
+                
+               
             }
             catch (Exception ex)
             {
-
+                
                 LogManager.SaveLog(ex, bePedidoWeb.CodigoConsultora, bePedidoWeb.PaisID);
                 throw new Exception("Exception BLPedidoWeb- ValidarPedidoTotalPagarContado", ex);
             }
             return bePedidoWeb;
         }
+
+
 
         public BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
         {
@@ -2679,11 +2683,15 @@ namespace Portal.Consultoras.BizLogic
                 if (reader.Read()) obj = new BEPedidoWeb(reader);
             }
 
-            obj = obj ?? UpdPedidoTotalPagoContado(bePedidoWeb);
+            obj = obj?? UpdPedidoTotalPagoContado(bePedidoWeb);
             obj.STPDeuda = (string.IsNullOrEmpty(obj.STPDeudaLog)) ? 0 : Convert.ToDouble(obj.STPDeudaLog.Replace(",", ""));
             obj.STPTotalPagar = obj.STPPagoTotalSinDeuda + obj.STPDeuda;
+
+
             return obj;
         }
+
+        #endregion
     }
 
     internal class TemplateField

@@ -435,10 +435,10 @@ function RDFiltrarLista(response, busquedaModel) {
     if (ordenar.Tipo != "" && listaFinal.length > 0) {
         if (ordenar.Tipo == "precio") {
             if (ordenar.Valor == mayormenor) {
-                listaFinal = listaFinal.sort(function (a, b) { return b.Precio2 - a.Precio2 });
+                listaFinal.sort(function (a, b) { return b.Precio2 - a.Precio2 });
             }
             else if (ordenar.Valor == menormayor) {
-                listaFinal = listaFinal.sort(function (a, b) { return a.Precio2 - b.Precio2 });
+                listaFinal.sort(function (a, b) { return a.Precio2 - b.Precio2 });
             }
         }
     }
