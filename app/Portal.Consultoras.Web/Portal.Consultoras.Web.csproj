@@ -239,6 +239,7 @@
     <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\CaminoBrillanteAdministrarController.cs" />
     <Compile Include="Controllers\ConfiguracionZonasModel.cs" />
+    <Compile Include="Controllers\ReporteEncuestaSatisfaccionController.cs" />
     <Compile Include="Controllers\FakeErrorController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
     <Compile Include="Controllers\CaminoBrillanteController.cs" />
@@ -325,6 +326,7 @@
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
+    <Compile Include="Models\ReporteEncuestaSatisfaccionModel.cs" />
     <Compile Include="Models\DistanciaLimiteZonaSeccionModel.cs" />
     <Compile Include="Models\LogDetalleParametroUneteModel.cs" />
     <Compile Include="Models\Estrategia\FotosComponenteModel.cs" />
@@ -5228,6 +5230,9 @@
     <None Include="Service References\ServiceSAC\SACService64.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceSAC\SACService65.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -6026,6 +6031,7 @@
     <Content Include="Views\Unete\_PosibleFraudeUbicaciones.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
+    <Content Include="Views\ReporteEncuestaSatisfaccion\Index.cshtml" />
     <Content Include="Views\EncuestaSatisfaccion\_EncuestaSatisfaccion.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
