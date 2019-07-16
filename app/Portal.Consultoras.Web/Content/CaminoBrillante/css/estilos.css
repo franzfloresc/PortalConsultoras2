@@ -1091,11 +1091,16 @@ div.opOrdenar {
 .box-incremento .text-bold {
     text-align:center;
 }
-    .mo-3 .text-bold {
-        font-size: 17px;
-        text-align: center;
-        margin-bottom: 20px;
-    }
+.box-incremento .cambio-crec {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.mo-3 .text-bold {
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 20px;
+}
     .box-left-ganancias, .box-right-ganancias {
         display: block;
         float: right;
@@ -3358,7 +3363,9 @@ div .ficha__producto__precio__normal {
         min-width:inherit;
         max-width:44px;
     }
-
+    .box-incremento .cambio-crec {
+        display:block;
+    }
 }
 
 
