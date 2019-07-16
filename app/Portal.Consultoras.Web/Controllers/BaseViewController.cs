@@ -250,10 +250,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
                 breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
 
-                if (palanca == "CaminoBrillanteKits" || palanca == "CaminoBrillanteDemostradores")
+                if (palanca == Constantes.NombrePalanca.CaminoBrillanteDemostradores || palanca == Constantes.NombrePalanca.CaminoBrillanteKits)
                 {
                     area = "";
-                    breadCrumbs.Ofertas.Texto = "Camino Brillante";
+                    breadCrumbs.Ofertas.Texto = Constantes.NombrePalanca.CaminoBrillante;
                     breadCrumbs.Palanca.Texto = GetNombresPalancas(palanca);
                     breadCrumbs.Ofertas.Url = Url.Action("Index", new { controller = "CaminoBrillante", area });
                 }
@@ -648,7 +648,7 @@ namespace Portal.Consultoras.Web.Controllers
                         modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                     }
                 }                
-                else if (palanca == "CaminoBrillanteDemostradores" || palanca == "CaminoBrillanteKits") {                    
+                else if (palanca == Constantes.NombrePalanca.CaminoBrillanteDemostradores || palanca == Constantes.NombrePalanca.CaminoBrillanteKits) {                    
                     modelo = _caminoBrillanteProvider.GetDetalleEstrategiaFichaModel(cuv);
                 }                
              }

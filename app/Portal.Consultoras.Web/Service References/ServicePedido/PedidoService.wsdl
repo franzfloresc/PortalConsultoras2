@@ -67,6 +67,24 @@
   <wsdl:message name="IPedidoService_InsertKitSE_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertKitSEResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GuardarRecepcionPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarRecepcionPedido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GuardarRecepcionPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarRecepcionPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DeshacerRecepcionPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeshacerRecepcionPedido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DeshacerRecepcionPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeshacerRecepcionPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_VerificarConsultoraDigital_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarConsultoraDigital" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_VerificarConsultoraDigital_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarConsultoraDigitalResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetReporteMovimientosPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteMovimientosPedido" />
   </wsdl:message>
@@ -2630,6 +2648,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertKitSE" message="tns:IPedidoService_InsertKitSE_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertKitSEResponse" message="tns:IPedidoService_InsertKitSE_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GuardarRecepcionPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GuardarRecepcionPedido" message="tns:IPedidoService_GuardarRecepcionPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GuardarRecepcionPedidoResponse" message="tns:IPedidoService_GuardarRecepcionPedido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeshacerRecepcionPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerRecepcionPedido" message="tns:IPedidoService_DeshacerRecepcionPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerRecepcionPedidoResponse" message="tns:IPedidoService_DeshacerRecepcionPedido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificarConsultoraDigital">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/VerificarConsultoraDigital" message="tns:IPedidoService_VerificarConsultoraDigital_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/VerificarConsultoraDigitalResponse" message="tns:IPedidoService_VerificarConsultoraDigital_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetReporteMovimientosPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteMovimientosPedido" message="tns:IPedidoService_GetReporteMovimientosPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteMovimientosPedidoResponse" message="tns:IPedidoService_GetReporteMovimientosPedido_OutputMessage" />
@@ -4353,6 +4383,33 @@
     </wsdl:operation>
     <wsdl:operation name="InsertKitSE">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertKitSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarRecepcionPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GuardarRecepcionPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeshacerRecepcionPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerRecepcionPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarConsultoraDigital">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/VerificarConsultoraDigital" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8209,6 +8266,33 @@
     </wsdl:operation>
     <wsdl:operation name="InsertKitSE">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertKitSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarRecepcionPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GuardarRecepcionPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeshacerRecepcionPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerRecepcionPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarConsultoraDigital">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/VerificarConsultoraDigital" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

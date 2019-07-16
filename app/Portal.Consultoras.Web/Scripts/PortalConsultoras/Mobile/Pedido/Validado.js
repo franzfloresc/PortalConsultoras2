@@ -30,10 +30,8 @@ function ConfirmarModificarPedido() {
                     location.href = urlIngresarPedido;
                 } else {
                     CloseLoading();
-                    
-                    var msjBloq = validarpopupBloqueada(data.message);
-                    if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                    else messageInfoError(data.message);
+                    messageInfoError(data.message);
+
 
                 }
             }

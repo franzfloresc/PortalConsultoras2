@@ -2355,6 +2355,42 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(paisID);
             daPedidoWeb.UpdateMostradoProductosPrecargados(CampaniaID, ConsultoraID, IPUsuario);
         }
+
+
+
+        #endregion
+
+
+        #region HD-4288
+        public int DeshacerRecepcionPedido(int pedidoID, int paisID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            return daPedidoWeb.DeshacerRecepcionPedido(pedidoID);
+        }
+
+        public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            return daPedidoWeb.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID);
+        }
+
+        public BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID)
+        {
+            var objBEConsultora = new BEConsultora();
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+
+            using (IDataReader reader = daPedidoWeb.VerificarConsultoraDigital(codigoConsultora, pedidoID))
+            {
+                if (reader.Read())
+                {
+                    objBEConsultora.IndicadorRecepcion = reader[0].ToBool();
+                    objBEConsultora.nombreYApellido = reader[1] == null ? string.Empty : reader[1].ToString();
+                    objBEConsultora.numeroDocumento = reader[2] == null ? string.Empty : reader[2].ToString();
+                    objBEConsultora.IndicadorConsultoraDigital = reader[3].ToBool();
+                }
+            }
+            return objBEConsultora;
+        }
         #endregion
 
         #region Certificado Digital

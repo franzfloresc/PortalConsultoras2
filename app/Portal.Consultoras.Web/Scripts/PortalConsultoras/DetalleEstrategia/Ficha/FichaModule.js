@@ -572,7 +572,7 @@ var FichaModule = (function (config) {
 
         estrategiaBreadcrumb = $.trim(estrategiaBreadcrumb);
         var palabrasEstrategiaDescripcion = estrategiaBreadcrumb.split(" ");
-        estrategiaBreadcrumb = ((codigoEstrategia === '036' || codigoEstrategia === '035') && _config.esMobile ? estrategiaBreadcrumb : palabrasEstrategiaDescripcion[0]);
+        estrategiaBreadcrumb = ((codigoEstrategia === ConstantesModule.TipoEstrategia.CaminoBrillanteDemostradores || codigoEstrategia === ConstantesModule.TipoEstrategia.CaminoBrillanteKits) && _config.esMobile ? estrategiaBreadcrumb : palabrasEstrategiaDescripcion[0]);
         if (!_config.esMobile) {
             if (palabrasEstrategiaDescripcion.length > 1)
                 estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[1];
