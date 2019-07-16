@@ -35,7 +35,8 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
 
 var promocionesView = PromocionesView();
 var promocionesPresenter = PromocionesPresenter({
-    promocionesView: promocionesView
+    promocionesView: promocionesView,
+    analyticsPortalModule: analyticsPortal
 });
 promocionesView.setPresenter(promocionesPresenter);
 

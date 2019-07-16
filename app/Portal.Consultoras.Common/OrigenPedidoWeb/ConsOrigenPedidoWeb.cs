@@ -88,6 +88,8 @@ namespace Portal.Consultoras.Common.OrigenPedidoWeb
             public const string FichaCrossSelling = "19";
             public const string CarruselSugeridos = "20";
             public const string FichaSugeridos = "21";
+            public const string PromocionCondicional = "22";
+            public const string PromocionProducto = "23";
         }
 
         public const string IncorrectoDispositivo = "0";

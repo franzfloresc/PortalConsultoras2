@@ -439,6 +439,7 @@ var BuscadorModule = (function () {
             var OrigenPedidoWeb = $(divPadre).find(".hdBuscadorOrigenPedidoWeb").val();
             var descripcionProducto = $(divPadre).find(".hdBuscadorDescripcion").val();
             var tipoPersonalizacionProducto = $(divPadre).find(".hdBuscadorTipoPersonalizacion").val();
+            var tienePremio = $(divPadre).find(".hdTienePremio").val();
 
             var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
             var tipoPersonalizacion = ["CAT"];
@@ -464,8 +465,14 @@ var BuscadorModule = (function () {
             
             window.location = UrlDetalle;
 
-            if (!(typeof AnalyticsPortalModule === 'undefined'))
+            if (!(typeof AnalyticsPortalModule === 'undefined')) {
                 AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
+
+                if (typeof tienePremio != "undefined" && tienePremio != null && tienePremio === "true") {
+                    var promoposition = $(divPadre).find(".hdPromoposition").val();
+                    AnalyticsPortalModule.MarcaPromotionClickBuscador(promoposition, descripcionProducto);
+                }
+            }
 
             return true;
         },
@@ -494,6 +501,7 @@ var BuscadorModule = (function () {
 
     //Realiza un ajuste al resultado del busqueda para agregar promociones si hay en forma de un array.
     function RedimPromociones(productos) {
+        debugger;
         productos = productos || "";
         totalItems = productos.length;
 
@@ -506,19 +514,34 @@ var BuscadorModule = (function () {
                 }
             });
         }
-        var notPromo = productos.filter(function(promo) {
+        var notPromo = productos.filter(function (promo) {
             return promo.TienePremio == false;
         });
-        var misPromociones = { "Promociones": promociones };
 
         //notPromo.push(misPromociones);
-        if (notPromo.length == 1)
-            notPromo.insert(1, misPromociones);
-        else if (notPromo.length == 0)
-            notPromo.insert(0, misPromociones);
-        else 
-            notPromo.insert(2, misPromociones);
-        
+        var promoindex = 0;
+        if (notPromo.length == 1) {
+            promoindex = 1;
+        }
+        else if (notPromo.length == 0) {
+            promoindex = 0;
+        }
+        else {
+            promoindex = 2;
+        }
+
+        if (promociones != null && promociones.length > 0) {
+            $.each(promociones, function (index, value) {
+                value.Promoposition = promoindex + 1;
+                if (!(typeof AnalyticsPortalModule === "undefined")) {
+                    AnalyticsPortalModule.MarcaPromotionViewBuscador(value.Promoposition, value.Descripcion);
+                }
+            });
+        }
+
+        var misPromociones = { "Promociones": promociones };
+        notPromo.insert(promoindex, misPromociones);
+
 
         //$.each(notPromo,
         //    function(idx, value) {

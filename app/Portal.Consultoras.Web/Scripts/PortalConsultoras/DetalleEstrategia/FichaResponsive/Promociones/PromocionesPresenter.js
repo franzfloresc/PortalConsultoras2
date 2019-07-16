@@ -1,9 +1,11 @@
 ﻿var PromocionesPresenter = function (config) {
     if (typeof config === "undefined" || config == null) throw "config is null or undefined";
     if (typeof config.promocionesView === "undefined" || config.promocionesView == null) throw "config.promocionesView is null or undefined";
+    if (typeof config.analyticsPortalModule === "undefined" || config.analyticsPortalModule === null) throw "config.analyticsPortalModule is null or undefined";
 
     var _config = {
-        promocionesView: config.promocionesView
+        promocionesView: config.promocionesView,
+        analyticsPortalModule: config.analyticsPortalModule
     };
 
     var _estrategiaInstance = null;
@@ -42,8 +44,17 @@
         if (estrategia.Promocion == null || estrategia.Condiciones.length == 0) return true;
 
         _config.promocionesView.showModalPromociones();
-        _config.promocionesView.showConditions(estrategia.Promocion);
-        _config.promocionesView.showPromotion(estrategia.Promocion);
+        _config.promocionesView.showConditions(estrategia);
+        _config.promocionesView.showPromotion(estrategia);
+
+        if (typeof _config.analyticsPortalModule !== "undefined") {
+
+            var nombrePromocion = estrategia.Promocion.DescripcionCompleta || "";
+            var modelo = {
+                label: "Promoción: " + nombrePromocion
+            };
+            _config.analyticsPortalModule.VirtualEventFichaClickSeccionPromocion(modelo);
+        }
 
         return true;
     };
