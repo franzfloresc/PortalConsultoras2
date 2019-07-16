@@ -853,6 +853,15 @@ div .owl-carousel .owl-stage-outer {
     float: left
 }
 
+.box-incremento {
+    margin: 35px auto;
+    width: 100%;
+    padding: 0 3%;
+    box-sizing: border-box;
+    float: left;
+    align-content:center;
+}
+
 .cambio-crec {
     width: 100%;
     display: block;
@@ -1076,9 +1085,16 @@ div.opOrdenar {
     margin-bottom: 40px;
 }
 
-.box-camb .text-bold {
+.box-camb .text-bold, .box-incremento .text-bold {
     font-size: 17px;
-
+}
+.box-incremento .text-bold {
+    text-align:center;
+}
+.box-incremento .cambio-crec {
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 .mo-3 .text-bold {
     font-size: 17px;
@@ -1661,15 +1677,18 @@ button.close {
 }
 
     .circle-porcent.crec-activo {
-        background: #64425e
+        background: #64425e;
     }
+
 
     .circle-porcent.crec-inactivo {
-        background: #848484
+        background: #cacacc;
     }
 
+    .circle-porcent.crec-activo span{
+        color:#fff;
+    }
     .cambio-crec .circle-porcent span, .indicador-nivel .circle-porcent span, .owl-carousel .owl-item .circle-porcent span {
-        color: #fff;
         font-size: 19px;
         text-align: center;
         line-height: 50px;
@@ -3344,7 +3363,9 @@ div .ficha__producto__precio__normal {
         min-width:inherit;
         max-width:44px;
     }
-
+    .box-incremento .cambio-crec {
+        display:block;
+    }
 }
 
 
