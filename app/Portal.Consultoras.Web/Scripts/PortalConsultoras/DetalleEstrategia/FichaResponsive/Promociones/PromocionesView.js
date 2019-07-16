@@ -89,10 +89,12 @@
             swipe: true,
             swipeToSlide: true,
             fade: false,
-            arrows: false,
+            arrows: true,
             infinite: false,
             centerMode: false,
-            variableWidth: true
+            variableWidth: true,
+            prevArrow: '<div class="arrow prev"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
+            nextArrow: '<div class="arrow next"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>'
         });
         setTimeout(function () {
             $(_elements.promocionesModal.condiciones.id).slick('setPosition');

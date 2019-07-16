@@ -11,7 +11,7 @@ body {
     font-weight: 700;
 }
 
-.promociones-modal .contenedor_detalle {
+.promociones-modal, .contenedor_detalle {
     display: flex;
     font-size: 13px;
     margin: 0 auto;

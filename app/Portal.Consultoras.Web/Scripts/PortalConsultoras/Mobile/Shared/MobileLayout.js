@@ -418,9 +418,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true) {
-                var msjBloq = validarpopupBloqueada(data.message);
-                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                else AbrirMensaje(data.message);
+                AbrirMensaje(data.message);
+
             }
         },
         error: function (error) {
@@ -771,13 +770,6 @@ function messageInfo(message, fnAceptar) {
     message = $.trim(message);
     if (message == "") {
         return false;
-    }
-
-    var msjBloq = validarpopupBloqueada(message);
-    if (msjBloq != "") {
-        CerrarLoad();
-        alert_msg_bloqueadas(msjBloq);
-        return true;
     }
 
     $('#mensajeInformacion').html(message);
@@ -1161,11 +1153,6 @@ function CloseDialog(pop) {
 
 function CerrarSesion() {
     location.href = baseUrl + 'Login/LogOut';
-}
-
-function alert_msg_bloqueadas(message) {
-    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
-    $('#PopupBloqueoPorSistema').show();
 }
 
 $('#alertDialogMensajes25seg').dialog({

@@ -768,7 +768,7 @@ namespace Portal.Consultoras.Common
             body.Append("<HTML>" + head + "<body topmargin='0' leftmargin='0' marginheight='0' marginwidth='0' style='font-family:Lato, Arial, Helvetica, Arial, sans-serif;'> ");
 
             body.Append(String.Format(strMensaje, logo.ContentId));
- 
+
             body.Append("</body></HTML>");
 
 
@@ -1041,6 +1041,61 @@ namespace Portal.Consultoras.Common
         public static bool EnviarMailMasivoColas2(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string tags)
         {
             return Util.EnviarMailMasivoColas2(strDe, strPara, strTitulo, strMensaje, isHTML, tags, null);
+        }
+
+        public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null)
+        {
+            if (string.IsNullOrEmpty(strPara))
+                return false;
+
+            if (strPara.ToLower().Contains("ñ") || strPara.ToLower().Contains("á") || strPara.ToLower().Contains("é") ||
+                strPara.ToLower().Contains("í") || strPara.ToLower().Contains("ó") || strPara.ToLower().Contains("ú"))
+                return false;
+
+            RegexUtilities emailutil = new RegexUtilities();
+            if (!emailutil.IsValidEmail(strPara))
+                return false;
+
+            string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
+            string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
+            string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
+
+            MailMessage objMail = new MailMessage();
+            SmtpClient objClient = new SmtpClient(strServidor);
+
+            AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
+
+            if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
+            {
+                strPara = strUsuario;
+            }
+            objMail.AlternateViews.Add(avHtml);
+            objMail.To.Add(strPara);
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
+                ? new MailAddress(strDe)
+                : new MailAddress(strDe, displayNameDe);
+
+            objMail.Subject = strTitulo;
+            objMail.Body = strMensaje;
+            objMail.IsBodyHtml = isHTML;
+
+            NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
+            objClient.EnableSsl = true;
+            objClient.Credentials = credentials;
+
+            try
+            {
+                objClient.Send(objMail);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+            }
+            finally
+            {
+                objMail.Dispose();
+            }
+            return true;
         }
 
         /// <summary>
@@ -3434,7 +3489,7 @@ namespace Portal.Consultoras.Common
             }
 
             return result;
-        }        
+        }
 
         public static string GenerarRutaImagenResizeMedium(string rutaImagen)
         {
@@ -3592,7 +3647,7 @@ namespace Portal.Consultoras.Common
 
         public static string EnmascararCorreo(string correo)
         {
-            if (string.IsNullOrEmpty(correo.Trim())) return "";
+            if (string.IsNullOrWhiteSpace(correo)) return "";
             string[] separada = correo.Split('@');
             int inicio = 2;
             int final = 1;
@@ -3709,7 +3764,7 @@ namespace Portal.Consultoras.Common
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
-        
+
         //Validación de la descripción del producto
         public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista,
             bool suscripcion,
@@ -3737,7 +3792,7 @@ namespace Portal.Consultoras.Common
                         result = lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE];
                         break;
                     default:
-                        if(marcaId == Constantes.Marca.Esika)
+                        if (marcaId == Constantes.Marca.Esika)
                         {
                             result = lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA];
                         }
@@ -3861,25 +3916,25 @@ namespace Portal.Consultoras.Common
                 }
                 else
                 {
-                            result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
+                    result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
 
-                            if (result == "") result = descripcion;
+                    if (result == "") result = descripcion;
 
-                            if (string.IsNullOrWhiteSpace(result))
-                            {
-                                switch (ofertaId)
-                                {
-                                    case Constantes.TipoOferta.Liquidacion:
-                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
-                                        break;
-                                    case Constantes.TipoOferta.Flexipago:
-                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
-                                        break;
-                                    default:
-                                        result = "";
-                                        break;
-                                }
-                            }
+                    if (string.IsNullOrWhiteSpace(result))
+                    {
+                        switch (ofertaId)
+                        {
+                            case Constantes.TipoOferta.Liquidacion:
+                                result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                                break;
+                            case Constantes.TipoOferta.Flexipago:
+                                result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
+                                break;
+                            default:
+                                result = "";
+                                break;
+                        }
+                    }
                 }
             }
 
@@ -3911,7 +3966,7 @@ namespace Portal.Consultoras.Common
 
         public static int obtenerCodigoOrigenWebApp(string tipoPersonalizacion, string codigoTipoEstrategia, int marcaId, bool desplegable, bool landing, bool ficha, bool fichaCarrusel, bool materialGanancia)
         {
-           
+
             if (desplegable == landing)
             {
                 return 0;
@@ -3940,7 +3995,7 @@ namespace Portal.Consultoras.Common
         public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
         {
             var tipoPersonalizacion = string.Empty;
-            
+
             switch (codigoEstrategia)
             {
                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
@@ -4059,6 +4114,20 @@ namespace Portal.Consultoras.Common
             var plainText = crypto.Decrypt(cipherText);
 
             return Encoding.UTF8.GetString(plainText);
+        }
+
+        public static int convertirAEstadoBuro(int estado)
+        {
+            switch (estado)
+            {
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Datacredito_con_error_de_escritura_en_sus_BD:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Documento_existe_en_fuentes_oficiales:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Nombres_o_Apellidos_corresponden_al_Documento:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                default: return estado;
+            }
         }
 
         public static List<string> GetCodigosCatalogo()
