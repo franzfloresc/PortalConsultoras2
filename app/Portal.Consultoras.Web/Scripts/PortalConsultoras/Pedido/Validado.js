@@ -109,9 +109,7 @@ function ConfirmarModificar() {
                 }
                 else {
                     closeWaitingDialog();
-                    var msjBloq = validarpopupBloqueada(data.message);
-                    if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                    else messageInfoError(data.message);
+                    messageInfoError(data.message);
                 }
             }
         },

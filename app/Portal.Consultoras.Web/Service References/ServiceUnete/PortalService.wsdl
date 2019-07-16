@@ -447,6 +447,24 @@
   <wsdl:message name="IPortalService_GetUsuariosPorRol_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsuariosPorRolResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_InsertarDistanciaLimiteZonaSeccion_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDistanciaLimiteZonaSeccion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_InsertarDistanciaLimiteZonaSeccion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDistanciaLimiteZonaSeccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarDistanciaLimiteZonaSeccion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarDistanciaLimiteZonaSeccion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarDistanciaLimiteZonaSeccion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarDistanciaLimiteZonaSeccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerLogDetalleParametroUnete_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerLogDetalleParametroUnete" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerLogDetalleParametroUnete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerLogDetalleParametroUneteResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_EnviarCodigoVerificacion_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarCodigoVerificacion" />
   </wsdl:message>
@@ -656,6 +674,48 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_InsertarSolicitantePrePostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarSolicitantePrePostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarDireccionesCercanas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarDireccionesCercanas" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarDireccionesCercanas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarDireccionesCercanasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarSolicitudPrePostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarSolicitudPrePostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarSolicitudPrePostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarSolicitudPrePostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulantexID_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulantexID" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulantexID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulantexIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPrePostulanteSAC_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPrePostulanteSAC" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPrePostulanteSAC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPrePostulanteSACResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_RechazarSolicitudPrePostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:RechazarSolicitudPrePostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_RechazarSolicitudPrePostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RechazarSolicitudPrePostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarEstadoPostulanteRechazoFraudeDireccion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEstadoPostulanteRechazoFraudeDireccion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarEstadoPostulanteRechazoFraudeDireccion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEstadoPostulanteRechazoFraudeDireccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ListarSolicitudesPrePostulantes_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarSolicitudesPrePostulantes" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ListarSolicitudesPrePostulantes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarSolicitudesPrePostulantesResponse" />
   </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
@@ -946,6 +1006,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetUsuariosPorRol" message="tns:IPortalService_GetUsuariosPorRol_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetUsuariosPorRolResponse" message="tns:IPortalService_GetUsuariosPorRol_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertarDistanciaLimiteZonaSeccion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/InsertarDistanciaLimiteZonaSeccion" message="tns:IPortalService_InsertarDistanciaLimiteZonaSeccion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/InsertarDistanciaLimiteZonaSeccionResponse" message="tns:IPortalService_InsertarDistanciaLimiteZonaSeccion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarDistanciaLimiteZonaSeccion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarDistanciaLimiteZonaSeccion" message="tns:IPortalService_ConsultarDistanciaLimiteZonaSeccion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarDistanciaLimiteZonaSeccionResponse" message="tns:IPortalService_ConsultarDistanciaLimiteZonaSeccion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerLogDetalleParametroUnete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerLogDetalleParametroUnete" message="tns:IPortalService_ObtenerLogDetalleParametroUnete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerLogDetalleParametroUneteResponse" message="tns:IPortalService_ObtenerLogDetalleParametroUnete_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EnviarCodigoVerificacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacion" message="tns:IPortalService_EnviarCodigoVerificacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacionResponse" message="tns:IPortalService_EnviarCodigoVerificacion_OutputMessage" />
@@ -1085,6 +1157,34 @@
     <wsdl:operation name="InsertarSolicitantePrePostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/InsertarSolicitantePrePostulante" message="tns:IPortalService_InsertarSolicitantePrePostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/InsertarSolicitantePrePostulanteResponse" message="tns:IPortalService_InsertarSolicitantePrePostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarDireccionesCercanas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarDireccionesCercanas" message="tns:IPortalService_ValidarDireccionesCercanas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarDireccionesCercanasResponse" message="tns:IPortalService_ValidarDireccionesCercanas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarSolicitudPrePostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudPrePostulante" message="tns:IPortalService_ConsultarSolicitudPrePostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudPrePostulanteResponse" message="tns:IPortalService_ConsultarSolicitudPrePostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPrePostulantexID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantexID" message="tns:IPortalService_ObtenerSolicitudPrePostulantexID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantexIDResponse" message="tns:IPortalService_ObtenerSolicitudPrePostulantexID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPrePostulanteSAC">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPrePostulanteSAC" message="tns:IPortalService_ActualizarSolicitudPrePostulanteSAC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPrePostulanteSACResponse" message="tns:IPortalService_ActualizarSolicitudPrePostulanteSAC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RechazarSolicitudPrePostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/RechazarSolicitudPrePostulante" message="tns:IPortalService_RechazarSolicitudPrePostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/RechazarSolicitudPrePostulanteResponse" message="tns:IPortalService_RechazarSolicitudPrePostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEstadoPostulanteRechazoFraudeDireccion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoFraudeDireccion" message="tns:IPortalService_ActualizarEstadoPostulanteRechazoFraudeDireccion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoFraudeDireccionResponse" message="tns:IPortalService_ActualizarEstadoPostulanteRechazoFraudeDireccion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarSolicitudesPrePostulantes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ListarSolicitudesPrePostulantes" message="tns:IPortalService_ListarSolicitudesPrePostulantes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ListarSolicitudesPrePostulantesResponse" message="tns:IPortalService_ListarSolicitudesPrePostulantes_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -1737,6 +1837,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsertarDistanciaLimiteZonaSeccion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/InsertarDistanciaLimiteZonaSeccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarDistanciaLimiteZonaSeccion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarDistanciaLimiteZonaSeccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerLogDetalleParametroUnete">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerLogDetalleParametroUnete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EnviarCodigoVerificacion">
       <soap:operation soapAction="http://tempuri.org/IPortalService/EnviarCodigoVerificacion" style="document" />
       <wsdl:input>
@@ -2045,6 +2172,69 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarSolicitantePrePostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/InsertarSolicitantePrePostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarDireccionesCercanas">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarDireccionesCercanas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarSolicitudPrePostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarSolicitudPrePostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPrePostulantexID">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantexID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPrePostulanteSAC">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPrePostulanteSAC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RechazarSolicitudPrePostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/RechazarSolicitudPrePostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEstadoPostulanteRechazoFraudeDireccion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoFraudeDireccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarSolicitudesPrePostulantes">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ListarSolicitudesPrePostulantes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

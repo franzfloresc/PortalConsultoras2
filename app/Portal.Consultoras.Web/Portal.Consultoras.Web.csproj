@@ -247,6 +247,7 @@
     <Compile Include="CustomHelpers\Infraestructure\BundleExtention.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="Controllers\PremioNuevasController.cs" />
+    <Compile Include="Controllers\TuVozOnlineController.cs" />
     <Compile Include="CustomHelpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
@@ -307,6 +308,7 @@
     <Compile Include="Controllers\BuscadorController.cs" />
     <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Controllers\PedidoRegistroController.cs" />
+    <Compile Include="Models\EventoInsert.cs" />
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
     <Compile Include="Infraestructure\Route\RedirectRoute.cs" />
     <Compile Include="Infraestructure\Route\RouteExtensions.cs" />
@@ -323,6 +325,8 @@
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
+    <Compile Include="Models\DistanciaLimiteZonaSeccionModel.cs" />
+    <Compile Include="Models\LogDetalleParametroUneteModel.cs" />
     <Compile Include="Models\Estrategia\FotosComponenteModel.cs" />
     <Compile Include="Models\Search\ResponseOferta\OutputOfertaIncremental.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\FotosComponente.cs" />
@@ -902,6 +906,7 @@
     <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\PedidoWebProvider.cs" />
     <Compile Include="Providers\ProductoRecomendadoProvider.cs" />
+    <Compile Include="Providers\TuVozOnlineProvider.cs" />
     <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
@@ -1553,12 +1558,16 @@
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
+    <Content Include="Content\Css\Site\Pedido\PopupRecepcionPedido.css" />
     <Content Include="Content\Css\Site\Pedido\GananciaEstimada.css" />
+    <Content Include="Content\Css\Site\Pedido\ProductosSugeridos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-reserva-pedido.css" />
     <Content Include="Content\Css\Site\Shared\Buscador\BuscadorCarrusel.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-informacion-regalos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
+    <Content Include="Content\Css\Site\TuVozOnline\TuVozOnline.css" />
     <Content Include="Content\Css\Site\styleBase.css" />
+    <Content Include="Content\Images\alerta-icono.png" />
     <Content Include="Content\Images\add-to-cart-disable.png" />
     <Content Include="Content\Images\add-to-cart-white.png" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
@@ -1598,6 +1607,7 @@
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-bloqueo-sistema.css" />
     <Content Include="Content\Images\icono_cerrar_popup.svg" />
     <Content Include="Content\Images\icono_confirmacion_con_fondo.svg" />
+    <Content Include="Content\Images\icono_mail.svg" />
     <Content Include="Content\Images\icono_notificacion_negativa.svg" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-actualizacion-correo.css" />
     <Content Include="Content\Images\icono_correo.svg" />
@@ -1882,7 +1892,6 @@
     <Content Include="Content\Images\icono_carrito.svg" />
     <Content Include="Content\Images\icono_catalogos.svg" />
     <Content Include="Content\Images\icono_cerrar_menu_mobile.png" />
-    <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_editar.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_infoImportante.svg" />
@@ -4136,6 +4145,9 @@
     </Content>
     <Content Include="Content\Template\mailing_pago_percepcion.html" />
     <Content Include="Content\Template\mailing_pago_percepcion_detalle.html" />
+    <Content Include="Content\Template\mailing_pedido_pendiente_aceptado_rechazado.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Temporales\FolderContent.txt" />
     <Content Include="CustomError.html" />
     <Content Include="emt_chat\js\inject.js" />
@@ -4231,6 +4243,7 @@
     <Content Include="Scripts\jquery.ui.mouse.js" />
     <Content Include="Scripts\jquery.ui.sortable.js" />
     <Content Include="Scripts\jquery.ui.swappable.js" />
+    <Content Include="Scripts\jquery.ui.touch-punch.min.js" />
     <Content Include="Scripts\jquery.ui.widget.js" />
     <Content Include="Scripts\LogError.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
@@ -4356,6 +4369,8 @@
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\ArmaTuPack.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\PopupRecepcionPedido.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\ProductoSugeridoZoom.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ActualizarCorreoPedido.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\SuscripcionSE.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\PedidoProvider.js" />
@@ -4433,6 +4448,7 @@
     <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesModule.js" />
     <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesProvider.js" />
     <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesView.js" />
+    <Content Include="Scripts\PortalConsultoras\TuVozOnline\Index.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
@@ -4860,6 +4876,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceCliente\ClienteService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService7.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceCliente\configuration91.svcinfo" />
@@ -5949,6 +5968,7 @@
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
+    <Content Include="Views\TuVozOnline\Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
@@ -5956,6 +5976,8 @@
     <Content Include="Views\CaminoBrillante\Partial\template_demostrador.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
+    <Content Include="Views\Unete\DistanciaLimiteZonaSeccion.cshtml" />
+    <Content Include="Views\Pedido\_PopupRecepcionPedido.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\imagen-estrategia-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\estrategia-template.cshtml" />
@@ -5970,6 +5992,7 @@
     <Content Include="Views\DetalleEstrategia\template-producto-carrusel-responsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\popup-ficha-enriquecida-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
+    <Content Include="Views\Unete\_PosibleFraudeUbicaciones.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\modal-promociones.cshtml" />

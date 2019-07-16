@@ -177,10 +177,6 @@ namespace Portal.Consultoras.Web.Providers
             {
                 retorno = 0;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
-            {
-                retorno = model.CampaniaID;
-            }
 
             return retorno;
         }

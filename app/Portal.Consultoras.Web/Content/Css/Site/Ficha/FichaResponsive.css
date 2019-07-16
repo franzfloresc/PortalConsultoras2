@@ -449,6 +449,14 @@ ul.breadcumbs li a {
     box-shadow: none !important;
 }
 
+@media screen and (max-width:991px){
+
+    .btn_chat_messenger {
+        display: none !important;
+    }
+
+}
+
 @media (min-width: 960px) {
     .contenedor_etiqueta_odd .clock_odd {
         margin: 0;
