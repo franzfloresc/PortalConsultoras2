@@ -19,16 +19,36 @@ namespace Portal.Consultoras.Web.Providers
             var url = BasePath;
 
             var currentTimeSeconds = Util.ToUnixTimespan(DateTime.Now);
-            var parameters = string.Format("{0}|{1}|{2}|{3}|Year={4}|Active={5}|Birthdate={6:dd-MM-yyyy}|Country={7}",
-                currentTimeSeconds,
+            var values = new List<string>
+            {
+                currentTimeSeconds.ToString(),
                 user.PrimerNombre,
                 user.PrimerApellido,
                 user.EMail,
-                DateTime.Now.Year,
-                user.EMailActivo ? "Yes" : "No",
-                user.FechaNacimiento,
-                user.CodigoISO
+            };
+
+            var extraParams = new Dictionary<string, string>
+            {
+                {"EMailActivo", user.EMailActivo ? "Validado" : "NoValidado"},
+                {"CodigoConsultora", user.CodigoConsultora},
+                {"FechaNacimiento", user.FechaNacimiento == default(DateTime) ? string.Empty : user.FechaNacimiento.ToString("dd/MM/yyyy")},
+                {"CodigoPais", user.CodigoISO},
+                {"CodigoZona", user.CodigoZona},
+                {"CodigoRegion", user.CodigorRegion},
+                {"CampaniaActual", user.CampaniaID.ToString()},
+                {"Lider", user.esConsultoraLider ? "Si" : "No"},
+                {"AñoCampaniaIngreso", user.AnoCampaniaIngreso},
+                {"FechaIngreso", string.Empty},
+                {"DocumentoIdentidad", user.DocumentoIdentidad},
+                {"EsConsultoraNueva", user.EsConsultoraNueva ? "Si" : "No"},
+                {"EsConsultoraOficina", user.EsConsultoraOficina ? "Si" : "No"},
+                {"Segmento", user.Segmento},
+            };
+            values.AddRange(
+                extraParams
+                .Select(item => item.Key + "=" + (string.IsNullOrWhiteSpace(item.Value) ? "\"\"" : item.Value.Trim()))
             );
+            var parameters = string.Join("|", values);
 
             var query = string.Format("?ID_STRING={0}&SIGNATURE={1}&id={2}",
                 HttpUtility.UrlEncode(DesAlgorithm.Encrypt(parameters, panelKey)),
