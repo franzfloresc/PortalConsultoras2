@@ -126,7 +126,6 @@ namespace Portal.Consultoras.Entities
             CUVReemplazo = row.ToString("CUVReemplazo");
             EsSuscripcionSE = row.ToBoolean("EsSuscripcionSE");
             Ganancia = row.ToDecimal("Ganancia");
-            FactorRepeticion = row.ToInt32("FactorRepeticion");
         }
 
         [DataMember]
@@ -370,9 +369,6 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public decimal Ganancia { get; set; }
-
-        [DataMember]
-        public int FactorRepeticion { get; set; }
 
         [DataMember]
         public BEPedidoWebSet PedidoWebSet { get; set; }
