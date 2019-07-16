@@ -39,8 +39,9 @@
     color: #FFF !important;
 }
 
-.header--nuevoLookAndFeelEsika .sub_menu_home1 .new_menu_a{
-    color:#000;
+.header--nuevoLookAndFeelEsika .sub_menu_home1 .new_menu_a,
+.header--nuevoLookAndFeelEsika .sub_menu_home1 .content_left_menu a{
+    color: #000;
 }
 
 .header--nuevoLookAndFeelEsika .boton_cam,
