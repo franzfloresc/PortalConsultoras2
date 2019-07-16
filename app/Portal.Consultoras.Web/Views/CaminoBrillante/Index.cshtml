@@ -132,7 +132,7 @@
                                 }
                                 if (nivelEvaluacion == nivelSiguiente)
                                 {
-                                    <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a Nivel @nivelSiguiente.DescripcionNivel</p>
+                        <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a  <strong>Nivel @nivelSiguiente.DescripcionNivel</strong></p>
                                 }
                             }
                             else
@@ -283,7 +283,7 @@
                                 <div class="left-mod" style="width: 100%; margin-left: 0px; ">
                                     @if (nivel.PuntajeAcumulado.HasValue)
                                     {
-                                        <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;">Nivel @nivel.DescripcionNivel @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.PuntajeAcumulado), @ViewBag.CodigoISODL) pts</h2>
+                                        <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;">Nivel @nivel.DescripcionNivel @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.Puntaje), @ViewBag.CodigoISODL) pts</h2>
                                     }
                                     else
                                     {

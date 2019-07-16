@@ -77,6 +77,10 @@ var CodigoOrigenPedidoWeb = (function () {
             AppMaquilladorPendienteDeAprobarProducto: '14',
             CarruselUpselling: '15',
             FichaUpselling: '16',
+            CarruselCrossSelling: '18',
+            FichaCrossSelling: '19',
+            CarruselSugeridos: '20',
+            FichaSugeridos: '21'
         }
     };
 
@@ -146,7 +150,9 @@ var CodigoOrigenPedidoWeb = (function () {
     var getOrigenCambioSegunTipoEstrategia = function (origenPedidoWeb, codigoEstrategia) {
 
         var origenModelo = getOrigenModelo(origenPedidoWeb);
-        if (origenModelo.Seccion == origenPedidoWebEstructura.Seccion.CarruselUpselling) {
+        if (origenModelo.Seccion == origenPedidoWebEstructura.Seccion.CarruselUpselling ||
+            origenModelo.Seccion == origenPedidoWebEstructura.Seccion.CarruselCrossSelling ||
+            origenModelo.Seccion == origenPedidoWebEstructura.Seccion.CarruselSugeridos) {
             var _objTipoPalanca = diccionarioTipoEstrategiaPalanca.find(function (x) {
                 return x.codigo === codigoEstrategia
             }) || {};
