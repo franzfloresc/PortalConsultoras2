@@ -747,6 +747,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEContenidoAppDetaAct, AdministrarHistorialDetaActModel>();
             #endregion
 
+            #region ChatBot
+            Mapper.CreateMap<BEChatBotListResultados, ChatBotListResultadosModel>();
+            #endregion
+
         }
     }
 }

@@ -61,6 +61,10 @@
     <Compile Include="AsesoraOnline\BEAsesoraOnline.cs" />
     <Compile Include="Auditoria.cs" />
     <Compile Include="BEBuscadorYFiltros.cs" />
+    <Compile Include="BEChatBotInsertDetalleResultadosRequest.cs" />
+    <Compile Include="BEChatBotInsertResultadosRequest.cs" />
+    <Compile Include="BEChatBotInsertResultadosResponse.cs" />
+    <Compile Include="BEChatBotListResultados.cs" />
     <Compile Include="BEContenidoAppDetaAct.cs" />
     <Compile Include="BEContenidoAppHistoria.cs" />
     <Compile Include="BEBeneficiosCaminoBrillante.cs" />
