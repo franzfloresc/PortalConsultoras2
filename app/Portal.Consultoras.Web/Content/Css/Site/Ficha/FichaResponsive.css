@@ -523,9 +523,6 @@ ul.breadcumbs li a {
         margin-top: 30px; /* Modificado para el carrusel de imagenes responsive - tesla */
         background-image: none;
     }
-        .ficha_detalle.sello {
-            padding: 30px 15px 0 15px !important; /* fix - tesla 203 */
-        }
 
         .detalle_producto_detalle {
             width: 100%;
