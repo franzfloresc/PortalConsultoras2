@@ -139,7 +139,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
                     //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
                     //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
-                    if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal && 
+                    if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal &&
                         !_bLCaminoBrillante.IsOrigenPedidoCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
                     {
                         var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
@@ -512,11 +512,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
             #endregion
 
             #region CaminoBrillante
-            
+
             if (_bLCaminoBrillante.IsOrigenPedidoCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
             //    pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
             //    pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido)
-           // if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertasEspeciales)
+            // if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertasEspeciales)
             {
                 if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, usuario.NivelCaminoBrillante, pedidoDetalle.Producto.CUV))
                 {
@@ -1494,7 +1494,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     List<BEEstrategia> LstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
                     LstEstrategia = LstEstrategia == null ? new List<BEEstrategia>() : LstEstrategia;
 
-                    if (LstEstrategia.Count > 0 && pedido.olstBEPedidoWebDetalle !=null)
+                    if (LstEstrategia.Count > 0 && pedido.olstBEPedidoWebDetalle != null)
                         pedido.olstBEPedidoWebDetalle.ForEach(p => p.EsPremioElectivo = LstEstrategia.Any(c => c.CUV2 == p.CUV));
                 }
 
@@ -1502,6 +1502,21 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
                     lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas)
                         .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+
+                //Pago Contado
+                //Solo se llama cuando este en dentro de las fecha de facturacion.
+                
+
+                if (usuario.PagoContado && pedido.EstadoPedido == Constantes.EstadoPedido.Procesado && !pedido.ModificaPedidoReservado && !pedido.ValidacionAbierta)
+                {
+                    pedido.STPPagoContado = usuario.PagoContado;
+                    pedido.CodigoConsultora = usuario.CodigoConsultora;
+                    var objPedidoTotal = _pedidoWebBusinessLogic.UpdPedidoTotalPagoContado(pedido);
+                    pedido.STPPagoTotal = objPedidoTotal.STPPagoTotal;
+                    pedido.STPDeuda = objPedidoTotal.STPDeuda;
+                    pedido.STPGastTransporte = objPedidoTotal.STPGastTransporte;
+                    pedido.STPDescuento = objPedidoTotal.STPDescuento;
+                }
             }
             catch (Exception ex)
             {

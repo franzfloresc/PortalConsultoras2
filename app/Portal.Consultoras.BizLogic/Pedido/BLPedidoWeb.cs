@@ -1,6 +1,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
+using Portal.Consultoras.Data.ServiceTotalPagarSiccEC;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -12,6 +13,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Web.Script.Serialization;
@@ -2587,6 +2589,77 @@ namespace Portal.Consultoras.BizLogic
                 lista.Add(Constantes.ODSCodigoCatalogo.WebPortalFFVV);
             return lista;
         }
+
+        public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(bePedidoWeb.PaisID);
+            try
+            {
+                if (bePedidoWeb.STPPagoContado)
+                {
+
+                    var remoteAddress = new EndpointAddress(WebConfig.ServicioTotalPagarSicc_EC);
+
+                    List<PedidoDetalleWebServiceParameter> PedidoWebDetallePrm = null;
+
+                    PedidoWebDetallePrm = bePedidoWeb.olstBEPedidoWebDetalle.Select(x => new PedidoDetalleWebServiceParameter
+                    {
+                        cuv = x.CUV,
+                        unidadesSol = x.Cantidad
+                    }).ToList();
+
+                    var PedidoWeb = new PedidoWebServiceParameter
+                    {
+                        accion = "8",
+                        consultora = bePedidoWeb.CodigoConsultora,
+                        oidSicc = 0,
+                        periodo = bePedidoWeb.CampaniaID.ToString(),
+                        detalle = PedidoWebDetallePrm.ToArray()
+
+                    };
+                    using (var svr = new ProcesoPEDPedidoRechazadoWebServiceImplClient(new BasicHttpBinding(), remoteAddress))
+                    {
+                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 50);
+                        var result = svr.ejecutarProcesoPEDPedidoRechazado(PedidoWeb);
+                        if (result.mensajeError != "") throw new Exception(result.mensajeError);
+                        bePedidoWeb.STPDescuento = result.totalDesc;
+                        bePedidoWeb.STPPagoTotalSinDeuda = result.totalPaga;
+                        bePedidoWeb.STPDeudaLog = result.deuda;
+                        bePedidoWeb.STPDeuda = (string.IsNullOrEmpty(result.deuda)) ? 0 : Convert.ToDouble(result.deuda.Replace(",", ""));
+                        bePedidoWeb.STPPagoTotal = bePedidoWeb.STPPagoTotalSinDeuda + bePedidoWeb.STPDeuda;
+                        bePedidoWeb.STPGastTransporte = result.totalFlet;
+                    }
+
+                    /*Actualizar Log*/
+                    daPedidoWeb.UpdLogConsultoraPagoContado(bePedidoWeb);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                LogManager.SaveLog(ex, bePedidoWeb.CodigoConsultora, bePedidoWeb.PaisID);
+                throw new Exception("Exception BLPedidoWeb- ValidarPedidoTotalPagarContado", ex);
+            }
+            return bePedidoWeb;
+        }
+
+        public BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            BEPedidoWeb obj = null;
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(bePedidoWeb.PaisID);
+
+            using (IDataReader reader = daPedidoWeb.ListLogConsultoraPagoContado(bePedidoWeb))
+            {
+                if (reader.Read()) obj = new BEPedidoWeb(reader);
+            }
+
+            obj = obj ?? UpdPedidoTotalPagoContado(bePedidoWeb);
+            obj.STPDeuda = (string.IsNullOrEmpty(obj.STPDeudaLog)) ? 0 : Convert.ToDouble(obj.STPDeudaLog.Replace(",", ""));
+            obj.STPTotalPagar = obj.STPPagoTotalSinDeuda + obj.STPDeuda;
+            return obj;
+        }
     }
 
     internal class TemplateField
@@ -2612,5 +2685,5 @@ namespace Portal.Consultoras.BizLogic
         }
     }
 
-    
+
 }

@@ -238,5 +238,13 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["ServicioActualizarBoletaImp"] ?? string.Empty;
             }
         }
+
+        public static string ServicioTotalPagarSicc_EC
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ServicioTotalPagarSicc_EC"] ?? string.Empty;
+            }
+        }
     }
 }
