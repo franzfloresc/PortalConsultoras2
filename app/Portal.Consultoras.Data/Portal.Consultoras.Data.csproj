@@ -235,7 +235,6 @@
     <Compile Include="DAValidacionAutomatica.cs" />
     <Compile Include="DAValidacionDatos.cs" />
     <Compile Include="DAZonificacion.cs" />
-    <Compile Include="Encuesta\DAEncuesta.cs" />
     <Compile Include="Estrategia\UpSellingDataAccess.cs" />
     <Compile Include="Estrategia\UpSellingMarcaCategoriaDataAccess.cs" />
     <Compile Include="Mobile\DAApp.cs" />
