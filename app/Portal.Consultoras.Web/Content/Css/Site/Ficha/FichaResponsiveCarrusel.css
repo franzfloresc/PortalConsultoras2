@@ -132,7 +132,7 @@
     padding: 10px;
     margin-left: 0;
 }
-.promociones-modal .contenedor_detalle {
+.promociones-modal, .contenedor_detalle{
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 0;
