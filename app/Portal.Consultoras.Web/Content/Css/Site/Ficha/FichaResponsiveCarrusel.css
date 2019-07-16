@@ -44,21 +44,25 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);*/
+}
+.ficha-promociones-box-shadow {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 }
 
-    .descripcion-promociones .contenedor-imagen {
-        text-align: center
-    }
+.descripcion-promociones .contenedor-imagen {
+    text-align: center
+}
 
         .descripcion-promociones .contenedor-imagen img {
             max-width: 100% !important;
             height: 80px;
+            padding: 0.7rem;
         }
 /* Promociones - Detalle Modal */
 .promociones-modal.popup_lateral,
 .modal-promociones--bottom {
-    width: 360px;
+    width: 400px;
 }
 
 .contenedor-promocion-modal {
@@ -93,6 +97,8 @@
 
 .promociones-modal .contenedor-imagen img {
     height: 120px;
+    padding: 0;
+    margin: 1rem;
 }
 
 .promociones-modal .img_producto img {
@@ -105,16 +111,17 @@
     right: 0;
     left: auto;
     bottom: 16px;
+    border-top: 1px solid #dee2e6;
 }
 
-.promociones-modal.popup_lateral::after {
-    /* Barra separadora central*/
+/*.promociones-modal.popup_lateral::after {
+    
     content: "";
     position: absolute;
     bottom: 45%;
     width: 100%;
     border-bottom: 1px solid #dee2e6;
-}
+}*/
 
 /* [Fin] */
 
@@ -125,10 +132,11 @@
     padding: 10px;
     margin-left: 0;
 }
-.promociones-modal .contenedor_detalle{
+.promociones-modal .contenedor_detalle {
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 0;
+    padding-left: 16px;
 }
 
 .ficha-promociones.banner_promociones_ocultar {
@@ -143,7 +151,65 @@
 .h-40 {
     height: 40% !important
 }
+/* Carrusel Slick */
 
+.promociones-modal .arrow.prev {
+    left: -1.25rem;
+}
+.promociones-modal .arrow.next {
+    right: -0.5rem;
+}
+.carrusel-promocion {
+    height: auto;
+    max-height: 80%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+.promociones-top,
+.promociones-center,
+.promociones-bottom{    
+    flex-direction: column
+}
+.promociones-modal .titulo_seccion {
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+.modal-top {
+    position: relative;
+    top: 0;
+}
+
+.modal-content-center {
+    position: relative;
+    min-height: 600px;
+    overflow-y: auto;
+    top: 0;
+}
+
+.modal-footer-bottom{
+    position:fixed;
+    bottom: 50px;
+}
+
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+
+/* End carrusel slick modal*/
 @media (max-height: 666px) {
     /* 👿 */
     .promociones-modal.popup_lateral::after {
