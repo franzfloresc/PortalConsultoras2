@@ -134,15 +134,30 @@
     top: 12px;
 }
 
-.searchCarousel .slick-disabled{
+/*
+    .searchCarousel : Afecta el carrusel en la búsqueda 
+    .popup_lateral : Afecta el detalle del panel lateral en la ficha que del producto en promoción hacia que viene del carrusel en la búsqueda 
+*/
+
+.searchCarousel .slick-disabled,
+.popup_lateral .slick-disabled {
     display: none !important;
 }
-.searchCarousel-description{
-    margin-left: 40px;
+.popup_lateral .slick-arrow {
+    height: auto !important; /* TODO : Parche, se cruza con el auto de un slick de uppseling .carousel_ficha .slick-arrow linea 6*/
+}
+.popup_lateral .arrow.prev {
+    left: -17px;
+}
+.searchCarousel-description {
+    padding-left: 4.5rem;
+    padding-right: 2rem;
     text-align: left;
 }
-.searchCarousel-image{
-    margin-right: 40px;
+
+.searchCarousel-image {
+    margin-right: 3.3rem;
+    min-width: 6rem;
 }
 
 /*

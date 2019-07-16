@@ -286,16 +286,11 @@ function ProcesarAceptarPedido(pedido) {
                         AbrirMensaje(response.message);
                     }
                     else if (response.code == 2) {
-                        
-                        var msjBloq = validarpopupBloqueada(response.message);
-                        if (msjBloq != "") {
-                            alert_msg_bloqueadas(msjBloq);
-                        }
-                        else {
 
-                            $('#MensajePedidoReservado').text(response.message);
-                            $('#AlertaPedidoReservado').show();
-                        }
+              
+                        $('#MensajePedidoReservado').text(response.message);
+                        $('#AlertaPedidoReservado').show();
+
                     }
                 }
             }

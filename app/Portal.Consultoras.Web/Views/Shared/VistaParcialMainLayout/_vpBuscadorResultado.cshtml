@@ -21,6 +21,7 @@
             <input type="hidden" class="hdBuscadorOrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
             <input type="hidden" class="hdBuscadorTipoPersonalizacion" value="{{TipoPersonalizacion}}" />
             <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
+            <input type="hidden" class="hdTienePremio" value="{{TienePremio}}" />
             <div data-imagen-producto="{{Imagen}}"></div>
         </div>
         <div class="resultado_busqueda_img_prod redireccionarFicha pl-0 pr-0">
@@ -98,7 +99,7 @@
     <!-- <NuevaExperiencia equipo="tesla" tipo="carrusel" ticket="tesla-178" -->
     <div class="content-searchCarousel"> 
         <div class="ribbon-promo">
-            <span class="promo-text">Promo</span>
+            <span class="promo-text">Promoción</span>
         </div>
         <div class="searchCarousel-container">
             <div class="searchCarousel">
@@ -123,12 +124,14 @@
                         <input type="hidden" class="hdBuscadorOrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
                         <input type="hidden" class="hdBuscadorTipoPersonalizacion" value="{{TipoPersonalizacion}}" />
                         <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
+                        <input type="hidden" class="hdPromoposition" value="{{Promoposition}}" />
+                        <input type="hidden" class="hdTienePremio" value="{{TienePremio}}" />
                         <div data-imagen-producto="{{Imagen}}"></div>
                     </div>
 
                     <div class="searchCarousel-content redireccionarFicha">
                         <div class="searchCarousel-description">
-                            <span class="description-text">¡Ll&eacute;vate un(a) <b>{{Descripcion}}</b> en oferta! <br>Ent&eacute;rate aqu&iacute;</span>
+                            <span class="description-text">¡Aprovecha! Ll&eacute;vate un(a) <b>{{Descripcion}}</b> a solo {{PrecioString}}. Ent&eacute;rate aqu&iacute;</span>
                         </div>
                         <div class="searchCarousel-image">
                             <img class="img-responsive" src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />

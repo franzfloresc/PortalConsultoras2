@@ -418,7 +418,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Pedido/PedidoGrilla.css",
                 "~/Content/Css/Site/Pedido/PedidoTooltip.css",
                 "~/Content/Css/Site/Landing/producto.landing.css",
-                "~/Content/Css/Site/Pedido/GananciaEstimada.css"
+                "~/Content/Css/Site/Pedido/GananciaEstimada.css",
+                "~/Content/Css/Site/Pedido/ProductosSugeridos.css"
             ));
 
             //Tener en cuenta : se esta usando en pedidoFic.
@@ -685,7 +686,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Mobile/Pedido/PedidoGrilla.css",
                 "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css",
-                "~/Content/Css/Site/Pedido/GananciaEstimada.css"
+                "~/Content/Css/Site/Pedido/GananciaEstimada.css",
+                "~/Content/Css/Site/Pedido/ProductosSugeridos.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(

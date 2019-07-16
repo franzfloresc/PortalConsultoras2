@@ -105,24 +105,28 @@
         {{/iff}}
         {{/iff}}
         <!--<FichaPromociones ticket="tesla-178">-->
-        <div class="ficha-promociones d-none d-md-block" data-selector="open-modal" >
+        <div class="ficha-promociones ficha-promociones-box-shadow d-none d-md-block" data-selector="open-modal" >
             <div class="titulo-promociones">
                 <span class="texto-promociones"> Promocion </span>
             </div>
             <div class="descripcion-promociones">
-                <span class="texto-promociones">¡Ll&eacute;vate un(a) {{DescripcionCompleta}} en oferta! <br>Ent&eacute;rate aqu&iacute;.</span>
+                {{#if EsPromocion}}
+                <span class="texto-promociones">Conoce aqu&iacute; las condiciones de esta promoción.</span>
+                {{else}}
+                <span class="texto-promociones">¡Aprovecha! Ll&eacute;vate un <b>{{Promocion.DescripcionCompleta}}</b> a solo {{SimboloMoneda}}{{Promocion.PrecioVenta}}. Ent&eacute;rate aqu&iacute;</span>
+                {{/if}}
                 <div class="contenedor-imagen">
                     {{#iff TipoPersonalizacion '==' 'CAT'}}
-                    <img src="{{FotoProducto01}}" alt="Texto" class="img-responsive"/>
+                    <img src="{{FotoProducto01}}" alt="Texto" class="img-responsive" />
                     {{/iff}}
                     {{#iff TipoPersonalizacion '!=' 'CAT'}}
                     {{#if isMobile}}
-                    <img src="{{ImgMedium FotoProducto01}}" alt="Texto" class="img-responsive"/>
+                    <img src="{{ImgMedium FotoProducto01}}" alt="Texto" class="img-responsive" />
                     {{else}}
-                    <img src="{{ImgUrl FotoProducto01}}" alt="Texto" class="img-responsive"/>
+                    <img src="{{ImgUrl FotoProducto01}}" alt="Texto" class="img-responsive" />
                     {{/if}}
                     {{/iff}}
-                </div>                
+                </div>
             </div>
         </div>
         <!--</FichaPromociones">-->
