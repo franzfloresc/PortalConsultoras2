@@ -163,5 +163,34 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+
+        [HttpPost]
+        public JsonResult ObtenerEstrategiaMongo(string palanca, int campaniaId, string cuv)
+        {
+            try
+            {
+                var modelo = GetEstrategiaMongo(palanca, campaniaId, cuv);
+                
+                if (modelo != null)
+                {
+                    return Json(new
+                    {
+                        success = !modelo.Error,
+                        data = modelo
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(new
+            {
+                success = false
+            }, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

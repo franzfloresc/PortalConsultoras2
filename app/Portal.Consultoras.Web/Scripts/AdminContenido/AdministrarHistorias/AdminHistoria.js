@@ -114,12 +114,10 @@ function IniDialogDetalle() {
                             closeWaitingDialog();
                             if (data.success) {
                                 HideDialog("DialogMantenimientoDetalle");
-                                //_toastHelper.success("Solicitud realizada sin problemas.");
                                 showDialogMensaje(data.message, '');
                                 $('#tblHistoriaDet').trigger('reloadGrid');
                             } else {
                                 showDialogMensaje(data.message, '');
-                                //_toastHelper.error("Error al procesar la Solicitud.");
                             }
                         },
                         error: function (data, error) {
