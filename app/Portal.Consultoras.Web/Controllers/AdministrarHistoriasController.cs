@@ -757,7 +757,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "El tamaño máximo de archivo permitido es 30MB."
+                            message = "El tamaï¿½o mï¿½ximo de archivo permitido es 30MB."
                         });
                     }
                     else
