@@ -7,13 +7,13 @@ class CarruselModel
         urlDataCarrusel,
         origenPedidoWeb,
         origenAgregarCarrusel,
-        pantalla,
         tituloCarrusel,
-        cantidadPack,
-        codigoProducto,
-        precioProducto,
         productosHermanos,
-        tieneStock)
+        tieneStock,
+        mostrarUpselling,
+        tipoCarrusell,
+        codigoProducto,
+        precioProducto)
     {
         this.palanca = palanca || "";
         this.campania = campania || "";
@@ -21,12 +21,12 @@ class CarruselModel
         this.urlDataCarrusel = urlDataCarrusel || "";
         this.origenPedidoWeb = origenPedidoWeb || "";
         this.origenAgregarCarrusel = origenAgregarCarrusel || "";
-        this.pantalla = pantalla;
         this.tituloCarrusel = tituloCarrusel;
-        this.cantidadPack = cantidadPack;
         this.codigoProducto = codigoProducto;
         this.precioProducto = precioProducto;
         this.productosHermanos = productosHermanos;
         this.tieneStock = tieneStock;
+        this.mostrarUpselling = mostrarUpselling;
+        this.tipoCarrusell = tipoCarrusell;
     }
 }
