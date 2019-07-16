@@ -1,4 +1,4 @@
-USE BelcorpColombia_APP
+USE BelcorpColombia
 GO
 
 DELETE FROM [dbo].[BeneficioCaminoBrillante]   
