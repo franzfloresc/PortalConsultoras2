@@ -43,7 +43,7 @@ function MostrarBarra(datax, destino) {
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
         initCarruselPremios(dataBarra);
-        if (datax.data && datax.data.CUV) {            
+        if (datax.data && datax.data.CUV) {
             trySetPremioElectivo(datax.data.CUV);
         } else {
             savePedidoDetails(datax);
@@ -316,24 +316,24 @@ function MostrarBarra(datax, destino) {
         htmlTippintPoint = htmlTippintPoint
             .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
             .replace('{barra_tooltip}',
-            dataTP.ActiveTooltip ?
-                '<div class="tooltip_regalo_meta_tippingPoint">'
-                + '<div class="tooltip_producto_regalo_img">'
-                + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
-                + '</div>'
-                + '{barra_tooltip_descripcion}'
-                + '</div>' :
-                ''
+                dataTP.ActiveTooltip ?
+                    '<div class="tooltip_regalo_meta_tippingPoint">'
+                    + '<div class="tooltip_producto_regalo_img">'
+                    + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                    + '</div>'
+                    + '{barra_tooltip_descripcion}'
+                    + '</div>' :
+                    ''
             )
             .replace('{barra_monto}',
-            dataTP.ActiveMonto ?
-                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
-                ''
+                dataTP.ActiveMonto ?
+                    '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
+                    ''
             )
             .replace('{barra_tooltip_descripcion}',
-            dataTP.ActiveMonto ?
-                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
-                '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+                dataTP.ActiveMonto ?
+                    '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                    '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
             );
     }
 
@@ -400,6 +400,7 @@ function MostrarBarra(datax, destino) {
                 else {
                     if (caminoBrillante == "True") {
                         txtDscto = "";
+                        (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
                     } else {
                         txtDscto = "DSCTO";
                         txtDetalle = indPuntoLimite - 1 != ind ? "" :
@@ -2350,6 +2351,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                         }
 
+
                     }
 
                 }
@@ -2378,7 +2380,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                             document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
 
-                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 4) + '%';
+                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%';
                             document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
                         }
@@ -2387,17 +2389,21 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             document.getElementById('punto_0').style.left = '2%';
                             document.getElementById('punto_1').style.left = '15%';
                             document.getElementById('punto_2').style.left = '21.8%';
+                            document.getElementById('punto_5').style.left = '94%';
                             document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
                             document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
 
+
                         } else {
-                            document.getElementById('divBarraEspacioLimite').style.width = '16%';
-                            document.getElementById('barra_0').style.left = '16%';
-                            document.getElementById('punto_0').style.left = '2%';
-                            document.getElementById('punto_1').style.left = '15%';
-                            document.getElementById('punto_2').style.left = '21.8%';
-                            document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
-                            document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
+                            if (limite >= 6 && montoMaximo1 == 195000) {
+                                document.getElementById('divBarraEspacioLimite').style.width = '16%';
+                                document.getElementById('barra_0').style.left = '16%';
+                                document.getElementById('punto_0').style.left = '2%';
+                                document.getElementById('punto_1').style.left = '15%';
+                                document.getElementById('punto_2').style.left = '21.8%';
+                                document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
+                                document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
+                            }
                         }
 
                     }
@@ -2668,9 +2674,9 @@ function ReordenarMontosBarra() {
         if (diferencia1 <= monto && (diferencia2 <= monto && diferencia2 != 0)) {
 
             if (IsoPais == 'CO') {
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 - 1.3) + '%';
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 ) + '%';
-                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 1) + '%';
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2.5) + '%';
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 2) + '%';
+                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%';
             }
             else if (IsoPais == 'CR') {
                 if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%';
