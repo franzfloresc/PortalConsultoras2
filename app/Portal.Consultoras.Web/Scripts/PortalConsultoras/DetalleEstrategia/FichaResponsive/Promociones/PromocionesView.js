@@ -19,13 +19,19 @@
             },
             condiciones: {
                 id: "#carrusel-condiciones",
-                templateid: "#template-producto-carrusel-responsive"
+                templateid: "#template-producto-carrusel-responsive",
+                contenedorid: "#seccion-carrusel-condiciones",
             },
             promocion: {
                 id: "#producto-promocion",
                 templateid: "#producto-promocion-template"
             }
         }
+    };
+
+    var _attributes = {
+        origenPedidoWeb: "data-OrigenPedidoWeb",
+        origenPedidoWebAgregar: "data-OrigenPedidoWebAgregar",
     };
 
     var _showModal = function (idModal) {
@@ -73,16 +79,30 @@
         });
     };
 
+    var _cleanUnAttributesOnModalPromociones = function () {
+        $(_elements.promocionesModal.id).find("[" + _attributes.origenPedidoWeb + "]").each(function (elem) {
+            $(elem).removeAttr(_attributes.origenPedidoWeb);
+        });
+
+        $(_elements.promocionesModal.id).find("[" + _attributes.origenPedidoWebAgregar + "]").each(function (elem) {
+            $(elem).removeAttr(_attributes.origenPedidoWebAgregar);
+        });
+
+        $(_elements.promocionesModal.promocion.id).attr(_attributes.origenPedidoWeb, "");
+        $(_elements.promocionesModal.condiciones.contenedorid).attr(_attributes.origenPedidoWeb, "");
+    };
+
     var _showModalPromociones = function () {
+        _cleanUnAttributesOnModalPromociones();
         _showModal(_elements.promocionesModal.id);
     };
 
-    var _showConditions = function (conditions) {
+    var _showConditions = function (estrategia) {
         $(_elements.promocionesModal.condiciones.id).slick("unslick");
         $(_elements.promocionesModal.condiciones.id).html("");
-        SetHandlebars(_elements.promocionesModal.condiciones.templateid,
-            conditions,
-            _elements.promocionesModal.condiciones.id);
+        $(_elements.promocionesModal.condiciones.contenedorid).removeAttr(_attributes.origenPedidoWebAgregar);
+        $(_elements.promocionesModal.condiciones.contenedorid).attr(_attributes.origenPedidoWebAgregar, estrategia.OrigenAgregarCondiciones);
+        SetHandlebars(_elements.promocionesModal.condiciones.templateid, estrategia.Promocion, _elements.promocionesModal.condiciones.id);
         $(_elements.promocionesModal.condiciones.id).slick({
             slidesToScroll: 1,
             autoplaySpeed: 2000,
@@ -97,13 +117,12 @@
         setTimeout(function () {
             $(_elements.promocionesModal.condiciones.id).slick('setPosition');
         }, 500);
-        
     };
 
-    var _showPromotion = function (promotion) {
-        SetHandlebars(_elements.promocionesModal.promocion.templateid,
-            promotion,
-            _elements.promocionesModal.promocion.id);
+    var _showPromotion = function (estrategia) {
+        $(_elements.promocionesModal.condiciones.id).removeAttr("data-origenpedidowebagregar");
+        SetHandlebars(_elements.promocionesModal.promocion.templateid, estrategia.Promocion, _elements.promocionesModal.promocion.id);
+        $(_elements.promocionesModal.promocion.id).attr("data-origenpedidowebagregar", estrategia.OrigenAgregarPromocion);
     };
 
     return {

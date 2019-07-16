@@ -81,6 +81,10 @@
     </div>
 </script>
 
+<script type="text/javascript">
+    var urlSinImagenTiposyTonos = '@System.Configuration.ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos)';
+</script>
+
 @Html.Partial("~/Views/DetalleEstrategia/_ElegirOpciones.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/ProductoTemplate.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/ResumenOpcionesTemplate.cshtml")
