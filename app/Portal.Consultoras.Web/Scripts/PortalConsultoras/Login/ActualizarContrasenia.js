@@ -44,7 +44,7 @@ function Inicializar() {
 
     $(".campo_ingreso_codigo").keydown(
         function (e) {
-            tecla = (document.all) ? e.keyCode : e.which;
+            var tecla = (document.all) ? e.keyCode : e.which;
             if (tecla == 8) {
                 var oID = $(this).attr("id");
                 var a = oID.substring(1, 2);
