@@ -740,15 +740,6 @@ function AbrirModalRegistroComunidad() {
     return false;
 }
 
-function OpenUrl(url, newPage) {
-    if (newPage) {
-        window.open(url, '_blank');
-        return;
-    }
-
-    window.location.href = url;
-}
-
 function SendPushMiComunidad() {
     dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '/mi-comunidad/formulario-de-registro', 'pageTitle': 'Mi comunidad – Formulario de registro' });
 }

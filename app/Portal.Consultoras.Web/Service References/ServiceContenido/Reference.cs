@@ -231,6 +231,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string ArchivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int BannerIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -288,6 +291,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string URLField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string URLMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool UdpSoloBannerField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -309,6 +315,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.ArchivoField, value) != true)) {
                     this.ArchivoField = value;
                     this.RaisePropertyChanged("Archivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoMobile {
+            get {
+                return this.ArchivoMobileField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoMobileField, value) != true)) {
+                    this.ArchivoMobileField = value;
+                    this.RaisePropertyChanged("ArchivoMobile");
                 }
             }
         }
@@ -556,6 +575,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.URLField, value) != true)) {
                     this.URLField = value;
                     this.RaisePropertyChanged("URL");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string URLMobile {
+            get {
+                return this.URLMobileField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.URLMobileField, value) != true)) {
+                    this.URLMobileField = value;
+                    this.RaisePropertyChanged("URLMobile");
                 }
             }
         }
@@ -8964,6 +8996,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private int CampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoDetalleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9027,6 +9062,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((this.CampaniaField.Equals(value) != true)) {
                     this.CampaniaField = value;
                     this.RaisePropertyChanged("Campania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
                 }
             }
         }
@@ -10719,6 +10767,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceContenido.IContenidoService")]
     public interface IContenidoService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador", ReplyAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidadorResponse")]
+        int EliminarArchivoCsvValidador(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador", ReplyAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidadorResponse")]
+        System.Threading.Tasks.Task<int> EliminarArchivoCsvValidadorAsync(int PaisID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos", ReplyAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse")]
         int CargaEstadoValidadorDatos(int PaisID);
         
@@ -11202,6 +11256,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoAppDetaActList", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppDetaActListResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[]> GetContenidoAppDetaActListAsync(int paisID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ContenidoAppDetaVideo", ReplyAction="http://tempuri.org/IContenidoService/ContenidoAppDetaVideoResponse")]
+        int ContenidoAppDetaVideo(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ContenidoAppDetaVideo", ReplyAction="http://tempuri.org/IContenidoService/ContenidoAppDetaVideoResponse")]
+        System.Threading.Tasks.Task<int> ContenidoAppDetaVideoAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetListaPopup", ReplyAction="http://tempuri.org/IContenidoService/GetListaPopupResponse")]
         Portal.Consultoras.Web.ServiceContenido.BEComunicado[] GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID);
         
@@ -11237,12 +11297,6 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/EliminarArchivoCsv", ReplyAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvResponse")]
         System.Threading.Tasks.Task<int> EliminarArchivoCsvAsync(int Comunicadoid, int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador", ReplyAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidadorResponse")]
-        int EliminarArchivoCsvValidador(int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador", ReplyAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidadorResponse")]
-        System.Threading.Tasks.Task<int> EliminarArchivoCsvValidadorAsync(int PaisID);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -11318,6 +11372,14 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         public ContenidoServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public int EliminarArchivoCsvValidador(int PaisID) {
+            return base.Channel.EliminarArchivoCsvValidador(PaisID);
+        }
+        
+        public System.Threading.Tasks.Task<int> EliminarArchivoCsvValidadorAsync(int PaisID) {
+            return base.Channel.EliminarArchivoCsvValidadorAsync(PaisID);
         }
         
         public int CargaEstadoValidadorDatos(int PaisID) {
@@ -11972,6 +12034,14 @@ namespace Portal.Consultoras.Web.ServiceContenido {
             return base.Channel.GetContenidoAppDetaActListAsync(paisID);
         }
         
+        public int ContenidoAppDetaVideo(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
+            return base.Channel.ContenidoAppDetaVideo(paisID, p);
+        }
+        
+        public System.Threading.Tasks.Task<int> ContenidoAppDetaVideoAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
+            return base.Channel.ContenidoAppDetaVideoAsync(paisID, p);
+        }
+        
         public Portal.Consultoras.Web.ServiceContenido.BEComunicado[] GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID) {
             return base.Channel.GetListaPopup(Estado, Campania, Paginas, Filas, PaisID);
         }
@@ -12018,14 +12088,6 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         public System.Threading.Tasks.Task<int> EliminarArchivoCsvAsync(int Comunicadoid, int PaisID) {
             return base.Channel.EliminarArchivoCsvAsync(Comunicadoid, PaisID);
-        }
-        
-        public int EliminarArchivoCsvValidador(int PaisID) {
-            return base.Channel.EliminarArchivoCsvValidador(PaisID);
-        }
-        
-        public System.Threading.Tasks.Task<int> EliminarArchivoCsvValidadorAsync(int PaisID) {
-            return base.Channel.EliminarArchivoCsvValidadorAsync(PaisID);
         }
     }
 }
