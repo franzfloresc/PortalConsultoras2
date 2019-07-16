@@ -1363,10 +1363,10 @@ namespace Portal.Consultoras.ServiceContracts
         /*HD-4513*/
         #region Consultora Pago Contado
         [OperationContract]
-        BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb);
+        BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb);
 
         [OperationContract]
-        BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb);
+        BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb);
         #endregion
     }
 }
