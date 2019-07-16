@@ -7,7 +7,6 @@ var vPendientes = [];
 $(document).ready(function () {
     cambiaTabs();
     InicializarMotivoRechazo();
-    $("#vpMenu .info_cam").remove();
 });
 
 function bindElments() {
@@ -400,6 +399,7 @@ function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo)
             if (response.success) {
                 vPendientes = response.Pendientes;
                 SeRechazoConExito();
+                CargarResumenCampaniaHeader(true);
             }
             else {
                 AbrirMensaje(response.message, 'Error');
@@ -578,9 +578,6 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         data: JSON.stringify(obj),
         success: function (response) {
             if (response.success) {
-                var eliminoPedidoCompleto = true;
-                // ocultar div
-
                 MarcaAnalyticsClienteProducto('¿Quiere eliminar este pedido? - Sí, eliminar');
 
                 //Ajax
@@ -590,14 +587,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     $.each(value.DetallePedido, function (index, value) {
                         cuvs.push(value.CUV.toString());
                     });
-                    if (value.PedidoId.toString() == pedidoId.toString()) {
-                        eliminoPedidoCompleto = false
-                    }
                 });
-
-                if (eliminoPedidoCompleto) {
-
-                }
 
                 if (origen == 'C') {
                     var idCuv = '#vc_pedido_' + cuv;
@@ -620,6 +610,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
 
                 RenderizarPendientes(Pendientes);
                 cambiaTabs();
+                CargarResumenCampaniaHeader(true)
             }
             else {
                 alert(response.message);

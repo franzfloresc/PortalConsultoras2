@@ -975,5 +975,38 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+
+        #region HD-4288
+        public IDataReader VerificarConsultoraDigital(string codigoConsultora, int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.VerificarConsultoraDigitalRecibe");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+            return Context.ExecuteReader(command);
+        }
+
+        public int DeshacerRecepcionPedido(int pedidoID)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.DeshacerRecepcionPedido"))
+            {
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+
+                return Context.ExecuteNonQuery(command);
+            }
+        }
+
+        public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GuardarRecepcionPedido"))
+            {
+                Context.Database.AddInParameter(command, "@NombreYApellido", DbType.String, nombreYApellido);
+                Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.String, numeroDocumento);
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+
+                return Context.ExecuteNonQuery(command);
+            }
+        }
+
+        #endregion
     }
 }

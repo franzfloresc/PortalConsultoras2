@@ -380,7 +380,6 @@
 </body>
 </html>
 <script type="text/javascript">
-    var urlProcesaEnvioCorreo = '@Url.Action("ProcesaEnvioCorreo", "Login")';
     var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';
     var urlVerificarCodigoGenerado = '@Url.Action("VerificarCodigoGenerado", "Login")';
     var urlContinuarLogin = '@Url.Action("ContinuarLogin", "Login")';
@@ -442,7 +441,7 @@
     /*para Correo*/
     var config = {
         UrlPaginaPrevia: '@Url.Action("VerificaAutenticidad")',
-        UrlActualizarEnviarCorreo: '@Url.Action("ProcesaEnvioCorreo")',
+        UrlActualizarEnviarCorreo: '@Url.Action("ProcesaActualizaEnvioCorreo")',
         MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
         MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
         VistaActual: 1,
@@ -469,14 +468,6 @@
                 FB.init({
                     xfbml            : false,
                     version          : 'v3.3'
-                });
-                FB.Event.subscribe('customerchat.load', function() {
-                    setTimeout(function () {
-                        $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
-                        $('body').on('click', '.icono_chat_sb', function (e) {
-                            FB.CustomerChat.showDialog();
-                        });
-                    }, 2000);
                 });
             };
         </script>

@@ -306,7 +306,7 @@ namespace Portal.Consultoras.Common
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
             public const string MasGanadoras = "Ganadoras";
             public const string Catalogo = "Catalogo"; // No tiene referecia con BD
-            public const string CaminoBrillante = "CaminoBrillante"; // No tiene referecia con BD
+            public const string CaminoBrillante = "Camino Brillante"; // No tiene referecia con BD
             public const string CaminoBrillanteDemostradores = "CaminoBrillanteDemostradores"; // No tiene referecia con BD
             public const string CaminoBrillanteKits = "CaminoBrillanteKits"; // No tiene referecia con BD
 
@@ -615,6 +615,7 @@ namespace Portal.Consultoras.Common
             public const string BonificacionesURL = "BonificacionesURL";
             public const string BonificacionesRegiones = "BonificacionesRegiones";
             public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
+            public const string QuestionProUrl = "QuestionProUrl";
             public const string ChatbotSecret = "ChatbotSecret";
             public const string ChatBotPageId = "ChatBotPageId";
             public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
@@ -1443,6 +1444,7 @@ namespace Portal.Consultoras.Common
             public const string ContenedorOfertas = "ContenedorOfertas";
             public const string LiquidacionWeb = "LiquidacionWeb";
             public const string MiPerfil = "MiPerfil";
+            public const string TuVozOnline = "TuVozOnline";
         }
 
         public static class MenuPosicion
@@ -1464,10 +1466,6 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
         }
 
-        public static class TipoPopupAlert
-        {
-            public const string Bloqueado = "HD3693~";
-        }
 
         public static class IngresoExternoPagina
         {
@@ -3653,6 +3651,7 @@ namespace Portal.Consultoras.Common
         {
             public const int BoletaImpresa = 1;
             public const int CompartirWhatsApp = 2;
+            public const int NotificarWhatsApp = 3;
         }
 
         public static class SegmentoDatami
@@ -3971,6 +3970,11 @@ namespace Portal.Consultoras.Common
             public const string OrigenPedidoWebLandingFicha = "OrigenPedidoWebLandingFicha";
             public const string OrigenPedidoWebLandingFichaCarrusel = "OrigenPedidoWebLandingFichaCarrusel";
             public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
+        }
+
+        public static class TempDataKey
+        {
+            public const string MsgValidation = "MSG_VALIDATION";
         }
 
         public static class OpcionesIngresoPendientes
