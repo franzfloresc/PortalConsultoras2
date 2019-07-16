@@ -3989,6 +3989,11 @@ namespace Portal.Consultoras.Common
             public const string HistAnchoAltoDetalle = "HistAnchoAltoDetalle";
             public const string HistUrlMiniatura = "HistUrlMiniatura";
             public const string HistLimitDetMensaje = "HistLimitDetMensaje";
+            public const string CodigoGanaEnUnClick = "GANA_EN_UN_CLICK";
+            public const int ProcAdd = 1;
+            public const int ProcEdit = 2;
+            public const int ProcDelete = 3;
+
         }
 
         public static class DatosTuVozOnline
