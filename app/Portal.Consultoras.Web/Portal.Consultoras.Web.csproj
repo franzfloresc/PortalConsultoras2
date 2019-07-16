@@ -28,7 +28,8 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
     <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1583,8 +1584,8 @@
     <Content Include="Content\Images\btn-back.svg" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\bueno.svg" />
-    <Content Include="Content\Images\EncuestaSatisfaccion\encuesta_pendiente.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\encuesta_realizada.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\encuesta_pendiente.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\excelente.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\mal.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\pesimo.svg" />

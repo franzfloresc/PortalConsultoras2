@@ -277,12 +277,15 @@
             </div>
         </div>
         <div class="text-center estado_encuesta_satisfaccion">
-            <a href="#" title="Estado de encuesta de satisfacción" class="d-inline-block estado_encuesta_satisfaccion_enlace estado">
-                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/encuesta_pendiente.svg")" alt="Encuesta de satisfacción pendiente" />
-            </a>
-            <a href="#" title="Estado de encuesta de satisfacción" class="d-inline-block estado_encuesta_satisfaccion_enlace encuesta_satisfaccion_enlace--realizado" style="display:none;">
+           @if (item.EstadoEncuesta==Constantes.EstadoEncuestaSatisfaccion.Realizada) { 
+            <a href="#" title="Encuesta de satisfacción realizada" class="d-inline-block estado_encuesta_satisfaccion_enlace encuesta_satisfaccion_enlace--realizado">
                 <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/encuesta_realizada.svg")" alt="Encuesta de satisfacción realizada" />
             </a>
+            }else if(item.EstadoEncuesta==Constantes.EstadoEncuestaSatisfaccion.Pendiente){
+            <a href="#" title="Encuesta de satisfacción pendiente" class="d-inline-block estado_encuesta_satisfaccion_enlace estado" >
+                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/encuesta_pendiente.svg")" alt="Encuesta de satisfacción pendiente" />
+            </a>
+            }
         </div>
     </div>
 }

@@ -11,6 +11,7 @@ namespace Portal.Consultoras.BizLogic.Encuesta
 {
     public class BLEncuesta
     {
+        #region Reporte
         public List<BEEncuestaReporte> GetReporteEncuestaSatisfaccion(BEEncuestaReporte bEncuesta)
         {
             var dAEncuestaReporte = new DAEncuesta(bEncuesta.PaisID);
@@ -25,6 +26,24 @@ namespace Portal.Consultoras.BizLogic.Encuesta
 
             return lista;
         }
+        #endregion
+
+        #region MisPedidos
+        public List<BEEncuestaPedido> GetEncuestaByConsultora(BEEncuestaPedido bEncuesta)
+        {
+            var dAEncuestaReporte = new DAEncuesta(bEncuesta.PaisID);
+            var lista = new List<BEEncuestaPedido>();
+            using (var reader = dAEncuestaReporte.GetEncuestaByConsultora(bEncuesta))
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEEncuestaPedido(reader));
+                }
+            }
+
+            return lista;
+        }
+        #endregion
         public List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId,string codigoConsultora)
         {
             List<BEDataConfigEncuesta> listaDataConfigEncuesta = new List<BEDataConfigEncuesta>();

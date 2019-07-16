@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Data.Encuesta
         {
 
         }
-
+        #region Reporte
         public IDataReader GetReporteEncuestaSatisfaccion(BEEncuestaReporte bEncuesta)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.EncuestaResultadoDetalle_List");
@@ -26,6 +26,15 @@ namespace Portal.Consultoras.Data.Encuesta
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, bEncuesta.ZonaID);
             return Context.ExecuteReader(command);
         }
+        #endregion
+        #region MisPedidos
+        public IDataReader GetEncuestaByConsultora(BEEncuestaPedido bEncuesta)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.EncuestaResultado_ListbyConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, bEncuesta.CodigoConsultora);
+            return Context.ExecuteReader(command);
+        }
+        #endregion
         public IDataReader ObtenerDataEncuesta(string codigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerDataEncuesta");

@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 using (var sv = new EncuestaServiceClient())
                 {
-                    var response = sv.ObtenerDataEncuesta(paisId).ToList();
+                    var response = sv.ObtenerDataEncuesta(paisId,"").ToList();
                     result = Mapper.Map<List<DataConfigEncuestaModel>>(response);
                 }
             }

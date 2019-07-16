@@ -113,6 +113,7 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
+    <Compile Include="Encuesta\BEEncuestaPedido.cs" />
     <Compile Include="Encuesta\BEEncuestaReporte.cs" />
     <Compile Include="Encuesta\BEDataConfigEncuesta.cs" />
     <Compile Include="Encuesta\BEEncuesta.cs" />

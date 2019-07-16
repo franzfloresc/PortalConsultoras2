@@ -19,6 +19,8 @@ namespace Portal.Consultoras.Service
         {
             return bLEncuesta.ObtenerDataEncuesta(paisId,codigoConsultora);
         }
+
+
     }
 
 

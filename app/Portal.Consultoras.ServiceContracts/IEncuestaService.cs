@@ -13,5 +13,7 @@ namespace Portal.Consultoras.ServiceContracts
     {
         [OperationContract]
         List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId,string codigoConsultora);
+
+
     }
 }
