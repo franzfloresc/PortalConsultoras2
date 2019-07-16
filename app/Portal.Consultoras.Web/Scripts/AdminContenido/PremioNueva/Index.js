@@ -93,7 +93,6 @@ function RegistrarConstrains() {
 
     $("#txtPrograma").on('keypress', function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        //var inputVal = $(this).val();
         var keyChar = String.fromCharCode(charCode);
         var re = /[0-9]/;
         return re.test(keyChar);

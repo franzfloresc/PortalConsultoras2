@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Internal;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
@@ -25,7 +26,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
-
+using BEConsultora = Portal.Consultoras.Web.ServicePedido.BEConsultora;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -157,7 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "validar";
-                    if (model.EstadoPedido == 1) //Reservado
+                    if (model.EstadoPedido == Constantes.EstadoPedido.Registrado)
                         model.Prol = "MODIFICA TU PEDIDO";
                     else
                         model.Prol = "RESERVA TU PEDIDO";
@@ -200,7 +201,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.GananciaRevista = pedidoWeb.GananciaRevista;
                     model.GananciaWeb = pedidoWeb.GananciaWeb;
                     model.GananciaOtros = pedidoWeb.GananciaOtros;
-                    //model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
@@ -335,7 +335,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
-                ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 var ofertaFinal = SessionManager.GetOfertaFinalModel();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
@@ -1545,10 +1544,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
                 model.TotalConDescuento = model.Total - model.MontoDescuento;
-                //INI HD-4294
                 model.IsEmailConfirmado = IsEmailConfirmado();
                 model.EMail = userData.EMail;
-                //FIN HD-4294
                 SetMensajesBotonesProl(model);
 
                 var listPermiteOfertaFinal = new List<Enumeradores.ResultadoReserva> {
@@ -1591,7 +1588,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        //INI HD-4294
+
         public bool IsEmailConfirmado() { 
                 bool flag = false;
             try
@@ -1639,7 +1636,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoUsuario, userData.PaisID, codigoUsuario, tipoEnvio, string.Empty);
             }
         }
-        //FIN HD-4294
+
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
@@ -2339,17 +2336,13 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new PedidoServiceClient())
                 {
                     var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
+               
+                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido )
                     {
                         mensaje = result.Mensaje;
                         estado = true;
                     }
-
-                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado)
-                    {
-                        mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-                        estado = true;
-                    }
+                 
                 }
 
                 return Json(new
@@ -2395,8 +2388,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoReservado = (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria));
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
-                if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-
                 return Json(new
                 {
                     success = estado,
@@ -2698,23 +2689,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return 0;
             }
-
-            //if (
-            //    (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel)
-            //    || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
-            //    || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
-            //    || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas
-            //    )
-            //    return 0;
-
+            
             switch (producto.TipoEstrategiaCodigo)
             {
                 case Constantes.TipoEstrategiaCodigo.MasGanadoras:
@@ -3464,15 +3439,78 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        #region /*Switch Consultora 100% */
+
         /// <summary>
-        /// Requerimiento TESLA-28
-        /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
+        /// Guarda los datos de la persona que recepcionará el pedido
         /// </summary>
-        /// <returns></returns>
-        //private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
-        //{
-        //    return pedidoWeb.GananciaRevista.HasValue &&
-        //           pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
-        //}
+        /// <param name="nombreYApellido">Nombres de la persona que recibirá el pedido</param>
+        /// /// <param name="numeroDocumento">DNI de la persona que recibirá el pedido</param>
+        /// <returns>Retorna un valor que indica si la acción se realizó o no</returns>
+        public JsonResult GuardarRecepcionPedidoRequest(string nombreYApellido, string numeroDocumento)
+        {
+            int result = 0;
+            try
+            {
+                result = GuardarRecepcionPedido(nombreYApellido, numeroDocumento, userData.PedidoID, userData.PaisID);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// Deshace los datos de la persona que recibirá el pedido
+        /// </summary>
+        /// <returns>Un valor que deterina la acción</returns>
+        public JsonResult DeshacerRecepcionPedidoRequest()
+        {
+            int result = 0;
+            try
+            {
+                result = DeshacerRecepcionPedido(userData.PedidoID, userData.PaisID);
+
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// Verifica si la consultoar es 100% digital
+        /// </summary>
+        /// <param name="codigoConsultora">Cósigo de la consultora</param>
+        /// <returns>Retorna los datos de la consultora 100% digital</returns>
+        public JsonResult VerificarConsultoraDigitalRequest(string codigoConsultora)
+        {
+            BEConsultora objConsultoraFicticiaModel;
+            try
+            {
+                objConsultoraFicticiaModel = VerificarConsultoraDigital(codigoConsultora, userData.PedidoID, userData.PaisID);
+                return Json(objConsultoraFicticiaModel, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
     }
 }

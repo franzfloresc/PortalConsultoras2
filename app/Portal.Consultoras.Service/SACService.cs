@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using Portal.Consultoras.BizLogic.Encuesta;
+using Portal.Consultoras.Entities.Encuesta;
 
 namespace Portal.Consultoras.Service
 {
@@ -58,7 +60,9 @@ namespace Portal.Consultoras.Service
         private readonly IBuscadorBusinessLogic _buscadorBusinessLogic;
 
         private readonly BLCategoria _blCategoria;
-        private readonly BLCatalogo _bLCatalogo;  
+        private readonly BLCatalogo _bLCatalogo;
+
+        private readonly BLEncuesta _bLEncuesta;
 
         public SACService() : this(new BLComunicado(), new BLBuscador())
         {
@@ -98,6 +102,8 @@ namespace Portal.Consultoras.Service
             _blAdministrarEstrategia = new BLAdministrarEstrategia();
             _blCategoria = new BLCategoria();
             _bLCatalogo = new BLCatalogo();
+            _bLEncuesta = new BLEncuesta();
+
         }
 
         public SACService(IComunicadoBusinessLogic comunicadoBusinessLogic,
@@ -1665,5 +1671,13 @@ namespace Portal.Consultoras.Service
         {
             return _buscadorBusinessLogic.ObtenerBuscadorComplemento(paisID, codigoUsuario, suscripcionActiva, lst, isApp);
         }
+
+        #region EncuestaSatisfaccion
+        public List<BEEncuestaReporte> GetReporteEncuestaSatisfaccion(BEEncuestaReporte bEncuesta)
+        {
+            return _bLEncuesta.GetReporteEncuestaSatisfaccion(bEncuesta);
+        }
+
+        #endregion
     }
 }

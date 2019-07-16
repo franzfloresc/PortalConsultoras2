@@ -7,7 +7,6 @@ var vPendientes = [];
 $(document).ready(function () {
     cambiaTabs();
     InicializarMotivoRechazo();
-	$("#vpMenu .info_cam").remove();
 });
 
 function bindElments() {
@@ -30,29 +29,15 @@ function bindElments() {
         if ($('.btnAccion a.ghost').length == $('.ghost a').length) {
             $('#btnAceptarPedido span').removeClass('second-color');
             $('#btnAceptarPedido span').addClass('disabled');
-            //$('#btnAceptarPedido span').html('Aceptar Pedido');
         }
         else {
             $('#btnAceptarPedido span').addClass('second-color');
             $('#btnAceptarPedido span').removeClass('disabled');
-            //$('#btnAceptarPedido span').html('Aceptar Pedido');
         }
 
         e.preventDefault();
         return false;
     });
-
-
-    //$(".btn_verMiPedido").on("click", function () {
-    //    window.location.href = baseUrl + "Mobile/Pedido/Detalle";
-    //});
-
-    //$('#btnIrPedidoAprobar').click(function () {
-    //    document.location.href = urlPendientes;
-    //});
-    //$('#btnIrPedido').click(function () {
-    //    document.location.href = urlPedido;
-    //});
 }
 
 function AceptarPedidoPendiente() {
@@ -88,7 +73,6 @@ function AceptarPedidoPendiente() {
                     if (response.success) {
 
                         if ($('#modal-confirmacion')[0]) {
-                            //$('#modal-confirmacion').addClass('on');
 
                             var mensajeConfirmacion = (accionTipo == "ingrgana") ? "Has atendido el pedido por Gana+." : "Has atendido el pedido por Catálogo.";
                             $("#mensajeConfirmacion").html(mensajeConfirmacion);
@@ -163,8 +147,6 @@ function AceptarPedidoPendiente() {
                         if (response.code == 1) {
                             AbrirMensaje(response.message);
                         } else if (response.code == 2) {
-                            //$('#MensajePedidoReservado').text(response.message);
-                            //$('#AlertaPedidoReservado').show();
                             AbrirMensaje(response.message);
                         }
                     }
@@ -192,8 +174,6 @@ function AnalyticsMarcacionPopupConfirmacion(strTipo, prod) {
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
         AnalyticsPortalModule.ClickTabPedidosPendientes("Pop up Pedido Aprobado", strTipo);
 
-        //var products = [];
-
         AnalyticsPortalModule.ClickVistaAddToCardPedidoPendiente(strTipo, prod);
     }
 }
@@ -206,7 +186,6 @@ function cargarGaleria() {
         slidesToShow: 2,
         prevArrow: '<a class="btn btn-circle left white-color" href="#"><</a>',
         nextArrow: '<a class="btn btn-circle right white-color" href="#">></a>'
-        // slidesToShow: 2.3
     });
 
     $('.conCatalogo').slick({
@@ -214,7 +193,6 @@ function cargarGaleria() {
         mobileFirst: true,
         infinite: false,
         centerPadding: '40px',
-        // slidesToShow: 2
         slidesToShow: 2.3,
         prevArrow: '<a class="btn btn-circle left white-color" href="#"><</a>',
         nextArrow: '<a class="btn btn-circle right white-color" href="#">></a>'
@@ -275,9 +253,6 @@ function DetallePedidoPendienteClientesService(cuv) {
         },
         error: function (error) {
             $("body").css('overflow', 'auto');
-            //modal - confirmacion
-            //CloseLoading();
-            //messageInfo("Ocurrió un Error pedido pendiente cliente");
             console.log(error);
         }
     });
@@ -285,7 +260,6 @@ function DetallePedidoPendienteClientesService(cuv) {
 
 function DetallePedidoPendiente(ids) {
     console.log(JSON.stringify(ids));
-    //console.log(JSON.stringify(cuv));
     $("body").css('overflow', 'hidden');
     var obj = {
         ids: ids
@@ -310,8 +284,6 @@ function DetallePedidoPendiente(ids) {
         },
         error: function (error) {
             $("body").css('overflow', 'auto');
-            //CloseLoading();
-            //messageInfo("Ocurrió un Error pedido pendiente cliente");
             console.log(error);
         }
     });
@@ -328,25 +300,18 @@ function OcultarMensajedeRechazoPedido(cuv) {
     $(mensaje).hide();
 
     MarcaAnalyticsClienteProducto("¿Quieres eliminar este pedido? - No, gracias");
-    //document.location.href = urlPedido;
 }
 
 function AceptarPedidoProducto(id) {
-    //var texto = '#texto_' + id;
     var aceptado = '#aceptar_' + id;
     if ($(aceptado).hasClass("ghost")) {
-        //$(texto).removeClass('text-white');
-        //$(texto).addClass('ghost');
         $(aceptado).removeClass('ghost');
         $(aceptado).text('Aceptar');
     }
     else {
-        //$(texto).removeClass('text-black');
-        //$(texto).addClass('text-white');
         $(aceptado).addClass('ghost');
         $(aceptado).text('Aceptado');
 
-        //Marca Analytics
         MarcaAnalyticsClienteProducto("Aceptado");
     }
 
@@ -369,7 +334,7 @@ function MotivoRechazoSolicitudPedidoPend(pedidoId) {
     $('#rechazarTodo').hide();
     $('#MotivosRechazo').removeClass('hide');
     $('#MotivosRechazo').css('display', 'block');
-    $('#hdPedidoId').val(pedidoId);    
+    $('#hdPedidoId').val(pedidoId);
 }
 
 function SeRechazoConExito() {
@@ -396,7 +361,6 @@ function CerrarModalMotivosRechazo() {
         $("#Paso1-Productos").hide();
         $('body').removeClass('visible');
         $(".modal-fondo").hide();
-        //document.location.href = '/ConsultoraOnline/Pendientes';
 
         var Pendientes = JSON.parse(vPendientes) || [];
         RenderizarPendientes(Pendientes);
@@ -413,7 +377,7 @@ function OcultarMotivoRechazoPedidoPend() {
     $('#MotivosRechazo').css('display', 'none');
 }
 
-function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo) {    
+function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo) {
     var obj = {
         pedidoId: pedidoId,
         motivoRechazoId: idMotivoRechazo,
@@ -422,8 +386,7 @@ function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo)
 
     MarcaAnalyticsClienteProducto('¿Desea Rechazar todos los pedidos de tus clientes? - Sí, rechazar');
 
-    //ShowLoading();
-    AbrirLoad();    
+    AbrirLoad();
     $.ajax({
         type: "POST",
         url: "/ConsultoraOnline/RechazarSolicitudCliente",
@@ -431,27 +394,18 @@ function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo)
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(obj),
         success: function (response) {
-            //CloseLoading();
+
             CerrarLoad();
             if (response.success) {
-                //$('#rechazarTodop').addClass('hide');
-                //$("#Paso1-Productos").hide();
-                //$('body').removeClass('visible');
-                //$(".modal-fondo").hide();
-                ////document.location.href = '/ConsultoraOnline/Pendientes';
-
-                //var Pendientes = JSON.parse(response.Pendientes) || [];
-                //RenderizarPendientes(Pendientes);
-                //cambiaTabs();
                 vPendientes = response.Pendientes;
                 SeRechazoConExito();
+                CargarResumenCampaniaHeader(true);
             }
             else {
-                AbrirMensaje(response.message,'Error');
+                AbrirMensaje(response.message, 'Error');
             }
         },
         error: function (err) {
-            //CloseLoading();
             CerrarLoad()
             console.log(err);
         }
@@ -459,7 +413,6 @@ function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo)
 }
 
 function ActualizarPendientes() {
-    //ShowLoading();
     AbrirLoad();
     $.ajax({
         type: "POST",
@@ -467,12 +420,8 @@ function ActualizarPendientes() {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (response) {
-            //CloseLoading();
             CerrarLoad();
             if (response.success) {
-
-                //document.location.href = '/ConsultoraOnline/Pendientes';
-
                 var Pendientes = JSON.parse(response.Pendientes) || [];
 
                 RenderizarPendientes(Pendientes);
@@ -484,7 +433,6 @@ function ActualizarPendientes() {
             }
         },
         error: function (err) {
-            //CloseLoading();
             CerrarLoad();
             console.log(err);
         }
@@ -497,7 +445,7 @@ function RechazarSolicitudClientePorCuv(cuv) {
     };
 
     MarcaAnalyticsClienteProducto('¿Desea Rechazar todos los pedidos de tus clientes? - Sí, rechazar');
-    //ShowLoading();
+
     $.ajax({
         type: "POST",
         url: "/ConsultoraOnline/RechazarSolicitudClientePorCuv",
@@ -511,27 +459,12 @@ function RechazarSolicitudClientePorCuv(cuv) {
                 $('#Paso1-Clientes').hide();
 
                 CerrarPopupConfirmacion();
-
-                //document.location.href = '/ConsultoraOnline/Pendientes';
-
-                //var Pendientes = JSON.parse(response.Pendientes) || [];
-
-                //$.each(Pendientes.ListaProductos, function (index, value) {
-                //    value.MasDeDosClientes = false;
-                //    if (value.ListaClientes.length > 2) {
-                //        value.MasDeDosClientes = true;
-                //        value.ListaClientes = value.ListaClientes.slice(0, 1);
-                //    }
-                //});
-
-                //SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
             }
             else {
                 alert(response.message);
             }
         },
         error: function (err) {
-            //CloseLoading();
             console.log(err);
         }
     });
@@ -540,7 +473,6 @@ function RechazarSolicitudClientePorCuv(cuv) {
 
 function ContinuarPedido() {
     var lstDetalle = [];
-    //ShowLoading();
 
     var $paso1 = "";
     if ($('#Paso1-Clientes').css('display') == 'block') {
@@ -552,10 +484,8 @@ function ContinuarPedido() {
     $paso1.find('.pedidos').each(function () {
 
         if ($(this).find('a[id*="aceptar_"]').hasClass('ghost')) {
-            //$(aceptado).addClass('active');
             var pedidoId = $(this).find(".pedidoId").val();
             var cuv = $(this).find(".cuv").val();
-            //var cantidad = $(this).find(".cantidad").val();
             var cantNew = $(this).find('[data-cantNew]').val();
 
             var detalle = {
@@ -578,12 +508,9 @@ function ContinuarPedido() {
             url: "/ConsultoraOnline/ContinuarPedidos",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            //data: JSON.stringify(lstDetalle),
             data: JSON.stringify(obj),
             success: function (response) {
-                //CloseLoading();
                 if (response.success) {
-                    //marcacion analytics de Continuar
 
                     MarcaAnalyticsClienteProducto('Continuar');
 
@@ -621,14 +548,11 @@ function ContinuarPedido() {
                 }
             },
             error: function (err) {
-                //CloseLoading();
                 console.log(err);
             }
         });
     }
     else {
-        //CloseLoading();
-        //Lanzar analytics cuando se muestra este mensaje.
         MarcaAnalyticsClienteProducto('Alerta: Debes aceptar un pedido mínimo');
 
         var $MensajeTolTip = $("[data-tooltip=\"mensajepedido\"]");
@@ -646,7 +570,6 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
     var pedidos = [];
     var cuvs = [];
 
-    //ShowLoading();
     $.ajax({
         type: "POST",
         url: "/ConsultoraOnline/EliminarSolicitudDetalle",
@@ -654,11 +577,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(obj),
         success: function (response) {
-            //CloseLoading();
-            if (response.success) {                
-                var eliminoPedidoCompleto = true;
-                // ocultar div
-
+            if (response.success) {
                 MarcaAnalyticsClienteProducto('¿Quiere eliminar este pedido? - Sí, eliminar');
 
                 //Ajax
@@ -668,16 +587,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     $.each(value.DetallePedido, function (index, value) {
                         cuvs.push(value.CUV.toString());
                     });
-                    if (value.PedidoId.toString() == pedidoId.toString()) {
-                        eliminoPedidoCompleto = false
-                    }
                 });
-
-                if (eliminoPedidoCompleto) {
-                    //ShowLoading();
-                    //window.location.href = '/ConsultoraOnline/Pendientes';
-                    //return false;
-                }
 
                 if (origen == 'C') {
                     var idCuv = '#vc_pedido_' + cuv;
@@ -700,13 +610,13 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
 
                 RenderizarPendientes(Pendientes);
                 cambiaTabs();
+                CargarResumenCampaniaHeader(true)
             }
             else {
                 alert(response.message);
             }
         },
         error: function (err) {
-            //CloseLoading();
             console.log(err);
         }
     });
@@ -848,7 +758,7 @@ function InicializarMotivoRechazo() {
         hdMotivoRechazoId.val($('[name="motivoRechazo"]:checked').val());
     });
 
-    btnContinuar.click(function (e) {        
+    btnContinuar.click(function (e) {
         var idPedido = $('#hdPedidoId').val().trim();
         var idMotivoRechazo = hdMotivoRechazoId.val().trim();
         var razonMotivoRechazo = (idMotivoRechazo == '11') ? txtOtroMotivo.val().trim() : '';
