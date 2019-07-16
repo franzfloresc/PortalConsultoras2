@@ -1006,9 +1006,5 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool ActivaNotificacionesWhatsapp { get; set; }
-
-        [DataMember]
-        [Column("PagoContado")]
-        public bool PagoContado { get; set; }
     }
 }
