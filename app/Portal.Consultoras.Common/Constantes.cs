@@ -1688,6 +1688,7 @@ namespace Portal.Consultoras.Common
             public const string CaminoBrillanteDemostradores = "DEMOSTRADORES";
             public const string CaminoBrillanteKits = "KITS";
             public const string CaminoBrillanteMsg = "HomeCaminoBrillante";
+            public const string ActualizacionDatos = "ACTUALIZACION_DATOS";//HD-4729
         }
 
 
