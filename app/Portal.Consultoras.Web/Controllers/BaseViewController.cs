@@ -362,7 +362,7 @@ namespace Portal.Consultoras.Web.Controllers
             return nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
         }
 
-        public int GetFichaOrigenPedidoWeb(string origen, string tipo = "", bool tieneCarrusel = false)
+        public int GetFichaOrigenPedidoWeb(string origen, string tipo = "", bool tieneCarrusel = false, bool esPromocion = false,bool esCondicionPromocion = false)
         {
             origen = Util.Trim(origen);
             if (origen == "" || origen.Length < 7)
@@ -398,6 +398,16 @@ namespace Portal.Consultoras.Web.Controllers
                         codigoSeccion = tipo;
                     }
                 }
+            }
+            else if(esPromocion && !esCondicionPromocion)
+            {
+                modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
+                codigoSeccion = ConsOrigenPedidoWeb.Seccion.PromocionProducto;
+            }
+            else if (!esPromocion && esCondicionPromocion)
+            {
+                modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
+                codigoSeccion = ConsOrigenPedidoWeb.Seccion.PromocionCondicional;
             }
             else if (modeloOrigen.Seccion == ConsOrigenPedidoWeb.Seccion.Recomendado)
             {
@@ -470,6 +480,8 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselUpselling, modelo.TieneCarrusel) : 0;
             modelo.OrigenAgregarCarruselCroselling = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselCrossSelling, modelo.TieneCarrusel) : 0;
             modelo.OrigenAgregarCarruselSugeridos = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselSugeridos, modelo.TieneCarrusel) : 0;
+            modelo.OrigenAgregarPromocion = modelo.EsPromocion ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.PromocionProducto,false,true,false) : 0;
+            modelo.OrigenAgregarCondiciones = modelo.EsPromocion ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.PromocionCondicional, false,false,true) : 0;
             modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             #endregion
             
