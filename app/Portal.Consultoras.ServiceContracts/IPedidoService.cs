@@ -1369,5 +1369,13 @@ namespace Portal.Consultoras.ServiceContracts
         BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID);
         #endregion
 
+        /*HD-4513*/
+        #region Consultora Pago Contado
+        [OperationContract]
+        BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb);
+
+        [OperationContract]
+        BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb);
+        #endregion
     }
 }
