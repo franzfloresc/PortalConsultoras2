@@ -117,7 +117,7 @@ input.field__checkbox__sb{
         }
 
         .seccion__encuesta__satisfaccion__expandir > div{
-            margin-top:40px;
+            margin-top:32px;
         }
 
             .seccion__encuesta__satisfaccion__expandir .encuesta__satisfaccion__estado__descrip{
@@ -165,9 +165,10 @@ input.field__checkbox__sb{
     }
 
     .seccion__encuesta__satisfaccion__titulo{
-        margin:0 0 16px 0;
+        margin:0 0 24px 0;
         font-size:16px;
         color:#000;
+        line-height:20px;
     }
 
     .encuesta__satisfaccion__estados__wrapper{
@@ -523,7 +524,7 @@ input.field__checkbox__sb{
         left: 0;
         z-index: 4001;
         max-width:100%;
-        height: 134px;
+        height: 166px;
         border-radius:0;
         -moz-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
         -webkit-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
