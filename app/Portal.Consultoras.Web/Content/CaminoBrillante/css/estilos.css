@@ -1661,15 +1661,18 @@ button.close {
 }
 
     .circle-porcent.crec-activo {
-        background: #64425e
+        background: #64425e;
     }
+
 
     .circle-porcent.crec-inactivo {
-        background: #848484
+        background: #cacacc;
     }
 
+    .circle-porcent.crec-activo span{
+        color:#fff;
+    }
     .cambio-crec .circle-porcent span, .indicador-nivel .circle-porcent span, .owl-carousel .owl-item .circle-porcent span {
-        color: #fff;
         font-size: 19px;
         text-align: center;
         line-height: 50px;
