@@ -1544,7 +1544,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
                 model.TotalConDescuento = model.Total - model.MontoDescuento;
-                model.IsEmailConfirmado = IsEmailConfirmado();
+
+                model.IsEmailConfirmado = (!userData.TieneActualizacionDatos || IsEmailConfirmado());
                 model.EMail = userData.EMail;
                 SetMensajesBotonesProl(model);
 

@@ -2362,6 +2362,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
 
                                 break;
+                            //HD-4729
+                            case Constantes.ConfiguracionPais.ActualizacionDatos:
+                                usuarioModel.TieneActualizacionDatos = c.Estado;
+                                break;
                         }
 
                         listaConfiPaisModel.Add(c);
