@@ -876,7 +876,23 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 PrecioValorizado = e.PrecioValorizado,
                 TipoEstrategiaID = e.TipoEstrategiaID,
                 FlagSeleccionado = demostradoresEnPedido.Any(h => h.CUV == e.CUV),
-                EsCatalogo = e.EsCatalogo
+                EsCatalogo = e.EsCatalogo,
+                Detalle = e.Detalle != null ? e.Detalle.Select(sd => new BEDemostradoresCaminoBrillante() {
+                    CodigoEstrategia = e.CodigoEstrategia,
+                    CUV = e.CUV,
+                    DescripcionCortaCUV = e.DescripcionCortaCUV,
+                    DescripcionCUV = e.DescripcionCUV,
+                    DescripcionMarca = e.DescripcionMarca,
+                    EstrategiaID = e.EstrategiaID,
+                    FotoProductoMedium = e.FotoProductoMedium,
+                    FotoProductoSmall = e.FotoProductoSmall,
+                    MarcaID = e.MarcaID,
+                    CodigoMarca = e.CodigoMarca,
+                    PrecioCatalogo = e.PrecioCatalogo,
+                    PrecioValorizado = e.PrecioValorizado,
+                    TipoEstrategiaID = e.TipoEstrategiaID,
+                    EsCatalogo = e.EsCatalogo,
+                }).ToList() : null
             }).ToList();
 
             return objDemostradores;
@@ -938,7 +954,21 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     e.FotoProductoSmall = !string.IsNullOrEmpty(e.FotoProductoSmall) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, e.FotoProductoSmall) : string.Empty;
                     e.FotoProductoMedium = !string.IsNullOrEmpty(e.FotoProductoMedium) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, e.FotoProductoMedium) : string.Empty;
                 });
+
+                /* Agrupación */
+                var _demostradores = demostradores.Where(e => e.EsPadre).ToList();
+                var _hijos = demostradores.Where(e => !e.EsPadre).GroupBy( p=> p.CodigoProducto, p => p , (key, g) => new { key = key, hijos = g.ToList() });
+                _hijos.ForEach(e =>
+                {
+                    var padre = _demostradores.Where(d => d.EsPadre && d.CodigoProducto == e.key).FirstOrDefault();
+                    if (padre != null) padre.Detalle = e.hijos;
+                });
+                demostradores = _demostradores;
+
             }
+
+            var _hijosss = demostradores.Where(e => e.Detalle != null).ToList();
+
 
             return demostradores;
         }
@@ -1388,8 +1418,17 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 FotoProductoMedium = demostrador.FotoProductoMedium,
                 FlagSeleccionado = demostrador.FlagSeleccionado,
                 EsCatalogo = demostrador.EsCatalogo,
-                Detalle = loadDetalle ? new List<BEOfertaCaminoBrillante>() { ToBEOfertaCaminoBrillante(demostrador, false) } : null
+                Detalle = loadDetalle ? ToBEOfertaCaminoBrillanteList(demostrador) : null
             };
+        }
+
+        private List<BEOfertaCaminoBrillante> ToBEOfertaCaminoBrillanteList(BEDemostradoresCaminoBrillante demostrador)
+        {
+            var result = new List<BEOfertaCaminoBrillante>() { ToBEOfertaCaminoBrillante(demostrador, false) };
+            if (demostrador.Detalle != null) {
+                result.AddRange(demostrador.Detalle.Select(e => ToBEOfertaCaminoBrillante(e, false)));
+            }
+            return result;
         }
 
         private BEOfertaCaminoBrillante ToBEOfertaCaminoBrillante(BEKitCaminoBrillante kit, bool loadDetale = true){
