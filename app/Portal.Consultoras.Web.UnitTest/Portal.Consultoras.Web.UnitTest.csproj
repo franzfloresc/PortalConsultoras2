@@ -119,6 +119,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ChatbotProviderTests.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProviderUnitTests.cs" />
+    <Compile Include="Providers\TuVozOnlineProviderTests.cs" />
     <Compile Include="Providers\ShowRoomProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>

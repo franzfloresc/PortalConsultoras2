@@ -59,12 +59,6 @@ var PedidoRegistroModule = function () {
             return false;
         }
 
-        var msjBloq = validarpopupBloqueada(data.message);
-        if (msjBloq != "") {
-            CerrarLoad();
-            alert_msg_bloqueadas(msjBloq);
-            return true;
-        }
 
         data.message = data.message || 'Error al realizar proceso, inténtelo más tarde.';
         messageInfoError(data.message);
@@ -748,9 +742,9 @@ var PedidoRegistroModule = function () {
                     }
 
                     if (_mensajeRespuestaError(data)) {
-                        if (!IsNullOrEmpty(data.message)) {
-                            AbrirMensaje(data.message);
-                        }
+                        //if (!IsNullOrEmpty(data.message)) {
+                        //    AbrirMensaje(data.message);
+                        //} *** HD-4450
                         return false;
                     }
 
@@ -1108,11 +1102,8 @@ var PedidoRegistroModule = function () {
                     $("#btnAgregarProducto").show();
                     var errorCliente = data.errorCliente || false;
                     
-                    if (!errorCliente) {
-                        var msjBloq = validarpopupBloqueada(data.message);
-                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                        else AbrirMensaje(data.message, data.tituloMensaje);
-                    }
+
+                    if (!errorCliente) AbrirMensaje(data.message, data.tituloMensaje);
 
                     else {
                         $.each(lstClientes, function (ind, cli) {
@@ -1416,12 +1407,8 @@ var PedidoRegistroModule = function () {
                 }
                 else {
                     var errorCliente = response.errorCliente || false;
+                        if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
 
-                    if (!errorCliente) {
-                        var msjBloq = validarpopupBloqueada(response.message);
-                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                        else AbrirMensaje(response.message, response.tituloMensaje);
-                    }
 
                     else {
                         messageInfoError(response.message, null, function () {
