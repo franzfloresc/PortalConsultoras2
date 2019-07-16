@@ -52,13 +52,13 @@
             <div class="contenedor_imagen slider-for">
                 <div class="contenedor_carrusel">
                     {{#iff TipoPersonalizacion '==' 'CAT'}}
-                    <img src="{{FotoProducto01}}" />
+                    <img src="{{FotoProducto01}}" data-imagen-producto="{{FotoProducto01}}" />
                     {{/iff}}
                     {{#iff TipoPersonalizacion '!=' 'CAT'}}
                     {{#if isMobile}}
-                    <img src="{{ImgMedium FotoProducto01}}" />
+                    <img src="{{ImgMedium FotoProducto01}}" data-imagen-producto="{{ImgMedium FotoProducto01}}" />
                     {{else}}
-                    <img src="{{ImgUrl FotoProducto01}}" />
+                    <img src="{{ImgUrl FotoProducto01}}" data-imagen-producto="{{ImgUrl FotoProducto01}}" />
                     {{/if}}
                     {{/iff}}
                 </div>
