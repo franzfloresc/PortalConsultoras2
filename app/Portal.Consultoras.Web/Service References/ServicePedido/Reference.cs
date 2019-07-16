@@ -30349,6 +30349,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoMarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoProductoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionCUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -30358,7 +30361,13 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionMarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante[] DetalleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsPadreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstrategiaIDField;
@@ -30434,6 +30443,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoProducto {
+            get {
+                return this.CodigoProductoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoProductoField, value) != true)) {
+                    this.CodigoProductoField = value;
+                    this.RaisePropertyChanged("CodigoProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string DescripcionCUV {
             get {
                 return this.DescripcionCUVField;
@@ -30473,6 +30495,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante[] Detalle {
+            get {
+                return this.DetalleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DetalleField, value) != true)) {
+                    this.DetalleField = value;
+                    this.RaisePropertyChanged("Detalle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EsCatalogo {
             get {
                 return this.EsCatalogoField;
@@ -30481,6 +30516,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EsCatalogoField.Equals(value) != true)) {
                     this.EsCatalogoField = value;
                     this.RaisePropertyChanged("EsCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsPadre {
+            get {
+                return this.EsPadreField;
+            }
+            set {
+                if ((this.EsPadreField.Equals(value) != true)) {
+                    this.EsPadreField = value;
+                    this.RaisePropertyChanged("EsPadre");
                 }
             }
         }
