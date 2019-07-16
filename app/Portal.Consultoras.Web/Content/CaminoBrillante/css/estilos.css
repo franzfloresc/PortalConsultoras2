@@ -853,6 +853,15 @@ div .owl-carousel .owl-stage-outer {
     float: left
 }
 
+.box-incremento {
+    margin: 35px auto;
+    width: 100%;
+    padding: 0 3%;
+    box-sizing: border-box;
+    float: left;
+    align-content:center;
+}
+
 .cambio-crec {
     width: 100%;
     display: block;
