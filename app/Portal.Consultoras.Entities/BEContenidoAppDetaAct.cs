@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Portal.Consultoras.Common;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEContenidoAppDetaAct : BaseEntidad
+    public class BEContenidoAppDetaAct
     {
         [DataMember]
         [Column("IdContenidoAct")]
@@ -23,10 +25,27 @@ namespace Portal.Consultoras.Entities
         public int Parent { get; set; }
 
         [DataMember]
+        [Column("Orden")]
+        public int Orden { get; set; }
+
+        [DataMember]
         [Column("Activo")]
         public bool Activo { get; set; }
 
+        [DataMember]
+        public int PaisID { get; set; }
 
+        public BEContenidoAppDetaAct()
+        { }
+
+        public BEContenidoAppDetaAct(IDataRecord row)
+        {
+            IdContenidoAct = row.ToInt32("IdContenidoAct");
+            Codigo = row.ToString("Codigo");
+            Descripcion = row.ToString("Descripcion");
+            Parent = row.ToInt32("Parent");
+            Orden = row.ToInt32("Orden");
+        }
     }
 }
 

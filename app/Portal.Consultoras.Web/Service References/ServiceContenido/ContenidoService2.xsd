@@ -851,6 +851,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Campania" type="xs:int" />
+          <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoDetalle" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DetaAccionDescripcion" nillable="true" type="xs:string" />
