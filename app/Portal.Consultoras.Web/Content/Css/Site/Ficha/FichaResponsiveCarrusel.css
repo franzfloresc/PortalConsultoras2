@@ -3,6 +3,9 @@
 */
 
 /* Promociones - Ficha*/
+.promociones-modal{
+
+}
 .ficha-promociones > div, .descripcion-promociones > span {
     /*border: 1px solid red;
     margin: 1px;*/
@@ -19,7 +22,7 @@
     .ficha-promociones .titulo-promociones,
     .promociones-modal .titulo-promociones.on-modal {
         width: 25%;
-        border-radius: 4px 4px 0 0;
+        
         text-align: center;
         background-image: linear-gradient(to right, #e81c36, #e71b38 25%, #cf0d5c 38%, #b9007e 47%, #7c0087 77%, #4e008e);
     }
@@ -51,7 +54,8 @@
 }
 
 .descripcion-promociones .contenedor-imagen {
-    text-align: center
+    text-align: center;
+    min-width: 6rem;
 }
 
         .descripcion-promociones .contenedor-imagen img {
@@ -60,8 +64,7 @@
             padding: 0.7rem;
         }
 /* Promociones - Detalle Modal */
-.promociones-modal.popup_lateral,
-.modal-promociones--bottom {
+.promociones-modal.popup_lateral {
     width: 400px;
 }
 
@@ -108,10 +111,9 @@
 
 
 .modal-promociones--bottom {
-    right: 0;
-    left: auto;
-    bottom: 16px;
+    
     border-top: 1px solid #dee2e6;
+    padding-bottom: 1rem;
 }
 
 /*.promociones-modal.popup_lateral::after {
@@ -132,7 +134,7 @@
     padding: 10px;
     margin-left: 0;
 }
-.promociones-modal, .contenedor_detalle{
+.contenedor_detalle{
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 0;
@@ -209,6 +211,9 @@
 /**/
 /**/
 
+.img_producto:hover .ver_detalle_producto{
+    display: none;
+}
 /* End carrusel slick modal*/
 @media (max-height: 666px) {
     /* 👿 */
