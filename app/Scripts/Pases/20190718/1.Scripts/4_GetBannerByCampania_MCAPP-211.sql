@@ -1,11 +1,6 @@
 ﻿USE BelcorpPeru
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -53,12 +48,7 @@ GO
 
 USE BelcorpMexico
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
- 
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -97,12 +87,7 @@ GO
 
 USE BelcorpColombia
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -141,12 +126,7 @@ GO
 
 USE BelcorpSalvador
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -185,12 +165,7 @@ GO
 
 USE BelcorpPuertoRico
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -229,12 +204,7 @@ GO
 
 USE BelcorpPanama
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -273,12 +243,7 @@ GO
 
 USE BelcorpGuatemala
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -317,12 +282,7 @@ GO
 
 USE BelcorpEcuador
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -361,12 +321,7 @@ GO
 
 USE BelcorpDominicana
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -405,12 +360,7 @@ GO
 
 USE BelcorpCostaRica
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -449,12 +399,7 @@ GO
 
 USE BelcorpChile
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -493,12 +438,7 @@ GO
 
 USE BelcorpBolivia
 GO
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Getbannerbycampania]
-GO
-
-CREATE PROC [dbo].[Getbannerbycampania] 
+ALTER PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 

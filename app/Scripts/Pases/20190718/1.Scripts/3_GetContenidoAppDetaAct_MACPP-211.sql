@@ -1,9 +1,6 @@
 ﻿USE BelcorpPeru
 GO
 
-USE BelcorpPeru
-GO
-
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[GetContenidoAppDetaAct]
 GO
@@ -24,9 +21,6 @@ END
 go
 
 USE BelcorpMexico
-GO
-
-USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
@@ -51,9 +45,6 @@ go
 USE BelcorpColombia
 GO
 
-USE BelcorpPeru
-GO
-
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[GetContenidoAppDetaAct]
 GO
@@ -74,9 +65,6 @@ END
 go
 
 USE BelcorpSalvador
-GO
-
-USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
@@ -101,9 +89,6 @@ go
 USE BelcorpPuertoRico
 GO
 
-USE BelcorpPeru
-GO
-
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[GetContenidoAppDetaAct]
 GO
@@ -124,9 +109,6 @@ END
 go
 
 USE BelcorpPanama
-GO
-
-USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
@@ -151,9 +133,6 @@ go
 USE BelcorpGuatemala
 GO
 
-USE BelcorpPeru
-GO
-
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[GetContenidoAppDetaAct]
 GO
@@ -174,9 +153,6 @@ END
 go
 
 USE BelcorpEcuador
-GO
-
-USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
@@ -201,9 +177,6 @@ go
 USE BelcorpDominicana
 GO
 
-USE BelcorpPeru
-GO
-
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[GetContenidoAppDetaAct]
 GO
@@ -224,9 +197,6 @@ END
 go
 
 USE BelcorpCostaRica
-GO
-
-USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
@@ -251,9 +221,6 @@ go
 USE BelcorpChile
 GO
 
-USE BelcorpPeru
-GO
-
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[GetContenidoAppDetaAct]
 GO
@@ -274,9 +241,6 @@ END
 go
 
 USE BelcorpBolivia
-GO
-
-USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[GetContenidoAppDetaAct]') AND type in (N'P', N'PC')) 

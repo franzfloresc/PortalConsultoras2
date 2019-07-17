@@ -1,10 +1,5 @@
-use [BelcorpBolivia_APP]	
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
+﻿use [BelcorpBolivia]	
 GO
-
 ALTER PROC [dbo].[Insupdbanner]
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -118,15 +113,10 @@ AS
 
       THROW 
   END CATCH 
-  GO
-
-  use  [BelcorpChile_APP]
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
 GO
 
+use [BelcorpChile]
+GO
 ALTER PROC  [dbo].[Insupdbanner]
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -240,16 +230,10 @@ AS
 
       THROW 
   END CATCH 
-
-  GO
-
-  use  [BelcorpColombia_APP]
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
 GO
- 
+
+use [BelcorpColombia]
+GO 
 ALTER PROC [dbo].[Insupdbanner] 
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -371,16 +355,10 @@ AS
 
       THROW 
   END CATCH 
-
-  GO
-
-  use  [BelcorpCostaRica_APP]
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
 GO
 
+use [BelcorpCostaRica]
+GO
 ALTER PROC [dbo].[Insupdbanner] 
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -494,16 +472,10 @@ AS
 
       THROW 
   END CATCH 
-
-  GO
-
-  use  [BelcorpDominicana_APP] 
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
 GO
 
+use [BelcorpDominicana] 
+GO
 ALTER PROC [dbo].[Insupdbanner] 
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -617,16 +589,10 @@ AS
 
       THROW 
   END CATCH 
-
-  GO
-
-  use  [BelcorpEcuador_APP] 
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
 GO
 
+use [BelcorpEcuador] 
+GO
 ALTER PROC [dbo].[Insupdbanner] 
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -740,16 +706,10 @@ AS
 
       THROW 
   END CATCH 
-
-  GO
-
-  use  [BelcorpGuatemala_APP]
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
 GO
 
+use [BelcorpGuatemala]
+GO
 ALTER PROC [dbo].[Insupdbanner] 
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -863,16 +823,10 @@ AS
 
       THROW 
   END CATCH 
-
-  GO
-
-  use  [BelcorpMexico_APP]
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
 GO
 
+use [BelcorpMexico]
+GO
 ALTER PROC [dbo].[Insupdbanner] 
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -986,16 +940,10 @@ AS
 
       THROW 
   END CATCH 
-
-  GO
-
-  use  [BelcorpPanama_APP]
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
 GO
 
+use [BelcorpPanama]
+GO
 ALTER PROC [dbo].[Insupdbanner] 
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -1109,16 +1057,10 @@ AS
 
       THROW 
   END CATCH 
-
-  GO
-
-  use  [BelcorpPeru_APP] 
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
 GO
 
+use [BelcorpPeru] 
+GO
 ALTER PROCEDURE Insupdbanner
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -1258,18 +1200,10 @@ AS
 
       THROW 
   END CATCH 
-
-
-
 GO
 
-use  [BelcorpPuertoRico_APP]
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
+use [BelcorpPuertoRico]
 GO
-
 ALTER PROC [dbo].[Insupdbanner] 
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -1383,14 +1317,10 @@ AS
 
       THROW 
   END CATCH 
-  GO
-  use  [BelcorpSalvador_APP]
-go
-
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Insupdbanner]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[Insupdbanner]
 GO
 
+use [BelcorpSalvador]
+GO
 ALTER PROC [dbo].[Insupdbanner] 
 @CAMPANIAID          INT, 
 @BANNERID            INT, 
@@ -1504,3 +1434,4 @@ AS
 
       THROW 
   END CATCH 
+GO

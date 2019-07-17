@@ -1,10 +1,6 @@
 ﻿USE BelcorpPeru
 GO
-IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'dbo.GetTrackingPedidoByConsultora') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE dbo.GetTrackingPedidoByConsultora
-GO
-
-CREATE PROCEDURE dbo.GetTrackingPedidoByConsultora 
+ALTER PROCEDURE dbo.GetTrackingPedidoByConsultora 
 @CodigoConsultora VARCHAR(15),  
 @Top INT = 3  
 AS  
