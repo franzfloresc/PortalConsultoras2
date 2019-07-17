@@ -2058,7 +2058,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Consultora Pago Contado
 
-                var estadoPedido= EsPedidoReservado().ToInt(); ;
+                var estadoPedido= EsPedidoReservado().ToInt();
                 if (estadoPedido == 1 && GetPagoContado()) {
                     var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
                     {
