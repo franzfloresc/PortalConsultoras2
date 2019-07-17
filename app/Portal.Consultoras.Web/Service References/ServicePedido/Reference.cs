@@ -30349,7 +30349,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoMarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoProductoField;
+        private int CodigoOfertaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionCUVField;
@@ -30443,14 +30443,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoProducto {
+        public int CodigoOferta {
             get {
-                return this.CodigoProductoField;
+                return this.CodigoOfertaField;
             }
             set {
-                if ((object.ReferenceEquals(this.CodigoProductoField, value) != true)) {
-                    this.CodigoProductoField = value;
-                    this.RaisePropertyChanged("CodigoProducto");
+                if ((this.CodigoOfertaField.Equals(value) != true)) {
+                    this.CodigoOfertaField = value;
+                    this.RaisePropertyChanged("CodigoOferta");
                 }
             }
         }

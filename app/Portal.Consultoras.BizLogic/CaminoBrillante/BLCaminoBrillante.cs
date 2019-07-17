@@ -866,20 +866,20 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 FlagSeleccionado = demostradoresEnPedido.Any(h => h.CUV == e.CUV),
                 EsCatalogo = e.EsCatalogo,
                 Detalle = e.Detalle != null ? e.Detalle.Select(sd => new BEDemostradoresCaminoBrillante() {
-                    CodigoEstrategia = e.CodigoEstrategia,
-                    CUV = e.CUV,
-                    DescripcionCortaCUV = e.DescripcionCortaCUV,
-                    DescripcionCUV = e.DescripcionCUV,
-                    DescripcionMarca = e.DescripcionMarca,
-                    EstrategiaID = e.EstrategiaID,
-                    FotoProductoMedium = e.FotoProductoMedium,
-                    FotoProductoSmall = e.FotoProductoSmall,
-                    MarcaID = e.MarcaID,
-                    CodigoMarca = e.CodigoMarca,
-                    PrecioCatalogo = e.PrecioCatalogo,
-                    PrecioValorizado = e.PrecioValorizado,
-                    TipoEstrategiaID = e.TipoEstrategiaID,
-                    EsCatalogo = e.EsCatalogo,
+                    CodigoEstrategia = sd.CodigoEstrategia,
+                    CUV = sd.CUV,
+                    DescripcionCortaCUV = sd.DescripcionCortaCUV,
+                    DescripcionCUV = sd.DescripcionCUV,
+                    DescripcionMarca = sd.DescripcionMarca,
+                    EstrategiaID = sd.EstrategiaID,
+                    FotoProductoMedium = sd.FotoProductoMedium,
+                    FotoProductoSmall = sd.FotoProductoSmall,
+                    MarcaID = sd.MarcaID,
+                    CodigoMarca = sd.CodigoMarca,
+                    PrecioCatalogo = sd.PrecioCatalogo,
+                    PrecioValorizado = sd.PrecioValorizado,
+                    TipoEstrategiaID = sd.TipoEstrategiaID,
+                    EsCatalogo = sd.EsCatalogo,
                 }).ToList() : null
             }).ToList();
 
@@ -944,19 +944,20 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 });
 
                 /* Agrupación */
-                var _demostradores = demostradores.Where(e => e.EsPadre).ToList();
-                var _hijos = demostradores.Where(e => !e.EsPadre).GroupBy( p=> p.CodigoProducto, p => p , (key, g) => new { key = key, hijos = g.ToList() });
-                _hijos.ForEach(e =>
+                var _demostradores = demostradores.Where(e => e.EsCompuesta != 1).ToList();
+                var _ofertas = demostradores.Where(e => e.EsCompuesta == 1).GroupBy( p=> p.CodigoOferta, p => p , (key, g) => new { key = key, grupo = g.ToList() });
+                _ofertas.ForEach(e =>
                 {
-                    var padre = _demostradores.Where(d => d.EsPadre && d.CodigoProducto == e.key).FirstOrDefault();
-                    if (padre != null) padre.Detalle = e.hijos;
+                    var padre = e.grupo.Where(d => d.EsDigitable).SingleOrDefault() ?? e.grupo.FirstOrDefault();
+                    if (e.grupo.Count > 1) {
+                        padre.Detalle = e.grupo.Where(g => g != padre).ToList();
+                        padre.PrecioCatalogo = e.grupo.Sum(i => i.PrecioCatalogo);
+                        padre.PrecioValorizado = e.grupo.Sum(i => i.PrecioValorizado);
+                    }
+                    _demostradores.Add(padre);
                 });
                 demostradores = _demostradores;
-
             }
-
-            var _hijosss = demostradores.Where(e => e.Detalle != null).ToList();
-
 
             return demostradores;
         }
