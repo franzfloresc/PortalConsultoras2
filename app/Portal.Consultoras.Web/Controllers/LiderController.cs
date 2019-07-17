@@ -27,19 +27,17 @@ namespace Portal.Consultoras.Web.Controllers
             string urlAccesoExterno = string.Empty;
             string secretKey = ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? "";
 
-            if (!string.IsNullOrEmpty(secretKey))
-            {
-                PayLoad payLoad = new PayLoad();
 
-                payLoad.ConsultoraID = userData.ConsultoraID;
-                payLoad.CodigoConsultora = strCodigoUsuario;
-                payLoad.PaisID = userData.PaisID;
-                payLoad.CodigoISO = userData.CodigoISO;
-                payLoad.FuenteOrigen = "SomosBelcorp";              
+            PayLoad payLoad = new PayLoad();
 
-                var cadenaEncriptada = JWT.JsonWebToken.Encode(payLoad, secretKey, JWT.JwtHashAlgorithm.HS256);
-                urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/?token=" + cadenaEncriptada;
-            }
+            payLoad.ConsultoraID = userData.ConsultoraID;
+            payLoad.CodigoConsultora = strCodigoUsuario;
+            payLoad.PaisID = userData.PaisID;
+            payLoad.CodigoISO = userData.CodigoISO;
+            payLoad.FuenteOrigen = "SomosBelcorp";
+
+            var cadenaEncriptada = JWT.JsonWebToken.Encode(payLoad, secretKey, JWT.JwtHashAlgorithm.HS256);
+            urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/?token=" + cadenaEncriptada;
 
             return Redirect(urlAccesoExterno);
         }
@@ -50,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
             public string CodigoConsultora { get; set; }
             public int PaisID { get; set; }
             public string CodigoISO { get; set; }
-            public string FuenteOrigen { get; set; }            
+            public string FuenteOrigen { get; set; }
         }
 
     }

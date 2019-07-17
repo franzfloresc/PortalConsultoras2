@@ -1500,8 +1500,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-
-
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
                 var input = Mapper.Map<BEInputReservaProl>(userData);
                 input.EnviarCorreo = enviarCorreo;
@@ -1562,7 +1560,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CantPedidosPendientes = ObtenerCantidadPedidosPendientes()
                 };
                 model.TotalConDescuento = model.Total - model.MontoDescuento;
-                model.IsEmailConfirmado = IsEmailConfirmado();
+
+                model.IsEmailConfirmado = (!userData.TieneActualizacionDatos || IsEmailConfirmado());
                 model.EMail = userData.EMail;
                 SetMensajesBotonesProl(model);
 
@@ -1658,10 +1657,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-  		private DateTime GetDiaActual()
-        {
-            return DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-        }
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
@@ -2057,7 +2052,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Consultora Pago Contado
 
-                var estadoPedido= EsPedidoReservado().ToInt(); ;
+                var estadoPedido= EsPedidoReservado().ToInt();
                 if (estadoPedido == 1 && GetPagoContado()) {
                     var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
                     {

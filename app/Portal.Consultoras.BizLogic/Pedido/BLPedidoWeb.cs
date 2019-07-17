@@ -1,6 +1,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
+using Portal.Consultoras.Data.ServiceTotalPagarSiccEC;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -17,6 +18,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.Web.Script.Serialization;
 using Portal.Consultoras.Data.ServiceTotalPagarSiccEC;
+using Util = Portal.Consultoras.Common.Util;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -2623,7 +2625,7 @@ namespace Portal.Consultoras.BizLogic
                 if (bePedidoWeb.STPPagoContado)
                 {
 
-                    var remoteAddress = new EndpointAddress(WebConfig.ServicioTotalPagarSicc_EC);
+                    var remoteAddress = new EndpointAddress(WebConfig.ServicioTotalPagarSicc(Util.GetPaisISO(bePedidoWeb.PaisID)));
 
                     List<PedidoDetalleWebServiceParameter> PedidoWebDetallePrm = null;
 
@@ -2716,5 +2718,5 @@ namespace Portal.Consultoras.BizLogic
         }
     }
 
-    
+
 }

@@ -975,7 +975,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-
         #region HD-4288
         public IDataReader VerificarConsultoraDigital(string codigoConsultora, int pedidoID)
         {

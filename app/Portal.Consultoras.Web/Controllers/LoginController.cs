@@ -857,10 +857,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var BEUserData = (BEUsuarioDatos)Session["DatosUsuario"];
-            var userData = new UsuarioModel
-            {
-                CodigoUsuario = BEUserData.CodigoUsuario
-            };
+            var userData = await GetUserData(Common.Util.GetPaisID(BEUserData.CodigoIso), BEUserData.CodigoUsuario);
+
             ISmsSender sender = new SmsProcess
             {
                 User = userData,
@@ -2395,6 +2393,10 @@ namespace Portal.Consultoras.Web.Controllers
                                     usuarioModel.CaminoBrillanteMsg = listas[0].Valor1;
                                 }
 
+                                break;
+                            //HD-4729
+                            case Constantes.ConfiguracionPais.ActualizacionDatos:
+                                usuarioModel.TieneActualizacionDatos = c.Estado;
                                 break;
                         }
 

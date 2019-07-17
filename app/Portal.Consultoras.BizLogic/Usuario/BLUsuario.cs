@@ -560,6 +560,7 @@ namespace Portal.Consultoras.BizLogic
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.PagoLinea.TablaLogicaId));
                 var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
                 var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.GanaNativo.TablaLogicaId));
+                var tienePagoContadoActivo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.PagoContado.Id));
                 var opcionesUsuario = Task.Run(() => GetUsuarioOpciones(paisID, usuario.CodigoUsuario));
 
                 var lstConfiguracionPais = new List<string>();
@@ -591,6 +592,7 @@ namespace Portal.Consultoras.BizLogic
                                 pagoEnLineaTask,
                                 tieneChatbotTask,
                                 tieneGanaMasNativo,
+                                tienePagoContadoActivo,
                                 opcionesUsuario);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
@@ -669,6 +671,13 @@ namespace Portal.Consultoras.BizLogic
 
                 if (opcionesUsuarioConfig != null)
                     usuario.NotificacionesWhatsapp = opcionesUsuarioConfig.CheckBox;
+
+                bool FalgPagoContado = false;
+
+                if (tienePagoContadoActivo.Result != null)
+                    FalgPagoContado = tienePagoContadoActivo.Result.FirstOrDefault().Valor == "1";
+
+                usuario.PagoContado = usuario.PagoContado && FalgPagoContado;
 
                 return usuario;
             }
@@ -4147,7 +4156,7 @@ namespace Portal.Consultoras.BizLogic
                 config.CodigoISO = Common.Util.GetPaisISO(paisID);
                 /*verificar si esta activado   FlagConfZonasUnete = 1     en  FFVV.ConfiguracionPaisesFFVV*/
                 List<BEConfiguracionPaisFFVVDatos> listaConfPaisFFVV = new BLConfiguracionPaisFFVV().GetList(config);
-                if (listaConfPaisFFVV.Count() == 0) { return null; }
+                if (!listaConfPaisFFVV.Any()) { return null; }
 
                 BEParametroUnete parametroUnete = new BEParametroUnete();
                 parametroUnete.PaisID = paisID;
@@ -4167,59 +4176,11 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-
                 if (!tienezona) return null;
 
-
-                oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
-                //oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
+                oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);                
                 oUsu.CodigoUsuario = codigoUsuario;
-                oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
-
-                ///*Verificando si tiene Verificacion*/
-                //var oUsu = GetUsuarioActualizarContraseniaDefault(paisID, CodigoUsuario);
-                //if (oUsu.Cantidad == 0) return null;
-                ///*Obteniendo Datos de Verificacion de Autenticidad*/
-                //var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
-                //if (opcion == null) return null;
-                ///*validando si tiene Zona*/
-                //if (opcion.TieneZonas)
-                //{
-                //    var tieneZona = new BLOpcionesVerificacion().GetZonasOpcionesVerificacion(paisID, oUsu.RegionID, oUsu.ZonaID);
-                //    if (tieneZona == null) return null;
-                //    if (!tieneZona.VerifAutenticidad) return null;
-                //}
-                ///*Validando si corresponde al Usuario*/
-                //if (opcion.lstFiltros.Count > 0)
-                //{
-                //    var usuFiltro = opcion.lstFiltros.FirstOrDefault(a => a.IdEstadoActividad == oUsu.IdEstadoActividad);
-                //    if (usuFiltro == null) return null;
-                //    /*Validando campania*/
-                //    if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return null;
-                //    oUsu.MensajeSaludo = usuFiltro.MensajeSaludo;
-                //}
-
-                //oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
-                //if (opcion.OpcionEmail)
-                //{
-                //    oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
-                //    oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail;
-                //}
-                //if (opcion.OpcionSms)
-                //{
-                //    oUsu.CelularEnmascarado = Common.Util.EnmascararCelular(oUsu.Celular);
-                //    if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail)
-                //        oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmailyCelular;
-                //    else
-                //        oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
-                //}
-                //if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
-                //oUsu.OpcionChat = opcion.OpcionChat;
-                //oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
-                //oUsu.OrigenID = opcion.OrigenID;
-                //oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
-                //oUsu.CodigoUsuario = CodigoUsuario;
-                //oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
+                oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);               
 
                 return oUsu;
             }
@@ -4256,8 +4217,7 @@ namespace Portal.Consultoras.BizLogic
 
                     string displayname = "Somos Belcorp";
                     string codigoGenerado = Common.Util.GenerarCodigoRandom();
-                    Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
-                    //if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                    Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);                    
                     InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
                     return true;
                 }
@@ -4282,8 +4242,7 @@ namespace Portal.Consultoras.BizLogic
                 try
                 {
                     string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
-                    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
-                    var esEsika = paisesEsika.Contains(paisISO);
+                    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";                    
                     string emailFrom = "no-responder@somosbelcorp.com";
                     string emailTo = oUsu.Correo;
                     string titulo = "(" + paisISO + ") Cambio de clave de Somosbelcorp";                    
@@ -4292,8 +4251,7 @@ namespace Portal.Consultoras.BizLogic
                     string displayname = "Somos Belcorp";
                     string codigoGenerado = Common.Util.GenerarCodigoRandom();
                     InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
-                    Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion2(emailFrom, emailTo, titulo, displayname, nombrecorreo, codigoGenerado);
-                    //if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                    Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion2(emailFrom, emailTo, titulo, displayname, nombrecorreo, codigoGenerado);                    
                     
                     return true;
                 }
@@ -4318,15 +4276,13 @@ namespace Portal.Consultoras.BizLogic
                 try
                 {
                     string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
-                    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
-                    var esEsika = paisesEsika.Contains(paisISO);
+                    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";                    
                     string emailFrom = "no-responder@somosbelcorp.com";
                     string emailTo = oUsu.Correo;
                     string titulo = "(" + paisISO + ") Cambio de clave de Somosbelcorp";
                     string nombrecorreo = oUsu.PrimerNombre.Trim();
 
-                    string displayname = "Somos Belcorp";
-                    string codigoGenerado = Common.Util.GenerarCodigoRandom();
+                    string displayname = "Somos Belcorp";                    
                     Portal.Consultoras.Common.MailUtilities.EnviarMailActualizaContrasenia(emailFrom, emailTo, titulo, displayname, nombrecorreo, esOk);                                        
                     return true;
                 }

@@ -170,7 +170,7 @@ BEGIN
 		 232,
 		 'Desactiva_PagoContado',
 		 'Activar funcionalidad de pago contado',
-		 1)
+		 0)
 	END
 END
 

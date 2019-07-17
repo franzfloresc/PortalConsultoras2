@@ -241,12 +241,9 @@ namespace Portal.Consultoras.Common
 
         /*INI HD-4513*/
         #region ServicioTotalPagarSicc
-        public static string ServicioTotalPagarSicc_EC
+        public static string ServicioTotalPagarSicc(string CodPaisISO)
         {
-            get
-            {
-                return ConfigurationManager.AppSettings["ServicioTotalPagarSicc_EC"] ?? string.Empty;
-            }
+            return ConfigurationManager.AppSettings["ServicioTotalPagarSicc_"+ CodPaisISO] ?? string.Empty;
         }
         #endregion ServicioTotalPagarSicc
         /*INI HD-4513*/

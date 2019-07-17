@@ -1044,8 +1044,7 @@ namespace Portal.Consultoras.Common
         }
 
         public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null)
-        {
-            bool resu = false;
+        {            
             if (string.IsNullOrEmpty(strPara))
                 return false;
 
@@ -1061,8 +1060,7 @@ namespace Portal.Consultoras.Common
             string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-            MailMessage objMail = new MailMessage();
-           // objMail.SubjectEncoding = System.Text.Encoding.UTF8;
+            MailMessage objMail = new MailMessage();           
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
@@ -1088,19 +1086,18 @@ namespace Portal.Consultoras.Common
 
             try
             {
-                objClient.Send(objMail);
-                resu = true;
+                objClient.Send(objMail);                
             }
             catch (Exception ex)
             {
-                resu = false;
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                
+                throw new ClientInformationException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
                 objMail.Dispose();
             }
-            return resu;
+            return true;
         }
 
         public static bool EnviarMailBase(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string displayNameDe)
@@ -1163,7 +1160,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
