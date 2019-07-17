@@ -2,7 +2,6 @@
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using System.Collections.Generic;
 using System.Data;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {

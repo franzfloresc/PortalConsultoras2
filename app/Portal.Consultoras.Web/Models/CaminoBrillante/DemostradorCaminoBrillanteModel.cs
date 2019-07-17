@@ -1,10 +1,13 @@
 ﻿using Portal.Consultoras.Common;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
     public class DemostradorCaminoBrillanteModel
     {
+        public string EstrategiaID { get; set; }
         public string PaisISO { private get;  set; }
+        public int CampaniaID { get; set; }
         public string CUV { get; set; }
         public string DescripcionCUV { get; set; }
         public int MarcaID { get; set; }
@@ -13,6 +16,24 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public decimal PrecioCatalogo { get; set; }
         public string FotoProductoMedium { get; set; }
         public bool FlagSeleccionado { get; set; }
+
+
+        public string CodigoEstrategia
+        {
+            get
+            {
+                return "035";
+            }
+        }
+
+        public string CUV2
+        {
+            get
+            {
+                return CUV.ToString();
+            }
+        }
+
         public string PrecioValorizadoFormat
         {
             get
@@ -22,6 +43,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 return PrecioValorizado.ToString();
             }
         }
+
         public string PrecioCatalogoFormat
         {
             get
@@ -31,5 +53,11 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 return PrecioCatalogo.ToString();
             }
         }
+    }
+
+    public class DemostradoresPaginadoModel
+    {
+        public List<DemostradorCaminoBrillanteModel> LstDemostradores { get; set; }
+        public int Total { get; set; }
     }
 }

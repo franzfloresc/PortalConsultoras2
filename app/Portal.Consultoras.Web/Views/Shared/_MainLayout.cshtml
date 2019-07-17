@@ -69,6 +69,7 @@
         var emt_device = ' ';
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+        var habilitarChatBot = '@ViewBag.HabilitarChatBot';
         // New Chat -->
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
@@ -109,7 +110,7 @@
         <noscript id="noscript-pixel-image"></noscript>
     }
 </head>
-<body>
+<body >
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
 
     @if (ViewBag.codigoISOMenu == "MX")
@@ -129,7 +130,8 @@
                 return this.indexOf(searchString, position) === position;
             };
         }
-    </script>
+
+/**/</script>
 
     <header class="header--nuevoLookAndFeelEsika">
         @if (ViewBag.MostrarBannerPostulante == true)
@@ -203,6 +205,10 @@
         </div>
     </div>
 
+    <a title="Chat Messenger" class="d-block btn_chat_messenger" style="display:none;" href="javascript: AbrirChatBot()">
+        <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+    </a>
+
     @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
@@ -264,6 +270,7 @@
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
         var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
         var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>
@@ -277,9 +284,9 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
-   
+
     @RenderSection("scripts", required: false)
-    
+
     @{ Html.RenderPartial("VistaParcialMainLayout/_fbsdk");}
     <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
 

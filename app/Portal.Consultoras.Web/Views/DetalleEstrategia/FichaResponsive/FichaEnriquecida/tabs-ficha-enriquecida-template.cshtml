@@ -1,75 +1,42 @@
 ﻿<script id="tabs-ficha-enriquecida-template" type="text/x-handlebars-template">
-    <div id="tabs_ficha">
-        <ul class="tabs_ficha">
-            <li>
-                <a href="#tab1">Modo de uso</a>
-                <div class="tab1"></div>
-            </li>
-            <li>
-                <a href="#tab2">Descubre más</a>
-                <div class="tab2"></div>
-            </li>
-            <li>
-                <a href="#tab3">Tips de venta</a>
-                <div class="tab3"></div>
-            </li>
-            <li>
-                <a href="#tab4" class="activo active">Videos</a>
-                <div class="tab4"></div>
-            </li>
-        </ul>
-
-        <div class="seciones_tabs">
-            <article id="tab1">
-                <h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                </p>
-                <h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                </p>
-            </article>
-            <article id="tab2">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                </p>
-                <h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                </p>
-            </article>
-            <article id="tab3">
-                <h4>The standardxxxx Lorem Ipsum passage, used since the 1500sxxxxxx</h4>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                </p>
-            </article>
-
-            <article id="tab4">
-                <h4>videos</h4>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                </p>
-            </article>
+    <div class="tabs">
+        {{#each this.Secciones as |seccion|}}
+        <input type="radio" name="tabs" id="tab{{@@index}}" class="input{{seccion.Tipo}}" {{#if @@first}} checked="checked" {{/if}}>
+        <label class="label_click" for="tab{{@@index}}" onclick="javascript:fichaEnriquecidaPresenter.reloadCarruselVideosFichaEnriquecida('{{seccion.Tipo}}')">{{seccion.Titulo}}</label>
+        {{#iff seccion.Tipo '==' '@Portal.Consultoras.Common.Constantes.TipoSeccion.Texto' }}
+        <div class="tab">
+            {{#each seccion.Detalles as |detalle|}}
+            <h4>{{LowerCase detalle.Titulo}}</h4>
+            <p>{{detalle.Descripcion}}</p>
+            {{/each}}
         </div>
+        {{else}}
+        <div class="tab">
+            <div id="carrusel-video" class="items_video">
+                {{#each seccion.Detalles as |detalle|}}
+                <div>
+                    <div class="video_item">
+                        <div id="ytFichax"
+                             data-youtube-key="{{detalle.Key}}"
+                             data-youtube="{
+                          height:'165',
+                          width:'100%',
+                          enablejsapi:1,
+                          fs:0,
+                          showinfo:0,
+                          modestbranding:1,
+                          loop:1,
+                          videoId: '{{detalle.Key}}',
+                          playerVars:{autoplay:0,rel:0}}"
+                             data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}">
+                        </div>
+                        <h3>{{detalle.Titulo}}</h3>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/iff}}
+        {{/each}}
     </div>
 </script>

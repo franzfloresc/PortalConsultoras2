@@ -612,10 +612,7 @@ function mostrarVideoIntroductorio() {
         }
         primeraVezVideo = false;
         return true;
-
-        //if (viewBagVioTutorialSalvavidas == '0') {
-        //    mostrarUbicacionTutorial(false, false);
-        //}
+        
     } catch (e) {
 
     }
@@ -746,6 +743,9 @@ function EstructurarDataCarouselLiquidaciones(array) {
             item.TextoBotonTallaColor = "";
             item.TieneTallaColor = false;
         }
+        item.ValPUM = (item.UnidadMedida == "" || item.PUM == "") ? false : true;
+        item.UnidadMedida = (item.UnidadMedida || '').toLowerCase();
+
     });
 
     return array;

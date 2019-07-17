@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
                 {
-                    var diaInicio = DateTime.Now.Date.Subtract(model.FechaInicioCampania.Date).Days;
+                    var diaInicio = Util.GetDiaActual(model.ZonaHoraria).Subtract(model.FechaInicioCampania.Date).Days;
 
                     string pathOferta = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
                        model.CodigoISO,
@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 ofertasDelDia.ForEach(x => x.TieneStock = true);
                 var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(model);
-                ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora, validarDias);
+                ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockProl(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora, validarDias);
             }
 
             return ofertasDelDia;

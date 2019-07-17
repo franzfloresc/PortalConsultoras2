@@ -1,10 +1,6 @@
 ﻿
 var FichaVerDetalle = (function () {
 
-    //var estrategiaAgregar = EstrategiaAgregarModule;
-    //var analyticsPortal = AnalyticsPortalModule;
-    //var codigoOrigenPedidoWeb = CodigoOrigenPedidoWeb;
-
     var onClickFichaDetalle = function (e) {
         //el objeto e debe ser establecido con target  (e.target)
         var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
@@ -17,7 +13,7 @@ var FichaVerDetalle = (function () {
             OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e));
         }
 
-        OrigenPedidoWeb = getOrigenSegunCodigoEstrategia(OrigenPedidoWeb, codigoEstrategia);
+        OrigenPedidoWeb = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(OrigenPedidoWeb, codigoEstrategia);
 
         var UrlDetalle = getPalanca(codigoEstrategia, OrigenPedidoWeb);
 
@@ -31,6 +27,27 @@ var FichaVerDetalle = (function () {
 
         if (!(typeof AnalyticsPortalModule === 'undefined')) {
             AnalyticsPortalModule.MarcaVerDetalleProducto(e, OrigenPedidoWeb, UrlDetalle);
+        }
+
+        if (typeof LocalStorageListado != 'undefined') {
+
+            var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(OrigenPedidoWeb);
+            if (origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling
+                || origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
+
+                var palanca = getPalanca(codigoEstrategia, OrigenPedidoWeb, false);
+                var modeloEstrategiaTemporal = {
+                    Origen: OrigenPedidoWeb,
+                    Cuv: codigoCuv,
+                    Palanca: palanca,
+                    Estrategia: infoCuvItem
+                };
+                LocalStorageListado(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, modeloEstrategiaTemporal);
+            }
+            else {
+                LocalStorageListado(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, null, 2);
+            }
+
         }
 
         window.location = UrlDetalle;
@@ -50,20 +67,6 @@ var FichaVerDetalle = (function () {
         }
 
         return '';
-    };
-
-    var getOrigenSegunCodigoEstrategia = function (origenPedidoWeb, codigoEstrategia) {
-
-        var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(origenPedidoWeb);
-        if (origenModelo.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
-            var _objTipoPalanca = CodigoOrigenPedidoWeb.DiccionarioTipoEstrategia.find(function (x) {
-                return x.codigo === codigoEstrategia
-            }) || {};
-
-            origenModelo.Palanca = _objTipoPalanca.Palanca;
-        }
-
-        return origenModelo.Dispositivo + origenModelo.Pagina + origenModelo.Palanca + origenModelo.Seccion;
     };
 
     var getPalanca = function (codigoEstrategia, origenPedidoWeb, esUrl) {
@@ -154,6 +157,15 @@ var FichaVerDetalle = (function () {
             case ConstantesModule.TipoEstrategia.NotParticipaProgramaNuevas:
                 url += ConstantesModule.TipoEstrategiaTexto.NotParticipaProgramaNuevas;
                 break;
+            case ConstantesModule.TipoEstrategia.CaminoBrillanteDemostradores:
+                url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteDemostradores;
+                break;
+            case ConstantesModule.TipoEstrategia.CaminoBrillanteKits:
+                url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteKits;
+                break;
+            case ConstantesModule.TipoEstrategia.MasGanadoras:
+                url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
+                break;
             default:
                 url = "";
         }
@@ -165,19 +177,34 @@ var FichaVerDetalle = (function () {
         return url;
     }
 
+    var getUrlTipoPersonalizacion = function (tipoPersonalizacion) {
+
+        var url = "";
+
+        if (tipoPersonalizacion == null || typeof tipoPersonalizacion === "undefined") {
+            return url;
+        }
+
+        url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
+
+        switch (tipoPersonalizacion) {
+
+            case ConstantesModule.TipoPersonalizacion.Catalogo:
+                url += ConstantesModule.TipoPersonalizacionTexto.Catalogo + "/";
+                break;
+
+            default:
+                url = "";
+        }
+
+        return url;
+    }
+
     return {
         OnClickFichaDetalle: onClickFichaDetalle,
         GetOrigenPedidoWebDetalle: getOrigenPedidoWebDetalle,
-        GetPalanca: getPalanca
+        GetPalanca: getPalanca,
+        GetUrlTipoPersonalizacion: getUrlTipoPersonalizacion
     }
 
 })();
-
-//function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigoEstrategia) {
-//    var UrlDetalle = GetPalanca(codigoEstrategia);
-//    if (UrlDetalle == "") return false;
-//    UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-//    window.location = UrlDetalle;
-//    return true;
-//}
-

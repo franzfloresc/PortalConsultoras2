@@ -109,6 +109,8 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add("@SODispositivo", SqlDbType.VarChar, 20).Value = entidadSolicitud.SODispositivo;
             command.Parameters.Add("@TipoUsuario", SqlDbType.Int).Value = entidadSolicitud.TipoUsuario;
             command.Parameters.Add("@UsuarioAppID", SqlDbType.BigInt).Value = entidadSolicitud.UsuarioAppID;
+            command.Parameters.Add("@IDCDC", SqlDbType.VarChar, 80).Value = entidadSolicitud.IDCDC;
+            command.Parameters.Add("@IDCMC", SqlDbType.VarChar, 10).Value = entidadSolicitud.IDCMC;
 
             List<DESolicitudClienteDetalleAppCatalogo> listDeDetalleSolicitud = new List<DESolicitudClienteDetalleAppCatalogo>();
             if (entidadSolicitud.DetalleSolicitud != null) entidadSolicitud.DetalleSolicitud.ToList().ForEach(x => listDeDetalleSolicitud.Add(new DESolicitudClienteDetalleAppCatalogo(x)));
@@ -210,10 +212,12 @@ namespace Portal.Consultoras.Data
             Context.ExecuteReader(command);
         }
 
-        public void UpdSolicitudClienteRechazar(long solicitudId)
+        public void UpdSolicitudClienteRechazar(long solicitudId, int motivoRechazoId, string motivoRechazoTexto)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdSolicitudClienteRechazar");
             Context.Database.AddInParameter(command, "@SolicitudId", DbType.Int64, solicitudId);
+            Context.Database.AddInParameter(command, "@MotivoSolicitudId", DbType.Int64, motivoRechazoId);
+            Context.Database.AddInParameter(command, "@RazonMotivoSolicitud", DbType.String, motivoRechazoTexto);
 
             Context.ExecuteReader(command);
         }

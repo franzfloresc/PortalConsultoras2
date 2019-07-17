@@ -65,9 +65,13 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public bool EsEditable { get; set; }
         [DataMember]
-	public BEInputReservaProl ReservaProl { get; set; }
-	[DataMember]
         public string OrigenSolicitud { get; set; }
+        [DataMember]
+        public bool EsDuoPerfecto { get; set; }
+        [DataMember]
+        public BEInputReservaProl ReservaProl { get; set; }
+        [DataMember]
+        public string IngresoExternoOrigen { get; set; }
 
         public bool Reservado { get; set; }
         public object Clone()

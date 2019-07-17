@@ -39,5 +39,8 @@ namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
         public string NombreBulk { get; set; }
         public string DescripcionPlural { get; set; }
         public string DescripcionSingular { get; set; }
+        public string UnidadMedidaContenido { get; set; }
+        public double PrecioContenido { get; set; }
+        public FotosComponente FotosComponente { get; set; }
     }
 }

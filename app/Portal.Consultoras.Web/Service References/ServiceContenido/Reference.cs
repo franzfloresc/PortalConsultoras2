@@ -3277,6 +3277,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private bool AceptoContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivaNotificacionesWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3490,6 +3493,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private bool EsShowRoomField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsUltimoDiaFacturacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsZonaDemAntiField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3538,13 +3544,16 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string FlagActivacionSuscripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FlgCheckEMAILField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FlgCheckSMSField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoOriginalSinModificarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoPerfilField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool FotoPerfilAnchaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string GPRBannerMensajeField;
@@ -3700,6 +3709,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string NombrePaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool NotificacionesWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NovedadBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3767,6 +3779,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PuedeActualizarEmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeConfirmarAllEmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeConfirmarAllSmsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PuedeEnviarSMSField;
@@ -4018,6 +4036,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((this.AceptoContratoField.Equals(value) != true)) {
                     this.AceptoContratoField = value;
                     this.RaisePropertyChanged("AceptoContrato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActivaNotificacionesWhatsapp {
+            get {
+                return this.ActivaNotificacionesWhatsappField;
+            }
+            set {
+                if ((this.ActivaNotificacionesWhatsappField.Equals(value) != true)) {
+                    this.ActivaNotificacionesWhatsappField = value;
+                    this.RaisePropertyChanged("ActivaNotificacionesWhatsapp");
                 }
             }
         }
@@ -4946,6 +4977,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsUltimoDiaFacturacion {
+            get {
+                return this.EsUltimoDiaFacturacionField;
+            }
+            set {
+                if ((this.EsUltimoDiaFacturacionField.Equals(value) != true)) {
+                    this.EsUltimoDiaFacturacionField = value;
+                    this.RaisePropertyChanged("EsUltimoDiaFacturacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EsZonaDemAnti {
             get {
                 return this.EsZonaDemAntiField;
@@ -5154,6 +5198,32 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FlgCheckEMAIL {
+            get {
+                return this.FlgCheckEMAILField;
+            }
+            set {
+                if ((this.FlgCheckEMAILField.Equals(value) != true)) {
+                    this.FlgCheckEMAILField = value;
+                    this.RaisePropertyChanged("FlgCheckEMAIL");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FlgCheckSMS {
+            get {
+                return this.FlgCheckSMSField;
+            }
+            set {
+                if ((this.FlgCheckSMSField.Equals(value) != true)) {
+                    this.FlgCheckSMSField = value;
+                    this.RaisePropertyChanged("FlgCheckSMS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string FotoOriginalSinModificar {
             get {
                 return this.FotoOriginalSinModificarField;
@@ -5175,19 +5245,6 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.FotoPerfilField, value) != true)) {
                     this.FotoPerfilField = value;
                     this.RaisePropertyChanged("FotoPerfil");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool FotoPerfilAncha {
-            get {
-                return this.FotoPerfilAnchaField;
-            }
-            set {
-                if ((this.FotoPerfilAnchaField.Equals(value) != true)) {
-                    this.FotoPerfilAnchaField = value;
-                    this.RaisePropertyChanged("FotoPerfilAncha");
                 }
             }
         }
@@ -5856,6 +5913,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool NotificacionesWhatsapp {
+            get {
+                return this.NotificacionesWhatsappField;
+            }
+            set {
+                if ((this.NotificacionesWhatsappField.Equals(value) != true)) {
+                    this.NotificacionesWhatsappField = value;
+                    this.RaisePropertyChanged("NotificacionesWhatsapp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int NovedadBuscador {
             get {
                 return this.NovedadBuscadorField;
@@ -6150,6 +6220,32 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((this.PuedeActualizarEmailField.Equals(value) != true)) {
                     this.PuedeActualizarEmailField = value;
                     this.RaisePropertyChanged("PuedeActualizarEmail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeConfirmarAllEmail {
+            get {
+                return this.PuedeConfirmarAllEmailField;
+            }
+            set {
+                if ((this.PuedeConfirmarAllEmailField.Equals(value) != true)) {
+                    this.PuedeConfirmarAllEmailField = value;
+                    this.RaisePropertyChanged("PuedeConfirmarAllEmail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeConfirmarAllSms {
+            get {
+                return this.PuedeConfirmarAllSmsField;
+            }
+            set {
+                if ((this.PuedeConfirmarAllSmsField.Equals(value) != true)) {
+                    this.PuedeConfirmarAllSmsField = value;
+                    this.RaisePropertyChanged("PuedeConfirmarAllSms");
                 }
             }
         }

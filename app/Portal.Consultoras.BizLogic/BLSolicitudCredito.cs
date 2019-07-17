@@ -3,6 +3,7 @@
     using Common;
     using Data;
     using Entities;
+    using Portal.Consultoras.Common.Exceptions;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -68,7 +69,7 @@
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw new ClientInformationException(ex.Message, ex);
             }
 
             return resultado;

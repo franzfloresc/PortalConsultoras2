@@ -1,17 +1,19 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Infraestructure.Excel;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using BEConsultora = Portal.Consultoras.Web.ServicePedido.BEConsultora;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -87,7 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
         private TempDataManager.TempDataManager _tempData;
 
 
-        
+
 
 
 
@@ -236,8 +239,28 @@ namespace Portal.Consultoras.Web.Controllers
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
-            
+
         }
+
+        /*HD-4288 - Switch Consultora 100% */
+        public virtual int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID, paisID);
+
+        }
+
+        public virtual int DeshacerRecepcionPedido(int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.DeshacerRecepcionPedido(pedidoID, paisID);
+
+        }
+
+        public virtual BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.VerificarConsultoraDigital(codigoConsultora, pedidoID, paisID);
+
+        }
+        /*HD-4288 - Switch Consultora 100% - FIN */
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
@@ -276,7 +299,8 @@ namespace Portal.Consultoras.Web.Controllers
             return montosProl;
         }
 
-        protected void SetMontosProl(BEPedidoDetalleResult pedidoDetalleResult) {
+        protected void SetMontosProl(BEPedidoDetalleResult pedidoDetalleResult)
+        {
             SessionManager.SetMontosProl(new List<ObjMontosProl> {
                 new ObjMontosProl
                 {
@@ -382,9 +406,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     mensaje = result.Mensaje;
-                    //INI HD-3693
-                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-                    //FIN HD-3693
                     return result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 }
             }
@@ -417,6 +438,43 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return false;
+        }
+
+        public BEConfiguracionCampania GetConfiguracionCampania()
+        {
+            BEConfiguracionCampania configuracionCampania;
+
+            if (userData.EsConsultora())
+            {
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+                    var consultoraId = userData.GetConsultoraId();
+                    configuracionCampania = pedidoServiceClient.GetEstadoPedido(userData.PaisID, userData.CampaniaID, consultoraId, userData.ZonaID, userData.RegionID);
+                }
+
+                return configuracionCampania;
+            }
+
+            configuracionCampania = new BEConfiguracionCampania
+            {
+                CampaniaID = userData.CampaniaID,
+                EstadoPedido = Constantes.EstadoPedido.Pendiente,
+                ModificaPedidoReservado = false,
+                ZonaValida = false,
+                CampaniaDescripcion = Convert.ToString(userData.CampaniaID)
+            };
+
+            return configuracionCampania;
+        }
+
+        public bool EsPedidoReservado(BEConfiguracionCampania configuracionCampania = null)
+        {
+            if (configuracionCampania == null)
+            {
+                configuracionCampania = GetConfiguracionCampania();
+            }
+
+            return configuracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !configuracionCampania.ValidacionAbierta;
         }
 
         protected string ValidarMontoMaximo(decimal montoCuv, int cantidad, out bool result)
@@ -457,10 +515,10 @@ namespace Portal.Consultoras.Web.Controllers
         public List<PermisoModel> BuildMenu(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             if (userData == null)
-                throw new ArgumentNullException("userData");
+                throw new ClientInformationException("userData");
 
             if (revistaDigital == null)
-                throw new ArgumentNullException("revistaDigital");
+                throw new ClientInformationException("revistaDigital");
 
             if (userData.Menu == null)
             {
@@ -469,16 +527,36 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
 
+            #region pedidos_pendientes
+            ViewBag.CantidadPedidosPendientes = 0;
+            if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
+            {
+                var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
+                if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
+                {
+                    using (var svc = new UsuarioServiceClient())
+                    {
+                        var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        if (cantPedidosPendientes > 0)
+                        {
+                            ViewBag.CantidadPedidosPendientes = cantPedidosPendientes;
+                        }
+                    }
+                }
+            }
+            #endregion
+
+
             return _menuProvider.SepararItemsMenu(userData.Menu);
         }
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             if (userData == null)
-                throw new ArgumentNullException("userData");
+                throw new ClientInformationException("userData");
 
             if (revistaDigital == null)
-                throw new ArgumentNullException("revistaDigital");
+                throw new ClientInformationException("revistaDigital");
 
             if (userData.MenuMobile != null ||
                 userData.RolID != Constantes.Rol.Consultora)
@@ -778,38 +856,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region LogDynamo
 
-        protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion, ServiceUsuario.BEUsuario entidad = null)
-        {
-            string ipCliente = GetIPCliente();
-            bool esMobile = EsDispositivoMovil();
-            _logDynamoProvider.RegistrarLogDynamoDB(userData, aplicacion, rol, pantallaOpcion, opcionAccion, ipCliente, esMobile);
-        }
-        protected void RegistrarLogDynamoDB(InLogUsabilidadModel Log)
-        {
-            try
-            {
-                Log = Log ?? new InLogUsabilidadModel();
-                Log.Fecha = "";
-                Log.Pais = userData.CodigoISO;
-                Log.Region = userData.CodigorRegion;
-                Log.Zona = userData.CodigoZona;
-                Log.Seccion = userData.SeccionAnalytics;
-                Log.Rol = Constantes.LogDynamoDB.RolConsultora;
-                Log.Campania = userData.CampaniaID.ToString();
-                Log.Usuario = userData.CodigoUsuario;
-                Log.DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB";
-                Log.DispositivoID = GetIPCliente();
-                Log.Version = "2.0";
-                Log.JwtToken = userData.JwtToken;
-                Log.CodigoConsultora = userData.CodigoConsultora;
-                Log.CodigoISO = userData.CodigoISO;
-                _logDynamoProvider.RegistrarLogDynamoDB(Log);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-        }
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
             bool esMobile = EsDispositivoMovil();
@@ -1148,8 +1194,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, true, actualizaODDBase);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
                 ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
-
-                ViewBag.CaminoBrillante = ViewBag.CaminoBrillante ?? false;
             }
             catch (Exception ex)
             {
@@ -1178,7 +1222,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneRDC = revistaDigital.TieneRDC;
             ViewBag.TieneHV = herramientasVenta.TieneHV;
             ViewBag.revistaDigital = getRevistaDigitalShortModel();
-            ViewBag.variableBase = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo);
+            ViewBag.variableBase = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo, SessionManager.GetConfigMicroserviciosPersonalizacion());
 
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI) ||
                 (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
@@ -1206,7 +1250,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EsMobile = 1;
 
             ViewBag.FotoPerfil = userData.FotoPerfil;
-            ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
             ViewBag.FotoPerfilSinModificar = (string.IsNullOrWhiteSpace(userData.FotoOriginalSinModificar) ? "" : userData.FotoOriginalSinModificar);
 
             ViewBag.TokenPedidoAutenticoOk = (SessionManager.GetTokenPedidoAutentico() != null).ToInt();
@@ -1216,7 +1259,9 @@ namespace Portal.Consultoras.Web.Controllers
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
-            ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
+            var chats = _chatEmtelcoProvider.HabilitarChats(userData.PaisID, esMobile);
+            ViewBag.HabilitarChatEmtelco = chats.ChatEmtelco;
+            ViewBag.HabilitarChatBot = chats.ChatBot;
             ViewBag.NoReservoPedido = userData.EsDiasFacturacion && _pedidoWebProvider.RequiereCierreSessionValidado(_tablaLogicaProvider, userData.PaisID) && !_pedidoWebProvider.TienePedidoReservado(userData) && ObtenerPedidoWebDetalle().Count > 0;
             ViewBag.SessionTimeout = HttpContext.Session.Timeout;
 
@@ -1246,9 +1291,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
                 ViewBag.MenuContenedorActivo = menuActivo;
                 ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
-               
+
             }
 
+            _menuProvider.UrlGenerator = Url;
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
             var menuWeb = BuildMenu(userData, revistaDigital);
             var descLiqWeb = "";
@@ -1291,7 +1337,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             controllerName = "," + controllerName.ToLower() + ",";
 
-            var controladores = ",,miscatalogosrevistas,busquedaproductos,tusclientes,detalleestrategia,";
+            var controladores = (",,miscatalogosrevistas,busquedaproductos,tusclientes,detalleestrategia,CaminoBrillante,").ToLower();
 
             if (controladores.Contains(controllerName)) return false;
 
@@ -1431,7 +1477,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}/{3}", URLConfig, userData.CodigoISO, userData.CampaniaID, Util.Security.ToMd5(userData.CodigoConsultora));
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ResultadoValidacion = false;
             }
@@ -1503,7 +1549,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                     r = SessionManager.GetConsultoraDigital().Value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 r = false;
             }

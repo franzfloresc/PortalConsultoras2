@@ -180,6 +180,7 @@
       <xs:element minOccurs="0" name="AceptaTerminosCondiciones" type="xs:boolean" />
       <xs:element minOccurs="0" name="AceptacionConsultoraDA" type="xs:int" />
       <xs:element minOccurs="0" name="AceptoContrato" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivaNotificacionesWhatsapp" type="xs:boolean" />
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActualizarClave" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="AniosPermanencia" type="xs:int" />
@@ -251,6 +252,7 @@
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaFinalZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsShowRoom" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsUltimoDiaFacturacion" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsZonaDemAnti" type="xs:int" />
       <xs:element minOccurs="0" name="EsquemaDAConsultora" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoPedido" type="xs:int" />
@@ -267,9 +269,10 @@
       <xs:element minOccurs="0" name="FechaNacimiento" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaVencimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagActivacionSuscripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlgCheckEMAIL" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlgCheckSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="FotoOriginalSinModificar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoPerfilAncha" type="xs:boolean" />
       <xs:element minOccurs="0" name="GPRBannerMensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GPRBannerTitulo" nillable="true" type="xs:string" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q2:Enumeradores.RechazoBannerUrl" />
@@ -321,6 +324,7 @@
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreGerenteZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotificacionesWhatsapp" type="xs:boolean" />
       <xs:element minOccurs="0" name="NovedadBuscador" type="xs:int" />
       <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
       <xs:element minOccurs="0" name="NuevoPROL" type="xs:boolean" />
@@ -344,6 +348,8 @@
       <xs:element minOccurs="0" name="PuedeActualizar" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeActualizarCelular" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeActualizarEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PuedeConfirmarAllEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PuedeConfirmarAllSms" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeEnviarSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="RecomendacionesConfiguracion" nillable="true" type="tns:ArrayOfBEConfiguracionPaisDatos" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
@@ -925,13 +931,11 @@
       <xs:element minOccurs="0" name="EstaEnRevista" type="xs:int" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FormatoPrecioTotal" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Index" type="xs:int" />
       <xs:element minOccurs="0" name="ListaClientes" nillable="true" type="tns:ArrayOfBEMisPedidos" />
       <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="MedioContacto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeValidacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OptAtender" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PedidoDetalleId" type="xs:long" />
       <xs:element minOccurs="0" name="PedidoId" type="xs:long" />
       <xs:element minOccurs="0" name="PedidoWebDetalleID" type="xs:int" />

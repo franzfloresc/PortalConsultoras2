@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using Portal.Consultoras.Web.Models.Estrategia;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -48,5 +49,10 @@ namespace Portal.Consultoras.Web.Models
         }
 
         public bool TieneFichaEnriquecidaActiva { get; set; }
+        public string UnidadMedidaContenido { get; set; }
+        public string PrecioContenidoStr { get; set; }
+        public double PrecioContenido { get; set; }
+        public FotosComponenteModel FotosComponente { get; set; }
+        public List<String> FotosCarrusel { get; set; }
     }
 }

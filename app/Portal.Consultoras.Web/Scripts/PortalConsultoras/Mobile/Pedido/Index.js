@@ -1,4 +1,5 @@
-﻿var arrayOfertasParaTi = [];
+﻿
+var arrayOfertasParaTi = [];
 
 var AutocompleteLastLI = null;
 var AutocompleteClick = false;
@@ -7,9 +8,7 @@ var mensajeParametrizableCuv = '';
 var cuvbuscado = "";
 var precioCuvBuscado = "";
 var cuvEsCuponNuevas = false;
-//INI HD-3908
 var _flagNueva = false;
-//FIN HD-3908
 var productoEcontrado;
 
 var belcorp = belcorp || {};
@@ -129,6 +128,8 @@ $(document).ready(function () {
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
+        localStorage.setItem("CodigoConsultora", document.getElementById("hdCodigoConsultora").value);
+        /*HD-4288*/
     });
 
     $("#txtCodigoProducto").on("keyup", function () {
@@ -269,9 +270,8 @@ $(document).ready(function () {
 
     CargarDialogMesajePostulantePedido();
 
-    //INI HD-4200
-    ValidarSuscripcionSE(function () { CargarDetallePedido(); },1);
-    //FIN HD-4200
+    ValidarSuscripcionSE(function () { CargarDetallePedido(); }, 1);
+    
 });
 
 var ClienteDetalleOK = null;
@@ -455,11 +455,9 @@ function BuscarByCUV(cuv) {
 
             CloseLoading();
             ObservacionesProducto(item);
-            //INI HD-3908
             _flagNueva = (item.FlagNueva == "1") ? true : false;
             $("#hdfCodigoPalanca").val(item.CodigoPalanca);
             $("#hdfCampaniaID").val(item.CampaniaID);
-            //FIN HD-3908
             CargarProductosRecomendados(productoEcontrado);
         },
         error: function (data, error) {
@@ -521,6 +519,9 @@ function ObservacionesProducto(item) {
     $("#hdfDescripcionEstrategia").val(item.DescripcionEstrategia);
     $("#hdfDescripcionMarca").val(item.DescripcionMarca);
     $("#hdLimiteVenta").val(item.LimiteVenta);
+    $("#hdEsOfertaIndependiente").val(item.EsOfertaIndependiente);
+    $("#hdEsDuoPerfecto").val(item.EsDuoPerfecto);
+    $("#hdTipoEstrategiaCodigo").val(item.CodigoEstrategia);
 
     $("#hdfIndicadorMontoMinimo").val(item.IndicadorMontoMinimo);
     $("#hdfMarcaID").val(item.MarcaID);
@@ -645,6 +646,17 @@ function ObtenerProductosSugeridos(CUV) {
         }
     });
 }
+
+// HD-4374 - Popup para ver imagen ampliada de imagen de producto sugerido
+
+function MostrarPopupImagenProductoSugerido(imagen) {
+    var rutaImagenClickeada = $(imagen).find('img').attr('src');
+    $('#PopupImagenAmpliadaSugeridos').find('.imagen_producto_sugerido_ampliada_wrapper img').attr('src', rutaImagenClickeada);
+    $('#PopupImagenAmpliadaSugeridos').fadeIn(100);
+}
+
+// FIN - HD-4374 - Popup para ver imagen ampliada de imagen de producto sugerido
+
 function CancelarProductosSugeridos() {
     RegistrarDemandaTotalReemplazoSugerido(null, 0, 1, false);
     $("#txtCodigoProducto").val('');

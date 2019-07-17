@@ -8,12 +8,14 @@
         CelularActual: globalData.celular,
         InicialNumero: globalData.iniciaNumero === -1 ? '' : globalData.iniciaNumero.toString(),
         CelularValido: false,
-        CelularNuevo: '',
+        CelularNuevo: (globalData.IsConfirmar == 1) ? globalData.celular : '',
         Expired: true,
-        IsoPais: IsoPais
+        IsoPais: IsoPais,
+        IsConfirmar: globalData.IsConfirmar,
+        UrlPaginaPrevia: globalData.UrlPaginaPrevia
     };
 
-    me.Elements = (function() {
+    me.Elements = (function () {
         function getInputCelular() {
             return $('#NuevoCelular');
         }
@@ -23,7 +25,7 @@
         }
 
         function getErrorText() {
-            return $('.text-error');
+            return $('#ValidateCelular');
         }
 
         function getInputsCodeSms() {
@@ -33,16 +35,20 @@
         function getCelularNuevoText() {
             return $('#NumeroMensajeEnviado');
         }
+        function getIsConfirmar() {
+            return localData.IsConfirmar;
+        }
 
         return {
             getInputCelular: getInputCelular,
             getIconValidacionSms: getIconValidacionSms,
             getErrorText: getErrorText,
             getCelularNuevoText: getCelularNuevoText,
-            getInputsCodeSms: getInputsCodeSms
+            getInputsCodeSms: getInputsCodeSms,
+            getIsConfirmar: getIsConfirmar
         };
     })();
-    me.Services = (function() {
+    me.Services = (function () {
         function enviarSmsCode(numero) {
             return $.ajax({
                 url: urls.enviarSmsCodigo,
@@ -62,13 +68,12 @@
                 }
             });
         };
-
         return {
             enviarSmsCode: enviarSmsCode,
             confirmarSmsCode: confirmarSmsCode
         };
     })();
-    me.Funciones = (function() {
+    me.Funciones = (function () {
         var panels = [
             $('.form_actualizar_celular'),
             $('.revisa_tu_celular'),
@@ -80,16 +85,64 @@
 
         function inicializarEventos() {
             var body = $('body');
-            body.on('click', '.btn_continuar', me.Eventos.Continuar);
-            body.on('click', '.enlace_cambiar_correo', me.Eventos.BackEdiNumber);
+
+            body.on('click', '#btn_continuar', me.Eventos.Continuar);
+            if (localData.IsConfirmar == 1) {
+                $('#NuevoCelular').val(localData.CelularActual);
+                $('#NuevoCelular').addClass('campo_con_datos');
+            }
+
+            body.on('click', '.enlace_cambiar_numero_celular', me.Eventos.BackEdiNumber);
             body.on('click', '.enlace_reenviar_instrucciones', me.Eventos.SendSmsCode);
             body.on('keyup', '.campo_ingreso_codigo_sms', me.Eventos.ChangeCodeSms);
             body.on('keydown', '.campo_ingreso_codigo_sms', me.Eventos.OnlyNumberCodeSms);
             body.on('keydown', '#NuevoCelular', me.Eventos.OnlyNumberCodeSms);
             body.on('cut copy paste', '#NuevoCelular', function (e) { e.preventDefault(); });
             body.on('click', '#hrefTerminosMD', me.Eventos.EnlaceTerminosCondiciones);
+
+            $('.form_actualizar_celular input').on('keyup change', function () { activaGuardar(); return $(this).val() });
+            $('#NuevoCelular').on('focusout', function () { mensajeError(); });
+            $('#btnVolver').on('click', function () {
+                window.location.href = localData.UrlPaginaPrevia;
+
+            });
+            
         };
 
+        function activaGuardar() {
+            var btn = $("#btn_continuar");
+            var obj = $.trim(IfNull($('#NuevoCelular').val(), ''));
+            btn.removeClass('btn_deshabilitado')
+
+            if (!me.Funciones.ValidarCelular(obj).Success || !$('#chkAceptoContratoMD').prop('checked')) btn.addClass('btn_deshabilitado');
+        }
+        function mensajeError() {
+            var obj = $.trim(IfNull($('#NuevoCelular').val(), ''));
+            var band;
+            var result = me.Funciones.ValidarCelular(obj);
+            me.Funciones.ShowError("");
+
+
+
+            if (obj == "") band = null;
+            else if (obj != "" && !result.Success) {
+                me.Funciones.ShowError(result.Messages.join('<br>'));
+                band = false;
+            } else band = true;
+
+            activaCheck(band);
+        }
+        function activaCheck(band) {
+            var obj = $(".form_actualizar_celular .grupo_form_cambio_datos");
+            obj.removeClass("grupo_form_cambio_datos--validacionExitosa");
+            obj.removeClass("grupo_form_cambio_datos--validacionErronea");
+            if (band == null) return;
+
+            if (band) obj.addClass("grupo_form_cambio_datos--validacionExitosa");
+            else obj.addClass("grupo_form_cambio_datos--validacionErronea");
+
+        }
+        
         function getLengthPais(iso) {
             var paises = {
                 'PE': 9,
@@ -159,7 +212,7 @@
                             Success: false,
                             Message: 'El número debe empezar con ' + localData.InicialNumero + '.'
                         }
-                    }                
+                    }
                 }
 
                 return success;
@@ -202,14 +255,14 @@
         }
 
         function setReadOnlySmsCodeInput(disabled) {
-            me.Elements.getInputsCodeSms().each(function() {
+            me.Elements.getInputsCodeSms().each(function () {
                 $(this).prop('readonly', disabled);
             });
         }
 
         function getSmsCode() {
             var code = '';
-            me.Elements.getInputsCodeSms().each(function() {
+            me.Elements.getInputsCodeSms().each(function () {
                 code += $(this).val();
             });
 
@@ -218,7 +271,7 @@
 
         function setSmsCode(value) {
             value = value || '';
-            me.Elements.getInputsCodeSms().each(function(idx) {
+            me.Elements.getInputsCodeSms().each(function (idx) {
                 var char = value.charAt(idx);
                 $(this).val(char);
             });
@@ -255,21 +308,21 @@
 
             localData.Expired = false;
             var now = 0;
-            interval = setInterval(function() {
-                
-                    now += cantMsInterval;
-                    var distance = segs - now;
+            interval = setInterval(function () {
 
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    counterElement.text(format2(minutes) + ":" + format2(seconds));
+                now += cantMsInterval;
+                var distance = segs - now;
 
-                    if (distance < 0) {
-                        localData.Expired = true;
-                        clearInterval(interval);
-                        counterElement.text("00:00");
-                        resetSmsCode();
-                    }
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                counterElement.text(format2(minutes) + ":" + format2(seconds));
+
+                if (distance < 0) {
+                    localData.Expired = true;
+                    clearInterval(interval);
+                    counterElement.text("00:00");
+                    resetSmsCode();
+                }
             }, cantMsInterval);
         }
 
@@ -288,7 +341,7 @@
             }
 
             AbrirLoad();
-            var successConfirmarSmsCode = function(r) {
+            var successConfirmarSmsCode = function (r) {
                 CerrarLoad();
                 if (!r.Success) {
                     me.Funciones.MarkSmsCodeStatus(false);
@@ -298,21 +351,28 @@
 
                 setReadOnlySmsCodeInput(true);
                 me.Funciones.MarkSmsCodeStatus(true);
-                setTimeout(function() {
-                        me.Funciones.NavigatePanel(2);
-                    },
+                setTimeout(function () {
+                    me.Funciones.NavigatePanel(2);
+
+                    mostrarLluvia();
+                },
                     1000);
+                setTimeout(function () {
+                    window.location.href = localData.UrlPaginaPrevia;
+                },
+                    3000);
+
             };
-            
+
             me.Services.confirmarSmsCode(code)
-                .then(successConfirmarSmsCode, function(er) {
+                .then(successConfirmarSmsCode, function (er) {
                     CerrarLoad();
                     me.Funciones.HandleError(er);
                 });
         }
 
         function navigatePanel(index) {
-            panels.forEach(function(item, idx) {
+            panels.forEach(function (item, idx) {
                 if (idx === index) {
                     item.show();
                 } else {
@@ -346,11 +406,12 @@
             SetIsoPais: setIsoPais,
             HandleError: handleError,
             SetSmsCode: setSmsCode,
-            ResetSmsCode: resetSmsCode
+            ResetSmsCode: resetSmsCode,
+            activaCheck: activaCheck
         };
 
     })();
-    me.Eventos = (function() {
+    me.Eventos = (function () {
 
         function continuar() {
             var nuevoCelular = me.Elements.getInputCelular().val();
@@ -361,20 +422,20 @@
                 return;
             }
 
-            if (document.getElementById('chkAceptoContratoMD').checked ==false) {
+            if (document.getElementById('chkAceptoContratoMD').checked == false) {
                 alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
                 return false;
             }
-            
+
             localData.CelularNuevo = nuevoCelular;
             me.Funciones.ResetSmsCode();
             AbrirLoad();
-
-            var successEnviarSmsCode = function(r) {
+            var successEnviarSmsCode = function (r) {
                 $('#celularNuevo').text(nuevoCelular);
                 CerrarLoad();
                 if (!r.Success) {
                     me.Funciones.ShowError(r.Message);
+                    me.Funciones.activaCheck(false);
                     return;
                 }
                 me.Elements.getCelularNuevoText().text(nuevoCelular);
@@ -385,9 +446,39 @@
 
             me.Services.enviarSmsCode(nuevoCelular)
                 .then(successEnviarSmsCode, function (er) {
-                        CerrarLoad();
-                        me.Funciones.HandleError(er);
-                    });
+                    CerrarLoad();
+                    me.Funciones.HandleError(er);
+                });
+            
+        }
+
+        function confirmar() {
+            me.Funciones.ResetSmsCode();
+            AbrirLoad();
+            $(".form_actualizar_celular").hide();
+
+            var successEnviarSmsCode = function (r) {
+                $('#celularNuevo').text(localData.CelularNuevo);
+                CerrarLoad();
+                if (!r.Success) {
+                    $("#celular_no_actualizado #message").html(r.Message);
+                    $("#celular_no_actualizado").show();
+                    return;
+                }
+                me.Elements.getCelularNuevoText().text(localData.CelularNuevo);
+                $(".form_actualizar_celular").show();
+                me.Funciones.NavigatePanel(1);
+
+                me.Funciones.ShowError('');
+                me.Funciones.InitCounter();
+            };
+
+            me.Services.enviarSmsCode(localData.CelularNuevo)
+                .then(successEnviarSmsCode, function (er) {
+                    CerrarLoad();
+                    me.Funciones.HandleError(er);
+                });
+
         }
 
         function enlaceTerminosCondiciones() {
@@ -403,7 +494,7 @@
             me.Funciones.ResetSmsCode();
             AbrirLoad();
             me.Services.enviarSmsCode(localData.CelularNuevo)
-                .then(function(r) {
+                .then(function (r) {
                     CerrarLoad();
                     if (!r.Success) {
                         me.Funciones.ShowError(r.Message);
@@ -413,7 +504,7 @@
                     }
 
                     me.Funciones.InitCounter();
-                }, function(er) {
+                }, function (er) {
                     CerrarLoad();
                     me.Funciones.HandleError(er);
                 });
@@ -439,7 +530,7 @@
 
         function onlyNumberCodeSms(e) {
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
                 (e.keyCode >= 35 && e.keyCode <= 40)) {
                 return;
             }
@@ -450,6 +541,7 @@
 
         return {
             Continuar: continuar,
+            Confirmar: confirmar,
             BackEdiNumber: backEdiNumber,
             SendSmsCode: sendSmsCode,
             ChangeCodeSms: changeCodeSms,
@@ -457,7 +549,7 @@
             EnlaceTerminosCondiciones: enlaceTerminosCondiciones
         };
     })();
-    me.Inicializar = function() {
+    me.Inicializar = function () {
         me.Funciones.InicializarEventos();
     };
 
@@ -469,4 +561,9 @@ window.actualizarCelularModule = actualizarCelularModule;
 $(document).ready(function () {
     actualizarCelularModule.Funciones.SetIsoPais(IsoPais);
     actualizarCelularModule.Inicializar();
+
+    if (actualizarCelularModule.Elements.getIsConfirmar() == 1) {
+        actualizarCelularModule.Eventos.Confirmar();
+    }
+
 });

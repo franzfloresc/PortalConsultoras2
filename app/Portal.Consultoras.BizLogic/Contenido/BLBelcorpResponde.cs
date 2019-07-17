@@ -147,11 +147,6 @@ namespace Portal.Consultoras.BizLogic
                     col1.Append(separar);
                     col2.Append(separar);
                     col3.Append(separar);
-
-                    //arrayColumnas[0] += string.Concat(objDato.RegionId.ToString(), separar);
-                    //arrayColumnas[1] += string.Concat(objDato.ZonaId.ToString(), separar);
-                    //arrayColumnas[2] += string.Concat(objDato.Estado.ToString(), separar);
-                    //arrayColumnas[3] += string.Concat(objDato.Consultoraid.ToString(), separar);
                 }
 
                 arrayColumnas[0] = col0.ToString();
@@ -159,16 +154,16 @@ namespace Portal.Consultoras.BizLogic
                 arrayColumnas[2] = col2.ToString();
                 arrayColumnas[3] = col3.ToString();
 
-                for (int j = 0; j < arrayColumnas.Length; j++)
-                    arrayColumnas[j] = arrayColumnas[j].Length > 0 ? arrayColumnas[j].Substring(0, arrayColumnas[j].Length - 1) : string.Empty;
-
+                for (int j = 0; j < arrayColumnas.Length; j++) arrayColumnas[j] = arrayColumnas[j].Length > 0 ? arrayColumnas[j].Substring(0, arrayColumnas[j].Length - 1) : string.Empty;
                 return arrayColumnas;
             }
-
-            arrayColumnas[0] = separar;
-            arrayColumnas[1] = separar;
-            arrayColumnas[2] = separar;
-            arrayColumnas[3] = separar;
+            else
+            {
+                arrayColumnas[0] = separar;
+                arrayColumnas[1] = separar;
+                arrayColumnas[2] = separar;
+                arrayColumnas[3] = separar;
+            }
             return arrayColumnas;
         }
 

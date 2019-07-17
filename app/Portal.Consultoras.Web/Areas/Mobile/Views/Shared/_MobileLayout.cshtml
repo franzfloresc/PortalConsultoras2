@@ -112,7 +112,7 @@
 
     </header>
 
-    <section data-layout="contenido" 
+    <section data-layout="contenido"
              style="min-height: 380px;">
         <div id="contentmobile" data-content="">
 
@@ -153,9 +153,6 @@
             <br />
             <br />
         </div>
-        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
-            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
-        </a>
     </section>
 
     <footer class="footer-page">
@@ -199,7 +196,7 @@
         var baseUrl = "@Url.Content("~")";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
-       
+
 
         //INI SALUD-58
         var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
@@ -247,6 +244,7 @@
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
 
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+        var habilitarChatBot = '@ViewBag.HabilitarChatBot';
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
@@ -266,10 +264,6 @@
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
-        var vbFotoPerfil = '@ViewBag.FotoPerfil';
-        if (vbFotoPerfil != null && vbFotoPerfil != "") {
-            $('.foto_menu').show();
-        }
 
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
@@ -517,6 +511,10 @@
     @if (!esIngresoUnico)
     {
         <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
+        <a title="Chat Messenger" class="d-block btn_chat_messenger" style="display:none;" href="javascript: AbrirChatBot()">
+            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+        </a>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.ui.touch-punch.min.js")"></script>
     }
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
@@ -532,7 +530,6 @@
         pixelAnalytics.invocarPageViewPixelById();
     </script>
     <script type="text/javascript" id="lightning_bolt" src="//cdn-akamai.mookie1.com/LB/LightningBolt.js"></script>
-
     <script>
         $.ajaxSetup({
             beforeSend: function (xhr, settings) {

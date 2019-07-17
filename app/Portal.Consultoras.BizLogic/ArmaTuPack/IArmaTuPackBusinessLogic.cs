@@ -2,6 +2,6 @@
 {
     public interface IArmaTuPackBusinessLogic
     {
-        bool CuvEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        bool CuvEstaEnLimite(int paisId, int campaniaId, string zona, string cuv, int cantidadIngresada, int cantidadActual);
     }
 }

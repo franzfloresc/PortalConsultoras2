@@ -128,10 +128,20 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string RecogerNombre { get; set; }
 
+        [DataMember]
+        public decimal GananciaRevista { get; set; }
+
+        [DataMember]
+        public decimal GananciaWeb { get; set; }
+
+        [DataMember]
+        public decimal GananciaOtros { get; set; }
+
         public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)
         {
+
             CampaniaID = row.ToInt32("CampaniaID");
             PedidoID = row.ToInt32("PedidoID");
             ConsultoraID = row.ToInt64("ConsultoraID");
@@ -170,6 +180,9 @@ namespace Portal.Consultoras.Entities
             FechaFacturado = row.ToString("FechaFacturado");
             RecogerDNI = row.ToString("RecogerDNI");
             RecogerNombre = row.ToString("RecogerNombre");
+            GananciaRevista = row.ToDecimal("GananciaRevista");
+            GananciaWeb = row.ToDecimal("GananciaWeb");
+            GananciaOtros = row.ToDecimal("GananciaOtros");
         }
     }
 }

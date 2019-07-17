@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,13 +19,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
-        private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public PedidoRegistroController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
             _productoFaltanteProvider = new ProductoFaltanteProvider();
-            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [HttpPost]
@@ -75,8 +75,16 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoCrudModel.PrecioUnidad = producto.PrecioCatalogo;
                 pedidoCrudModel.CUV = producto.CUV;
                 pedidoCrudModel.ConfiguracionOfertaID = producto.ConfiguracionOfertaID;
-                pedidoCrudModel.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopHomeBannersCarrusel;
                 pedidoCrudModel.TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0;
+                
+                var modeloOrigenPedido = new OrigenPedidoWebModel
+                {
+                    Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Desktop,
+                    Pagina = ConsOrigenPedidoWeb.Pagina.Home,
+                    Palanca = ConsOrigenPedidoWeb.Palanca.Banners,
+                    Seccion = ConsOrigenPedidoWeb.Seccion.Carrusel
+                };
+                pedidoCrudModel.OrigenPedidoWeb = UtilOrigenPedidoWeb.ToInt(modeloOrigenPedido);
 
                 return await PedidoAgregarProductoTransaction(pedidoCrudModel);
 
@@ -153,7 +161,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        //INI HD-4200
         #region Suscripcion SE
         [HttpPost]
         public JsonResult ValidarSuscripcionSE()
@@ -185,12 +192,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             List<ServicePedido.BEProducto> olstProducto = _pedidoWebProvider.GetCuvsSuscripcionSE();
 
-            if (olstProducto.Count==0) return;
+            if (olstProducto.Count == 0) return;
 
             var lstPedido = ObtenerPedidoWebDetalle().Where(p => p.PedidoDetalleID > 0 && olstProducto.Any(d => d.CUV == p.CUV)).ToList();
             if (lstPedido.Count == olstProducto.Count) return;
 
-            foreach(var item in olstProducto)
+            foreach (var item in olstProducto)
                 PedidoAgregarProductoTransaction(CreatePedidoCrudModelSuscripcionSE(item));
         }
 
@@ -214,8 +221,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
         #endregion
-        //FIN HD-4200
-
 
         [HttpPost]
         public async Task<JsonResult> PedidoAgregarProductoTransaction(PedidoCrudModel model)
@@ -240,6 +245,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
                 #endregion
+                
+                //var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
 
                 #region VirtualCoach
                 if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
@@ -307,10 +314,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var esCaminoBrillante = false;
                 #region Camino Brillante
-                if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
-                    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido)
+                if (UtilOrigenPedidoWeb.EsCaminoBrillante(model.OrigenPedidoWeb))
                 {
-                    esCaminoBrillante = true;                    
+                    model.CuvTonos = Util.Trim(model.CUV);
+                    esCaminoBrillante = true;
                     SessionManager.SetDemostradoresCaminoBrillante(null);
                 }
                 #endregion
@@ -354,6 +361,8 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.EsEditable = model.EsEditable;
                 pedidoDetalle.SetID = model.SetId;
                 pedidoDetalle.OrigenSolicitud = "WebMobile";
+                pedidoDetalle.EsDuoPerfecto = model.EsDuoPerfecto;
+                pedidoDetalle.IngresoExternoOrigen = Constantes.IngresoExternoOrigen.Portal;
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
                 {
@@ -363,13 +372,10 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
-                
-                //INI HD-3693
-                if (pedidoDetalleResult.CodigoRespuesta == Constantes.PedidoValidacion.Code.ERROR_CONSULTORA_BLOQUEADA)
-                    pedidoDetalleResult.MensajeRespuesta = Constantes.TipoPopupAlert.Bloqueado + pedidoDetalleResult.MensajeRespuesta;
-                //FIN HD-3693
 
-                var esReservado = (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR)) ? true : false;
+				var esReservado =
+                    pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR)
+                    || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR);
 
                 if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR))
                 {
@@ -384,7 +390,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                     var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                     var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
-                    var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP: null;
+                    var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP : null;
 
                     ObtenerPedidoWeb();
                     return Json(new
@@ -401,7 +407,8 @@ namespace Portal.Consultoras.Web.Controllers
                         formatoTotal = FormatoTotal,
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
                         mensajeCondicional,
-                        EsReservado = esReservado
+                        EsReservado = esReservado,
+                        PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -428,6 +435,19 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private PedidoSb2Model ActualizaModeloPedidoSb2Model(BEPedidoWeb pedidoWeb)
+        {
+            var pedidoSb2Model = new PedidoSb2Model();
+            pedidoSb2Model.FormatoTotalGananciaRevistaStr = Util.DecimalToStringFormat(pedidoWeb.GananciaRevista, userData.CodigoISO);
+            pedidoSb2Model.FormatoTotalGananciaWebStr = Util.DecimalToStringFormat(pedidoWeb.GananciaWeb, userData.CodigoISO);
+            pedidoSb2Model.FormatoTotalGananciaOtrosStr = Util.DecimalToStringFormat(pedidoWeb.GananciaOtros, userData.CodigoISO);
+
+            pedidoSb2Model.FormatoTotalMontoAhorroCatalogoStr = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
+            var totalSumarized = pedidoWeb.GananciaOtros + pedidoWeb.GananciaWeb + pedidoWeb.GananciaRevista + pedidoWeb.MontoAhorroCatalogo;
+            pedidoSb2Model.FormatoTotalMontoGananciaStr = Util.DecimalToStringFormat(totalSumarized, userData.CodigoISO);
+
+            return pedidoSb2Model;
+        }
         [HttpPost]
         public async Task<JsonResult> AgergarPremioDefault()
         {
@@ -445,7 +465,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CUV = premioDefault.CUV2,
                 TipoEstrategiaID = premioDefault.TipoEstrategiaID,
                 Cantidad = "1",
-                FlagNueva = "1"
+                FlagNueva = premioDefault.FlagNueva.ToString()
             });
 
             return Json(true);
@@ -513,26 +533,29 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.ClienteDescripcion = model.Nombre;
             pedidoDetalle.IPUsuario = GetIPCliente();
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+            pedidoDetalle.IngresoExternoOrigen = Constantes.IngresoExternoOrigen.Portal;
 
-            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             pedidoDetalle.OrigenSolicitud = "WebMobile";
+            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
-            var esReservado = (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR)) ? true : false;
+            var esReservado =
+                pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR)
+                || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR);
 
             if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR))
             {
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
-                SetMontosProl(pedidoDetalleResult);         
+                SetMontosProl(pedidoDetalleResult);
                 SessionManager.SetMisPedidosDetallePorCampania(null);
 
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                 var total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                 var FormatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
-                var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP: null;
+                var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP : null;
 
                 txtBuildCliente.Append(PedidoWebTotalClienteFormato(model.ClienteID_, pedidoWebDetalle));
 
@@ -553,7 +576,8 @@ namespace Portal.Consultoras.Web.Controllers
                     DataBarra = GetDataBarra(),
                     cantidadTotalProductos = CantidadTotalProductos,
                     mensajeCondicional,
-                    EsReservado = esReservado
+                    EsReservado = esReservado,
+                    PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -609,12 +633,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
+            pedidoDetalle.IngresoExternoOrigen = Constantes.IngresoExternoOrigen.Portal;
             var result = await _pedidoWebProvider.EliminarPedidoDetalle(pedidoDetalle);
 
             pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
                 ? pedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim()
                 : "";
-            
+
             string tipo = string.Empty;
 
             var errorServer = !(result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR));
@@ -642,7 +667,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             //Validar si el cuv sigue agregado
             var EsAgregado = ValidarEsAgregado(pedidoAgrupado);
-            
+
             var lastResult = new Tuple<bool, JsonResult>(!errorServer, Json(new
             {
                 success = !errorServer,
@@ -664,7 +689,8 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoAgrupado.TipoEstrategiaCodigo
                 },
                 cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad),
-                EsReservado = esReservado
+                EsReservado = esReservado,
+                PedidoWeb = ActualizaModeloPedidoSb2Model(result.PedidoWeb)
             }));
 
             return lastResult;

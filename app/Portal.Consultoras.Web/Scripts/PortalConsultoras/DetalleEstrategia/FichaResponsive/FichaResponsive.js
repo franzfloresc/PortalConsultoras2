@@ -1,10 +1,15 @@
 ﻿/// <reference path="estrategia/estrategiapresenter.js" />
 /// <reference path="componentes/componentespresenter.js" />
+/// <reference path="componentes/componentesanalyticspresenter.js" />
 /// <reference path="../../../general.js" />
 /// <reference path="../detalleestrategiaprovider.js" />
+/// <reference path="../../shared/analyticsportal.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselInicializar.js" />
 
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
+var analyticsPortal = AnalyticsPortalModule;
+
 var estrategiaView = EstrategiaView();
 var estrategiaPresenter = EstrategiaPresenter({
     estrategiaView: estrategiaView,
@@ -12,106 +17,65 @@ var estrategiaPresenter = EstrategiaPresenter({
     fichaResponsiveEvents: fichaResponsiveEvents
 });
 
-var componenteView = ComponenteView();
-var componentePresenter = ComponentePresenter({
-    componenteView: componenteView
+var componentesAnalyticsPresenter = ComponentesAnalyticsPresenter({
+    analyticsPortal: analyticsPortal
 });
 
+var componentesView = ComponentesView();
+var componentesPresenter = ComponentesPresenter({
+    componentesView: componentesView,
+    componentesAnalyticsPresenter: componentesAnalyticsPresenter
+});
+componentesView.setPresenter(componentesPresenter);
+
+var fichaEnriquecidaView = FichaEnriquecidaView();
+var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
+    fichaEnriquecidaView: fichaEnriquecidaView
+});
+
+var estrategia = {};
+
 $(document).ready(function () {
-    function modal_lateral(id, disparador) {
+    try {
+        fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+        analyticsPortal.MarcaVisualizarDetalleProducto(estrategia);
 
-        if ($("body").find(".modal-fondo").length == 0) {
-            $("body").append('<div class="modal-fondo" style="opacity: 0.8; display:none"></div>');
-        };
+        let carruselInicializar = new CarruselInicializar();
+        carruselInicializar.crearCarruseles(params, estrategia);
+    } catch (e) {
+        GeneralModule.redirectTo('/Ofertas', true);
+    }
+});
 
-        $(disparador).on("click", function () {
-            $("body").css('overflow', 'hidden');
-            $('.modal-fondo').css('opacity', '.8');
-            $('.modal-fondo').show();
-            $(id).addClass("popup_active");
-        });
+fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function () {
+    try {
+        estrategiaPresenter.cleanContainer();
+        componentesPresenter.cleanContainer();
 
-        var selector_cerrar = id + " .button_cerrar"
-        function cerra_modal() {
-            $(id).removeClass('popup_active')
-            $('.modal-fondo').css('opacity', '0');
-            $('.modal-fondo').hide();
-            $("body").css('overflow', 'auto');
+    	estrategia = detalleEstrategia.promiseGetEstrategia(params);
+        params.palanca = estrategia.Palanca || params.palanca;
+        if (estrategia.Error){  
+            GeneralModule.consoleLog(estrategia);
+            GeneralModule.redirectTo('/Ofertas', true);
         }
 
-        $(selector_cerrar).on("click", function () {
-            cerra_modal();
-        });
+        $("#data-estrategia").data("estrategia", estrategia);
 
-        $(document).on('keyup', function (evt) {
-            if (evt.keyCode == 27) {
-                cerra_modal();
-            }
-        });
-    };
+        estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
+        componentesPresenter.onEstrategiaModelLoaded(estrategia);
 
-    function tabs_resposive(id, mostar) {
-        var selector = id + " ul li a";
-        var selector_first = selector + ":nth-child(" + mostar + ")";
-        //console.log(selector_first);
-        var mostra_div = id + " .seciones_tabs article";
-        var mostra_div_first = id + " .seciones_tabs #tab" + mostar;
-
-        $(selector_first).addClass("active");
-        $(mostra_div).hide();
-        $(mostra_div_first).show();
-
-        $(selector).click(function () {
-            $(selector).removeClass('active');
-            $(this).addClass('active');
-            $(mostra_div).hide();
-
-            var activeTab = $(this).attr('href');
-            var activeTabDinamico = id + " .seciones_tabs " + activeTab;
-            //console.log(activeTabDinamico);
-            $(activeTabDinamico).fadeIn();
-            return false;
-        });
-    };
-
-    function acordeon_responsive(id, mostrar) {
-        var selector = id + " li a";
-        var elemento = id + " li > div";
-        $(elemento).hide();
-        $(".tab" + mostrar).show();
-        $(selector).click(function () {
-            if ($(this).hasClass('activo')) {
-                $(this).removeClass('activo');
-                $(this).next().slideUp();
-            } else {
-                $(selector).removeClass('activo');
-                $(this).addClass('activo');
-                $(elemento).slideUp();
-                $(this).next().slideDown();
-            }
-        });
-    };
-
-
-    var tab = [];
-    for (var i = 1; i < 5; i++) {
-        var obtener = "#tab" + i;
-        tab[i] = $(obtener).html();
-        $(".tab" + i).append(tab[i])
+        fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+    }
+    catch (error) {
+        GeneralModule.consoleLog(error);
+        if (typeof error === "string") {
+            window.onerror(error);
+        }
+        else if (typeof error === "object") {
+            registrarLogErrorElastic(error);
+        }
+        GeneralModule.redirectTo("ofertas");
     }
 
-    tabs_resposive("#tabs_ficha", 4);
-    acordeon_responsive("#tabs_ficha", 4);
-
-    tabs_resposive("#tabs_ficha_popup", 4);
-    acordeon_responsive("#tabs_ficha_popup", 4);
-
-    modal_lateral("#popup_tonos", ".tono_select_opt");
-
-    modal_lateral("#popup_ficha_enriquecida", ".button_ver_detalle");
-    
-    $("#data-estrategia").data("estrategia", detalleEstrategia.getEstrategia(params));
-    var estrategia = $("#data-estrategia").data("estrategia");
-    estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
-    componentePresenter.onEstrategiaModelLoaded(estrategia);
+    CerrarLoad();
 });

@@ -39,8 +39,9 @@
     color: #FFF !important;
 }
 
-.header--nuevoLookAndFeelEsika .sub_menu_home1 .new_menu_a{
-    color:#000;
+.header--nuevoLookAndFeelEsika .sub_menu_home1 .new_menu_a,
+.header--nuevoLookAndFeelEsika .sub_menu_home1 .content_left_menu a{
+    color: #000;
 }
 
 .header--nuevoLookAndFeelEsika .boton_cam,
@@ -269,7 +270,8 @@
         color: #FFF !important;
     }
 
-    .btn_agregarPedido.btn_agregarPedido--nuevoLookAndFeelEsika input{
+    .btn_agregarPedido.btn_agregarPedido--nuevoLookAndFeelEsika input,
+    .btn_guardarPedido.btn_guardarPedido--nuevoLookAndFeelEsika input {
         background-color: #FF335A;
     }
 

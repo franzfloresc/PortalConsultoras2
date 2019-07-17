@@ -423,6 +423,7 @@
       <xs:element minOccurs="0" name="AceptaTerminosCondiciones" type="xs:boolean" />
       <xs:element minOccurs="0" name="AceptacionConsultoraDA" type="xs:int" />
       <xs:element minOccurs="0" name="AceptoContrato" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivaNotificacionesWhatsapp" type="xs:boolean" />
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActualizarClave" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="AniosPermanencia" type="xs:int" />
@@ -494,6 +495,7 @@
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaFinalZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsShowRoom" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsUltimoDiaFacturacion" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsZonaDemAnti" type="xs:int" />
       <xs:element minOccurs="0" name="EsquemaDAConsultora" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoPedido" type="xs:int" />
@@ -510,9 +512,10 @@
       <xs:element minOccurs="0" name="FechaNacimiento" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaVencimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagActivacionSuscripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlgCheckEMAIL" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlgCheckSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="FotoOriginalSinModificar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoPerfilAncha" type="xs:boolean" />
       <xs:element minOccurs="0" name="GPRBannerMensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GPRBannerTitulo" nillable="true" type="xs:string" />
       <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q3:Enumeradores.RechazoBannerUrl" />
@@ -564,6 +567,7 @@
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreGerenteZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotificacionesWhatsapp" type="xs:boolean" />
       <xs:element minOccurs="0" name="NovedadBuscador" type="xs:int" />
       <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
       <xs:element minOccurs="0" name="NuevoPROL" type="xs:boolean" />
@@ -587,6 +591,8 @@
       <xs:element minOccurs="0" name="PuedeActualizar" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeActualizarCelular" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeActualizarEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PuedeConfirmarAllEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PuedeConfirmarAllSms" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeEnviarSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="RecomendacionesConfiguracion" nillable="true" type="tns:ArrayOfBEConfiguracionPaisDatos" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />

@@ -8,6 +8,7 @@
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/busqueda-productos.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/filtros-busqueda.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/Notificacion.css")" rel="stylesheet" />
 
 <main class="row flex-row ml-0 mr-0 mx-auto layout__content layout__content--vistaResultadosBusqueda">
     @if (ViewBag.FlagFiltrosBuscador)
@@ -233,11 +234,12 @@
 
     {{#each this as |item|}}
     <article class="ficha__producto {{#if Stock}} ficha__producto--agotado {{/if}}" data-item="BuscadorFichasProductos">
-
-        <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
+        <div style="display:none;">
+            <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
+            <div data-imagen-producto="{{Imagen}}"></div>
+        </div>
 
         <div class="row flex-row justify-content-center ml-0 mr-0">
-            <div style="display:none;"><div data-imagen-producto="{{Imagen}}"></div></div>
             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 <img data-src="{{Imagen}}" data-src-error="@Url.Content("~/Content/Images/oferta-sin-imagen.svg")" class="lazy redireccionarFicha" />
                 <a title="Ver detalle" class="row flex-row ml-0 mr-0 justify-content-center align-items-center col pl-0 pr-0 text-bold text-uppercase mostrarEnDesktop redireccionarFicha btn__ver__detalle">

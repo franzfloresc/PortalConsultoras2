@@ -399,7 +399,7 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         #region Pin Autenticidad
-        [OperationContract]
+        [OperationContract]        
         BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb);
         [OperationContract]
         BERespuestaSMS EnviarSmsVerificacionAutenticidad(int paisID, BEUsuarioDatos oUsu);
@@ -451,6 +451,9 @@ namespace Portal.Consultoras.ServiceContracts
         #region Camino Brillante
         [OperationContract]
         BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad);
+
+        [OperationContract]
+        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp);
         #endregion
 
         [OperationContract]
@@ -471,16 +474,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos);
-
-
-
-
-
-
+        
         [OperationContract]
         IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania);
-
-        //[OperationContract]
-        //IList<string> GetSapFromCuvlist(string cuvList, int campaniaid, int paisId);
     }
 }

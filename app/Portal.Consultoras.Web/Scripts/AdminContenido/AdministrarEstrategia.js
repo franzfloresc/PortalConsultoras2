@@ -1,5 +1,4 @@
 ﻿var AdministrarEstrategia = (function (config) {
-
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || "",
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || "",
@@ -615,10 +614,7 @@
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-
-        var imagen = $("#imgSeleccionada").attr('src');
-        var ultimoSlash = imagen.lastIndexOf("/");
-        //var nombreImagen = imagen.substring(ultimoSlash + 1);
+        
         var params = {
             paisID: data.paisID,
             estragiaId: data.EstrategiaID,

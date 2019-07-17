@@ -4461,6 +4461,24 @@ table > thead > tr > th {
     cursor: pointer;
 }
 
+/* INI HD-4009 */
+.producto_pum,
+.producto_pum_hidden {
+    margin-top:5px;
+    margin-bottom:0;
+    font-size:12px;
+    min-height:17px;
+}
+
+    .producto_pum span {
+        color: #000;
+    }
+
+.producto_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
+
 .producto_precio_oferta {
     margin: 0;
     padding: 0;
@@ -14706,9 +14724,10 @@ a {
 }
 
 .opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
-    display:inline-block;
+    display:block;
+    /*display:inline-block;
     vertical-align:top;
-    float:none;
+    float:none;*/
     min-height:315px;
     padding-top:0!important;
     padding-bottom:25px!important;
@@ -14971,44 +14990,9 @@ a {
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
 
-/* Modal - Crear - Modificar */
-#alertDialogMensajes25seg {
-    padding-bottom: 20px !important;
-    min-height: 100px !important;
-}
-
-.alert-align {
-    display: flex;
-    align-items: center
-}
-
-.setBottom {
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    /*transition: top 1s ease;*/
-}
-
-    .setBottom > .ui-dialog-titlebar.ui-corner-all {
-        display: none;
-    }
-
-    .setBottom .pop_pedido_mensaje {
-        color: #569C04;
-        font-size: 16px;
-    }
-
-.pop_image .img-fluid {
-    max-width: 100%;
-    height: auto;
-    width: 100px;
-}
-
-/* / Modal - Crear - Modificar */
-
 /* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
 
-.btn_chat_messenger_mobile {
+.btn_chat_messenger {
     background-color: #FFF;
     border-radius: 50%;
     width: 60px;
@@ -15018,7 +15002,7 @@ a {
     bottom: 18pt;
     right: 18pt;
     top: auto;
-    z-index: 2147483646;
+    z-index: 4000;
     padding: 13px 17px 13px 17px;
     -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
     -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
@@ -15026,34 +15010,22 @@ a {
     cursor: pointer;
 }
 
-    .btn_chat_messenger_mobile img{
+    .btn_chat_messenger img{
         width:100%;
         height:auto;
     }
 
-.fb_dialog_content {
-    display:none;
-    position: relative !important;
-}
-
-.icono_chat_sb {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 60px;
-    height: 60px;
-    background-color: #FFF;
-    background-image: url(/Content/Images/icono-chat-sb.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
-    border-radius: 100%;
-    z-index: 2000;
-}
-
-.fb_dialog_content iframe {
-    display: none !important;
-}
-
 /* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.input_modifica_horizontal_popup_pedido {
+    text-transform: uppercase;
+    width: 115px !important;
+    height: 45px;
+    letter-spacing: .5px;
+    color: white;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #e81c36;
+    border: none;
+    font-weight: bold;
+}

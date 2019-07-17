@@ -126,12 +126,7 @@ function AceptarPedido(id, tipo) {
                         $('#PedidoAceptado').show();
                     }
                     else {
-                        //INI HD-3693
-                        //AbrirMensaje(response.message);
-                        var msjBloq = validarpopupBloqueada(response.message);
-                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                        else AbrirMensaje(response.message);
-                        //FIN HD-3693
+                        AbrirMensaje(response.message);
                     }
                 }
             },
@@ -186,5 +181,13 @@ function PedidosPendientesVistaProducto() {
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
         AnalyticsPortalModule.ClickTabPedidosPendientes('Click Tab', 'Vista por Producto');
+    }
+}
+
+function AnalyticsMarcacionPopupConfirmacion(strTipo, prod) {
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickTabPedidosPendientes("Pop up Pedido Aprobado", strTipo);
+        
+        AnalyticsPortalModule.ClickVistaAddToCardPedidoPendiente(strTipo, prod);
     }
 }

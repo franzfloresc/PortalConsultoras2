@@ -43,7 +43,6 @@ var menuModule = (function () {
     var urlIni;
     var navbarHeight;
     var seccionFixedMenuHeigt;
-    var scr = false;
 
     var _var = {
         Mobile: false,
@@ -51,11 +50,6 @@ var menuModule = (function () {
             return $(document).outerWidth(true) <= 990;
         }
     }
-
-    //var paddingTab = {
-    //    Mobile: 3,
-    //    Desktop: 1.5
-    //}
 
     function _getHeight(element) {
         return $(element).outerHeight(true);
@@ -209,10 +203,6 @@ var menuModule = (function () {
                 }, 1000);
             }
 
-            if (typeof AnalyticsPortalModule !== "undefined") {
-                AnalyticsPortalModule.ClickTabGanadoras(codigo);
-            }
-
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
@@ -296,7 +286,7 @@ var menuModule = (function () {
                     + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
             }
 
-            else if (url.includes(ConstantesModule.TipoEstrategia.DP)) {
+            else if (url.indexOf(ConstantesModule.TipoEstrategia.DP) > -1) {
                 OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
                     + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor
                     + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.DuoPerfecto

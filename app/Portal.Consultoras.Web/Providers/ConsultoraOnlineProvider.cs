@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Internal;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -39,27 +40,16 @@ namespace Portal.Consultoras.Web.Providers
                             TipoEstrategiaID = item.TipoEstrategiaID,
                             TipoOfertaSisID = 0,
                             MarcaID = item.MarcaID,
-                            //ConfiguracionOfertaID = x.ConfiguracionOfertaID
-                            //pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
                             IndicadorMontoMinimo = item.IndicadorMontoMinimo,
                             FlagNueva = item.FlagNueva,
                             Cantidad = 1,
                             CUV2 = item.CUV2 ,
                             DescripcionMarca = item.DescripcionMarca
-                            //OrigenPedidoWeb = x.OrigenPedidoWeb
-                            //EsCuponNuevas = x.EsCuponNuevas
-                            //pedidoDetalle.EsSugerido = model.EsSugerido;
-                            //pedidoDetalle.EsKitNueva = model.EsKitNueva;
-                            //pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;                            
-                            //pedidoDetalle.OfertaWeb = model.OfertaWeb;                   
-                            //pedidoDetalle.EsEditable = model.EsEditable;
-                            //pedidoDetalle.SetID = model.SetId;
-                            //  sap
-
                         };
 
 
-                        if (item.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+                        if (item.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento 
+                            || item.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
                         {
                             var listadescr = item.DescripcionCUV2.Split('|');
                             nuevo.DescripcionCUV2 = listadescr.Length > 0 ? listadescr[0] : "";
@@ -67,11 +57,6 @@ namespace Portal.Consultoras.Web.Providers
                         else if (item.FlagNueva == 1)
                         {
                             nuevo.DescripcionCUV2 = item.DescripcionCUV2.Split('|')[0];
-                        }
-                        else if (item.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
-                        {
-                            var listadescr = item.DescripcionCUV2.Split('|');
-                            nuevo.DescripcionCUV2 = listadescr.Length > 0 ? listadescr[0] : "";
                         }
                         else
                         {

@@ -21,13 +21,14 @@
     {
         <script>
             glbDispositivo = 2;
-        </script>
+
+            /**/</script>
         <div class="titulo_mobile" style="display:none;">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
             &nbsp;&nbsp;PENDIENTES
         </div>
         <div class="pestana_esika"></div>
-        <div class="pestana_lbel" style="display: none;"></div>
+        <div class="pestana_lbel" style="display:none;"></div>
     }
 }
 
@@ -36,6 +37,7 @@
     var solicitud = Model.MiPedido;
     //var tiposoli = (solicitud.MarcaID == 0) ? 1 : 2;
 }
+
 
 <!-- Agregado desplegado con tooltips y modals -->
 <div class="container-flex pending d-flex flex-column vh-100">
@@ -225,7 +227,8 @@
                     <button class="btn btn-default" data-dismiss="modal" onclick="RechazarTodoConfirmacion('C')" aria-label="Close" style="font-size: 14px; letter-spacing: 1px;font-weight:700;text-decoration:underline;">
                         No, gracias
                     </button>
-                    <button onclick="RechazarSolicitudCliente('@solicitud.PedidoId', 'C')" class="btn btn-primary" style="font-size: 14px; letter-spacing: 1px;font-weight:700; background-color: #b9007e; border: #b9007e; color: white;">
+                    @*<button onclick="RechazarSolicitudCliente('@solicitud.PedidoId')" class="btn btn-primary" style="font-size: 14px; letter-spacing: 1px;font-weight:700; background-color: #b9007e; border: #b9007e; color: white;">*@
+                    <button onclick="MotivoRechazoSolicitudPedidoPend('@solicitud.PedidoId', 'C')" class="btn btn-primary" style="font-size: 14px; letter-spacing: 1px;font-weight:700; background-color: #b9007e; border: #b9007e; color: white;">
                         Sí, Rechazar
                     </button>
                 </div>
@@ -240,6 +243,8 @@
     <!-- content -->
 
 </div>
+
+@Html.Partial("~/Views/ConsultoraOnline/_MotivosRechazo.cshtml")
 
 @section scripts {
     <script type="text/javascript">

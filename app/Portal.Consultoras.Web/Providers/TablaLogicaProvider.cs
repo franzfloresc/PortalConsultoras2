@@ -12,12 +12,6 @@ namespace Portal.Consultoras.Web.Providers
     {
         protected ISessionManager sessionManager;
 
-        //public virtual ISessionManager VSessionManager
-        //{
-        //    get { return sessionManager; }
-        //    private set { sessionManager = value; }
-        //}
-
         public virtual void setSessionManager(ISessionManager sessionManager)
         {
             this.sessionManager = sessionManager;
@@ -140,7 +134,7 @@ namespace Portal.Consultoras.Web.Providers
             return valor == "1";
         }
 
-        public int GetTablaLogicaDatoValorInt(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
+        public virtual int GetTablaLogicaDatoValorInt(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
         {
             var valor = GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession);
             var valInt = GatCampoValorInt(valor, codigo);

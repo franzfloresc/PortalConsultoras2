@@ -132,10 +132,19 @@ $(function () {
 
     $("body").on('click', '.belcorpChat, .indicador_ayuda', function (e) {
         e.preventDefault();
+        if (typeof habilitarChatEmtelco === 'undefined') {
+            return false;
+        }
 
-        var connected = localStorage.getItem('connected');
-        var idBtn = connected ? '#btn_open' : '#btn_init';
-        $(idBtn).trigger("click");
+        if (habilitarChatEmtelco === 'True') {
+            var connected = localStorage.getItem('connected');
+            var idBtn = connected ? '#btn_open' : '#btn_init';
+            $(idBtn).trigger("click");
+        }
+
+        if (habilitarChatBot === 'True') {
+            AbrirChatBot();
+        }
 
         return false;
     });
@@ -409,12 +418,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true) {
-                //INI HD-3693
-                //AbrirMensaje(data.message);
-                var msjBloq = validarpopupBloqueada(data.message);
-                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                else AbrirMensaje(data.message);
-                //FIN HD-3693
+                AbrirMensaje(data.message);
+
             }
         },
         error: function (error) {
@@ -766,14 +771,7 @@ function messageInfo(message, fnAceptar) {
     if (message == "") {
         return false;
     }
-    //INI HD-3693
-    var msjBloq = validarpopupBloqueada(message);
-    if (msjBloq != "") {
-        CerrarLoad();
-        alert_msg_bloqueadas(msjBloq);
-        return true;
-    }
-        //FIN HD-3693
+
     $('#mensajeInformacion').html(message);
     $('#popupInformacion').show();
 
@@ -894,11 +892,11 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58 30-01-2019
+    var sparam = localStorage.getItem('KeyPseudoParam');
     $.ajax({
         type: 'GET',
-        url: urlGetNotificacionesSinLeer + "?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "", //SALUD-58 30-01-2019
-        data: {}, //SALUD-58 30-01-2019
+        url: urlGetNotificacionesSinLeer + "?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",
+        data: {},
         cache: true,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1143,22 +1141,6 @@ function getMobileOperatingSystem() {
     return "unknown";
 }
 
-//function ValidarKitNuevas(fnSuccess) {
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: urlValidarKitNuevas,
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        success: function (data) {
-//            if (!checkTimeout(data)) return false;
-
-//            if (!data.success) messageInfo('Ocurrió un error al intentar cargar el Kit de Nuevas.');
-//            else if ($.isFunction(fnSuccess)) fnSuccess();
-//        },
-//        error: function () { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
-//    });
-//}
-
 function PopUpPrivacidadDatos() {
     $("#box-pop-up").show();
     $("#pop-up-body").customScrollbar();
@@ -1172,12 +1154,6 @@ function CloseDialog(pop) {
 function CerrarSesion() {
     location.href = baseUrl + 'Login/LogOut';
 }
-//INI HD-3693
-function alert_msg_bloqueadas(message) {
-    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
-    $('#PopupBloqueoPorSistema').show();
-}
-//FIN HD-3693
 
 $('#alertDialogMensajes25seg').dialog({
     autoOpen: false,

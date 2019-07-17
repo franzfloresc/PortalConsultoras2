@@ -124,6 +124,7 @@
       <xs:element minOccurs="0" name="FechaNacimientoAval" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRechazo" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FlagConsultoraDigital" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlagPagoPendienteKit" type="xs:boolean" />
       <xs:element minOccurs="0" name="Flag_CA" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenCDD" nillable="true" type="xs:string" />
@@ -263,6 +264,7 @@
       <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SolicitudPostulanteId" type="xs:int" />
       <xs:element minOccurs="0" name="TipoEvento" type="xs:int" />
+      <xs:element minOccurs="0" name="Usuario" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EventoSolicitudPostulanteBE" nillable="true" type="tns:EventoSolicitudPostulanteBE" />
@@ -309,12 +311,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfResumenDiasEsperaBE" nillable="true" type="tns:ArrayOfResumenDiasEsperaBE" />
-  <xs:complexType name="ArrayOfSolicitudPostulanteBE">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteBE" nillable="true" type="tns:SolicitudPostulanteBE" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfSolicitudPostulanteBE" nillable="true" type="tns:ArrayOfSolicitudPostulanteBE" />
   <xs:complexType name="ArrayOfReportePagoDeKitLog">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ReportePagoDeKitLog" nillable="true" type="tns:ReportePagoDeKitLog" />
@@ -354,6 +350,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ReportePagoDeKitLog" nillable="true" type="tns:ReportePagoDeKitLog" />
+  <xs:complexType name="ArrayOfSolicitudPostulanteBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteBE" nillable="true" type="tns:SolicitudPostulanteBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSolicitudPostulanteBE" nillable="true" type="tns:ArrayOfSolicitudPostulanteBE" />
   <xs:complexType name="ArrayOfSolicitudPostulanteXLS">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteXLS" nillable="true" type="tns:SolicitudPostulanteXLS" />
@@ -378,6 +380,7 @@
       <xs:element minOccurs="0" name="DiasEnEspera" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiferenciaDias" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Edad" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoBuroCrediticio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstadoGEO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstadoPostulante" nillable="true" type="xs:string" />
@@ -444,6 +447,24 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Cell" nillable="true" type="tns:Cell" />
+  <xs:complexType name="LogDetalleParametroUneteBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="FKIdParametroUnete" type="xs:int" />
+      <xs:element minOccurs="0" name="FKIdTipoParametro" type="xs:int" />
+      <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaHora" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Hora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdCarga" type="xs:int" />
+      <xs:element minOccurs="0" name="IdLogDetalle" type="xs:int" />
+      <xs:element minOccurs="0" name="IdParametroUnete" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LogDetalleParametroUneteBE" nillable="true" type="tns:LogDetalleParametroUneteBE" />
   <xs:complexType name="CodigoVerificacionSolicitudPostulanteBE">
     <xs:sequence>
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
@@ -508,6 +529,9 @@
       <xs:element minOccurs="0" name="CuvCatalogo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CuvCatalogo2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CuvCatalogo3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo6" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cvv" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaExpiracion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaNacimientoTarjeta" nillable="true" type="xs:string" />
@@ -564,4 +588,27 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="KitInicioCatalogoBE" nillable="true" type="tns:KitInicioCatalogoBE" />
+  <xs:complexType name="FormularioSimplificadoBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApellidoMaterno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ApellidoPaterno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultoraRecomienda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPostal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoPostulante" type="xs:int" />
+      <xs:element minOccurs="0" name="IpOrigen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LugarHijo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LugarPadre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreConsultoraRecomienda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="Rechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VieneDe" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FormularioSimplificadoBE" nillable="true" type="tns:FormularioSimplificadoBE" />
 </xs:schema>

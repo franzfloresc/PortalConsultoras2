@@ -1252,9 +1252,9 @@ namespace Portal.Consultoras.Service
             BLSolicitudCliente.UpdSolicitudClienteDetalleCantidad(paisID, solicitudId, cuv, cantidad);
         }
 
-        public void UpdSolicitudClienteRechazar(int paisID, long solicitudId)
+        public void UpdSolicitudClienteRechazar(int paisID, long solicitudId, int motivoRechazoId, string motivoRechazoTexto)
         {
-            BLSolicitudCliente.UpdSolicitudClienteRechazar(paisID, solicitudId);
+            BLSolicitudCliente.UpdSolicitudClienteRechazar(paisID, solicitudId, motivoRechazoId, motivoRechazoTexto);
         }
 
         public void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv)

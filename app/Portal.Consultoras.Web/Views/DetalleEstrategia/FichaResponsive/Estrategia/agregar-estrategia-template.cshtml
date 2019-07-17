@@ -25,7 +25,8 @@
             {{#if TieneStock}}
                 <div id="idcontenedor_rangos" 
                      data-cantidad-contenedor=""
-                     class="contenedor_fijo {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}">
+                     class="contenedor_fijo {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}"
+                     style="{{#iff CodigoEstrategia '==' '036'}}display: none{{/iff}}">
                     <input class="txt_cantidad_pedido_fijo ValidaNumeral ValidaPasteNumeral"
                            type="text"
                            onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
@@ -39,17 +40,21 @@
                            {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}>
                 </div>
                 <a id="btnAgregalo"
-                    class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                    class="btn_agregalo btn_primario {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
                     {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
+                    style="{{#iff CodigoEstrategia '==' '036'}} width: 100%; {{/iff}}"
                     onclick="javascript: estrategiaPresenter.onEstrategiaModelClick(event, false, 0, true, {{EsEditable}}); ">
-                    AGRÉGALO
+                    Agrégalo
                 </a>
             {{else}}
-                <a id="btnAgregalo"
-                   class="boton_Agregalo_agotado btn_agregalo"
-                   style="pointer-events: none;">
-                    AGOTADO
-                </a>
+                <div class="row" style="width: 100%; flex-grow: 1;">
+                    <div class="col-6 text-left">
+                        <div class="tag_agotago">Agotado</div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span class="msj_agotado">No hay stock disponible</span>
+                    </div>
+                </div>
             {{/if}}
         {{else}}
             {{#if TieneStock}}
@@ -84,13 +89,18 @@
                 <a id="btnAgregalo"
                    onclick="javascript: estrategiaPresenter.onEstrategiaModelClick(event, false, 0, true, {{EsEditable}});"
                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
-                   class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}">
-                    AGRÉGALO
+                   class="btn_agregalo btn_primario {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}">
+                    <div class="icono_agregar"></div> Agrégalo
                 </a>
             {{else}}
-                <a id="btnAgregalo"
-                   class="boton_Agregalo_agotado btn_agregalo"
-                   style="pointer-events: none;">AGOTADO</a>
+                <div class="row" style="width: 100%; flex-grow: 1;">
+                    <div class="col-6 text-left">
+                        <div class="tag_agotago">Agotado</div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span class="msj_agotado">No hay stock disponible</span>
+                    </div>
+                </div>
             {{/if}}
         {{/iff}}
     {{/iff}}

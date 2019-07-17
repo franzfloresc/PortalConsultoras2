@@ -608,6 +608,10 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteLogros = 166;
             public const short CaminoBrillanteIndicadores = 167;
             public const short CaminoBrillanteOfertasEspeciales = 168;
+            public const short CaminoBrillanteEnterateMas = 173;
+            public const short CaminoBrillanteFiltro = 174;
+            public const short CaminoBrillanteOrden = 175;
+            public const short CaminoBrillanteConfigurar = 176;
         }
 
         public static class AdministradorHistoria
@@ -617,8 +621,17 @@ namespace Portal.Consultoras.Common
         public static class ConfiguracionesFicha
         {
             public const short TablaLogicaId = 15;
-            public const short MostrarFuncionalidadUpSelling = 1501;
-            public const short CantidadProductosCarruselUpSelling = 1502;
+            public const string FuncionalidadUpSelling = "FuncionalidadUpSelling";
+            public const string CantidadProductosUpSelling = "CantidadProductosUpSelling";
+            public const string FuncionalidadCrossSelling = "FuncionalidadCrossSelling";
+            public const string FuncionalidadSugerido = "FuncionalidadSugerido";
+        }
+
+        public static class TuVozOnline
+        {
+            public const short Id = 172;
+            public const string PanelId = "PANEL_ID";
+            public const string PanelKey = "PANEL_KEY";
         }
 
     }

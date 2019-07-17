@@ -6,7 +6,8 @@ namespace Portal.Consultoras.Data.CaminoBrillante
 {
     public class DACaminoBrillante : DataAccess
     {
-        public DACaminoBrillante(int paisID): base(paisID, EDbSource.Portal) {
+        public DACaminoBrillante(int paisID) : base(paisID, EDbSource.Portal)
+        {
 
         }
 
@@ -26,7 +27,7 @@ namespace Portal.Consultoras.Data.CaminoBrillante
 
         public IDataReader GetConfiguracionMedallaCaminoBrillante()
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionMedallaCaminoBrillante");            
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionMedallaCaminoBrillante");
             return Context.ExecuteReader(command);
         }
 
@@ -55,5 +56,11 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             return Convert.ToDecimal(Context.ExecuteScalar(command) ?? 0.0);
         }
 
+        public IDataReader GetCuvsCaminoBrillante(int campaniaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvsCaminoBrillante");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+            return Context.ExecuteReader(command);
+        }
     }
 }

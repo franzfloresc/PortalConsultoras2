@@ -628,6 +628,15 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private decimal FleteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaOtrosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IPUsuarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1007,6 +1016,45 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.FleteField.Equals(value) != true)) {
                     this.FleteField = value;
                     this.RaisePropertyChanged("Flete");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal GananciaOtros {
+            get {
+                return this.GananciaOtrosField;
+            }
+            set {
+                if ((this.GananciaOtrosField.Equals(value) != true)) {
+                    this.GananciaOtrosField = value;
+                    this.RaisePropertyChanged("GananciaOtros");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal GananciaRevista {
+            get {
+                return this.GananciaRevistaField;
+            }
+            set {
+                if ((this.GananciaRevistaField.Equals(value) != true)) {
+                    this.GananciaRevistaField = value;
+                    this.RaisePropertyChanged("GananciaRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal GananciaWeb {
+            get {
+                return this.GananciaWebField;
+            }
+            set {
+                if ((this.GananciaWebField.Equals(value) != true)) {
+                    this.GananciaWebField = value;
+                    this.RaisePropertyChanged("GananciaWeb");
                 }
             }
         }
@@ -1781,6 +1829,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string CUVPadreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUVReemplazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1883,6 +1934,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool EsSugeridoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsSuscripcionSEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short EstadoItemField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1899,6 +1953,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool FlagNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IPUsuarioField;
@@ -1958,6 +2015,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private int OrigenPedidoWebField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenSolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1968,6 +2028,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceCliente.BEPedidoWebSet PedidoWebSetField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioUnidadField;
@@ -2010,6 +2073,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoPersonalizacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string eMailField;
@@ -2072,6 +2138,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.CUVPadreField, value) != true)) {
                     this.CUVPadreField = value;
                     this.RaisePropertyChanged("CUVPadre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUVReemplazo {
+            get {
+                return this.CUVReemplazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUVReemplazoField, value) != true)) {
+                    this.CUVReemplazoField = value;
+                    this.RaisePropertyChanged("CUVReemplazo");
                 }
             }
         }
@@ -2519,6 +2598,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsSuscripcionSE {
+            get {
+                return this.EsSuscripcionSEField;
+            }
+            set {
+                if ((this.EsSuscripcionSEField.Equals(value) != true)) {
+                    this.EsSuscripcionSEField = value;
+                    this.RaisePropertyChanged("EsSuscripcionSE");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public short EstadoItem {
             get {
                 return this.EstadoItemField;
@@ -2592,6 +2684,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.FlagNuevaField.Equals(value) != true)) {
                     this.FlagNuevaField = value;
                     this.RaisePropertyChanged("FlagNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Ganancia {
+            get {
+                return this.GananciaField;
+            }
+            set {
+                if ((this.GananciaField.Equals(value) != true)) {
+                    this.GananciaField = value;
+                    this.RaisePropertyChanged("Ganancia");
                 }
             }
         }
@@ -2844,6 +2949,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrigenSolicitud {
+            get {
+                return this.OrigenSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenSolicitudField, value) != true)) {
+                    this.OrigenSolicitudField = value;
+                    this.RaisePropertyChanged("OrigenSolicitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int PaisID {
             get {
                 return this.PaisIDField;
@@ -2891,6 +3009,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.PedidoIDField.Equals(value) != true)) {
                     this.PedidoIDField = value;
                     this.RaisePropertyChanged("PedidoID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceCliente.BEPedidoWebSet PedidoWebSet {
+            get {
+                return this.PedidoWebSetField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PedidoWebSetField, value) != true)) {
+                    this.PedidoWebSetField = value;
+                    this.RaisePropertyChanged("PedidoWebSet");
                 }
             }
         }
@@ -3078,6 +3209,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoPersonalizacion {
+            get {
+                return this.TipoPersonalizacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoPersonalizacionField, value) != true)) {
+                    this.TipoPersonalizacionField = value;
+                    this.RaisePropertyChanged("TipoPersonalizacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string eMail {
             get {
                 return this.eMailField;
@@ -3122,6 +3266,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string CUV2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUVReemplazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3153,6 +3300,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FormatoPrecio2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GrupoIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MotivoRechazoField;
@@ -3233,6 +3383,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.CUV2Field, value) != true)) {
                     this.CUV2Field = value;
                     this.RaisePropertyChanged("CUV2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUVReemplazo {
+            get {
+                return this.CUVReemplazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUVReemplazoField, value) != true)) {
+                    this.CUVReemplazoField = value;
+                    this.RaisePropertyChanged("CUVReemplazo");
                 }
             }
         }
@@ -3376,6 +3539,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.FormatoPrecio2Field, value) != true)) {
                     this.FormatoPrecio2Field = value;
                     this.RaisePropertyChanged("FormatoPrecio2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string GrupoID {
+            get {
+                return this.GrupoIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GrupoIDField, value) != true)) {
+                    this.GrupoIDField = value;
+                    this.RaisePropertyChanged("GrupoID");
                 }
             }
         }
@@ -3624,6 +3800,560 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.PedidoIDField.Equals(value) != true)) {
                     this.PedidoIDField = value;
                     this.RaisePropertyChanged("PedidoID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoWebSet", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido")]
+    [System.SerializableAttribute()]
+    public partial class BEPedidoWebSet : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ClienteIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ClienteNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUsuarioCreacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUsuarioModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvSetField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceCliente.BEPedidoWebSetDetalle[] DetallesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstrategiaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FechaCreacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FechaModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal ImporteTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreSetField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrdenPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioUnidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SetIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoEstrategiaIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Campania {
+            get {
+                return this.CampaniaField;
+            }
+            set {
+                if ((this.CampaniaField.Equals(value) != true)) {
+                    this.CampaniaField = value;
+                    this.RaisePropertyChanged("Campania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Cantidad {
+            get {
+                return this.CantidadField;
+            }
+            set {
+                if ((this.CantidadField.Equals(value) != true)) {
+                    this.CantidadField = value;
+                    this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ClienteId {
+            get {
+                return this.ClienteIdField;
+            }
+            set {
+                if ((this.ClienteIdField.Equals(value) != true)) {
+                    this.ClienteIdField = value;
+                    this.RaisePropertyChanged("ClienteId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ClienteNombre {
+            get {
+                return this.ClienteNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ClienteNombreField, value) != true)) {
+                    this.ClienteNombreField = value;
+                    this.RaisePropertyChanged("ClienteNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUsuarioCreacion {
+            get {
+                return this.CodigoUsuarioCreacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUsuarioCreacionField, value) != true)) {
+                    this.CodigoUsuarioCreacionField = value;
+                    this.RaisePropertyChanged("CodigoUsuarioCreacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUsuarioModificacion {
+            get {
+                return this.CodigoUsuarioModificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUsuarioModificacionField, value) != true)) {
+                    this.CodigoUsuarioModificacionField = value;
+                    this.RaisePropertyChanged("CodigoUsuarioModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraId {
+            get {
+                return this.ConsultoraIdField;
+            }
+            set {
+                if ((this.ConsultoraIdField.Equals(value) != true)) {
+                    this.ConsultoraIdField = value;
+                    this.RaisePropertyChanged("ConsultoraId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvSet {
+            get {
+                return this.CuvSetField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvSetField, value) != true)) {
+                    this.CuvSetField = value;
+                    this.RaisePropertyChanged("CuvSet");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceCliente.BEPedidoWebSetDetalle[] Detalles {
+            get {
+                return this.DetallesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DetallesField, value) != true)) {
+                    this.DetallesField = value;
+                    this.RaisePropertyChanged("Detalles");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstrategiaId {
+            get {
+                return this.EstrategiaIdField;
+            }
+            set {
+                if ((this.EstrategiaIdField.Equals(value) != true)) {
+                    this.EstrategiaIdField = value;
+                    this.RaisePropertyChanged("EstrategiaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FechaCreacion {
+            get {
+                return this.FechaCreacionField;
+            }
+            set {
+                if ((this.FechaCreacionField.Equals(value) != true)) {
+                    this.FechaCreacionField = value;
+                    this.RaisePropertyChanged("FechaCreacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FechaModificacion {
+            get {
+                return this.FechaModificacionField;
+            }
+            set {
+                if ((this.FechaModificacionField.Equals(value) != true)) {
+                    this.FechaModificacionField = value;
+                    this.RaisePropertyChanged("FechaModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal ImporteTotal {
+            get {
+                return this.ImporteTotalField;
+            }
+            set {
+                if ((this.ImporteTotalField.Equals(value) != true)) {
+                    this.ImporteTotalField = value;
+                    this.RaisePropertyChanged("ImporteTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreSet {
+            get {
+                return this.NombreSetField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreSetField, value) != true)) {
+                    this.NombreSetField = value;
+                    this.RaisePropertyChanged("NombreSet");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrdenPedido {
+            get {
+                return this.OrdenPedidoField;
+            }
+            set {
+                if ((this.OrdenPedidoField.Equals(value) != true)) {
+                    this.OrdenPedidoField = value;
+                    this.RaisePropertyChanged("OrdenPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoId {
+            get {
+                return this.PedidoIdField;
+            }
+            set {
+                if ((this.PedidoIdField.Equals(value) != true)) {
+                    this.PedidoIdField = value;
+                    this.RaisePropertyChanged("PedidoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PrecioUnidad {
+            get {
+                return this.PrecioUnidadField;
+            }
+            set {
+                if ((this.PrecioUnidadField.Equals(value) != true)) {
+                    this.PrecioUnidadField = value;
+                    this.RaisePropertyChanged("PrecioUnidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SetId {
+            get {
+                return this.SetIdField;
+            }
+            set {
+                if ((this.SetIdField.Equals(value) != true)) {
+                    this.SetIdField = value;
+                    this.RaisePropertyChanged("SetId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoEstrategiaId {
+            get {
+                return this.TipoEstrategiaIdField;
+            }
+            set {
+                if ((this.TipoEstrategiaIdField.Equals(value) != true)) {
+                    this.TipoEstrategiaIdField = value;
+                    this.RaisePropertyChanged("TipoEstrategiaId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoWebSetDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido")]
+    [System.SerializableAttribute()]
+    public partial class BEPedidoWebSetDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadOriginalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvProductoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FactorRepeticionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int GrupoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreProductoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoDetalleIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioUnidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SetDetalleIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SetIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SetIdentifierNumberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoOfertaSisIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Cantidad {
+            get {
+                return this.CantidadField;
+            }
+            set {
+                if ((this.CantidadField.Equals(value) != true)) {
+                    this.CantidadField = value;
+                    this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadOriginal {
+            get {
+                return this.CantidadOriginalField;
+            }
+            set {
+                if ((this.CantidadOriginalField.Equals(value) != true)) {
+                    this.CantidadOriginalField = value;
+                    this.RaisePropertyChanged("CantidadOriginal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvProducto {
+            get {
+                return this.CuvProductoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvProductoField, value) != true)) {
+                    this.CuvProductoField = value;
+                    this.RaisePropertyChanged("CuvProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FactorRepeticion {
+            get {
+                return this.FactorRepeticionField;
+            }
+            set {
+                if ((this.FactorRepeticionField.Equals(value) != true)) {
+                    this.FactorRepeticionField = value;
+                    this.RaisePropertyChanged("FactorRepeticion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Grupo {
+            get {
+                return this.GrupoField;
+            }
+            set {
+                if ((this.GrupoField.Equals(value) != true)) {
+                    this.GrupoField = value;
+                    this.RaisePropertyChanged("Grupo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreProducto {
+            get {
+                return this.NombreProductoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreProductoField, value) != true)) {
+                    this.NombreProductoField = value;
+                    this.RaisePropertyChanged("NombreProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoDetalleId {
+            get {
+                return this.PedidoDetalleIdField;
+            }
+            set {
+                if ((this.PedidoDetalleIdField.Equals(value) != true)) {
+                    this.PedidoDetalleIdField = value;
+                    this.RaisePropertyChanged("PedidoDetalleId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PrecioUnidad {
+            get {
+                return this.PrecioUnidadField;
+            }
+            set {
+                if ((this.PrecioUnidadField.Equals(value) != true)) {
+                    this.PrecioUnidadField = value;
+                    this.RaisePropertyChanged("PrecioUnidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SetDetalleId {
+            get {
+                return this.SetDetalleIdField;
+            }
+            set {
+                if ((this.SetDetalleIdField.Equals(value) != true)) {
+                    this.SetDetalleIdField = value;
+                    this.RaisePropertyChanged("SetDetalleId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SetId {
+            get {
+                return this.SetIdField;
+            }
+            set {
+                if ((this.SetIdField.Equals(value) != true)) {
+                    this.SetIdField = value;
+                    this.RaisePropertyChanged("SetId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SetIdentifierNumber {
+            get {
+                return this.SetIdentifierNumberField;
+            }
+            set {
+                if ((this.SetIdentifierNumberField.Equals(value) != true)) {
+                    this.SetIdentifierNumberField = value;
+                    this.RaisePropertyChanged("SetIdentifierNumber");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoOfertaSisId {
+            get {
+                return this.TipoOfertaSisIdField;
+            }
+            set {
+                if ((this.TipoOfertaSisIdField.Equals(value) != true)) {
+                    this.TipoOfertaSisIdField = value;
+                    this.RaisePropertyChanged("TipoOfertaSisId");
                 }
             }
         }
@@ -6163,6 +6893,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/MovimientoDetalleActualizar", ReplyAction="http://tempuri.org/IClienteService/MovimientoDetalleActualizarResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd> MovimientoDetalleActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetUrlThumbnail", ReplyAction="http://tempuri.org/IClienteService/GetUrlThumbnailResponse")]
+        string GetUrlThumbnail(string codigoIso, string documento);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetUrlThumbnail", ReplyAction="http://tempuri.org/IClienteService/GetUrlThumbnailResponse")]
+        System.Threading.Tasks.Task<string> GetUrlThumbnailAsync(string codigoIso, string documento);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -6502,6 +7238,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd> MovimientoDetalleActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle) {
             return base.Channel.MovimientoDetalleActualizarAsync(paisId, movimientoDetalle);
+        }
+        
+        public string GetUrlThumbnail(string codigoIso, string documento) {
+            return base.Channel.GetUrlThumbnail(codigoIso, documento);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetUrlThumbnailAsync(string codigoIso, string documento) {
+            return base.Channel.GetUrlThumbnailAsync(codigoIso, documento);
         }
     }
 }

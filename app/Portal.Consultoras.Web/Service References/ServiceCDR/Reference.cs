@@ -2465,10 +2465,10 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         System.Threading.Tasks.Task<int> DelCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DelCDRWebDetalleList", ReplyAction="http://tempuri.org/ICDRService/DelCDRWebDetalleListResponse")]
-        int DelCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle);
+        int DelCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] listDetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DelCDRWebDetalleList", ReplyAction="http://tempuri.org/ICDRService/DelCDRWebDetalleListResponse")]
-        System.Threading.Tasks.Task<int> DelCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle);
+        System.Threading.Tasks.Task<int> DelCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] listDetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebDetalle", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebDetalleResponse")]
         Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity, int pedidoId);
@@ -2682,12 +2682,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
             return base.Channel.DelCDRWebDetalleAsync(PaisID, entity);
         }
         
-        public int DelCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle) {
-            return base.Channel.DelCDRWebDetalleList(PaisID, detalle);
+        public int DelCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] listDetalle) {
+            return base.Channel.DelCDRWebDetalleList(PaisID, listDetalle);
         }
         
-        public System.Threading.Tasks.Task<int> DelCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle) {
-            return base.Channel.DelCDRWebDetalleListAsync(PaisID, detalle);
+        public System.Threading.Tasks.Task<int> DelCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] listDetalle) {
+            return base.Channel.DelCDRWebDetalleListAsync(PaisID, listDetalle);
         }
         
         public Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity, int pedidoId) {

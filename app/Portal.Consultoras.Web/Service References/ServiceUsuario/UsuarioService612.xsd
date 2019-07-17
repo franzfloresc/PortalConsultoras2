@@ -73,6 +73,7 @@
       <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EsActual" type="xs:boolean" />
       <xs:element minOccurs="0" name="FechaIngreso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlagSeleccionMisGanancias" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="GananciaAnual" type="xs:decimal" />
       <xs:element minOccurs="0" name="GananciaCampania" type="xs:decimal" />
       <xs:element minOccurs="0" name="GananciaPeriodo" type="xs:decimal" />
@@ -80,6 +81,7 @@
       <xs:element minOccurs="0" name="MontoPedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PeriodoCae" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PuntajeAcumulado" nillable="true" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" nillable="true" type="tns:BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" />
@@ -91,23 +93,28 @@
   <xs:element name="ArrayOfBENivelCaminoBrillante" nillable="true" type="tns:ArrayOfBENivelCaminoBrillante" />
   <xs:complexType name="BENivelCaminoBrillante">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Beneficios" nillable="true" type="tns:ArrayOfBENivelCaminoBrillante.BEBeneficioCaminoBrillante" />
+      <xs:element minOccurs="0" name="Beneficios" nillable="true" type="tns:ArrayOfBEBeneficioCaminoBrillante" />
       <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EnterateMas" type="xs:int" />
+      <xs:element minOccurs="0" name="EnterateMasParam" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoAcumulado" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoFaltante" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMaximo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoMinimo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Puntaje" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntajeAcumulado" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="TieneOfertasEspeciales" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BENivelCaminoBrillante" nillable="true" type="tns:BENivelCaminoBrillante" />
-  <xs:complexType name="ArrayOfBENivelCaminoBrillante.BEBeneficioCaminoBrillante">
+  <xs:complexType name="ArrayOfBEBeneficioCaminoBrillante">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BENivelCaminoBrillante.BEBeneficioCaminoBrillante" nillable="true" type="tns:BENivelCaminoBrillante.BEBeneficioCaminoBrillante" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEBeneficioCaminoBrillante" nillable="true" type="tns:BEBeneficioCaminoBrillante" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBENivelCaminoBrillante.BEBeneficioCaminoBrillante" nillable="true" type="tns:ArrayOfBENivelCaminoBrillante.BEBeneficioCaminoBrillante" />
-  <xs:complexType name="BENivelCaminoBrillante.BEBeneficioCaminoBrillante">
+  <xs:element name="ArrayOfBEBeneficioCaminoBrillante" nillable="true" type="tns:ArrayOfBEBeneficioCaminoBrillante" />
+  <xs:complexType name="BEBeneficioCaminoBrillante">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoBeneficio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
@@ -116,5 +123,19 @@
       <xs:element minOccurs="0" name="NombreBeneficio" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BENivelCaminoBrillante.BEBeneficioCaminoBrillante" nillable="true" type="tns:BENivelCaminoBrillante.BEBeneficioCaminoBrillante" />
+  <xs:element name="BEBeneficioCaminoBrillante" nillable="true" type="tns:BEBeneficioCaminoBrillante" />
+  <xs:complexType name="ArrayOfBEConfiguracionCaminoBrillante">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionCaminoBrillante" nillable="true" type="tns:BEConfiguracionCaminoBrillante" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConfiguracionCaminoBrillante" nillable="true" type="tns:ArrayOfBEConfiguracionCaminoBrillante" />
+  <xs:complexType name="BEConfiguracionCaminoBrillante">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConfiguracionCaminoBrillante" nillable="true" type="tns:BEConfiguracionCaminoBrillante" />
 </xs:schema>

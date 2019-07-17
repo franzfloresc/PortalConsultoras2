@@ -50,6 +50,7 @@
                     return false;
                 }
                 var dataClone = jQuery.extend(true, {}, data);
+                dataClone.estrategia = jQuery.extend(true, {}, estrategia);
                 dataClone.subTituloCabecera = estrategia.SubTitulo || "";
                 dataClone.colorTexto = estrategia.ColorTexto;
 

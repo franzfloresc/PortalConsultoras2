@@ -1,4 +1,4 @@
-using AutoMapper;
+ï»¿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = "Se actualizó satisfactoriamente.",
+                        message = "Se actualizÃ³ satisfactoriamente.",
                         extra = string.Empty
                     });
                 }
@@ -134,7 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No seleccionó una imagen.",
+                        message = "No seleccionÃ³ una imagen.",
                         extra = string.Empty
                     });
                 }
@@ -374,7 +374,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se actualizó la información satisfactoriamente",
+                    message = "Se actualizÃ³ la informaciÃ³n satisfactoriamente",
                 });
             }
             catch (Exception ex)

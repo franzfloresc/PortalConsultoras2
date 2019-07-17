@@ -5,6 +5,7 @@
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta" />
+  <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" />
   <xs:element name="GetProductoComercialByListaCuv">
     <xs:complexType>
       <xs:sequence>
@@ -591,7 +592,7 @@
   <xs:element name="InsProductoCompartidoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsProductoCompartidoResult" nillable="true" type="q31:BEProductoCompartidoResult" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsProductoCompartidoResult" nillable="true" type="q32:BEProductoCompartidoResult" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -606,7 +607,7 @@
   <xs:element name="GetProductoCompartidoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductoCompartidoResult" nillable="true" type="q32:BEProductoCompartido" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductoCompartidoResult" nillable="true" type="q33:BEProductoCompartido" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -622,7 +623,7 @@
   <xs:element name="GetListBrothersByCUVResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListBrothersByCUVResult" nillable="true" type="q33:ArrayOfBEProducto" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListBrothersByCUVResult" nillable="true" type="q34:ArrayOfBEProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -640,7 +641,7 @@
   <xs:element name="ValidarBusquedaProgramaNuevasResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ValidarBusquedaProgramaNuevasResult" type="q34:Enumeradores.ValidacionProgramaNuevas" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ValidarBusquedaProgramaNuevasResult" type="q35:Enumeradores.ValidacionProgramaNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -651,14 +652,14 @@
         <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="consecutivoNueva" type="xs:int" />
-        <xs:element xmlns:q35="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="listCuv" nillable="true" type="q35:ArrayOfstring" />
+        <xs:element xmlns:q36="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="listCuv" nillable="true" type="q36:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ValidarBusquedaProgramaNuevasListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ValidarBusquedaProgramaNuevasListResult" nillable="true" type="q36:ArrayOfKeyValueOfstringEnumeradores.ValidacionProgramaNuevasaFhalu_PT" />
+        <xs:element xmlns:q37="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ValidarBusquedaProgramaNuevasListResult" nillable="true" type="q37:ArrayOfKeyValueOfstringEnumeradores.ValidacionProgramaNuevasaFhalu_PT" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -690,14 +691,14 @@
         <xs:element minOccurs="0" name="cuvIngresado" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="consecutivoNueva" type="xs:int" />
         <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
-        <xs:element xmlns:q37="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lstCuvPedido" nillable="true" type="q37:ArrayOfstring" />
+        <xs:element xmlns:q38="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lstCuvPedido" nillable="true" type="q38:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ValidaCuvElectivoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="ValidaCuvElectivoResult" nillable="true" type="q38:BERespValidarElectivos" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="ValidaCuvElectivoResult" nillable="true" type="q39:BERespValidarElectivos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -726,7 +727,7 @@
         <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="consecutivoNueva" type="xs:int" />
         <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
-        <xs:element xmlns:q39="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lstCuv" nillable="true" type="q39:ArrayOfstring" />
+        <xs:element xmlns:q40="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lstCuv" nillable="true" type="q40:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -757,14 +758,14 @@
   <xs:element name="GetListCuvProgNuevasEstrategia">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="consultoraNueva" nillable="true" type="q40:BEConsultoraProgramaNuevas" />
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="consultoraNueva" nillable="true" type="q41:BEConsultoraProgramaNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetListCuvProgNuevasEstrategiaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="GetListCuvProgNuevasEstrategiaResult" nillable="true" type="q41:ArrayOfBEProductoEstraProgNuevas" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="GetListCuvProgNuevasEstrategiaResult" nillable="true" type="q42:ArrayOfBEProductoEstraProgNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -781,7 +782,7 @@
   <xs:element name="ValidarVentaExclusivaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ValidarVentaExclusivaResult" type="q42:Enumeradores.ValidacionVentaExclusiva" />
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ValidarVentaExclusivaResult" type="q43:Enumeradores.ValidacionVentaExclusiva" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -801,7 +802,7 @@
   <xs:element name="CuvTieneLimiteVentaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta" minOccurs="0" name="CuvTieneLimiteVentaResult" nillable="true" type="q43:BERespValidarLimiteVenta" />
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta" minOccurs="0" name="CuvTieneLimiteVentaResult" nillable="true" type="q44:BERespValidarLimiteVenta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -827,42 +828,57 @@
   <xs:element name="ListarPremioNuevasPaginado">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q44:BEPremioNuevas" />
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q45:BEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ListarPremioNuevasPaginadoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="ListarPremioNuevasPaginadoResult" nillable="true" type="q45:ArrayOfBEPremioNuevas" />
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="ListarPremioNuevasPaginadoResult" nillable="true" type="q46:ArrayOfBEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Insertar">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q46:BEPremioNuevas" />
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q47:BEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertarResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="InsertarResult" nillable="true" type="q47:BEPremioNuevas" />
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="InsertarResult" nillable="true" type="q48:BEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Editar">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q48:BEPremioNuevas" />
+        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q49:BEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="EditarResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="EditarResult" nillable="true" type="q49:BEPremioNuevas" />
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="EditarResult" nillable="true" type="q50:BEPremioNuevas" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarBusquedaCaminoBrillante">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q51:BEUsuario" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarBusquedaCaminoBrillanteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" minOccurs="0" name="ValidarBusquedaCaminoBrillanteResult" nillable="true" type="q52:BEValidacionCaminoBrillante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

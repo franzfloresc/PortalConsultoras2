@@ -22,54 +22,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         [TestClass]
         public class Index
         {
-            [TestMethod]
-            public void LoginController_Index_Redireccionar_CursosMayor0Desktop_RedireccionarMiAcademia()
-            {
-                var controller = new LoginController();
-
-                var result = controller.IndexRedireccionar(1, false);
-
-                Assert.AreEqual("MiAcademia", result.GetControllerName());
-                Assert.AreEqual("Index", result.GetActionName());
-                Assert.AreEqual("", result.GetAreaName());
-            }
-
-            [TestMethod]
-            public void LoginController_Index_Redireccionar_CursosMayor0Mobile_RedireccionarMiAcademia()
-            {
-                var controller = new LoginController();
-
-                var result = controller.IndexRedireccionar(1, false);
-
-                Assert.AreEqual("MiAcademia", result.GetControllerName());
-                Assert.AreEqual("Index", result.GetActionName());
-                Assert.AreEqual("", result.GetAreaName());
-            }
-
-            [TestMethod]
-            public void LoginController_Index_Redireccionar_CursosIgual0_MobileBienvenida()
-            {
-                var controller = new LoginController();
-
-                var result = controller.IndexRedireccionar(0, true);
-                
-                Assert.AreEqual("Bienvenida", result.GetControllerName());
-                Assert.AreEqual("Index", result.GetActionName());
-                Assert.AreEqual("Mobile", result.GetAreaName());
-            }
-
-            [TestMethod]
-            public void LoginController_Index_Redireccionar_CursosIgual0_Bienvenida()
-            {
-                var controller = new LoginController();
-
-                var result = controller.IndexRedireccionar(0, false);
-                
-                Assert.AreEqual("Bienvenida", result.GetControllerName());
-                Assert.AreEqual("Index", result.GetActionName());
-                Assert.AreEqual("", result.GetAreaName());
-            }
-
+            //
         }
 
         [TestClass]
