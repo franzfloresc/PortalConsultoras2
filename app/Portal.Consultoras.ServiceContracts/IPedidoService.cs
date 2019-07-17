@@ -1355,8 +1355,10 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
 
         #region HD-4327
+      
         [OperationContract]
-        string DescargaPedidosClienteSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario);
+        BEDescargaArchivoSinMarcar DescargaPedidosSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario);
+
 
         [OperationContract]
         string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, DateTime fechaFacturacion);

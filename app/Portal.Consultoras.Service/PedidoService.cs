@@ -2491,11 +2491,12 @@ namespace Portal.Consultoras.Service
 
 
         #region HD-4327
-        public string DescargaPedidosClienteSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
+
+        public BEDescargaArchivoSinMarcar DescargaPedidosSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
         {
             try
             {
-                return _pedidoWebBusinessLogic.DescargaPedidosClienteSinMarcar(paisID, campaniaid, nroLote, codigoUsuario);
+                return BLPedidoWeb.DescargaPedidosSinMarcar(paisID, campaniaid, nroLote, codigoUsuario);
             }
             catch (BizLogicException ex)
             {

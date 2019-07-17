@@ -134,7 +134,7 @@
     function ShowActionsArchivoClientes(cellvalue, options, rowObject) {
         var Des = "";
         if (rowObject.NroLote == 0 || rowObject.estadoProcesoGeneral ==1) {
-            Des = "<img   src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' disable />";
+            Des = "<img   src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' />";
         } else { 
             Des = "<img   src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' />";
             NRO_LOTE = rowObject.NroLote;
@@ -217,8 +217,8 @@
     }
 
 
-
     function ArchivoClientes(rowId) {
+        
         var waiting = {
             message: 'Espere unos minutos, por favor...',
             title: 'Ejecutando Proceso'
@@ -233,9 +233,22 @@
             data: "{nroLote: " + rowId + ", campaniaid: " + $("#ddlCampania").val() + "}",
             async: true,
             success: function (data) {
+                
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
-                    alert(data.mensaje);
+                    if (data.msnRespuesta_ == "a") {
+                        DescargaArchivos(data.objPedidosCabWeb_);
+                        DescargaArchivos(data.objPedidosDetWeb_);
+                        DescargaArchivos(data.objPedidosCabDD_);
+                        DescargaArchivos(data.objPedidosDetDD_);
+                    }
+                    if (data.msnRespuesta_ == "b") {
+                        alert("Se está ejecutando un proceso desde otro punto para otra campaña, espere unos minutos y vuelva a intentarlo.");
+                    }
+                    if (data.msnRespuesta_ == "c") {
+                        alert("Los archivos no fueron generados por falta de información");
+                    }
+                    cargarLista();
                 }
             },
             error: function (data, error) {
@@ -246,6 +259,46 @@
             }
         });
     }
+
+
+    function DescargaArchivos(nameurl) {
+            var request = new XMLHttpRequest();
+            request.responseType = "blob";
+            request.open("GET", baseUrl + 'ReporteConsultoraPedidoSAC/CreateFile?nameurl=' + nameurl);
+            request.onload = function (data) {
+                var nomFich = data.currentTarget.responseURL.split(/[^\w']/);
+                var url = window.URL.createObjectURL(this.response);
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.href = url;
+                a.download = this.response.name || (nomFich[19] + "-" + nomFich[20] + "-" + nomFich[21] + "-" + nomFich[22] + "-" + nomFich[23] + "-" + nomFich[24] + "-" + nomFich[25] + "-" + nomFich[26]  )
+                a.click();
+            }
+            request.send();
+    }
+
+
+
+
+
+
+
+  
+    
+
+
+  
+
+
+
+   
+
+
+
+
+
+
+
 </script>
 
 
@@ -269,6 +322,7 @@
                     </div>
 
                 </div>
+               
                 <div class="celda">
                     <span>Campaña:</span>
                     <div class="selectP2 borde_redondeado">

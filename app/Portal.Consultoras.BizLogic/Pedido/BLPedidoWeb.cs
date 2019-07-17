@@ -927,7 +927,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
 
-  
+
         private void ConfigurarDTCargaHeader(DataSet dsPedidos, DateTime fechaFactura, int nroLote, string origen, string usuario)
         {
             if (dsPedidos == null) return;
@@ -946,7 +946,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
 
-      
+
 
 
         private void AddDTColumn<T>(DataTable dt, string columnName, T defaultValue)
@@ -1026,9 +1026,9 @@ namespace Portal.Consultoras.BizLogic
 
 
 
-      
 
-      
+
+
 
 
         private string CoDatLine(TemplateField[] template, DataRow row, string codigoPais)
@@ -1093,7 +1093,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
 
-       
+
         public BEConfiguracionCampania GetEstadoPedido(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID)
         {
             BEConfiguracionCampania configuracion = null;
@@ -2127,7 +2127,7 @@ namespace Portal.Consultoras.BizLogic
             return pedidoDescarga;
         }
 
-       
+
 
         public void DeshacerUltimaDescargaPedido(int PaisID)
         {
@@ -2564,50 +2564,89 @@ namespace Portal.Consultoras.BizLogic
 
 
         #region HD-4327
-        public string DescargaPedidosClienteSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
+
+        public BEDescargaArchivoSinMarcar DescargaPedidosSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
         {
+
             DAPedidoWeb daPedidoWeb = null;
             DAPedidoDD daPedidoDD = null;
             DataSet dsPedidosWeb = null, dsPedidosDD = null;
             DataTable dtPedidosCabWeb = null, dtPedidosDetWeb = null, dtPedidosCabDD = null, dtPedidosDetDD = null;
+            BEDescargaArchivoSinMarcar objBEDescargaArchivoSinMarcar = new BEDescargaArchivoSinMarcar();
             try
             {
-              int validador = ObtenerultimaLlamadaPedidodescargavalidador(paisID);
+                int validador = ObtenerultimaLlamadaPedidodescargavalidador(paisID);
 
-                if (validador == 0) {
+                if (validador == 0)
+                {
+                    try
+                    {
+                        daPedidoWeb = new DAPedidoWeb(paisID);
+                        dsPedidosWeb = daPedidoWeb.DescargaPedidosClienteSinMarcarWEB(nroLote);
+                        dtPedidosCabWeb = dsPedidosWeb.Tables[0]; // Obtiene cabecera
+                        dtPedidosDetWeb = dsPedidosWeb.Tables[1]; // Obtiene detalle
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (ex.Number == 50000) throw new BizLogicException("Existe una descarga de pedidos en proceso para la fecha seleccionada.", ex);
+                        else throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
+                    }
 
                     try
-                {
-                    daPedidoWeb = new DAPedidoWeb(paisID);
-                    dsPedidosWeb = daPedidoWeb.DescargaPedidosClienteSinMarcarWEB(nroLote);
-                    dtPedidosCabWeb = dsPedidosWeb.Tables[0]; // Obtiene cabecera
-                    dtPedidosDetWeb = dsPedidosWeb.Tables[1]; // Obtiene detalle
-                }
-                catch (SqlException ex)
-                {
-                    if (ex.Number == 50000) throw new BizLogicException("Existe una descarga de pedidos en proceso para la fecha seleccionada.", ex);
-                    else throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
-                }
+                    {
+                        daPedidoDD = new DAPedidoDD(paisID);
+                        dsPedidosDD = daPedidoWeb.DescargaPedidosClienteSinMarcarDD(nroLote);
+                        dtPedidosCabDD = dsPedidosDD.Tables[0]; // Obtiene cabecera
+                        dtPedidosDetDD = dsPedidosDD.Tables[1]; // Obtiene detalle
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (ex.Number == 50000) throw new BizLogicException("Existe una descarga de pedidos en proceso para la fecha seleccionada.", ex);
+                        else throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
+                    }
 
-                try
-                {
-                    daPedidoDD = new DAPedidoDD(paisID);
-                    dsPedidosDD = daPedidoWeb.DescargaPedidosClienteSinMarcarDD(nroLote);
-                    dtPedidosCabDD = dsPedidosDD.Tables[0]; // Obtiene cabecera
-                    dtPedidosDetDD = dsPedidosDD.Tables[1]; // Obtiene detalle
-                }
-                catch (SqlException ex)
-                {
-                    if (ex.Number == 50000) throw new BizLogicException("Existe una descarga de pedidos en proceso para la fecha seleccionada.", ex);
-                    else throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
-                }
-                string cargapedido = GenerarArchivosPedidoSinMarcar(dtPedidosCabWeb, dtPedidosDetWeb, campaniaid, paisID, nroLote, "W");
+                    if (dtPedidosCabWeb.Rows.Count > 0 && dtPedidosDetWeb.Rows.Count > 0 && dtPedidosCabDD.Rows.Count > 0 && dtPedidosDetDD.Rows.Count > 0)
+                    {
+                    string fechaProceso = DateTime.Now.ToString("yyyyMMdd");
+                    int tmpCronograma = Constantes.TipoProceso.Regular;
+                    string codigoPais = null;
+                    codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
 
-                cargapedido = cargapedido + GenerarArchivosPedidoSinMarcar(dtPedidosCabDD, dtPedidosDetDD, campaniaid, paisID, nroLote, "D");
+                    codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
+                    var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
+                    var element = section.Countries[paisID];
 
-                return RetornaMensajeresultado(cargapedido);
-            }
-                else return Constantes.MensajeProcesoDescargaregular.MensajeRetorno;
+                    string postfixHeaderTemplate =
+                    (ConfigurationManager.AppSettings["HasDiffCA-PRD"].Contains(codigoPais) && tmpCronograma != 1) ? "PRD" :
+                    (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
+                    string postfixDetailTemplate = (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
+
+                    BETemplateSinMarcar[] headerTemplate = ParseTemplateSinMarcar(ConfigurationManager.AppSettings[element.OrderHeaderTemplate + postfixHeaderTemplate]);
+                    BETemplateSinMarcar[] detailTemplate = ParseTemplateSinMarcar(ConfigurationManager.AppSettings[element.OrderDetailTemplate + postfixDetailTemplate]);
+
+                    objBEDescargaArchivoSinMarcar.headerTemplate = headerTemplate;
+                    objBEDescargaArchivoSinMarcar.detailTemplate = detailTemplate;
+                    objBEDescargaArchivoSinMarcar.dtPedidosCabWeb = dtPedidosCabWeb;
+                    objBEDescargaArchivoSinMarcar.dtPedidosDetWeb = dtPedidosDetWeb;
+                    objBEDescargaArchivoSinMarcar.dtPedidosCabDD = dtPedidosCabDD;
+                    objBEDescargaArchivoSinMarcar.dtPedidosDetDD = dtPedidosDetDD;
+                    objBEDescargaArchivoSinMarcar.msnRespuesta = Constantes.MensajeProcesoDescargaregular.respuestaexito;
+                    objBEDescargaArchivoSinMarcar.codigoPais = codigoPais;
+                    objBEDescargaArchivoSinMarcar.fechaProceso = fechaProceso;
+                    objBEDescargaArchivoSinMarcar.lote = nroLote;
+                    return objBEDescargaArchivoSinMarcar;
+                    }
+                    else
+                    {
+                        objBEDescargaArchivoSinMarcar.msnRespuesta = Constantes.MensajeProcesoDescargaregular.respuestanoCargaSinDatos;
+                        return objBEDescargaArchivoSinMarcar;
+                    }
+                }
+                else
+                {
+                    objBEDescargaArchivoSinMarcar.msnRespuesta = Constantes.MensajeProcesoDescargaregular.respuestanoCarga;
+                    return objBEDescargaArchivoSinMarcar;
+                }
             }
             catch (BizLogicException ex)
             {
@@ -2619,10 +2658,9 @@ namespace Portal.Consultoras.BizLogic
                 throw ex;
             }
         }
-
         public string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, DateTime fechaFacturacion)
         {
-            string mensaje = string.Empty,valor=string.Empty;
+            string mensaje = string.Empty, valor = string.Empty;
             int nuevoNroLote = 0;
             DAPedidoWeb daPedidoWeb = null;
             DAPedidoDD daPedidoDd = null;
@@ -2704,7 +2742,7 @@ namespace Portal.Consultoras.BizLogic
                 string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
                 if (nuevoNroLote > 0)
                 {
-                    
+
                     try { daPedidoWeb.UpdPedidoWebIndicadorEnviadoSinMarcar(nuevoNroLote, false, Constantes.EstadoValorProcesoDescargaregular.Error, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
                     catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
                 }
@@ -2718,7 +2756,7 @@ namespace Portal.Consultoras.BizLogic
 
         private string CapturarMensaje(string valor)
         {
-            string mensaje =Constantes.MensajeProcesoDescargaregular.ProcesoDescarga + " {0}", mensajeFinal = string.Empty;
+            string mensaje = Constantes.MensajeProcesoDescargaregular.ProcesoDescarga + " {0}", mensajeFinal = string.Empty;
 
             if (valor.IndexOf("aa") != -1)
                 mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaWebDD);
@@ -2784,81 +2822,6 @@ namespace Portal.Consultoras.BizLogic
             AddDTColumn(dtPedidosDetalle, "LogCampaniaid", campaniaid);
             AddDTColumn(dtPedidosDetalle, "LogNroLote", nroLote);
             AddDTColumn(dtPedidosDetalle, "LogCodigoUsuarioProceso", usuario);
-        }
-
-        private string GenerarArchivosPedidoSinMarcar(DataTable dtPedidosCab, DataTable dtPedidosDet, int campaniaid, int paisID, int nroLote, string valor)
-        {
-            string respuesta = string.Empty;
-            int tmpCronograma = Constantes.TipoProceso.Regular;
-            string codigoPais = null;
-            FtpConfigurationElement ftpElement;
-            string headerFile, detailFile;
-
-            if (dtPedidosCab.Rows.Count > 0 && dtPedidosDet.Rows.Count > 0)
-            {
-                codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
-                Guid fileGuid = Guid.NewGuid();
-                string key = codigoPais + "-" + (tmpCronograma == 1 ? "DR" : false ? "DA-PRD" : "DA");
-                String keyActDat = codigoPais + "-" + "ACDAT";
-                var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
-
-                codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
-                ftpElement = ftpSection.FtpConfigurations[key];
-                var ftpElementActDAt = ftpSection.FtpConfigurations[keyActDat];
-
-                headerFile = FormatFileSinMarcar(codigoPais, valor, ftpElement.Header, campaniaid, fileGuid);
-                detailFile = FormatFileSinMarcar(codigoPais, valor, ftpElement.Detail, campaniaid, fileGuid);
-
-                var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
-                var element = section.Countries[paisID];
-
-                string postfixHeaderTemplate =
-                (ConfigurationManager.AppSettings["HasDiffCA-PRD"].Contains(codigoPais) && tmpCronograma != 1) ? "PRD" :
-                (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
-                string postfixDetailTemplate = (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
-
-                var headerTemplate = ParseTemplateSinMarcar(ConfigurationManager.AppSettings[element.OrderHeaderTemplate + postfixHeaderTemplate]);
-                var detailTemplate = ParseTemplateSinMarcar(ConfigurationManager.AppSettings[element.OrderDetailTemplate + postfixDetailTemplate]);
-
-                string fechaProceso = DateTime.Now.ToString("yyyyMMdd");
-                string lote = nroLote.ToString();
-
-                if (!Directory.Exists(ConfigurationManager.AppSettings["OrderDownloadPath"]))
-                {
-                    DirectoryInfo di = Directory.CreateDirectory(ConfigurationManager.AppSettings["OrderDownloadPath"]);
-                }
-
-                using (var streamWriter = new StreamWriter(headerFile))
-                {
-                    bool vacio = true;
-
-                    vacio = false;
-                    foreach (DataRow row in dtPedidosCab.Rows)
-                    {
-                        if (valor == "W")
-                            streamWriter.WriteLine(HeaderLineSinMacarWEB(headerTemplate, row, codigoPais, fechaProceso, lote, "W"));
-                        if (valor == "D")
-                            streamWriter.WriteLine(HeaderLineSinMacarDD(headerTemplate, row, codigoPais, fechaProceso, lote, "D"));
-                    }
-                    if (vacio) streamWriter.Write(string.Empty);
-                }
-                using (var streamWriter = new StreamWriter(detailFile))
-                {
-                    bool vacio = true;
-
-                    vacio = false;
-                    foreach (DataRow row in dtPedidosDet.Rows)
-                    {
-                        streamWriter.WriteLine(DetailLineSinMarcar(detailTemplate, row, codigoPais, lote));
-                    }
-                    if (vacio) streamWriter.Write(string.Empty);
-                }
-                respuesta = Constantes.MensajeProcesoDescargaregular.respuestaexito;
-            }
-            else
-                respuesta = Constantes.MensajeProcesoDescargaregular.respuestanoCarga;
-
-            return respuesta;
         }
 
         private string HeaderLineSinMacarWEB(TemplateField[] template, DataRow row, string codigoPais, string fechaProceso, string lote, string origen)
@@ -2965,20 +2928,29 @@ namespace Portal.Consultoras.BizLogic
             return line;
         }
 
-        private TemplateField[] ParseTemplateSinMarcar(string templateText, bool descargaActDatosv2 = true)
+        private BETemplateSinMarcar[] ParseTemplateSinMarcar(string templateText, bool descargaActDatosv2 = true)
         {
             List<string> camposActDatosv2 = new List<string> { "TELEFONOTRABAJO", "LATITUD", "LONGITUD" };
             string[] parts = templateText.Split(';');
-            var listTemplate = new List<TemplateField>();
+            var listTemplate = new List<BETemplateSinMarcar>();
 
             for (int index = 0; index < parts.Length; index++)
             {
-                var templateField = new TemplateField(parts[index]);
+                var templateField = getTemplateSplit(parts[index]);// new BETemplateSinMarcar(parts[index]);
                 if (templateField.FieldName == "CAMPANIA") templateField.Size = 10;
                 if (!descargaActDatosv2 && camposActDatosv2.Contains(templateField.FieldName)) continue;
                 listTemplate.Add(templateField);
             }
             return listTemplate.ToArray();
+        }
+
+        private BETemplateSinMarcar getTemplateSplit(string fieldInfo)
+        {
+            BETemplateSinMarcar objBETemplateSinMarcar = new BETemplateSinMarcar();
+            string[] parts = fieldInfo.Split(',');
+            objBETemplateSinMarcar.FieldName = parts[0].ToUpper();
+            objBETemplateSinMarcar.Size = int.Parse(parts[1]);
+            return objBETemplateSinMarcar;
         }
 
         private string RetornaMensajeresultado(string cargapedido)
@@ -2999,6 +2971,7 @@ namespace Portal.Consultoras.BizLogic
                 mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.NingunaDescargaWebDD);
             return mensajeFinal;
         }
+
         #endregion
 
     }
@@ -3026,6 +2999,6 @@ namespace Portal.Consultoras.BizLogic
             set { size = value; } /*HD-4327*/
         }
 
-     
+
     }
 }

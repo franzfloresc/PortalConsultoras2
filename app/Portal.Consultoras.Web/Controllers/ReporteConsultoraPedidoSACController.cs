@@ -1,23 +1,33 @@
 ﻿using AutoMapper;
+using ICSharpCode.SharpZipLib.Zip;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlTypes;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class ReporteConsultoraPedidoSACController : BaseAdmController
     {
         #region HD-4327
+        BEPedidoWeb objBEPedidoWeb = null;
+        BEPedidoDD objBEPedidoDD = null;
+        BEPedidoWebDetalle objBEPedidoWebDetalle = null;
+        BEPedidoDDDetalle objBEPedidoDDDetalle = null;
         string fechaDefault = "1/01/0001 00:00:00";
         public async Task<ActionResult> Index()
         {
@@ -58,9 +68,9 @@ namespace Portal.Consultoras.Web.Controllers
                 success = true,
                 descarga = new
                 {
-                    CampaniaId = ultimaDescarga.CampaniaId==0?"Ninguna": ultimaDescarga.CampaniaId.ToString(),
+                    CampaniaId = ultimaDescarga.CampaniaId == 0 ? "Ninguna" : ultimaDescarga.CampaniaId.ToString(),
                     DescripcionEstadoProcesoGeneral = ultimaDescarga.DescripcionEstadoProcesoGeneral.ToString(),
-                    FechaProceso =  ultimaDescarga.FechaProceso.ToString() == fechaDefault ? string.Empty : ultimaDescarga.FechaProceso.ToString(),
+                    FechaProceso = ultimaDescarga.FechaProceso.ToString() == fechaDefault ? string.Empty : ultimaDescarga.FechaProceso.ToString(),
                 }
             });
         }
@@ -68,14 +78,14 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> ObtenerUltimaDescargaPedidoSinMarcar(int campaniaID)
         {
-           
+
             var usuario = userData ?? new UsuarioModel();
 
             try
             {
                 var lst = new List<BEPedidoDescarga>();
 
-                
+
                 using (var srv = new PedidoServiceClient())
                 {
                     var ultimaDescargaPedido = await srv.ObtenerUltimaDescargaPedidoSinMarcarAsync(usuario.PaisID, campaniaID);
@@ -90,13 +100,13 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = (from tbl in lst
                             select new
                             {
-                                FechaHoraInicio = tbl.FechaHoraInicio.ToString()== fechaDefault?string.Empty: tbl.FechaHoraInicio.ToString(),
-                                FechaHoraFin = tbl.FechaHoraFin.ToString()==fechaDefault ?string.Empty : tbl.FechaHoraFin.ToString(),
+                                FechaHoraInicio = tbl.FechaHoraInicio.ToString() == fechaDefault ? string.Empty : tbl.FechaHoraInicio.ToString(),
+                                FechaHoraFin = tbl.FechaHoraFin.ToString() == fechaDefault ? string.Empty : tbl.FechaHoraFin.ToString(),
                                 Estado = tbl.Estado,
                                 Mensaje = tbl.Mensaje,
                                 NumeroPedidos = string.Format(" Web: {0}<br> DD: {1}", tbl.NumeroPedidosWeb, tbl.NumeroPedidosDD),
                                 NroLote = tbl.NroLote,
-                                estadoProcesoGeneral=tbl.EstadoProcesoGeneral
+                                estadoProcesoGeneral = tbl.EstadoProcesoGeneral
                             })
                 };
 
@@ -111,9 +121,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> DescargarArchivoClienteSinMarcar(int nroLote, int campaniaid)
+        public JsonResult DescargarArchivoClienteSinMarcar(int nroLote, int campaniaid)
         {
-            string mensajeFinal = string.Empty;
+            BEDescargaArchivoSinMarcar objBEDescargaArchivoSinMarcar = new BEDescargaArchivoSinMarcar();
             string rutaDescargaArchivo = ConfigurationManager.AppSettings["OrderDownloadPath"];
             var usuario = userData ?? new UsuarioModel();
 
@@ -121,16 +131,25 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var srv = new PedidoServiceClient())
                 {
-                   mensajeFinal = await srv.DescargaPedidosClienteSinMarcarAsync(usuario.PaisID, campaniaid, nroLote, usuario.CodigoUsuario);
+                    objBEDescargaArchivoSinMarcar = srv.DescargaPedidosSinMarcar(usuario.PaisID, campaniaid, nroLote, usuario.CodigoUsuario);
                 }
-                
-                var data = new
-                {
-                    success = true,
-                    mensaje = mensajeFinal
-                };
 
-                return Json(data, JsonRequestBehavior.AllowGet);
+                if (objBEDescargaArchivoSinMarcar.msnRespuesta == Constantes.MensajeProcesoDescargaregular.respuestaexito)
+                {
+                    var data = new
+                    {
+                        objPedidosCabWeb_ = FormateaPedidoCabWeb(objBEDescargaArchivoSinMarcar.headerTemplate, objBEDescargaArchivoSinMarcar.dtPedidosCabWeb, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), "PWC", campaniaid),
+                        objPedidosDetWeb_ = FormateaPedidoDet(objBEDescargaArchivoSinMarcar.detailTemplate, objBEDescargaArchivoSinMarcar.dtPedidosDetWeb, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), "PWD", campaniaid),
+                        objPedidosCabDD_ = FormateaPedidoCabDD(objBEDescargaArchivoSinMarcar.headerTemplate, objBEDescargaArchivoSinMarcar.dtPedidosCabDD, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), "PDC", campaniaid),
+                        objPedidosDetDD_ = FormateaPedidoDet(objBEDescargaArchivoSinMarcar.detailTemplate, objBEDescargaArchivoSinMarcar.dtPedidosDetDD, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), "PDD", campaniaid),
+                        msnRespuesta_ = objBEDescargaArchivoSinMarcar.msnRespuesta
+                    };
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                else { 
+                       var data = new { msnRespuesta_ = objBEDescargaArchivoSinMarcar.msnRespuesta };
+                       return Json(data, JsonRequestBehavior.AllowGet);
+                     }
             }
             catch (FaultException ex)
             {
@@ -144,16 +163,223 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+
+        public FileStreamResult CreateFile(string nameurl)
+        {
+            string sLine = string.Empty;
+            ArrayList arrText = new ArrayList();
+            BEDescargaArchivoSinMarcar objBEDescargaArchivoSinMarcar = new BEDescargaArchivoSinMarcar();
+
+            /*Cabecera pedidos Web*/
+            StreamReader objReader = new StreamReader(nameurl);
+            sLine = objReader.ReadToEnd();
+            if (sLine != null)
+                arrText.Add(sLine);
+            objReader.Close();
+            var byteArray = Encoding.ASCII.GetBytes(sLine);
+            var stream = new MemoryStream(byteArray);
+            System.IO.File.Delete(nameurl);
+            return File(stream, "text/plain", "your_file_name.txt");
+        }
+
+
+        private string IsSICCFOX()
+        {
+            return "CLE;GTE;SVE;PRL;DOL;MXL;BOE";
+        }
+
+        private string HeaderLineSinMacarDD(BETemplateSinMarcar[] template, DataRow row, string codigoPais, string fechaProceso, string lote, string origen)
+        {
+            string line = string.Empty;
+            foreach (BETemplateSinMarcar field in template)
+            {
+                string item;
+                switch (field.FieldName)
+                {
+                    case "PAIS": item = codigoPais; break;
+                    case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
+                    case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
+                    case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
+                    case "CLIENTES": item = string.Empty; break;
+                    case "FECHAPROCESO": item = fechaProceso; break;
+                    case "REGION": item = row["CodigoRegion"].ToString(); break;
+                    case "ZONA":
+                        item = !IsSICCFOX().Contains(codigoPais)
+                            ? row["CodigoZona"].ToString()
+                            : row["CodigoZona"].ToString().Substring(0, 4);
+                        break;
+                    case "LOTE": item = lote; break;
+                    case "ORIGEN": item = origen; break;
+                    case "VALIDADO": item = string.Empty; break;
+                    case "COMPARTAMOS": item = (DataRecord.HasColumn(row, "bitAsistenciaCompartamos") ? row["bitAsistenciaCompartamos"].ToString() : string.Empty); break;
+                    case "METODOENVIO": item = (DataRecord.HasColumn(row, "chrShippingMethod") ? row["chrShippingMethod"].ToString() : string.Empty); break;
+                    case "IPUSUARIO": item = (DataRecord.HasColumn(row, "IPUsuario") ? row["IPUsuario"].ToString() : string.Empty); break;
+                    case "TIPOCUPON": item = (DataRecord.HasColumn(row, "TipoCupon") ? row["TipoCupon"].ToString() : string.Empty); break;
+                    case "VALORCUPON": item = (DataRecord.HasColumn(row, "ValorCupon") ? row["ValorCupon"].ToString() : string.Empty); break;
+                    case "PEDIDOSAPID": item = (DataRecord.HasColumn(row, "PedidoSapId") ? row["PedidoSapId"].ToString() : string.Empty); break;
+                    default: item = string.Empty; break;
+                }
+                line += item.PadRight(field.Size);
+            }
+            return line;
+        }
+
+        private string HeaderLineSinMacarWEB(BETemplateSinMarcar[] template, DataRow row, string codigoPais, string fechaProceso, string lote, string origen)
+        {
+            string line = string.Empty;
+            foreach (BETemplateSinMarcar field in template)
+            {
+                string item;
+                switch (field.FieldName)
+                {
+                    case "PAIS": item = codigoPais; break;
+                    case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
+                    case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
+                    case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
+                    case "CLIENTES": item = row["Clientes"].ToString(); ; break;
+                    case "FECHAPROCESO": item = fechaProceso; break;
+                    case "REGION": item = row["CodigoRegion"].ToString(); break;
+                    case "ZONA":
+                        item = !IsSICCFOX().Contains(codigoPais)
+                            ? row["CodigoZona"].ToString()
+                            : row["CodigoZona"].ToString().Substring(0, 4);
+                        break;
+                    case "LOTE": item = lote; break;
+                    case "ORIGEN": item = origen; break;
+                    case "VALIDADO": item = row["Validado"].ToString(); break;
+                    case "COMPARTAMOS": item = (DataRecord.HasColumn(row, "bitAsistenciaCompartamos") ? row["bitAsistenciaCompartamos"].ToString() : string.Empty); break;
+                    case "METODOENVIO": item = (DataRecord.HasColumn(row, "chrShippingMethod") ? row["chrShippingMethod"].ToString() : string.Empty); break;
+                    case "IPUSUARIO": item = (DataRecord.HasColumn(row, "IPUsuario") ? row["IPUsuario"].ToString() : string.Empty); break;
+                    case "TIPOCUPON": item = (DataRecord.HasColumn(row, "TipoCupon") ? row["TipoCupon"].ToString() : string.Empty); break;
+                    case "VALORCUPON": item = (DataRecord.HasColumn(row, "ValorCupon") ? row["ValorCupon"].ToString() : string.Empty); break;
+                    case "PEDIDOSAPID": item = (DataRecord.HasColumn(row, "PedidoSapId") ? row["PedidoSapId"].ToString() : string.Empty); break;
+                    default: item = string.Empty; break;
+                }
+                line += item.PadRight(field.Size);
+            }
+            return line;
+        }
+
+        private string DetailLineSinMarcar(BETemplateSinMarcar[] template, DataRow row, string codigoPais, string lote)
+        {
+            string line = string.Empty;
+            foreach (BETemplateSinMarcar field in template)
+            {
+                string item;
+                switch (field.FieldName)
+                {
+                    case "PAIS": item = codigoPais; break;
+                    case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
+                    case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
+                    case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
+                    case "CODIGOVENTA": item = row["CodigoVenta"].ToString(); break;
+                    case "CANTIDAD": item = row["Cantidad"].ToString(); break;
+                    case "CODIGOPRODUCTO": item = row["CodigoProducto"].ToString(); break;
+                    case "LOTE": item = lote; break;
+                    case "ORIGENPEDIDOWEB": item = (DataRecord.HasColumn(row, "OrigenPedidoWeb") ? row["OrigenPedidoWeb"].ToString() : "0"); break;
+                    default: item = string.Empty; break;
+                }
+                line += item.PadRight(field.Size);
+            }
+            return line;
+        }
+
+        private string FormateaPedidoCabWeb(BETemplateSinMarcar[] template, DataTable table, string codigoPais, string fechaProceso, string lote, string origen, int campaniaid)
+        {
+            Guid fileGuid = Guid.NewGuid();
+            string headerFile;
+            string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constantes.ConfiguracionManager.BaseDirectory);
+            headerFile = FormatFileSinMarcar(codigoPais, string.Concat(origen, ".txt"), campaniaid, fileGuid);
+            if (!Directory.Exists(path))
+            {
+                DirectoryInfo di = Directory.CreateDirectory(headerFile);
+            }
+
+            using (var streamWriter = new StreamWriter(headerFile))
+            {
+                bool vacio = true;
+
+                vacio = false;
+                foreach (DataRow row in table.Rows)
+                {
+                    streamWriter.WriteLine(HeaderLineSinMacarWEB(template, row, codigoPais, fechaProceso, lote, "W"));
+                }
+                if (vacio) streamWriter.Write(string.Empty);
+            }
+
+            return headerFile;
+        }
+
+        private string FormatFileSinMarcar(string codigoPais, string fileName, int campanaId, Guid fileGuid)
+        {
+            return System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Uploads\Files\")
+                + Path.GetFileNameWithoutExtension(fileName) + "-"
+                + codigoPais + "-" + campanaId.ToString() + "-"
+                + fileGuid.ToString() + Path.GetExtension(fileName);
+        }
+
+        private string FormateaPedidoCabDD(BETemplateSinMarcar[] template, DataTable table, string codigoPais, string fechaProceso, string lote, string origen, int campaniaid)
+        {
+            Guid fileGuid = Guid.NewGuid();
+            string headerFile;
+            string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Uploads\Files");
+            headerFile = FormatFileSinMarcar(codigoPais, string.Concat(origen, ".txt"), campaniaid, fileGuid);
+            if (!Directory.Exists(path))
+            {
+                DirectoryInfo di = Directory.CreateDirectory(headerFile);
+            }
+
+            using (var streamWriter = new StreamWriter(headerFile))
+            {
+                bool vacio = true;
+
+                vacio = false;
+                foreach (DataRow row in table.Rows)
+                {
+                    streamWriter.WriteLine(HeaderLineSinMacarDD(template, row, codigoPais, fechaProceso, lote, "W"));
+                }
+                if (vacio) streamWriter.Write(string.Empty);
+            }
+
+            return headerFile;
+        }
+
+        private string FormateaPedidoDet(BETemplateSinMarcar[] template, DataTable table, string codigoPais, string fechaProceso, string lote, string origen, int campaniaid)
+        {
+            Guid fileGuid = Guid.NewGuid();
+            string headerFile;
+            string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Uploads\Files");
+            headerFile = FormatFileSinMarcar(codigoPais, string.Concat(origen, ".txt"), campaniaid, fileGuid);
+            if (!Directory.Exists(path))
+            {
+                DirectoryInfo di = Directory.CreateDirectory(headerFile);
+            }
+
+            using (var streamWriter = new StreamWriter(headerFile))
+            {
+                bool vacio = true;
+
+                vacio = false;
+                foreach (DataRow row in table.Rows)
+                {
+                    streamWriter.WriteLine(DetailLineSinMarcar(template, row, codigoPais, lote));
+                }
+                if (vacio) streamWriter.Write(string.Empty);
+            }
+
+            return headerFile;
+        }
+
         [HttpPost]
         public JsonResult RealizarDescargaSinMarcar(DescargarPedidoModel model)
         {
-            int tipoCronogramaID = Constantes.TipoProceso.Regular; 
+            int tipoCronogramaID = Constantes.TipoProceso.Regular;
             try
             {
-                string file=string.Empty;
+                string file = string.Empty;
                 using (var pedidoService = new PedidoServiceClient())
                 {
-                        file = pedidoService.DescargaPedidosWebSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID, userData.NombreConsultora, model.NroLote, model.FechaFacturacion);
+                    file = pedidoService.DescargaPedidosWebSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID, userData.NombreConsultora, model.NroLote, model.FechaFacturacion);
                 }
 
                 return Json(new

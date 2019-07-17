@@ -21,12 +21,14 @@ namespace Portal.Consultoras.Common
             public const string Terminado = "El proceso terminó satisfactoriamente";
             public const string Error = "El proceso tuvo complicaciones";
             public const string respuestaexito = "a";
+            
             public const string respuestanoCarga = "b";
+            public const string respuestanoCargaSinDatos = "c";
             public const string MensajeRetorno = "Se está ejecutando un proceso desde otro punto para otra campaña, espere unos minutos y vuelva a intentarlo.";
             public const string ProcesoDescarga = "Proceso de carga de datos,";
-            public const string ExitoDescargaWebDD = " se cargaron los pedidos WEB y DD ";
-            public const string ExitoDescargaSoloWeb = " los pedidos DD no fueron cargados, solo se generraron pedidos web ya que no existe información ";
-            public const string ExitoDescargaSoloDD = " Los pedidos WEB no fueron cargados, solo se generraron pedidos DD ya que no existe información ";
+            public const string ExitoDescargaWebDD = " Se generó la descarga de los pedidos";
+            public const string ExitoDescargaSoloWeb = " los pedidos DD no fueron cargados, solo se generaron pedidos web ya que no existe información ";
+            public const string ExitoDescargaSoloDD = " Los pedidos WEB no fueron cargados, solo se generaron pedidos DD ya que no existe información ";
             public const string NingunaDescargaWebDD = " no se generó la carga de pedido ya que no se encontró información ";
             public const string RutaDescarga = "Se generó de manera satisfactoria, la ruta para verificarlos es : ";
             public const string RutaMensaje = ", puede verificar los archivos en la ruta : ";
@@ -519,6 +521,7 @@ namespace Portal.Consultoras.Common
             public const string UrlImagenFAVHome = "UrlImagenFAVHome";
             public const string UrlImagenFAVLanding = "UrlImagenFAVLanding";
             public const string UrlPagoLineaChile = "UrlPagoLineaChile";
+            public const string BaseDirectory = @"Uploads\Files"; /*HD-4327*/
             public const string UrlPoliticasCDR = "UrlPoliticasCDR";
             public const string UrlLogDynamo = "UrlLogDynamo";
             public const string rutaImagenNotFoundAppCatalogo = "rutaImagenNotFoundAppCatalogo";
