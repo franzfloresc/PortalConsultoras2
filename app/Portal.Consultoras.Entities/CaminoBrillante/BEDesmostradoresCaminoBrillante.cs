@@ -50,13 +50,13 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         [Column("EsCatalogo")]
         public int EsCatalogo { get; set; }
         [DataMember]
-        public bool FlagSeleccionado { get; set; }
-        [DataMember]
-        [Column("EsPadre")]
-        public bool EsPadre { get; set; }
-        [DataMember]
-        [Column("CodigoProducto")]
-        public string CodigoProducto { get; set; }
+        public bool FlagSeleccionado { get; set; }        
+        [Column("EsDigitable")]
+        public bool EsDigitable { get; set; }
+        [Column("EsCompuesta")]
+        public int EsCompuesta { get; set; }
+        [Column("CodigoOferta")]
+        public int CodigoOferta { get; set; }
         [DataMember]
         public List<BEDemostradoresCaminoBrillante> Detalle { get; set; }
     }
