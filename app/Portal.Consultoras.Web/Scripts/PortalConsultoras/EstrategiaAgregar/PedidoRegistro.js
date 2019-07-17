@@ -187,7 +187,7 @@ var PedidoRegistroModule = function () {
     /* Ini - Region Oferta Liquidacion */
 
     var AgregarProductoOfertaLiquidacion = function (xthis) {
-
+        
         var contenedor = $(xthis).parents('#divVistaPrevia');
 
         var txtCantidad = $(contenedor).find("#txtCantidadPopup");
@@ -395,6 +395,7 @@ var PedidoRegistroModule = function () {
     };
 
     var AgregarProductoOfertaLiquidacionMobile = function (article) {
+        
         var cantidad = $(article).find("#txtCantidad").val();
         var CUV = $(article).find(".valorCUV").val();
         var MarcaID = $(article).find(".claseMarcaID").val();
@@ -493,6 +494,7 @@ var PedidoRegistroModule = function () {
     };
 
     var AgregarProductoLiquidacionBienvenida = function (contenedor) {
+        
         var inputCantidad = $(contenedor).find("[data-input='cantidad']");
         var inputCantidadValor = inputCantidad.val();
         if (_mensajeCantidad(inputCantidadValor, inputCantidad)) {
@@ -609,7 +611,7 @@ var PedidoRegistroModule = function () {
     }
 
     var _registroLiquidacion = function (model, cantidad, producto, recomendado) {
-
+        
         model.Cantidad = cantidad;
         var Item = {
             MarcaID: model.MarcaId,
@@ -691,7 +693,7 @@ var PedidoRegistroModule = function () {
     }
 
     var RegistroProductoBuscador = function (divPadre, valueJSON, origenSeccion) {
-
+        
         var model = JSON.parse($(divPadre).find(valueJSON).val());
         var divCantidad = $(divPadre).find("[data-input='cantidad']");
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
@@ -898,7 +900,7 @@ var PedidoRegistroModule = function () {
 
     var _insertarProductoPorUrl = function (model, asyncX, urlMobile) {
         var retorno = new Object();
-
+        
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + _url.urlAgregarUnico,
@@ -983,7 +985,7 @@ var PedidoRegistroModule = function () {
 
     var AgregarProductoPorUrl = function (url, model, divDialog, cerrarSplash, asyncX) {
         AbrirSplash();
-
+        
         divDialog = $.trim(divDialog);
 
         var retorno = {};
@@ -1098,7 +1100,7 @@ var PedidoRegistroModule = function () {
         };
 
         model.EsDuoPerfecto = EsDuoPerfecto;
-
+        
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
@@ -1109,6 +1111,7 @@ var PedidoRegistroModule = function () {
             async: true,
             cache: false,
             success: function (data) {
+                
                 if (!checkTimeout(data)) {
                     CloseLoading();
                     return false;
@@ -1241,6 +1244,11 @@ var PedidoRegistroModule = function () {
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
                 //FIN HD-3908
+
+                /*HD-4635*/
+                if (data.flagCantidaPedido == 1)
+                   messageInfo(data.mensajeCantidad);
+               
             },
             error: function (data, error) {
                 CloseLoading();
@@ -1288,7 +1296,7 @@ var PedidoRegistroModule = function () {
         };
 
         param2.EsDuoPerfecto = EsDuoPerfecto;
-
+        
         AbrirSplash();
         jQuery.ajax({
             type: "POST",
@@ -1490,7 +1498,7 @@ var PedidoRegistroModule = function () {
     /* Ini - Region Sugerido */
     var InsertarProductoSugerido = function (model) {
         ShowLoading();
-
+        
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + _url.urlAgregarUnico,
