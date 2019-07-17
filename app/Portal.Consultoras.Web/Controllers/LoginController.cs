@@ -887,10 +887,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var BEUserData = (BEUsuarioDatos)Session["DatosUsuario"];
-            var userData = new UsuarioModel
-            {
-                CodigoUsuario = BEUserData.CodigoUsuario
-            };
+            var userData = await GetUserData(Common.Util.GetPaisID(BEUserData.CodigoIso), BEUserData.CodigoUsuario);
+
             ISmsSender sender = new SmsProcess
             {
                 User = userData,
