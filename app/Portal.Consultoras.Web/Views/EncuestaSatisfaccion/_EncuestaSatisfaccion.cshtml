@@ -2,9 +2,9 @@
 
 <link href="@Url.Content("~/Content/Css/Site/EncuestaSatisfaccion/encuesta-satisfaccion.css")" rel="stylesheet" />
 
-<div class="d-flex flex-row flex-wrap justify-content-center align-items-center bg__popup__encuestaSatisfaccion__desktop">
+<div id="PopUpEncuesta" class="d-flex flex-row flex-wrap justify-content-center align-items-center bg__popup__encuestaSatisfaccion__desktop">
     <section id="EncuestaSatisfaccion" class="d-flex flex-row flex-wrap justify-content-center align-items-start seccion__encuesta__satisfaccion seccion__encuesta__satisfaccion--ocultar">
-        <a href="#" title="Cerrar" class="d-block enlace__cerrar__encuesta__satisfaccion">
+        <a href="#" title="Cerrar" class="d-block enlace__cerrar__encuesta__satisfaccion" onclick="$('#PopUpEncuesta').fadeOut(250);">
             <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
         </a>
         <a href="#" title="Cerrar" class="d-block enlace__volver__atras__encuesta__satisfaccion" style="display:none;">
@@ -13,106 +13,22 @@
         <div id="Paso1" class="d-flex flex-row flex-wrap justify-content-center align-content-center">
             <h2 class="d-block text-center text-bold seccion__encuesta__satisfaccion__titulo">¿Qué te pareció el servicio de la <span id="numCampania">C07</span>?</h2>
             <div class="d-flex flex-row flex-wrap justify-content-center encuesta__satisfaccion__estados__wrapper">
-                <ul class="d-flex flex-row flex-nowrap justify-content-evenly align-items-center encuesta__satisfaccion__estados__lista">
-                    <li class="d-inline-block encuesta__satisfaccion__estado encuesta__satisfaccion__estado--pesimo">
-                        <a href="#" class="d-block encuesta__satisfaccion__estado__enlace" title="Pésimo">
-                            <span class="d-block text-center encuesta__satisfaccion__estado__imagen">
-                                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/pesimo.svg")" alt="Pésimo" />
-                            </span>
-                            <span class="d-block text-center text-bold encuesta__satisfaccion__estado__descrip">
-                                Pésimo
-                            </span>
-                        </a>
-                    </li>
-                    <li class="d-inline-block encuesta__satisfaccion__estado encuesta__satisfaccion__estado--malo">
-                        <a href="#" class="d-block encuesta__satisfaccion__estado__enlace" title="Malo">
-                            <span class="d-block text-center encuesta__satisfaccion__estado__imagen">
-                                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/mal.svg")" alt="Malo" />
-                            </span>
-                            <span class="d-block text-center text-bold encuesta__satisfaccion__estado__descrip">
-                                Malo
-                            </span>
-                        </a>
-                    </li>
-                    <li class="d-inline-block encuesta__satisfaccion__estado encuesta__satisfaccion__estado--regular">
-                        <a href="#" class="d-block encuesta__satisfaccion__estado__enlace" title="Regular">
-                            <span class="d-block text-center encuesta__satisfaccion__estado__imagen">
-                                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/regular.svg")" alt="Regular" />
-                            </span>
-                            <span class="d-block text-center text-bold encuesta__satisfaccion__estado__descrip">
-                                Regular
-                            </span>
-                        </a>
-                    </li>
-                    <li class="d-inline-block encuesta__satisfaccion__estado encuesta__satisfaccion__estado--bueno">
-                        <a href="#" class="d-block encuesta__satisfaccion__estado__enlace" title="Bueno">
-                            <span class="d-block text-center encuesta__satisfaccion__estado__imagen">
-                                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/bueno.svg")" alt="Bueno" />
-                            </span>
-                            <span class="d-block text-center text-bold encuesta__satisfaccion__estado__descrip">
-                                Bueno
-                            </span>
-                        </a>
-                    </li>
-                    <li class="d-inline-block encuesta__satisfaccion__estado encuesta__satisfaccion__estado--excelente">
-                        <a href="#" class="d-block encuesta__satisfaccion__estado__enlace" title="Excelente">
-                            <span class="d-block text-center encuesta__satisfaccion__estado__imagen">
-                                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/excelente.svg")" alt="Excelente" />
-                            </span>
-                            <span class="d-block text-center text-bold encuesta__satisfaccion__estado__descrip">
-                                Excelente
-                            </span>
-                        </a>
-                    </li>
+                <ul id="listaCalificacion" class="d-flex flex-row flex-nowrap justify-content-evenly align-items-center encuesta__satisfaccion__estados__lista">
+                    @*listar calificaciones aquí*@
                 </ul>
             </div>
             <section class="d-flex flex-row flex-wrap seccion__encuesta__satisfaccion__motivosCalificacion">
                 <h2 class="d-block text-bold seccion__encuesta__satisfaccion__titulo seccion__encuesta__satisfaccion__titulo--motivoCalificacion">¿A qué se debe tu calificación?</h2>
                 <div class="d-flex flex-row flex-wrap justify-content-center encuesta__satisfaccion__motivosCalificacion__wrapper">
-                    <ul class="d-flex flex-row flex-wrap justify-content-between align-items-center encuesta__satisfaccion__motivosCalificacion__lista">
-                        <li class="d-inline-block encuesta__satisfaccion__motivoCalificacion">
-                            <input id="MotivoCalificacion1" name="motivoCalificacion" type="radio" class="d-none field__checkbox__sb" value="" />
-                            <label for="MotivoCalificacion1" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoCalificacion">
-                                Producto en mal estado
-                            </label>
-                        </li>
-                        <li class="d-inline-block encuesta__satisfaccion__motivoCalificacion">
-                            <input id="MotivoCalificacion2" name="motivoCalificacion" type="radio" class="d-none field__checkbox__sb" value="" />
-                            <label for="MotivoCalificacion2" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoCalificacion">
-                                Reemplazaron productos
-                            </label>
-                        </li>
-                        <li class="d-inline-block encuesta__satisfaccion__motivoCalificacion">
-                            <input id="MotivoCalificacion3" name="motivoCalificacion" type="radio" class="d-none field__checkbox__sb" value="" />
-                            <label for="MotivoCalificacion3" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoCalificacion">
-                                Premio en mal estado
-                            </label>
-                        </li>
-                        <li class="d-inline-block encuesta__satisfaccion__motivoCalificacion">
-                            <input id="MotivoCalificacion4" name="motivoCalificacion" type="radio" class="d-none field__checkbox__sb" value="" />
-                            <label for="MotivoCalificacion4" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoCalificacion">
-                                No llegó el premio
-                            </label>
-                        </li>
-                        <li class="d-inline-block encuesta__satisfaccion__motivoCalificacion">
-                            <input id="MotivoCalificacion5" name="motivoCalificacion" type="radio" class="d-none field__checkbox__sb" value="" />
-                            <label for="MotivoCalificacion5" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoCalificacion">
-                                Pedido incompleto
-                            </label>
-                        </li>
-                        <li class="d-inline-block encuesta__satisfaccion__motivoCalificacion">
-                            <input id="MotivoCalificacion6" name="motivoCalificacion" type="radio" class="d-none field__checkbox__sb" value="" />
-                            <label for="MotivoCalificacion6" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoCalificacion">
-                                Pedido llegó tarde
-                            </label>
-                        </li>
+                    <ul id="ListaMotivo" class="d-flex flex-row flex-wrap justify-content-between align-items-center encuesta__satisfaccion__motivosCalificacion__lista">
+                        @*listar motivos aquí*@
                     </ul>
                     <div class="d-flex flex-row justify-content-start align-items-center form__group__fields">
-                        <input id="OtroMotivoCalificacion" type="checkbox" class="d-none field__checkbox__sb field__checkbox__sb--otroMotivoCalificacion" value="">
-                        <label for="OtroMotivoCalificacion" class="d-inline-block border-radius-4 text-center label__checkbox__sb"></label>
+                        <input id="chkOtroMotivoCalificacion" type="checkbox" onclick="EncuestaSatisfaccion.Funciones.MostrarOcultarOtro(this);" class="d-none field__checkbox__sb field__checkbox__sb--otroMotivoCalificacion">
+                        <label for="chkOtroMotivoCalificacion" class="d-inline-block border-radius-4 text-center label__checkbox__sb"></label>
                         <span class="d-inline-block motivo__adicional__otro">Otro</span>
                     </div>
-                    <div class="d-none flex-row justify-content-start form__group__fields form__group__fields--motivoCalificacionAdicionalWrapper">
+                    <div id="divInconvenienteOSugerencia" class="d-none flex-row justify-content-start form__group__fields form__group__fields--motivoCalificacionAdicionalWrapper">
                         <input id="txtOtroMotivoCalificacion" type="text" class="d-block w-100 p-0 text__field__sb" placeholder="¿Tuviste algún inconveniente?">
                     </div>
                 </div>
@@ -131,6 +47,36 @@
             </p>
         </div>
     </section>
+    <input type="hidden" id="hdfCalificacionId" />
+    <input type="hidden" id="hdfEncuestaId" />
+    <input type="hidden" id="hdfCodigoCampania" />
 </div>
 
-<!-- FIN - HD-4357 - ENCUESTA DE SATISFACCIÓN -->
+
+
+<script id="template-encuesta-calificacion" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <li class="d-inline-block encuesta__satisfaccion__estado encuesta__satisfaccion__estado--{{item.EstiloCalificacion}}">
+        <a data-codigo="{{item.EncuestaCalificacionId}}" data-tipocalificacion="{{item.TipoCalificacion}}" onclick="EncuestaSatisfaccion.Funciones.ObtenerMotivoPorCalificacion(this);" class="d-block encuesta__satisfaccion__estado__enlace" title="{{item.Descripcion}}">
+            <span class="d-block text-center encuesta__satisfaccion__estado__imagen">
+                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/{{item.ImagenCalificacion}}")" alt="Pésimo" />
+            </span>
+            <span class="d-block text-center text-bold encuesta__satisfaccion__estado__descrip">
+                {{item.Descripcion}}
+            </span>
+        </a>
+    </li>
+    {{/each}}
+</script>
+
+<script id="template-encuesta-motivo" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <li class="d-inline-block encuesta__satisfaccion__motivoCalificacion">
+        <input id="{{item.EncuestaMotivoId}}" name="{{item.EncuestaMotivoId}}" type="checkbox" onchange="EncuestaSatisfaccion.Funciones.ActivarODeshabilitarBotonConfirmar();" class="d-none field__checkbox__sb" value="" />
+        <label for="{{item.EncuestaMotivoId}}" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoCalificacion">
+            {{item.Descripcion}}
+        </label>
+    </li>
+    {{/each}}
+</script>
+    <!-- FIN - HD-4357 - ENCUESTA DE SATISFACCIÓN -->

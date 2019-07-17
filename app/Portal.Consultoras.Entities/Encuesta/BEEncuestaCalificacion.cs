@@ -18,7 +18,15 @@ namespace Portal.Consultoras.Entities.Encuesta
         [DataMember]
         public string Descripcion { get; set; }
         [DataMember]
+        public string CodigoConsultora { get; set; }
+        [DataMember]
+        public string CodigoCampania { get; set; }
+        [DataMember]
+        public int CanalId { get; set; }
+        [DataMember]
         public int TipoCalificacion { get; set; }
         public ICollection<BEEncuestaMotivo> EncuestaMotivo { get; set; }
+        [DataMember]
+        public string XMLMotivo { get; set; }
     }
 }

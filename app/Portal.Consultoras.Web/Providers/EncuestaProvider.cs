@@ -16,18 +16,16 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
         }
 
-        private List<DataConfigEncuestaModel> ObtenerDataEncuesta(int paisId) {
+        private List<DataConfigEncuestaModel> ObtenerDataEncuesta(int paisId,string consultoraCodigo) {
             var result = new List<DataConfigEncuestaModel>();
             try
             {
                 if (sessionManager.GetDataConfigEncuesta() != null)
-                {
                     return sessionManager.GetDataConfigEncuesta();
-                }
 
                 using (var sv = new EncuestaServiceClient())
                 {
-                    var response = sv.ObtenerDataEncuesta(paisId).ToList();
+                    var response = sv.ObtenerDataEncuesta(paisId, consultoraCodigo).ToList();
                     result = Mapper.Map<List<DataConfigEncuestaModel>>(response);
                 }
             }
@@ -40,27 +38,32 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
-        public EncuestaModel ObtenerEncuesta(int paisId) {
+        public EncuestaModel ObtenerEncuesta(int paisId, string consultoraCodigo) {
             var result = new EncuestaModel();
             try
             {
-                var data = ObtenerDataEncuesta(paisId);
+                var data = ObtenerDataEncuesta(paisId, consultoraCodigo);
                 if (data == null)
                     return result;
 
                 result.EncuestaId = data.Select(a => a.EncuestaId).Distinct().Single();
+                result.CodigoCampania = data.Select(a => a.CodigoCampania).Distinct().Single();
                 result.EncuestaCalificacion = data
-                    .GroupBy(a => new { a.CalificacionId,a.Calificacion })
+                    .GroupBy(a => new { a.CalificacionId, a.Calificacion, a.EstiloCalificacion, a.ImagenCalificacion,a.TipoCalificacion })
                     .Select(a => new EncuestaCalificacionModel()
-                {
-                    EncuestaCalificacionId = a.Key.CalificacionId,
-                    Descripcion = a.Key.Calificacion,
-                    EncuestaMotivo = a.Select(c=> new EncuestaMotivoModel() {
-                        EncuestaMotivoId = c.MotivoId,
-                        TipoEncuestaMotivoId = c.TipoMotivo,
-                        Descripcion = c.Motivo
-                    }).ToList()
-                }).ToList();
+                    {
+                        EncuestaCalificacionId = a.Key.CalificacionId,
+                        Descripcion = a.Key.Calificacion,
+                        EstiloCalificacion = a.Key.EstiloCalificacion,
+                        ImagenCalificacion = a.Key.ImagenCalificacion,
+                        TipoCalificacion = a.Key.TipoCalificacion,
+                        EncuestaMotivo = a.Select(c => new EncuestaMotivoModel()
+                        {
+                            EncuestaMotivoId = c.MotivoId,
+                            TipoEncuestaMotivoId = c.TipoMotivo,
+                            Descripcion = c.Motivo
+                        }).ToList()
+                    }).ToList();
 
             }
             catch (System.Exception ex)
@@ -71,5 +74,35 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
+        public bool GrabarEncuesta(EncuestaCalificacionModel model, int paisId)
+        {
+            try
+            {
+                if (model.EncuestaMotivo != null)
+                {
+                    model.XMLMotivo = EncuestaCalificacionModel.ListToXML(model.EncuestaMotivo.ToList());
+                }
+                var request = new BEEncuestaCalificacion();
+                request.EncuestaCalificacionId = model.EncuestaCalificacionId;
+                request.EncuestaId = model.EncuestaId;
+                request.XMLMotivo = model.XMLMotivo;
+                request.CreatedBy = model.CreatedBy;
+                request.CreateHost = model.CreateHost;
+                request.CodigoCampania = model.CodigoCampania;
+                request.CodigoConsultora = model.CodigoConsultora;
+                request.CanalId = model.CanalId;
+
+                using (var sv = new EncuestaServiceClient())
+                {
+                    var response = sv.InsEncuesta(request, paisId);
+                    return response > 0;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "GrabarEncuesta", paisId.ToString());
+                return false;
+            }
+        }
     }
 }

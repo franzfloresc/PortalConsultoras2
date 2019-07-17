@@ -15,7 +15,9 @@ END
 
 GO
 
-CREATE PROCEDURE ObtenerDataEncuesta(
+CREATE PROCEDURE ObtenerDataEncuesta
+
+(
 @CodigoConsultora NVARCHAR(25) = ''
 )
 
@@ -23,9 +25,11 @@ AS
 BEGIN
 
 DECLARE @vMostrarEncuesta INT = 0;
+DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 
 	SELECT  
-		 @vMostrarEncuesta = ISNULL( COUNT(*),0) 
+		 @vMostrarEncuesta = ISNULL( COUNT(*),0),
+		 @vCodigoCampanaia = T.Campana
 	FROM (
 		 SELECT 
 			  top 1 FechaEntregado,
@@ -34,11 +38,11 @@ DECLARE @vMostrarEncuesta INT = 0;
 		 FROM 
 			  ods.ApePedido 
 		 WHERE
-			  FechaEntregado is not null
-			  AND codigo = @CodigoConsultora
-		 ORDER BY Campana desc) AS T
-	WHERE 
-	DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+		      codigo = @CodigoConsultora
+		 ORDER BY Campana desc) AS T		 
+	WHERE
+	T.FechaEntregado IS NOT NULL
+	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -48,14 +52,18 @@ DECLARE @vMostrarEncuesta INT = 0;
 				   ER.CodigoCampania = T.Campana
 				   AND ER.CodigoConsultora = @CodigoConsultora
 			 )
+	GROUP BY T.Campana
 
 	IF @vMostrarEncuesta > 0 
 		BEGIN
 			SELECT
+			    @vCodigoCampanaia AS CodigoCampania,
 				E.Id  as EncuestaId,
 				EC.Id AS CalificacionId,
 				EC.TipoCalificacion AS TipoCalificacion,
-				EC.Descripcion AS Calificacion, 
+				EC.Descripcion AS Calificacion,
+				EC.CssClass as EstiloCalificacion,
+				EC.Imagen as ImagenCalificacion,
 				EM.Id as MotivoId,
 				EM.TipoEncuestaMotivoId AS TipoMotivo,
 				EM.Descripcion as Motivo
@@ -87,12 +95,14 @@ CREATE PROCEDURE InsertarEncuesta(
 @CodigoConsultora NVARCHAR(25) = '',
 @CreatedBy NVARCHAR(30)='',
 @CreateHost NVARCHAR(20) = '',
-@XMLDetalle XML = NULL
-)
+@XMLDetalle XML = NULL,
+@RetornoID  INT OUTPUT)
 AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+
+  SET @RetornoID  = 0;
 
   SET @EncuestaResultadoId = NEWID();
 
@@ -116,9 +126,7 @@ BEGIN
 	  @CreateHost
   );
   
-
-
-   INSERT INTO 
+  INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
 			Id
@@ -131,14 +139,17 @@ BEGIN
 	   SELECT 
 			NEWID(),
 			@EncuestaResultadoId,
-			field.value('MotivoId[1]', 'INT') AS MotivoId,
-			field.value('Observacion[1]', 'NVARCHAR(max)') AS Observacion,
+			field.value('id[1]', 'INT') AS MotivoId,
+			field.value('obs[1]', 'NVARCHAR(max)') AS Observacion,
 			@CreatedBy as CreatedBy,
 			@CreateHost AS CreateHost
 	   FROM 
 			@XMLDetalle.nodes('//motivo') archivo(field);
+
+  SET @RetornoID = 1;
 END
 GO
+
 
 
 

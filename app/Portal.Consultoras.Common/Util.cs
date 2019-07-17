@@ -4057,6 +4057,7 @@ namespace Portal.Consultoras.Common
 
             return Encoding.UTF8.GetString(plainText);
         }
+
     }
 
     public class SimpleCrypto

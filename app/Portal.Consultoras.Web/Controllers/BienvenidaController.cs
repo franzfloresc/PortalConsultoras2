@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Encuesta;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
@@ -22,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected TablaLogicaProvider _tablaLogica;
         private readonly ZonificacionProvider _zonificacionProvider;
         private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
-
+        private readonly EncuestaProvider _encuestaProvider;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
@@ -30,6 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
             _bienvenidaProvider = new BienvenidaProvider();
             _zonificacionProvider = new ZonificacionProvider();
             _caminoBrillanteProvider = new CaminoBrillanteProvider();
+            _encuestaProvider = new EncuestaProvider();
         }
 
         public BienvenidaController(ILogManager logManager)
@@ -2317,6 +2319,63 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = "Error al obtener el estado del contrato."
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerDataEncuesta()
+        {
+            try
+            {
+                var data = _encuestaProvider.ObtenerEncuesta(userData.PaisID, userData.CodigoConsultora);
+                if (data == null)
+                    return Json(new
+                    {
+                        mostrarEncuesta = false,
+                        data = "",
+                    }, JsonRequestBehavior.AllowGet);
+
+                return Json(new
+                {
+                    mostrarEncuesta = data.EncuestaId > 0,
+                    data = data,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    mostrarEncuesta = false,
+                    data = "",
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult GrabarEncuesta(EncuestaCalificacionModel model)
+        {
+            try
+            {
+                model.CodigoConsultora = userData.CodigoConsultora;
+                model.CanalId = Util.EsDispositivoMovil() ? 2:1;
+                model.CreatedBy = userData.UsuarioNombre;
+                var result = _encuestaProvider.GrabarEncuesta(model, userData.PaisID);
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
                 }, JsonRequestBehavior.AllowGet);
             }
         }

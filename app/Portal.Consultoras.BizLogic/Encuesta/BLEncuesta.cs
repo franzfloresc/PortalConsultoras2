@@ -24,5 +24,10 @@ namespace Portal.Consultoras.BizLogic.Encuesta
             }
             return listaDataConfigEncuesta;
         }
+
+        public int InsEncuesta(BEEncuestaCalificacion entity,int paisId)
+        {
+            return  new DAEncuesta(paisId).InsEncuesta(entity);
+        }
     }
 }

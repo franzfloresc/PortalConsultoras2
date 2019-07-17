@@ -77,6 +77,8 @@ CREATE TABLE dbo.EncuestaCalificacion(
 Id INT IDENTITY(1,1) NOT NULL,
 EncuestaId INT NOT NULL,
 Descripcion NVARCHAR(60) NOT NULL,
+CssClass NVARCHAR(40) NULL,
+Imagen NVARCHAR(20) NULL,
 TipoCalificacion INT NOT NULL,
 CreatedBy NVARCHAR(30) NOT NULL,
 CreatedOn DATETIME NOT NULL CONSTRAINT DF_EncuestaCalificacion_CreatedOn DEFAULT (GETDATE()),
@@ -150,11 +152,11 @@ SET IDENTITY_INSERT [dbo].[Encuesta] OFF
 --Mal	Regular	Bien	Muy bien	Excelente
 
 SET IDENTITY_INSERT [dbo].[EncuestaCalificacion] ON 
-INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion], [CreatedBy],[TipoCalificacion]) VALUES (1, 1,'Mal', N'EINCA',1);
-INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion], [CreatedBy],[TipoCalificacion]) VALUES (2, 1,'Regular', N'EINCA',1);
-INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion], [CreatedBy],[TipoCalificacion]) VALUES (3, 1,'Bien', N'EINCA',1);
-INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion], [CreatedBy],[TipoCalificacion]) VALUES (4, 1,'Muy bien', N'EINCA',1);
-INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion], [CreatedBy],[TipoCalificacion]) VALUES (5, 1,'Excelente', N'EINCA',2);
+INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion], [CreatedBy],[TipoCalificacion],[CssClass],[Imagen]) VALUES (1, 1,'Pésimo', N'EINCA',1,'pesimo','pesimo.svg');
+INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion], [CreatedBy],[TipoCalificacion],[CssClass],[Imagen]) VALUES (2, 1,'Malo', N'EINCA',1,'malo','mal.svg');
+INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion], [CreatedBy],[TipoCalificacion],[CssClass],[Imagen]) VALUES (3, 1,'Regular', N'EINCA',1,'regular','regular.svg');
+INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion], [CreatedBy],[TipoCalificacion],[CssClass],[Imagen]) VALUES (4, 1,'Bueno', N'EINCA',1,'bueno','bueno.svg');
+INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion], [CreatedBy],[TipoCalificacion],[CssClass],[Imagen]) VALUES (5, 1,'Excelente', N'EINCA',2,'excelente','excelente.svg');
 SET IDENTITY_INSERT [dbo].[EncuestaCalificacion] OFF
 
 SET IDENTITY_INSERT [dbo].[EncuestaMotivo] ON 

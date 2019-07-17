@@ -15,6 +15,12 @@ namespace Portal.Consultoras.Service
                 bLEncuesta = new BLEncuesta();
 
         }
+
+        public int InsEncuesta(BEEncuestaCalificacion entity, int paisId)
+        {
+            return bLEncuesta.InsEncuesta(entity, paisId);
+        }
+
         public List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId,string codigoConsultora)
         {
             return bLEncuesta.ObtenerDataEncuesta(paisId,codigoConsultora);
