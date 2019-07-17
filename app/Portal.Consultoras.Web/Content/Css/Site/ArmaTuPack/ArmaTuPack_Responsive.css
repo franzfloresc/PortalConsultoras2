@@ -492,6 +492,14 @@ footer {
     }
 }
 
+@media screen and (max-width:991px){
+
+    .btn_chat_messenger {
+        display: none !important;
+    }
+
+}
+
 
 @media screen and (max-width:768px) {
     #seleccionados .Select_Group {
@@ -629,6 +637,7 @@ footer {
     .grupos_top {
         margin-top: 185px;
     }
+
 }
 
 

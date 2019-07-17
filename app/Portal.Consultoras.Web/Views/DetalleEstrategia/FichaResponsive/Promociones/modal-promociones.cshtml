@@ -1,31 +1,51 @@
-﻿<!-- Modal Promociones - Ini -->
+﻿    <!-- Modal tipos y tonos -->
 <section id="modal-promociones" class="promociones-modal popup_lateral">
-
-    <!-- Cabecera Promociones - Ini -->
-    <div class="titulo-promociones on-modal">
-        <span class="texto-promociones"> Promoción </span>
+    <div class="modal-top promociones-top">
+        <div class="titulo-promociones on-modal">
+            <span class="texto-promociones"> Promoción </span>
+        </div>
+        <button id="cerrar-promociones-modal" class="button_cerrar">
+            <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+        </button>
+        <h2 class="mx-3 titulo_seccion">Compra una de estas Ofertas</h2>
     </div>
 
-    <button id="cerrar-promociones-modal" class="button_cerrar">
-        <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
-    </button>
-    <!-- Cabecera Promociones - Fin -->
+    <!--<ModalPromocionCopiadoDeUpSelling>-->
+    <section class="carrusel-promocion seccion_ficha d-flex align-items-center flex-column" id="divFichaCarrusel_UpSelling">
+        <div class="contenedor_detalle container mb-3">
+            <div class="carousel_ficha carrusel_seccion" id="carrusel-condiciones"></div>
+        </div>
 
-    <!-- Prouctos Condicionales - Ini -->
-    <section class="seccion_ficha d-flex align-items-center h-50" id="seccion-carrusel-condiciones">
-        <div class="contenedor_detalle container">
-            <h2 class="titulo_seccion">Compra una de estas Ofertas</h2>
-            <div class="carousel_ficha carrusel_seccion" id="carrusel-condiciones" >
+        <!--</ModalPromocionCopiadoDeUpSelling>-->
+
+        <div id="producto-promocion" class="modal-promociones--bottom">
+        </div>
+
+        @*
+            <div class="titulo-promociones on-modal">
+                <span class="texto-promociones"> Promoción </span>
+            </div>
+
+            <button id="cerrar-promociones-modal" class="button_cerrar">
+                <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+            </button>
+            <!-- <ModalPromoción ticket="tesla-179"> -->
+
+            <!--<ModalPromocionCopiadoDeUpSelling>-->
+            <section class="carrusel-promocion seccion_ficha d-flex align-items-center" id="seccion-carrusel-condiciones">
+                <div class="contenedor_detalle container mb-3">
+                    <h2 class="titulo_seccion">Compra una de estas Ofertas</h2>
+                    <div class="carousel_ficha carrusel_seccion" id="carrusel-condiciones" >
+
+                    </div>
+                </div>
+            </section>
+            <!--</ModalPromocionCopiadoDeUpSelling>-->
+
+            <div id="producto-promocion"  class="modal-promociones--bottom">
 
             </div>
-        </div>
+        *@
+
+
     </section>
-    <!-- Prouctos Condicionales - Fin -->
-
-    <!-- Proucto Promoción - Ini -->
-    <div id="producto-promocion" class="modal-promociones--bottom position-absolute h-50">
-    </div>
-    <!-- Proucto Promoción - Fin -->
-
-</section>
-<!-- Modal Promociones - Fin -->

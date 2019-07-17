@@ -777,26 +777,6 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcaAnadirCarrito = function (codigoOrigen, producto) {
-
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
-
-            var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigen);
-
-            var textoPalanca = _getTextoPalancaSegunOrigen(origenEstructura);
-            var textoContenedor = _getTextoContenedorSegunOrigen(origenEstructura);
-
-            var list = textoContenedor + " - " + textoPalanca;
-            return marcarAddToCart(producto, list);
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-        return false
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Evento Add To Cart
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2927,7 +2907,6 @@ var AnalyticsPortalModule = (function () {
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
         MarcaClicBanner: marcaClicBanner,
         MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
-        //MarcaAnadirCarrito: marcaAnadirCarrito,// no se utiliza como publico
         MarcaManagerFiltros: marcaManagerFiltros,
         MarcaCompartirRedesSociales: marcaCompartirRedesSociales,
         MarcaVisualizarDetalleProducto: marcaVisualizarDetalleProducto,

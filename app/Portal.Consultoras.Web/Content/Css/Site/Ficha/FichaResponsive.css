@@ -449,6 +449,14 @@ ul.breadcumbs li a {
     box-shadow: none !important;
 }
 
+@media screen and (max-width:991px){
+
+    .btn_chat_messenger {
+        display: none !important;
+    }
+
+}
+
 @media (min-width: 960px) {
     .contenedor_etiqueta_odd .clock_odd {
         margin: 0;
@@ -523,9 +531,6 @@ ul.breadcumbs li a {
         margin-top: 30px; /* Modificado para el carrusel de imagenes responsive - tesla */
         background-image: none;
     }
-        .ficha_detalle.sello {
-            padding: 30px 15px 0 15px !important; /* fix - tesla 203 */
-        }
 
         .detalle_producto_detalle {
             width: 100%;

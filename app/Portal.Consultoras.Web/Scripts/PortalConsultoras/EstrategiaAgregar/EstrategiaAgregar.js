@@ -421,12 +421,9 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (data.success === false) {
+             
                     if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                    else {
-                        var msjBloq = validarpopupBloqueada(data.message);
-                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                        else abrirMensajeEstrategia(data.message, _config.esFicha);
-                    }
+                    else abrirMensajeEstrategia(data.message, _config.esFicha);
 
                     CerrarLoad();
                     return false;
