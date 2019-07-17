@@ -104,7 +104,7 @@
   <xs:element name="UpdPedidoTotalPagoContado">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="bePedidoWeb" nillable="true" type="q6:BEPedidoWeb" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="bEPedidoWeb" nillable="true" type="q6:BEPedidoWeb" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -118,7 +118,7 @@
   <xs:element name="GetPedidoTotalPagoContado">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="bePedidoWeb" nillable="true" type="q8:BEPedidoWeb" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="bEPedidoWeb" nillable="true" type="q8:BEPedidoWeb" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

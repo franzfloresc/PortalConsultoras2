@@ -48153,16 +48153,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultora> VerificarConsultoraDigitalAsync(string codigoConsultora, int pedidoID, int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContado", ReplyAction="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContadoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb UpdPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb);
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb UpdPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContado", ReplyAction="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContadoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> UpdPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> UpdPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContado", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContadoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb GetPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb);
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb GetPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContado", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContadoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> GetPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> GetPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetReporteMovimientosPedido", ReplyAction="http://tempuri.org/IPedidoService/GetReporteMovimientosPedidoResponse")]
         Portal.Consultoras.Web.ServicePedido.BEReporteMovimientosPedido[] GetReporteMovimientosPedido(int paisID, int campaniaID, string codigoConsultora);
@@ -50832,20 +50832,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.VerificarConsultoraDigitalAsync(codigoConsultora, pedidoID, paisID);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb UpdPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb) {
-            return base.Channel.UpdPedidoTotalPagoContado(bePedidoWeb);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb UpdPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb) {
+            return base.Channel.UpdPedidoTotalPagoContado(bEPedidoWeb);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> UpdPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb) {
-            return base.Channel.UpdPedidoTotalPagoContadoAsync(bePedidoWeb);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> UpdPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb) {
+            return base.Channel.UpdPedidoTotalPagoContadoAsync(bEPedidoWeb);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb GetPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb) {
-            return base.Channel.GetPedidoTotalPagoContado(bePedidoWeb);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb GetPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb) {
+            return base.Channel.GetPedidoTotalPagoContado(bEPedidoWeb);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> GetPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb) {
-            return base.Channel.GetPedidoTotalPagoContadoAsync(bePedidoWeb);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> GetPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb) {
+            return base.Channel.GetPedidoTotalPagoContadoAsync(bEPedidoWeb);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEReporteMovimientosPedido[] GetReporteMovimientosPedido(int paisID, int campaniaID, string codigoConsultora) {
