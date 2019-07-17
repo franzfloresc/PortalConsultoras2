@@ -18,7 +18,8 @@ GO
 CREATE PROCEDURE ObtenerDataEncuesta
 
 (
-@CodigoConsultora NVARCHAR(25) = ''
+@CodigoConsultora NVARCHAR(25) = '',
+@VerificarEncuestado INT  = 1
 )
 
 AS
@@ -27,7 +28,9 @@ BEGIN
 DECLARE @vMostrarEncuesta INT = 0;
 DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 
-	SELECT  
+   IF @VerificarEncuestado  = 1
+   BEGIN
+    SELECT  
 		 @vMostrarEncuesta = ISNULL( COUNT(*),0),
 		 @vCodigoCampanaia = T.Campana
 	FROM (
@@ -53,8 +56,9 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 				   AND ER.CodigoConsultora = @CodigoConsultora
 			 )
 	GROUP BY T.Campana
+   END
 
-	IF @vMostrarEncuesta > 0 
+	IF ((@vMostrarEncuesta > 0 AND @VerificarEncuestado = 1) OR  @VerificarEncuestado = 0)
 		BEGIN
 			SELECT
 			    @vCodigoCampanaia AS CodigoCampania,
@@ -83,7 +87,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 				0 as MotivoId,
 				0 AS TipoMotivo,
 				'' as Motivo
-		END
+	END
 END
 GO
 

@@ -1974,6 +1974,9 @@
 
 @section scripts{
     <script type="text/javascript">
+        var urlObtenerDataEncuesta = '@Url.Action("ObtenerDataEncuesta", "Bienvenida", new { area = "" })';
+        var urlGrabarEncuesta = '@Url.Action("GrabarEncuesta", "Bienvenida", new { area = "" })';
+        var lanzarEncuesta = true;
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
         var viewBagPrimeraVez = '@Model.PrimeraVez';
@@ -2094,9 +2097,7 @@
         var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
         var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
-        var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
-        var urlObtenerDataEncuesta = '@Url.Action("ObtenerDataEncuesta", "Bienvenida", new { area = "" })';
-        var urlGrabarEncuesta = '@Url.Action("GrabarEncuesta", "Bienvenida", new { area = "" })';
+        var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';      
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Bienvenida")
 

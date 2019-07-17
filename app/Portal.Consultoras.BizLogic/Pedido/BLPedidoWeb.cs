@@ -1879,9 +1879,12 @@ namespace Portal.Consultoras.BizLogic
                 var listaPedidoEncuesta = new BLEncuesta().GetEncuestaByConsultora(new BEEncuestaPedido() {PaisID= paisID, CodigoConsultora= codigoConsultora });
 
                 int index = 1;
-                listaPedidosFacturados.ForEach(x =>  x.EstadoEncuesta =((index++)> EncuestaTop)? Constantes.EstadoEncuestaSatisfaccion.NoAplica
-                                                                    : ((listaPedidoEncuesta.Any(y => y.ConsultoraID == x.ConsultoraID && y.CodigoCampania == x.CampaniaID.ToString()))? Constantes.EstadoEncuestaSatisfaccion.Realizada
-                                                                                                                                                                                       : Constantes.EstadoEncuestaSatisfaccion.Pendiente));
+                foreach (var x in listaPedidosFacturados)
+                {
+                    if (x.EstadoPedidoDesc != "FACTURADO") x.EstadoEncuesta = Constantes.EstadoEncuestaSatisfaccion.NoAplica;
+                    else x.EstadoEncuesta = ((index++) > EncuestaTop) ? Constantes.EstadoEncuestaSatisfaccion.NoAplica : ((listaPedidoEncuesta.Any(y => y.ConsultoraID == consultoraID && y.CodigoCampania == x.CampaniaID.ToString())) ? Constantes.EstadoEncuestaSatisfaccion.Realizada : Constantes.EstadoEncuestaSatisfaccion.Pendiente);
+                }
+
             #endregion
             return listaPedidosFacturados;
         }

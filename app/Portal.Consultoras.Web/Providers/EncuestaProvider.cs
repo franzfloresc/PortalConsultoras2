@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
         }
 
-        private List<DataConfigEncuestaModel> ObtenerDataEncuesta(int paisId,string consultoraCodigo) {
+        private List<DataConfigEncuestaModel> ObtenerDataEncuesta(int paisId,string consultoraCodigo,int verificarEncuestado) {
             var result = new List<DataConfigEncuestaModel>();
             try
             {
@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 using (var sv = new EncuestaServiceClient())
                 {
-                    var response = sv.ObtenerDataEncuesta(paisId, consultoraCodigo).ToList();
+                    var response = sv.ObtenerDataEncuesta(paisId, consultoraCodigo, verificarEncuestado).ToList();
                     result = Mapper.Map<List<DataConfigEncuestaModel>>(response);
                 }
             }
@@ -38,16 +38,16 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
-        public EncuestaModel ObtenerEncuesta(int paisId, string consultoraCodigo) {
+        public EncuestaModel ObtenerEncuesta(int paisId, string consultoraCodigo,string codigoCampania, int verificarEncuestado) {
             var result = new EncuestaModel();
             try
             {
-                var data = ObtenerDataEncuesta(paisId, consultoraCodigo);
+                var data = ObtenerDataEncuesta(paisId, consultoraCodigo, verificarEncuestado);
                 if (data == null)
                     return result;
 
                 result.EncuestaId = data.Select(a => a.EncuestaId).Distinct().Single();
-                result.CodigoCampania = data.Select(a => a.CodigoCampania).Distinct().Single();
+                result.CodigoCampania = verificarEncuestado == 1 ? data.Select(a => a.CodigoCampania).Distinct().Single(): codigoCampania;
                 result.EncuestaCalificacion = data
                     .GroupBy(a => new { a.CalificacionId, a.Calificacion, a.EstiloCalificacion, a.ImagenCalificacion,a.TipoCalificacion })
                     .Select(a => new EncuestaCalificacionModel()

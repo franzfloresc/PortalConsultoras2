@@ -35,10 +35,11 @@ namespace Portal.Consultoras.Data.Encuesta
             return Context.ExecuteReader(command);
         }
         #endregion
-        public IDataReader ObtenerDataEncuesta(string codigoConsultora)
+        public IDataReader ObtenerDataEncuesta(string codigoConsultora,int verificarEncuestado)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerDataEncuesta");
             Context.Database.AddInParameter(command, "CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "VerificarEncuestado", DbType.Int32, verificarEncuestado);
             return Context.ExecuteReader(command);
         }
         public int InsEncuesta(BEEncuestaCalificacion entity)

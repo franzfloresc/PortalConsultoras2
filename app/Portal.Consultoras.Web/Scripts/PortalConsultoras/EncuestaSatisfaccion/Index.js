@@ -1,6 +1,6 @@
 ﻿var dataEncuesta = {};
 var buttonConfirmSurvey = false;
-
+var refrezcarPage = false;
 var EncuestaSatisfaccion = (function () {
     var _elementos = {
         bgEncuestaDesktop: ".bg__popup__encuestaSatisfaccion__desktop",
@@ -42,29 +42,43 @@ var EncuestaSatisfaccion = (function () {
                         $(_elementos.Paso2).fadeIn(200);
                         setTimeout(function () {
                             $(_elementos.PopUpEncuesta).fadeOut(250);
+                            if (refrezcarPage)
+                                window.location.reload();
+                            
                         }, 2850);
                     } else {
                         $(_elementos.PopUpEncuesta).fadeOut(250);
                     }
                 });
             });
-            _funciones.ObtenerDataEncuesta(function () {
-                if (dataEncuesta.hasOwnProperty("EncuestaCalificacion")) {
-                    SetHandlebars("#template-encuesta-calificacion", dataEncuesta.EncuestaCalificacion, "#listaCalificacion");
-                    $(_elementos.encuestaSatisfaccion).removeClass('seccion__encuesta__satisfaccion--ocultar');
-                    if (window.matchMedia("(min-width: 992px)").matches) {
-                        $(_elementos.bgEncuestaDesktop).addClass("bg__popup__encuestaSatisfaccion__desktop--mostrar");
-                    } else {
-                        $(_elementos.bgEncuestaDesktop).removeClass("bg__popup__encuestaSatisfaccion__desktop--mostrar");
-                    }
-                    $(_elementos.encuestaSatisfaccion).addClass('seccion__encuesta__satisfaccion--mostrar');
-                    
-                }
-            });
+            console.log(lanzarEncuesta);
+            if (lanzarEncuesta) {
+                _funciones.ObtenerDataEncuesta("", true, function () {
+                    _funciones.MostrarEncuesta();
+                });
+            }
         },
-        ObtenerDataEncuesta: function (callbackWhenFinish) {
+        MostrarEncuesta: function () {
+            if (dataEncuesta.hasOwnProperty("EncuestaCalificacion")) {
+                SetHandlebars("#template-encuesta-calificacion", dataEncuesta.EncuestaCalificacion, "#listaCalificacion");
+              
+                $(_elementos.encuestaSatisfaccion).removeClass('seccion__encuesta__satisfaccion--ocultar');
+                if (window.matchMedia("(min-width: 992px)").matches) {
+                    $(_elementos.bgEncuestaDesktop).addClass("bg__popup__encuestaSatisfaccion__desktop--mostrar");
+                } else {
+                    $(_elementos.bgEncuestaDesktop).removeClass("bg__popup__encuestaSatisfaccion__desktop--mostrar");
+                }
+                $(_elementos.PopUpEncuesta).fadeIn(150);
+                $(_elementos.encuestaSatisfaccion).addClass('seccion__encuesta__satisfaccion--mostrar');
+            }
+        },
+        ObtenerDataEncuesta: function ( codigoCampania, varificarEncuestado, callbackWhenFinish) {
             var url = urlObtenerDataEncuesta;
-            _funciones.callAjax(url, {}, function (d) {
+            var sendData = {
+                codigoCampania: codigoCampania,
+                varificarEncuestado: varificarEncuestado
+            };
+            _funciones.callAjax(url, sendData , function (d) {
                 if (d.mostrarEncuesta) {
                     $(_elementos.hdfEncuestaId).val(d.data.EncuestaId);
                     $(_elementos.hdfCodigoCampania).val(d.data.CodigoCampania);
@@ -181,6 +195,12 @@ var EncuestaSatisfaccion = (function () {
                 if (callbackSuccessful && typeof callbackSuccessful === "function") {
                     callbackSuccessful(data);
                 }
+            });
+        },
+        LanzarEncuesta: function (codigoCampania) {
+            refrezcarPage = true;
+            _funciones.ObtenerDataEncuesta(codigoCampania, false, function () {
+                _funciones.MostrarEncuesta();
             });
         },
         ObtenerMotivoSeleccionado: function () {

@@ -26,7 +26,7 @@
         ViewBag.PaisISO == Constantes.CodigosISOPais.Dominicana ||
         ViewBag.PaisISO == Constantes.CodigosISOPais.PuertoRico) //PE,CO,EC,GT.SV,DO,PR
     {
-       
+
         //cabezaEscala = "Ganancia estimada total";
         cabezaEscala = "Ganancia estimada";
         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
@@ -71,7 +71,8 @@
                         <div class="marcador_tab oculto"></div>
                     </a>
                 </li>
-                @if (Model.MostrarClienteOnline) {
+                @if (Model.MostrarClienteOnline)
+                {
                     <li class="two">
                         <a href="javascript:;" data-tag="PedidosClientesOnline">
                             <div class="icono_pagos online_2"></div>
@@ -79,7 +80,7 @@
                             <div class="marcador_tab oculto"></div>
                         </a>
                     </li>
-                }               
+                }
                 <hr id="barCursor" />
             </ul>
         </div>
@@ -91,7 +92,8 @@
     <div class="pestana_lbel" style="margin-bottom:0;"></div>
 </div>
 
-@if (Model.MostrarClienteOnline) {
+@if (Model.MostrarClienteOnline)
+{
     <div id="ClientesOnline" data-tag-html="PedidosClientesOnline" class="content_belcorp content_belcorp_misPedidos" style="display:none">
         <div class="tabla_misPedidos">
             <div class="icono_online"></div>
@@ -195,7 +197,7 @@
     </div>
     <div data-div="d">
         <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
-           
+
             <div class="tabla_misPedidos">
                 <div class="content_mis_pedidos">
                     <div class="icono_campanias"></div>
@@ -221,74 +223,77 @@
                     </div>
                     <div class="linea_separadora" style="margin-top:-1px"></div>
                     @foreach (var item in Model.ListaFacturados)
-{
-    var campaniaFacturadoNro = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(4, 2);
-    var formatoCampaniaFacturado = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
-    var formatoFechaFacturado = item.FechaRegistro.Day.ToString().PadLeft(2, '0') + " de " + Util.NombreMesAbrev(item.FechaRegistro.Month);
-
-    var estiloSinRuta = "ingresado";
-    var targetPaqueteDocumentario = "";
-    var rutaPaqueteDocumentario = "javascript:;";
-    if (!string.IsNullOrEmpty(item.RutaPaqueteDocumentario))
-    {
-        rutaPaqueteDocumentario = item.RutaPaqueteDocumentario;
-        targetPaqueteDocumentario = "_blank";
-        estiloSinRuta = "";
-    }
-    var claseEstado = item.EstadoPedidoDesc.ToUpper() == "INGRESADO" ? "estado_detalleIngresado" : "estado_detalleFacturado";
-
-    <div class="content_datos_mispedidos" data-camp="@item.CampaniaID" data-estado="@item.EstadoPedidoDesc" data-idpedido="@item.PedidoID">
-        <div class="nombre_campania texto_bold" data-campnro="@campaniaFacturadoNro" data-campformat="@formatoCampaniaFacturado">@formatoCampaniaFacturado</div>
-        <div class="fecha_pedido">@formatoFechaFacturado</div>
-        <div class="monto_totalPedido"
-             data-parcial="@(Util.DecimalToStringFormat(item.ImporteCredito, Model.UserIso))"
-             data-flete="@(Util.DecimalToStringFormat(item.Flete, Model.UserIso))"
-             data-facturado="@(Util.DecimalToStringFormat(item.ImporteTotal, Model.UserIso))">
-            @Model.Simbolo @(Util.DecimalToStringFormat(item.ImporteTotal, Model.UserIso))
-        </div>
-        <div class="canal_ingreso">@item.CanalIngreso</div>
-        <div class="cantidad_prod">@item.CantidadProductos</div>
-        <div class="seguimiento">
-            <a title="Seguimiento" href="javascript:;" onclick="CargarFramePedido(@item.CampaniaID,'@item.NumeroPedido');">
-                <img src="@Url.Content("~/Content/Images/icono-seguimiento.png")" alt="Seguimiento" />
-            </a>
-        </div>
-        <div class="pack_documentario @estiloSinRuta">
-            <a href="@rutaPaqueteDocumentario" target="@targetPaqueteDocumentario" title="Pack Documentario">
-                <img src="@Url.Content("~/Content/Images/paquete_documentario.svg")" alt="Pack Documentario" />
-            </a>
-        </div>
-        <div class="estado_detalles">
-            <div data-accion="detalle" data-estado="@item.EstadoPedidoDesc">
-                <span class="estado_texto @claseEstado">
-                    @if (item.EstadoPedidoDesc.ToUpper() == "RECHAZADO")
                     {
-                        <span class="estado_rechazado_icono">
-                            <img src="@Url.Content("~/Content/Images/icono-rechazado.png")" alt="Rechazado" />
-                        </span>
+                        var campaniaFacturadoNro = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(4, 2);
+                        var formatoCampaniaFacturado = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
+                        var formatoFechaFacturado = item.FechaRegistro.Day.ToString().PadLeft(2, '0') + " de " + Util.NombreMesAbrev(item.FechaRegistro.Month);
+
+                        var estiloSinRuta = "ingresado";
+                        var targetPaqueteDocumentario = "";
+                        var rutaPaqueteDocumentario = "javascript:;";
+                        if (!string.IsNullOrEmpty(item.RutaPaqueteDocumentario))
+                        {
+                            rutaPaqueteDocumentario = item.RutaPaqueteDocumentario;
+                            targetPaqueteDocumentario = "_blank";
+                            estiloSinRuta = "";
+                        }
+                        var claseEstado = item.EstadoPedidoDesc.ToUpper() == "INGRESADO" ? "estado_detalleIngresado" : "estado_detalleFacturado";
+
+                        <div class="content_datos_mispedidos" data-camp="@item.CampaniaID" data-estado="@item.EstadoPedidoDesc" data-idpedido="@item.PedidoID">
+                            <div class="nombre_campania texto_bold" data-campnro="@campaniaFacturadoNro" data-campformat="@formatoCampaniaFacturado">@formatoCampaniaFacturado</div>
+                            <div class="fecha_pedido">@formatoFechaFacturado</div>
+                            <div class="monto_totalPedido"
+                                 data-parcial="@(Util.DecimalToStringFormat(item.ImporteCredito, Model.UserIso))"
+                                 data-flete="@(Util.DecimalToStringFormat(item.Flete, Model.UserIso))"
+                                 data-facturado="@(Util.DecimalToStringFormat(item.ImporteTotal, Model.UserIso))">
+                                @Model.Simbolo @(Util.DecimalToStringFormat(item.ImporteTotal, Model.UserIso))
+                            </div>
+                            <div class="canal_ingreso">@item.CanalIngreso</div>
+                            <div class="cantidad_prod">@item.CantidadProductos</div>
+                            <div class="seguimiento">
+                                <a title="Seguimiento" href="javascript:;" onclick="CargarFramePedido(@item.CampaniaID,'@item.NumeroPedido');">
+                                    <img src="@Url.Content("~/Content/Images/icono-seguimiento.png")" alt="Seguimiento" />
+                                </a>
+                            </div>
+                            <div class="pack_documentario @estiloSinRuta">
+                                <a href="@rutaPaqueteDocumentario" target="@targetPaqueteDocumentario" title="Pack Documentario">
+                                    <img src="@Url.Content("~/Content/Images/paquete_documentario.svg")" alt="Pack Documentario" />
+                                </a>
+                            </div>
+                            <div class="estado_detalles">
+                                <div data-accion="detalle" data-estado="@item.EstadoPedidoDesc">
+                                    <span class="estado_texto @claseEstado">
+                                        @if (item.EstadoPedidoDesc.ToUpper() == "RECHAZADO")
+                                        {
+                                            <span class="estado_rechazado_icono">
+                                                <img src="@Url.Content("~/Content/Images/icono-rechazado.png")" alt="Rechazado" />
+                                            </span>
+                                        }
+                                        @item.EstadoPedidoDesc.ToUpper()
+                                    </span>
+                                    <span>
+                                        <a href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle">
+                                            <img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="Ver Estado / Detalles" />
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="text-center estado_encuesta_satisfaccion">
+                                @if (item.EstadoEncuesta == Constantes.EstadoEncuestaSatisfaccion.Realizada)
+                                {
+                                    <a title="Encuesta de satisfacción realizada" class="d-inline-block estado_encuesta_satisfaccion_enlace encuesta_satisfaccion_enlace--realizado">
+                                        <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/encuesta_realizada.svg")" alt="Encuesta de satisfacción realizada" />
+                                    </a>
+                                }
+                                else if (item.EstadoEncuesta == Constantes.EstadoEncuestaSatisfaccion.Pendiente)
+                                {
+                                    <a title="Encuesta de satisfacción pendiente" onclick="EncuestaSatisfaccion.Funciones.LanzarEncuesta('@Html.Raw(item.CampaniaID)');" class="d-inline-block estado_encuesta_satisfaccion_enlace estado">
+                                        <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/encuesta_pendiente.svg")" alt="Encuesta de satisfacción pendiente" />
+                                    </a>
+                                }
+                            </div>
+                        </div>
                     }
-                    @item.EstadoPedidoDesc.ToUpper()
-                </span>
-                <span>
-                    <a href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle">
-                        <img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="Ver Estado / Detalles" />
-                    </a>
-                </span>
-            </div>
-        </div>
-        <div class="text-center estado_encuesta_satisfaccion">
-           @if (item.EstadoEncuesta==Constantes.EstadoEncuestaSatisfaccion.Realizada) { 
-            <a href="#" title="Encuesta de satisfacción realizada" class="d-inline-block estado_encuesta_satisfaccion_enlace encuesta_satisfaccion_enlace--realizado">
-                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/encuesta_realizada.svg")" alt="Encuesta de satisfacción realizada" />
-            </a>
-            }else if(item.EstadoEncuesta==Constantes.EstadoEncuestaSatisfaccion.Pendiente){
-            <a href="#" title="Encuesta de satisfacción pendiente" class="d-inline-block estado_encuesta_satisfaccion_enlace estado" >
-                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/encuesta_pendiente.svg")" alt="Encuesta de satisfacción pendiente" />
-            </a>
-            }
-        </div>
-    </div>
-}
                 </div>
             </div>
         </div>
@@ -305,7 +310,8 @@
     </div>
 </div>
 
-@if (Model.MostrarClienteOnline) {
+@if (Model.MostrarClienteOnline)
+{
     <div id="popup_cliente_online_detalle" class="contenedor_popup_percepciones" style="display: none;">
         <div class="popup_Pendientes">
             <div class="cubre"></div>
@@ -404,7 +410,7 @@
                 <input type="hidden" name="Campania" id="Campania" />
                 <input type="hidden" name="MarcaID" id="MarcaID" />
                 <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO CANCELASTE!</b></h1>
-                @foreach(var motivoRechazo in Model.MotivosRechazo)
+                @foreach (var motivoRechazo in Model.MotivosRechazo)
                 {
                     <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
                 }
@@ -550,7 +556,7 @@
                 {{#iff RecordCount '>' 0}}
                 <li class="productos_agregados_usuario" style="display: none;">
                     <span class="cantidad_productos_agregados"><b>{{RecordCount}}</b></span>
-                    &nbsp;productos                   
+                    &nbsp;productos
                 </li>
                 <li class="seleccion_pagina" style="margin-left:10px;">
                     <select data-paginacion="rows" data-val="{{PageSize}}">
@@ -581,7 +587,7 @@
     <div style="float:right;">
         <div class="productos_agregados_usuario" style="display:inline-block;">
             @*<span class="cantidad_productos_agregados"><b>{{CantidadProducto}}</b></span>
-            &nbsp;productos*@
+                &nbsp;productos*@
             {{#iff CantidadProducto '>' 1}}
             <span class="cantidad_productos_agregados">
                 Cantidad: <b>{{CantidadProducto}}</b> unidades
@@ -600,7 +606,7 @@
                 {{/iff}}
                 :
             </span>
-           <b>&nbsp;&nbsp;{{SimboloMoneda}} <span data-facturadoCabecera=""> </span></b>
+            <b>&nbsp;&nbsp;{{SimboloMoneda}} <span data-facturadoCabecera=""> </span></b>
         </div>
     </div>
     <div class="clear"></div>
@@ -613,9 +619,9 @@
             @*{{#iff tipo '==' 'f'}}*@
             <div class="precioUnitario_prod texto_gris_popup">Precio unitario</div>
             @*{{/iff}}
-            {{#iff tipo '==' 'i'}}
-            <div class="precioUnitario_prod texto_gris_popup">Monto</div>
-            {{/iff}}*@
+                {{#iff tipo '==' 'i'}}
+                <div class="precioUnitario_prod texto_gris_popup">Monto</div>
+                {{/iff}}*@
             <div class="totalPrecio_prod texto_gris_popup">Subtotal</div>
             {{#iff tipo '==' 'f'}}
             <div class="totalPrecio_prod texto_gris_popup">Descuento</div>
@@ -668,9 +674,9 @@
             <span>{{CantidadProducto}}</span>
             @*<span>PRODUCTOS</span>*@
             {{#iff CantidadProducto '>' 1}}
-                <span style="text-transform:none">Unidades</span>
+            <span style="text-transform:none">Unidades</span>
             {{else}}
-                <span style="text-transform:none">Unidad</span>
+            <span style="text-transform:none">Unidad</span>
             {{/iff}}
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:18%!important; font-size:14px;">
@@ -700,7 +706,8 @@
     <div class="clear"></div>
 </script>
 
-@if (Model.MostrarClienteOnline) {
+@if (Model.MostrarClienteOnline)
+{
     <script id="html-clientes-online" type="text/x-handlebars-template">
         <div class="content_datos_mispedidos">
             <div class="tipo_online texto_gris">Tipo y nombre<br />de Cliente</div>
@@ -712,26 +719,26 @@
         </div>
         <div class="linea_separadora" style="height:2px"></div>
         {{#each this as |detalle|}}
-            <div class="content_datos_mispedidos">
-                <div class="tipo_online">
-                    <span class="tipo_cliente">{{detalle.TipoCliente}}</span>
-                    <span>{{detalle.Cliente}}</span>
-                </div>
-                <div class="origen_online">{{detalle.Origen}}</div>
-                <div class="canpana_online">{{detalle.Campania}}</div>
-                <div class="registro_online">{{detalle.FechaSolicitudString}}</div>
-                <div class="total_online">{{detalle.PrecioTotalString}}</div>
-                <div class="detalle_online" onclick="CargarDetallleClienteOnline('{{detalle.SolicitudClienteID}}', '{{detalle.MarcaID}}', '{{detalle.Cliente}}', '{{detalle.Direccion}}', '{{detalle.Telefono}}', '{{detalle.Email}}', '{{detalle.Estado}}', '{{detalle.EstadoDesc}}', '{{detalle.MensajeDelCliente}}', '{{detalle.PrecioTotalString}}');">
-                    {{#iff detalle.Estado '==' 'A'}}
-                    <span class="facturado_online estado_detalleFacturado"> {{detalle.EstadoDesc}} </span>
-                    {{else}}
-                    <span class="facturado_online estado_cancelado"> {{detalle.EstadoDesc}} </span>
-                    {{/iff}}
-                    <a href="javascript:;" title="Ver Estado / Detalles" class="lupa_online">
-                        <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
-                    </a>
-                </div>
+        <div class="content_datos_mispedidos">
+            <div class="tipo_online">
+                <span class="tipo_cliente">{{detalle.TipoCliente}}</span>
+                <span>{{detalle.Cliente}}</span>
             </div>
+            <div class="origen_online">{{detalle.Origen}}</div>
+            <div class="canpana_online">{{detalle.Campania}}</div>
+            <div class="registro_online">{{detalle.FechaSolicitudString}}</div>
+            <div class="total_online">{{detalle.PrecioTotalString}}</div>
+            <div class="detalle_online" onclick="CargarDetallleClienteOnline('{{detalle.SolicitudClienteID}}', '{{detalle.MarcaID}}', '{{detalle.Cliente}}', '{{detalle.Direccion}}', '{{detalle.Telefono}}', '{{detalle.Email}}', '{{detalle.Estado}}', '{{detalle.EstadoDesc}}', '{{detalle.MensajeDelCliente}}', '{{detalle.PrecioTotalString}}');">
+                {{#iff detalle.Estado '==' 'A'}}
+                <span class="facturado_online estado_detalleFacturado"> {{detalle.EstadoDesc}} </span>
+                {{else}}
+                <span class="facturado_online estado_cancelado"> {{detalle.EstadoDesc}} </span>
+                {{/iff}}
+                <a href="javascript:;" title="Ver Estado / Detalles" class="lupa_online">
+                    <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                </a>
+            </div>
+        </div>
         {{/each}}
     </script>
     <script id="html-clientes-online-detalle-marcas" type="text/x-handlebars-template">
@@ -773,14 +780,19 @@
         {{/each}}
     </script>
 }
+@Html.Partial("~/Views/EncuestaSatisfaccion/_EncuestaSatisfaccion.cshtml")
 @section scripts{
     <script>
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlPedidos = '@ViewBag.URLWebTracking';
         var lanzarTabClienteOnline = ('@Model.LanzarTabClienteOnline' == 'True');
+        var urlObtenerDataEncuesta = '@Url.Action("ObtenerDataEncuesta", "Bienvenida", new { area = "" })';
+        var urlGrabarEncuesta = '@Url.Action("GrabarEncuesta", "Bienvenida", new { area = "" })';
+        var lanzarEncuesta = false;
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/Index.js")"></script>
-    @if (Model.MostrarClienteOnline) {
+    @if (Model.MostrarClienteOnline)
+    {
         <script>
             var urlClienteOnline = '@Url.Action("ClienteOnline", "MisPedidos")';
             var urlClienteOnlineDetalle = '@Url.Action("ClienteOnlineDetalle", "MisPedidos")';
@@ -791,5 +803,7 @@
             var mensajeCanceladoPortal = '@Constantes.COPedidoCanceladoMensaje.Portal';
         </script>
         <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/ClienteOnline.js")"></script>
+        <script src="@Url.Content("~/Scripts/PortalConsultoras/EncuestaSatisfaccion/Index.js")"></script>
+
     }
 }

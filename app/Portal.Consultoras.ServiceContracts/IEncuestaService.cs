@@ -12,7 +12,7 @@ namespace Portal.Consultoras.ServiceContracts
     public interface IEncuestaService
     {
         [OperationContract]
-        List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId,string codigoConsultora);
+        List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId,string codigoConsultora,int verificarEncuestado);
 
         [OperationContract]
         int InsEncuesta(BEEncuestaCalificacion entity, int paisId);

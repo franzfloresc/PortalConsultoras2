@@ -2324,11 +2324,11 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult ObtenerDataEncuesta()
+        public JsonResult ObtenerDataEncuesta(string codigoCampania,bool varificarEncuestado = true)
         {
             try
             {
-                var data = _encuestaProvider.ObtenerEncuesta(userData.PaisID, userData.CodigoConsultora);
+                var data = _encuestaProvider.ObtenerEncuesta(userData.PaisID, userData.CodigoConsultora, codigoCampania, varificarEncuestado ? 1 : 0);
                 if (data == null)
                     return Json(new
                     {

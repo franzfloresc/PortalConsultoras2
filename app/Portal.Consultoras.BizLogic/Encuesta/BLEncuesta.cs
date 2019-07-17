@@ -44,10 +44,10 @@ namespace Portal.Consultoras.BizLogic.Encuesta
             return lista;
         }
         #endregion
-        public List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId,string codigoConsultora)
+        public List<BEDataConfigEncuesta> ObtenerDataEncuesta(int paisId,string codigoConsultora, int verificarEncuestado)
         {
             List<BEDataConfigEncuesta> listaDataConfigEncuesta = new List<BEDataConfigEncuesta>();
-            using (IDataReader reader = new DAEncuesta(paisId).ObtenerDataEncuesta(codigoConsultora))
+            using (IDataReader reader = new DAEncuesta(paisId).ObtenerDataEncuesta(codigoConsultora,verificarEncuestado))
             {
                 while (reader.Read())
                 {
