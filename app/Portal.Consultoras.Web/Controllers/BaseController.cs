@@ -1571,7 +1571,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             bool band = true;
 
-            if (userData.CodigoISO != Constantes.CodigosISOPais.Ecuador || !userData.DiaPROL) band = false;
+            if (!userData.DiaPROL) band = false;
 
 
             return userData.PagoContado && band;

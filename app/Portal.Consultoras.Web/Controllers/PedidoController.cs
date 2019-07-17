@@ -1659,10 +1659,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-  		private DateTime GetDiaActual()
-        {
-            return DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-        }
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
