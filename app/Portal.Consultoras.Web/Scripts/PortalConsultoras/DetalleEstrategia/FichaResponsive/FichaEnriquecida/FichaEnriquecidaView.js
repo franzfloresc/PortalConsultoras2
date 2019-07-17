@@ -96,6 +96,45 @@
         _renderFichaEnriquecida(data, true);
         $("body").css("overflow", "hidden");
         $(_elements.popup.id).show();
+
+        if ($(".slider-nav-detail").length > 0) {
+            $('.slider-nav-detail').slick({
+                slidesToShow: 10,
+                slidesToScroll: 1,
+
+                asNavFor: '.slider-for-detail',
+                dots: false,
+                infinite: false,
+                arrows: false,
+                centerMode: true,
+                focusOnSelect: true,
+                vertical: true
+            });
+        }
+        if ($(".slider-for-detail").length > 0) {
+            $('.slider-for-detail').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                asNavFor: '.slider-nav-detail',
+
+                infinite: false,
+                dots: false,
+                fade: true,
+                cssEase: 'linear',
+                responsive: [
+
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            dots: true,
+                            fade: false
+                        }
+                    }
+                ]
+            })
+        }
+
         return true;
     };
 

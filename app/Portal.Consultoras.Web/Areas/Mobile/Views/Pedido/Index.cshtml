@@ -137,7 +137,8 @@
                     <input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
                     <input type="hidden" id="hdfValorFlagNueva" />
                     <input type="hidden" id="hdLimiteVenta" />
-                    @*INI HD-3908 *@
+                    <input type="hidden" id="hdCodigoConsultora" value="@ViewBag.CodigoConsultora" />
+                           @*INI HD-3908 *@
                     <input type="hidden" id="hdfCodigoPalanca" />
                     <input type="hidden" id="hdfCampaniaID" />
                     @*FIN HD-3908 *@
@@ -508,7 +509,7 @@
         </div>
 
         <div class="content_item_home">
-            <div class="producto_img_mobile">
+            <div class="producto_img_mobile" onclick="javascript:MostrarPopupImagenProductoSugerido(this)">
                 <img src="{{ImagenProductoSugeridoSmall}}">
             </div>
             <div class="producto_nombre_descripcion">
@@ -531,6 +532,21 @@
     </div>
     {{/each}}
 </script>
+
+<div id="PopupImagenAmpliadaSugeridos" class="popup_imagen_ampliada_productos_sugeridos_fondo">
+    <div class="d-flex popup_imagen_ampliada_productos_sugeridos">
+        <div class="d-flex popup_imagen_ampliada_productos_sugeridos_header">
+            <a onclick="javascript:$('#PopupImagenAmpliadaSugeridos').fadeOut(100);" title="Cerrar" class="d-block enlace_cerrarPopupImagenAmpliadaSugeridos">
+                <img class="w-100" src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+            </a>
+        </div>
+        <div class="d-flex popup_imagen_ampliada_productos_sugeridos_content">
+            <div class="d-block center-block imagen_producto_sugerido_ampliada_wrapper">
+                <img class="d-block center-block" src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_20005977920181044897_soreeabdtd.png" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="popupLimiteLineaCredito" class="popup_limite_lineaCredito w-100 text-center" style="display:none;">
     <div class="popup_limite_lineaCredito_header w-100">
@@ -707,4 +723,5 @@
         </script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/PopupRecepcionPedido.js")"></script>
 }

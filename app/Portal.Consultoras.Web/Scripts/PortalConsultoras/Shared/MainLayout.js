@@ -175,7 +175,7 @@ $(document).ready(function () {
         width: 400,
         draggable: true,
         buttons: {
-            "Aceptar": function () {
+            "Entendido": function () {
                 HideDialog("alertDialogMensajes");
             }
         }
@@ -340,9 +340,7 @@ $(document).ready(function () {
         }
 
         if (habilitarChatBot === 'True') {
-            if (typeof FB !== "undefined") {
-                FB.CustomerChat.showDialog();
-            }
+            AbrirChatBot();
         }
 
         return false;
@@ -371,27 +369,11 @@ function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
 
-        //$('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-        //$('#dialog_ErrorMainLayout').show();
-
-        //$('#dialog_ErrorMainLayout .btn_ok').off('click');
-        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
-
-        //$('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
-        //    $('#dialog_ErrorMainLayout').hide();
-        //    if ($.isFunction(fnAceptar)) fnAceptar();
-        //});
-
-        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
-        //    $('#dialog_ErrorMainLayout').hide();
-        //    if ($.isFunction(fnAceptar)) fnAceptar();
-        //});
-
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(message);
-        if (msjBloq != "") {
-            alert_msg_bloqueadas(msjBloq);
-        } else {
+        if (window.matchMedia("(max-width:991px)").matches) {
+            $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(message);
+            $('#popupInformacionSB2Error').show();
+        }
+        else {
             $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
             $('#dialog_ErrorMainLayout').show();
 
@@ -408,7 +390,6 @@ function messageInfoError(message, titulo, fnAceptar) {
                 if ($.isFunction(fnAceptar)) fnAceptar();
             });
         }
-        //FIN HD-3693
 
 
     }
@@ -448,8 +429,17 @@ function CargarResumenCampaniaHeader(showPopup) {
                     });
 
                     if (data.ultimosTresPedidos.length == 0) {
+                        var textoSinPedido = "";
                         $('#carrito_items').hide();
                         $('#SinProductos').show();
+                        if (data.cantidadPedidosPendientes > 0) {
+                            textoSinPedido = 'Tienes ' + data.cantidadPedidosPendientes + ((data.cantidadPedidosPendientes > 1) ? ' Pedidos pendientes' : ' Pedido pendiente') + ',<br />';
+                            $('#linkPendientesSinProductos').css('display', 'block');
+                        } else {
+                            textoSinPedido = 'Todavía no has agregado<br/> ningún producto a tu<br/>pedido.';
+                            $('#linkPendientesSinProductos').css('display', 'none');
+                        }
+                        $('#textoSinProductos').html(textoSinPedido);
                     } else {
                         $('#carrito_items').show();
                         $('#SinProductos').hide();
@@ -469,7 +459,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58
+    var sparam = localStorage.getItem('KeyPseudoParam');
     $.ajax({
         type: 'GET',
         url: baseUrl + "Notificaciones/GetNotificacionesSinLeer?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",
@@ -704,7 +694,7 @@ function ValidarCorreoComunidad(tipo) {
 
 function alert_msg(message, titulo, funcion) {
     titulo = titulo || "MENSAJE";
-    $('#alertDialogMensajes .terminos_title_2').html(titulo);
+    //$('#alertDialogMensajes .terminos_title_2').html(titulo);***HD-4450
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     if (typeof funcion == "function") {
         $("#alertDialogMensajes").dialog("option", "buttons", {
@@ -738,15 +728,6 @@ function AbrirModalRegistroComunidad() {
     SendPushMiComunidad();
 
     return false;
-}
-
-function OpenUrl(url, newPage) {
-    if (newPage) {
-        window.open(url, '_blank');
-        return;
-    }
-
-    window.location.href = url;
 }
 
 function SendPushMiComunidad() {
@@ -1289,9 +1270,3 @@ function OcultarChatEmtelco() {
         $(".CMXD-help").hide();
     }
 }
-//INI HD-3693
-function alert_msg_bloqueadas(message) {
-    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
-    $('#PopupBloqueoPorSistema').show();
-}
-//FIN HD-3693
