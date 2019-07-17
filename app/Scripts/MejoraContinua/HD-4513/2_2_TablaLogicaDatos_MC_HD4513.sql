@@ -1,5 +1,5 @@
 GO
-USE BelcorpPeru_MC
+USE BelcorpPeru
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -21,7 +21,7 @@ BEGIN
 END
 
 GO
-USE BelcorpMexico_MC
+USE BelcorpMexico
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -43,7 +43,7 @@ BEGIN
 END
 
 GO
-USE BelcorpColombia_MC
+USE BelcorpColombia
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -65,7 +65,7 @@ BEGIN
 END
 
 GO
-USE BelcorpSalvador_MC
+USE BelcorpSalvador
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -87,7 +87,7 @@ BEGIN
 END
 
 GO
-USE BelcorpPuertoRico_MC
+USE BelcorpPuertoRico
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -109,7 +109,7 @@ BEGIN
 END
 
 GO
-USE BelcorpPanama_MC
+USE BelcorpPanama
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -131,7 +131,7 @@ BEGIN
 END
 
 GO
-USE BelcorpGuatemala_MC
+USE BelcorpGuatemala
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -153,7 +153,7 @@ BEGIN
 END
 
 GO
-USE BelcorpEcuador_MC
+USE BelcorpEcuador
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -175,7 +175,7 @@ BEGIN
 END
 
 GO
-USE BelcorpDominicana_MC
+USE BelcorpDominicana
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -197,7 +197,7 @@ BEGIN
 END
 
 GO
-USE BelcorpCostaRica_MC
+USE BelcorpCostaRica
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -219,7 +219,7 @@ BEGIN
 END
 
 GO
-USE BelcorpChile_MC
+USE BelcorpChile
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -241,7 +241,7 @@ BEGIN
 END
 
 GO
-USE BelcorpBolivia_MC
+USE BelcorpBolivia
 GO
 BEGIN
 	/*Tabla Lógica Datos */
