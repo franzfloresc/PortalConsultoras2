@@ -3616,6 +3616,10 @@ namespace Portal.Consultoras.Common
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 8;
                     break;
+                case Constantes.PaisID.PuertoRico:
+                    limiteMinimoTelef = 10;
+                    limiteMaximoTelef = 10;
+                    break;
                 default:
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 15;
