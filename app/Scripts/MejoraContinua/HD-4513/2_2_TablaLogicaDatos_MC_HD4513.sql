@@ -1,5 +1,5 @@
 GO
-USE BelcorpPeru
+USE BelcorpPeru_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -21,7 +21,7 @@ BEGIN
 END
 
 GO
-USE BelcorpMexico
+USE BelcorpMexico_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -43,7 +43,7 @@ BEGIN
 END
 
 GO
-USE BelcorpColombia
+USE BelcorpColombia_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -65,7 +65,7 @@ BEGIN
 END
 
 GO
-USE BelcorpSalvador
+USE BelcorpSalvador_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -87,7 +87,7 @@ BEGIN
 END
 
 GO
-USE BelcorpPuertoRico
+USE BelcorpPuertoRico_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -109,7 +109,7 @@ BEGIN
 END
 
 GO
-USE BelcorpPanama
+USE BelcorpPanama_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -131,7 +131,7 @@ BEGIN
 END
 
 GO
-USE BelcorpGuatemala
+USE BelcorpGuatemala_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -153,29 +153,7 @@ BEGIN
 END
 
 GO
-USE BelcorpEcuador
-GO
-BEGIN
-	/*Tabla Lógica Datos */
-	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
-	BEGIN
-		INSERT INTO TablaLogicaDatos
-		(TablaLogicaDatosID
-			,TablaLogicaID
-			,Codigo
-			,Descripcion
-			,Valor)
-		VALUES
-		(23201,
-		 232,
-		 'Desactiva_PagoContado',
-		 'Activar funcionalidad de pago contado',
-		 1)
-	END
-END
-
-GO
-USE BelcorpDominicana
+USE BelcorpEcuador_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -197,7 +175,7 @@ BEGIN
 END
 
 GO
-USE BelcorpCostaRica
+USE BelcorpDominicana_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -219,7 +197,7 @@ BEGIN
 END
 
 GO
-USE BelcorpChile
+USE BelcorpCostaRica_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
@@ -241,7 +219,29 @@ BEGIN
 END
 
 GO
-USE BelcorpBolivia
+USE BelcorpChile_MC
+GO
+BEGIN
+	/*Tabla Lógica Datos */
+	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=23201)
+	BEGIN
+		INSERT INTO TablaLogicaDatos
+		(TablaLogicaDatosID
+			,TablaLogicaID
+			,Codigo
+			,Descripcion
+			,Valor)
+		VALUES
+		(23201,
+		 232,
+		 'Desactiva_PagoContado',
+		 'Activar funcionalidad de pago contado',
+		 0)
+	END
+END
+
+GO
+USE BelcorpBolivia_MC
 GO
 BEGIN
 	/*Tabla Lógica Datos */
