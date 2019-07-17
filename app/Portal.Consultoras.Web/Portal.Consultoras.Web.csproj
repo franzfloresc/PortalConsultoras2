@@ -5964,12 +5964,8 @@
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
     <Content Include="Views\TuVozOnline\Index.cshtml" />
-    <Content Include="Views\Shared\_MainLayoutResponsiveCaminoBrillante.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
-    <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
-    <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
-    <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\imagen-estrategia-template.cshtml" />
     <Content Include="Views\CaminoBrillante\Partial\template_kit.cshtml" />
     <Content Include="Views\CaminoBrillante\Partial\template_demostrador.cshtml" />
     <Content Include="Views\AdministrarHistorias\Partials\MantenimientoVideo.cshtml" />
