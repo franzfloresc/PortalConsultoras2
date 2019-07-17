@@ -15040,6 +15040,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int NivelAlcanzadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NivelSiguienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEIncentivoNivel[] NivelesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15244,6 +15247,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.NivelAlcanzadoField.Equals(value) != true)) {
                     this.NivelAlcanzadoField = value;
                     this.RaisePropertyChanged("NivelAlcanzado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NivelSiguiente {
+            get {
+                return this.NivelSiguienteField;
+            }
+            set {
+                if ((this.NivelSiguienteField.Equals(value) != true)) {
+                    this.NivelSiguienteField = value;
+                    this.RaisePropertyChanged("NivelSiguiente");
                 }
             }
         }
