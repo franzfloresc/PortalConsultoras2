@@ -1,4 +1,4 @@
-USE BelcorpColombia;
+USE BelcorpColombia
 
 DELETE FROM EstrategiaImagenKit WHERE CampaniaID = 201912;
 
