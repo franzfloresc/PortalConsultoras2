@@ -222,11 +222,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListadoEstadoCuenta(List<EstadoCuentaModel> model);
 
         List<EstadoCuentaModel> GetListadoEstadoCuenta();
-
-        //void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
-
-        //EstrategiaPersonalizadaProductoModel GetProductoTemporal();
-
+        
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
 
         Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();

@@ -105,6 +105,7 @@
     <Compile Include="DAContenidoAppResumen.cs" />
     <Compile Include="DAContenidoApp.cs" />
     <Compile Include="DADireccionEntega.cs" />
+    <Compile Include="Encuesta\DAEncuesta.cs" />
     <Compile Include="DAHorario.cs" />
     <Compile Include="DAClienteDB.cs" />
     <Compile Include="DACalculoPROL.cs" />
@@ -234,7 +235,6 @@
     <Compile Include="DAValidacionAutomatica.cs" />
     <Compile Include="DAValidacionDatos.cs" />
     <Compile Include="DAZonificacion.cs" />
-    <Compile Include="Encuesta\DAEncuesta.cs" />
     <Compile Include="Estrategia\UpSellingDataAccess.cs" />
     <Compile Include="Estrategia\UpSellingMarcaCategoriaDataAccess.cs" />
     <Compile Include="Mobile\DAApp.cs" />

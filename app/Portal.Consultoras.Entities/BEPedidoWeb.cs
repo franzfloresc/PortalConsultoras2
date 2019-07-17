@@ -137,6 +137,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal GananciaOtros { get; set; }
 
+        [DataMember]
+        public int EstadoEncuesta { get; set; }// HD-4357
+
         public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)

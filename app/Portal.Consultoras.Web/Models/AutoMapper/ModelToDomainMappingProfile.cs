@@ -107,6 +107,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>();
             Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>()
                 .ForMember(t => t.ConfiguracionOfertasHomeApp, f => f.MapFrom(c => c.AdministrarOfertasHomeAppModel));
+            Mapper.CreateMap<ConfiguracionPaisModel, ServiceSAC.BEConfiguracionPais>();
             Mapper.CreateMap<AdministrarOfertasHomeAppModel, BEConfiguracionOfertasHomeApp>();
             Mapper.CreateMap<DescripcionEstrategiaModel, BEDescripcionEstrategia>();
 
@@ -502,6 +503,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEPedidoWeb>();
+
+            Mapper.CreateMap<ReporteEncuestaSatisfaccionModel, BEEncuestaReporte>();
 
         }
     }

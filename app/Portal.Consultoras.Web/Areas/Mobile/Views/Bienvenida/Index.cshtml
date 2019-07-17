@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="foto_usuaria_mobile">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
+                    <img id="imgFotoUsuario" class="ImageLoadPhotoUser" src="@ViewBag.FotoPerfil" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
                 </div>
 
             }
