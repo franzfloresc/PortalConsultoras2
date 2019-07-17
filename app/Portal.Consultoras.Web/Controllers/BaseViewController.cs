@@ -558,7 +558,6 @@ namespace Portal.Consultoras.Web.Controllers
                         .Where(e =>
                             e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloPackNuevas
                             || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloNormal
-                            || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.EligeOpcion
                         )
                         .ToList();
                 }

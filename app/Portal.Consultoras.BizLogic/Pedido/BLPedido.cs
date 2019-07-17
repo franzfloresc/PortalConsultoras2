@@ -1488,7 +1488,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             usuario.PaisID = pedidoDetalle.PaisID;
 
             #region Promotion
-            var validarPromocion = ValidarPromocionesEnModificar(null, usuario, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV);
+            int pedidoId;
+            var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
+            var validarPromocion = ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV);
             if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
             {
                 return validarPromocion;
