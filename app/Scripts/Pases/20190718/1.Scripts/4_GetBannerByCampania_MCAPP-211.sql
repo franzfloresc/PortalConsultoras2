@@ -1,13 +1,11 @@
 ﻿USE BelcorpPeru
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -56,13 +54,11 @@ GO
 USE BelcorpMexico
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+ 
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -102,13 +98,11 @@ GO
 USE BelcorpColombia
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -148,13 +142,11 @@ GO
 USE BelcorpSalvador
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -194,13 +186,11 @@ GO
 USE BelcorpPuertoRico
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -240,13 +230,11 @@ GO
 USE BelcorpPanama
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -286,13 +274,11 @@ GO
 USE BelcorpGuatemala
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -332,13 +318,11 @@ GO
 USE BelcorpEcuador
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -378,13 +362,11 @@ GO
 USE BelcorpDominicana
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -424,13 +406,11 @@ GO
 USE BelcorpCostaRica
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -470,13 +450,11 @@ GO
 USE BelcorpChile
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
@@ -516,13 +494,11 @@ GO
 USE BelcorpBolivia
 GO
 
-/*    
-CREADO POR  : PAQUIRRI SEPERAK    
-FECHA : 20190520  
-DESCRIPCIÓN : SE AGREGARON 2 CAMPOS MÁS ARCHIVOMOBILE,URLMOBILE, ESTOS CAMPOS SERÁN USADOS POR EL APP SOLAMENTE 
-Getbannerbycampania  201907
-*/ 
-ALTER PROC [dbo].[Getbannerbycampania] 
+IF EXISTS (SELECT * FROM sys.objects  WHERE object_id = OBJECT_ID(N'[dbo].[Getbannerbycampania]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[Getbannerbycampania]
+GO
+
+CREATE PROC [dbo].[Getbannerbycampania] 
 @CAMPANIAID INT 
 AS 
     SELECT BAN.CAMPANIAID, 
