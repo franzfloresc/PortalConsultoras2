@@ -32,7 +32,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -78,7 +77,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -124,7 +122,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -170,7 +167,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -216,7 +212,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -262,7 +257,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -308,7 +302,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -354,7 +347,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -400,7 +392,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -446,7 +437,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -492,7 +482,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
@@ -538,7 +527,6 @@ INSERT INTO [dbo].[Permiso]
            ,0
            ,NULL);
 
-GO
 INSERT INTO [dbo].[RolPermiso]
            ([RolID]
            ,[PermisoID]
