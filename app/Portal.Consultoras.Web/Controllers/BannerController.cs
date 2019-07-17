@@ -33,6 +33,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida");
                 model.DropDownListCampania = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru);
                 model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
+                model.DropDownListContenidoAppDetaAct = _zonificacionProvider.GetContenidoAppDetaAct(Constantes.PaisID.Peru, Constantes.ParentContenidoAppDetaAct.ParenVerMas);
+                model.DropDownListContenidoAppDetaAct.Insert(0, new ServiceZonificacion.BEContenidoAppDetaAct() { Codigo = "0", Descripcion = "-- Seleccionar --" });
                 model.DropDownListTipoContenido = new List<BETipoContenido>() { new BETipoContenido { TipoContenido = 0, TipoContenidoNombre = "URL" },
                                                                                 new BETipoContenido { TipoContenido = 1, TipoContenidoNombre = "Mensaje" }};
 
