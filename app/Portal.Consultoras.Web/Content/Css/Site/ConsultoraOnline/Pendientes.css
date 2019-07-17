@@ -4332,6 +4332,40 @@ body {
     background: none;
 }
 
+    .ghost--estadoAceptado{
+        display:flex;
+        flex-direction:row;
+        flex-wrap:nowrap;
+        justify-content:center;
+        align-items:center;
+        background-color:#d8d8d8;
+        color:#898989!important;
+        border:1px solid #898989;
+        width:100%;
+        padding-left:0;
+        padding-right:0;
+    }
+
+        .ghost--estadoAceptado:before {
+            display: block;
+            width: 17px;
+            height: 17px;
+            margin-right: 5px;
+            content: "";
+            background-image: url('/Content/Images/icono_check_gris.svg');
+            background-repeat: no-repeat;
+            background-size: 17px;
+            background-position: left center;
+        }
+
+        .btnAccionElegir{
+            padding-left:0;
+        }
+
+            .btnAccionElegir a{
+                width:100%;
+            }
+
     .ghost.color-light, .ghost.light-color {
         color: #000000;
     }
