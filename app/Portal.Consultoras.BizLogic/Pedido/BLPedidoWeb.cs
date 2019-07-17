@@ -1,6 +1,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
+using Portal.Consultoras.Data.ServiceTotalPagarSiccEC;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -2716,5 +2717,5 @@ namespace Portal.Consultoras.BizLogic
         }
     }
 
-    
+
 }

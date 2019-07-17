@@ -560,6 +560,7 @@ namespace Portal.Consultoras.BizLogic
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.PagoLinea.TablaLogicaId));
                 var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
                 var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.GanaNativo.TablaLogicaId));
+                var tienePagoContadoActivo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.PagoContado.Id));
                 var opcionesUsuario = Task.Run(() => GetUsuarioOpciones(paisID, usuario.CodigoUsuario));
 
                 var lstConfiguracionPais = new List<string>();
@@ -591,6 +592,7 @@ namespace Portal.Consultoras.BizLogic
                                 pagoEnLineaTask,
                                 tieneChatbotTask,
                                 tieneGanaMasNativo,
+                                tienePagoContadoActivo,
                                 opcionesUsuario);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
@@ -669,6 +671,13 @@ namespace Portal.Consultoras.BizLogic
 
                 if (opcionesUsuarioConfig != null)
                     usuario.NotificacionesWhatsapp = opcionesUsuarioConfig.CheckBox;
+
+                bool FalgPagoContado = false;
+
+                if (tienePagoContadoActivo.Result != null)
+                    FalgPagoContado = tienePagoContadoActivo.Result.FirstOrDefault().Valor == "1";
+
+                usuario.PagoContado = usuario.PagoContado && FalgPagoContado;
 
                 return usuario;
             }

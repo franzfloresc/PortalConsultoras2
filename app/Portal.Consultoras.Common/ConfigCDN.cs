@@ -105,5 +105,14 @@ namespace Portal.Consultoras.Common
             return GetUrlCdn(carpetaPais);
         }
         
+        public static string GetUrlCdnAppConsultoraVideo(string isoPais, string cadena)
+        {
+            string[] arrCadena;
+            arrCadena = cadena.Split(',');
+
+            var carpetaPais = string.Format("{0}/{1}", arrCadena[0], isoPais);
+            return GetUrlCdn(carpetaPais);
+        }
+
     }
 }
