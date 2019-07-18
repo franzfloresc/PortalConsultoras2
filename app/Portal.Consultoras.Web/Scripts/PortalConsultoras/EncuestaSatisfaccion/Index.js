@@ -51,7 +51,6 @@ var EncuestaSatisfaccion = (function () {
                     }
                 });
             });
-            console.log(lanzarEncuesta);
             if (lanzarEncuesta) {
                 _funciones.ObtenerDataEncuesta("", true, function () {
                     _funciones.MostrarEncuesta();
@@ -103,6 +102,8 @@ var EncuestaSatisfaccion = (function () {
                         $(_elementos.Paso2).fadeIn(200);
                         setTimeout(function () {
                             $(_elementos.PopUpEncuesta).fadeOut(250);
+                            if (refrezcarPage)
+                                window.location.reload();
                         }, 2850);
                     } else {
                         $(_elementos.PopUpEncuesta).fadeOut(250);
