@@ -20,19 +20,23 @@ namespace Portal.Consultoras.Web.Providers
             var result = new List<DataConfigEncuestaModel>();
             try
             {
-                if (sessionManager.GetDataConfigEncuesta() != null)
+                if (sessionManager.GetDataConfigEncuesta() != null && verificarEncuestado == 0)
                     return sessionManager.GetDataConfigEncuesta();
 
                 using (var sv = new EncuestaServiceClient())
                 {
                     var response = sv.ObtenerDataEncuesta(paisId, consultoraCodigo, verificarEncuestado).ToList();
                     result = Mapper.Map<List<DataConfigEncuestaModel>>(response);
+                    if (result[0].EncuestaId != 0)
+                        sessionManager.SetDataConfigEncuesta(result);
+                    else
+                        sessionManager.SetDataConfigEncuesta(null);
                 }
             }
             catch (System.Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "ObtenerDataEncuesta", paisId.ToString());
-                result = null;
+                return result;
             }
 
             return result;
@@ -43,7 +47,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 var data = ObtenerDataEncuesta(paisId, consultoraCodigo, verificarEncuestado);
-                if (data == null)
+                if (!data.Any())
                     return result;
 
                 result.EncuestaId = data.Select(a => a.EncuestaId).Distinct().Single();
@@ -69,6 +73,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (System.Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "ObtenerDataEncuesta", paisId.ToString());
+                return result;
                 
             }
             return result;

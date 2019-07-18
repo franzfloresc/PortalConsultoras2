@@ -2329,7 +2329,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var data = _encuestaProvider.ObtenerEncuesta(userData.PaisID, userData.CodigoConsultora, codigoCampania, varificarEncuestado ? 1 : 0);
-                if (data == null)
+                if (data.EncuestaId > 0)
                     return Json(new
                     {
                         mostrarEncuesta = false,
