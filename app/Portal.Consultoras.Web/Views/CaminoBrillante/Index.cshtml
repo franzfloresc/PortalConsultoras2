@@ -169,7 +169,7 @@
 
                 @if (nivel.MontoFaltante.HasValue)
                 {
-                    <span>Te falta <strong> @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL)</strong></span>
+                    <span>Te falta <strong> @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL)</strong> para cambiar de nivel a @nivel.DescripcionNivel</span>
                 }
                 @if (nivel.PuntajeAcumulado.HasValue)
                 {
