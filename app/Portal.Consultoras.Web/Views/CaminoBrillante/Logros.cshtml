@@ -26,7 +26,7 @@
                 <a id="is-desktop" href="@Url.Action("Index", "Bienvenida")" title="Home">Home</a>
             </li>
             <li class="layout__view__breadcrumb">
-                <a href="@Url.Action("Index","CaminoBrillante")" class="d-block" title="CaminoBrillante">Camino Brillante</a>
+                <a href="@Url.Action("Index", "CaminoBrillante")" class="d-block" title="CaminoBrillante">Camino Brillante</a>
             </li>
             <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
                 <span class="d-block">@ViewBag.Vista</span>
@@ -81,23 +81,13 @@
         <p class="text-bold">{{Titulo}}</p>
 
         <div class="cambio-crec">
-            {{#each Medallas }}
+            {{#each Medallas}}
 
-            {{#if_eq Tipo 'PIE'}}
-
-            {{else if_eq Tipo 'NIV'}}
-
-            {{else}}
             <div class="itm">
                 {{#if_eq Tipo 'CIRC'}}
                 <div class="circle-porcent {{#if Estado}}crec-activo{{else}}bord crec-inactivo{{/if}}">
                     <span>{{Valor}}</span>
                 </div>
-                {{/if_eq}}
-
-                {{#if_eq Tipo 'NIV'}}
-                {{else}}
-                <a href="#" class="inactivo"></a>
                 {{/if_eq}}
 
                 {{#if Estado}}
@@ -152,12 +142,10 @@
                 {{/IsNullOrEmpty}}
                 {{/if}}
             </div>
-            {{/if_eq}}
-
-
             {{/each}}
         </div>
     </div>
+    
     <div class="box-camb">Constancia del periodo ....</div>
     {{/if_eq}}
 

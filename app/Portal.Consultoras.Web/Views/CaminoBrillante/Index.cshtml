@@ -54,16 +54,16 @@
                         decorador = nivel.EsPasado ? "" : "onclick=\"TagMostrarPopupNivel('" + nivel.DescripcionNivel + "','" + nivel.CodigoNivel + "','" + nivel.UrlImagenNivelFull + "');\" data-toggle=\"modal\" data-target=\"#Nivel_" + nivel.CodigoNivel + "_Bnf\"";
                     }
                     var estilos = "pt" + nivel.CodigoNivel + (nivel.EsActual ? " brillante" : "");
-                <span class='point @estilos' @Html.Raw(decorador) onclick='TagClickSeleccionNivel("@nivel.DescripcionNivel")'>
-                    <img src=@nivel.UrlImagenNivel>
-                    @if (ViewBag.EsMobile)
-                    {
-                    <i id="activo">
-                        <img id="@nivel.CodigoNivel" src="" style="display:none">
-                    </i>
-                    }
-                    <em>@nivel.DescripcionNivel</em>
-                </span>
+                    <span class='point @estilos' @Html.Raw(decorador) onclick='TagClickSeleccionNivel("@nivel.DescripcionNivel")'>
+                        <img src=@nivel.UrlImagenNivel>
+                        @if (ViewBag.EsMobile)
+                        {
+                            <i id="activo">
+                                <img id="@nivel.CodigoNivel" src="" style="display:none">
+                            </i>
+                        }
+                        <em>@nivel.DescripcionNivel</em>
+                    </span>
                 }
             </div>
         </div>
@@ -111,13 +111,13 @@
                                 <p> @((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
                                 <span>
                                     @if (showMoneda)
-                                    {   <em>@ViewBag.SimboloMoneda</em>
-                                         @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
-                                    }
-                                    else
-                                    {
-                                        @montoMaximoBarra @Html.Raw("pts")
-                                    }
+                                    {<em>@ViewBag.SimboloMoneda</em>
+                                    @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                }
+                                else
+                                {
+                                    @montoMaximoBarra @Html.Raw("pts")
+                                }
                                 </span>
                             </div>
                         </div>
@@ -132,7 +132,7 @@
                                 }
                                 if (nivelEvaluacion == nivelSiguiente)
                                 {
-                        <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a  <strong>Nivel @nivelSiguiente.DescripcionNivel</strong></p>
+                                    <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a  <strong>Nivel @nivelSiguiente.DescripcionNivel</strong></p>
                                 }
                             }
                             else
@@ -440,6 +440,7 @@
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Chart")
 
     <script>
         /* temporal Eliminar con el Homologado  */
