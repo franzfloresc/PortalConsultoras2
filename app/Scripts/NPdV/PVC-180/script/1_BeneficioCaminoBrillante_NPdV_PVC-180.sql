@@ -1,4 +1,4 @@
-USE BelcorpPeru_APP
+USE BelcorpPeru
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -15,7 +15,7 @@ BEGIN
 END
 GO
 
-USE BelcorpMexico_APP
+USE BelcorpMexico
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -32,7 +32,7 @@ BEGIN
 END
 GO
 
-USE BelcorpColombia_APP
+USE BelcorpColombia
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -49,7 +49,7 @@ BEGIN
 END
 GO
 
-USE BelcorpSalvador_APP
+USE BelcorpSalvador
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -66,7 +66,7 @@ BEGIN
 END
 GO
 
-USE BelcorpPuertoRico_APP
+USE BelcorpPuertoRico
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -83,7 +83,7 @@ BEGIN
 END
 GO
 
-USE BelcorpPanama_APP
+USE BelcorpPanama
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -100,7 +100,7 @@ BEGIN
 END
 GO
 
-USE BelcorpGuatemala_APP
+USE BelcorpGuatemala
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -117,7 +117,7 @@ BEGIN
 END
 GO
 
-USE BelcorpEcuador_APP
+USE BelcorpEcuador
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -134,7 +134,7 @@ BEGIN
 END
 GO
 
-USE BelcorpDominicana_APP
+USE BelcorpDominicana
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -151,7 +151,7 @@ BEGIN
 END
 GO
 
-USE BelcorpCostaRica_APP
+USE BelcorpCostaRica
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -168,7 +168,7 @@ BEGIN
 END
 GO
 
-USE BelcorpChile_APP
+USE BelcorpChile
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
@@ -185,7 +185,7 @@ BEGIN
 END
 GO
 
-USE BelcorpBolivia_APP
+USE BelcorpBolivia
 GO
 
 IF NOT EXISTS (select 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BeneficioCaminoBrillante' AND COLUMN_NAME = 'Estado')
