@@ -10,7 +10,7 @@
         <a href="#" title="Cerrar" class="d-block enlace__volver__atras__encuesta__satisfaccion" style="display:none;">
             <img src="@Url.Content("~/Content/Images/btn-back.svg")" alt="Volver atrás" />
         </a>
-        <div id="Paso1" class="d-flex flex-row flex-wrap justify-content-center align-content-center">
+        <section id="Paso1" class="d-flex flex-row flex-wrap justify-content-center align-content-center encuesta__satisfaccion__eleccionMotivo__wrapper encuesta__satisfaccion__eleccionMotivo__wrapper--mostrar">
             <h2 class="d-block text-center text-bold seccion__encuesta__satisfaccion__titulo">
                 Califica nuestro servicio en tu pedido de Campaña <span id="numCampania">C07</span>
             </h2>
@@ -38,8 +38,58 @@
             <button id="btnConfirmaMotivo" class="d-block center-block border-radius-4 text-bold btn__sb btn__sb--disabled btn__sb__primary btn__sb__primary--multimarca btn__sb--confirmar">
                 Confirmar
             </button>
-        </div>
-        <div id="Paso2" class="d-flex flex-row flex-wrap justify-content-center encuesta__satisfaccion__agradecimiento__wrapper">
+        </section>
+        <section id="PrecargaEncuesta" class="spinner__wrapper spinner__wrapper--encuestaSatisfaccion">
+            <div class="d-block center-block">
+                <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="precarga__spinner">
+                    <symbol id="s--circle">
+                        <circle r="9" cx="15" cy="15"></circle>
+                    </symbol>
+                    <g class="spinner__circulos">
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <p class="w-100 d-block center-block text-center text-bold spinner__texto">
+                Cargando
+            </p>
+        </section>
+        <section id="Paso2" class="d-flex flex-row flex-wrap justify-content-center align-content-center encuesta__satisfaccion__agradecimiento__wrapper">
             <div class="d-block center-block encuesta__satisfaccion__iconoAgradecimiento">
                 <img src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡Gracias por tu opinión!" />
             </div>
@@ -47,7 +97,7 @@
             <p class="d-block text-center encuesta__satisfaccion__mensaje__agradecimiento">
                 Tu información es valiosa para<br />mejorar nuestro servicio
             </p>
-        </div>
+        </section>
     </section>
     <input type="hidden" id="hdfCalificacionId" />
     <input type="hidden" id="hdfEncuestaId" />

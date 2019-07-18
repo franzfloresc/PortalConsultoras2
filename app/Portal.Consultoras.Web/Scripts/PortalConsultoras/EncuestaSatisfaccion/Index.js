@@ -1,4 +1,5 @@
-﻿var dataEncuesta = {};
+﻿
+var dataEncuesta = {};
 var buttonConfirmSurvey = false;
 var refrezcarPage = false;
 var EncuestaSatisfaccion = (function () {
@@ -18,6 +19,7 @@ var EncuestaSatisfaccion = (function () {
         numCampania: "#numCampania",
         PopUpEncuesta:"#PopUpEncuesta",
         Paso1: "#Paso1",
+        Spinner: "#PrecargaEncuesta",
         Paso2:"#Paso2",
         btnConfirmar: "#btnConfirmaMotivo"
     };
@@ -40,12 +42,13 @@ var EncuestaSatisfaccion = (function () {
                     if (result.success) {
                         $(_elementos.Paso1).fadeOut(150);
                         $(_elementos.Paso2).fadeIn(200);
+                        $(_elementos.Paso2).css('display', '');
+                        $(_elementos.Paso2).addClass('encuesta__satisfaccion__agradecimiento__wrapper--mostrar');
                         setTimeout(function () {
                             $(_elementos.PopUpEncuesta).fadeOut(250);
                             if (refrezcarPage)
-                                window.location.reload();
-                            
-                        }, 2850);
+                                window.location.reload();                            
+                        }, 4000);
                     } else {
                         $(_elementos.PopUpEncuesta).fadeOut(250);
                     }
@@ -100,11 +103,13 @@ var EncuestaSatisfaccion = (function () {
                 _funciones.GrabarEncuesta(function (result) {
                     if (result.success) {
                         $(_elementos.Paso2).fadeIn(200);
+                        $(_elementos.Paso2).css('display', '');
+                        $(_elementos.Paso2).addClass('encuesta__satisfaccion__agradecimiento__wrapper--mostrar');
                         setTimeout(function () {
                             $(_elementos.PopUpEncuesta).fadeOut(250);
                             if (refrezcarPage)
                                 window.location.reload();
-                        }, 2850);
+                        }, 4000);
                     } else {
                         $(_elementos.PopUpEncuesta).fadeOut(250);
                     }
@@ -246,10 +251,13 @@ var EncuestaSatisfaccion = (function () {
                 type: "POST",
                 url: pUrl,
                 beforeSend: function () {
-                    waitingDialog();
+                    $(_elementos.Spinner).fadeIn(200);
+                    $(_elementos.Spinner).css('display', '');
+                    $(_elementos.Spinner).addClass('spinner__wrapper--encuestaSatisfaccion--mostrar');
                 },
                 complete: function () {
-                    closeWaitingDialog();
+                    $(_elementos.Spinner).fadeOut(150);
+                    $(_elementos.Spinner).removeClass('spinner__wrapper--encuestaSatisfaccion--mostrar');
                 },
                 data: JSON.stringify(sendData),
                 contentType: "application/json; charset=utf-8",

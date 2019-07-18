@@ -72,10 +72,6 @@ input.field__checkbox__sb{
 
 /* HD-4357 - ENCUESTA DE SATISFACCIÓN */
 
-.btn_chat_messenger_mobile {
-    display: none !important;
-}
-
 .bg__popup__encuestaSatisfaccion__desktop {
     z-index: 4001;
 }
@@ -165,11 +161,15 @@ input.field__checkbox__sb{
     }
 
     .seccion__encuesta__satisfaccion__titulo{
-        margin:0 0 24px 0;
+        margin:16px 0 24px 0;
         font-size:16px;
         color:#000;
         line-height:20px;
     }
+
+        .seccion__encuesta__satisfaccion__expandir .seccion__encuesta__satisfaccion__titulo{
+            margin:24px 0 24px 0;
+        }
 
     .encuesta__satisfaccion__estados__wrapper{
         flex:0 0 300px;
@@ -266,9 +266,17 @@ input.field__checkbox__sb{
                 }
             }
 
-                .encuesta__satisfaccion__disabled{
-                    opacity:0.4;
+                .encuesta__satisfaccion__disabled {
+                    opacity: 0.4;
+                    -moz-transition: opacity 0.3s ease;
+                    -o-transition: opacity 0.3s ease;
+                    -webkit-transition: opacity 0.3s ease;
+                    transition: opacity 0.3s ease;
                 }
+
+                    .encuesta__satisfaccion__disabled:hover{
+                        opacity:1;
+                    }
 
                 .encuesta__satisfaccion__estado__imagen{
                     margin-bottom:6px;
@@ -378,34 +386,53 @@ input.field__checkbox__sb{
         margin-top:42px;
     }
 
+    .spinner__wrapper--encuestaSatisfaccion,
     .encuesta__satisfaccion__agradecimiento__wrapper,
     .btn__sb--confirmar{
         display:none;
     }
-
-        .encuesta__satisfaccion__iconoAgradecimiento{
-            margin-top: 60px;
-            width: 80px;
-            height: 80px;
-            position: relative;
-            left: 12px;
+        
+        .spinner__wrapper--encuestaSatisfaccion,
+        .encuesta__satisfaccion__agradecimiento__wrapper {
+            height: 100%;
+            margin-top: 0 !important;
+            opacity:0;
+            -moz-transition:opacity 0.3s ease;
+            -o-transition:opacity 0.3s ease;
+            -webkit-transition:opacity 0.3s ease;
+            transition:opacity 0.3s ease;
         }
-
-            .encuesta__satisfaccion__iconoAgradecimiento img{
-                width:100%;
-                height:auto;
+            
+            .spinner__wrapper--encuestaSatisfaccion--mostrar,
+            .encuesta__satisfaccion__agradecimiento__wrapper--mostrar{
+                display:flex!important;
+                opacity:1;
             }
 
-        .encuesta__satisfaccion__titulo__agradecimiento{
-            font-size:24px;
-            margin-bottom:8px;
-        }
+            .encuesta__satisfaccion__iconoAgradecimiento {
+                width: 80px;
+                height: 80px;
+                position: relative;
+                left: 12px;
+            }
 
-        .encuesta__satisfaccion__mensaje__agradecimiento{
-            font-size:16px;
-            color:#646464;
+                .encuesta__satisfaccion__iconoAgradecimiento img{
+                    width:100%;
+                    height:auto;
+                }
 
-        }
+            .encuesta__satisfaccion__titulo__agradecimiento{
+                font-size: 24px;
+                margin-top: 16px;
+                margin-bottom: 8px;
+                color: #000;
+            }
+
+            .encuesta__satisfaccion__mensaje__agradecimiento{
+                font-size:16px;
+                color:#646464;
+                line-height:22px;
+            }
 
 @media screen and (min-width:992px){
 
