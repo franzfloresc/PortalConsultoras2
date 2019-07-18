@@ -10,6 +10,7 @@ namespace Portal.Consultoras.Web.Models.Encuesta
         public EncuestaModel()
         {
             EncuestaCalificacion = new HashSet<EncuestaCalificacionModel>();
+            EncuestaId = 0;
         }
         public int EncuestaId { get; set; }
         public string CodigoCampania { get; set; }
