@@ -1,4 +1,6 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Pedido;
+
 using System;
 using System.Data;
 using System.Runtime.Serialization;
@@ -367,5 +369,11 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public decimal Ganancia { get; set; }
+
+        [DataMember]
+        public BEPedidoWebSet PedidoWebSet { get; set; }
+
+        [DataMember]
+        public string TipoPersonalizacion { get; set; }
     }
 }

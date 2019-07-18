@@ -977,17 +977,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }
 
             /* Agregar los Demostradores */
-            if (demostradores != null)
+            if (demostradores != null && demostradores.LstDemostradores.Any())
             {
-                if (demostradores.LstDemostradores.Any())
-                {
                     /* Catalogos */
                     var catalogos = demostradores.LstDemostradores.Where(e => e.EsCatalogo == 1).Take(2).Select(e => ToBEOfertaCaminoBrillante(e));                   
                     iSize = size - (carrusel.Items.Count + catalogos.Count());
                     /* Demostradores */
                     carrusel.Items.AddRange(demostradores.LstDemostradores.Where(e => e.EsCatalogo != 1).Take(iSize).Select(e => ToBEOfertaCaminoBrillante(e)));
                     carrusel.Items.AddRange(catalogos);
-                }
             }
 
             return carrusel;
@@ -1139,22 +1136,22 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
         /// Nota: Alinear con CaminoBrillanteProvider.IsOrigenPedidoCaminoBrillante
         /// </summary>
-        public bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb)
-        {
-            return origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home || 
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel
-                    ;
-        }
+        //public bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb)
+        //{
+        //    return origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home || 
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel
+        //            ;
+        //}
 
         public void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bEPedidoWebDetalle, int paisId, int campaniaId, int nivelId)
         {

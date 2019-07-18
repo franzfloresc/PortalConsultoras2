@@ -54,10 +54,6 @@ $(document).ready((function (cerrarRechazado) {
                         var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                         if (_Estado === "1") {
-                            //if (mensajeCdrFueraDeFechaCompleto !== "") {
-                            //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                            //    return false;
-                            //}
                             if (mensajeGestionCdrInhabilitada !== "") {
                                 messageInfoValidado(mensajeGestionCdrInhabilitada);
                                 return false;
@@ -129,10 +125,6 @@ $(document).ready((function (cerrarRechazado) {
 
             me.Funciones = {
                 NuevaSolicitud: function () {
-                    //if (mensajeCdrFueraDeFechaCompleto !== "") {
-                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                    //    return false;
-                    //}
                     if (mensajeGestionCdrInhabilitada !== "") {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
@@ -156,10 +148,6 @@ $(document).ready((function (cerrarRechazado) {
                     var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                     if (_Estado === "1") {
-                        //if (mensajeCdrFueraDeFechaCompleto !== "") {
-                        //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                        //    return false;
-                        //}
                         if (mensajeGestionCdrInhabilitada !== "") {
                             messageInfoValidado(mensajeGestionCdrInhabilitada);
                             return false;
