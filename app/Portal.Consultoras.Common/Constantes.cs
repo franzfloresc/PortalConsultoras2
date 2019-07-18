@@ -21,17 +21,11 @@ namespace Portal.Consultoras.Common
             public const string Terminado = "El proceso terminó satisfactoriamente";
             public const string Error = "El proceso tuvo complicaciones";
             public const string respuestaexito = "a";
-            
             public const string respuestanoCarga = "b";
             public const string respuestanoCargaSinDatos = "c";
             public const string MensajeRetorno = "Se está ejecutando un proceso desde otro punto para otra campaña, espere unos minutos y vuelva a intentarlo.";
-            public const string ProcesoDescarga = "Proceso de carga de datos,";
-            public const string ExitoDescargaWebDD = " Se generó la descarga de los pedidos";
-            public const string ExitoDescargaSoloWeb = " los pedidos DD no fueron cargados, solo se generaron pedidos web ya que no existe información ";
-            public const string ExitoDescargaSoloDD = " Los pedidos WEB no fueron cargados, solo se generaron pedidos DD ya que no existe información ";
-            public const string NingunaDescargaWebDD = " no se generó la carga de pedido ya que no se encontró información ";
-            public const string RutaDescarga = "Se generó de manera satisfactoria, la ruta para verificarlos es : ";
-            public const string RutaMensaje = ", puede verificar los archivos en la ruta : ";
+            public const string ExitoDescargaWebDD = " El proceso de descarga de pedidos ha finalizado satisfactoriamente";
+            public const string NingunaDescargaWebDD = " El proceso de descarga de pedidos no se realizó por falta de datos";
         }
 
         public static class EstadoValorProcesoDescargaregular
@@ -41,7 +35,7 @@ namespace Portal.Consultoras.Common
             public const int EnProceso = 0;
         }
 
-       /*FIN*/
+        /*FIN*/
 
 
 
@@ -1194,7 +1188,7 @@ namespace Portal.Consultoras.Common
             public const string mensajeBackOrderMobile = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
         }
 
-      
+
 
         public static class EstadoCDRWeb
         {

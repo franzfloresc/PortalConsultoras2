@@ -218,7 +218,6 @@
 
 
     function ArchivoClientes(rowId) {
-        
         var waiting = {
             message: 'Espere unos minutos, por favor...',
             title: 'Ejecutando Proceso'
@@ -237,10 +236,10 @@
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     if (data.msnRespuesta_ == "a") {
-                        DescargaArchivos(data.objPedidosCabWeb_);
-                        DescargaArchivos(data.objPedidosDetWeb_);
-                        DescargaArchivos(data.objPedidosCabDD_);
-                        DescargaArchivos(data.objPedidosDetDD_);
+                        if (data.objPedidosCabWeb_.length > 0) DescargaArchivos(data.objPedidosCabWeb_);
+                        if (data.objPedidosDetWeb_.length > 0) DescargaArchivos(data.objPedidosDetWeb_);
+                        if (data.objPedidosCabDD_.length > 0) DescargaArchivos(data.objPedidosCabDD_);
+                        if (data.objPedidosDetDD_.length > 0) DescargaArchivos(data.objPedidosDetDD_);
                     }
                     if (data.msnRespuesta_ == "b") {
                         alert("Se está ejecutando un proceso desde otro punto para otra campaña, espere unos minutos y vuelva a intentarlo.");

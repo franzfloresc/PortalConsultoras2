@@ -2605,40 +2605,40 @@ namespace Portal.Consultoras.BizLogic
                         else throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
                     }
 
-                    if (dtPedidosCabWeb.Rows.Count > 0 && dtPedidosDetWeb.Rows.Count > 0 && dtPedidosCabDD.Rows.Count > 0 && dtPedidosDetDD.Rows.Count > 0)
+                    if (dtPedidosCabWeb.Rows.Count < 0 && dtPedidosDetWeb.Rows.Count < 0 && dtPedidosCabDD.Rows.Count < 0 && dtPedidosDetDD.Rows.Count < 0)
                     {
-                    string fechaProceso = DateTime.Now.ToString("yyyyMMdd");
-                    int tmpCronograma = Constantes.TipoProceso.Regular;
-                    string codigoPais = null;
-                    codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
-
-                    codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
-                    var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
-                    var element = section.Countries[paisID];
-
-                    string postfixHeaderTemplate =
-                    (ConfigurationManager.AppSettings["HasDiffCA-PRD"].Contains(codigoPais) && tmpCronograma != 1) ? "PRD" :
-                    (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
-                    string postfixDetailTemplate = (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
-
-                    BETemplateSinMarcar[] headerTemplate = ParseTemplateSinMarcar(ConfigurationManager.AppSettings[element.OrderHeaderTemplate + postfixHeaderTemplate]);
-                    BETemplateSinMarcar[] detailTemplate = ParseTemplateSinMarcar(ConfigurationManager.AppSettings[element.OrderDetailTemplate + postfixDetailTemplate]);
-
-                    objBEDescargaArchivoSinMarcar.headerTemplate = headerTemplate;
-                    objBEDescargaArchivoSinMarcar.detailTemplate = detailTemplate;
-                    objBEDescargaArchivoSinMarcar.dtPedidosCabWeb = dtPedidosCabWeb;
-                    objBEDescargaArchivoSinMarcar.dtPedidosDetWeb = dtPedidosDetWeb;
-                    objBEDescargaArchivoSinMarcar.dtPedidosCabDD = dtPedidosCabDD;
-                    objBEDescargaArchivoSinMarcar.dtPedidosDetDD = dtPedidosDetDD;
-                    objBEDescargaArchivoSinMarcar.msnRespuesta = Constantes.MensajeProcesoDescargaregular.respuestaexito;
-                    objBEDescargaArchivoSinMarcar.codigoPais = codigoPais;
-                    objBEDescargaArchivoSinMarcar.fechaProceso = fechaProceso;
-                    objBEDescargaArchivoSinMarcar.lote = nroLote;
-                    return objBEDescargaArchivoSinMarcar;
+                        objBEDescargaArchivoSinMarcar.msnRespuesta = Constantes.MensajeProcesoDescargaregular.respuestanoCargaSinDatos;
+                        return objBEDescargaArchivoSinMarcar;
                     }
                     else
                     {
-                        objBEDescargaArchivoSinMarcar.msnRespuesta = Constantes.MensajeProcesoDescargaregular.respuestanoCargaSinDatos;
+                        string fechaProceso = DateTime.Now.ToString("yyyyMMdd");
+                        int tmpCronograma = Constantes.TipoProceso.Regular;
+                        string codigoPais = null;
+                        codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
+
+                        codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
+                        var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
+                        var element = section.Countries[paisID];
+
+                        string postfixHeaderTemplate =
+                        (ConfigurationManager.AppSettings["HasDiffCA-PRD"].Contains(codigoPais) && tmpCronograma != 1) ? "PRD" :
+                        (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
+                        string postfixDetailTemplate = (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
+
+                        BETemplateSinMarcar[] headerTemplate = ParseTemplateSinMarcar(ConfigurationManager.AppSettings[element.OrderHeaderTemplate + postfixHeaderTemplate]);
+                        BETemplateSinMarcar[] detailTemplate = ParseTemplateSinMarcar(ConfigurationManager.AppSettings[element.OrderDetailTemplate + postfixDetailTemplate]);
+
+                        objBEDescargaArchivoSinMarcar.headerTemplate = headerTemplate;
+                        objBEDescargaArchivoSinMarcar.detailTemplate = detailTemplate;
+                        objBEDescargaArchivoSinMarcar.dtPedidosCabWeb = dtPedidosCabWeb;
+                        objBEDescargaArchivoSinMarcar.dtPedidosDetWeb = dtPedidosDetWeb;
+                        objBEDescargaArchivoSinMarcar.dtPedidosCabDD = dtPedidosCabDD;
+                        objBEDescargaArchivoSinMarcar.dtPedidosDetDD = dtPedidosDetDD;
+                        objBEDescargaArchivoSinMarcar.msnRespuesta = Constantes.MensajeProcesoDescargaregular.respuestaexito;
+                        objBEDescargaArchivoSinMarcar.codigoPais = codigoPais;
+                        objBEDescargaArchivoSinMarcar.fechaProceso = fechaProceso;
+                        objBEDescargaArchivoSinMarcar.lote = nroLote;
                         return objBEDescargaArchivoSinMarcar;
                     }
                 }
@@ -2756,19 +2756,13 @@ namespace Portal.Consultoras.BizLogic
 
         private string CapturarMensaje(string valor)
         {
-            string mensaje = Constantes.MensajeProcesoDescargaregular.ProcesoDescarga + " {0}", mensajeFinal = string.Empty;
+            string mensajeFinal = string.Empty;
 
-            if (valor.IndexOf("aa") != -1)
-                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaWebDD);
-
-            if (valor.IndexOf("ab") != -1)
-                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaSoloWeb);
-
-            if (valor.IndexOf("ba") != -1)
-                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaSoloDD);
+            if (valor.IndexOf("aa") != -1 || valor.IndexOf("ab") != -1 || valor.IndexOf("ba") != -1)
+                mensajeFinal = Constantes.MensajeProcesoDescargaregular.ExitoDescargaWebDD;
 
             if (valor.IndexOf("bb") != -1)
-                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.NingunaDescargaWebDD);
+                mensajeFinal = Constantes.MensajeProcesoDescargaregular.NingunaDescargaWebDD;
             return mensajeFinal;
         }
 
@@ -2952,26 +2946,6 @@ namespace Portal.Consultoras.BizLogic
             objBETemplateSinMarcar.Size = int.Parse(parts[1]);
             return objBETemplateSinMarcar;
         }
-
-        private string RetornaMensajeresultado(string cargapedido)
-        {
-            string mensaje = Constantes.MensajeProcesoDescargaregular.ProcesoDescarga + " {0}", mensajeFinal = string.Empty,
-            mensajeExito = string.Concat(Constantes.MensajeProcesoDescargaregular.RutaDescarga, ConfigurationManager.AppSettings["OrderDownloadPath"]);
-
-            if (cargapedido.IndexOf("aa") != -1)
-                mensajeFinal = string.Format(mensaje, mensajeExito);
-
-            if (cargapedido.IndexOf("ab") != -1)
-                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaSoloWeb + Constantes.MensajeProcesoDescargaregular.RutaMensaje + ConfigurationManager.AppSettings["OrderDownloadPath"]);
-
-            if (cargapedido.IndexOf("ba") != -1)
-                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaSoloDD + Constantes.MensajeProcesoDescargaregular.RutaMensaje + ConfigurationManager.AppSettings["OrderDownloadPath"]);
-
-            if (cargapedido.IndexOf("bb") != -1)
-                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.NingunaDescargaWebDD);
-            return mensajeFinal;
-        }
-
         #endregion
 
     }
