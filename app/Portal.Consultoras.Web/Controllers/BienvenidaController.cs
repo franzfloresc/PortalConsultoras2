@@ -2339,7 +2339,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     mostrarEncuesta = data.EncuestaId > 0,
-                    data = data,
+                    data,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2349,6 +2349,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     mostrarEncuesta = false,
                     data = "",
+                    errorException = true,
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -2376,6 +2377,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
+                    errorException = true,
                 }, JsonRequestBehavior.AllowGet);
             }
         }
