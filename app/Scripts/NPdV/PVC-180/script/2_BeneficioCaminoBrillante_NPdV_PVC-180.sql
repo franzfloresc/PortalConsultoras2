@@ -10,7 +10,7 @@ INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('1', 'BENEFICIO04', 'Recono
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('1', 'BENEFICIO05', 'Call Center', '', '04', 5, GETDATE(), NULL, 1 )
 
 /*** Coral ***/
-INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('2', 'BENEFICIO01', 'Kit de productos', '5 productos + muestras', '07', 1, GETDATE(), NULL, 1 )
+INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('2', 'BENEFICIO01', 'Kit de productos', 'Productos + muestras', '07', 1, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('2', 'BENEFICIO02', 'Regalo por pedido', 'Acumulando 420 puntos en dos campañas', '12', 2, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('2', 'BENEFICIO03', '10% de descuento en demostradores y catálogos', '', '06', 3, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('2', 'BENEFICIO04', 'Reconocimiento', '', '11', 4, GETDATE(), NULL, 1 )
@@ -19,7 +19,7 @@ INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('2', 'BENEFICIO06', 'Acompa
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('2', 'BENEFICIO07', 'Sobre de campaña con catálogos (Esika y Cyzone)', '', '05', 7, GETDATE(), NULL, 1 )
 
 /*** Ambar ***/
-INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('3', 'BENEFICIO01', 'Kit de productos a bajo precio', '5 productos + muestras', '07', 1, GETDATE(), NULL, 1 )
+INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('3', 'BENEFICIO01', 'Kit de productos a bajo precio', 'Productos + muestras', '07', 1, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('3', 'BENEFICIO02', '15% de descuento en demostradores y catálogos', '', '06', 2, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('3', 'BENEFICIO03', 'Talleres', '', '13', 3, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('3', 'BENEFICIO04', 'Regalo por pedido', 'Acumulando 420 puntos en dos campañas', '12', 4, GETDATE(), NULL, 1 )
@@ -29,7 +29,7 @@ INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('3', 'BENEFICIO07', 'Acompa
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('3', 'BENEFICIO08', 'Sobre de campaña con catálogos (Esika y Cyzone)', '', '05', 8, GETDATE(), NULL, 1)
 
 /*** Perla ***/
-INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('4', 'BENEFICIO01', 'Kit de productos a bajo precio', '5 productos + muestras', '07', 1, GETDATE(), NULL, 1 )
+INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('4', 'BENEFICIO01', 'Kit de productos a bajo precio', 'Productos + muestras', '07', 1, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('4', 'BENEFICIO02', '20% de descuento en demostradores y catálogos', '', '06', 2, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('4', 'BENEFICIO03', 'Brazalete', '', '03', 3, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('4', 'BENEFICIO04', 'Talleres', '', '13', 4, GETDATE(), NULL, 1 )
@@ -40,7 +40,7 @@ INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('4', 'BENEFICIO08', 'Acompa
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('4', 'BENEFICIO09', 'Sobre de campaña con catálogos (Esika y Cyzone)', '', '05', 9, GETDATE(), NULL, 1 )
 
 /*** Topacio ***/
-INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('5', 'BENEFICIO01', 'Kit de productos a bajo precio', '5 productos + muestras', '07', 1, GETDATE(), NULL, 1 )
+INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('5', 'BENEFICIO01', 'Kit de productos a bajo precio', 'Productos + muestras', '07', 1, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('5', 'BENEFICIO02', '35% de descuento en flete', '', '06', 2, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('5', 'BENEFICIO03', '25% descuento en demostradores y catálogos', '', '06', 3, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('5', 'BENEFICIO04', 'Brazalete', '', '03', 4, GETDATE(), NULL, 1 )
@@ -53,7 +53,7 @@ INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('5', 'BENEFICIO10', 'Sobre 
 
 /*** Brillante ***/
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('6', 'BENEFICIO01', 'Programa Brillante', '', '10', 1, GETDATE(), NULL, 1 )
-INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('6', 'BENEFICIO02', 'Kit de productos a bajo precio', '5 productos + muestras', '07', 2, GETDATE(), NULL, 1 )
+INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('6', 'BENEFICIO02', 'Kit de productos a bajo precio', 'Productos + muestras', '07', 2, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('6', 'BENEFICIO03', '70% a 100% de descuento en flete', '', '06', 3, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('6', 'BENEFICIO04', '30% descuento en demostradores y catálogos', '', '06', 4, GETDATE(), NULL, 1 )
 INSERT INTO [dbo].[BeneficioCaminoBrillante] VALUES ('6', 'BENEFICIO05', 'Brazalete', '', '03', 5, GETDATE(), NULL, 1 )
