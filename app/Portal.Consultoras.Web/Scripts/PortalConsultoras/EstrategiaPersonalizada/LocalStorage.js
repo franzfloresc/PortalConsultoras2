@@ -32,24 +32,6 @@
         }
     };
 
-    //var _obtenerKeyName = function (codigoPalanaca, campania) {
-    //    switch (codigoPalanaca) {
-    //        case _tipoEstrategia.RevistaDigital:
-    //        case _tipoEstrategia.OfertaParaTi:
-    //        case _tipoEstrategia.OfertasParaMi:
-    //        case _tipoEstrategia.PackAltoDesembolso:
-    //            return _keyLocalStorage.RevistaDigital;
-    //        case _tipoEstrategia.GuiaDeNegocioDigitalizada:
-    //            return _keyLocalStorage.GuiaDeNegocio;
-    //        case _tipoEstrategia.Lanzamiento:
-    //            return _keyLocalStorage.Lanzamiento;
-    //        case _tipoEstrategia.HerramientasVenta:
-    //            return _keyLocalStorage.HerramientasVenta;
-    //        default:
-    //            return null;
-    //    }
-    //};
-
     var _obtenerKeyName2 = function (codigoPalanaca, campania) {
         switch (codigoPalanaca) {
             case _codigoPalanca.RD:
@@ -70,14 +52,11 @@
             case _codigoPalanca.MG:
             case _tipoEstrategia.MasGanadoras:
                 return _keyLocalStorage.Ganadoras;
-            //INI HD-3908
             case _codigoPalanca.PN:
             case _tipoEstrategia.PackNuevas:
                 return _keyLocalStorage.PackNuevas;
             case _codigoPalanca.DP:
-                //case _tipoEstrategia.PackNuevas:
                 return _keyLocalStorage.DuoPerfecto;
-            //FIN HD-3908
             case _codigoPalanca.CBD:
             case _tipoEstrategia.CaminoBrillanteDemostradores:
                 return _keyLocalStorage.CaminoBrillanteDemostradores;
@@ -264,14 +243,13 @@
             var nombreKey = _obtenerKeyName2(codigoPalanaca);
             var nombreKeyLocalStorage = nombreKey + campania;
             var valLocalStorage = localStorage.getItem(nombreKeyLocalStorage);
-
-            //INI HD-3908
+            
             if (valLocalStorage == null && codigoPalanaca === _tipoEstrategia.PackNuevas) {
                 nombreKey = _keyLocalStorage.DuoPerfecto;
                 nombreKeyLocalStorage = nombreKey + campania;
                 valLocalStorage = localStorage.getItem(nombreKeyLocalStorage);
             }
-            //FIN HD-3908
+
             if (valLocalStorage != null) {
                 var data = JSON.parse(valLocalStorage);
                 var updated;
@@ -331,6 +309,16 @@ function LocalStorageListado(key, valor, accion) {
     }
 }
 
+function LocalStorageListadoObtenerJson(key, valor, accion) {
+    var str = LocalStorageListado(key, valor, accion) || "";
+
+    if (str === '') {
+        return null;
+    }
+
+    return JSON.parse(str);
+}
+
 function GetProductoStorage(cuv, campania, nombreKey) {
     nombreKey = nombreKey || lsListaRD;
     var sl = LocalStorageListado(nombreKey + campania, '', 1);
@@ -366,10 +354,8 @@ function ActualizarLocalStoragePalancas(cuv, valor) {
     ActualizarLocalStorageAgregado("HV", cuv, valor);
     ActualizarLocalStorageAgregado("LAN", cuv, valor);
     ActualizarLocalStorageAgregado("MG", cuv, valor);
-    //INI HD-3908
     ActualizarLocalStorageAgregado("PN", cuv, valor);
     ActualizarLocalStorageAgregado("DP", cuv, valor);
-    //FIN HD-3908
     ActualizarLocalStorageAgregado("CBD", cuv, valor);
     ActualizarLocalStorageAgregado("CBK", cuv, valor);
 }
@@ -402,7 +388,6 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         else if (tipo == ConstantesModule.CodigoPalanca.MG) {
             lista = ConstantesModule.KeysLocalStorage.Ganadoras;
         }
-        //INI HD-3908
         else if (tipo == ConstantesModule.CodigoPalanca.PN) {
             lista = ConstantesModule.KeysLocalStorage.PackNuevas;
         }
@@ -415,7 +400,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         else if (tipo == ConstantesModule.CodigoPalanca.CBK) {
             lista = ConstantesModule.KeysLocalStorage.CaminoBrillanteKits;
         }
-        //FIN HD-3908
+
         if (lista == "") {
             return;
         }
