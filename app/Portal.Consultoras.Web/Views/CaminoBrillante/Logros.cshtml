@@ -90,9 +90,9 @@
         <div class="cambio-crec">
             {{#each Medallas }}
             {{#if_eq Tipo 'PIE'}}
-            <h1>NIV</h1>
+            <h1>NIV {{Titulo}} {{Subtitulo}}</h1>
             {{else if_eq Tipo 'NIV'}}
-            <h1>NIV</h1>
+            <h1></h1>
             {{else}}
             <div class="itm">
                 {{#if_eq Tipo 'CIRC'}}
@@ -100,12 +100,10 @@
                     <span>{{Valor}}</span>
                 </div>
                 {{/if_eq}}
-
                 {{#if_eq Tipo 'NIV'}}
                 {{else}}
                 <a href="#" class="inactivo">{{Titulo}}</a>
                 {{/if_eq}}
-
                 {{#if Estado}}
                 <span class="como-log inactivo">{{Subtitulo}}</span>
                 {{else}}
@@ -159,26 +157,12 @@
                 {{/if}}
             </div>
             {{/if_eq}}
-
-
             {{/each}}
         </div>
     </div>
     {{/each}}
-
-
-
     {{/if_eq}}
-
-
-
-
-
-
-
-
     {{/each}}
-
     <div class="clear"></div>
 </script>
 
