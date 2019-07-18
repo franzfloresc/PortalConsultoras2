@@ -43,7 +43,7 @@ function MostrarBarra(datax, destino) {
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
         initCarruselPremios(dataBarra);
-        if (datax.data && datax.data.CUV) {            
+        if (datax.data && datax.data.CUV) {
             trySetPremioElectivo(datax.data.CUV);
         } else {
             savePedidoDetails(datax);
@@ -99,7 +99,7 @@ function MostrarBarra(datax, destino) {
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
-
+    //HD-4066
     var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn;
     if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
     listaEscalaDescuento = listaEscalaDescuento || new Array();
@@ -122,7 +122,7 @@ function MostrarBarra(datax, destino) {
             indDesde = ind;
         }
     });
-
+    //Fin
     var textoPunto = '<div style="font-size:12px; font-weight:400; margin-bottom:4px;">{titulo}</div><div style="font-size: 12px;">{detalle}</div>';
     if (mx > 0 && destino == '2') {
         listaLimite.push({
@@ -316,24 +316,24 @@ function MostrarBarra(datax, destino) {
         htmlTippintPoint = htmlTippintPoint
             .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
             .replace('{barra_tooltip}',
-            dataTP.ActiveTooltip ?
-                '<div class="tooltip_regalo_meta_tippingPoint">'
-                + '<div class="tooltip_producto_regalo_img">'
-                + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
-                + '</div>'
-                + '{barra_tooltip_descripcion}'
-                + '</div>' :
-                ''
+                dataTP.ActiveTooltip ?
+                    '<div class="tooltip_regalo_meta_tippingPoint">'
+                    + '<div class="tooltip_producto_regalo_img">'
+                    + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                    + '</div>'
+                    + '{barra_tooltip_descripcion}'
+                    + '</div>' :
+                    ''
             )
             .replace('{barra_monto}',
-            dataTP.ActiveMonto ?
-                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
-                ''
+                dataTP.ActiveMonto ?
+                    '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
+                    ''
             )
             .replace('{barra_tooltip_descripcion}',
-            dataTP.ActiveMonto ?
-                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
-                '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+                dataTP.ActiveMonto ?
+                    '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                    '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
             );
     }
 
@@ -867,6 +867,7 @@ function initCarruselPremios(barra) {
 
 function cerrarProgramaNuevas(valor) {
     var valorCerrar = "icono_cerrar_popup_eleccion_regalo_programaNuevas";
+    /*HD-3710 - 6_7 (Pop up Felicidades -  Click Botón) -  (Pop up Regalos - Click Botón) */
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Carrito de Compras',
@@ -888,7 +889,7 @@ function cargarPopupEleccionRegalo(disableCheck) {
     }
 
     showTextsPremio();
-
+    /*HD-3710 - 1_Click en regalo Web*/
     var disableValue = typeof disableCheck === 'string' && disableCheck.length > 0;
     if (disableValue) {
         dataLayer.push({
@@ -921,6 +922,9 @@ function isTippingPointSuperado() {
 function checkPremioSelected(validateInCarrusel) {
     var details = tpElectivos.pedidoDetails;
     if (!details || details.length === 0) {
+        //if (!tpElectivos.premioSelected) {
+        //    setPremio(null);
+        //}
 
         return;
     }
@@ -1348,7 +1352,8 @@ function showPopupNivelSuperado(barra, prevLogro) {
 
         return;
     }
-    
+
+    //HD-4066
     if (!TieneMontoMaximo()) {
         showPopupEscalaSiguiente(barra, prevLogro);
     }
@@ -1357,6 +1362,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
             showPopupEscalaSiguiente(barra, prevLogro);
         }
     }
+    //Fin
 }
 
 function showPopupPremio() {
@@ -2352,19 +2358,25 @@ function CalculoPosicionMinimoMaximoDestokp() {
                 else {
                     limite = dataBarra.ListaEscalaDescuento.length - 1;
 
+                    var mMinimo = dataBarra.ListaEscalaDescuento[0].MontoDesde;
+                    var adjuste = 1;
+                    if (mMinimo <= dataBarra.ListaEscalaDescuento[1].MontoDesde && mMinimo != 0) {
+                        adjuste = 0;
+                        limite = dataBarra.ListaEscalaDescuento.length;
+                    }
 
                     for (var i = 0; i < limite; i++) {
 
                         if (i == 0) {
-                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i + 1].MontoDesde;
+                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i + adjuste].MontoDesde;
                             var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
                             document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                            AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
+                            AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 10) + '%';
                             document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                         } else {
-                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[i + 1].MontoDesde;
+                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[i + adjuste].MontoDesde;
                             var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                             document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
 
@@ -2373,6 +2385,26 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                         }
 
+                        if (limite >= 6 && montoMaximo1 == 185000) {
+                            document.getElementById('punto_0').style.left = '2%';
+                            document.getElementById('punto_1').style.left = '15%';
+                            document.getElementById('punto_2').style.left = '21.8%';
+                            document.getElementById('punto_5').style.left = '94%';
+                            document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
+                            document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
+
+
+                        } else {
+                            if (limite >= 6 && montoMaximo1 == 195000) {
+                                document.getElementById('divBarraEspacioLimite').style.width = '16%';
+                                document.getElementById('barra_0').style.left = '16%';
+                                document.getElementById('punto_0').style.left = '2%';
+                                document.getElementById('punto_1').style.left = '15%';
+                                document.getElementById('punto_2').style.left = '21.8%';
+                                document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
+                                document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
+                            }
+                        }
 
                     }
 
@@ -2535,8 +2567,15 @@ function tryLoadPedidoDetalle() {
     }
 }
 
+function FixPorcentajes(barra) {
+    var fixBarra = new Array();
+
+    return fixBarra;
+}
+
 function AgregarPremio(premio) {
 
+    /*HD-3710 - 2_3_Popup elige tu regalo - Click en botón cambiar -  Web - Mobile*/
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Carrito de Compras',
@@ -2552,7 +2591,7 @@ function AgregarPremio(premio) {
         TipoEstrategiaID: premio.TipoEstrategiaID,
         MarcaID: premio.MarcaID,
         FlagNueva: $.trim(premio.FlagNueva),
-        OrigenPedidoWeb: parseInt(PedidoEscogeRegaloCarrusel)
+        OrigenPedidoWeb: parseInt(PedidoEscogeRegaloCarrusel) /*HD-3710*/
     };
 
     return InsertarPremio(params);
@@ -2588,6 +2627,7 @@ function InsertarPremio(model) {
 
 function ClosePopupRegaloElectivo(valor) {
     var valorCerrar = "icono_cerrar_popup_eleccion_regalo_programaNuevas";
+    /*HD-3710 - 4_5_ Cerrar pop up elige tu regalo - Pop up regalos - Click Botón -- Web, Mobile */
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Carrito de Compras',
@@ -2603,10 +2643,13 @@ function ClosePopupRegaloElectivo(valor) {
 
 function ReordenarMontosBarra() {
     var barra = dataBarra.ListaEscalaDescuento;
+    var barraFix = new Array();
 
     var monto = 0;
-    if (IsoPais == 'CO')
-        monto = 150000;
+    if (IsoPais == 'CO') {
+        monto = 1000;
+        barraFix = FixPorcentajes(barra);
+    }
     else if (IsoPais == 'CR')
         monto = 10000;
     else if (IsoPais == 'CL')
