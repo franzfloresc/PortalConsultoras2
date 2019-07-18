@@ -225,8 +225,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> PedidoAgregarProductoTransaction(PedidoCrudModel model)
         {
-            int flagCantidadMayor = 0;
-            string mensajeCantidadMayor = string.Empty;
             try
             {
                 string mensaje = "", urlRedireccionar = "";
@@ -394,14 +392,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
 
-                    /*HD-4635*/
-                    if (pedidoWebDetalle.Count > 0)
-                        if (pedidoWebDetalle.Where(x => x.CUV == model.CUV).First().Cantidad > 99)
-                        {
-                            flagCantidadMayor = 1;
-                            mensajeCantidadMayor = string.Format( Constantes.ConfiguracionManager.MensajeCantiad, 99);
-                        }
-
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                     var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                     var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
@@ -412,8 +402,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = true,
                         message = pedidoDetalleResult.MensajeRespuesta,
-                        flagCantidaPedido = flagCantidadMayor,
-                        mensajeCantidad= mensajeCantidadMayor,
+                        flagCantidaPedido = pedidoDetalleResult.flagCantidadMayor,
+                        mensajeCantidad= pedidoDetalleResult.mensajeCantidadMayor,
                         tituloMensaje = pedidoDetalleResult.TituloMensaje,
                         mensajeAviso = pedidoDetalleResult.MensajeAviso,
                         errorInsertarProducto = "0",

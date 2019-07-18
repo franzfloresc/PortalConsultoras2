@@ -1089,7 +1089,7 @@ var PedidoRegistroModule = function () {
         if (flag == "true") {
             model.EstrategiaID = $("#hdfEstrategiaId").val();
         }
-
+        
         var EsDuoPerfecto = false;
         var CodigoEstrategia = $("#hdTipoEstrategiaCodigo").val();
         if (CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {

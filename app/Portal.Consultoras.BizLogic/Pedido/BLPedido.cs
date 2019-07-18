@@ -580,6 +580,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
 
+            /*HD-4635*/
+            int flagCantidadMayor = 0;
+            string mensajeCantidadMayor = string.Empty;
+            foreach (var item in lstDetalle)
+            {
+                if (item.CUV == cuvSet)
+                    if ((item.Cantidad + pedidoDetalle.Cantidad) > 99)
+                    {
+                        pedidoDetalle.Cantidad = 99 - item.Cantidad;
+                        flagCantidadMayor = 1;
+                        mensajeCantidadMayor = string.Format(Constantes.ConfiguracionManager.MensajeCantiad, 99);
+                    }
+            }
+
             #region UnidadesPermitidas
 
             estrategia.Cantidad = pedidoDetalle.Cantidad;
@@ -792,6 +806,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             response.ListaMensajeCondicional.AddRange(ListaMensajeCondicional);
             response.CUV = cuvSet;
             response.PedidoWeb = pedidoWeb;
+            response.mensajeCantidadMayor = mensajeCantidadMayor;/*HD-4635*/
+            response.flagCantidadMayor = flagCantidadMayor;/*HD-4635*/
             SetMontosTotalesProl(response, listObjMontosProl);
             return response;
         }
