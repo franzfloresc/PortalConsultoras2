@@ -30,7 +30,7 @@
                         <label for="chkOtroMotivoCalificacion" class="d-inline-block border-radius-4 text-center label__checkbox__sb"></label>
                         <span class="d-inline-block motivo__adicional__otro">Otro</span>
                     </div>
-                    <div id="divInconvenienteOSugerencia" class="d-none flex-row justify-content-start form__group__fields form__group__fields--motivoCalificacionAdicionalWrapper">
+                    <div id="divInconvenienteOSugerencia" class="d-flex flex-row justify-content-start form__group__fields form__group__fields--motivoCalificacionAdicionalWrapper" style="display:none;">
                         <input id="txtOtroMotivoCalificacion" type="text" class="d-block w-100 p-0 text__field__sb" placeholder="¿Tuviste algún inconveniente?">
                     </div>
                 </div>
@@ -40,7 +40,7 @@
             </button>
         </section>
         <section id="PrecargaEncuesta" class="spinner__wrapper spinner__wrapper--encuestaSatisfaccion">
-            <div class="d-block center-block">
+            <div class="d-block center-block spinner__animacion">
                 <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="precarga__spinner">
                     <symbol id="s--circle">
                         <circle r="9" cx="15" cy="15"></circle>
@@ -85,7 +85,7 @@
                     </g>
                 </svg>
             </div>
-            <p class="w-100 d-block center-block text-center text-bold spinner__texto">
+            <p class="w-100 d-block center-block text-center text-bold spinner__texto spinner__texto--encuestaSatisfaccion">
                 Cargando
             </p>
         </section>

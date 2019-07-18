@@ -24,7 +24,7 @@ var EncuestaSatisfaccion = (function () {
         btnConfirmar: "#btnConfirmaMotivo"
     };
     var _config = {
-
+        isDesktop: window.matchMedia("(min-width: 992px)").matches
     };
     var _funciones = {
         InicializarEventos: function () {
@@ -48,7 +48,7 @@ var EncuestaSatisfaccion = (function () {
                             $(_elementos.PopUpEncuesta).fadeOut(250);
                             if (refrezcarPage)
                                 window.location.reload();                            
-                        }, 4000);
+                        }, 3000);
                     } else {
                         $(_elementos.PopUpEncuesta).fadeOut(250);
                     }
@@ -65,7 +65,7 @@ var EncuestaSatisfaccion = (function () {
                 SetHandlebars("#template-encuesta-calificacion", dataEncuesta.EncuestaCalificacion, "#listaCalificacion");
               
                 $(_elementos.encuestaSatisfaccion).removeClass('seccion__encuesta__satisfaccion--ocultar');
-                if (window.matchMedia("(min-width: 992px)").matches) {
+                if (_config.isDesktop) {
                     $(_elementos.bgEncuestaDesktop).addClass("bg__popup__encuestaSatisfaccion__desktop--mostrar");
                 } else {
                     $(_elementos.bgEncuestaDesktop).removeClass("bg__popup__encuestaSatisfaccion__desktop--mostrar");
@@ -109,7 +109,7 @@ var EncuestaSatisfaccion = (function () {
                             $(_elementos.PopUpEncuesta).fadeOut(250);
                             if (refrezcarPage)
                                 window.location.reload();
-                        }, 4000);
+                        }, 3000);
                     } else {
                         $(_elementos.PopUpEncuesta).fadeOut(250);
                     }
@@ -118,14 +118,13 @@ var EncuestaSatisfaccion = (function () {
                 //set values
                 buttonConfirmSurvey = false;
                 $(_elementos.chkOtroMotivoCalificacion).prop("checked", false);
-                $(_elementos.divInconvenienteOSugerencia).removeClass("d-flex").addClass("d-none");
                 $(_elementos.txtOtroMotivoCalificacion).val("");
                 $(_elementos.btnConfirmar).addClass("btn__sb--disabled");
                 var $motivo = $(_elementos.motivosCalificacion);
                 var arrData = _funciones.ObtenerCalificacionById(calificacionId);
 
                 $motivo.removeClass('seccion__encuesta__satisfaccion__motivosCalificacion--mostrar');
-                $motivo.fadeOut(10);
+                $motivo.slideUp(200);
 
                 //filtrar solo los motivos 1
                 var arrMotivo = $.grep(arrData[0].EncuestaMotivo, function (mot) {
@@ -140,7 +139,8 @@ var EncuestaSatisfaccion = (function () {
                 }
                 $(_elementos.estadoEncuestaSatisfaccion).addClass('encuesta__satisfaccion__disabled');
                 $(el).removeClass('encuesta__satisfaccion__disabled');
-                $motivo.fadeIn(10);
+                $motivo.slideDown(200);
+                $motivo.css('display', '');
                 $motivo.addClass('seccion__encuesta__satisfaccion__motivosCalificacion--mostrar');
             }
         },
@@ -159,10 +159,11 @@ var EncuestaSatisfaccion = (function () {
         },
         MostrarOcultarOtro: function (el) {
             var check = $(el).is(":checked");
-            if (check)
-                $(_elementos.divInconvenienteOSugerencia).removeClass("d-none").addClass("d-flex");
-            else {
-                $(_elementos.divInconvenienteOSugerencia).removeClass("d-flex").addClass("d-none");
+            if (check) {
+                $(_elementos.divInconvenienteOSugerencia).slideDown(100);
+                $(_elementos.divInconvenienteOSugerencia).css('display', '');
+            } else {
+                $(_elementos.divInconvenienteOSugerencia).slideUp(100);
                 $(_elementos.txtOtroMotivoCalificacion).val("");
             }
         },

@@ -85,10 +85,10 @@ input.field__checkbox__sb{
     height: 145px;
     padding: 16px 32px;
     border-radius: 4px;
-    -moz-transition: height 0.3s ease;
-    -o-transition: height 0.3s ease;
-    -webkit-transition: height 0.3s ease;
-    transition: height 0.3s ease;
+    -moz-transition: height 0.2s ease;
+    -o-transition: height 0.2s ease;
+    -webkit-transition: height 0.2s ease;
+    transition: height 0.2s ease;
     overflow:hidden;
 }
 
@@ -185,10 +185,10 @@ input.field__checkbox__sb{
 
         .encuesta__satisfaccion__estado,
         .encuesta__satisfaccion__estado__descrip{
-            -moz-transition: opacity 0.3s ease;
-            -o-transition: opacity 0.3s ease;
-            -webkit-transition: opacity 0.3s ease;
-            transition: opacity 0.3s ease;
+            -moz-transition: opacity 0.2s ease;
+            -o-transition: opacity 0.2s ease;
+            -webkit-transition: opacity 0.2s ease;
+            transition: opacity 0.2s ease;
         }
 
             .encuesta__satisfaccion__estado{
@@ -268,10 +268,10 @@ input.field__checkbox__sb{
 
                 .encuesta__satisfaccion__disabled {
                     opacity: 0.4;
-                    -moz-transition: opacity 0.3s ease;
-                    -o-transition: opacity 0.3s ease;
-                    -webkit-transition: opacity 0.3s ease;
-                    transition: opacity 0.3s ease;
+                    -moz-transition: opacity 0.2s ease;
+                    -o-transition: opacity 0.2s ease;
+                    -webkit-transition: opacity 0.2s ease;
+                    transition: opacity 0.2s ease;
                 }
 
                     .encuesta__satisfaccion__disabled:hover{
@@ -305,6 +305,7 @@ input.field__checkbox__sb{
     }
 
         .seccion__encuesta__satisfaccion__motivosCalificacion--mostrar{
+            display:flex;
             animation-name: mostrarMotivosCalificacion;
             animation-delay: 0.2s;
             animation-duration: 0.3s;
@@ -380,10 +381,14 @@ input.field__checkbox__sb{
                         cursor:pointer;
                     }
 
-    .btn__sb--confirmar{
-        width:100%;
-        max-width:328px;
-        margin-top:42px;
+    .btn__sb--confirmar {
+        width: 100%;
+        max-width: 328px;
+        margin-top: 42px;
+        -moz-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
     }
 
     .spinner__wrapper--encuestaSatisfaccion,
@@ -397,17 +402,26 @@ input.field__checkbox__sb{
             height: 100%;
             margin-top: 0 !important;
             opacity:0;
-            -moz-transition:opacity 0.3s ease;
-            -o-transition:opacity 0.3s ease;
-            -webkit-transition:opacity 0.3s ease;
-            transition:opacity 0.3s ease;
+            -moz-transition:opacity 0.2s ease;
+            -o-transition:opacity 0.2s ease;
+            -webkit-transition:opacity 0.2s ease;
+            transition:opacity 0.2s ease;
         }
             
             .spinner__wrapper--encuestaSatisfaccion--mostrar,
             .encuesta__satisfaccion__agradecimiento__wrapper--mostrar{
                 display:flex!important;
                 opacity:1;
+                overflow:hidden;
             }
+
+            .spinner__wrapper--encuestaSatisfaccion--mostrar{
+                padding-top:22px;
+            }
+
+                .spinner__texto--encuestaSatisfaccion{
+                    margin-top:12px;
+                }
 
             .encuesta__satisfaccion__iconoAgradecimiento {
                 width: 80px;
@@ -535,6 +549,11 @@ input.field__checkbox__sb{
 
         .motivo__adicional__otro{
             margin-top:0!important;
+        }
+
+        .spinner__animacion {
+            width:56px!important;
+            height:56px!important;
         }
 
 }
@@ -700,6 +719,11 @@ input.field__checkbox__sb{
         .btn__sb--confirmar {
             width: 92%;
             max-width: 92%;
+        }
+
+        .spinner__animacion {
+            width: 48px !important;
+            height: 48px !important;
         }
 
 }
