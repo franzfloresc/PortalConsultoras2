@@ -59,6 +59,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
             ViewBag.TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva;
 
+            ViewBag.MensajeRRSS = "Hola este es el nuevo mensaje";
+
             return View(clienteModel);
         }
 
