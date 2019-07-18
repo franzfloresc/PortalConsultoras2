@@ -2396,10 +2396,10 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                         } else {
                             if (limite >= 6 && montoMaximo1 == 195000) {
-                                document.getElementById('divBarraEspacioLimite').style.width = '16%';
-                                document.getElementById('barra_0').style.left = '16%';
-                                document.getElementById('punto_0').style.left = '2%';
-                                document.getElementById('punto_1').style.left = '15%';
+                               // document.getElementById('divBarraEspacioLimite').style.width = '16%';
+                                document.getElementById('barra_0').style.left = '17.5%';
+                                document.getElementById('punto_0').style.left = '3%';
+                                document.getElementById('punto_1').style.left = '15.5%';
                                 document.getElementById('punto_2').style.left = '21.8%';
                                 document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
                                 document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
@@ -2491,7 +2491,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
             //aparicion de bandera
             if (dataBarra.ListaEscalaDescuento.length > 1) {
-                if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[1].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1) {
+                if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[0].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1) {
                     document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
                 }
                 else
