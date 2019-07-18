@@ -960,6 +960,7 @@ namespace Portal.Consultoras.Entities
 
         /*HD-4513*/
         [DataMember]
+        [Column("PagoContado")]
         public bool PagoContado { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
