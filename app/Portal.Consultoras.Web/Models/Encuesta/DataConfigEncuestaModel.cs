@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models.Encuesta
 {
+    [Serializable]
     public class DataConfigEncuestaModel
     {
         public int EncuestaId { get; set; }
