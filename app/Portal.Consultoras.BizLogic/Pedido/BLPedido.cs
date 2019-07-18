@@ -1500,21 +1500,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         detalle.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, detalle.CUV);
                     });
                 }
-
-                //Pago Contado
-                //Solo se llama cuando este en dentro de las fecha de facturacion.
-                
-
-                if (usuario.PagoContado && pedido.EstadoPedido == Constantes.EstadoPedido.Procesado && !pedido.ModificaPedidoReservado && !pedido.ValidacionAbierta)
-                {
-                    pedido.STPPagoContado = usuario.PagoContado;
-                    pedido.CodigoConsultora = usuario.CodigoConsultora;
-                    var objPedidoTotal = _pedidoWebBusinessLogic.UpdPedidoTotalPagoContado(pedido);
-                    pedido.STPPagoTotal = objPedidoTotal.STPPagoTotal;
-                    pedido.STPDeuda = objPedidoTotal.STPDeuda;
-                    pedido.STPGastTransporte = objPedidoTotal.STPGastTransporte;
-                    pedido.STPDescuento = objPedidoTotal.STPDescuento;
-                }
                 
                 //Web set y detalle
                 lstDetalle.Where(filtro => filtro.SetID > 0).Update(detalle =>
@@ -1523,6 +1508,22 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 });
 
                 pedido.olstBEPedidoWebDetalle = lstDetalle;
+
+                //Pago Contado
+                //Solo se llama cuando este en dentro de las fecha de facturacion.
+
+
+                if (usuario.PagoContado && !pedido.ModificaPedidoReservado && !pedido.ValidacionAbierta)
+                {
+                    pedido.STPPagoContado = usuario.PagoContado;
+                    pedido.CodigoConsultora = usuario.CodigoConsultora;
+                    pedido.PaisID = usuario.PaisID;
+                    var objPedidoTotal = _pedidoWebBusinessLogic.UpdPedidoTotalPagoContado(pedido);
+                    pedido.STPPagoTotal = objPedidoTotal.STPPagoTotal;
+                    pedido.STPDeuda = objPedidoTotal.STPDeuda;
+                    pedido.STPGastTransporte = objPedidoTotal.STPGastTransporte;
+                    pedido.STPDescuento = objPedidoTotal.STPDescuento;
+                }
             }
             catch (Exception ex)
             {

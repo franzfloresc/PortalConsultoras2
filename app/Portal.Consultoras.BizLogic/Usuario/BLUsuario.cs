@@ -4241,8 +4241,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 try
                 {
-                    string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
-                    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";                    
+                    string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);                                       
                     string emailFrom = "no-responder@somosbelcorp.com";
                     string emailTo = oUsu.Correo;
                     string titulo = "(" + paisISO + ") Cambio de clave de Somosbelcorp";                    
@@ -4275,8 +4274,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 try
                 {
-                    string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
-                    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";                    
+                    string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);                                 
                     string emailFrom = "no-responder@somosbelcorp.com";
                     string emailTo = oUsu.Correo;
                     string titulo = "(" + paisISO + ") Cambio de clave de Somosbelcorp";
