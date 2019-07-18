@@ -1,7 +1,6 @@
 ﻿USE BelcorpPeru
 GO
-
-CREATE VIEW [dbo].[vwTracking]
+ALTER VIEW [dbo].[vwTracking]
 AS
 SELECT oZ.Codigo AS Zona
 	,oS.Codigo AS Seccion

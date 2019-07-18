@@ -19,6 +19,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpMexico
 GO
 
@@ -40,6 +41,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpColombia
 GO
 
@@ -61,6 +63,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpSalvador
 GO
 
@@ -82,6 +85,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpPuertoRico
 GO
 
@@ -103,6 +107,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpPanama
 GO
 
@@ -124,6 +129,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpGuatemala
 GO
 
@@ -145,6 +151,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpEcuador
 GO
 
@@ -166,6 +173,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpDominicana
 GO
 
@@ -187,6 +195,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpCostaRica
 GO
 
@@ -208,6 +217,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpChile
 GO
 
@@ -229,6 +239,7 @@ set @numReg = (SELECT top 1 P.CantidadContenido FROM dbo.ContenidoApp P with(nol
 
 END
 
+GO
 USE BelcorpBolivia
 GO
 
