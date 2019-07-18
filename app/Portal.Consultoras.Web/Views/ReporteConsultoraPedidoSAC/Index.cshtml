@@ -266,12 +266,11 @@
             request.responseType = "blob";
             request.open("GET", baseUrl + 'ReporteConsultoraPedidoSAC/CreateFile?nameurl=' + nameurl);
             request.onload = function (data) {
-                var nomFich = data.currentTarget.responseURL.split(/[^\w']/);
                 var url = window.URL.createObjectURL(this.response);
                 var a = document.createElement("a");
                 document.body.appendChild(a);
                 a.href = url;
-                a.download = this.response.name || (nomFich[19] + "-" + nomFich[20] + "-" + nomFich[21] + "-" + nomFich[22] + "-" + nomFich[23] + "-" + nomFich[24] + "-" + nomFich[25] + "-" + nomFich[26]  )
+                a.download = this.response.name || data.currentTarget.responseURL.replace(/^.*[\\\/]/, '')
                 a.click();
             }
             request.send();

@@ -24,10 +24,6 @@ namespace Portal.Consultoras.Web.Controllers
     public class ReporteConsultoraPedidoSACController : BaseAdmController
     {
         #region HD-4327
-        BEPedidoWeb objBEPedidoWeb = null;
-        BEPedidoDD objBEPedidoDD = null;
-        BEPedidoWebDetalle objBEPedidoWebDetalle = null;
-        BEPedidoDDDetalle objBEPedidoDDDetalle = null;
         string fechaDefault = "1/01/0001 00:00:00";
         public async Task<ActionResult> Index()
         {
@@ -170,7 +166,6 @@ namespace Portal.Consultoras.Web.Controllers
             ArrayList arrText = new ArrayList();
             BEDescargaArchivoSinMarcar objBEDescargaArchivoSinMarcar = new BEDescargaArchivoSinMarcar();
 
-            /*Cabecera pedidos Web*/
             StreamReader objReader = new StreamReader(nameurl);
             sLine = objReader.ReadToEnd();
             if (sLine != null)
@@ -179,7 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
             var byteArray = Encoding.ASCII.GetBytes(sLine);
             var stream = new MemoryStream(byteArray);
             System.IO.File.Delete(nameurl);
-            return File(stream, "text/plain", "your_file_name.txt");
+            return File(stream, "text/plain", string.Empty);
         }
 
 
