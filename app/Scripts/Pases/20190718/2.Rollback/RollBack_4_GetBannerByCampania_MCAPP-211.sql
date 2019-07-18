@@ -30,7 +30,7 @@ GO
 USE BelcorpMexico
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
@@ -55,7 +55,7 @@ GO
 USE BelcorpColombia
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
@@ -80,7 +80,7 @@ GO
 USE BelcorpSalvador
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
@@ -105,7 +105,7 @@ GO
 USE BelcorpPuertoRico
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
@@ -130,7 +130,7 @@ GO
 USE BelcorpPanama
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
@@ -155,7 +155,7 @@ GO
 USE BelcorpGuatemala
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
@@ -180,7 +180,7 @@ GO
 USE BelcorpEcuador
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
@@ -205,7 +205,7 @@ GO
 USE BelcorpDominicana
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
@@ -230,7 +230,7 @@ GO
 USE BelcorpCostaRica
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
@@ -255,7 +255,7 @@ GO
 USE BelcorpChile
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
@@ -280,7 +280,7 @@ GO
 USE BelcorpBolivia
 GO
 
-CREATE proc [dbo].[GetBannerByCampania]
+ALTER proc [dbo].[GetBannerByCampania]
 	@CampaniaID int
 as
 select ban.CampaniaID, ban.BannerID, ban.GrupoBannerID, ban.Orden,
