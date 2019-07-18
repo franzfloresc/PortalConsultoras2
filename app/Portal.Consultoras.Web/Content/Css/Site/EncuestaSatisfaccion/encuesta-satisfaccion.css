@@ -307,7 +307,7 @@ input.field__checkbox__sb{
         .seccion__encuesta__satisfaccion__motivosCalificacion--mostrar{
             display:flex;
             animation-name: mostrarMotivosCalificacion;
-            animation-delay: 0.2s;
+            animation-delay: 0.1s;
             animation-duration: 0.3s;
             animation-iteration-count:1;
             animation-timing-function:cubic-bezier(0.45, 0.25, 0.60, 0.95);
