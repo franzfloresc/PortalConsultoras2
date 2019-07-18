@@ -2,7 +2,10 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ElasticSearch;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -18,26 +21,22 @@ namespace Portal.Consultoras.Web.Providers
             _consultaProlProvider = new ConsultaProlProvider();
         }
 
-        public virtual async Task<OutputProductosUpSelling> ObtenerProductosCarruselUpSelling(string cuv, string[] codigosProductos, double precioProducto)
+        public virtual async Task<List<EstrategiaPersonalizadaProductoModel>> ObtenerProductosCarruselUpSelling(string cuv, string[] codigosProductos, double precioProducto)
         {
-            try
-            {
-                var revistadigital = _sessionManager.GetRevistaDigital();
-                var userData = _sessionManager.GetUserData();
-                var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlUpSelling,
-                    userData.CodigoISO,
-                    userData.CampaniaID,
-                    ObtenerOrigen()
-                );
-                var cantidadProductosUpSelling = ObtenerCantidadProductosUpSelling();
-                var jsonData = GenerarJsonParaConsulta(userData, revistadigital, codigosProductos, cantidadProductosUpSelling, precioProducto, cuv);
+            var revistadigital = _sessionManager.GetRevistaDigital();
+            var userData = _sessionManager.GetUserData();
+            var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlUpSelling,
+                userData.CodigoISO,
+                userData.CampaniaID,
+                ObtenerOrigen()
+            );
+            var cantidadProductosUpSelling = ObtenerCantidadProductosUpSelling();
+            var jsonData = GenerarJsonParaConsulta(userData, revistadigital, codigosProductos, cantidadProductosUpSelling, precioProducto, cuv);
 
-                return await PostAsync<OutputProductosUpSelling>(pathBuscador, jsonData);
-            }
-            catch (Exception)
-            {
-                return new OutputProductosUpSelling();
-            }
+            OutputProductosUpSelling response = await PostAsync<OutputProductosUpSelling>(pathBuscador, jsonData);
+            return !response.success ? 
+                new List<EstrategiaPersonalizadaProductoModel>() : 
+                Mapper.Map<List<Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(response.result ?? new List<Estrategia>());
         }
 
         private int ObtenerCantidadProductosUpSelling()

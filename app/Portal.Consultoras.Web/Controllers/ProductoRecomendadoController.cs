@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.Models.Recomendaciones;
+using Portal.Consultoras.Web.Providers;
+using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Models.Recomendaciones;
-using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -10,10 +10,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly ProductoRecomendadoProvider _productoRecomendadoProvider = new ProductoRecomendadoProvider();
 
-        // GET: Recomendaciones
         public ActionResult Index()
         {
-            return View();
+            if (IsMobile())
+            {
+                return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+            }
+            return RedirectToAction("Index", "Ofertas");
         }
 
         public async Task<JsonResult> ObtenerProductos(string cuv, string codigoProducto)
@@ -30,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!_productoRecomendadoProvider.ValidarCantidadMinima(recomendacionesModel))
                     return Json(new RecomendacionesModel(), JsonRequestBehavior.AllowGet);
 
-                recomendacionesModel.Productos = _productoRecomendadoProvider.ValidacionProductoAgregado(recomendacionesModel.Productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, IsMobile(), false, true,SessionManager.GetRevistaDigital().EsSuscrita);
+                recomendacionesModel.Productos = _productoRecomendadoProvider.ValidacionProductoAgregado(recomendacionesModel.Productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, IsMobile(), false, true, SessionManager.GetRevistaDigital().EsSuscrita);
             }
             catch (Exception ex)
             {
