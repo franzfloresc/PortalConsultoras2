@@ -18,6 +18,16 @@ GO
 
 use BelcorpColombia
 GO
+GO
+DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 165
+DELETE FROM TablaLogica WHERE TablaLogicaID = 165
+GO
+INSERT INTO TablaLogica VALUES (165, 'Datos Camino Brillante')
+INSERT INTO TablaLogicaDatos VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', 'http://internal-ELB-NPDV-WCF-PRD-748719411.us-east-1.elb.amazonaws.com/'),
+                                    (16502, 165, 'usu_inf_com', 'usuario', 'AKIAIYETSRUJDVPUJMVQ'),
+                                    (16503, 165, 'cla_inf_com', 'clave', '63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti'),
+                                    (16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+GO
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 178
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 178
 DELETE FROM TablaLogica WHERE TablaLogicaID = 178
