@@ -552,12 +552,12 @@ namespace Portal.Consultoras.Web.Controllers
                 var promociones = promocionesProvider.GetPromociones(userData.CodigoISO, userData.CampaniaID.ToString(), modelo.CuvPromocion);
 
                 if (promociones.Success && 
-                    promociones.result != null && 
-                    promociones.result.Any(x => x.Promocion != null && x.Condiciones.Any()))
+                    promociones.Result != null && 
+                    promociones.Result.Any(x => x.Promocion != null && x.Condiciones.Any()))
                 {
-                    promociones.result = promociones.result.Where(x => x.Promocion != null && x.Condiciones.Any()).ToList();
-                    var promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result.First().Promocion);
-                    var condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
+                    promociones.Result = promociones.Result.Where(x => x.Promocion != null && x.Condiciones.Any()).ToList();
+                    var promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.Result.First().Promocion);
+                    var condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.Result.First().Condiciones);
 
                     ActualizarInformacionPreciosYAgregado(promocion);
                     foreach (var condicio in condiciones)

@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
-
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -18,17 +17,19 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public DetalleEstrategiaController() : base()
         {
-
+            //
         }
 
         public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
             : base(sesionManager, logManager, ofertaPersonalizadaProvider, ofertaViewProvider)
         {
+            //
         }
 
         public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
             : base(sesionManager, logManager, estrategiaComponenteProvider)
         {
+            //
         }
         
         [HttpGet]

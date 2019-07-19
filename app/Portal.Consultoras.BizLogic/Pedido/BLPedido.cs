@@ -630,7 +630,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     if (CantidadPromocion < condicion.Cantidad)
                     {
-                        condicionesAgregadas.Where(x => x.CuvCondicion == condicion.CuvCondicion).Update(x => { x.CantidadAsignada = x.CantidadAsignada + promocion.Cantidad; });
+                        condicionesAgregadas.Where(x => x.CuvCondicion == condicion.CuvCondicion).Update(x => { x.CantidadAsignada = x.CantidadAsignada + CantidadPromocion; });
                         CantidadPromocion = 0;
                     }
                     else if (CantidadPromocion == condicion.Cantidad)
@@ -699,11 +699,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
 
             var promocionnueva = new BEPedidoWebPromocion();
-            promocionnueva.CuvPromocion = modificar? pedidoDetalle.Producto.CUV : pedidoDetalle.PedidoWebPromociones[0].CuvPromocion;
+            promocionnueva.CuvPromocion = modificar ? pedidoDetalle.Producto.CUV : pedidoDetalle.PedidoWebPromociones[0].CuvPromocion;
             promocionnueva.CampaniaID = usuario.CampaniaID;
             var lstPedidoWebPromociones = _bLPedidoWebPromocion.GetCondicionesByPromocion(promocionnueva, usuario.PaisID);
 
-            if(lstPedidoWebPromociones == null || !lstPedidoWebPromociones.Any())
+            if(lstPedidoWebPromociones==null || !lstPedidoWebPromociones.Any())
             {
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
             }
@@ -1140,7 +1140,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
                 else
                 {
-                    var pedidoDetalleClone = new BEPedidoDetalle() {
+                    var pedidoDetalleClone = new BEPedidoDetalle()
+                    {
                         Producto = new BEProducto()
                         {
                             CUV = pedidoDetalle.Producto.CUV
@@ -1481,7 +1482,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             usuario.PaisID = pedidoDetalle.PaisID;
 
             #region Promotion
-            var validarPromocion = ValidarPromocionesEnModificar(null, usuario, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV);
+            int pedidoId;
+            var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
+            var validarPromocion = ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV);
             if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
             {
                 return validarPromocion;

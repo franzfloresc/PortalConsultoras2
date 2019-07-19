@@ -224,8 +224,7 @@ var BuscadorModule = (function () {
             }
             return esAlfaNumerico;
         },
-        EsCantidadCaracteresMenoresACuatro: function (valorBusqueda)
-        {
+        EsCantidadCaracteresMenoresACuatro: function (valorBusqueda) {
             var letrasCaracterMenorACuatro = _config.mostrarPalabrasMenoresACuatro;
             var esMenorACuatro = false;
             var lista = letrasCaracterMenorACuatro.split(',');
@@ -238,10 +237,9 @@ var BuscadorModule = (function () {
             }
             return esMenorACuatro;
         },
-        CargarBusqueda: function (valorBusqueda)
-        {
+        CargarBusqueda: function (valorBusqueda) {
             _funciones.CampoDeBusquedaConCaracteres($("#CampoBuscadorProductos"));
-            if(_config.contadorBusqueda === 0) {
+            if (_config.contadorBusqueda === 0) {
                 _funciones.LlamarAnalyticsBarraBusqueda();
                 _config.contadorBusqueda++;
             }
@@ -295,10 +293,10 @@ var BuscadorModule = (function () {
                                 item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
                             }
                         });
-                        finalProductos = RedimPromociones(r.productos); //Agregamos promociones
+                        var finalProductos = RedimPromociones(r.productos); //Agregamos promociones
 
-                        SetHandlebars("#js-ResultadoBuscador", finalProductos , "#ResultadoBuscador");
-                        
+                        SetHandlebars("#js-ResultadoBuscador", finalProductos, "#ResultadoBuscador");
+
                         if ($('.searchCarousel').length > 0) {
                             const settings = {
                                 dots: false,
@@ -317,7 +315,7 @@ var BuscadorModule = (function () {
                             $(".spinner").fadeOut(150);
                             $("#ResultadoBuscador").delay(50);
                             $("#ResultadoBuscador").fadeIn(100, function () {
-                                
+
                                 if ($('.searchCarousel').length > 0) {
                                     $('.searchCarousel').slick('setPosition'); /* [Tesla-178 - Search Carousel] / Recalculate position slick */
                                 }
@@ -348,7 +346,7 @@ var BuscadorModule = (function () {
             if ($(".tooltip_informativo_sobre_opcion_busqueda_prod").is(":visible") && !_config.isMobile) {
                 $(".tooltip_informativo_sobre_opcion_busqueda_prod").fadeOut(100);
             }
-           
+
             var key = false;
             $.each(_keys, function (i, value) {
                 if (value.val === event.which) key = true;
@@ -367,16 +365,15 @@ var BuscadorModule = (function () {
             var valorBusqueda = $(this).val();
 
             localStorage.setItem('valorBuscador', valorBusqueda);
-           
+
             if (valorBusqueda.length >= _config.caracteresBuscador && _funciones.EsAlfanumericoLetras(valorBusqueda)) {
-              
+
                 _funciones.CargarBusqueda(valorBusqueda);
             }
-            else if (_funciones.EsCantidadCaracteresMenoresACuatro(valorBusqueda) && _funciones.EsAlfanumericoLetras(valorBusqueda))
-            {
+            else if (_funciones.EsCantidadCaracteresMenoresACuatro(valorBusqueda) && _funciones.EsAlfanumericoLetras(valorBusqueda)) {
                 _funciones.CargarBusqueda(valorBusqueda);
             }
-            else if (valorBusqueda.length == _config.caracteresBuscadorNumerico ) {
+            else if (valorBusqueda.length == _config.caracteresBuscadorNumerico) {
                 _funciones.CargarBusqueda(valorBusqueda);
             }
 
@@ -441,7 +438,7 @@ var BuscadorModule = (function () {
             var tipoPersonalizacionProducto = $(divPadre).find(".hdBuscadorTipoPersonalizacion").val();
             var tienePremio = $(divPadre).find(".hdTienePremio").val();
 
-            var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
+            var codigo = ["030", "005", "001", "007", "008", "009", "010", "011", "LMG"];
             var tipoPersonalizacion = ["CAT"];
 
             if (textoBusqueda != "")
@@ -462,7 +459,7 @@ var BuscadorModule = (function () {
 
             UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
             _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);
-            
+
             window.location = UrlDetalle;
 
             if (!(typeof AnalyticsPortalModule === 'undefined')) {
@@ -489,19 +486,18 @@ var BuscadorModule = (function () {
         },
         RedireccionarMenuPrincipal: function (e) {
             e.preventDefault();
-             
+
             if (!_config.isMobile) {
-                window.location.href = baseUrl+'Bienvenida';
+                window.location.href = baseUrl + 'Bienvenida';
             }
             else {
-                window.location.href = baseUrl +'Mobile/Bienvenida';
+                window.location.href = baseUrl + 'Mobile/Bienvenida';
             }
         }
     };
 
     //Realiza un ajuste al resultado del busqueda para agregar promociones si hay en forma de un array.
     function RedimPromociones(productos) {
-        debugger;
         productos = productos || "";
         totalItems = productos.length;
 
@@ -542,14 +538,8 @@ var BuscadorModule = (function () {
         var misPromociones = { "Promociones": promociones };
         notPromo.insert(promoindex, misPromociones);
 
-
-        //$.each(notPromo,
-        //    function(idx, value) {
-        //        value.TotalItems = totalItems;
-        //        notPromo[idx] = value;
-        //    });
         finalProductos = notPromo;
-        
+
         return finalProductos;
     }
     Array.prototype.insert = function (index, item) {

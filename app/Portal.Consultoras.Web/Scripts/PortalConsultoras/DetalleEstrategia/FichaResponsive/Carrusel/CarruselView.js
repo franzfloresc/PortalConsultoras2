@@ -52,6 +52,7 @@ class CarruselView {
         $(this.divCarruselContenedor).show();
         this.marcarAnalytics(1, data);
     }
+
     setValueAttrHtml(attrObj, value) {
         $(this.divCarruselProducto).attr(attrObj, value);
     }
