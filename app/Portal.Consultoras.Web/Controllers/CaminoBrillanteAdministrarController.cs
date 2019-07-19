@@ -18,6 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.listaPaises = DropDowListPaises();
                 model.listaNiveles = DropDowListNivelesCaminoBrillante();
+                model.listaIconos = DropDowListIconosBeneficios();
             }
             catch (FaultException ex)
             {

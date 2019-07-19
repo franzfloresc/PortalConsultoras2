@@ -94,5 +94,11 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 }
             }
         }
+
+        public class IconoBeneficioCaminoBrillante {
+            public string CodigoIcono { get; set; }
+            public string NombreIcono { get; set; }
+            public string UrlIcono { get; set; }
+        }
     }
 }

@@ -694,7 +694,7 @@
                 <input type="text" id="txtNivelModal" />
             </div>
             <div id="divddlnivel" class="selectA borde_redondeado">
-                @Html.DropDownListFor(model => model.CodigoNivel, new SelectList(Model.listaNiveles, "CodigoNivel", "DescripcionNivel"), "-- Seleccionar --", new { id = "ddlNivelModal" })
+                @Html.DropDownListFor(model => model.CodigoNivel, new SelectList(Model.listaNiveles, "CodigoNivel", "DescripcionNivel"), "-- Seleccionar --", new { id = "ddlNivel" })
             </div>
         </div>
         <div class="div-3">
@@ -725,10 +725,12 @@
             <div class="float-left">
                 <div class="div-3">
                     <div class="titB">Icono:</div>
+                    <div id="divddlIcono" class="selectA borde_redondeado">
+                        @Html.DropDownListFor(model => model.CodigoIcono, new SelectList(Model.listaIconos, "CodigoIcono", "NombreIcono"), "-- Seleccionar --", new { id = "ddlIconoModal" })
+                    </div>
                     <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
                         <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01">
                     </div>
-
                     <div class="titB" style="display: none;">Oferta:</div>
                     <div class="container clearfix" style="display: none;">
                         <div class="selectA borde_redondeado">

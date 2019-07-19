@@ -162,6 +162,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return _caminoBrillanteProvider.GetListaBeneficiosByNivel(paisID, codigoNivel);
         }
+
+        public List<NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante> DropDowListIconosBeneficios()
+        {
+            int cantidad = Constantes.CaminoBrillante.Beneficios.Iconos.Count();
+            var lstIconos = new List<NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante>();
+            for (int i = 1; i <= cantidad; i++)
+            {
+                string index = i < 10 ? "0" + i.ToString() : i.ToString();
+                lstIconos.Add(new NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante
+                {
+                    CodigoIcono = Constantes.CaminoBrillante.Beneficios.Iconos[index],
+                    NombreIcono = index,
+                    UrlIcono = Constantes.CaminoBrillante.Beneficios.Iconos[index]
+                });
+            }
+            return lstIconos;
+        }
         #endregion
 
     }
