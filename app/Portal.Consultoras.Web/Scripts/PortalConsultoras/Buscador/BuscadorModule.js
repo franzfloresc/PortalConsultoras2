@@ -440,7 +440,7 @@ var BuscadorModule = (function () {
             var descripcionProducto = $(divPadre).find(".hdBuscadorDescripcion").val();
             var tipoPersonalizacionProducto = $(divPadre).find(".hdBuscadorTipoPersonalizacion").val();
 
-            var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
+            var codigo = ["030", "005", "001", "007", "008", "009", "010", "011", "LMG"];
             var tipoPersonalizacion = ["CAT"];
 
             if (textoBusqueda != "")
