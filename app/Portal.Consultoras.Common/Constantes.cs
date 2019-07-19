@@ -1769,6 +1769,9 @@ namespace Portal.Consultoras.Common
                 public const string MCatalogoInscritaNoActiva = "MCatalogoInscritaNoActiva";
                 public const string MCatalogoNoInscritaActiva = "MCatalogoNoInscritaActiva";
                 public const string MCatalogoNoInscritaNoActiva = "MCatalogoNoInscritaNoActiva";
+                public const string CompartirCatalogoRedesSociales = "COMPARTIR_CATALOGO_RRSS";
+                public const string MensajeCompartirCatalogo = "MENSAJE_COMPARTIR";
+                public const string MensajePrincipalCatalogo = "MENSAJE_PRINCIPAL";
                 #endregion
 
                 #region Revista Digital Popup Bloqueado

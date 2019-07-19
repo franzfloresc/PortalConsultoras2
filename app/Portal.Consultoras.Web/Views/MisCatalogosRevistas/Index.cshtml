@@ -155,7 +155,8 @@ else
                     <input id="txtUrlActual" value="" class="txtUrlActual" />
 
                     <div class="col-9 pl-0 pr-0 mostrarEnDesktop">
-                        Mejoramos la manera de compartir<br />nuestros catálogos. <span class="text-bold">¡Ahora son digitales!</span>
+                        @*Mejoramos la manera de compartir<br />nuestros catálogos. <span class="text-bold">¡Ahora son digitales!</span>*@
+                        @ViewBag.MensajePrincipal
                     </div>
                     <div class="col-8 col-lg-3 col-xl-3 pl-0 pr-0 compartir__catalogo__area">
                         <a id="btnCompartir" class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center text-uppercase btn__compartir btn__compartir--slider">
@@ -427,7 +428,7 @@ else
         var isMovil = '@Model.EsDispositivoMovil';
         var FBAppId = '@ViewBag.FBAppId';
 
-
+        var mensajePrincipal = '@Html.Raw(ViewBag.MensajePrincipal)';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/MisCatalogosRevistas")
 
