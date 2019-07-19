@@ -719,6 +719,7 @@ input.field__checkbox__sb{
         .btn__sb--confirmar {
             width: 92%;
             max-width: 92%;
+            bottom:24px;
         }
 
         .spinner__animacion {
