@@ -30358,6 +30358,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionMarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante[] DetalleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -30468,6 +30471,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionMarcaField, value) != true)) {
                     this.DescripcionMarcaField = value;
                     this.RaisePropertyChanged("DescripcionMarca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante[] Detalle {
+            get {
+                return this.DetalleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DetalleField, value) != true)) {
+                    this.DetalleField = value;
+                    this.RaisePropertyChanged("Detalle");
                 }
             }
         }
