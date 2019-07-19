@@ -2489,14 +2489,22 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
         if (IsoPais == 'CO') {
 
+
+            var adjuste = 1;
+            if (mMinimo <= dataBarra.ListaEscalaDescuento[1].MontoDesde && mMinimo != 0) {
+                adjuste = 0;
+            }
+
             //aparicion de bandera
             if (dataBarra.ListaEscalaDescuento.length > 1) {
-                if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[0].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1) {
+                if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[adjuste].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1) {
                     document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
                 }
                 else
                     document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
             }
+
+
 
         }
         else {
