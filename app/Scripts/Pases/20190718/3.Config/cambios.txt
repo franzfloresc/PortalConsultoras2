@@ -1,6 +1,5 @@
 1.PortalConsultoras2 Web
 	Actualizar:
-		<add key="URL_LIDER" value="https://ffvvtest.somosbelcorp.com/IngresoSistema/IngresoExterno"/> (Diferente en PRD)
 		En <system.web> cambio de maxRequestLength:
 		<httpRuntime targetFramework="4.5" requestValidationMode="4.5"  maxRequestLength="31457280" />
 
