@@ -2786,7 +2786,7 @@ namespace Portal.Consultoras.BizLogic
 
         private void ConfigurarDTCargaDDSinMarcar(DataSet dsPedidosDD, int campaniaid, int nroLote, string usuario, string codigoPais)
         {
-            this.ConfigurarDTCargaHeaderSinMarcar(dsPedidosDD, campaniaid, nroLote, "W", usuario);
+            this.ConfigurarDTCargaHeaderSinMarcar(dsPedidosDD, campaniaid, nroLote, "D", usuario);
         }
 
         private void ConfigurarDTCargaHeaderSinMarcar(DataSet dsPedidos, int campaniaid, int nroLote, string origen, string usuario)

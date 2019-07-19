@@ -26,6 +26,12 @@ namespace Portal.Consultoras.Common
             public const string MensajeRetorno = "Se está ejecutando un proceso desde otro punto para otra campaña, espere unos minutos y vuelva a intentarlo.";
             public const string ExitoDescargaWebDD = " El proceso de descarga de pedidos ha finalizado satisfactoriamente";
             public const string NingunaDescargaWebDD = " El proceso de descarga de pedidos no se realizó por falta de datos";
+            public const string nombreArchivoCabWeb = "PWC";
+            public const string nombreArchivoCabDD = "PDC";
+            public const string nombreArchivoDetWeb = "PWD";
+            public const string nombreArchivoDetDD = "PDD";
+            public const string origenWeb = "W";
+            public const string origeDD = "D";
         }
 
         public static class EstadoValorProcesoDescargaregular

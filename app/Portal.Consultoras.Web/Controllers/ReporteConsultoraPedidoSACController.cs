@@ -130,10 +130,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var data = new
                     {
-                        objPedidosCabWeb_ = FormateaPedidoCabWeb(objBEDescargaArchivoSinMarcar.headerTemplate, objBEDescargaArchivoSinMarcar.dtPedidosCabWeb, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), "PWC", campaniaid),
-                        objPedidosDetWeb_ = FormateaPedidoDet(objBEDescargaArchivoSinMarcar.detailTemplate, objBEDescargaArchivoSinMarcar.dtPedidosDetWeb, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), "PWD", campaniaid),
-                        objPedidosCabDD_ = FormateaPedidoCabDD(objBEDescargaArchivoSinMarcar.headerTemplate, objBEDescargaArchivoSinMarcar.dtPedidosCabDD, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), "PDC", campaniaid),
-                        objPedidosDetDD_ = FormateaPedidoDet(objBEDescargaArchivoSinMarcar.detailTemplate, objBEDescargaArchivoSinMarcar.dtPedidosDetDD, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), "PDD", campaniaid),
+                        objPedidosCabWeb_ = FormateaPedidoCabWeb(objBEDescargaArchivoSinMarcar.headerTemplate, objBEDescargaArchivoSinMarcar.dtPedidosCabWeb, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), Constantes.MensajeProcesoDescargaregular.nombreArchivoCabWeb, Constantes.MensajeProcesoDescargaregular.origenWeb, campaniaid),
+                        objPedidosDetWeb_ = FormateaPedidoDet(objBEDescargaArchivoSinMarcar.detailTemplate, objBEDescargaArchivoSinMarcar.dtPedidosDetWeb, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), Constantes.MensajeProcesoDescargaregular.nombreArchivoDetWeb, Constantes.MensajeProcesoDescargaregular.origenWeb, campaniaid),
+                        objPedidosCabDD_ = FormateaPedidoCabDD(objBEDescargaArchivoSinMarcar.headerTemplate, objBEDescargaArchivoSinMarcar.dtPedidosCabDD, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), Constantes.MensajeProcesoDescargaregular.nombreArchivoCabDD, Constantes.MensajeProcesoDescargaregular.origeDD, campaniaid),
+                        objPedidosDetDD_ = FormateaPedidoDet(objBEDescargaArchivoSinMarcar.detailTemplate, objBEDescargaArchivoSinMarcar.dtPedidosDetDD, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.lote.ToString(), Constantes.MensajeProcesoDescargaregular.nombreArchivoDetDD, Constantes.MensajeProcesoDescargaregular.origeDD, campaniaid),
                         msnRespuesta_ = objBEDescargaArchivoSinMarcar.msnRespuesta
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -228,7 +228,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
                     case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
                     case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
-                    case "CLIENTES": item = row["Clientes"].ToString(); ; break;
+                    case "CLIENTES": item = row["Clientes"].ToString();  break;
                     case "FECHAPROCESO": item = fechaProceso; break;
                     case "REGION": item = row["CodigoRegion"].ToString(); break;
                     case "ZONA":
@@ -247,12 +247,14 @@ namespace Portal.Consultoras.Web.Controllers
                     case "PEDIDOSAPID": item = (DataRecord.HasColumn(row, "PedidoSapId") ? row["PedidoSapId"].ToString() : string.Empty); break;
                     default: item = string.Empty; break;
                 }
+                if (field.FieldName == "ORIGEN")
+                    field.Size = 3;
                 line += item.PadRight(field.Size);
             }
             return line;
         }
 
-        private string DetailLineSinMarcar(BETemplateSinMarcar[] template, DataRow row, string codigoPais, string lote)
+        private string DetailLineSinMarcar(BETemplateSinMarcar[] template, DataRow row, string codigoPais, string lote, string origen)
         {
             string line = string.Empty;
             foreach (BETemplateSinMarcar field in template)
@@ -268,7 +270,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case "CANTIDAD": item = row["Cantidad"].ToString(); break;
                     case "CODIGOPRODUCTO": item = row["CodigoProducto"].ToString(); break;
                     case "LOTE": item = lote; break;
-                    case "ORIGENPEDIDOWEB": item = (DataRecord.HasColumn(row, "OrigenPedidoWeb") ? row["OrigenPedidoWeb"].ToString() : "0"); break;
+                    case "ORIGENPEDIDOWEB": item = origen; break;
                     default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);
@@ -276,14 +278,14 @@ namespace Portal.Consultoras.Web.Controllers
             return line;
         }
 
-        private string FormateaPedidoCabWeb(BETemplateSinMarcar[] template, DataTable table, string codigoPais, string fechaProceso, string lote, string origen, int campaniaid)
+        private string FormateaPedidoCabWeb(BETemplateSinMarcar[] template, DataTable table, string codigoPais, string fechaProceso, string lote,string nombreArchivo, string origen, int campaniaid)
         {
             string headerFile = string.Empty;
             if (table.Rows.Count > 0)
             {
                 Guid fileGuid = Guid.NewGuid();
                 string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constantes.ConfiguracionManager.BaseDirectory);
-                headerFile = FormatFileSinMarcar(codigoPais, string.Concat(origen, ".txt"), campaniaid, fileGuid);
+                headerFile = FormatFileSinMarcar(codigoPais, string.Concat(nombreArchivo, ".txt"), campaniaid, fileGuid);
                 if (!Directory.Exists(path))
                 {
                     DirectoryInfo di = Directory.CreateDirectory(headerFile);
@@ -296,7 +298,7 @@ namespace Portal.Consultoras.Web.Controllers
                     vacio = false;
                     foreach (DataRow row in table.Rows)
                     {
-                        streamWriter.WriteLine(HeaderLineSinMacarWEB(template, row, codigoPais, fechaProceso, lote, "W"));
+                        streamWriter.WriteLine(HeaderLineSinMacarWEB(template, row, codigoPais, fechaProceso, lote, origen));
                     }
                     if (vacio) streamWriter.Write(string.Empty);
                 }
@@ -312,7 +314,7 @@ namespace Portal.Consultoras.Web.Controllers
                 + fileGuid.ToString() + Path.GetExtension(fileName);
         }
 
-        private string FormateaPedidoCabDD(BETemplateSinMarcar[] template, DataTable table, string codigoPais, string fechaProceso, string lote, string origen, int campaniaid)
+        private string FormateaPedidoCabDD(BETemplateSinMarcar[] template, DataTable table, string codigoPais, string fechaProceso, string lote, string nombreArchivo,string origen, int campaniaid)
         {
             string headerFile = string.Empty;
 
@@ -320,7 +322,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Guid fileGuid = Guid.NewGuid();
                 string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Uploads\Files");
-                headerFile = FormatFileSinMarcar(codigoPais, string.Concat(origen, ".txt"), campaniaid, fileGuid);
+                headerFile = FormatFileSinMarcar(codigoPais, string.Concat(nombreArchivo, ".txt"), campaniaid, fileGuid);
                 if (!Directory.Exists(path))
                 {
                     DirectoryInfo di = Directory.CreateDirectory(headerFile);
@@ -333,7 +335,7 @@ namespace Portal.Consultoras.Web.Controllers
                     vacio = false;
                     foreach (DataRow row in table.Rows)
                     {
-                        streamWriter.WriteLine(HeaderLineSinMacarDD(template, row, codigoPais, fechaProceso, lote, "W"));
+                        streamWriter.WriteLine(HeaderLineSinMacarDD(template, row, codigoPais, fechaProceso, lote, origen));
                     }
                     if (vacio) streamWriter.Write(string.Empty);
                 }
@@ -341,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
             return headerFile;
         }
 
-        private string FormateaPedidoDet(BETemplateSinMarcar[] template, DataTable table, string codigoPais, string fechaProceso, string lote, string origen, int campaniaid)
+        private string FormateaPedidoDet(BETemplateSinMarcar[] template, DataTable table, string codigoPais, string fechaProceso, string lote,string nombreArchivo, string origen, int campaniaid)
         {
             string headerFile = string.Empty;
 
@@ -350,7 +352,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Guid fileGuid = Guid.NewGuid();
                 string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Uploads\Files");
-                headerFile = FormatFileSinMarcar(codigoPais, string.Concat(origen, ".txt"), campaniaid, fileGuid);
+                headerFile = FormatFileSinMarcar(codigoPais, string.Concat(nombreArchivo, ".txt"), campaniaid, fileGuid);
                 if (!Directory.Exists(path))
                 {
                     DirectoryInfo di = Directory.CreateDirectory(headerFile);
@@ -363,7 +365,7 @@ namespace Portal.Consultoras.Web.Controllers
                     vacio = false;
                     foreach (DataRow row in table.Rows)
                     {
-                        streamWriter.WriteLine(DetailLineSinMarcar(template, row, codigoPais, lote));
+                        streamWriter.WriteLine(DetailLineSinMarcar(template, row, codigoPais, lote,origen));
                     }
                     if (vacio) streamWriter.Write(string.Empty);
                 }
