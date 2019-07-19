@@ -414,7 +414,7 @@ else
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var valContenidoCorreoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreo)';
         @*var valContenidoCorreoPilotoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreoPiloto)';*@
-        var valContenidoCorreoPilotoDefecto = '@ViewBag.MensajeRRSS';
+        var valContenidoCorreoPilotoDefecto = '@Html.Raw(ViewBag.MensajeRRSS)';
         var RevistaCodigoIssuu = {
             '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
@@ -428,7 +428,7 @@ else
         var isMovil = '@Model.EsDispositivoMovil';
         var FBAppId = '@ViewBag.FBAppId';
 
-        var mensajeRRSS = '@ViewBag.MensajeRRSS';
+        var mensajeRRSS = '@Html.Raw(ViewBag.MensajeRRSS)';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/MisCatalogosRevistas")
 
