@@ -1,5 +1,4 @@
-﻿
-var dataEncuesta = {};
+﻿var dataEncuesta = {};
 var buttonConfirmSurvey = false;
 var refrezcarPage = false;
 var EncuestaSatisfaccion = (function () {
@@ -74,11 +73,11 @@ var EncuestaSatisfaccion = (function () {
                 $(_elementos.encuestaSatisfaccion).addClass('seccion__encuesta__satisfaccion--mostrar');
             }
         },
-        ObtenerDataEncuesta: function ( codigoCampania, varificarEncuestado, callbackWhenFinish) {
+        ObtenerDataEncuesta: function ( a, b, callbackWhenFinish) {
             var url = urlObtenerDataEncuesta;
             var sendData = {
-                codigoCampania: codigoCampania,
-                varificarEncuestado: varificarEncuestado
+                codigoCampania: a,
+                verificarEncuestado: b
             };
             _funciones.callAjax(url, sendData , function (d) {
                 if (d.mostrarEncuesta) {

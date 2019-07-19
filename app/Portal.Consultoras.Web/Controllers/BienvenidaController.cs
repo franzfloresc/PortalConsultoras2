@@ -2324,12 +2324,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult ObtenerDataEncuesta(string codigoCampania,bool varificarEncuestado = true)
+        public JsonResult ObtenerDataEncuesta(string codigoCampania,bool verificarEncuestado = true)
         {
             try
             {
-                var data = _encuestaProvider.ObtenerEncuesta(userData.PaisID, userData.CodigoConsultora, codigoCampania, varificarEncuestado ? 1 : 0);
-                if (data.EncuestaId > 0)
+                var data = _encuestaProvider.ObtenerEncuesta(userData.PaisID, userData.CodigoConsultora, codigoCampania, verificarEncuestado ? 1 : 0);
+                if (data.EncuestaId == 0)
                     return Json(new
                     {
                         mostrarEncuesta = false,
@@ -2338,7 +2338,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    mostrarEncuesta = data.EncuestaId > 0,
+                    mostrarEncuesta = true,
                     data,
                 }, JsonRequestBehavior.AllowGet);
             }
