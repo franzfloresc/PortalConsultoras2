@@ -83,8 +83,8 @@ namespace Portal.Consultoras.Web.Providers
             if (productos == null || !productos.Any()) return new List<Productos>();
 
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
-           
-            
+
+
             foreach (var item in productos)
             {
                 var labelAgregado = "";
@@ -107,10 +107,9 @@ namespace Portal.Consultoras.Web.Providers
                 item.DescripcionCompleta = item.Descripcion;
                 item.SimboloMoneda = userData.Simbolo;
 
-                if (flagPromocion)
+                if (flagPromocion && item.CodigoTipoOferta != "")
                 {
-                    if (item.CodigoTipoOferta != "")
-                        item.TienePremio = CodigoTipoOfertaPremio.Contains(item.CodigoTipoOferta);
+                    item.TienePremio = CodigoTipoOfertaPremio.Contains(item.CodigoTipoOferta);
                 }
             }
 
