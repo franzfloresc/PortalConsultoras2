@@ -2397,9 +2397,9 @@ function CalculoPosicionMinimoMaximoDestokp() {
                         } else {
                             if (limite >= 6 && montoMaximo1 == 195000) {
                                // document.getElementById('divBarraEspacioLimite').style.width = '16%';
-                                document.getElementById('barra_0').style.left = '17.5%';
-                                document.getElementById('punto_0').style.left = '3%';
-                                document.getElementById('punto_1').style.left = '15.5%';
+                                document.getElementById('barra_0').style.left = '20%';
+                                document.getElementById('punto_0').style.left = '9%';
+                                document.getElementById('punto_1').style.left = '20%';
                                 document.getElementById('punto_2').style.left = '21.8%';
                                 document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
                                 document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
@@ -2655,7 +2655,7 @@ function ReordenarMontosBarra() {
 
     var monto = 0;
     if (IsoPais == 'CO') {
-        monto = 1000;
+        monto = 150000;
         barraFix = FixPorcentajes(barra);
     }
     else if (IsoPais == 'CR')
