@@ -95,11 +95,12 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 mensajeRRSS = item.Valor1;                                
                             }
+                             
                             if (item.Codigo == Constantes.ConfiguracionPaisDatos.RD.MensajePrincipalCatalogo)
                             {
                                 mensajePrincipal = item.Valor1;
                             }
-
+                             
                         }
 
                     }
