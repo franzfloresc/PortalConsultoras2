@@ -991,6 +991,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteScalar(command).ToString();
         }
 
+        public string GetActualizacionCelular(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetActualizacionCelular");
+            Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario );
+            return Context.ExecuteScalar(command).ToString();
+        }
+
         public IDataReader GetActualizacionEmailySms(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GetActualizarEmailySms");
