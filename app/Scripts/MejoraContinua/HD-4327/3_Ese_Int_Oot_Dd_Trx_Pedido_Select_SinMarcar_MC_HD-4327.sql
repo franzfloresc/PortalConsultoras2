@@ -3,17 +3,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -105,17 +105,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -207,17 +207,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -309,17 +309,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -411,17 +411,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -513,17 +513,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -615,17 +615,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -717,17 +717,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -819,17 +819,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -921,17 +921,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -1023,17 +1023,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
@@ -1125,17 +1125,17 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 /*         
 CREADO POR  : PAQUIRRI SEPERAK         
 FECHA : 24/06/2019         
 DESCRIPCIÓN : OBTIENE LA CARGA DE PEDIDOS
 */ 
-CREATE proc [dbo].[Ese_Int_Oot_Dd_Trx_Pedido_Select_SinMarcar] --'CR',1,'2014-04-23',80
+CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04-23',80
 	@chrPrefijoPais char(2),
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,

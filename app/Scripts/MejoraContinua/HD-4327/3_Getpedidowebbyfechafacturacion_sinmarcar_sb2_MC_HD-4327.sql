@@ -11,19 +11,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -254,7 +254,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
   use [BelcorpChile]	
 go
@@ -269,19 +269,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -512,7 +512,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
 
 use [BelcorpColombia]	
@@ -528,19 +528,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -771,7 +771,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
 
 use [BelcorpCostaRica]	
@@ -787,19 +787,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -1030,7 +1030,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
 
 use [BelcorpDominicana]	
@@ -1046,19 +1046,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -1289,7 +1289,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
 
 use [BelcorpEcuador]	
@@ -1305,19 +1305,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -1548,7 +1548,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
 
 use [BelcorpGuatemala]	
@@ -1564,19 +1564,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -1807,7 +1807,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
 
 use [BelcorpMexico]	
@@ -1823,19 +1823,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -2066,7 +2066,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
 
 use [BelcorpPanama]	
@@ -2082,19 +2082,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -2325,7 +2325,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
 
 use [BelcorpPeru]	
@@ -2341,19 +2341,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -2584,7 +2584,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
 
 use [BelcorpPuertoRico]	
@@ -2600,19 +2600,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -2843,7 +2843,7 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO
 
 
 use [BelcorpSalvador]	
@@ -2859,19 +2859,19 @@ GO
 /*             
 CREADO POR  : PAQUIRRI SEPERAK             
 FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS      
+DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
+--  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
 */ 
 CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
   -- '2015-10-19',1  
-  @CAMPANAID        INT,--=201909  
-  @TIPOCRONOGRAMA   INT,--=1  
-  @NROLOTE          INT--=22  
-  , 
-  @FECHAFACTURACION DATE 
+ /*declare*/ @CAMPANAID        INT,--=201909  
+ /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
+ /*declare*/ @NROLOTE          INT,--=38  
+ /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
 WITH RECOMPILE 
 AS 
   BEGIN 
-      SET NOCOUNT ON; 
+      --SET NOCOUNT ON; 
 
       DECLARE @TIPO SMALLINT 
       DECLARE @ESQUEMADACONSULTORA BIT 
@@ -3102,4 +3102,4 @@ AS
                 PR.CODIGOPRODUCTO 
       HAVING SUM(P.CANTIDAD) > 0; 
   END
-  go
+  GO

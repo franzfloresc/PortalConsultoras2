@@ -3,10 +3,10 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 
 use [BelcorpChile]	
@@ -14,10 +14,10 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 
 use [BelcorpColombia]	
@@ -25,98 +25,98 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 use [BelcorpCostaRica]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 use [BelcorpDominicana]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 use [BelcorpEcuador]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 use [BelcorpGuatemala]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 use [BelcorpMexico]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 use [BelcorpPanama]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 use [BelcorpPeru]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 use [BelcorpPuertoRico]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO
 use [BelcorpSalvador]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]') 
+	OBJECT_ID(N'[dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]') 
 	AND type in (N'P', N'PC')
 ) 
-	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
+	DROP PROCEDURE [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR]
 GO

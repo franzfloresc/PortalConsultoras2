@@ -3,7 +3,7 @@ go
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[GetLogCargaPedidoClienteSinMarcarDD]') 
+	OBJECT_ID(N'[dbo].[GetLogCargaPedidoClienteSinMarcarDD]')
 	AND type in (N'P', N'PC')
 ) 
 	DROP PROCEDURE [dbo].[GetLogCargaPedidoClienteSinMarcarDD]
