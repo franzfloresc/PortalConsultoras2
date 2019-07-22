@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.Search.ResponseEvento;
-using Portal.Consultoras.Web.Models.Search.ResponseEvento.Estructura;
 using Portal.Consultoras.Web.Models.Search.ResponseNivel;
 using Portal.Consultoras.Web.Models.Search.ResponseNivel.Estructura;
 using Portal.Consultoras.Web.ServicePedido;
@@ -21,6 +20,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
+    using Portal.Consultoras.Common.Exceptions;
     using Portal.Consultoras.Web.Models.Search.ResponseEvento.Estructura;
     /// <summary>
     /// Propiedades y metodos de ShowRoom
@@ -884,7 +884,7 @@ namespace Portal.Consultoras.Web.Providers
             GenericResponse respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                throw new Exception(respuesta.Message);
+                throw new ClientInformationException(respuesta.Message);
 
             var modelo = new ShowRoomEventoConsultoraModel();
             if (respuesta.Result == null)
@@ -1036,7 +1036,7 @@ namespace Portal.Consultoras.Web.Providers
                 GenericResponse respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
                 if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                    throw new Exception(respuesta.Message);
+                    throw new ClientInformationException(respuesta.Message);
             }
             else
             {
@@ -1063,10 +1063,12 @@ namespace Portal.Consultoras.Web.Providers
                 StringContent httpContent = new StringContent(jsonParametros, Encoding.UTF8, "application/json");
                 HttpResponseMessage httpResponse = null;
                 string requestUrl = requestUrlParam;
+                string _requestCompleteTracking = string.Empty;
 
                 if (responseType.Equals(Constantes.MetodosHTTP.Get))
                 {
                     string completeRequestUrl = string.Format("{0}{1}", requestUrl, jsonParametros);
+                    _requestCompleteTracking = System.IO.Path.Combine(url, completeRequestUrl);
                     httpResponse = await client.GetAsync(completeRequestUrl);
                 }
                 else if (responseType.Equals(Constantes.MetodosHTTP.Put))
@@ -1084,7 +1086,25 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (httpResponse != null && !httpResponse.IsSuccessStatusCode)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(new Exception("ShowRoomProvider_RespSBMicroservicios:" + httpResponse.StatusCode.ToString()), userData.CodigoConsultora, userData.CodigoISO);
+                    StringBuilder sb = new StringBuilder();
+                    string _urlTracking = "";
+                    sb.AppendLine("Tracking RespSBMicroservicios:");
+                    if (responseType.Equals(Constantes.MetodosHTTP.Get))
+                    {
+                        _urlTracking = _requestCompleteTracking;
+                        sb.AppendLine(string.Format("{0}:{1}", "Method", responseType));
+                        sb.AppendLine(string.Format("{0}:{1}", "Url", _urlTracking));
+                    }
+                    else
+                    {
+                        _urlTracking = url;
+                        sb.AppendLine(string.Format("{0}:{1}", "Method", responseType));
+                        sb.AppendLine(string.Format("{0}:{1}", "Url", _urlTracking));
+                        sb.AppendLine(string.Format("{0}:{1}", "parametros", jsonParametros));
+
+                    }
+                    sb.AppendLine(string.Format("{0}:{1}", "Error", "ShowRoomProvider_RespSBMicroservicios:" + httpResponse.StatusCode.ToString()));
+                    LogManager.LogManager.LogErrorWebServicesBus(new ClientInformationException(sb.ToString()), userData.CodigoConsultora, userData.CodigoISO);
                     return string.Empty;
                 }
 

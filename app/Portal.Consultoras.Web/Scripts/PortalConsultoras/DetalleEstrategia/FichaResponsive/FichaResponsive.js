@@ -1,11 +1,10 @@
 ﻿/// <reference path="estrategia/estrategiapresenter.js" />
 /// <reference path="componentes/componentespresenter.js" />
+/// <reference path="componentes/componentesanalyticspresenter.js" />
 /// <reference path="../../../general.js" />
 /// <reference path="../detalleestrategiaprovider.js" />
 /// <reference path="../../shared/analyticsportal.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselInicializar.js" />
 
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
@@ -18,10 +17,14 @@ var estrategiaPresenter = EstrategiaPresenter({
     fichaResponsiveEvents: fichaResponsiveEvents
 });
 
+var componentesAnalyticsPresenter = ComponentesAnalyticsPresenter({
+    analyticsPortal: analyticsPortal
+});
+
 var componentesView = ComponentesView();
 var componentesPresenter = ComponentesPresenter({
     componentesView: componentesView,
-    analyticsPortal : analyticsPortal
+    componentesAnalyticsPresenter: componentesAnalyticsPresenter
 });
 componentesView.setPresenter(componentesPresenter);
 
@@ -30,29 +33,49 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
     fichaEnriquecidaView: fichaEnriquecidaView
 });
 
+var estrategia = {};
+
 $(document).ready(function () {
-    $("#data-estrategia").data("estrategia", detalleEstrategia.getEstrategia(params));
-    var estrategia = $("#data-estrategia").data("estrategia");
+    try {
+        fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+        analyticsPortal.MarcaVisualizarDetalleProducto(estrategia);
 
-    estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
-    componentesPresenter.onEstrategiaModelLoaded(estrategia);
+        let carruselInicializar = new CarruselInicializar();
+        carruselInicializar.crearCarruseles(params, estrategia);
+    } catch (e) {
+        GeneralModule.redirectTo('/Ofertas', true);
+    }
+});
 
-    fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
-    let carruselModel = new CarruselModel(
-        params.palanca,
-        params.campania,
-        params.cuv,
-       "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
-        params.origen,
-        "Ficha",
-        estrategia.DescripcionCompleta,
-        estrategia.Hermanos.length,
-        estrategia.CodigoProducto,
-        estrategia.Precio2,
-        estrategia.Hermanos);
-    let carruselPresenter = new CarruselPresenter();
+fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function () {
+    try {
+        estrategiaPresenter.cleanContainer();
+        componentesPresenter.cleanContainer();
 
-    let carruselView = new CarruselView(carruselPresenter);
+    	estrategia = detalleEstrategia.promiseGetEstrategia(params);
+        params.palanca = estrategia.Palanca || params.palanca;
+        if (estrategia.Error){  
+            GeneralModule.consoleLog(estrategia);
+            GeneralModule.redirectTo('/Ofertas', true);
+        }
 
-    carruselPresenter.initialize(carruselModel, carruselView);
+        $("#data-estrategia").data("estrategia", estrategia);
+
+        estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
+        componentesPresenter.onEstrategiaModelLoaded(estrategia);
+
+        fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+    }
+    catch (error) {
+        GeneralModule.consoleLog(error);
+        if (typeof error === "string") {
+            window.onerror(error);
+        }
+        else if (typeof error === "object") {
+            registrarLogErrorElastic(error);
+        }
+        GeneralModule.redirectTo("ofertas");
+    }
+
+    CerrarLoad();
 });

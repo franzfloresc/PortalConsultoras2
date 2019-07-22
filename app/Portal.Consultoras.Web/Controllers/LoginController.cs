@@ -1,6 +1,7 @@
 using AutoMapper;
 using ClosedXML.Excel;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
@@ -44,6 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
         private string pasoLog;
         private int misCursos = 0;
         private int flagMiAcademiaVideo = 0;
+        private int flagMiAcademiaPdf = 0;
         private string urlSapParametro = "";
 
         private readonly string IP_DEFECTO = "190.187.154.154";
@@ -55,8 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private readonly ZonificacionProvider _zonificacionProvider;
         protected readonly RevistaDigitalProvider _revistaDigitalProvider = new RevistaDigitalProvider();
-
-        //private UsuarioModel model = new UsuarioModel();
+        
         private readonly LogDynamoProvider _logDynamoProvider = new LogDynamoProvider();
 
 
@@ -65,8 +66,6 @@ namespace Portal.Consultoras.Web.Controllers
         public LoginController()
         {
             _zonificacionProvider = new ZonificacionProvider();
-            //if (sessionManager != null && sessionManager.GetUserData() != null) model = sessionManager.GetUserData();
-            //model.MenuNotificaciones = 1;
         }
 
         public LoginController(ISessionManager sessionManager)
@@ -103,6 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         sessionManager.SetMiAcademia(misCursos);
                         sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
+                        sessionManager.SetMiAcademiaPdf(flagMiAcademiaPdf);
                         sessionManager.SetMiAcademiaParametro(urlSapParametro);
 
                     }
@@ -174,6 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             TempData["MiAcademia"] = 0;
             TempData["FlagAcademiaVideo"] = 0;
+            TempData["FlagAcademiaPdf"] = 0;
             TempData["SapParametros"] = "";
             var url = (Request.Url.OriginalString).Split('?');
             if (url.Length > 1)
@@ -190,12 +191,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
                 else
-                if (url9.Contains("MIACADEMIA") && url9.Contains("SAP"))
                 {
-                    urlSapParametro = url9.Remove(0, 15);
-                    TempData["SapParametros"] = url9.Remove(0, 15);
-                }
 
+                    if (url9.Contains("MIACADEMIAPDF") && url9.Contains("SAP"))
+                    {
+                        urlSapParametro = url9.Remove(0, 19);
+                        TempData["SapParametros"] = url9.Remove(0, 19);
+                    }
+                    else
+                       if (url9.Contains("MIACADEMIA") && url9.Contains("SAP"))
+                        {
+                            urlSapParametro = url9.Remove(0, 15);
+                            TempData["SapParametros"] = url9.Remove(0, 15);
+                        }                     
+
+                }
                 TempData["FlagAcademiaVideo"] = 1;
 
                 if (Util.IsNumeric(MiId[0]))
@@ -210,10 +220,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                     else
                     {
-                        TempData["FlagAcademiaVideo"] = 0;
-                        flagMiAcademiaVideo = 0;
+                        if (url9.Contains("MIACADEMIAPDF"))
+                        {
+                            TempData["FlagAcademiaPdf"] = 1;
+                            flagMiAcademiaPdf = 1;
+                            TempData["FlagAcademiaVideo"] = 0;
+                            flagMiAcademiaVideo = 0;
+                        }
+                        else
+                        {
+                            TempData["FlagAcademiaVideo"] = 0;
+                            flagMiAcademiaVideo = 0;
+                            TempData["FlagAcademiaPdf"] = 0;
+                            flagMiAcademiaPdf = 0;
+                        }
                     }
-
 
                 }
             }
@@ -445,6 +466,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);
                 sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
+
+                flagMiAcademiaPdf = Convert.ToInt32(TempData["FlagAcademiaPdf"]);  // PPC
+                sessionManager.SetMiAcademiaPdf(flagMiAcademiaPdf);                // PPC                           
+
 
                 returnUrl = Url.Action("Index", "MiAcademia");
 
@@ -679,36 +704,9 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ActualizarCelular()
         {
-            //var userData = new UsuarioModel();
-
             var userData = (BEUsuarioDatos)Session["DatosUsuario"];
             try
             {
-
-                //if (sessionManager != null && sessionManager.GetUserData() != null) userData = sessionManager.GetUserData();
-                //userData.MenuNotificaciones = 1;
-
-                //if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
-                //var obj = (BEUsuarioDatos)Session["DatosUsuario"];
-                //var model = new BEUsuarioDatos();
-
-                //if (!userData.PuedeActualizar)
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = "Error: Usted no esta apta para actualizar datos"
-                //    });
-                //}
-
-                //if (!userData.PuedeEnviarSMS)
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = "Error: no puede enviar mensaje"
-                //    });
-                //}
                 int paisId = Util.GetPaisID(userData.CodigoIso);
 
                 var model = new ActualizaCelularModel();
@@ -1174,7 +1172,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.HerramientasDeVenta:
                         return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
                     case Constantes.IngresoExternoPagina.Reclamos:
-                        return RedirectToUniqueRoute("MisReclamos", "Index", null); // valido
+                        return RedirectToUniqueRoute("MisReclamos", "Index", null);
                     case Constantes.IngresoExternoPagina.MetodosPagos:
                         return RedirectToUniqueRoute("PagoEnLinea", "MetodoPagoExterno", new { IdOrigen = model.OrigenPedido });
                     case Constantes.IngresoExternoPagina.PagarAqui:
@@ -2453,7 +2451,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (revistaDigitalModel == null)
-                    throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
+                    throw new ClientInformationException("revistaDigitalModel no puede ser nulo");
 
                 if (listaDatos == null || !listaDatos.Any() || string.IsNullOrEmpty(codigoIso))
                     return revistaDigitalModel;
@@ -2542,13 +2540,13 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (revistaDigital == null)
-                    throw new ArgumentNullException("revistaDigital", "no puede ser nulo");
+                    throw new ClientInformationException("revistaDigital no puede ser nulo");
 
                 if (listaDatos == null)
-                    throw new ArgumentNullException("listaDatos", "no puede ser nulo");
+                    throw new ClientInformationException("listaDatos no puede ser nulo");
 
                 if (paisIso == null)
-                    throw new ArgumentNullException("paisIso", "no puede ser nulo");
+                    throw new ClientInformationException("paisIso no puede ser nulo");
 
                 revistaDigital.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
 
@@ -3097,10 +3095,10 @@ namespace Portal.Consultoras.Web.Controllers
             string nombreConsultora)
         {
             if (revistaDigital == null)
-                throw new ArgumentNullException("revistaDigital", "No puede ser nulo.");
+                throw new ClientInformationException("revistaDigital No puede ser nulo.");
 
             if (string.IsNullOrWhiteSpace(nombreConsultora))
-                throw new ArgumentNullException("nombreConsultora", "No puede ser nulo o vacío.");
+                throw new ClientInformationException("nombreConsultora No puede ser nulo o vacío.");
 
             if (revistaDigital.ConfiguracionPaisDatos == null) return revistaDigital;
 
@@ -3243,7 +3241,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<JsonResult> ProcesaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
+        public JsonResult ProcesaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
         {
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             if (!String.IsNullOrEmpty(parametros.CorreoActualizado))
@@ -3254,8 +3252,50 @@ namespace Portal.Consultoras.Web.Controllers
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
             {
-                
-                UsuarioModel userData = new UsuarioModel();
+                TempData["PaisID"] = paisID;
+                bool EstadoEnvio = false;
+                oUsu.EsMobile = EsDispositivoMovil();
+
+                using (var svc = new UsuarioServiceClient())
+                {
+                    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, parametros.CantidadEnvios);
+                }
+
+                oUsu.Correo = parametros.CorreoActualizado;
+                oUsu.CorreoEnmascarado = Util.EnmascararCorreo(parametros.CorreoActualizado);
+                Session["DatosUsuario"] = oUsu;
+
+                return Json(new
+                {
+                    success = EstadoEnvio,
+                    menssage = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
+                return Json(new
+                {
+                    success = false,
+                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas tarde"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<JsonResult> ProcesaActualizaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
+        {
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
+            if (!String.IsNullOrEmpty(parametros.CorreoActualizado))
+            {
+                oUsu.Correo = parametros.CorreoActualizado;
+            }
+            if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
+            int paisID = Convert.ToInt32(TempData["PaisID"]);
+            try
+            {
+                UsuarioModel userData;
                 userData = await GetUserData(Util.GetPaisID(oUsu.CodigoIso), oUsu.CodigoUsuario);
                 BERespuestaServicio respuesta;
                 BEUsuario usuario = Mapper.Map<BEUsuario>(userData);
@@ -3263,33 +3303,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respuesta = sv.ActualizarEmail(usuario, oUsu.Correo);
                 }
-                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
-                TempData["PaisID"] = paisID;
+                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();                
                 ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
                 return Json(new { success = respuesta.Succcess, message = respuesta.Message });
-
-
-
-                TempData["PaisID"] = paisID;
-                bool EstadoEnvio = false;
-                //oUsu.EsMobile = EsDispositivoMovil();
-
-                //using (var svc = new UsuarioServiceClient())
-                //{
-                //    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, parametros.CantidadEnvios);
-                //}
-
-                //oUsu.Correo = parametros.CorreoActualizado;
-                //oUsu.CorreoEnmascarado = Util.EnmascararCorreo(parametros.CorreoActualizado);
-                //Session["DatosUsuario"] = oUsu;
-
-
-
-                return Json(new
-                {
-                    success = EstadoEnvio,
-                    menssage = ""
-                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {

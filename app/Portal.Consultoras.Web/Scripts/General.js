@@ -4,13 +4,18 @@ var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
-var _ultimaMarca = "";
+var _ultimaMarca = "",
+    _primeraMarca = "";
+var _esMultimarca = false;
 
 jQuery(document).ready(function () {
     CreateLoading();
 
     if (typeof habilitarChatBot !== 'undefined' && habilitarChatBot === 'True') {
-        $('.btn_chat_messenger_mobile').show();
+        if (window.matchMedia("(max-width:991px)").matches) {
+            $('.btn_chat_messenger').draggable();
+        }
+        $('.btn_chat_messenger').show();
     }
 
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
@@ -36,6 +41,10 @@ jQuery(document).ready(function () {
         }
     }
 
+
+    $(".ImageLoadPhotoUser").on("load", function () {
+        onLoadPhotoUser(this);
+    });
 });
 
 (function ($) {
@@ -87,16 +96,6 @@ jQuery(document).ready(function () {
         return this;
     };
 
-    Clone = function (obj) {
-        if (obj == null || typeof (obj) != 'object')
-            return obj;
-        var temp = obj.constructor();
-        for (var key in obj) {
-            temp[key] = Clone(obj[key]);
-        }
-        return temp;
-    };
-
     //"Hello {name}".format({ name: 'World' })
     //"Hello {0}".format({ 0: 'World' })
     String.prototype.format = function (args) {
@@ -140,26 +139,6 @@ jQuery(document).ready(function () {
         };
     }
 
-    Right = function (str, n) {
-        if (n <= 0)
-            return "";
-        else if (n > String(str).length)
-            return str;
-        else {
-            var iLen = String(str).length;
-            return String(str).substring(iLen, iLen - n);
-        }
-    };
-
-    Left = function (str, n) {
-        if (n <= 0)
-            return "";
-        else if (n > String(str).length)
-            return str;
-        else
-            return String(str).substring(0, n);
-    };
-
     Array.prototype.Find = function (campo, valor) {
         var array = [];
         var campoVal = $.trim(campo);
@@ -199,325 +178,13 @@ jQuery(document).ready(function () {
         return array;
     };
 
-    HandlebarsRegisterHelper = function () {
-        if (typeof (Handlebars) != "undefined") {
+    $(document).scroll(function () {
+        try {
+            $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
+        } catch (e) { }
+    });
 
-            Handlebars.registerHelper('if_eq', function (a, b, opts) {
-                if (a == b) {
-                    return opts.fn(this);
-                } else {
-                    return opts.inverse(this);
-                }
-            });
-
-            Handlebars.registerHelper('iff', function (a, operator, b, opts) {
-                var bool = false;
-                var ret = false;
-
-                switch (b) {
-                    case undefined:
-                    case null:
-                        ret = typeof a == "boolean";
-                        bool = ret ? a : false;
-                        ret = true;
-                        break;
-                    default: break;
-                }
-
-                if (ret)
-                    return bool ? operator.fn(this) : operator.inverse(this);
-
-
-                switch (operator) {
-                    case '==':
-                        bool = a == b;
-                        break;
-                    case '!=':
-                        bool = a != b;
-                        break;
-                    case '>':
-                        bool = a > b;
-                        break;
-                    case '<':
-                        bool = a < b;
-                        break;
-                    case '<=':
-                        bool = a <= b;
-                        break;
-                    case '>=':
-                        bool = a >= b;
-                        break;
-                    case 'Contains':
-                        bool = a.indexOf(b) >= 0;
-                        break;
-                    case 'ContainsArray':
-                        var array = (JSON.parse(b) instanceof Array) ? JSON.parse(b) : [b];
-                        bool = array.Find(null, a).length > 0;
-                        break;
-                    default:
-                        throw "Unknown operator " + operator;
-                }
-
-                return bool ? opts.fn(this) : opts.inverse(this);
-            });
-
-            Handlebars.registerHelper('IsNullOrEmpty', function (a, operator, opts) {
-                var bool = false;
-                var optsx = opts == undefined ? operator : opts;
-                operator = opts == undefined ? '==' : (operator || '==');
-                opts = optsx;
-                switch (operator) {
-                    case '==':
-                        if (typeof a == "object" && a != null) {
-                            if (typeof a.length != "undefined") {
-                                bool = a.length == 0;
-                            }
-                        }
-                        else {
-                            bool = $.trim(a) == "";
-                        }
-                        break;
-                    case '!=':
-                        if (typeof a == "object" && a != null) {
-                            if (typeof a.length != "undefined") {
-                                bool = a.length > 0;
-                            }
-                        }
-                        else {
-                            bool = $.trim(a) != "";
-                        }
-                        break;
-                    default:
-                        throw "Unknown operator " + operator;
-                }
-
-                return bool ? opts.fn(this) : opts.inverse(this);
-            });
-
-            Handlebars.registerHelper('Replace', function (cadena, oldValue, newValue, opts) {
-                cadena = cadena || "";
-                cadena = cadena.ReplaceAll(oldValue, newValue);
-                return new Handlebars.SafeString(cadena).string;
-            });
-
-            Handlebars.registerHelper('EscapeSpecialChars', function (textoOrigen) {
-                textoOrigen = textoOrigen || "";
-                textoOrigen = textoOrigen.replace(/'/g, "\\'");
-                return new Handlebars.SafeString(textoOrigen);
-            });
-
-            Handlebars.registerHelper('Split', function (cadena, separador, pos, opts) {
-                cadena = cadena || "";
-                var listCade = cadena.split(separador);
-                pos = pos || 0;
-                if (pos >= 0) {
-                    pos = pos >= listCade.length ? listCade.length - 1 : pos < 0 ? 0 : pos;
-                    return new Handlebars.SafeString(listCade[pos]);
-                }
-                return new Handlebars.SafeString("");
-            });
-
-            Handlebars.registerHelper('Trim', function (cadena) {
-                cadena = $.trim(cadena);
-                return new Handlebars.SafeString(cadena);
-            });
-
-            Handlebars.registerHelper('Substr', function (length, cadena) {
-                cadena = cadena || "";
-                cadena = $.trim(cadena);
-
-                if (cadena.length > length) {
-                    cadena = cadena.substring(0, length) + "...";
-                }
-
-                return new Handlebars.SafeString(cadena);
-            });
-
-            Handlebars.registerHelper('SubstrResponsive', function (cadena, length, length2) {
-                cadena = cadena || "";
-                cadena = $.trim(cadena);
-                length2 = length2 || 0;
-
-                if (window.innerWidth > 750) {
-                    if (cadena.length > length) {
-                        cadena = cadena.substring(0, length) + "...";
-                    }
-                } else {
-                    if (length2 > 0) {
-                        if (cadena.length > length2) {
-                            cadena = cadena.substring(0, length2) + "...";
-                        }
-                    }
-                }
-
-                return new Handlebars.SafeString(cadena);
-            });
-
-            Handlebars.registerHelper('JSON2string', function (context) {
-                return JSON.stringify(context);
-            });
-
-            Handlebars.registerHelper('UpperCase', function (context) {
-                return context.toUpperCase();
-            });
-
-            Handlebars.registerHelper('LowerCase', function (context) {
-                return context.toLowerCase();
-            });
-
-            Handlebars.registerHelper('DecimalToStringFormat', function (context) {
-                return DecimalToStringFormat(context);
-            });
-
-            Handlebars.registerHelper('DecimalToStringFormatWithoutRounding', function (context) {
-                return DecimalToStringFormat(context, false, true);
-            });
-
-            Handlebars.registerHelper('DateTimeToStringFormat', function (context) {
-                if (context != null && context != '') {
-                    var dateString = context.substr(6);
-                    var currentTime = new Date(parseInt(dateString));
-                    var month = currentTime.getMonth() + 1;
-                    var day = currentTime.getDate();
-                    var year = currentTime.getFullYear();
-                    var date = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
-                    return date;
-                } else {
-                    return "Fomato Incorrecto";
-                }
-            });
-
-            Handlebars.registerHelper('ImgSmall', function (imgOriginal) {
-                var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgSmall);
-                return new Handlebars.SafeString(urlRender);
-            });
-
-            // por si en un futuro se puede utilizar
-            Handlebars.registerHelper('ImgMedium', function (imgOriginal) {
-                var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgMedium);
-                return new Handlebars.SafeString(urlRender);
-            });
-
-            Handlebars.registerHelper('ImgUrl', function (imgOriginal) {
-                var urlRender = ImgUrlRender(imgOriginal);
-                return new Handlebars.SafeString(urlRender);
-            });
-
-            Handlebars.registerHelper('SimboloMoneda', function () {
-                var simbMon = variablesPortal.SimboloMoneda || "";
-                return new Handlebars.SafeString(simbMon);
-            });
-
-            Handlebars.registerHelper('Multiplicar', function (a, b) {
-                return a * b;
-            });
-
-            //EAAR
-            Handlebars.registerHelper('json', function (context) {
-                return JSON.stringify(context).replace(/"/g, '&quot;');
-            });
-
-            Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, esMultiMarca, options) {
-                if (esMultiMarca) {
-                    if (_ultimaMarca === "" || _ultimaMarca === marca) {
-                        _ultimaMarca = marca;
-                        return options.inverse(this);
-                    }
-                    else {
-                        _ultimaMarca = marca;
-                        return options.fn(this);
-                    }
-                }
-                else {
-                    if (_ultimaMarca === "") {
-                        _ultimaMarca = marca;
-                        return options.inverse(this);
-                    }
-                    else return options.fn(this);
-                }
-            });
-        }
-    };
-
-    SetHandlebarsHtml = function (urlTemplate, modelo, idHtml) {
-        if (!Handlebars.helpers.iff)
-            HandlebarsRegisterHelper();
-
-        if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
-            return false;
-        }
-
-        jQuery.get(urlTemplate, function (dataTemplate) {
-            dataTemplate = $.trim(dataTemplate);
-
-            if (dataTemplate == "") {
-                return false;
-            }
-
-            if (dataTemplate.substr(0, 2) == "/*") {
-                dataTemplate = dataTemplate.substr(2, dataTemplate.length - 2);
-            }
-
-            if (dataTemplate.substr(dataTemplate.length - 2, 2) == "*/") {
-                dataTemplate = dataTemplate.substr(0, dataTemplate.length - 2);
-            }
-
-            var template = Handlebars.compile(dataTemplate);
-            var htmlDiv = template(modelo);
-            idHtml = $.trim(idHtml);
-            if (idHtml == "") return htmlDiv;
-            $(idHtml).html(htmlDiv);
-        });
-
-        return "";
-
-    };
-    SetHandlebars = function (idTemplate, data, idHtml) {
-        if (!Handlebars.helpers.iff)
-            HandlebarsRegisterHelper();
-
-        if ($(idTemplate).length === 0 || typeof data === "undefined") {
-
-            return false;
-        }
-
-        var source = $(idTemplate).html();
-        var template = Handlebars.compile(source);
-        var htmlDiv = template(data);
-        idHtml = typeof idHtml === "string" ? $.trim(idHtml) : idHtml;
-        if (idHtml == "" || $(idHtml).length === 0) return htmlDiv;
-        $(idHtml).html(htmlDiv);
-        return "";
-    };
-
-    SetFormatDecimalPais = function (miles, decimal, decimalCantidad) {
-        if (miles != undefined && decimal == undefined && decimalCantidad == undefined) {
-            var listaDatos = miles.split("|");
-            if (listaDatos.length < 2)
-                return {};
-
-            miles = listaDatos.length > 0 ? listaDatos[0] : "";
-            decimal = listaDatos.length > 1 ? listaDatos[1] : "";
-            decimalCantidad = listaDatos.length > 2 ? listaDatos[2] : "";
-        }
-
-
-        formatDecimalPais = formatDecimalPais || {};
-        formatDecimalPais.miles = miles || ",";
-        formatDecimalPais.decimal = decimal || ".";
-        formatDecimalPais.decimalCantidad = decimalCantidad || 2;
-    };
-
-    IsDecimalExist = function (p_decimalNumber) {
-        var l_boolIsExist = true;
-
-        if (p_decimalNumber % 1 == 0)
-            l_boolIsExist = false;
-
-        return l_boolIsExist;
-    };
-
-    window.DecimalPrecision = function(numero) {
+    window.DecimalPrecision = function (numero) {
         var num = numero || 0;
         var a = parseFloat(isNaN($.trim(numero)) ? "0" : $.trim(num));
 
@@ -528,8 +195,7 @@ jQuery(document).ready(function () {
         return p;
     };
 
-    window.NumberToFormat = function(monto, options, sinRendondeo) {
-        sinRendondeo = sinRendondeo || false;
+    window.NumberToFormat = function (monto, options) {
         var customFormat = {};
         $.extend(customFormat, formatDecimalPais || {});
         $.extend(customFormat, options || {});
@@ -545,68 +211,406 @@ jQuery(document).ready(function () {
         var pEntera = $.trim(parseInt(montoOrig));
         var pDecimal = 0;
 
-        if (sinRendondeo) {
-            pDecimal = Math.floor(montoOrig * 100) / 100;
-            return pDecimal.toFixed(decimalCantidad);
-        } else {
-            pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
-            pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
-            pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
+        pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
+        pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
+        pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
 
-            var pEnteraFinal = "";
-            do {
-                var x = pEntera.length;
-                var sub = pEntera.substring(x, x - 3);
-                pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
-                pEntera = pEntera.substring(x - 3, 0);
+        var pEnteraFinal = "";
+        do {
+            var x = pEntera.length;
+            var sub = pEntera.substring(x, x - 3);
+            pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
+            pEntera = pEntera.substring(x - 3, 0);
 
-            } while (pEntera.length > 0);
+        } while (pEntera.length > 0);
 
-            return pEnteraFinal + pDecimal;
-        }
+        return pEnteraFinal + pDecimal;
 
     };
 
-    DecimalToStringFormat = function (monto, noDecimal, sinRendondeo) {
-        formatDecimalPais = formatDecimalPais || {};
-        noDecimal = noDecimal || false;
-        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
+})(jQuery);
 
-        return NumberToFormat(monto, { decimalCantidad: decimalCantidad }, sinRendondeo);
-    };
+function Clone(obj) {
+    if (obj == null || typeof (obj) != 'object')
+        return obj;
+    var temp = obj.constructor();
+    for (var key in obj) {
+        temp[key] = Clone(obj[key]);
+    }
+    return temp;
+}
 
-    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
+function Right(str, n) {
+    if (n <= 0)
+        return "";
+    else if (n > String(str).length)
+        return str;
+    else {
+        var iLen = String(str).length;
+        return String(str).substring(iLen, iLen - n);
+    }
+}
 
-    $(document).scroll(function () {
-        try {
-            $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
-        } catch (e) { }
-    });
+function Left(str, n) {
+    if (n <= 0)
+        return "";
+    else if (n > String(str).length)
+        return str;
+    else
+        return String(str).substring(0, n);
+}
 
-    RemoverRepetidos = function (lista, campo) {
-        campo = $.trim(campo);
-        var newLista = [];
-        var arrAux = [];
-        $.each(lista, function (ind, item) {
-            arrAux = [];
-            if (campo != "") {
-                arrAux = newLista.Find(campo, item[campo]);
-            }
-            else {
-                arrAux = newLista.Find(item);
-            }
-            if (arrAux.length == 0) {
-                try {
-                    newLista.push(Clone(item));
-                } catch (e) {
-                    newLista.push(item);
-                }
+function HandlebarsRegisterHelper() {
+    if (typeof (Handlebars) != "undefined") {
+
+        Handlebars.registerHelper('if_eq', function (a, b, opts) {
+            if (a == b) {
+                return opts.fn(this);
+            } else {
+                return opts.inverse(this);
             }
         });
 
-        return newLista;
-    };
-})(jQuery);
+        Handlebars.registerHelper('iff', function (a, operator, b, opts) {
+            var bool = false;
+            var ret = false;
+
+            switch (b) {
+                case undefined:
+                case null:
+                    ret = typeof a == "boolean";
+                    bool = ret ? a : false;
+                    ret = true;
+                    break;
+                default: break;
+            }
+
+            if (ret)
+                return bool ? operator.fn(this) : operator.inverse(this);
+
+
+            switch (operator) {
+                case '==':
+                    bool = a == b;
+                    break;
+                case '!=':
+                    bool = a != b;
+                    break;
+                case '>':
+                    bool = a > b;
+                    break;
+                case '<':
+                    bool = a < b;
+                    break;
+                case '<=':
+                    bool = a <= b;
+                    break;
+                case '>=':
+                    bool = a >= b;
+                    break;
+                case 'Contains':
+                    bool = a.indexOf(b) >= 0;
+                    break;
+                case 'ContainsArray':
+                    var array = (JSON.parse(b) instanceof Array) ? JSON.parse(b) : [b];
+                    bool = array.Find(null, a).length > 0;
+                    break;
+                default:
+                    throw "Unknown operator " + operator;
+            }
+
+            return bool ? opts.fn(this) : opts.inverse(this);
+        });
+
+        Handlebars.registerHelper('IsNullOrEmpty', function (a, operator, opts) {
+            var bool = false;
+            var optsx = opts == undefined ? operator : opts;
+            operator = opts == undefined ? '==' : (operator || '==');
+            opts = optsx;
+            switch (operator) {
+                case '==':
+                    if (typeof a == "object" && a != null) {
+                        if (typeof a.length != "undefined") {
+                            bool = a.length == 0;
+                        }
+                    }
+                    else {
+                        bool = $.trim(a) == "";
+                    }
+                    break;
+                case '!=':
+                    if (typeof a == "object" && a != null) {
+                        if (typeof a.length != "undefined") {
+                            bool = a.length > 0;
+                        }
+                    }
+                    else {
+                        bool = $.trim(a) != "";
+                    }
+                    break;
+                default:
+                    throw "Unknown operator " + operator;
+            }
+
+            return bool ? opts.fn(this) : opts.inverse(this);
+        });
+
+        Handlebars.registerHelper('Replace', function (cadena, oldValue, newValue, opts) {
+            cadena = cadena || "";
+            cadena = cadena.ReplaceAll(oldValue, newValue);
+            return new Handlebars.SafeString(cadena).string;
+        });
+
+        Handlebars.registerHelper('EscapeSpecialChars', function (textoOrigen) {
+            textoOrigen = textoOrigen || "";
+            textoOrigen = textoOrigen.replace(/'/g, "\\'");
+            return new Handlebars.SafeString(textoOrigen);
+        });
+
+        Handlebars.registerHelper('Split', function (cadena, separador, pos, opts) {
+            cadena = cadena || "";
+            var listCade = cadena.split(separador);
+            pos = pos || 0;
+            if (pos >= 0) {
+                pos = pos >= listCade.length ? listCade.length - 1 : pos < 0 ? 0 : pos;
+                return new Handlebars.SafeString(listCade[pos]);
+            }
+            return new Handlebars.SafeString("");
+        });
+
+        Handlebars.registerHelper('Trim', function (cadena) {
+            cadena = $.trim(cadena);
+            return new Handlebars.SafeString(cadena);
+        });
+
+        Handlebars.registerHelper('Substr', function (length, cadena) {
+            cadena = cadena || "";
+            cadena = $.trim(cadena);
+
+            if (cadena.length > length) {
+                cadena = cadena.substring(0, length) + "...";
+            }
+
+            return new Handlebars.SafeString(cadena);
+        });
+
+        Handlebars.registerHelper('SubstrResponsive', function (cadena, length, length2) {
+            cadena = cadena || "";
+            cadena = $.trim(cadena);
+            length2 = length2 || 0;
+            if (window.innerWidth > 750) {
+                if (cadena.length > length) {
+                    cadena = cadena.substring(0, length) + "...";
+                }
+            } else {
+                if (length2 > 0) {
+                    if (cadena.length > length2) {
+                        cadena = cadena.substring(0, length2) + "...";
+                    }
+                }
+            }
+            return new Handlebars.SafeString(cadena);
+        });
+
+        Handlebars.registerHelper('JSON2string', function (context) {
+            return JSON.stringify(context);
+        });
+
+        Handlebars.registerHelper('UpperCase', function (context) {
+            return context.toUpperCase();
+        });
+
+        Handlebars.registerHelper('LowerCase', function (context) {
+            return context.toLowerCase();
+        });
+
+        Handlebars.registerHelper('DecimalToStringFormat', function (context) {
+            return DecimalToStringFormat(context);
+        });
+
+        Handlebars.registerHelper('DateTimeToStringFormat', function (context) {
+            if (context != null && context != '') {
+                var dateString = context.substr(6);
+                var currentTime = new Date(parseInt(dateString));
+                var month = currentTime.getMonth() + 1;
+                var day = currentTime.getDate();
+                var year = currentTime.getFullYear();
+                var date = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
+                return date;
+            } else {
+                return "Fomato Incorrecto";
+            }
+        });
+
+        Handlebars.registerHelper('ImgSmall', function (imgOriginal) {
+            var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgSmall);
+            return new Handlebars.SafeString(urlRender);
+        });
+
+        // por si en un futuro se puede utilizar
+        Handlebars.registerHelper('ImgMedium', function (imgOriginal) {
+            var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgMedium);
+            return new Handlebars.SafeString(urlRender);
+        });
+
+        Handlebars.registerHelper('ImgUrl', function (imgOriginal) {
+            var urlRender = ImgUrlRender(imgOriginal);
+            return new Handlebars.SafeString(urlRender);
+        });
+
+        Handlebars.registerHelper('SimboloMoneda', function () {
+            var simbMon = variablesPortal.SimboloMoneda || "";
+            return new Handlebars.SafeString(simbMon);
+        });
+
+        Handlebars.registerHelper('Multiplicar', function (a, b) {
+            return a * b;
+        });
+        
+        Handlebars.registerHelper('json', function (context) {
+            return JSON.stringify(context).replace(/"/g, '&quot;');
+        });
+
+        Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, esMultiMarca, options) {
+            if (esMultiMarca) {
+                if (_ultimaMarca === "" || _ultimaMarca === marca) {
+                    _ultimaMarca = marca;
+                    return options.inverse(this);
+                }
+                else {
+                    _ultimaMarca = marca;
+                    return options.fn(this);
+                }
+            }
+            else {
+                if (_ultimaMarca === "") {
+                    _ultimaMarca = marca;
+                    return options.inverse(this);
+                }
+                else return options.fn(this);
+            }
+        });
+
+        Handlebars.registerHelper("ifVerificarMarca", function (marca, options) {
+            if (_primeraMarca !== marca && _esMultimarca) {
+                _primeraMarca = marca;
+                return options.fn(this);
+            }
+        });
+    }
+}
+
+function SetHandlebarsHtml(urlTemplate, modelo, idHtml) {
+    if (!Handlebars.helpers.iff)
+        HandlebarsRegisterHelper();
+
+    if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
+        return false;
+    }
+
+    jQuery.get(urlTemplate, function (dataTemplate) {
+        dataTemplate = $.trim(dataTemplate);
+
+        if (dataTemplate == "") {
+            return false;
+        }
+
+        if (dataTemplate.substr(0, 2) == "/*") {
+            dataTemplate = dataTemplate.substr(2, dataTemplate.length - 2);
+        }
+
+        if (dataTemplate.substr(dataTemplate.length - 2, 2) == "*/") {
+            dataTemplate = dataTemplate.substr(0, dataTemplate.length - 2);
+        }
+
+        var template = Handlebars.compile(dataTemplate);
+        var htmlDiv = template(modelo);
+        idHtml = $.trim(idHtml);
+        if (idHtml == "") return htmlDiv;
+        $(idHtml).html(htmlDiv);
+    });
+
+    return "";
+
+}
+function SetHandlebars(idTemplate, data, idHtml) {
+    if (!Handlebars.helpers.iff)
+        HandlebarsRegisterHelper();
+
+    if ($(idTemplate).length === 0 || typeof data === "undefined") {
+
+        return false;
+    }
+
+    var source = $(idTemplate).html();
+    var template = Handlebars.compile(source);
+    var htmlDiv = template(data);
+    idHtml = typeof idHtml === "string" ? $.trim(idHtml) : idHtml;
+    if (idHtml == "" || $(idHtml).length === 0) return htmlDiv;
+    $(idHtml).html(htmlDiv);
+    return "";
+}
+
+function SetFormatDecimalPais(miles, decimal, decimalCantidad) {
+    if (miles != undefined && decimal == undefined && decimalCantidad == undefined) {
+        var listaDatos = miles.split("|");
+        if (listaDatos.length < 2)
+            return {};
+
+        miles = listaDatos.length > 0 ? listaDatos[0] : "";
+        decimal = listaDatos.length > 1 ? listaDatos[1] : "";
+        decimalCantidad = listaDatos.length > 2 ? listaDatos[2] : "";
+    }
+
+
+    formatDecimalPais = formatDecimalPais || {};
+    formatDecimalPais.miles = miles || ",";
+    formatDecimalPais.decimal = decimal || ".";
+    formatDecimalPais.decimalCantidad = decimalCantidad || 2;
+}
+
+function IsDecimalExist(p_decimalNumber) {
+    var l_boolIsExist = true;
+
+    if (p_decimalNumber % 1 == 0)
+        l_boolIsExist = false;
+
+    return l_boolIsExist;
+}
+
+function DecimalToStringFormat(monto, noDecimal) {
+    formatDecimalPais = formatDecimalPais || {};
+    noDecimal = noDecimal || false;
+    var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
+
+    return NumberToFormat(monto, { decimalCantidad: decimalCantidad });
+}
+
+function IsNullOrEmpty(texto) { return texto == null || texto === ''; }
+
+function RemoverRepetidos(lista, campo) {
+    campo = $.trim(campo);
+    var newLista = [];
+    var arrAux = [];
+    $.each(lista, function (ind, item) {
+        arrAux = [];
+        if (campo != "") {
+            arrAux = newLista.Find(campo, item[campo]);
+        }
+        else {
+            arrAux = newLista.Find(item);
+        }
+        if (arrAux.length == 0) {
+            try {
+                newLista.push(Clone(item));
+            } catch (e) {
+                newLista.push(item);
+            }
+        }
+    });
+
+    return newLista;
+}
 
 function ImgUrlRender(imgOriginal, tipo) {
     imgOriginal = $.trim(imgOriginal);
@@ -703,9 +707,6 @@ function CreateLoading() {
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
 
-//function eventCloseDialogMensaje() {
-//    HideDialog("alertDialogMensajes");
-//}
 function printElement(selector) {
     var element = document.querySelector(selector);
     if (!element) {
@@ -803,7 +804,6 @@ function CerrarLoad(opcion) {
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
 
     var valor = mensaje.indexOf("Sin embargo hemos reservado");
-    /*HD-3710 - 9_10 (Pop up Lo sentimos - Click Botón - Cerrar Pop up lo sentimos) - Web, Mobile*/
     if (valor != -1) {
         dataLayer.push({
             'event': 'virtualEvent',
@@ -819,31 +819,24 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             CerrarLoad();
             return false;
         }
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(mensaje);
-        if (msjBloq != "") {
-            CerrarLoad();
-            alert_msg_bloqueadas(msjBloq);
-            return true;
-        }
-        //FIN HD-3693
-        titulo = titulo || "MENSAJE";
+
+        titulo = titulo || "Aviso";//***HD-4450
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = isMobile();
         if (isUrlMobile > 0) {
             $('.icono_alerta').hide();
             if (tipoIcono == CONS_TIPO_ICONO.ALERTA) {
-                $('.icono_alerta.exclamacion_icono_mobile').show();
+                $('.icono_alerta.alert_dialog_icono').show();
             }
             if (tipoIcono == CONS_TIPO_ICONO.CHECK) {
                 $('.icono_alerta.check_icono_mobile').show();
             }
             if (tipoIcono == undefined || tipoIcono == null) {
-                $('.icono_alerta.exclamacion_icono_mobile').show();
+                $('.icono_alerta.alert_dialog_icono').show();
             }
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
-            $('#popupInformacionValidado #bTagTitulo').html(titulo);
+            $('#popupInformacionValidado #bTagTitulo').html(titulo); 
 
             if ($.isFunction(fnAceptar)) {
                 var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
@@ -852,6 +845,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             }
         }
         else {
+
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             showDialogSinScroll("alertDialogMensajes");
@@ -870,6 +864,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             });
 
             $('.ui-dialog .ui-button').focus();
+
         }
         CerrarLoad();
     } catch (e) {
@@ -892,7 +887,7 @@ function AbrirAlert(mensaje, fnAceptar, fnCerrar) {
         if ($.isFunction(fnAceptar)) {
             botonesAceptar.on('click', fnAceptar);
         } else {
-            botonesAceptar.on('click', function () { popup.fadeOut(100)} );
+            botonesAceptar.on('click', function () { popup.fadeOut(100) });
         }
 
 
@@ -901,7 +896,7 @@ function AbrirAlert(mensaje, fnAceptar, fnCerrar) {
         if ($.isFunction(fnCerrar)) {
             botonesCerrar.on('click', fnCerrar);
         } else {
-            botonesCerrar.on('click', function () { popup.fadeOut(100) } );            
+            botonesCerrar.on('click', function () { popup.fadeOut(100) });
         }
 
 
@@ -926,14 +921,6 @@ function AbrirMensaje25seg(mensaje, imagen) {
             CerrarLoad();
             return false;
         }
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(mensaje);
-        if (msjBloq != "") {
-            CerrarLoad();
-            alert_msg_bloqueadas(msjBloq);
-            return true;
-        }
-        //FIN HD-3693
         imagen = imagen || "";
 
         $("#pop_src").attr("src", "#")
@@ -946,38 +933,23 @@ function AbrirMensaje25seg(mensaje, imagen) {
             $("#pop_src").css("display", "block")
         }
 
+        $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+        $('#alertDialogMensajes25seg').dialog("open");
+        $(_overlay).css('background', 'black')
+        $(_overlay).css('opacity', '0.85')
 
-        var isUrlMobile = isMobile();
-        if (isUrlMobile > 0) {
-            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
-            $('#alertDialogMensajes25seg').dialog("open");
-            $(_overlay).css('background', 'black')
-            $(_overlay).css('opacity', '0.85')
+        var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0]);
+        var _newTopDialog = _topWithoutPXAfterCreateDialog + 200;
+        var _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px';
 
-            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
-            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
-                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
-        }
-        else {
-
-            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
-            $('#alertDialogMensajes25seg').dialog("open");
-            $(_overlay).css('background', 'black')
-            $(_overlay).css('opacity', '0.85')
-
-            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
-            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
-                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
-
-        }
         CerrarLoad();
-        //Ocultar el scroll 
+
         $("body").css("overflow", "hidden");
 
         setTimeout(function () {
-            document.querySelector(_dialogClass).style.transition = "top 1s ease"
-            _newTopDialog = _topWithoutPXAfterCreateDialog - 100
-            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+            document.querySelector(_dialogClass).style.transition = "top 1s ease";
+            _newTopDialog = _topWithoutPXAfterCreateDialog - 100;
+            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px';
         }, 100)
 
         setTimeout(function () {
@@ -986,10 +958,6 @@ function AbrirMensaje25seg(mensaje, imagen) {
                 $("body").css("overflow", "auto")
             })
         }, 3000)
-
-
-        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
-        console.log(parameter);
 
     } catch (e) {
 
@@ -1042,6 +1010,23 @@ function isMobile() {
     var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
         $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
     return isUrlMobile;
+}
+
+function isMobileBrowser() {
+    if (sessionStorage.desktop)
+        return false;
+    else if (localStorage.mobile)
+        return true;
+    var mobile = [
+        'iphone', 'ipad', 'android', 'blackberry', 'nokia', 'opera mini', 'windows mobile', 'windows phone',
+        'iemobile'
+    ];
+    for (var i = 0; i < mobile.length; i++) {
+        if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0)
+            return true;
+    }
+
+    return false;
 }
 
 var isMobileNative = {
@@ -1267,7 +1252,7 @@ function ActualizarGanancia(data) {
     }, 500);
 }
 
-FuncionesGenerales = {
+var FuncionesGenerales = {
     containsObject: function (obj, array) {
         var i;
         for (i = 0; i < array.length; i++) {
@@ -1437,12 +1422,12 @@ function autoCompleteByCharacters(inp, arr, car) {
                 b.innerHTML += "<input type='hidden' value='" + valueInput + arr[i] + "'>";
                 b.addEventListener("click", function (e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
-                    //INI HD-3897
+
                     if ($(inp).hasClass("eventActPerfil_Auto")) {
                         $(inp).trigger("change");
                         $(inp).trigger("focusout");
                     }
-                    //FIN HD-3897
+
                     closeAllLists();
                 });
                 a.appendChild(b);
@@ -1756,31 +1741,6 @@ function IfNull(input, replaceNull) {
     return input == null ? replaceNull : input;
 }
 
-//function odd_desktop_google_analytics_promotion_click() {
-//    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
-//        var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
-//        var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
-//        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val();
-
-//        dataLayer.push({
-//            'event': 'promotionClick',
-//            'ecommerce': {
-//                'promoClick': {
-//                    'promotions': [
-//                        {
-//                            'id': id,
-//                            'name': name,
-//                            'position': 'Banner Superior Home - 1',
-//                            'creative': creative
-//                        }]
-//                }
-//            }
-//        });
-
-//        odd_desktop_google_analytics_product_impresion();
-//    }
-//}
-
 function odd_desktop_google_analytics_promotion_click_verofertas() {
     if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
         var id = $('#banner-odd').find(".estrategia-id-odd").val();
@@ -1993,7 +1953,7 @@ function limpiar_local_storage() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-        var itemSurvicateStorage = GetItemLocalStorageSurvicate();//add
+        var itemSurvicateStorage = GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -2243,7 +2203,6 @@ var GeneralModule = (function () {
         if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-
         if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl += "Mobile/";
 
         url = $.trim(url);
@@ -2367,21 +2326,20 @@ var GeneralModule = (function () {
         }
     };
 
+    var _consoleLog = function (log) {
+        console.log(log);
+    };
+
     return {
         isMobile: _isMobile,
         redirectTo: _redirectTo,
         abrirLoad: _abrirLoad,
         cerrarLoad: _cerrarLoad,
-        getLocationPathname: _getLocationPathname
+        getLocationPathname: _getLocationPathname,
+        consoleLog: _consoleLog
     };
 }());
-//INI HD-3693
-function validarpopupBloqueada(message) {
-    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
-    else return "";
 
-}
-//FIN HD-3693
 
 function AbrirMensajeImagen(mensaje) {
     var popup = $('#PopupInformacionRegalo');
@@ -2394,7 +2352,36 @@ function AbrirMensajeImagen(mensaje) {
 }
 
 function AbrirChatBot() {
+    var esDesktop = !isMobileBrowser();
+    if (esDesktop && typeof FB !== 'undefined') {
+        FB.CustomerChat.showDialog();
+        
+        return;
+    }
+
     if (typeof ChatBotUrlRef === 'undefined') return;
 
-    window.location.href = ChatBotUrlRef;
+    if (esDesktop) {
+        window.open(ChatBotUrlRef);
+    } else {
+        window.location.href = ChatBotUrlRef;
+    }
+}
+
+function OpenUrl(url, newPage) {
+    if (newPage) {
+        window.open(url, '_blank');
+        return;
+    }
+    
+    window.location.href = url;
+}
+
+function OpenUrlCallbackNewPage(url, urlCallback, defaultNewPage) {
+    $.post(urlCallback, function(data) {
+        OpenUrl(url, data.NewPage);
+    })
+    .fail(function() {
+        OpenUrl(url, defaultNewPage);
+    });
 }

@@ -93,7 +93,6 @@ function RegistrarConstrains() {
 
     $("#txtPrograma").on('keypress', function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        //var inputVal = $(this).val();
         var keyChar = String.fromCharCode(charCode);
         var re = /[0-9]/;
         return re.test(keyChar);
@@ -161,11 +160,9 @@ function fnDialog() {
     });
 }
 function DesactivarPremio(rowId) {
-
-    //HD-3756 HABILITA PREMIOS
-    var premio = {};
+    
     var rowData = $("#list").jqGrid('getRowData', rowId);
-    Premio = rowData;
+    var Premio = rowData;
 
     if (Premio.ActivePremioAuto == 'false' && Premio.ActivePremioElectivo == 'false') return;
     var elimina = confirm('¿Está seguro que desea deshabilitar el premio?');

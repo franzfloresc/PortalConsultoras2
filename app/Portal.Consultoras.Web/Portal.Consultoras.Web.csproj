@@ -28,8 +28,7 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
     <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,8 +51,8 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
-      <HintPath>..\Binaries\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.6.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <SpecificVersion>False</SpecificVersion>
@@ -248,6 +247,7 @@
     <Compile Include="CustomHelpers\Infraestructure\BundleExtention.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="Controllers\PremioNuevasController.cs" />
+    <Compile Include="Controllers\TuVozOnlineController.cs" />
     <Compile Include="CustomHelpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
@@ -308,6 +308,7 @@
     <Compile Include="Controllers\BuscadorController.cs" />
     <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Controllers\PedidoRegistroController.cs" />
+    <Compile Include="Models\EventoInsert.cs" />
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
     <Compile Include="Infraestructure\Route\RedirectRoute.cs" />
     <Compile Include="Infraestructure\Route\RouteExtensions.cs" />
@@ -320,8 +321,15 @@
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\ChatActivation.cs" />
-    <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
+    <Compile Include="Models\CaminoBrillante\CarruselCaminoBrillante.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
+    <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
+    <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
+    <Compile Include="Models\DistanciaLimiteZonaSeccionModel.cs" />
+    <Compile Include="Models\LogDetalleParametroUneteModel.cs" />
+    <Compile Include="Models\Estrategia\FotosComponenteModel.cs" />
+    <Compile Include="Models\Search\ResponseOferta\OutputOfertaIncremental.cs" />
+    <Compile Include="Models\Search\ResponseOferta\Estructura\FotosComponente.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\CDRProductoRespuestaServicioModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
@@ -871,6 +879,7 @@
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\ConsultaProlProvider.cs" />
     <Compile Include="Providers\ConsultoraOnlineProvider.cs" />
+    <Compile Include="Providers\VentaIncrementalProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
@@ -893,6 +902,7 @@
     <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\PedidoWebProvider.cs" />
     <Compile Include="Providers\ProductoRecomendadoProvider.cs" />
+    <Compile Include="Providers\TuVozOnlineProvider.cs" />
     <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
@@ -1465,7 +1475,10 @@
     <Content Include="Content\CaminoBrillante\imgs\add_to_cart2.svg" />
     <Content Include="Content\CaminoBrillante\imgs\bg-modal.png" />
     <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\down.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\flag.svg" />
     <Content Include="Content\CaminoBrillante\imgs\icon-s.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\up.svg" />
     <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
@@ -1507,6 +1520,7 @@
     <Content Include="Content\Css\Site\bootstrap\bootstrap.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\busqueda-productos.css" />
     <Content Include="Content\Css\Site\Carrusel\CarruselResponsive.css" />
+    <Content Include="Content\Css\Site\ConsultoraOnline\MotivosRechazo.css" />
     <Content Include="Content\Css\Site\ConsultoraOnline\Pendientes.css" />
     <Content Include="Content\Css\Site\ConsultoraOnline\Pendientes.rewrite.css" />
     <Content Include="Content\Css\Site\Contenedor\BannerInteractivo.css" />
@@ -1518,6 +1532,8 @@
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
     <Content Include="Content\Css\Site\Esika\marca-pais-responsive.css" />
+    <Content Include="Content\Css\Site\Ficha\FichaCarrusel.css" />
+    <Content Include="Content\Css\Site\Ficha\FichaResponsive.css" />
     <Content Include="Content\Css\Site\Notificacion.css" />
     <Content Include="Content\Css\Site\Esika\nuevo-look-and-feel.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
@@ -1527,7 +1543,6 @@
     <Content Include="Content\Css\Site\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Site\Ficha\Esika\FichaEsika.css" />
     <Content Include="Content\Css\Site\Ficha\FichaEnriquecidaResponsive.css" />
-    <Content Include="Content\Css\Site\Ficha\FichaRensponsive.css" />
     <Content Include="Content\Css\Site\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Site\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Site\Ficha\RedesSociales.css" />
@@ -1538,9 +1553,17 @@
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
+    <Content Include="Content\Css\Site\Pedido\PopupRecepcionPedido.css" />
+    <Content Include="Content\Css\Site\Pedido\GananciaEstimada.css" />
+    <Content Include="Content\Css\Site\Pedido\ProductosSugeridos.css" />
+    <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-reserva-pedido.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-informacion-regalos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
+    <Content Include="Content\Css\Site\TuVozOnline\TuVozOnline.css" />
     <Content Include="Content\Css\Site\styleBase.css" />
+    <Content Include="Content\Images\alerta-icono.png" />
+    <Content Include="Content\Images\add-to-cart-disable.png" />
+    <Content Include="Content\Images\add-to-cart-white.png" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\etiqueta_nuevo.svg" />
     <Content Include="Content\Images\Esika\club-gana-mas.gif" />
@@ -1560,7 +1583,9 @@
     <Content Include="Content\Images\CaminoBrillante\medalla.PNG" />
     <Content Include="Content\Css\Site\Menu\MenuContenedorResponsive.css" />
     <Content Include="Content\Images\flecha_despliegue_campo_select.svg" />
+    <Content Include="Content\Images\hands-up-icon.png" />
     <Content Include="Content\Images\icono_advertencia_notificacion_multimarca.svg" />
+    <Content Include="Content\Images\icono_edit.svg" />
     <Content Include="Content\Images\icono_foco_activo.svg" />
     <Content Include="Content\Images\icono_mail_cdr_activo.svg" />
     <Content Include="Content\Images\icono_check_cdr.svg" />
@@ -1576,6 +1601,7 @@
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-bloqueo-sistema.css" />
     <Content Include="Content\Images\icono_cerrar_popup.svg" />
     <Content Include="Content\Images\icono_confirmacion_con_fondo.svg" />
+    <Content Include="Content\Images\icono_mail.svg" />
     <Content Include="Content\Images\icono_notificacion_negativa.svg" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-actualizacion-correo.css" />
     <Content Include="Content\Images\icono_correo.svg" />
@@ -1860,7 +1886,6 @@
     <Content Include="Content\Images\icono_carrito.svg" />
     <Content Include="Content\Images\icono_catalogos.svg" />
     <Content Include="Content\Images\icono_cerrar_menu_mobile.png" />
-    <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_editar.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_infoImportante.svg" />
@@ -1929,7 +1954,9 @@
     <Content Include="Content\Images\mas.svg" />
     <Content Include="Content\Images\menos-desplegable-icono.svg" />
     <Content Include="Content\Images\menos.svg" />
+    <Content Include="Content\Images\mensaje-icono.png" />
     <Content Include="Content\Images\mobile\Esika\bonificaciones_digital.png" />
+    <Content Include="Content\Images\mobile\Esika\click-ico-White.svg" />
     <Content Include="Content\Images\mobile\Esika\emoji-clapping-hands%403x.png" />
     <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
@@ -3788,6 +3815,8 @@
     <Content Include="Content\Images\PL20\set_hoy.png" />
     <Content Include="Content\Images\PL20\solo_hoy.png" />
     <Content Include="Content\Images\PL20\textura_fondo.png" />
+    <Content Include="Content\Images\placeholder\img_placeholder_horizontal.jpg" />
+    <Content Include="Content\Images\placeholder\img_placeholder_vertical.jpg" />
     <Content Include="Content\Images\Pop Up Navidad 2-01.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-02.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-04.png" />
@@ -4113,6 +4142,9 @@
     </Content>
     <Content Include="Content\Template\mailing_pago_percepcion.html" />
     <Content Include="Content\Template\mailing_pago_percepcion_detalle.html" />
+    <Content Include="Content\Template\mailing_pedido_pendiente_aceptado_rechazado.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Temporales\FolderContent.txt" />
     <Content Include="CustomError.html" />
     <Content Include="emt_chat\js\inject.js" />
@@ -4147,6 +4179,7 @@
     <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chartjs.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\colorpicker\colorpicker.js" />
     <Content Include="Scripts\Comunidad\fuzescale-1.3.min.js" />
@@ -4207,6 +4240,7 @@
     <Content Include="Scripts\jquery.ui.mouse.js" />
     <Content Include="Scripts\jquery.ui.sortable.js" />
     <Content Include="Scripts\jquery.ui.swappable.js" />
+    <Content Include="Scripts\jquery.ui.touch-punch.min.js" />
     <Content Include="Scripts\jquery.ui.widget.js" />
     <Content Include="Scripts\LogError.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
@@ -4260,11 +4294,13 @@
     <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\assets\bootstrap.min.js" />
     <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\DetallePedidoPendiente.js" />
     <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\Pendientes.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Carrusel\CarruselInicializar.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Carrusel\CarruselModel.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Carrusel\CarruselPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Carrusel\CarruselView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Cliente\ClientePresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Cliente\ClienteView.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesAnalyticsPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Estrategia\EstrategiaPresenter.js" />
@@ -4328,6 +4364,9 @@
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\ArmaTuPack.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\PopupRecepcionPedido.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\ProductoSugeridoZoom.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\ActualizarCorreoPedido.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\SuscripcionSE.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\PedidoProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\tooltip.js" />
@@ -4371,7 +4410,6 @@
     <Content Include="Scripts\AdminContenido\Palanca\AdminPalanca.js" />
     <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
-    <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-ConfirmarDatos.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js" />
@@ -4391,6 +4429,7 @@
     <Content Include="Scripts\PortalConsultoras\Shared\MainLayoutResponsive.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuContenedor.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\TogglePanel.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\BannerInferior.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Intriga.js" />
@@ -4404,6 +4443,7 @@
     <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesModule.js" />
     <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesProvider.js" />
     <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesView.js" />
+    <Content Include="Scripts\PortalConsultoras\TuVozOnline\Index.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
@@ -4815,7 +4855,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceCliente\ClienteService.disco" />
     <None Include="Service References\ServiceCliente\ClienteService3.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4832,6 +4871,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceCliente\ClienteService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService7.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceCliente\configuration91.svcinfo" />
@@ -5053,27 +5095,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService112.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService13.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService14.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService15.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService16.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService17.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService18.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService19.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService2.xsd">
@@ -5942,11 +5963,16 @@
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
+    <Content Include="Views\TuVozOnline\Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
+    <Content Include="Views\CaminoBrillante\Partial\template_kit.cshtml" />
+    <Content Include="Views\CaminoBrillante\Partial\template_demostrador.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
+    <Content Include="Views\Unete\DistanciaLimiteZonaSeccion.cshtml" />
+    <Content Include="Views\Pedido\_PopupRecepcionPedido.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\imagen-estrategia-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\estrategia-template.cshtml" />
@@ -5961,6 +5987,9 @@
     <Content Include="Views\DetalleEstrategia\template-producto-carrusel-responsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\popup-ficha-enriquecida-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
+    <Content Include="Views\Unete\_PosibleFraudeUbicaciones.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
+    <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

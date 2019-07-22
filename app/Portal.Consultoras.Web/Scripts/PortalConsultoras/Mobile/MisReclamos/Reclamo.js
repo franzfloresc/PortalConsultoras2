@@ -503,9 +503,7 @@ $(document).ready(function () {
                     $(me.Variables.txtCuvMobile2).val("");
                     $(me.Variables.txtPrecioCuv2).html("");
                     $(me.Variables.txtCantidad2).val("1");
-                    //$(me.Variables.ComboCampania).val(0);
                     $(me.Variables.txtCuvMobile).val("");
-                    //$(me.Variables.txtNumPedido).val("");
 
                     $(me.Variables.txtCuvMobile).fadeIn();
                     $(me.Variables.txtCuvMobile2).fadeIn();
@@ -717,7 +715,7 @@ $(document).ready(function () {
                     $(me.Variables.txtNumPedido).val("").hide();
                     $(me.Variables.hdPedidoID).val(0);
                     $(me.Variables.hdNumeroPedido).val(0);
-                    $(me.Variables.infoOpcionesDeCambio).hide();//solve bug 
+                    $(me.Variables.infoOpcionesDeCambio).hide();
                     $(me.Variables.MensajeTenerEncuenta).hide();//solve bug
                     $(me.Variables.VistaPaso3).hide();
                     $(me.Variables.SolicitudEnviada).hide();
@@ -1175,8 +1173,6 @@ $(document).ready(function () {
 
             RegresarRegistro1: function () {
                 $(me.Variables.Registro2).hide();
-                //$(me.Variables.pasodosactivo).hide();
-                //$(me.Variables.pasodos).show();
                 $(me.Variables.Registro1).show();
             },
 
@@ -1215,7 +1211,6 @@ $(document).ready(function () {
                     var montoProductosFaltanteActual = me.Funciones.ObtenerMontoProductosDevolver(codigoSsic);
                     var montoCuvActual = (parseFloat($(me.Variables.txtPrecioUnidad).val()) || 0) * (parseInt($(me.Variables.txtCantidad1).val()) || 0);
                     var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
-                    //me.Funciones.ObtenerValorParametria(codigoSsic);
                     var valorParametria = $(me.Variables.hdParametriaCdr).val() || 0;
                     valorParametria = parseFloat(valorParametria);
                     var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
@@ -1831,7 +1826,7 @@ $(document).ready(function () {
                                     messageInfo(mensajeInfo);
                                     return false;
                                 } else {
-                                    if (data.Cantidad == 1) {
+                                    if (data.Cantidad == 1) {                                    
                                         $(me.Variables.VistaPaso3).hide();
                                         $(me.Variables.barra_progreso).hide();
                                         $(me.Variables.tabs_vista_cdr_wrapper).fadeIn();
@@ -1860,7 +1855,6 @@ $(document).ready(function () {
                 var id = opcion.id;
                 var isChecked = tagCheck.is(':checked');
                 if (id == "" || !isChecked) {
-                    var id = opcion.id;
                     //ocultamos la capa padre y los hijos
                     tagDivInfo.fadeOut(100).children().fadeOut(100);
                     $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
@@ -1934,7 +1928,6 @@ $(document).ready(function () {
                 });
             },
             SetMontoCampaniaTotal: function () {
-                //$(me.Variables.wrpMobile).addClass(me.Variables.pb120);
                 $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
                 var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
                 var cantidad = $(me.Variables.txtCantidad1).val();
@@ -2046,10 +2039,6 @@ $(document).ready(function () {
                 var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                 if (_Estado === "1") {
-                    //if (mensajeCdrFueraDeFechaCompleto !== "") {
-                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                    //    return false;
-                    //}
                     if (mensajeGestionCdrInhabilitada !== "") {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;

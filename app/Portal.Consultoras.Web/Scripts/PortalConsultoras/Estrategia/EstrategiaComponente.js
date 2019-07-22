@@ -1,8 +1,8 @@
 ﻿var estrategiaComponenteModule = (function (config) {
 
-    var elementos = {
-        nombre: ""
-    }
+    //var elementos = {
+    //    nombre: ""
+    //}
 
     var _esVirtualCouch = function () {
         var pathname = window.location.pathname;

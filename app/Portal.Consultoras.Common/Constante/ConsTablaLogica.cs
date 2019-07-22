@@ -612,6 +612,7 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteEnterateMas = 173;
             public const short CaminoBrillanteFiltro = 174;
             public const short CaminoBrillanteOrden = 175;
+            public const short CaminoBrillanteConfigurar = 176;
         }
 
         public static class AdministradorHistoria
@@ -623,6 +624,8 @@ namespace Portal.Consultoras.Common
             public const short TablaLogicaId = 15;
             public const string FuncionalidadUpSelling = "FuncionalidadUpSelling";
             public const string CantidadProductosUpSelling = "CantidadProductosUpSelling";
+            public const string FuncionalidadCrossSelling = "FuncionalidadCrossSelling";
+            public const string FuncionalidadSugerido = "FuncionalidadSugerido";
         }
 
         public static class TuVozOnline

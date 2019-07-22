@@ -40,7 +40,7 @@ $(document).ready(function () {
     $("#ddlCampania").on("change", function () {
         $("#txtCantidad").val("1");
         $("#divMotivo").html("");
-        $(reclamo.form.resultadosBusquedaCuv).empty(); //HD-7303 EINCA
+        $(reclamo.form.resultadosBusquedaCuv).empty();
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
         $(reclamo.form.txtCuv).val("").attr("data-codigo", "");
         if ($(this).val() == "0") {
@@ -63,7 +63,7 @@ $(document).ready(function () {
         $("#divMotivo").html("");
         $("#txtCantidad").val("1");
         $(reclamo.form.txtCuv).val("");
-        $(reclamo.form.resultadosBusquedaCuv).empty(); //HD-7303 EINCA
+        $(reclamo.form.resultadosBusquedaCuv).empty();
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
         if ($(this).val() == "0") {
             $("#txtPedidoID").val("");
@@ -1394,8 +1394,6 @@ function SeleccionarContenido(control) {
     control.select();
 }
 
-
-//HD-3703 EINCA
 function EscogerSolucion(opcion, event) {
     var tagCheck = $("#divOperacion input[type=checkbox]");
     var tagDivInfo = $('#infoOpcionesDeCambio');
@@ -1479,7 +1477,6 @@ function SetMontoCampaniaTotal() {
     $("#spnNumeroCampaniaReclamo").html(numeroCampania);
 }
 
-//HD-3703 EINCA
 function AgregarODisminuirCantidad(event, opcion) {
     if (opcion === 1) {
         EstrategiaAgregarModule.AdicionarCantidad(event);
@@ -1490,7 +1487,6 @@ function AgregarODisminuirCantidad(event, opcion) {
     CalcularTotal();
 }
 
-//HD-3703 EINCA
 function IrAFinalizar() {
     var fnPreValidacion = PreValidacionIrFinalizar();
     if (fnPreValidacion.result) {
@@ -1559,7 +1555,6 @@ function PreValidacionIrFinalizar() {
     return { result: true, id: id, };
 }
 
-//HD-3703 EINCA 
 function EliminarDetalle(el) {
     var pedidodetalleid = $.trim($(el).attr("data-pedidodetalleid"));
     var grupoid = $.trim($(el).attr("data-detalle-grupoid"));

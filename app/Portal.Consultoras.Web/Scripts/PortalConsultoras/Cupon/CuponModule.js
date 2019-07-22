@@ -450,8 +450,6 @@
     };
 
     var mostrarPopupGanaste = function () {
-        //var simboloPorcen = "%";
-        //var valor = parseInt(setting.Cupon.FormatoValorAsociado);
         var campania = setting.CampaniaActual.substring(4);
 
         $(elements.ContenedorTituloGanaste).empty();
