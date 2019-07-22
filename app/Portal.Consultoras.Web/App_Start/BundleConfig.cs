@@ -1130,6 +1130,9 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"
                 ));
 
+            bundles.Add(new StyleIgnoreMinifyBundle("~/Bundle/Js/CaminoBrillante/Chart").Include(
+                                          "~/Scripts/chartjs.js"));
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/logros").Include(
                 "~/Scripts/PortalConsultoras/CaminoBrillante/logros.js"));
 
