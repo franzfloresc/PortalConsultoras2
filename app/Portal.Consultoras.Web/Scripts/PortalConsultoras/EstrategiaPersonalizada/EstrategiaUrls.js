@@ -118,7 +118,7 @@ var FichaVerDetalle = (function () {
                     )
                         url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
                     else
-                        url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
+                        url += ConstantesModule.TipoEstrategiaTexto.OfertasParaMi;
                 }
                 break;
             case ConstantesModule.TipoEstrategia.PackAltoDesembolso:
