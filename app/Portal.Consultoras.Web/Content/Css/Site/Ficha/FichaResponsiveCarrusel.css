@@ -64,7 +64,7 @@
             padding: 0.7rem;
         }
 /* Promociones - Detalle Modal */
-.promociones-modal.popup_lateral {
+.promociones-modal.popup_lateral.popup_active {
     width: 400px;
 }
 
@@ -115,15 +115,6 @@
     border-top: 1px solid #dee2e6;
     padding-bottom: 1rem;
 }
-
-/*.promociones-modal.popup_lateral::after {
-    
-    content: "";
-    position: absolute;
-    bottom: 45%;
-    width: 100%;
-    border-bottom: 1px solid #dee2e6;
-}*/
 
 /* [Fin] */
 
