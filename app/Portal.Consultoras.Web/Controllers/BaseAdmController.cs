@@ -172,9 +172,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string index = i < 10 ? "0" + i.ToString() : i.ToString();
                 lstIconos.Add(new NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante
                 {
-                    CodigoIcono = Constantes.CaminoBrillante.Beneficios.Iconos[index],
-                    NombreIcono = index,
-                    UrlIcono = Constantes.CaminoBrillante.Beneficios.Iconos[index]
+                    CodigoIcono = index,
+                    UrlIcono = Constantes.CaminoBrillante.Beneficios.Iconos[index],
                 });
             }
             return lstIconos;

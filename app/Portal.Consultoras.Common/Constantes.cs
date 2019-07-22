@@ -3825,25 +3825,24 @@ namespace Portal.Consultoras.Common
                     get
                     {
                         return _Iconos ?? (_Iconos = new Dictionary<string, string> {
-                            {"01", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"asesor.svg")},
-                            {"02", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"beneficios.svg")},
-                            {"03", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"brazalete.svg")},
-                            {"04", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"call_center.svg")},
-                            {"05", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"catalogo_revista.svg")},
-                            {"06", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"descuento.svg")},
-                            {"07", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"kit.svg")},
-                            {"08", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"pago_diferido.svg")},
-                            {"09", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"productos_especiales.svg")},
-                            {"10", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"programa_brillante.svg")},
-                            {"11", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"reconocimiento.svg")},
-                            {"12", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"regalo.svg")},
-                            {"13", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"talleres.svg")},
-                            {"14", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"50_de_descuento.svg")},
+                            {"01", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "asesor.svg")},
+                            {"02", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "beneficios.svg")},
+                            {"03", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "brazalete.svg")},
+                            {"04", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "call_center.svg")},
+                            {"05", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "catalogo_revista.svg")},
+                            {"06", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "descuento.svg")},
+                            {"07", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "kit.svg")},
+                            {"08", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "pago_diferido.svg")},
+                            {"09", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "productos_especiales.svg")},
+                            {"10", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "programa_brillante.svg")},
+                            {"11", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "reconocimiento.svg")},
+                            {"12", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "regalo.svg")},
+                            {"13", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "talleres.svg")},
+                            {"14", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "50_de_descuento.svg")},
 
                         });
                     }
                 }
-
             }
 
             public static class Niveles

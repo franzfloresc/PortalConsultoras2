@@ -120,11 +120,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegistrarBeneficio(int paisID, NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel model)
+        public JsonResult RegistrarBeneficio(NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel model)
         {
             string operacion = "registró";
             try
             {
+
                 //BEOferta entidad = new BEOferta
                 //{
                 //    OfertaID = Convert.ToInt32(OfertaID),
@@ -136,11 +137,14 @@ namespace Portal.Consultoras.Web.Controllers
                 //    CodigoPrograma = CodigoPrograma
                 //};
 
+                if (model.FlagActivo == "1") model.Estado = true;
+                if (model.FlagActivo == "0") model.Estado = false;
+
                 var entidad = Mapper.Map<BEBeneficioCaminoBrillante>(model) ?? new BEBeneficioCaminoBrillante();
 
                 using (var sv = new UsuarioServiceClient())
                 {
-                    sv.InsBeneficioCaminoBrillante(paisID, entidad);
+                    sv.InsBeneficioCaminoBrillante(userData.PaisID, entidad);
                 }
 
                 //if (OfertaID != "0")
