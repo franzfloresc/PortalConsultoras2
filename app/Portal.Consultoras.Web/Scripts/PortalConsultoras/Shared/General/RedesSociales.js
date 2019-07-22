@@ -2,7 +2,7 @@
 
     var _variables = {
         clickDataCompartir: "[data-compartir]",
-        mensajeURLws: (mensajeRRSS != null) ? mensajeRRSS : "Hola, revisa los catálogos de esta campaña y pide todo lo que quieras solo dándole click al producto que deseas "
+        mensajeURLws: (typeof mensajeRRSS !== 'undefined') ? mensajeRRSS : "Hola, revisa los catálogos de esta campaña y pide todo lo que quieras solo dándole click al producto que deseas "
     }
 
     var CompartirRedesSociales = function (e) {
