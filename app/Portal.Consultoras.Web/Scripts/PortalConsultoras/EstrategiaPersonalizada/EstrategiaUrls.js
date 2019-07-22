@@ -33,7 +33,7 @@ var FichaVerDetalle = (function () {
 
             var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(OrigenPedidoWeb);
             if (origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling
-                || origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
+                || origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselSugeridos) {
 
                 var palanca = getPalanca(codigoEstrategia, OrigenPedidoWeb, false);
                 var modeloEstrategiaTemporal = {
