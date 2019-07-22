@@ -53,7 +53,7 @@
 .menu__item[data-title="SOCIA EMPRESARIA"],
 .menu__item--sociaEmpresaria
 {
-    padding-left:25px;
+    padding-left:18px;
 }
 
 .header__menu--lateralIzquierdo .menu__item,
@@ -541,4 +541,21 @@
         position:relative;
     }
 
+    .foto_usuaria_mobile {
+        width: 77px;
+        height: 76px;
+        border-radius: 100px;
+        position: relative;
+        background-color: rgba(229,229,229,1);
+        background-image: url('/Content/Images/icono_avatar.svg');
+        background-repeat: no-repeat;
+        background-position: center 12px;
+        background-size: 75%;
+        border-radius: 100%;
+        overflow: hidden;
+    }
+
+        .foto_usuaria_mobile img {
+            width: 100%;
+        }
 }

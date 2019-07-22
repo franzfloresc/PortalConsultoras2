@@ -38,7 +38,6 @@
 
     var _limpiarDatos = function () {
         $("#chkActivoOfertaDetalle").removeAttr("checked");
-        //$("#chkEsSubCampania").removeAttr("checked");
     }
 
     var _registrarOfertaShowRoomDetalle = function () {
@@ -169,7 +168,7 @@
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
             colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion Catalogo", "Foto", "Marca"
-                , "Nro Grupo", "Nombre Singular", "Nombre Plural", "", "", "", "Acciones"],
+                , "Nro Grupo", "Nombre Singular", "Nombre Plural", "Precio", "PrecioValorizado", "Activo", "Acciones"],
             colModel: [
                 { name: "EstrategiaProductoId", index: "EstrategiaProductoId", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "EstrategiaId", index: "Estrategia", width: 50, editable: true, resizable: false, hidden: true },

@@ -18,6 +18,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BECDRWeb> GetCDRWebMobile(int PaisID, BECDRWeb entity);
+        
+        [OperationContract(Name = "InsCDRWebDetalleList")]
+        int InsCDRWebDetalle(int PaisID, List<BECDRWebDetalle> detalle);
 
         [OperationContract]
         int UpdEstadoCDRWeb(int PaisID, BECDRWeb entity);
@@ -27,6 +30,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int DelCDRWebDetalle(int PaisID, BECDRWebDetalle entity);
+
+        [OperationContract(Name = "DelCDRWebDetalleList")]
+        int DelCDRWebDetalle(int PaisID, List<BECDRWebDetalle> listDetalle);
 
         [OperationContract]
         List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId);
@@ -84,8 +90,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BECDRWeb GetMontoFletePorZonaId(int paisId, BECDRWeb entity);
-
-        //HD-3412 EINCA
+        
         [OperationContract]
         int ValCUVEnProcesoReclamo(int paisId, int pedidoId, string cuv);
     }

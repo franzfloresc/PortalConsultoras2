@@ -17,13 +17,13 @@
     var _elements = {
         btnCancelarCliente: "#btnPanelMantenerCerrar",
         btnGuardarCliente: "#btnPanelMantenerAgregar",
-        //
+
         divErrorNombre: "#divNotiNombre",
         divErrorApellido: "#divNotiApellido",
         divErrorTelefono: "#divNotiTelefono",
         divErrorCelular: "#divNotiCelular",
         divErrorCorreo: "#divNotiCorreo",
-        //
+
         hdnId: "#ClienteID",
         hdnCodigo: "#CodigoCliente",
         txtNombre: "#NombreCliente",
@@ -66,29 +66,29 @@
     };
 
     var _btnGuardarClienteOnClick = function (e) {
-        console.log('_btnGuardarClienteOnClick');
+
         _ocultarMensajesError();
-        
+
         var cliente = _getCliente();
         var errorDatos = false;
         if (cliente.NombreCliente === "") {
             $(_elements.divErrorNombre).show();
-            var errorDatos = true;
+            errorDatos = true;
         }
 
         if (cliente.ApellidoCliente === "") {
             $(_elements.divErrorApellido).show();
-            var errorDatos = true;
+            errorDatos = true;
         }
-        
+
         if (cliente.Telefono === "") {
             $(_elements.divErrorTelefono).show();
-            var errorDatos = true;
+            errorDatos = true;
         }
 
         if (cliente.Celular === "") {
             $(_elements.divErrorCelular).show();
-            var errorDatos = true;
+            errorDatos = true;
         }
 
         if (cliente.eMail !== "" && !validateEmail(cliente.eMail)) {
@@ -108,8 +108,6 @@
             .tusClientesProvider
             .mantenerPromise(cliente)
             .done(function (data) {
-
-                //alert(data.message);
 
                 if (data.success == true) {
                     if (typeof _config.setNombreClienteCallback === "function") {
@@ -132,7 +130,7 @@
                 CerrarLoad();
                 $(_elements.btnGuardarCliente).show();
             });
-        
+
     };
 
 
@@ -193,7 +191,7 @@
                 $(this).removeClass('bar-imputActive');
             }
         });
-      
+
 
     };
 

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -19,7 +20,9 @@ namespace Portal.Consultoras.Web.Providers
         protected readonly ConfiguracionManagerProvider _configuracionManager;
         protected readonly EventoFestivoProvider _eventoFestivo;
 
-        public MenuProvider(ConfiguracionManagerProvider configuracionManagerProvider, 
+        public UrlHelper UrlGenerator { get; set; }
+
+        public MenuProvider(ConfiguracionManagerProvider configuracionManagerProvider,
             EventoFestivoProvider eventoFestivo) : this(SessionManager.SessionManager.Instance)
         {
             _configuracionManager = configuracionManagerProvider;
@@ -74,7 +77,7 @@ namespace Portal.Consultoras.Web.Providers
         public UsuarioModel GetPermisosByRol(UsuarioModel userSession, RevistaDigitalModel revistaDigital)
         {
             var permisos = GetPermisosByRolService(userSession.PaisID, userSession.RolID);
-            
+
             if (!_configuracionManager.GetMostrarOpcionClienteOnline(userSession.CodigoISO) &&
                 permisos.Any(p => p.UrlItem.ToLower() == "consultoraonline/index"))
             {
@@ -98,6 +101,17 @@ namespace Portal.Consultoras.Web.Providers
             {
                 permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
             }
+
+            #region Camino Brillante
+
+            if ((!userSession.CaminoBrillante || userSession.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                && permisos.Where(e => e.Codigo != null).Any(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante))
+            {
+                permisos.Remove(permisos.Where(e => e.Codigo != null)
+                    .FirstOrDefault(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante));
+            }
+
+            #endregion
 
             var lstMenuModel = new List<PermisoModel>();
 
@@ -151,9 +165,10 @@ namespace Portal.Consultoras.Web.Providers
                         var urlSplit = permiso.UrlItem.Split('/');
                         permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva) + ", '" + permiso.Descripcion + "')";                                                
 
-                        if (description == "TU VOZ ONLINE")
+                        if (permiso.Codigo == Constantes.MenuCodigo.TuVozOnline.ToLower())
                         {
-                            permiso.OnClickFunt = "OpenUrl('" + permiso.UrlItem + "'," + Convert.ToInt32(permiso.PaginaNueva) + ")";
+                            var urlCallback = UrlGenerator.Action("RequiereNuevaPagina", "TuVozOnline", new { area = ""});
+                            permiso.OnClickFunt = "OpenUrlCallbackNewPage('" + permiso.UrlItem + "','" + urlCallback + "'," + Convert.ToInt32(permiso.PaginaNueva) + ")";
                         }
 
                         if (description == "SOCIA EMPRESARIA")
@@ -191,13 +206,13 @@ namespace Portal.Consultoras.Web.Providers
 
                 lstMenuModel.Add(permiso);
             }
-            
+
             userSession.Menu = lstMenuModel.ToList();
             sessionManager.SetUserData(userSession);
             return userSession;
         }
 
-        public string GetUrlImagenMenuOfertas(string codigoIso, RevistaDigitalModel revistaDigital)
+        public string GetUrlImagenMenuOfertas(string codigoIso, RevistaDigitalModel revistaDigital, bool isMobile = false)
         {
             var urlImagen = string.Empty;
             var tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
@@ -218,7 +233,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasNoActivaMobile : revistaDigital.LogoMenuOfertasNoActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -229,7 +244,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (tieneRevistaDigital && revistaDigital.EsSuscrita)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasActivaMobile : revistaDigital.LogoMenuOfertasActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -239,7 +254,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (revistaDigital.TieneRDI)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasNoActivaMobile : revistaDigital.LogoMenuOfertasNoActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -274,7 +289,6 @@ namespace Portal.Consultoras.Web.Providers
         public UsuarioModel GetMenuMobileModel(UsuarioModel userSession, RevistaDigitalModel revistaDigital, HttpRequestBase request, bool tieneTituloCatalogo)
         {
             var lstMenuMobileModel = GetMenuMobileModelService(userSession.PaisID);
-            //
 
             userSession.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
 
@@ -321,6 +335,17 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
 
+            #region Camino Brillante
+
+            if ((!userSession.CaminoBrillante || userSession.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                && lstMenuMobileModel.Where(e => e.Codigo != null).Any(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante))
+            {
+                lstMenuMobileModel.Remove(lstMenuMobileModel.Where(e => e.Codigo != null)
+                    .FirstOrDefault(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante));
+            }
+
+            #endregion
+
             var listadoMenuFinal = new List<MenuMobileModel>();
             foreach (var menu in lstMenuMobileModel)
             {
@@ -344,6 +369,12 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     listadoMenuFinal.Add(menu);
                     continue;
+                }
+
+                if (menu.MenuMobileID == Constantes.MenuMobileId.Bonificaciones && userSession.PaisID == Constantes.PaisID.Peru)
+                {
+                    menu.Descripcion = menu.Descripcion.Replace("Bonificaciones", "Incentivos");
+                    menu.UrlItem = menu.UrlItem.Replace("Bonificaciones", "Incentivos");
                 }
 
                 menu.ClaseMenu = "";
@@ -370,7 +401,14 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
-                    menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital);
+                    menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital, true);
+                }
+
+                if (menu.Codigo == Constantes.MenuCodigo.TuVozOnline.ToLower())
+                {
+                    var urlCallback = UrlGenerator.Action("RequiereNuevaPagina", "TuVozOnline", new { area = ""});
+                    menu.OnClickFunt = "onclick=\"OpenUrlCallbackNewPage('" + menu.UrlItem + "','" + urlCallback + "'," + Convert.ToInt32(menu.PaginaNueva) + ");\"";
+                    menu.UrlItem = "javascript:;";
                 }
 
                 listadoMenuFinal.Add(menu);
@@ -408,7 +446,7 @@ namespace Portal.Consultoras.Web.Providers
                     lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
                 }
             }
-            //
+
             userSession.MenuMobile = lstModel;
             sessionManager.SetUserData(userSession);
             return userSession;
@@ -459,8 +497,8 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
 
-            var segmentoServicio =  segmentoId;
-            
+            var segmentoServicio = segmentoId;
+
 
             var lstTemp2 = lstTemp1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userSession.ZonaID.ToString())).ToList();
             var lst = lstTemp2.Where(p => p.Segmento == "-1" || p.Segmento == segmentoServicio.ToString()).ToList();

@@ -13,7 +13,72 @@
 }
 @section styles
 {
+    @*INI HD-3908*@
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
+    @*FIN HD-3908*@
     @Styles.Render("~/Bundle/Css/Mobile/Pedido")
+}
+@{
+    string colorEstilo = null;
+    if (!System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+    {
+        colorEstilo = "lbel";
+    }
+
+}
+@{
+    string cabezaEscala = null, pieEscala = null;
+    string lbl1Ganancia = null, lbl2Ganancia = null;
+
+    if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
+                Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
+                Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
+                Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
+                Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
+                Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
+                Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)
+    {
+        cabezaEscala = "Ganancia estimada total";
+        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+    }
+    else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)
+    {
+        cabezaEscala = "Ganancia estimada total";
+        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+    }
+    else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
+    {
+        cabezaEscala = "Comisión y ahorro total";
+        pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+        lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+    }
+    else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
+    {
+        cabezaEscala = "Oportunidad de ahorro total";
+        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+        lbl1Ganancia = "Por tus compras de productos de catalogo";
+        lbl2Ganancia = "Por tus comprar de productos de revista";
+    }
+    else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia)
+    {
+        cabezaEscala = "Ganancia total";
+        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+    }
+    else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica)
+    {
+        cabezaEscala = "Oportunidad de ahorro total";
+        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+    }
+
 }
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
@@ -26,7 +91,7 @@
 
     <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
     <input type="hidden" id="hdfTotal" value="@Model.Total" />
-    <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
+    <div class="banner_ingresoPedido nuevaAlturaBanner banner_ingresoPedido--nuevoLookAndFeel" style="background-image: url(@ViewBag.UrlFranjaNegra);">
         <div class="content_320 ingresoPedido">
             <form>
                 @Html.Hidden("txtClienteId", Model.ClienteId)
@@ -72,6 +137,14 @@
                     <input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
                     <input type="hidden" id="hdfValorFlagNueva" />
                     <input type="hidden" id="hdLimiteVenta" />
+                    <input type="hidden" id="hdCodigoConsultora" value="@ViewBag.CodigoConsultora" />
+                           @*INI HD-3908 *@
+                    <input type="hidden" id="hdfCodigoPalanca" />
+                    <input type="hidden" id="hdfCampaniaID" />
+                    @*FIN HD-3908 *@
+                    <input id="hdEsOfertaIndependiente" type="hidden" value="0" />
+                    <input id="hdTipoEstrategiaCodigo" type="hidden" value="0" />
+                    <input id="hdEsDuoPerfecto" type="hidden" value="0" />
 
                 </div>
                 <div id="divProductoObservaciones"></div>
@@ -130,103 +203,136 @@
                         </div>
                     </div>
                 </div>*@
-            <div id="divResumenPedido">
-                <div class="contenedor_resumenPedido montosIngresoPedido">
-                    <div class="textos_resumen">
-                        <span id="lblProductosResumen" style="margin-left: 30px;">Has agregado:</span>
-                        <span id="lblTotalResumen">
+            <div id="divResumenPedido" style="position:relative;">
+                <!-- <NuevaExperiencia team="tesla"> -->
+                <div class="ganancia-total PedidoMobile">
+                    <div class="ganancia-content">
+                        <div class="ganancia-info">
+                            <span class="ganancia-titulo titulo-up first-color">
+                                Has agregado:
+                            </span>
+                            <span class="ganancia-total first-color">
+                                <span data-cantidadproducto=""></span> Unidad(es)
+                            </span>
 
-                            <div class="info_validado">
-                                <img src="/Content/Images/Esika/info-copy.png" />
-                                <div class="tooltip_validado_importe">
-                                    <div class="left_reservado">
-                                        <div class="datos_Reservado">
-                                            <span>Subtotal: </span>
-                                            <span>Descuento ofertas por niveles:</span>
+                        </div>
+                        <div class="ganancia-info pb-2">
+                            <span class="ganancia-titulo titulo-up titulo-700">
+                                MONTO TOTAL :
+                            </span>
+                            <span class="ganancia-total first-color">
+                                <span>@Model.Simbolo <span data-pedidocondescuento="">@Model.MontoConDsctoStr</span></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ganancia-estimada PedidoMobile">
+                    <div class="panel-toggle">
+                        <div class="toggle-header" id="openToggle">
+                            <div class="toggle-switch closed">
+                                <div class="toggle-icon">
+                                </div>
+                            </div>
+                            <div class="toggle-info @colorEstilo">
+                                <span class="ganancia-titulo accent-color ">
+                                    @(cabezaEscala) :
+                                </span>
+                                <span id="div-ganancia-total" class="ganancia-total accent-color">
+                                    @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">@Model.FormatoTotalMontoGanancia</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="toggle-content">
+                            <div class="toggle-info">
+                                <span class="ganancia-titulo first-color">
+                                    Catálogo
+                                </span>
+                                <span class="ganancia-total first-color">
+                                    @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@Model.FormatoMontoAhorroCatalogo</span>
+                                </span>
+                            </div>
+                            <div class="toggle-info">
+                                <span class="ganancia-titulo first-color">
+                                    Guía de negocio
+                                </span>
+                                <span class="ganancia-total first-color">
+                                    @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@Model.FormatoGananciaRevista</span>
+                                </span>
+                            </div>
+                            <div class="toggle-info">
+                                <span class="ganancia-titulo first-color">
+                                    @ViewBag.LabelGananciaWeb
+                                </span>
+                                <span class="ganancia-total first-color">
+                                    @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@Model.FormatoGananciaWeb</span>
+                                </span>
+                            </div>
+                            <div class="toggle-info">
+                                <span class="ganancia-titulo first-color">
+                                    Otros
+                                </span>
+                                <span class="ganancia-total first-color">
+                                    @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@Model.FormatoGananciaOtros</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- </NuevaExperiencia> -->
+                @*<!--<ExperienciaAnterior ticket="tesla-97">-->
+                    <div class="contenedor_resumenPedido montosIngresoPedido">
+                        <div class="textos_resumen">
+                            <span id="lblProductosResumen" style="margin-left: 30px;">Has agregado:</span>
+                            <span id="lblTotalResumen">
+
+                                <div class="info_validado">
+                                    <img src="/Content/Images/Esika/info-copy.png" />
+                                    <div class="tooltip_validado_importe">
+                                        <div class="left_reservado">
+                                            <div class="datos_Reservado">
+                                                <span>Subtotal: </span>
+                                                <span>Descuento ofertas por niveles:</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="right_reservado">
-                                        <div class="datos_Reservado">
-                                            <span data-pedidototal="">@Model.Simbolo @Model.DescripcionTotal</span>
-                                            <span data-montodescuento="">@Model.Simbolo @Model.DescuentoStr</span>
+                                        <div class="right_reservado">
+                                            <div class="datos_Reservado">
+                                                <span data-pedidototal="">@Model.Simbolo @Model.DescripcionTotal</span>
+                                                <span data-montodescuento="">@Model.Simbolo @Model.DescuentoStr</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
 
-                            Total:
-                        </span>
-                        @{
-                            string cabezaEscala = null, pieEscala = null;
-                            string lbl1Ganancia = null, lbl2Ganancia = null;
+                                Total:
+                            </span>
 
-                            if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)
-                            {
-                                cabezaEscala = "Ganancia estimada total";
-                                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                                lbl1Ganancia = "Mis descuentos";
-                                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                            }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)
-                            {
-                                cabezaEscala = "Ganancia estimada total";
-                                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-                                lbl1Ganancia = "Mis descuentos";
-                                lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
-                            }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
-                            {
-                                cabezaEscala = "Comisión y ahorro total";
-                                pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                                lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
-                                lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
-                            }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
-                            {
-                                cabezaEscala = "Oportunidad de ahorro total";
-                                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                lbl1Ganancia = "Por tus compras de productos de catalogo";
-                                lbl2Ganancia = "Por tus comprar de productos de revista";
-                            }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia)
-                            {
-                                cabezaEscala = "Ganancia total";
-                                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                                lbl1Ganancia = "Mis descuentos";
-                                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                            }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica)
-                            {
-                                cabezaEscala = "Oportunidad de ahorro total";
-                                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                lbl1Ganancia = "Mis descuentos";
-                                lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
-                            }
+                            <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                            <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                            <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+                            <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
+                            <input type="hidden" id="hdfEsBusquedaSR" />
+                            <input type="hidden" id="hdfEstrategiaId" value="0" />
+                            <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.Trim()) :</span>
+                        </div>
 
-                        }
-                        <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
-                        <input type="hidden" id="hdePieEscala" value="@pieEscala" />
-                        <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
-                        <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-                        <input type="hidden" id="hdfEsBusquedaSR" />
-                        <input type="hidden" id="hdfEstrategiaId" value="0" />
-                        <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.Trim()) :</span>
+                        <div class="montos_resumen">
+                            <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;Unidad(es)</span>
+                            <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
+                            <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
+                        </div>
                     </div>
-
-                    <div class="montos_resumen">
-                        <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;Unidad(es)</span>
-                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
-                        <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
-                    </div>
+                    <!--</ExperienciaAnterior">-->*@
+                <div class="hiddens">
+                    <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                    <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                    <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+                    <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
+                    <input type="hidden" id="hdfEsBusquedaSR" />
+                    <input type="hidden" id="hdfEstrategiaId" value="0" />
                 </div>
-                <button type="button" class="btn_verMiPedido boton_ingresa_tu_pedido_navidenio">
+                <button type="button" class="btn_verMiPedido boton_ingresa_tu_pedido_navidenio" style="margin-top: 86px;">
                     Ver mi pedido
                 </button>
             </div>
@@ -391,7 +497,7 @@
         </div>
 
         <div class="content_item_home">
-            <div class="producto_img_mobile">
+            <div class="producto_img_mobile" onclick="javascript:MostrarPopupImagenProductoSugerido(this)">
                 <img src="{{ImagenProductoSugeridoSmall}}">
             </div>
             <div class="producto_nombre_descripcion">
@@ -414,6 +520,21 @@
     </div>
     {{/each}}
 </script>
+
+<div id="PopupImagenAmpliadaSugeridos" class="popup_imagen_ampliada_productos_sugeridos_fondo">
+    <div class="d-flex popup_imagen_ampliada_productos_sugeridos">
+        <div class="d-flex popup_imagen_ampliada_productos_sugeridos_header">
+            <a onclick="javascript:$('#PopupImagenAmpliadaSugeridos').fadeOut(100);" title="Cerrar" class="d-block enlace_cerrarPopupImagenAmpliadaSugeridos">
+                <img class="w-100" src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+            </a>
+        </div>
+        <div class="d-flex popup_imagen_ampliada_productos_sugeridos_content">
+            <div class="d-block center-block imagen_producto_sugerido_ampliada_wrapper">
+                <img class="d-block center-block" src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_20005977920181044897_soreeabdtd.png" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="popupLimiteLineaCredito" class="popup_limite_lineaCredito w-100 text-center" style="display:none;">
     <div class="popup_limite_lineaCredito_header w-100">
@@ -440,6 +561,8 @@
 @{ Html.RenderPartial("_PopupEleccionRegalo");}
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupReservaPedido.cshtml");}
 
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
@@ -485,6 +608,21 @@
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
+        //INI HD-4200
+        var urlValidarSuscripcionSE = '@Url.Action("ValidarSuscripcionSE", "PedidoRegistro", new { area = "" })';
+        //FIN HD-4200
+
+         //INI HD-4294
+        var configActualizarCorreo = {
+            UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo", "Pedido", new { area = "" })',
+            UrlPedidoValidado: '@Url.Action("Validado", "Pedido", new {area = "Mobile"})',
+            UrlPedido : '@Url.Action("Index", "Pedido", new {area = "Mobile"})',
+            MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
+            MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
+            CorreoActual: '@Model.EMail'
+        };
+        //FIN HD-4294
+
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new { area = "" })';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new { area = "" })';
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new { area = "" })';
@@ -519,6 +657,7 @@
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+        var EstadoPedido = @Model.EstadoPedido;
 
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
@@ -528,6 +667,7 @@
 
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+        var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.MobilePedidoEscogeRegaloCarrusel';/*HD-3710*/
 
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
@@ -537,7 +677,14 @@
             '@Url.Content("~/Content/Images/lluvia/trg-d.svg")',
             '@Url.Content("~/Content/Images/lluvia/trg-r.svg")',
         ];
-        var noIniciarLluvia = true;
+    var noIniciarLluvia = true;
+     /* Tesla Mostrar ganancias*/
+    $("#openToggle").on("click", function () {
+       document.querySelector('.toggle-switch').classList.toggle('opened')
+       document.querySelector('.toggle-content').classList.toggle('opened')
+       document.querySelector('.ganancia-estimada').classList.toggle('opened')
+     })
+    /* Tesla Mostrar ganancias*/
     </script>
 
     @if (mobileConfiguracion.EsAppMobile)
@@ -564,4 +711,5 @@
         </script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/PopupRecepcionPedido.js")"></script>
 }

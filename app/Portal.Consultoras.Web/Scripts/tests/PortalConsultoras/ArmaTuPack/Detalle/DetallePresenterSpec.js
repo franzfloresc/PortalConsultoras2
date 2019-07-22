@@ -4,8 +4,7 @@
 /// <reference path="../../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
 /// <reference path="../../../../PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
 
-/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposMobileView.js" />
-/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js" />
+/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposView.js" />
 /// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js" />
 
 /// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js" />
@@ -63,7 +62,7 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
                 errorMsg = error;
             }
 
-                    // grupoView : {},
+            // grupoView : {},
             expect(errorMsg).to.have.string("config.armaTuPackProvider is null or undefined");
         });
 
@@ -71,7 +70,7 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
 
             try {
                 DetallePresenter({
-                    armaTuPackProvider : {},
+                    armaTuPackProvider: {},
                     generalModule: undefined
                 });
             } catch (error) {
@@ -85,7 +84,7 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
 
             try {
                 DetallePresenter({
-                    armaTuPackProvider : {},
+                    armaTuPackProvider: {},
                     generalModule: null
                 });
             } catch (error) {
@@ -99,9 +98,9 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
 
             try {
                 DetallePresenter({
-                    armaTuPackProvider : {},
+                    armaTuPackProvider: {},
                     generalModule: {},
-                    armaTuPackDetalleEvents : undefined
+                    armaTuPackDetalleEvents: undefined
                 });
             } catch (error) {
                 errorMsg = error;
@@ -114,7 +113,7 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
 
             try {
                 DetallePresenter({
-                    armaTuPackProvider : {},
+                    armaTuPackProvider: {},
                     generalModule: {},
                     armaTuPackDetalleEvents: null
                 });
@@ -134,7 +133,7 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
         var armaTuPackProvider = null;
         var generalModule = null;
 
-        var fakeData = function(){
+        var fakeData = function () {
             return {
                 "success": true,
                 "esMultimarca": true,
@@ -1686,7 +1685,7 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
             armaTuPackProvider
                 .getPackComponentsPromise
                 .returns(
-                    TestHelpersModule.getResolvedPromiseWithData(fakeData())
+                TestHelpersModule.getResolvedPromiseWithData(fakeData())
                 );
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
@@ -1694,21 +1693,21 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
             detallePresenter = DetallePresenter({
                 armaTuPackProvider: armaTuPackProvider,
                 generalModule: generalModule,
-                armaTuPackDetalleEvents:armaTuPackDetalleEvents
+                armaTuPackDetalleEvents: armaTuPackDetalleEvents
             });
         });
 
         afterEach(function () {
             sinon.restore();
         });
-    
+
 
         it("should return to /Ofertas when client can't get data", function () {
             armaTuPackProvider
                 .getPackComponentsPromise
                 .returns(
-                    TestHelpersModule
-                        .getRejectedPromiseWithData({})
+                TestHelpersModule
+                    .getRejectedPromiseWithData({})
                 );
 
             detallePresenter.init();
@@ -1720,12 +1719,12 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
             armaTuPackProvider
                 .getPackComponentsPromise
                 .returns(
-                    TestHelpersModule
-                        .getResolvedPromiseWithData(null)
+                TestHelpersModule
+                    .getResolvedPromiseWithData(null)
                 );
 
             detallePresenter.init();
-            
+
             expect(generalModule.redirectTo.calledOnce).to.equals(true);
         });
 
@@ -1733,54 +1732,54 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
             armaTuPackProvider
                 .getPackComponentsPromise
                 .returns(
-                    TestHelpersModule
-                        .getResolvedPromiseWithData({
-                            Grupos : null
-                        })
+                TestHelpersModule
+                    .getResolvedPromiseWithData({
+                        Grupos: null
+                    })
                 );
 
             detallePresenter.init();
-            
+
             expect(generalModule.redirectTo.calledOnce).to.equals(true);
         });
 
         it("should return to /Ofertas when client get data object with no groups", function () {
             armaTuPackProvider
-            .getPackComponentsPromise
-            .returns(
+                .getPackComponentsPromise
+                .returns(
                 TestHelpersModule
                     .getRejectedPromiseWithData({
-                        Grupos : []
+                        Grupos: []
                     })
-            );
+                );
 
             detallePresenter.init();
-            
+
             expect(generalModule.redirectTo.calledOnce).to.equals(true);
         });
 
         it("should fire an event when client get a data object", function () {
             armaTuPackProvider
-            .getPackComponentsPromise
-            .returns(
+                .getPackComponentsPromise
+                .returns(
                 TestHelpersModule
                     .getResolvedPromiseWithData({
-                        componentes : [
+                        componentes: [
                             {},
                             {}
                         ]
                     })
-            );
+                );
 
             detallePresenter.init();
-            
+
             var firstCall = 0;
             var firstParam = 0;
             var secondParam = 1;
             expect(armaTuPackDetalleEvents.applyChanges.calledOnce).to.equals(true);
             expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][firstParam]).to.equals(armaTuPackDetalleEvents.eventName.onGruposLoaded);
             expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][secondParam]).to.not.equal(null);
-            
+
         });
     });
 });

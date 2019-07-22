@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NoMostrarBannerODD()
         {
-            string controllerName = GetControllerActual();//ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual();
 
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -249,8 +249,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (SessionManager.GetBannerApp() == null)
             {
                 var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData, EsDispositivoMovil());
-                //HD-3550 EINCA
-                //SessionManager.SetBannerApp(lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora));
                 var bannerComunicado = lstComunicados.FirstOrDefault(x => x.TipoComunicado == Constantes.Comunicado.TipoComunicado.Banner);
                 SessionManager.SetBannerApp(bannerComunicado);
             }

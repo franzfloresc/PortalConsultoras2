@@ -336,16 +336,17 @@ namespace Portal.Consultoras.Data
         public IDataReader GetPedidosWebNoFacturados(BEPedidoDDWeb BEPedidoDDWeb)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebNoFacturado");
-         
+
             Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, BEPedidoDDWeb.paisID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, BEPedidoDDWeb.CampaniaID);
             Context.Database.AddInParameter(command, "@RegionCodigo", DbType.AnsiString, BEPedidoDDWeb.RegionCodigo);
             Context.Database.AddInParameter(command, "@ZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString,string.IsNullOrWhiteSpace(BEPedidoDDWeb.ConsultoraCodigo) ? null : BEPedidoDDWeb.ConsultoraCodigo);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, string.IsNullOrWhiteSpace(BEPedidoDDWeb.ConsultoraCodigo) ? null : BEPedidoDDWeb.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
             Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
             Context.Database.AddInParameter(command, "@FechaRegistroFin", DbType.Date, BEPedidoDDWeb.FechaRegistroFin);
+            Context.Database.AddInParameter(command, "@IndicadorConsultoraDigital", DbType.Int32, Convert.ToInt32(BEPedidoDDWeb.IndicadorConsultoraDigital));
 
             return Context.ExecuteReader(command);
         }
@@ -661,17 +662,20 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
-        public void UpdateMontosPedidoWeb(BEPedidoWeb bePedidoWeb)
+        public void UpdateMontosPedidoWeb(BEPedidoWeb pedidoWeb)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateMontosPedidoWeb_SB2");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, bePedidoWeb.CampaniaID);
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, bePedidoWeb.ConsultoraID);
-            Context.Database.AddInParameter(command, "@MontoAhorroCatalogo", DbType.Decimal, bePedidoWeb.MontoAhorroCatalogo);
-            Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, bePedidoWeb.MontoAhorroRevista);
-            Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, bePedidoWeb.DescuentoProl);
-            Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, bePedidoWeb.MontoEscala);
-            Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, bePedidoWeb.VersionProl);
-            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, bePedidoWeb.PedidoSapId);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidoWeb.CampaniaID);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, pedidoWeb.ConsultoraID);
+            Context.Database.AddInParameter(command, "@MontoAhorroCatalogo", DbType.Decimal, pedidoWeb.MontoAhorroCatalogo);
+            Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, pedidoWeb.MontoAhorroRevista);
+            Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, pedidoWeb.DescuentoProl);
+            Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, pedidoWeb.MontoEscala);
+            Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, pedidoWeb.VersionProl);
+            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, pedidoWeb.PedidoSapId);
+            Context.Database.AddInParameter(command, "@GananciaRevista", DbType.Decimal, pedidoWeb.GananciaRevista);
+            Context.Database.AddInParameter(command, "@GananciaWeb", DbType.Decimal, pedidoWeb.GananciaWeb);
+            Context.Database.AddInParameter(command, "@GananciaOtros", DbType.Decimal, pedidoWeb.GananciaOtros);
 
             Context.ExecuteNonQuery(command);
         }
@@ -756,7 +760,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPedidosFacturadoSegunDias(int campaniaID, long consultoraID, int maxDias)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoSegunDias_SB2"); //HD-3412 EINCA
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoSegunDias_SB2");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@maxDias", DbType.Int32, maxDias);
@@ -851,6 +855,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
         public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
@@ -949,5 +954,59 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
             return Context.ExecuteReader(command);
         }
+
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidoWebDetalle)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ActualizaDatoRecogerPor"))
+            {
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoWebDetalle.PedidoID);
+                Context.Database.AddInParameter(command, "@Documento", DbType.String, pedidoWebDetalle.RecogerDNI);
+                Context.Database.AddInParameter(command, "@RecogerNombre", DbType.String, pedidoWebDetalle.RecogerNombre);
+
+                Context.ExecuteNonQuery(command);
+            }
+        }
+
+        public IDataReader GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvSuscripcionSE");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, bEPedidoWeb.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, bEPedidoWeb.CodigoConsultora);
+            return Context.ExecuteReader(command);
+        }
+
+
+        #region HD-4288
+        public IDataReader VerificarConsultoraDigital(string codigoConsultora, int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.VerificarConsultoraDigitalRecibe");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+            return Context.ExecuteReader(command);
+        }
+
+        public int DeshacerRecepcionPedido(int pedidoID)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.DeshacerRecepcionPedido"))
+            {
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+
+                return Context.ExecuteNonQuery(command);
+            }
+        }
+
+        public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GuardarRecepcionPedido"))
+            {
+                Context.Database.AddInParameter(command, "@NombreYApellido", DbType.String, nombreYApellido);
+                Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.String, numeroDocumento);
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+
+                return Context.ExecuteNonQuery(command);
+            }
+        }
+
+        #endregion
     }
 }

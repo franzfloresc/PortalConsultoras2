@@ -443,6 +443,10 @@ namespace Portal.Consultoras.ServiceContracts
             string CodigoZona, int IdEstadoActividad);
 
         [OperationContract]
+        List<BEComunicado> ObtenerSegmentacionInformativaPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+         string CodigoZona, int IdEstadoActividad);
+
+        [OperationContract]
         List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID);
         [OperationContract]
         void UpdComunicadoByConsultora(int paisID, string CodigoConsultora);
@@ -593,6 +597,18 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
+
+        [OperationContract]
+        void UpdSolicitudClienteDetalleEstado(int paisID, long solicitudId, string cuv, bool estado);
+
+        [OperationContract]
+        void UpdSolicitudClienteDetalleCantidad(int paisID, long solicitudId, string cuv, int cantidad);
+
+        [OperationContract]
+        void UpdSolicitudClienteRechazar(int paisID, long solicitudId, int motivoRechazoId, string motivoRechazoTexto);
+
+        [OperationContract]
+        void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv);
 
         [OperationContract]
         BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo);

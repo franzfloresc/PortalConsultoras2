@@ -1,6 +1,4 @@
 ﻿var showUser = false;
-var val_Usuario = false;
-var val_Password = false;
 
 window.history.forward(0);
 
@@ -9,13 +7,10 @@ function noback() {
 }
 
 $(document).ready(function () {
-
-    // sirve para limpiar LocalStorage
+    
     LocalStorageLimpiar();
 
     $(".DropDown").change(function () {
-        val_Usuario = false;
-        val_Password = false;
         EjecutarMensajes();
     });
 
@@ -284,7 +279,7 @@ function LocalStorageLimpiar() {
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
         }
 
-        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {
+        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage != null) {
             SetItemLocalStorageSurvicate(itemSurvicateStorage);
         }
 

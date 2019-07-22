@@ -152,12 +152,22 @@ namespace Portal.Consultoras.Web.Models
         public int SetID { get; set; }
         public string TipoEstrategiaCodigo { get; set; }
         public bool EsCuponNuevas { get; set; }
-        
+
         public bool EsElecMultipleNuevas { get; set; }
         public int SetIdentifierNumber { get; set; }
         public int TipoAccion { get; set; }
         public bool EsPremioElectivo { get; set; }
         public bool LockPremioElectivo { get; set; }
         public bool EsCuponIndependiente { get; set; }
+
+        public bool EsKitCaminoBrillante { get; set; }
+        public bool FlagModificaCantidad { get; set; }
+        public bool FlagModificaCliente { get; set; }
+        public bool FlagVerCuv { get; set; }
+
+        public bool EsPedidoReservado { get; set; }
+
+        public bool EsSuscripcionSE { get; set; }
+
     }
 }

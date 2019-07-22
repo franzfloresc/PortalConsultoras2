@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using Portal.Consultoras.Web.Models.Estrategia;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -30,7 +32,12 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionPlural { get; set; }
         public string DescripcionSingular { get; set; }
         public string Volumen { get; set; }
+
+        public EstrategiaComponenteCabeceraModel Cabecera { get; set; }
+        public List<EstrategiaComponenteSeccionModel> Secciones { get; set; }
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
+        public bool TieneDetalleSeccion { get; set; }
+
         public bool TieneStock { get; set; }
 
         //Agana 244
@@ -40,5 +47,12 @@ namespace Portal.Consultoras.Web.Models
         {
             return this.MemberwiseClone();
         }
+
+        public bool TieneFichaEnriquecidaActiva { get; set; }
+        public string UnidadMedidaContenido { get; set; }
+        public string PrecioContenidoStr { get; set; }
+        public double PrecioContenido { get; set; }
+        public FotosComponenteModel FotosComponente { get; set; }
+        public List<String> FotosCarrusel { get; set; }
     }
 }

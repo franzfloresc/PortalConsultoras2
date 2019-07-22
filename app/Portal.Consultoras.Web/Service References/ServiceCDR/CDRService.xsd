@@ -41,6 +41,7 @@
       <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVReemplazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="Cantidad2" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoOperacion" nillable="true" type="xs:string" />
@@ -52,6 +53,7 @@
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FormatoPrecio1" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FormatoPrecio2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GrupoID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Precio" type="xs:decimal" />

@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class MenuContenedorProvider
     {
+        #region Menu Activo
         public MenuContenedorModel GetMenuActivo(UsuarioModel userData, RevistaDigitalModel revistaDigital, HerramientasVentaModel herramientasVenta, HttpRequestBase Request, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, OfertaPersonalizadaProvider _ofertaPersonalizadaProvider, ProgramaNuevasProvider _programaNuevasProvider, bool esMobile)
         {
             var Path = Request.Path;
@@ -45,7 +46,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public MenuContenedorModel UpdateCodigoCampaniaIdOrigenByContenedorPath(MenuContenedorModel menuActivo, string contenedorPath, RevistaDigitalModel revistaDigital, int CampaniaID, int NroCampanias, HttpRequestBase Request, string CodigoConsultora, string CodigoISO, int limiteElectivos, bool esMobile)
         {
-            menuActivo.MostrarMenuFlotante = true;
+            menuActivo.MostrarMenuFlotante = !(contenedorPath == "/detalle/caminobrillantedemostradores" || contenedorPath == "/detalle/caminobrillantekits");
             switch (contenedorPath)
             {
                 case Constantes.UrlMenuContenedor.Inicio:
@@ -237,13 +238,6 @@ namespace Portal.Consultoras.Web.Providers
             return campaniaIdStr;
         }
 
-        public virtual string GetOrigenFromQueryString(HttpRequestBase Request)
-        {
-            const string qsOrigen = "origen";
-            var pathOrigen = GetQueryStringValue(qsOrigen, Request);
-            return pathOrigen;
-        }
-
         public virtual string GetQueryStringValue(string key, HttpRequestBase Request)
         {
             return Util.Trim(Request.QueryString[key]);
@@ -262,6 +256,8 @@ namespace Portal.Consultoras.Web.Providers
 
             return configuracionPaisMenu;
         }
+
+        #endregion
 
         public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario, UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, OfertaPersonalizadaProvider _ofertaPersonalizadaProvider, ProgramaNuevasProvider _programaNuevasProvider, bool esMobile)
         {
@@ -305,6 +301,8 @@ namespace Portal.Consultoras.Web.Providers
             return menuContenedor;
         }
 
+        #region Build Menu Contenedor
+
         public List<ConfiguracionPaisModel> BuildMenuContenedor(UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, OfertaPersonalizadaProvider _ofertaPersonalizadaProvider, ProgramaNuevasProvider _programaNuevasProvider, bool esMobile)
         {
             var menuContenedor = sessionManager.GetMenuContenedor();
@@ -317,8 +315,8 @@ namespace Portal.Consultoras.Web.Providers
                     item.EsMobile = esMobile;
                     if (item.Codigo == Constantes.ConfiguracionPais.MasGanadoras)
                     {
-                        item.UrlMenu = item.EsAncla 
-                            ? item.UrlMenu 
+                        item.UrlMenu = item.EsAncla
+                            ? item.UrlMenu
                             : sessionManager.MasGanadoras.GetModel().TieneLanding ? "MasGanadoras" : "#";
                     }
                 }
@@ -505,8 +503,8 @@ namespace Portal.Consultoras.Web.Providers
                             continue;
                         }
 
-                        config.UrlMenu = config.EsAncla 
-                            ? config.UrlMenu 
+                        config.UrlMenu = config.EsAncla
+                            ? config.UrlMenu
                             : sessionManager.MasGanadoras.GetModel().TieneLanding ? "MasGanadoras" : "#";
                         break;
 
@@ -616,5 +614,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return menuContenedor;
         }
+
+        #endregion
     }
 }

@@ -4,11 +4,17 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IBelcorpPaisService_ActualizarEstadoParametroUnete_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEstadoParametroUnete" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ActualizarEstadoParametroUnete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEstadoParametroUneteResponse" />
+  </wsdl:message>
   <wsdl:message name="IBelcorpPaisService_ObtenerIdCampaniaActiva_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerIdCampaniaActiva" />
   </wsdl:message>
@@ -117,7 +123,17 @@
   <wsdl:message name="IBelcorpPaisService_GetDatosConsultoraByRegionZona_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDatosConsultoraByRegionZonaResponse" />
   </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerPaisContrasenia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPaisContrasenia" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerPaisContrasenia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPaisContraseniaResponse" />
+  </wsdl:message>
   <wsdl:portType name="IBelcorpPaisService">
+    <wsdl:operation name="ActualizarEstadoParametroUnete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ActualizarEstadoParametroUnete" message="tns:IBelcorpPaisService_ActualizarEstadoParametroUnete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ActualizarEstadoParametroUneteResponse" message="tns:IBelcorpPaisService_ActualizarEstadoParametroUnete_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerIdCampaniaActiva">
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActiva" message="tns:IBelcorpPaisService_ObtenerIdCampaniaActiva_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActivaResponse" message="tns:IBelcorpPaisService_ObtenerIdCampaniaActiva_OutputMessage" />
@@ -190,9 +206,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/GetDatosConsultoraByRegionZona" message="tns:IBelcorpPaisService_GetDatosConsultoraByRegionZona_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/GetDatosConsultoraByRegionZonaResponse" message="tns:IBelcorpPaisService_GetDatosConsultoraByRegionZona_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPaisContrasenia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContrasenia" message="tns:IBelcorpPaisService_ObtenerPaisContrasenia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContraseniaResponse" message="tns:IBelcorpPaisService_ObtenerPaisContrasenia_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IBelcorpPaisService" type="tns:IBelcorpPaisService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ActualizarEstadoParametroUnete">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ActualizarEstadoParametroUnete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerIdCampaniaActiva">
       <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActiva" style="document" />
       <wsdl:input>
@@ -348,6 +377,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDatosConsultoraByRegionZona">
       <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/GetDatosConsultoraByRegionZona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPaisContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContrasenia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

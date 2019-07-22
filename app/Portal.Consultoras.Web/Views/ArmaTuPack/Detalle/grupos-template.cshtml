@@ -2,13 +2,13 @@
 <script id="grupos-template" type="text/x-handlebars-template">
     {{#each this.componentes as |grupo|}}
     <section class="Sections_Pack" data-group-item data-grupo="{{grupo.Grupo}}" >
-        <div class="Title_pack d-flex active" data-group-header data-grupo="{{grupo.Grupo}}" >
+        <div class="Title_pack d-flex" data-group-header data-grupo="{{grupo.Grupo}}" >
             <h3 data-grupo="{{grupo.Grupo}}">{{grupo.DescripcionSingular}}</h3>
             <span data-options-label-{{grupo.Grupo}} data-grupo="{{grupo.Grupo}}">{{grupo.mensajeEligeopciones}}</span>
             <span class="listo" style="display:none;" data-ready-label-{{grupo.Grupo}} data-grupo="{{grupo.Grupo}}">¡Listo!</span>
             <span class="arrow_acordeon"><img src="/Content/Images/General/Icons/arrow_down.svg" alt="Alternate Text" /></span>
         </div>
-        <div id="Select_Items" class="row" data-group-body data-grupo="{{grupo.Grupo}}" >
+        <div id="Select_Items" class="row" style="display:none;" data-group-body data-grupo="{{grupo.Grupo}}" >
             <div id="Pack_Items" class="col-12 d-md-flex justify-content-between" data-carrusel-container>
 
                 {{#each grupo.Hermanos as |componente|}}
@@ -20,7 +20,7 @@
                                 <img src="{{componente.ImagenBulk}}">
                             </div>
                             <div class="product_descripcion_Pack">
-                                <h3>{{componente.NombreBulk}}</h3>
+                                <h3 title="{{componente.NombreBulk}}">{{#SubstrResponsive componente.NombreBulk 35}}{{/SubstrResponsive}}</h3>
                             </div>
                         </div>
                         <div class="col-md-12 col-5 flex-row-reverse align-items-center ">

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Internal;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Reader;
 using Portal.Consultoras.Web.Infraestructure.Reader;
@@ -685,7 +686,7 @@ namespace Portal.Consultoras.Web.Controllers
             });
 
             lstFinalModel = lstFinalModel.Where(m => m.Clase != "oculto").ToList();
-
+            
             return Json(new
             {
                 success = issuccess,

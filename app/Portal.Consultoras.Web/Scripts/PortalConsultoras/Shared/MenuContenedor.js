@@ -24,26 +24,15 @@ var menuModule = (function () {
         claseimgSeleccionado: ".imgSeleccionado",
         claseimgNoSeleccionado: ".imgNoSeleccionado",
         menu2: "[data-layout-menu2]",
-        //menu1: "[data-layout-menu1]",
         menu2Ul: "[data-layout-menu2] ul",
         menu2Li: "[data-layout-menu2] ul li",
-        //menu1Li: "[data-layout-menu1] ul li",
         seccionMenuMobile: "#seccion-menu-mobile",
         seccionMenuMobile2: "#seccion-menu-mobile2",
         seccionMenuMobile2Name: "seccion-menu-mobile2",
-        //seccionBannerMobile: "#seccion-banner-mobile",
         seccionMenuFija: "#seccion-fixed-menu",
         header: "header",
-        //bcMenuEstrategia: ".bc_menu_estrategia",
         subnavegadorUl: "ul.subnavegador",
-        //aHover: "ul.subnavegador li a",
-        //aMenuActivo: function () {
-        //    return "ul.subnavegador li a." + this.claseActivo;
-        //},
-        //bcParaTiMenu: ".op_menu-horizontal ul li a",
-        //bcParaTiMenuActivo: function () {
-        //    return ".op_menu-horizontal ul li a." + this.claseActivo;
-        //},
+
         mobContent: "#mob-content-layout",
         menuMobHome: ".opcion_home_vistaOfertas"
     }
@@ -52,25 +41,14 @@ var menuModule = (function () {
     var anchorValue;
     var tagIsAnchor = "es-ancla";
     var urlIni;
-    //var lastScrollTop = 0;
-    //var delta = 10;
     var navbarHeight;
-    //var seccionMenuMobileHeight;
     var seccionFixedMenuHeigt;
-    //var alturaH;
-    var scr = false;
-    //var alturaE;
 
     var _var = {
         Mobile: false,
         AnchoMobile: function () {
             return $(document).outerWidth(true) <= 990;
         }
-    }
-
-    var paddingTab = {
-        Mobile: 3,
-        Desktop: 1.5
     }
 
     function _getHeight(element) {
@@ -86,19 +64,7 @@ var menuModule = (function () {
             }
         }
     }
-    //function _changeLogoMenuDesktopAndMobile() {
-    //    if (_var.Mobile)
-    //        _changeLogoMenu(elementos.menuMobHome);
-    //    else
-    //        _changeLogoMenu(elementos.subnavegadorUl);
-    //}
-    //function _changeLogoMenu(selector) {
-    //    var img = $.trim($(selector).find("img").attr("src"));
-    //    if (img !== "") {
-    //        img = img.replace("_hover.", "_normal.");
-    //        $(selector).find("img").attr("src", img);
-    //    }
-    //}
+
     function _animateScrollTo(codigo, topHeight) {
         var top = $(codigo).length > 0 ? $(codigo).offset().top - topHeight : 0;
         $(elementos.html).animate({ scrollTop: top }, 1000);
@@ -107,22 +73,12 @@ var menuModule = (function () {
     function init() {
         _var.Mobile = isMobile();
         navbarHeight = _getHeight(elementos.header);
-        //seccionMenuMobileHeight = _getHeight(elementos.seccionBannerMobile);
         seccionFixedMenuHeigt = _getHeight(elementos.seccionMenuFija) || 0;
-        //alturaH = _getHeight(elementos.header);
-        //alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
 
         var esSuscrita = $(elementos.subnavegadorUl).data("es-suscrita");
         if (esSuscrita) {
             elementos.claseActivo = "activado-dorado";
         }
-
-        //$(elementos.seccionMenuMobile).height(_getHeight(elementos.seccionMenuFija) + 5);
-        //if ($(elementos.bcParaTiMenu).hasClass(elementos.claseActivo)) {
-        //    $(elementos.bcParaTiMenuActivo).find("img.hover").css("display", "none");
-        //    $(elementos.bcParaTiMenuActivo).find("img.default").css("display", "none");
-        //    $(elementos.bcParaTiMenuActivo).find("img.click-menu").css("display", "inline");
-        //}
 
         urlIni = document.location.href;
         var currentLocation = window.location.href.toLowerCase();
@@ -156,77 +112,15 @@ var menuModule = (function () {
             var listaMenu = $(elementos.menu2Li);
             var anchoTotal = 0;
             $.each(listaMenu, function (ind, menuCont) {
-                anchoTotal = anchoTotal + $(menuCont).innerWidth();
+                anchoTotal = anchoTotal + $(menuCont).innerWidth() + 1;
             });
-            var anchoMain = $(_elem.layout.header).innerWidth();
+            var anchoMain = $(_elem.layout.header).innerWidth() - 100;
             if (anchoTotal > anchoMain) {
                 return true;
             }
         }
         return false;
     }
-
-    //function setHover() {
-    //    $(elementos.aHover).hover(function (e) {
-    //        var img = $.trim($(this).find(".contenedorImagen img").attr("src"));
-    //        if (img !== "") {
-    //            img = img.replace("_normal.", "_hover.");
-    //            $(this).find(".contenedorImagen img").attr("src", img);
-    //        }
-    //    }, function (e) {
-    //        if (!$(this).hasClass(elementos.claseActivo)) {
-    //            var img = $.trim($(this).find(".contenedorImagen img").attr("src"));
-    //            if (img !== "") {
-    //                img = img.replace("_hover.", "_normal.");
-    //                $(this).find(".contenedorImagen img").attr("src", img);
-    //            }
-    //        }
-    //    });
-    //    $(elementos.bcParaTiMenu).hover(function (e) {
-    //        $(this).find("img.hover").css("display", "inline");
-    //        $(this).find("img.default").css("display", "none");
-    //        $(this).find("img.click-menu").css("display", "none");
-    //    }, function (e) {
-    //        if (!$(this).hasClass(elementos.claseActivo)) {
-    //            $(this).find("img.hover").css("display", "none");
-    //            $(this).find("img.default").css("display", "inline");
-    //            $(this).find("img.click-menu").css("display", "none");
-    //        }
-    //    });
-    //}
-    //function hasScrolledMobile(st) {
-    //    if (Math.abs(lastScrollTop - st) <= delta)
-    //        return false;
-
-    //    if (scr) return false;
-    //    scr = true;
-
-    //    //Scroll dowm
-    //    if (st > lastScrollTop) {
-    //        //fix the menu 
-    //        if (st > seccionMenuMobileHeight) {
-    //            $(elementos.seccionMenuFija).css("position", "fixed")
-    //                .css("top", navbarHeight - seccionMenuMobileHeight);
-    //        }
-    //    } else {   // Scroll Up
-    //        if (st < delta) {
-    //            $(elementos.seccionMenuFija).css("position", "").css("top", "");
-    //        } else if (st > seccionMenuMobileHeight) {
-    //            $(elementos.seccionMenuFija).css("position", "fixed").css("top", navbarHeight);
-    //        }
-    //    }
-    //    lastScrollTop = st;
-    //    scr = false;
-    //}
-    //function hasScrolledDesktop(st) {
-    //    if (st > alturaE) {
-    //        $(".op-menu-vertical").addClass("menu-fixed");
-    //        $(".op-menu-vertical").css("top", alturaH + "px");
-    //    } else {
-    //        $(".op-menu-vertical").removeClass("menu-fixed");
-    //        $(".op-menu-vertical").css("top", "");
-    //    }
-    //}
 
     function checkAnchor() {
         if (urlIni.indexOf(anchorMark) > -1) {
@@ -264,17 +158,11 @@ var menuModule = (function () {
         if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', tituloMenu);
     }
 
-    function menuClick(e, url, confirmar) {
+    function menuClick(e, url) {
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
         var codigo = objHtmlEvent.data("codigo") || "";
         codigo = codigo.toUpperCase();
-
-        confirmar = _mostrarConfirmar(codigo, confirmar);
-
-        if (confirmar) {
-            return false;
-        }
 
         var currentLocation = window.location.href.toLowerCase();
         var originLocation = window.location.origin;
@@ -315,16 +203,17 @@ var menuModule = (function () {
                 }, 1000);
             }
 
-            if (typeof AnalyticsPortalModule !== "undefined") {
-                AnalyticsPortalModule.ClickTabGanadoras(codigo);
-            }
-
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
 
             if (ConstantesModule.CodigoPalanca.ATP == codigo) {
                 BannerInteractivo.ConsultaAjaxRedireccionaLanding(function () {
+                    var codigoubigeoPortal = $('#ATP').attr('data-codigoubigeoportal') + "";
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack)
+                            AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoPortal, "Aceptar", "Pop up Modifica tu Pack");
+
                     window.location = window.location.origin + url;
                 });
                 return false;
@@ -332,19 +221,6 @@ var menuModule = (function () {
 
             window.location = window.location.origin + url;
         }
-    }
-    function _mostrarConfirmar(codigo, confirmar) {
-
-        confirmar = confirmar === undefined ? true : confirmar;
-        if (confirmar ) {
-
-            if (typeof BannerInteractivo != "undefined") {
-                //BannerInteractivo.ConsultaRedireccionaLanding(this);
-                //return true;
-            }
-        }
-        return false;
-
     }
     function _claseImgSeleccionado(estado) {
         if (estado) {
@@ -356,16 +232,6 @@ var menuModule = (function () {
             $(elementos.claseimgNoSeleccionado).show();
         }
     }
-
-    //function tabClick(element, url, pantalla) {
-    //    if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
-    //    var campania = $(element).data("campania") || "";
-    //    var codigo = $(element).data("codigo") || "";
-    //    if (typeof rdAnalyticsModule !== "undefined") {
-    //        rdAnalyticsModule.Tabs(codigo, campania, pantalla);
-    //    }
-    //    window.location = window.location.origin + url;
-    //}
 
     function sectionClick(url, titulo, elem, event) {
         if (typeof event !== "undefined") {
@@ -392,39 +258,39 @@ var menuModule = (function () {
             }
 
             if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.LiquidacionWeb) > 0) {
-                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion
-                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+                OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
             }
 
             else if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.SR) > 0) {
                 if (titulo === "BotonVerMasEspecialesHome") {
-                    OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                        + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-                        + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Showroom
-                        + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+                    OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                        + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+                        + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Showroom
+                        + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
                 }
             }
 
             else if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.GuiaNegocio) > 0) {
-                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.GND
-                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+                OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.GND
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
             }
             else if (url.indexOf(ConstantesModule.CodigoPalanca.LAN) > 0) {
-                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos
-                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+                OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Lanzamientos
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
             }
-            //HD-3473 EINCA 
-            else if (url.includes(ConstantesModule.TipoEstrategia.DP)) {
-                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto
-                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Banner;
+
+            else if (url.indexOf(ConstantesModule.TipoEstrategia.DP) > -1) {
+                OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.DuoPerfecto
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Banner;
                 if (titulo !== "ClicVerMas") {
                     clicEnBanner = true;
                 }
@@ -444,59 +310,22 @@ var menuModule = (function () {
         }
         return texto.replace('+', '');
     }
-    //function tabResize() {
 
-    //    var listaMenu = $(elementos.menu1Li);
-    //    if (listaMenu.length === 0)
-    //        return false;
-
-    //    var anchoMenu = $(elementos.menu1).outerWidth(true);
-    //    if (anchoMenu <= 0)
-    //        return false;
-
-    //    var padTab = _var.Mobile ? paddingTab.Mobile : paddingTab.Desktop;
-
-    //    var anchoTab = ((anchoMenu - (padTab * (listaMenu.length - 1))) / listaMenu.length) - (_var.Mobile ? 0 : 1);
-    //    $.each(listaMenu, function (ind, menuTab) {
-    //        $(menuTab).css("width", anchoTab + "px");
-    //        if (ind > 0) {
-    //            $(menuTab).css("padding-left", padTab + "px");
-    //        }
-    //    });
-
-    //}
     return {
         init: init,
         setCarrouselMenu: setCarrouselMenu,
-        //setHover: setHover,
-        //hasScrolledMobile: hasScrolledMobile,
-        //hasScrolledDesktop: hasScrolledDesktop,
         checkAnchor: checkAnchor,
         menuClick: menuClick,
-        //tabClick: tabClick,
-        sectionClick: sectionClick,
-        //Resize: tabResize
+        sectionClick: sectionClick
     };
 })();
 
 $(document).ready(function () {
     menuModule.init();
-    //menuModule.Resize();
-    //LayoutHeaderFin();
-    //$(window).on("scroll",
-    //    function () {
-    //        if (isMobile()) {
-    //            menuModule.hasScrolledMobile($(window).scrollTop());
-    //        } else {
-    //            menuModule.hasScrolledDesktop($(window).scrollTop());
-    //        }
-    //    });
-    //menuModule.setCarrouselMenu();
     $(document).ajaxStop(function () {
         menuModule.checkAnchor();
     });
     window.onresize = function (event) {
-        //menuModule.Resize();
         menuModule.setCarrouselMenu();
     };
 });

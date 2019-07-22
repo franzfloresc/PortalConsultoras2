@@ -188,15 +188,19 @@ if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)){
       if (scale < -1) scale = -1;
       if (scale > 1) scale = 1;
 
+      var cc;
+      var ih;
+      var iw;
       if (c1 < c2) {
-        var cc = c1 - (c1 - 1) * scale;
-        var iw = mw * cc;
-        var ih = iw / iwh;
+        cc = c1 - (c1 - 1) * scale;
+        iw = mw * cc;
+        ih = iw / iwh;
       } else {
-        var cc = c2 - (c2 - 1) * scale;
-        var ih = mh * cc;
-        var iw = ih * iwh;
+        cc = c2 - (c2 - 1) * scale;
+        ih = mh * cc;
+        iw = ih * iwh;
       }
+
       if (flag) {
         //If smoothMove
         u = x;

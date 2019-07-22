@@ -109,6 +109,8 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add("@SODispositivo", SqlDbType.VarChar, 20).Value = entidadSolicitud.SODispositivo;
             command.Parameters.Add("@TipoUsuario", SqlDbType.Int).Value = entidadSolicitud.TipoUsuario;
             command.Parameters.Add("@UsuarioAppID", SqlDbType.BigInt).Value = entidadSolicitud.UsuarioAppID;
+            command.Parameters.Add("@IDCDC", SqlDbType.VarChar, 80).Value = entidadSolicitud.IDCDC;
+            command.Parameters.Add("@IDCMC", SqlDbType.VarChar, 10).Value = entidadSolicitud.IDCMC;
 
             List<DESolicitudClienteDetalleAppCatalogo> listDeDetalleSolicitud = new List<DESolicitudClienteDetalleAppCatalogo>();
             if (entidadSolicitud.DetalleSolicitud != null) entidadSolicitud.DetalleSolicitud.ToList().ForEach(x => listDeDetalleSolicitud.Add(new DESolicitudClienteDetalleAppCatalogo(x)));
@@ -189,6 +191,46 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteReader(command);
         }
+
+        public void UpdSolicitudClienteDetalleEstado(long solicitudId, string cuv, bool estado)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdSolicitudClienteDetalleEstado");
+            Context.Database.AddInParameter(command, "@SolicitudId", DbType.Int64, solicitudId);
+            Context.Database.AddInParameter(command, "@Cuv", DbType.String, cuv);
+            Context.Database.AddInParameter(command, "@Estado", DbType.Boolean, estado);
+            
+            Context.ExecuteReader(command);
+        }
+
+        public void UpdSolicitudClienteDetalleCantidad(long solicitudId, string cuv, int cantidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdSolicitudClienteDetalleCantidad");
+            Context.Database.AddInParameter(command, "@SolicitudId", DbType.Int64, solicitudId);
+            Context.Database.AddInParameter(command, "@Cuv", DbType.String, cuv);
+            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, cantidad);
+
+            Context.ExecuteReader(command);
+        }
+
+        public void UpdSolicitudClienteRechazar(long solicitudId, int motivoRechazoId, string motivoRechazoTexto)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdSolicitudClienteRechazar");
+            Context.Database.AddInParameter(command, "@SolicitudId", DbType.Int64, solicitudId);
+            Context.Database.AddInParameter(command, "@MotivoSolicitudId", DbType.Int64, motivoRechazoId);
+            Context.Database.AddInParameter(command, "@RazonMotivoSolicitud", DbType.String, motivoRechazoTexto);
+
+            Context.ExecuteReader(command);
+        }
+
+        public void UpdSolicitudClienteRechazarPorCuv(long solicitudId, string cuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdSolicitudClienteRechazarPorCuv");
+            Context.Database.AddInParameter(command, "@SolicitudId", DbType.Int64, solicitudId);
+            Context.Database.AddInParameter(command, "@Cuv", DbType.String, cuv);
+
+            Context.ExecuteReader(command);
+        }
+
 
         public IDataReader ReasignarSolicitudCliente(long solicitudId, string codigoUbigeo, string campania, int paisId, int marcaId, int opcionRechazo, string razonMotivoRechazo)
         {

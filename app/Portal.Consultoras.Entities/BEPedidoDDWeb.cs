@@ -83,6 +83,8 @@ namespace Portal.Consultoras.Entities
         public DateTime? FechaRegistroInicio { get; set; }
         [DataMember]
         public DateTime? FechaRegistroFin { get; set; }
+        [DataMember]
+        public string IndicadorConsultoraDigital { get; set; }
 
         public BEPedidoDDWeb()
         { }
@@ -116,6 +118,7 @@ namespace Portal.Consultoras.Entities
             DescuentoProl = row.ToDecimal("DescuentoProl");
             MotivoRechazo = row.ToString("MotivoRechazo");
             ImporteTotalConDescuento = ImporteTotal - DescuentoProl;
+            IndicadorConsultoraDigital = row.ToString("IndicadorConsultoraDigital");
         }
     }
 }

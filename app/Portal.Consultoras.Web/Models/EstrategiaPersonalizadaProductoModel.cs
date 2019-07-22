@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class EstrategiaPersonalizadaProductoModel 
+    public class EstrategiaPersonalizadaProductoModel
     {
         public EstrategiaPersonalizadaProductoModel()
         {
@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string DescripcionMarca { get; set; }
         public string DescripcionResumen { get; set; }
+        public string DescripcionCategoria { get; set; }
         public bool EsMultimarca { get; set; }
         public bool EsOfertaIndependiente { get; set; }
         public bool EsSubcampania { get; set; }
@@ -42,6 +43,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal Ganancia { get; set; }
         public string GananciaString { get; set; }
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
+
         // se usa para filtrar los productos por categoria en ShowRoom
         public string ImagenProductoMini { get; set; }
         /// <summary>
@@ -79,20 +81,24 @@ namespace Portal.Consultoras.Web.Models
         public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
         // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
         public int TipoEstrategiaID { get; set; }
-
-        public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
         
-
         public bool EsBannerProgNuevas { get; set; } // Se usa para mostrar carrusel en el carrusel de Ofertas
         public string CodigoPalanca { get; set; } // codigo donde se van a mostrar los productos
 
         public bool TieneStock { get; set; } //flag para controlar si el producto cuenta con stock
         public bool EsDuoPerfecto { get; set; }
 
-        // TODO: liberar comentario
         /// <summary>
         /// Calculo del factor cuadre
         /// </summary>
         public int CantidadPack { get; set; }
+
+        // para elastic, devuelve un bool
+        // true = MaterialGanancia == 1
+        public bool MaterialGanancia { get; set; }
+        /// <summary>
+        /// Tipo Oferta Camino Brillante
+        /// </summary>
+        public int TipoOfertaCaminoBrillante { get; set; }
     }
 }

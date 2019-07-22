@@ -1,6 +1,5 @@
 ﻿
 var PedidoEnLinea;
-
 var urlPasarelaPago = urlPasarelaPago || '';
 var rutaGuardarDatosPago = rutaGuardarDatosPago || '';
 var tipoOrigenPantalla = tipoOrigenPantalla || 0;
@@ -57,10 +56,8 @@ $(document).ready(function () {
                                 });
                             }
                         },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
-                                resultado = "";
-                            }
+                        error: function (data) {
+                            checkTimeout(data);
                         }
                     });
                 },
@@ -158,12 +155,14 @@ $(document).ready(function () {
                 ObtenerMontosPagoParcial: function (e) {
                     var montoParcial = parseFloat($(this).val());
                     var porcentaje = parseFloat($("#hdPorcentajeGastosAdministrativos").val());
-
                     var montoGastos = montoParcial * (porcentaje / 100);
+
+                    var aplicaPorciento = $.trim($("#hdAplicaPorciento").val());
+                    var totalConGastos = aplicaPorciento === "1" ? montoParcial + montoGastos : montoParcial;
 
                     $("#spnMontoParcial").html(DecimalToStringFormat(montoParcial));
                     $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos));
-                    $("#spnMontoParcialConGastos").html(DecimalToStringFormat(montoParcial + montoGastos));
+                    $("#spnMontoParcialConGastos").html(DecimalToStringFormat(totalConGastos));
                     ValidarMontoDeuda();
                 },
                 PagoTotal: function (e) {
@@ -243,7 +242,7 @@ $(document).ready(function () {
     }
 
     function LimpiarDatos() {
-        $("#txtMontoParcial").val("")
+	    $("#txtMontoParcial").val("");
     }
 });
 

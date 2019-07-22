@@ -1,26 +1,37 @@
 ﻿@using Portal.Consultoras.Web.Models
 @using Portal.Consultoras.Common
-@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
+@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaDisenoModel
 
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 
-    var OrigenPedidoWeb = Model.IsMobile ? Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack : Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack;
+    List<string> lStylePanel = new List<string>();
+
+    #region Diseño de panel
+    if (!String.IsNullOrEmpty(Model.ImagenFondo) && Model.ImagenFondo.Trim().Length > 0)
+    {
+        lStylePanel.Add("background: url(" + Model.ImagenFondo + ") center center no-repeat;");
+        lStylePanel.Add("background-position: center !important;");
+        lStylePanel.Add("background-size: cover;");
+        lStylePanel.Add("vertical-align: middle;");
+    }
+    else if (!String.IsNullOrEmpty(Model.ColorFondo) && Model.ColorFondo.Replace("#", "").Trim().Length > 0)
+    {
+        lStylePanel.Add("background: " + Model.ColorFondo + ";");
+    }
+    #endregion
 }
 
 
 @section css{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/ArmaTuPack")
-
 }
 
 
-<div id="cabecera" class="banner_armaTuPack" style="display:none">
-    <h1>¡Arma tu pack y llévatelo a S/100! </h1>
-    <p>ELIGE: 2 Fragancias + 1 Maquillaje + 1 Tratamiento Corporal</p>
+<div id="cabecera" class="banner_armaTuPack" style="display:none;@Html.Raw(String.Join("", lStylePanel))">
 </div>
 
-<div class="Select_ArmaTuPack Select_fixed" data-OrigenPedidoWeb="@OrigenPedidoWeb" data-item="">
+<div class="Select_ArmaTuPack" data-OrigenPedidoWeb="@Model.OrigenAgregar" data-item="">
     <div style="display:none;">
         <div id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></div>
     </div>
@@ -28,8 +39,10 @@
     </div>
 </div>
 
-<div id="grupos" class="container" >
+<div id="grupos" class="container" style="display:none;">
 </div>
+
+
 
 @Html.Partial("~/Views/ArmaTuPack/Detalle/cabecera-template.cshtml")
 @Html.Partial("~/Views/ArmaTuPack/Detalle/grupos-template.cshtml")
@@ -37,4 +50,22 @@
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/ArmaTuPack")
+<script>
+
+    window.addEventListener("scroll", function () {
+        var scrollTop = window.scrollY;
+        var element = $(".Select_ArmaTuPack");
+        if (scrollTop >= 175) {
+            element.addClass("Select_fixed");
+            $("#grupos").addClass("grupos_top");
+        } else {
+            element.removeClass("Select_fixed");
+            $("#grupos").removeClass("grupos_top");
+        }
+    });
+
+
+</script>
 }
+
+

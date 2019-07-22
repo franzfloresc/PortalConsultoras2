@@ -4,12 +4,11 @@ using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Providers;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class EstrategiaGrupoController : BaseController
+    public class EstrategiaGrupoController : BaseAdmController
     {
         protected readonly EstrategiaGrupoProvider estrategiaGrupoProvider;
 

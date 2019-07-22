@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -78,6 +76,12 @@ namespace Portal.Consultoras.Web.Models
         public bool EsCuponNuevas { get; set; }
         public int CodigoCatalago { get; set; }
         public int EstrategiaIDSicc { get; set; }
+        public bool EsDuoPerfecto { get; set; }
+        public string CodigoEstrategia { get; set; }
+
+        public string CodigoPalanca { get; set; }
+        public int CampaniaID { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();

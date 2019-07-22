@@ -4,6 +4,14 @@ a{
     cursor:pointer!important;
 }
 
+.d-block{
+    display:block;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
 .text-uppercase{
     text-transform:uppercase;
 }
@@ -14,6 +22,10 @@ a{
 
 .text-right{
     text-align:right;
+}
+
+.text-center{
+    text-align:center;
 }
 
 .text-bold{
@@ -132,7 +144,6 @@ a{
 .datos_gerente_zona,
 .enlace_cambiar_contrasenia_consultora,
 .form_cambio_datos,
-.grupo_form_cambio_datos,
 .grupo_form_cambio_datos label,
 .grupo_form_cambio_datos input,
 .contenedor_campos_num_adicional,
@@ -191,7 +202,7 @@ a{
 
 .datos_usuario_iniciales{
     background-color: #FFF;
-    min-height: 267px;
+    min-height: 100px;
     padding-top: 26px;
     padding-bottom: 8px;
     font-weight: 400;
@@ -212,7 +223,6 @@ a{
 .w-82,
 .datos_gerente_zona span,
 .icono_cambio_password,
-.grupo_form_cambio_datos > div,
 .icono_cambiar_dato,
 .icono_ver_password,
 .enlace_texto,
@@ -245,8 +255,8 @@ a{
 }
 
 .wrapper_content_mi_perfil{
-    padding-left:20px;
-    padding-right:20px;
+    padding-left:16px;
+    padding-right:16px;
 }
 
 .foto_consultora,
@@ -355,8 +365,6 @@ a{
 
 .opcion_mi_perfil{
     border: 1px solid #808080;
-    padding-left: 14px;
-    padding-right: 13px;
     border-radius: 4px;
     min-height: 60px;
     margin-bottom:20px;
@@ -366,12 +374,14 @@ a{
     margin-bottom:0;
 }
 
-.opcion_mi_perfil_titulo{
+.opcion_mi_perfil_titulo {
     height: 60px;
     padding-top: 20px;
+    padding-left: 16px;
+    padding-right: 16px;
     padding-bottom: 12px;
-    cursor:pointer;
-    position:relative;
+    cursor: pointer;
+    position: relative;
 }
 
 .icono_mis_datos{
@@ -386,7 +396,7 @@ a{
     margin: auto 0;
     top: -2px;
     bottom: 0;
-    right: 0;
+    right: 10px;
     -moz-transition: all 0.15s ease;
     -o-transition: all 0.15s ease;
     -webkit-transition: all 0.15s ease;
@@ -426,7 +436,6 @@ a{
 }
 
 .opcion_mi_perfil_contenido{
-    padding-top:23px;
     border-top: 1px solid #B5B5B5;
 }
 
@@ -439,34 +448,126 @@ a{
     padding-bottom:18px;
 }
 
-.grupo_form_cambio_datos{
-    margin-bottom:24px;
-    position:relative;
-    min-height:20px;
+.grupo_form_cambio_datos,
+.contenedor_campos_num_adicional,
+.grupo_form_cambio_datos > div,
+.contenedor_campos_num_adicional > div {
+    display: flex;
 }
 
+.grupo_form_cambio_datos,
+.contenedor_campos_num_adicional,
+.contenedor_campos_num_adicional > div{
+    flex-direction: row!important;
+    flex-wrap: nowrap!important;
+    justify-content: space-around!important;
+    align-items: center!important;
+}
+
+.grupo_form_cambio_datos > div{
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+.grupo_form_cambio_datos {
+    position: relative;
+    min-height: 32px;
+    padding: 14px 8px 14px 32px;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+    .grupo_form_cambio_datos--confirmacionPendiente{
+        background-color:#f5f5f5;
+    }
+
+    .grupo_form_cambio_datos--confirmacionPendiente,
+    .grupo_form_cambio_datos--confirmado{
+        flex-wrap:wrap!important;
+    }
+
+        .grupo_form_cambio_datos--confirmacionPendiente label{
+            background-color:transparent!important;
+        }
+
+        .grupo_form_cambio_datos--confirmacionPendiente label:before,
+        .grupo_form_cambio_datos--confirmado label:before {
+            display: block;
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: -24px;
+            width: 16px;
+            height: 16px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        .grupo_form_cambio_datos--validacionErronea label:before,
+        .grupo_form_cambio_datos--confirmacionPendiente label:before {
+            background-image: url(/Content/Images/icono_pendiente_confirmacion.svg);
+        }
+
+        .grupo_form_cambio_datos--validacionExitosa label:before,
+        .grupo_form_cambio_datos--confirmado label:before{
+            background-image: url(/Content/Images/icono_confirmacion.svg);
+        }
+
+    .grupo_form_cambio_datos > div:first-child,
+    .contenedor_campos_num_adicional > div{
+        position:relative;
+        flex-grow:1;
+    }
+
     .grupo_form_cambio_datos:last-child{
-        margin-bottom:45px;
+        margin-bottom:16px;
+        border-bottom:0;
     }
 
     .grupo_form_cambio_datos label{
-        width:90%;
         cursor:default;
         position:absolute;
-        top:25px;
+        top:18px;
         left:0;
         font-size:13px;
         font-weight:400;
-        height:25px;
-        background-color:rgba(255,255,255,1);
-        z-index:2;
+        min-height:32px;
+        background-color:#FFF;
+        z-index:3;
     }
+
+        .grupo_form_cambio_datos--validacionErronea label:before,
+        .grupo_form_cambio_datos--validacionExitosa label:before{
+            display: block;
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: -22px;
+            width: 16px;
+            height: 16px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
 
     .grupo_form_cambio_datos_btn_guardar_wrapper{
         margin-left: -20px;
         margin-right: -20px;
-        margin-bottom: -18px!important;
+        padding:0;
     }
+
+    .mensaje_validacion_campo {
+        color: #e81c36;
+        font-size:13px;
+        position:relative;
+        top:-2px;
+    }
+
+        .mensaje_validacion_campo--vistasActualizacion {
+            margin-top: 4px;
+            font-size: 13px;
+            top:0;
+        }
 
     @media screen and (max-width:350px){
 
@@ -481,19 +582,16 @@ a{
     }
 
     .grupo_form_cambio_datos label,
-    .campo_con_datos label,
+    .campo_con_datos + label,
     .correo_electronico_actual span:first-child,
     .celular_actual span:first-child,
-    .grupo_form_cambio_datos select
-    {
+    .grupo_form_cambio_datos select{
         color:#808080;
     }
 
     .grupo_form_cambio_datos label,
     .grupo_form_cambio_datos input,
-    .grupo_form_cambio_datos select
-    {
-        padding-left: 5px;
+    .grupo_form_cambio_datos select{
         font-family:'Lato', sans-serif;
         -moz-transition: all 0.2s ease;
         -o-transition: all 0.2s ease;
@@ -502,27 +600,21 @@ a{
     }
 
     .grupo_form_cambio_datos input,
-    .grupo_form_cambio_datos select
-    {
-        background-color:transparent;
-        margin-top:18px;
-        font-size: 13px;
+    .grupo_form_cambio_datos select{
+        background-color: transparent;
+        margin-top: 19px;
+        font-size: 14px;
         font-weight: 400;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        color: #000;
-        border-bottom: 1px solid #808080;
-        padding-top: 12px;
-        padding-bottom: 9px;
-        padding-right:25px;
-        position:relative;
-        z-index:2;
+        color: #808080;
+        border: 0;
+        height: 40px;
+        padding-right: 8px;
+        position: relative;
+        z-index: 2;
     }
 
     .grupo_form_cambio_datos select,
-    .enlace_abrir_mapa
-    {
+    .enlace_abrir_mapa{
         background-repeat:no-repeat;
         background-position:97.5% center;
     }
@@ -547,7 +639,7 @@ a{
         height: 40px;
         background-position: center;
         background-image: url(/Content/Images/icono_localizacion.svg);
-        z-index: 999;
+        z-index: 2;
         cursor:pointer;
         -moz-transition: all 0.3s ease;
         -o-transition: all 0.3s ease;
@@ -561,54 +653,73 @@ a{
 
     .grupo_form_cambio_datos input:focus + label,
     .grupo_form_cambio_datos select:focus + label,
-    .campo_con_datos + label
-    {
-        top:0;
-        font-size:13px;
-        background-color:rgba(255,255,255,0);
+    .grupo_form_cambio_datos .campo_con_datos + label{
+        top:6px;
+        font-size:12.5px;
+        background-color:transparent;
         color:#000;
         font-weight:bold;
     }
 
+    .grupo_form_cambio_datos input:focus,
+    .grupo_form_cambio_datos select:focus,
     .grupo_form_cambio_datos input:focus + label,
-    .grupo_form_cambio_datos select:focus + label
-    {
+    .grupo_form_cambio_datos select:focus + label{
         color:rgba(0,0,0,1);
     }
 
-    .grupo_form_cambio_datos input:focus,
-    .grupo_form_cambio_datos select:focus
-    {
-        border-bottom:1px solid rgba(0,0,0,1);
+    .grupo_form_cambio_datos--validacionErronea input:focus + label:before,
+    .grupo_form_cambio_datos--validacionErronea .campo_con_datos + label:before,
+    .grupo_form_cambio_datos--validacionExitosa input:focus + label:before,
+    .grupo_form_cambio_datos--validacionExitosa .campo_con_datos + label:before{
+        top:1px;
     }
 
-/*.terminos_y_condiciones_wrapper{
-    border-top:1px solid #808080;
-}*/
+    .campo_con_datos + label{
+        z-index:2;
+    }
 
 .enlace_cambiar_dato,
-.enlace_eliminar_numero_adicional
-{
-    font-size:11px;
-    margin-right:-3px;
-    vertical-align:bottom;
-    padding-bottom:9px;
+.enlace_eliminar_numero_adicional{
+    font-size:13px;
     position:relative;
     z-index:3;
 }
 
-.icono_cambiar_dato{
-    width:16px;
-    height:16px;
-    background-image:url("/Content/Images/icono_cambiar_dato.svg");
-    margin-right:2px;
+.enlace_cambiar_dato,
+.btn_confirmar_dato {
+    width:82px;
 }
 
-.enlace_agregar_num_adicional{
-    position:absolute;
-    top:0;
-    left:0;
-    font-size:14px;
+.enlace_cambiar_dato {
+    color: #B9007E;
+}
+
+    .icono_cambiar_dato{
+        width:16px;
+        height:16px;
+        margin-top: -1.5px;
+    }
+
+        .icono_cambiar_dato img{
+            width:100%;
+            height:auto;
+        }
+
+    .btn_confirmar_dato{
+        margin-top: 16px;
+        height: 32px;
+        font-size: 12.6px;
+        color: #FFF;
+        letter-spacing: 1px;
+        border:0;
+    }
+
+.enlace_agregar_num_adicional {
+    position: absolute;
+    top: 13px;
+    left: 16px;
+    font-size: 14px;
 }
 
 .grupo_form_cambio_datos .label_num_adicional{
@@ -631,6 +742,7 @@ a{
     margin-right:3px;
     position:relative;
     top:2px;
+    right:8px;
 }
 
 .linea_separadora{
@@ -643,64 +755,93 @@ a{
 }
 
 .permisos_cuenta_titulo,
-.permiso_cuenta_opcion
-{
+.permiso_cuenta_opcion{
     font-size:13px;
     margin-bottom:33px;
 }
 
+.notificaciones__whatsapp__checkbox .permiso_cuenta_opcion {
+    margin-bottom: 0;
+    margin-top: 16px;
+}
+
+.notificaciones__whatsapp__checkbox .permiso_cuenta_opcion_label {
+    position: relative;
+    top: 2px !important;
+    width: 18px;
+    min-height: 0;
+    height: 18px;
+}
+
 .permisos_cuenta_titulo,
+.terminos_y_condiciones_wrapper ~ .datos_obligatorios {
+    color: #808080;
+}
+
 .checkbox_condiciones_descripcion,
-.checkbox_condiciones_descripcion a,
-.terminos_y_condiciones_wrapper ~ .datos_obligatorios
-{
-    color:#808080;
+.checkbox_condiciones_descripcion a {
+    color: #000;
+}
+
+.grupo_input_actualizarMisDatos .grupo_form_checkbox_condiciones {
+    width: auto;
 }
 
 .terminos_y_condiciones_wrapper ~ .datos_obligatorios{
     font-size:13px;
 }
 
+.permisos_cuenta_opciones {
+    position: relative;
+}
+
 .grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
-.permiso_cuenta_opcion
-{
+.permiso_cuenta_opcion{
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
 }
 
 .checkbox_condiciones_checkbox,
-.permiso_cuenta_opcion_checkbox
-{
-    display:none;
+.permiso_cuenta_opcion_checkbox {
+    display: none;
 }
 
 .checkbox_condiciones_label,
-.permiso_cuenta_opcion_label
-{
+.permiso_cuenta_opcion_label {
     background-color: #FFF;
     border: 1px solid #808080;
     width: 18px;
     height: 18px;
     border-radius: 4px;
+    margin-top: 3px;
+    margin-right: 8px;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    background-image:url(/Content/Images/icono_check_mi_perfil.svg);
-    background-repeat:no-repeat;
-    background-position:center;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center;
 }
+
+    .permiso_cuenta_opcion_label:before{
+        display:none!important;
+    }
 
 .checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
-.permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label
-{
-    background-color:#b9007e;
+.permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label {
+    background-color: #b9007e !important;
     border: 1px solid #b9007e;
+    background-image: url(/Content/Images/icono_check_mi_perfil.svg);
 }
 
-.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion{
-    width:89%;
-    margin-bottom:4px;
+.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion,
+.permiso_cuenta_opcion_descripcion {
+    order: 1;
+}
+
+.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion {
+    margin-bottom: 4px;
 }
 
 .btn_guardar_datos_nuevos,
@@ -794,14 +935,20 @@ a{
     margin-top: 11px;
 }
 
+.btn_primario--miPerfil {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index:2000;
+}
+
 /* POPUP MAPA UBICACIÓN DIRECCIÓN ENTREGA */
 
 .fondo_popup_ubicacion_direccion_entrega,
 .popup_ubicacion_direccion_entrega_contenido,
 .mapa_wrapper,
-.confirmar_ubicacion_direccion_entrega
-{
-    width:100%;
+.confirmar_ubicacion_direccion_entrega {
+    width: 100%;
 }
 
 .fondo_popup_ubicacion_direccion_entrega{
@@ -950,19 +1097,107 @@ a{
 
 /* CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */
 
-
 .vista_cambiar_contrasenia,
 .vista_actualizar_correo,
 .vista_actualizar_celular,
-.vista_cambiar_foto_perfil
-{
+.vista_cambiar_foto_perfil{
     background-color:#FFF;
-    padding:20px;
+}
+
+.vista_cambiar_contrasenia,
+.vista_cambiar_foto_perfil {
+    padding: 20px;
+}
+
+.vista_actualizar_correo,
+.vista_actualizar_celular{
+    padding:20px 30px 20px 30px;
+}
+
+.wrapper_content_cambiar_contrasenia {
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.grupo_form_cambio_datos--vistaActualizacionCorreo,
+.grupo_form_cambio_datos--vistaActualizacionCelular,
+.grupo_form_cambio_datos--ctasCambioContrasenia {
+    padding: 0;
+    border-bottom: 0;
+}
+
+    .grupo_form_cambio_datos--vistaActualizacionCorreo input,
+    .grupo_form_cambio_datos--vistaActualizacionCelular input {
+        border-bottom: 1px solid #979797;
+    }
+
+.grupo_form_cambio_datos--cambioContrasenia {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom:0;
+    margin-bottom:8px;
+}
+
+    .grupo_form_cambio_datos--ctasCambioContrasenia > div {
+        flex: 0 0 50%;
+        max-width: 50%;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+        .grupo_form_cambio_datos--ctasCambioContrasenia > div:first-child {
+            padding-right: 8px;
+        }
+
+        .grupo_form_cambio_datos--ctasCambioContrasenia > div:last-child {
+            padding-left: 8px;
+        }
+
+    .grupo_form_cambio_datos--cambioContrasenia label {
+        top: 24px;
+    }
+
+.grupo_form_cambio_datos--ctasCambioContrasenia {
+    margin-top: 48px;
 }
 
 .enlace_volver_a_mi_perfil{
     margin-bottom:11px;
 }
+
+    .enlace_volver_a_mi_perfil--vistaActualizarCorreo,
+    .enlace_volver_a_mi_perfil--vistaActualizarCelular{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100px;
+        height: 45px;
+        margin-top: -8px;
+        margin-left:-17px;
+        margin-bottom: 40px;
+    }
+
+    .enlace_volver_a_mi_perfil--vistaActualizarCorreo{
+        margin-bottom: 40px;
+    }
+
+    .enlace_volver_a_mi_perfil--vistaActualizarCelular{
+        margin-bottom:16px;
+    }
+
+    .enlace_volver_a_mi_perfil_icono{
+        width:24px;
+        height:24px;
+    }
+
+        .enlace_volver_a_mi_perfil_icono img {
+            width: 100%;
+            height: auto;
+        }
+
+    .enlace_volver_a_mi_perfil_texto{
+        font-size:13px;
+    }
 
 .icono_back_arrow,
 .icono_cerrar{
@@ -1099,6 +1334,8 @@ a{
 
 .form_actualizar_correo{
     margin-top:7px;
+    padding-left:9px;
+    padding-right:9px;
 }
 
 .correo_electronico_actual,
@@ -1115,16 +1352,13 @@ a{
     font-size:11px;
 }
 
-.envio_instrucciones_info span:last-child,
 .correo_electronico_actual span:last-child,
-.celular_actual span:last-child
-{
+.celular_actual span:last-child{
     font-size:15px;
 }
 
 .correo_electronico_actual span:last-child,
-.celular_actual span:last-child
-{
+.celular_actual span:last-child{
     color:rgba(0,0,0,0.6);
 }
 
@@ -1143,33 +1377,53 @@ a{
 }
 
 .icono_correo_sobre{
-    width:78px;
-    height:46px;
-    background-image:url('/Content/Images/Esika/icono_envelope.svg');
+    width:64px;
+    height:64px;
+    background-image:url('/Content/Images/icono_mail.svg');
 }
 
-.icono_mensaje_sms{
-    width:71px;
-    height:50px;
-    background-image:url('/Content/Images/Esika/icono_sms.svg');
+.icono_mensaje_sms {
+    width: 64px;
+    height: 64px;
+    background-image: url('/Content/Images/icono_celular.svg');
 }
 
-.envio_instrucciones_info{
-    margin-bottom:50px;
+.actualizacion_celular_titulo,
+.envio_instrucciones_info span:first-child {
+    margin-bottom: 8px;
 }
 
-.envio_instrucciones_info span:first-child{
-    margin-bottom:7px;
+.actualizacion_celular_titulo {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.correo_actual,
+.num_celular_actual {
+    font-size: 16px;
+}
+
+.correo_actual{
+    margin-bottom:8px;
 }
 
 .enlace_reenviar_instrucciones,
-.enlace_cambiar_correo
-{
-    text-decoration:underline;
+.enlace_cambiar_correo,
+.enlace_cambiar_numero_celular {
+    text-decoration: underline;
 }
 
+.enlace_cambiar_numero_celular {
+    margin-left: 11px;
+}
+
+.codigo_sms_caducidad,
 .enlace_reenviar_instrucciones{
-    font-size:13px;
+    font-size:14px;
+}
+
+.codigo_sms_caducidad span {
+    color: #ad1f78;
 }
 
 .correo_pendiente_de_confirmar > div{
@@ -1191,6 +1445,11 @@ a{
     margin-left:5px;
 }
 
+.notificacion_estado {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
 .sin_correo_registrado,
 .sin_numero_celular_registrado
 {
@@ -1199,9 +1458,28 @@ a{
     margin-bottom: 34px;
 }
 
-.texto_ingreso_codigo{
-    font-size:14px;
+.area_ingreso_codigo_sms {
+    background-color: #f5f5f5;
+    padding: 29px;
+    height: 50vh;
+    margin-left: -20px;
+    margin-right: -20px;
 }
+
+.texto_ingreso_codigo{
+    font-size:18px;
+    margin-bottom:16px;
+}
+
+.wrapper_campo_ingreso_codigo_sms {
+    display: inline-block;
+    position: relative;
+    margin-right: 4px;
+}
+
+    .wrapper_campo_ingreso_codigo_sms:last-child{
+        margin-right:0;
+    }
 
 .campos_ingreso_codigo_sms{
     margin-bottom:15px;
@@ -1212,31 +1490,25 @@ a{
     padding-right: 0;
 }
 
-.campo_ingreso_codigo_sms{
-    width:35px;
-    height:37px;
-    font-family:'Lato', sans-serif;
-    font-size:24px;
-    font-weight:400;
-    color:#000;
-    border-top:none;
-    border-left:none;
-    border-right:none;
-    border-bottom:2px solid #000;
+.campo_ingreso_codigo_sms {
+    width: 35px;
+    height: 37px;
+    padding-bottom: 9px;
+    font-family: 'Lato', sans-serif;
+    font-size: 26px;
+    color: #ad1f78;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
 }
 
-.wrapper_campo_ingreso_codigo_sms{
-    display:inline-block;
-    position:relative;
-    margin-right:4px;
-}
-
-    .wrapper_campo_ingreso_codigo_sms:last-child{
-        margin-right:0;
-    }
-
-.codigo_sms_caducidad{
-    margin-bottom:35.4px;
+.campo_ingreso_codigo_sms_borde_inferior{
+    height:5px;
+    position:absolute;
+    left:0;
+    bottom:0;
+    border-radius:70px;
 }
 
 .icono_validacion_codigo_sms{
@@ -1262,12 +1534,10 @@ a{
     background-image:url("/Content/Images/icono_validacion_codigo_sms_correcto.svg");
 }
 
-.revisa_tu_correo,
-.revisa_tu_celular
-{
-    margin-bottom:40px;
+.revisa_tu_correo{
+    margin-top:-24px;
+    padding-bottom:40px;
 }
-
 
 .correo_actualizado,
 .celular_actualizado
@@ -1345,5 +1615,57 @@ a{
 .icono_eliminar_foto{
     height:45px;
 }
+
+.icono_error,
+.icono_success {
+    margin-bottom: 16px;
+}
+
+    .icono_error img,
+    .icono_success img {
+        width: 100%;
+        height: auto;
+        border: 0;
+    }
+
+    .icono_success img {
+        margin-left: 9px;
+    }
+
+    .icono_success--miPerfil {
+        margin-top:24px;
+        width: 82px;
+        height: 82px;
+    }
+
+    .icono_error--miPerfil{
+        margin-top:24px;
+        width:64px;
+        height:64px;
+    }
+
+.mensaje_success,
+.mensaje_error{
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 24px;
+    letter-spacing: 0.8px;
+}
+
+    .mensaje_success{
+        color: #b9007e;
+    }
+
+    .mensaje_error{
+        color:#000;
+    }
+
+    .mensaje_error--miPerfil{
+        font-size:15px;
+    }
+
+    .mensaje_success--miPerfil {
+        font-size: 20px;
+    }
 
 /* FIN - CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */

@@ -1,18 +1,23 @@
 ﻿@using Portal.Consultoras.Web.CustomHelpers
-
 @model Portal.Consultoras.Web.Models.MisPedidosModel
 
 @{
+
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
+}
+
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/SugerenciaPendientes")
 }
 
 @{
     if (!mobileConfiguracion.EsAppMobile)
     {
         <div class="titulo_mobile">
-            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+            <a href="@Url.Action("Detalle", "Pedido", new { Area = "Mobile" })" class="enlace_regresar catalogosR" title="Regresar"></a>
             &nbsp;&nbsp;&nbsp;&nbsp;PENDIENTES
         </div>
         <div class="pestana_esika"></div>
@@ -20,62 +25,124 @@
     }
 }
 
-<div class="wrapper_resumen_mobile">
+<!-- Vista por cliente / producto -->
 
+<div class="container-flex">
+
+    <!-- Registro total  -->
     @if (Model.RegistrosTotal != "0")
     {
-        foreach (var item in Model.ListaPedidos)
-        {
-            <div class="content_pendiente">
-                <div class="titulo_pendiente">
-                    @if (item.FlagConsultora)
-                    {
-                        <label> CLIENTE EXISTENTE </label>
-                    }
-                    else
-                    {
-                        <label> NUEVO CLIENTE </label>
-                    }
-                </div>
-                <div class="nombre_cliente_pendiente">@item.Cliente</div>
-                <div class="descripcion_pendiente">
-                    <span style="float:left;">Origen</span>
-                    <span style="float: right;">
-                        @if (item.MarcaID == 0)
-                        {
-                            <text>@item.MedioContacto</text>
-                        }
-                        else
-                        {
-                            <text>Portal @item.Marca</text>
-                        }
-                    </span>
-                </div>
-                <hr class="clear" />
-                <div class="precio_pendiente">
-                    <span style="float:left;">PRECIO TOTAL</span>
-                    <span style="float: right;">@ViewBag.Simbolo @item.FormatoPrecioTotal</span>
-                </div>
-                <hr class="clear" />
-                <div class="tooltip_pendiente">
-                    <div style="float:left;">
-                        <div class="titulo_tooltip_p">¡No pierdas esta oportunidad!</div>
-                        <div class="hora_tooltip_p">
-                        </div>
-                    </div>
-                    <div style="float:right;">
-                        <a class="btn_revisalo_pendiente" onclick="PendientesRevisalo('Carrito de Compras - Pedidos Pendientes','Click Botón');"  href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item.PedidoId })">REVÍSALO</a>
-                    </div>
-                    <hr class="clear" />
-                </div>
-            </div>
-        }
-    }
 
-    <div class="linea_separadora_mobile"></div>   
-    <hr class="clear" />
-    <div class="texto_revisa_pendientes">Revisa tus pedidos aceptados en:</div>
-    <a href="@Url.Action("Historial", "ConsultoraOnline", new { area = "Mobile" })" class="btn_historial_pedido">Historial de Pedidos</a>
+        <!-- Menú Tabs -->
+        <div class="vc-tabs">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item active">
+                    <a class="nav-link " id="cliente-tab" onclick="javascript:PedidosPendientesVistaCliente();" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">Vista por cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " id="producto-tab" onclick="javascript:PedidosPendientesVistaProducto();" data-toggle="tab" href="#producto" role="tab" aria-controls="producto" aria-selected="false">Vista por producto</a>
+                </li>
+            </ul>
+        </div>
+        <!-- / Menú Tabs -->
+
+        <!-- Contenido tabs -->
+        <div class="container vc-tabs-bottom">
+            <div class="tab-content" id="myTabContent">
+                <!-- Vista por cliente -->
+                <div class="tab-pane fade active in" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
+
+                    @foreach (var item in Model.ListaPedidos)
+                    {
+                        <div class="cursor onClient container vc-box vc-box--shadow" onclick="DetallePedidoPendiente(@item.PedidoId)">
+                            <!--   Pedidos   -->
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <div class="vc-box">
+                                        <div class="vc-box--header">
+                                            <span class="vc-box--title">@item.Cliente</span>
+                                        </div>
+                                        <div class="vc-box--content">
+                                            <p><strong>Precio total: </strong> @ViewBag.Simbolo @item.FormatoPrecioTotal </p>
+                                            <p>
+                                                <strong>Origen: </strong>
+                                                @if (item.MarcaID == 0)
+                                                {
+                                                    @item.MedioContacto
+                                                }
+                                                else
+                                                {
+                                                    <text>Portal @item.Marca</text>
+                                                }
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 ">
+                                    <div class=" vc-box">
+                                        <div class="vc-box--action">
+                                            <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { ids = item.PedidoId })">Confirmar productos</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!-- / Vista por cliente -->
+                <!-- Vista por producto -->
+                <div class="tab-pane fade" id="producto" role="tabpanel" aria-labelledby="producto-tab">
+                    <!--   Productos   -->
+                    @foreach (var item2 in Model.ListaProductos)
+                    {
+                        <div class="container vc-box">
+                            <div class="row align-items-start  ">
+                                <div class="col no-padd">
+                                    <div class="vc-box">
+                                        <img src="@item2.Url" class="vc-box--img">
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class=" vc-box">
+                                        <div class="vc-box--header">
+                                            <span class="vc-box--title">x @item2.CantidadTotal @item2.Producto</span>
+                                        </div>
+                                        <div class="vc-box--content">
+                                            <p><strong>Monto total: </strong>@ViewBag.Simbolo @item2.FormatoPrecioTotal</p>
+                                            <p><strong>Origen: </strong>@item2.MedioContacto</p>
+                                        </div>
+                                        <div class="cursor onProduct vc-box--action vc-box--radius">
+                                            <p class="vc-box--title"><strong>Te lo pidieron</strong></p>
+                                            @foreach (var item3 in item2.ListaClientes.Take(2).ToList())
+                                            {
+                                                <p>@item3.Cliente</p>
+                                            }
+                                            @if (item2.ListaClientes.Count() > 2)
+                                            {
+                                                <p onclick="javascript: DetallePedidoPendienteClientesVerMas('@item2.CUV');">Ver más...</p>
+                                            }
+                                            <div class="vc-box--button" onclick="javascript: DetallePedidoPendienteClientes('@item2.CUV');">
+                                                <a href="javascript:void(0);" class="vc-box--btn vc-box--title" @*href="@Url.Action("DetallePedidoPendienteClientes", "ConsultoraOnline", new { cuv = item2.CUV })"*@>Confirmar clientes</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+                        </div>
+                    }
+
+                </div>
+                <!-- / Vista por producto -->
+
+            </div>
+        </div>
+        <!-- / Contenido tabs -->
+    }
+    <!-- / Registro total -->
+
 </div>
 
 @section scripts {
@@ -84,6 +151,8 @@
         var urlPendientes = '@Url.Action("Pendientes", "ConsultoraOnline")';
     </script>
 
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/Pendientes.js")"></script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/SugerenciaPendientes")
+
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/Pendientes.js")"></script>*@
 }
 

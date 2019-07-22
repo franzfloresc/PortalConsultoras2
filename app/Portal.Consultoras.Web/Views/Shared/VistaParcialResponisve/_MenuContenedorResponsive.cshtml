@@ -11,6 +11,8 @@
      data-layout="menuContenedor"
      class="container-fluid pl-lg-0 pr-lg-0 layout__header--menuContenedorOfertas">
     <nav id="seccion-fixed-menu" class="mx-auto">
+        
+        @*@if (menuList.Any() && !@ViewBag.CaminoBrillante)*@
         @if (menuList.Any())
         {
             <div data-layout-menu2="">                 

@@ -22,10 +22,6 @@ jQuery(document).ready(function () {
     IniDialogs();
     IniDialogOfertasHome();
 
-    //$("#btnBuscar").click(function () {
-    //    UpdateGrillaOfertas();
-    //});
-
 
     $("#ddlTipoEstrategia").change(function () {
 
@@ -138,16 +134,26 @@ function ConfigSeccionApp(configuracionPaisID) {
             if (result.data.AppOfertasHomeImgAlto !== "") $("#nombre-fondo-app").attr("imageheight", result.data.AppOfertasHomeImgAlto);
             if (result.data.AppOfertasHomeMsjMedida !== "") $("#nombre-fondo-app").attr("messageSize", result.data.AppOfertasHomeMsjMedida);
             if (result.data.AppOfertasHomeMsjFormato !== "") $("#nombre-fondo-app").attr("messageFormat", result.data.AppOfertasHomeMsjFormato);
-    
+
             var palanca = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
             if (palanca === _palanca.pn || palanca === _palanca.dp) {
-                    $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
                 $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().hide();
                 $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").parent().parent().hide();
+
+                $("#divAppComplementoDerecha").hide();
 
                 $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("");
                 $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("");
                 $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val("");
+                $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val("");
+                $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val("");
+                $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val("");
+                $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val("");
             }
             else {
                 $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().show();
@@ -155,23 +161,46 @@ function ConfigSeccionApp(configuracionPaisID) {
 
                 if (palanca === ConstantesModule.CodigoPalanca.ATP) {
                     $("#AdministrarOfertasHomeAppModel_AppSubTitulo").parent().parent().show();
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").parent().parent().show();
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").parent().parent().show();
+                    $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").parent().parent().show();
+                    $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").parent().parent().show();
+
+                    if ($("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val() === "") $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val("Comenzar");
+                    if ($("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val() === "") $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val("Modificar");
+
                     $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
                     $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val("");
+
+                    $("#divAppComplementoDerecha").show();
+
+                    if ($("#AdministrarOfertasHomeAppModel_AppSubTitulo").val() === "") $("#AdministrarOfertasHomeAppModel_AppSubTitulo").val("Elige tus #Cantidad productos favoritos y llévatelos a #PrecioTotal");
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#be9040");
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#000000");
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val("#000000");
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val("#ffffff");
                 }
                 else {
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").parent().parent().hide();
                     $("#AdministrarOfertasHomeAppModel_AppSubTitulo").parent().parent().hide();
+
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val("");
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val("");
+                    $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val("");
+                    $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val("");
                     $("#AdministrarOfertasHomeAppModel_AppSubTitulo").val("");
 
                     $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().show();
-                }
 
-                if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") {
-                    if (palanca === ConstantesModule.CodigoPalanca.ATP) $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#be9040");
-                    else $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
-                }
-                if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") {
-                    if (palanca === ConstantesModule.CodigoPalanca.ATP) $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#000000");
-                    else $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+
+                    $("#divAppComplementoDerecha").hide();
+
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+
                 }
             }
 
@@ -181,12 +210,12 @@ function ConfigSeccionApp(configuracionPaisID) {
             UploadFilePalancaApp("fondo-app");
         },
         error: function (request, status, error) {
-                    closeWaitingDialog();
-                _toastHelper.error("Error al procesar la Solicitud.");
-            }
-        });
-    }
-    
+            closeWaitingDialog();
+            _toastHelper.error("Error al procesar la Solicitud.");
+        }
+    });
+}
+
 function Modificar(idConfiguracionPais, event) {
     $.ajax({
         url: baseUrl + "AdministrarPalanca/GetPalanca",
@@ -230,7 +259,7 @@ function Modificar(idConfiguracionPais, event) {
                 $("#divDesktopTituloBanner").hide();
                 $("#divDesktopSubTituloBanner").hide();
             } else {
-                $("#lblDesktop").html('Desktop');//Default
+                $("#lblDesktop").html('Desktop');
                 $("#divUrlMenu").show();
                 $("#divUrlMenuTxt").show();
 
@@ -253,8 +282,8 @@ function Modificar(idConfiguracionPais, event) {
         error: function (request, status, error) { }
     });
 }
-                
-                
+
+
 function IniDialogs() {
     $("#DialogMantenimientoPalanca").dialog({
         autoOpen: false,
@@ -265,7 +294,7 @@ function IniDialogs() {
         draggable: false,
         title: "Menú",
         open: function (event, ui) {
-            //(".ui-dialog-titlebar-close", ui.dialog).hide(); //eaar tiene bug
+
         },
         close: function () {
             HideDialog("DialogMantenimientoPalanca");
@@ -279,7 +308,7 @@ function IniDialogs() {
                     return false;
                 }
 
-                /*INIT AGANA 159 */
+
                 var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
                 if (esATP) {
@@ -289,7 +318,7 @@ function IniDialogs() {
                     $("#DialogMantenimientoPalanca #MobileOrdenBpt").val($("#Orden").val());
                     $("#MobileTituloMenu").val($("#DesktopTituloMenu").val());
                 }
-                /*END AGANA 159 */
+
 
                 var params = {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
@@ -326,16 +355,16 @@ function IniDialogs() {
                     success: function (data) {
                         if (data.success) {
                             HideDialog("DialogMantenimientoPalanca");
-                            //_toastHelper.error("Solicitud realizada sin problemas.");
+
                             showDialogMensaje("Solicitud realizada sin problemas.", '');
                             UpdateGrillaPalanca();
                         } else {
-                            //_toastHelper.error("Error al procesar la Solicitud.");
+
                             showDialogMensaje("Error al procesar la Solicitud.", '');
                         }
                     },
                     error: function (data, error) {
-                        //_toastHelper.error("Error al procesar la Solicitud.");
+
                         showDialogMensaje("Error al procesar la Solicitud.", '');
                     }
                 });
@@ -348,7 +377,7 @@ function IniDialogs() {
         }
     });
 }
-                
+
 function UpdateGrillaPalanca() {
     $("#list").jqGrid("GridUnload");
 
@@ -361,36 +390,36 @@ function UpdateGrillaPalanca() {
         multiselect: false,
         colNames: ["ConfiguracionPaisID", "Orden", "Código", "Descripción", "Acción"],
         colModel: [
-        {
+            {
                 name: "ConfiguracionPaisID",
-            index: "ConfiguracionPaisID",
-            width: 20,
-            editable: true,
-            resizable: false,
-            hidden: true
+                index: "ConfiguracionPaisID",
+                width: 20,
+                editable: true,
+                resizable: false,
+                hidden: true
 
-        },
-        {
+            },
+            {
                 name: "Orden",
-            index: "Orden",
-            width: 40,
-            ConfiguracionPaisID: true,
-            resizable: false,
-            hidden: false,
-            sortable: false
-        },
-        {name: "Codigo", index: "Codigo", width: 40, editable: true, hidden: false, sortable: false },
-        {name: "Descripcion", index: "Descripcion", width: 280, editable: true, hidden: false, sortable: false },
-        {
+                index: "Orden",
+                width: 40,
+                ConfiguracionPaisID: true,
+                resizable: false,
+                hidden: false,
+                sortable: false
+            },
+            { name: "Codigo", index: "Codigo", width: 40, editable: true, hidden: false, sortable: false },
+            { name: "Descripcion", index: "Descripcion", width: 280, editable: true, hidden: false, sortable: false },
+            {
                 name: "Activo",
-            index: "Activo",
-            width: 30,
-            align: "center",
-            editable: true,
-            resizable: false,
-            sortable: false,
-            formatter: ShowActions
-        }
+                index: "Activo",
+                width: 30,
+                align: "center",
+                editable: true,
+                resizable: false,
+                sortable: false,
+                formatter: ShowActions
+            }
         ],
         pager: false,
         loadtext: "Cargando datos...",
@@ -409,9 +438,9 @@ function UpdateGrillaPalanca() {
         pgtext: "",
         pginput: false
     });
-    jQuery("#list").jqGrid("navGrid", "#pager", {edit: false, add: false, refresh: false, del: false, search: false });
+    jQuery("#list").jqGrid("navGrid", "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
 }
-            
+
 function ShowActions(cellvalue, options, rowObject) {
     var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
     if (rowObject[10] === "1") {
@@ -422,8 +451,8 @@ function ShowActions(cellvalue, options, rowObject) {
 
 function ShowActionsOfertas(cellvalue, options, rowObject) {
 
-            var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listOfertas').EditarOfertas('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
-            if(rowObject[10] === "1") {
+    var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listOfertas').EditarOfertas('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
+    if (rowObject[10] === "1") {
         des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
     }
     return des;
@@ -670,12 +699,22 @@ function IniDialogOfertasHome() {
                 }
                 var AppColorFondo = $("#AdministrarOfertasHomeAppModel_AppColorFondo").val();
                 var AppColorTexto = $("#AdministrarOfertasHomeAppModel_AppColorTexto").val();
+                var AppColorFondoBoton = $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val();
+                var AppColorTextoBoton = $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val();
                 if (!regExpColorHex.test(AppColorFondo) && AppColorFondo !== "") {
                     _toastHelper.error("El color de fondo para app debe tener un código hexadecimal válido.");
                     return false;
                 }
                 if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
                     _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
+                    return false;
+                }
+                if (!regExpColorHex.test(AppColorFondoBoton) && AppColorFondoBoton !== "") {
+                    _toastHelper.error("El color del boton para app debe tener un código hexadecimal válido.");
+                    return false;
+                }
+                if (!regExpColorHex.test(AppColorTextoBoton) && AppColorTextoBoton !== "") {
+                    _toastHelper.error("El color de mensaje boton para app debe tener un código hexadecimal válido.");
                     return false;
                 }
 
@@ -720,12 +759,15 @@ function IniDialogOfertasHome() {
                         AppBannerInformativo: $("#nombre-fondo-app").val(),
                         AppOrden: $("#AdministrarOfertasHomeAppModel_AppOrden").val(),
                         AppCantidadProductos: $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val(),
+                        AppTextoBotonInicial: $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val(),
+                        AppTextoBotonFinal: $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val(),
+                        AppColorFondoBoton: $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val(),
+                        AppColorTextoBoton: $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val(),
                     },
                     BotonTexto1: $("#BotonTexto1").val(),
                     BotonTexto2: $("#BotonTexto2").val(),
                     BotonColor: $("#BotonColor").val(),
-                    BotonColorTexto: $("#BotonColorTexto").val(),
-                    Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo")
+                    BotonColorTexto: $("#BotonColorTexto").val()
                 };
 
                 waitingDialog({});
@@ -742,12 +784,12 @@ function IniDialogOfertasHome() {
 
                         if (data.success) {
                             HideDialog("DialogMantenimientoOfertasHome");
-                            //_toastHelper.success("Solicitud realizada sin problemas.");
+
                             showDialogMensaje(data.message, '');
                             UpdateGrillaOfertas();
                         } else {
                             showDialogMensaje(data.message, '');
-                            //_toastHelper.error("Error al procesar la Solicitud.");
+
                         }
                     },
                     error: function (data, error) {
@@ -768,7 +810,7 @@ function IniDialogOfertasHome() {
 function DialogOfertasHomeOpen(event, ui) {
     $(".ui-dialog-titlebar-close", ui.dialog).hide();
     $("#colorpickerHolder").ColorPicker({ flat: true });
-    $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto, #BotonColor, #BotonColorTexto").ColorPicker({
+    $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto, #BotonColor, #BotonColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondoBoton, #AdministrarOfertasHomeAppModel_AppColorTextoBoton").ColorPicker({
         onSubmit: function (hsb, hex, rgb, el) {
             var newValue = "#" + hex;
             $(el).val(newValue);
@@ -962,7 +1004,7 @@ function OfertasHomeMostrarCampos() {
     $("#divMantApp").show();
 
     $(".divHomeUsarImagenFondo").hide(); // caso odd
-    /*Inicia Agana 186 */
+
     if (codigoConfiguracionPais == ConstantesModule.CodigoPalanca.ATP) {
         $("#divTituloMobile").hide();
         $("#divContenidoMobile").hide();

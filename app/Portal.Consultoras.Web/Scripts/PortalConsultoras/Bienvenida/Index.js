@@ -113,6 +113,10 @@ $(document).ready(function () {
         document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
     });
 
+    $('.cam-exito a').click(function () {
+        BotonAbrirCaminoBrillante();
+    });
+
     document.onkeydown = function (evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
@@ -406,9 +410,6 @@ $(document).ready(function () {
     });
 
     $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion', function (e) {
-        //if (ReservadoOEnHorarioRestringido())
-        //    return false;
-
         if (!$(this).hasClass("no_accionar")) {
             agregarProductoAlCarrito(this);
         }
@@ -446,8 +447,6 @@ $(document).ready(function () {
         CargarProductoLiquidacionPopup(objProducto, objHidden);
     });
     $(document).on('click', '.js-agregar-popup-liquidacion', function () {
-        //if (ReservadoOEnHorarioRestringido())
-        //    return false;
 
         var contenedor = $(this).parents('#divTonosTallas');
         PedidoRegistroModule.AgregarProductoLiquidacionBienvenida(contenedor);
@@ -613,10 +612,7 @@ function mostrarVideoIntroductorio() {
         }
         primeraVezVideo = false;
         return true;
-
-        if (viewBagVioTutorialSalvavidas == '0') {
-            mostrarUbicacionTutorial(false, false);
-        }
+        
     } catch (e) {
 
     }
@@ -728,155 +724,7 @@ function CargarCarouselLiquidaciones() {
         }
     });
 }
-//function ArmarCarouselLiquidaciones(data) {
 
-//    data = EstructurarDataCarouselLiquidaciones(data.lista);
-//    arrayLiquidaciones = data;
-//    var htmlDiv = SetHandlebars("#liquidacion-template", data);
-//    if ($.trim(htmlDiv).length > 0) {
-//        htmlDiv += [
-//            '<div>',
-//            '<div class="content_item_carrusel background_vermas">',
-//            '<input type="hidden" id="Posicion" value="' + (data.length + 1) + '"/>',
-//            '<div class="producto_img_home">',
-//            '</div>',
-//            '<div class="producto_nombre_descripcion">',
-//            '<p class="nombre_producto">',
-//            '</p>',
-//            '<div class="producto_precio" style="margin-bottom: -8px;">',
-//            '<span class="producto_precio_oferta"></span>',
-//            '</div>',
-//            '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
-//            'VER MÁS',
-//            '</a>',
-//            '</div>',
-//            '</div>',
-//            '</div>'
-//        ].join("\n");
-//    }
-//    $('#divCarruselLiquidaciones').empty().html(htmlDiv);
-
-//    EstablecerLazyCarrusel('#divCarruselLiquidaciones');
-
-//    $('#divCarruselLiquidaciones').slick({
-//        lazyLoad: 'ondemand',
-//        infinite: false,
-//        vertical: false,
-//        slidesToShow: 1,
-//        slidesToScroll: 1,
-//        autoplay: false,
-//        speed: 260,
-//        prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-//        nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
-//    }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-
-//        var accion = nextSlide > currentSlide ? 'next' : 'prev';
-//        console.log('======================');
-//        console.log('aquí entro');
-//        console.log('======================');
-//        var itemsLength = $('#divCarruselLiquidaciones').find('.slick-slide').length;
-//        var indexActive = $($('#divCarruselLiquidaciones').find('.slick-active')).attr('data-slick-index');
-//        var posicionEstrategia, recomendado, arrayEstrategia;
-//        console.log('======================');
-//        console.log('aquí entro');
-//        console.log('======================');
-//        if (accion == 'prev') {
-//            if (Number(indexActive) - 1 == 0) {
-//                $('.js-slick-prev-liq').hide();
-//                $('.js-slick-next-liq').show();
-//            } else {
-//                $('.js-slick-next-liq').show();
-//            }
-
-//            posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val() - 2;
-//            recomendado = arrayLiquidaciones[posicionEstrategia] || {};
-//            arrayEstrategia = new Array();
-
-//            if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
-//                var impresionRecomendado = {
-//                    'name': recomendado.DescripcionCompleta,
-//                    'id': recomendado.CUV,
-//                    'price': recomendado.PrecioOferta.toString(),
-//                    'brand': recomendado.DescripcionMarca,
-//                    'category': 'NO DISPONIBLE',
-//                    'variant': recomendado.DescripcionEstrategia,
-//                    'list': 'Liquidación Web - Home',
-//                    'position': recomendado.Posicion
-//                };
-//                arrayEstrategia.push(impresionRecomendado);
-//                dataLayer.push({
-//                    'event': 'productImpression',
-//                    'ecommerce': {
-//                        'impressions': arrayEstrategia
-//                    }
-//                });
-//                dataLayer.push({
-//                    'event': 'virtualEvent',
-//                    'category': 'Home',
-//                    'action': 'Liquidacion Web',
-//                    'label': 'Ver anterior'
-//                });
-//            }
-
-//        } else if (accion == 'next') {
-//            if (Number(indexActive) + 1 == Number(itemsLength) - 1) {
-//                $('.js-slick-next-liq').hide();
-//                $('.js-slick-prev-liq').show();
-//            } else {
-//                $('.js-slick-prev-liq').show();
-//            }
-
-//            posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val();
-
-//            if (posicionEstrategia != arrayLiquidaciones.length) {
-//                recomendado = arrayLiquidaciones[posicionEstrategia] || {};
-//                arrayEstrategia = new Array();
-
-//                if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
-//                    var impresionRecomendado = {
-//                        'name': recomendado.DescripcionCompleta,
-//                        'id': recomendado.CUV,
-//                        'price': recomendado.PrecioOferta.toString(),
-//                        'brand': recomendado.DescripcionMarca,
-//                        'category': 'NO DISPONIBLE',
-//                        'variant': recomendado.DescripcionEstrategia,
-//                        'list': 'Liquidación Web - Home',
-//                        'position': recomendado.Posicion
-//                    };
-
-//                    arrayEstrategia.push(impresionRecomendado);
-
-//                    dataLayer.push({
-//                        'event': 'productImpression',
-//                        'ecommerce': {
-//                            'impressions': arrayEstrategia
-//                        }
-//                    });
-//                    dataLayer.push({
-//                        'event': 'virtualEvent',
-//                        'category': 'Home',
-//                        'action': 'Liquidacion Web',
-//                        'label': 'Ver siguiente'
-//                    });
-//                }
-//            } else {
-//                dataLayer.push({
-//                    'event': 'virtualEvent',
-//                    'category': 'Home',
-//                    'action': 'Liquidacion Web',
-//                    'label': 'Ver más'
-//                });
-//            }
-//        }
-//    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-//        EstablecerLazyCarruselAfterChange('#divCarruselLiquidaciones');
-//    });
-
-//    TagManagerCarruselLiquidacionesInicio(data);
-
-//    $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
-//    $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
-//}
 function EstructurarDataCarouselLiquidaciones(array) {
     $.each(array, function (i, item) {
         item.DescripcionCompleta = item.Descripcion;
@@ -895,122 +743,13 @@ function EstructurarDataCarouselLiquidaciones(array) {
             item.TextoBotonTallaColor = "";
             item.TieneTallaColor = false;
         }
+        item.ValPUM = (item.UnidadMedida == "" || item.PUM == "") ? false : true;
+        item.UnidadMedida = (item.UnidadMedida || '').toLowerCase();
+
     });
 
     return array;
 }
-//function AgregarProductoLiquidacion(contenedor) {    
-
-
-//    var inputCantidad = $(contenedor).find("[data-input='cantidad']").val();
-//    if (!$.isNumeric(inputCantidad)) {
-//        AbrirMensaje("Ingrese un valor numérico.");
-//        $(contenedor).find("#txtCantidad").val(1);
-//        return false;
-//    }
-//    if (parseInt(inputCantidad) <= 0) {
-//        AbrirMensaje("La cantidad debe ser mayor a cero.");
-//        $(contenedor).find("#txtCantidad").val(1);
-//        return false;
-//    }
-
-//    waitingDialog({});
-//    var item = {  
-    
-//        Cantidad: $(contenedor).find("[data-input='cantidad']").val(),
-//        MarcaID: $(contenedor).find("#MarcaID").val(),
-//        PrecioUnidad: $(contenedor).find("#PrecioOferta").val(),
-//        CUV: $(contenedor).find("#CUV").val(),
-//        ConfiguracionOfertaID: $(contenedor).find("#ConfiguracionOfertaID").val(),
-//        descripcionProd: $(contenedor).find("#DescripcionProd").val(),
-//        descripcionCategoria: $(contenedor).find("#DescripcionCategoria").val(),
-//        descripcionMarca: $(contenedor).find("#DescripcionMarca").val(),
-//        descripcionEstrategia: $(contenedor).find("#DescripcionEstrategia").val(),
-//        imagenProducto: $(contenedor).find("#ImagenProducto").val(),
-//        Posicion: $(contenedor).find("#Posicion").val(),
-//        OrigenPedidoWeb: DesktopHomeLiquidacion,
-//    };
-//    $.ajaxSetup({
-//        cache: false
-//    });
-
-//    $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: item.CUV, Cantidad: item.Cantidad, PrecioUnidad: item.PrecioUnidad }, function (data) {
-//        if (data.message.length > 0) {
-//            AbrirMensajeEstrategia(data.message);
-//            closeWaitingDialog();
-//            return false;
-//        }
-//        if (parseInt(data.Saldo) < parseInt(item.Cantidad)) {
-//            var Saldo = data.Saldo;
-//            var UnidadesPermitidas = data.UnidadesPermitidas;
-//            $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: item.CUV }, function (data) {
-//                if (Saldo == UnidadesPermitidas)
-//                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
-//                else {
-//                    if (Saldo == "0")
-//                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
-//                    else
-//                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
-//                }
-//                HidePopupTonosTallas();
-//                closeWaitingDialog();
-//                return false;
-//            });
-//        } else {
-//            $.ajaxSetup({
-//                cache: false
-//            });
-//            $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: item.CUV }, function (data) {
-//                if (parseInt(data.Stock) < parseInt(item.Cantidad)) {
-//                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
-//                    HidePopupTonosTallas();
-//                    closeWaitingDialog();
-//                    return false;
-//                }
-//                else {
-
-//                    jQuery.ajax({
-//                        type: 'POST',
-//                        url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
-//                        dataType: 'json',
-//                        contentType: 'application/json; charset=utf-8',
-//                        data: JSON.stringify(item),
-//                        async: true,
-//                        success: function (data) {
-//                            if (!checkTimeout(data)) {
-//                                closeWaitingDialog();
-//                                return false;
-//                            }
-
-//                            if (data.success != true) {
-//                                messageInfoError(data.message);
-//                                closeWaitingDialog();
-//                                return false;
-//                            }
-//                            MostrarBarra(data, '1');
-
-//                            ActualizarGanancia(data.DataBarra);
-//                            CargarResumenCampaniaHeader(true);
-//                            TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
-//                            TagManagerClickAgregarProductoLiquidacion(item);
-
-//                            closeWaitingDialog();
-//                            HidePopupTonosTallas();
-
-//                            ProcesarActualizacionMostrarContenedorCupon();
-//                        },
-//                        error: function (data, error) {
-//                            if (checkTimeout(data)) {
-//                                closeWaitingDialog();
-//                                HidePopupTonosTallas();
-//                            }
-//                        }
-//                    });
-//                }
-//            });
-//        }
-//    });
-//}
 
 function ProcesarActualizacionMostrarContenedorCupon() {
     if (paginaOrigenCupon) {
@@ -1247,104 +986,6 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
     }
 }
 
-//function AgregarCUVBannerPedido() {
-
-//    var Id = $("#divConfirmarCUVBanner").data().Id;
-//    var link = $("#divConfirmarCUVBanner").data().link;
-//    var CUVpedido = $("#divConfirmarCUVBanner").data().cuvPedido;
-//    var CantCUVpedido = $("#divConfirmarCUVBanner").data().cantidadCUVPedido;
-//    var Posicion = $("#divConfirmarCUVBanner").data().posicion;
-//    var Titulo = $("#divConfirmarCUVBanner").data().titulo;
-
-//    var objBannerCarrito = $("#" + $(link).attr("id"));
-//    agregarProductoAlCarrito(objBannerCarrito);
-//    InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
-//    SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo);
-
-//    HideDialog("divConfirmarCUVBanner");
-//}
-//function AgregarCUVBannerPedidoNo() {
-//    HideDialog("divConfirmarCUVBanner");
-//}
-
-//function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
-//    var item = {
-//        CUV: CUVpedido,
-//        CantCUVpedido: CantCUVpedido
-//    };
-//    var categoriacad = "";
-//    var variantcad = "";
-
-//    waitingDialog({});
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: baseUrl + 'Pedido/InsertarPedidoCuvBanner',
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(item),
-//        async: true,
-//        success: function (result) {
-//            if (!checkTimeout(result)) {
-//                closeWaitingDialog();
-//                return false;
-//            }
-
-//            if (result.success != true) {
-//                if (result.message == "") result.message = 'Error al realizar proceso, inténtelo más tarde.';
-//                messageInfoError(result.message);
-//                closeWaitingDialog();
-//                return false;
-//            }
-
-//            MostrarBarra(result, '1');
-
-//            ActualizarGanancia(result.DataBarra);
-
-//            CargarResumenCampaniaHeader(true);
-
-//            if (result.oPedidoDetalle.DescripcionEstrategia == null || result.oPedidoDetalle.DescripcionEstrategia == "") {
-//                variantcad = "Estándar";
-//            } else {
-//                variantcad = result.oPedidoDetalle.DescripcionEstrategia;
-//            }
-//            if (result.oPedidoDetalle.Categoria == null || result.oPedidoDetalle.Categoria == "") {
-//                categoriacad = "Sin Categoría";
-//            } else {
-//                categoriacad = result.oPedidoDetalle.Categoria;
-//            }
-
-//            TrackingJetloreAdd(CantCUVpedido, $("#hdCampaniaCodigo").val(), CUVpedido);
-
-//            dataLayer.push({
-//                'event': 'addToCart',
-//                'ecommerce': {
-//                    'add': {
-//                        'actionField': { 'list': 'Banner marquesina' },
-//                        'products': [
-//                            {
-//                                'name': result.oPedidoDetalle.DescripcionProd,
-//                                'price': $.trim(result.oPedidoDetalle.PrecioUnidad),
-//                                'brand': result.oPedidoDetalle.DescripcionLarga,
-//                                'id': CUVpedido,
-//                                'category': categoriacad,
-//                                'variant': variantcad,
-//                                'quantity': parseInt(CantCUVpedido),
-//                                'position': 1
-//                            }
-//                        ]
-//                    }
-//                }
-//            });
-
-//            closeWaitingDialog();
-//        },
-//        error: function (data, error) {
-//            if (checkTimeout(data)) {
-//                closeWaitingDialog();
-//            }
-//        }
-//    });
-//}
 function SetGoogleAnalyticsBannerIntermedios(URL, TrackText, PaginaNueva, Id, Posicion, Titulo) {
     dataLayer.push({
         'event': 'promotionClick',
@@ -2620,23 +2261,14 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
         async: false,
         success: function (response) {
             if (checkTimeout(response)) {
-                //if (!response.data && response.tipo == "I") {
-                //    click_no_volver_a_ver_este_anuncio_PopShowroomIntriga();
-                //    $('#PopShowroomIntriga').hide();
-                //}
-
-                //if (!response.data && response.tipo == "V") {
-                //    click_no_volver_a_ver_este_anuncio_PopShowroomVenta();
-                //    $('#PopShowroomVenta').hide();
-                //}
                 click_no_volver_a_ver_este_anuncio_PopShowroomVenta();
                 $('#PopShowroomVenta').hide();
             }
         },
         error: function (response, error) {
             if (checkTimeout(response)) {
-                closeWaitingDialog();              
-            }   
+                closeWaitingDialog();
+            }
             click_no_volver_a_ver_este_anuncio_PopShowroomVenta();
             $('#PopShowroomVenta').hide();
         }
@@ -2898,8 +2530,7 @@ function ActualizarVisualizoComunicado(comunicadoId) {
         data: JSON.stringify(params),
         contentType: 'application/json',
         success: function (data) {
-            if (checkTimeout(data)) {
-            }
+            //
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -3161,7 +2792,7 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
 }
 
 function MostrarPopupInicial() {
-    
+
     if (showPopupMisDatos == '1' || popupCambioClave == "1") {
         CargarMisDatos();
         return;
@@ -3269,14 +2900,36 @@ function ConsultarEmailPendiente() {
     $.ajax({
         type: 'POST',
         url: baseUrl + 'Bienvenida/ObtenerActualizacionEmailSms',
-        dataType: 'Text',
+        dataType: 'Json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         success: function (data) {
             if (checkTimeout(data)) {
-                if (data != '') {
-                    document.getElementById('mensajeToolTip').innerHTML = data;
-                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                /*En este caso se mostrarà el tooltip*/
+                if (parseInt(data.tipoMostrador) == 0) {
+                    if (data.mensaje.length > 0) {
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
+                        document.getElementById('mensajeToolTip').innerHTML = data.mensaje;
+                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                    } else {
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
+                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
+                    }
+                    /*En este caso se mostrarà el popup*/
+                } else {
+                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
+                    var hrefUrl = document.getElementById('hrfUrl');
+                    var URLdomain = window.location.origin;
+                    hrefUrl.href = URLdomain + data.urlDispositivo;
+
+                    if (parseInt(data.valor) == 0)
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
+                    else if (parseInt(data.valor) == 1) {
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'block';
+                        document.getElementById("mensaje").innerHTML = "";
+                        document.getElementById("mensaje").innerHTML = data.mensaje;
+
+                    }
                 }
             }
         },
@@ -3307,4 +2960,14 @@ function ObtenerEstadoContrato() {
     });
 
     return re;
+}
+
+function BotonAbrirCaminoBrillante() {
+    dataLayer.push(
+        {
+            'event': 'virtualEvent',
+            'category': 'Home',
+            'action': 'Clic botón',
+            'label': 'Ver Beneficios'
+        });
 }

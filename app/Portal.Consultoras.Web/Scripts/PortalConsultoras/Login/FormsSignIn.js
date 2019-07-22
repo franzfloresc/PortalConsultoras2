@@ -11,13 +11,13 @@ var ancho = 681;
 var correoRecuperar = "";
 var nroIntentosCo = 0;
 var nroIntentosSms = 0;
-var t; //Temporisador sms.
+var t;
 var tipoOpcion = 0;
 var procesoSms = false;
 var procesoEmail = false;
 var PrimerNombre = "";
 
-$(document).ready(function () {
+$(document).ready(function () {    
     $(window).resize(function () {
         //resize just happened, pixels changed
         resizeNameUserExt();
@@ -87,7 +87,6 @@ $(document).ready(function () {
     $("#ddlPais").change(function () {
         imgISO = $("#ddlPais").val();
         analytics.invocarAnalyticsByCodigoIso(imgISO);
-
         if (imgISO == "MX") {
             $("#AvisoASP").show();
         } else {
@@ -335,6 +334,14 @@ $(document).ready(function () {
     });
 
     $("#divChatearConNosotros").click(function () {
+        if ($('#hddHabilitarChatBot').val() === 'true') {
+            if (typeof FB === 'undefined') return;
+
+            FB.XFBML.parse();
+
+            return;
+        }
+
         if ($('#hddHabilitarChatEmtelco').val() === 'false') {
             $('#popupChatDisabled').show();
             return;
@@ -660,7 +667,7 @@ function AbrirMensajeLogin(tipo, close) {
     }
     if ($(".DropDown").val() == "00") return;
     if (tipo == 1) {
-        val_Usuario = !val_Usuario;
+
         switch ($(".DropDown").val()) {
             case "PE": $('.alerta_red_peru_user').toggleClass("alerta_red_block"); break;
             case "BO": $('.alerta_red_bolivia_user').toggleClass("alerta_red_block"); break;
@@ -678,7 +685,7 @@ function AbrirMensajeLogin(tipo, close) {
         }
     }
     else {
-        val_Password = !val_Password;
+
         switch ($(".DropDown").val()) {
             case "PE": $('.alerta_red_peru_clave').toggleClass("alerta_red_block"); break;
             case "BO": $('.alerta_red_bolivia_clave').toggleClass("alerta_red_block"); break;
@@ -716,7 +723,7 @@ function AsignarHojaEstilos() {
         document.title = ' ÉSIKA ';
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.esika/*$currentBelcorpStyle.data("srcesika")*/);
+        $currentLink.attr('href', UrlStyles.esika);
 
         Fondofestivo("hddFondoFestivoEsika");
 
@@ -728,7 +735,7 @@ function AsignarHojaEstilos() {
         document.title = " L'BEL ";
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Lbel/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.lbel /*$currentBelcorpStyle.data("srclbel")*/);
+        $currentLink.attr('href', UrlStyles.lbel);
 
         Fondofestivo("hddFondoFestivoLebel");
 
@@ -739,7 +746,7 @@ function AsignarHojaEstilos() {
         document.title = ' ÉSIKA ';
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.esika/*$currentBelcorpStyle.data("srcesika")*/);
+        $currentLink.attr('href', UrlStyles.esika);
 
         Fondofestivo("hddFondoFestivoEsika");
 
@@ -855,11 +862,9 @@ function login2() {
         url: '/Login/Login',
         data: postData,
         dataType: 'json',
-        //contentType: 'application/json; charset=utf-8',
         success: function (response) {
             
-            var resul = "";
-            if (response.data != null) {        
+            if (response.data != null) {
                 analytics.invocarCompleteRegistrationPixel();
 
                 var datos = response.data;
@@ -869,7 +874,7 @@ function login2() {
                 closeWaitingDialog();
 
 
-            } else if (response.success) {   
+            } else if (response.success) {
                 analytics.invocarCompleteRegistrationPixel();
                 if (response.redirectTo !== "") {
                     analytics.invocarEventoPixel("FacebookLoginLogin");
@@ -1037,10 +1042,9 @@ function RecuperarContrasenia() {
                 var telefonos;
                 var datos = response.data;
                 $("#hddHabilitarChatEmtelco").val(response.habilitarChatEmtelco);
+                $("#hddHabilitarChatBot").val(response.habilitarChatBot);
 
                 OcultarContenidoPopup();
-                var nroCelular = $.trim(datos.Celular);
-                var email = $.trim(datos.Correo);
                 var primerNombre = $.trim(datos.PrimerNombre);
 
                 var tituloPopup = "CAMBIO DE <b>CONTRASEÑA</b>"

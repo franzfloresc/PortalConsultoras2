@@ -161,68 +161,13 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
         {
             var estrategiasResult = new List<BEEstrategia>();
             var codigoIso = Util.GetPaisISO(entidad.PaisID);
-            //var esFacturacion = false;
-            //if (entidad.ValidarPeriodoFacturacion)
-            //{
-            //    var fechaHoy = DateTime.Now.AddHours(entidad.ZonaHoraria).Date;
-            //    esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
-            //}
-
             var listaSinPrecio2 = new List<string>();
-            //var listaSinStock = new List<BEEstrategia>();
 
-            //if (esFacturacion)
-            //{
-            //var listaTieneStock = new List<Lista>();
             if (lista.Count > 0)
             {
                 listaSinPrecio2.AddRange(lista.Where(e => e.Precio2 <= 0).Select(e => e.CUV2));
-                estrategiasResult = lista.Where (e => e.Precio2 > 0).ToList();
+                estrategiasResult = lista.Where(e => e.Precio2 > 0).ToList();
             }
-                //try
-                //{
-                //    var codigoSap = string.Join("|", lista.Where(e => !string.IsNullOrEmpty(e.CodigoProducto) && e.TieneStock).Select(e => e.CodigoProducto));
-                //    if (!string.IsNullOrEmpty(codigoSap))
-                //    {
-                //        using (var sv = new wsConsulta())
-                //        {
-                //            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                //            listaTieneStock = sv.ConsultaStock(codigoSap, codigoIso).ToList();
-                //        }
-                //    }
-                //}
-                //catch (Exception ex)
-                //{
-                //    LogManager.SaveLog(ex, entidad.ConsultoraID, entidad.PaisID.ToString());
-                //    listaTieneStock = new List<Lista>();
-                //}
-
-                //lista.ForEach(estrategia =>
-                //{
-                //    if (estrategia.Precio2 > 0)
-                //    {
-                //        var add = true;
-                //        if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                //            add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
-
-                //        //if (!add) return;
-                //        if (!add)
-                //        {
-                //            estrategia.TieneStock = false;
-                //            listaSinStock.Add(estrategia);
-                //            return;
-                //        }
-
-                //        estrategiasResult.Add(estrategia);
-                //    }
-                //    else
-                //    {
-                //        listaSinPrecio2.Add(estrategia.CUV2);
-                //    }
-                //});
-            //}
-            //else estrategiasResult.AddRange(lista.Where(e => e.Precio2 > 0));
-
 
 
             if (listaSinPrecio2.Any())
@@ -253,12 +198,6 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
-
-            // agregar al final los CUV que no tienen stock
-            //if (listaSinStock.Any())
-            //{
-            //    estrategiasResult.AddRange(listaSinStock);
-            //}
 
             return estrategiasResult;
         }

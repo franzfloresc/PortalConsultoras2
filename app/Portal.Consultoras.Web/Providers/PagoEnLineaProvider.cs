@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -37,8 +38,9 @@ namespace Portal.Consultoras.Web.Providers
             model.Simbolo = userData.Simbolo;
             model.MontoDeuda = userData.MontoDeuda;
             model.FechaVencimiento = userData.FechaLimPago;
+            model.AplicaPorcentaje = ObtenerAplicaPorcentaje(userData, model) ? 1 : 0;
 
-            var porcentajeGastosAdministrativosString = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos,true);
+            var porcentajeGastosAdministrativosString = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.PagoLinea.TablaLogicaId, ConsTablaLogica.PagoLinea.PorcentajeGastosAdministrativos, true);
             decimal porcentajeGastosAdministrativos;
             bool esNum = decimal.TryParse(porcentajeGastosAdministrativosString, out porcentajeGastosAdministrativos);
 
@@ -172,7 +174,7 @@ namespace Portal.Consultoras.Web.Providers
 
             string json = JsonHelper.JsonSerializer<DataToken>(datatoken);
 
-            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;            
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
             HttpWebRequest requestSesion;
             requestSesion = WebRequest.Create(urlCreateSessionTokenAPI) as HttpWebRequest;
             requestSesion.Method = "POST";
@@ -212,7 +214,7 @@ namespace Portal.Consultoras.Web.Providers
             #endregion
 
             #region Variables para el formulario de pago visa
-            
+
             pagoVisaModel.MerchantLogo = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.UrlLogoPasarelaPago);
             pagoVisaModel.FormButtonColor = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.ColorBotonPagarPasarelaPago);
             pagoVisaModel.Recurrence = "FALSE";
@@ -263,7 +265,7 @@ namespace Portal.Consultoras.Web.Providers
                 UrlPagoPayu = settings[Constantes.PagoEnLineaPasarelaPayu.Endpoint],
                 IsTest = settings[Constantes.PagoEnLineaPasarelaPayu.Test] == "1"
             };
-            
+
             return pagoModel;
         }
 
@@ -284,9 +286,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 var bePagoEnLinea = GenerarEntidadPagoEnLineaVisa(respuestaVisa, model);
 
-                var bEUsuario = Mapper.Map<BEUsuario>(userData);                
+                var bEUsuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
 
-                BERespuestaServicio result = null;
+                ServicePedido.BERespuestaServicio result = null;
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
@@ -294,7 +296,8 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 // Requerido en pago rechazado.
-                if (bePagoEnLinea.Data != null) {                    
+                if (bePagoEnLinea.Data != null)
+                {
                     model.NumeroOperacion = bePagoEnLinea.Data.NUMORDEN;
                     model.FechaCreacion = string.IsNullOrEmpty(bePagoEnLinea.Data.FECHAYHORA_TX) ? DateTime.Now : Convert.ToDateTime(bePagoEnLinea.Data.FECHAYHORA_TX);
                     model.DescripcionCodigoAccion = bePagoEnLinea.Data.DSC_COD_ACCION;
@@ -317,12 +320,13 @@ namespace Portal.Consultoras.Web.Providers
                     model.FechaVencimiento = userData.FechaLimPago;
                     model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
 
-                    var mensajeExitoso = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso, true);
+                    var mensajeExitoso = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.PagoLinea.TablaLogicaId, ConsTablaLogica.PagoLinea.MensajeInformacionPagoExitoso, true);
 
                     if (result.Code == Constantes.PagoEnLineaRespuestaServicio.Code.SUCCESS)
                     {
                         model.MensajeInformacionPagoExitoso = mensajeExitoso;
-                        if (jsonObject != null) {
+                        if (jsonObject != null)
+                        {
                             decimal saldoPendiente = 0;
                             userData.MontoDeuda = decimal.TryParse((string)jsonObject.SaldoPendiente, out saldoPendiente) ? saldoPendiente : userData.MontoDeuda;
                         }
@@ -331,7 +335,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     resultado = true;
                 }
-                
+
             }
             catch (FaultException ex)
             {
@@ -465,9 +469,9 @@ namespace Portal.Consultoras.Web.Providers
                 bePagoEnLinea.Data.REVIEWTRANSACTION = JsonHelper.JsonSerializer(respuestaVisa.data.reviewTransaction) ?? "";
                 bePagoEnLinea.Data.ORI_TARJETA = respuestaVisa.data.ORI_TARJETA ?? "";
             }
-            
+
             return bePagoEnLinea;
-        }        
+        }
 
         private string ObtenerTemplatePagoEnLinea(PagoEnLineaModel model, bool esLbel, int paisId)
         {
@@ -606,6 +610,23 @@ namespace Portal.Consultoras.Web.Providers
         public IEnumerable<string> ObtenerAnios()
         {
             return Enumerable.Range(DateTime.Now.Year, MaxYearCard).Select(i => i.ToString());
+        }
+
+        private bool ObtenerAplicaPorcentaje(UsuarioModel userData, PagoEnLineaModel model)
+        {
+            ServiceUsuario.BEUsuario beusuario;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+            }
+
+            var flag3Porciento = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.PagoLinea.TablaLogicaId, ConsTablaLogica.PagoLinea.Acplica3porciento, true);
+
+            var noAplica = model.FechaVencimiento >= DateTime.Today &&
+                           beusuario.IndicadorConsultoraDigital == 1 &&
+                           flag3Porciento == "1";
+
+            return !noAplica;
         }
     }
 }

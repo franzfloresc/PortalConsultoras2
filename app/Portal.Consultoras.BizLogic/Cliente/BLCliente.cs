@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.BizLogic.Cliente;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
@@ -297,7 +298,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     cliente.CodigoRespuesta = Constantes.ClienteValidacion.Code.ErrorGeneral;
                     LogManager.SaveLog(ex, consultoraId, paisID);
-                    throw new Exception(Common.LogManager.GetMensajeError(ex));
+                    throw new ClientInformationException(Common.LogManager.GetMensajeError(ex));
                 }
             }
 
@@ -401,7 +402,7 @@ namespace Portal.Consultoras.BizLogic
 
         private void RegistrarLogDemoraSP(int paisID, long consultoraID, int campaniaID, TimeSpan diff)
         {
-            var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.TiempoMaximoSP).FirstOrDefault(a => a.Codigo == "01");
+            var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.TiempoMaximoDemoraSp.TablaLogicaId).FirstOrDefault(a => a.Codigo == "01");
             if (tablaLogicaDatos == null) return;
 
             var valor = tablaLogicaDatos.Valor;

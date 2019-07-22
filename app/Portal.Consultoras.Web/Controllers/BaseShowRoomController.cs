@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.GetTablaLogicaDatos(
                     userData.PaisID,
-                    Constantes.TablaLogica.OrdenamientoShowRoom);
+                    ConsTablaLogica.OrdenamientoShowRoom.TablaLogicaId);
 
                 var tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
                 if (GetIsMobileDevice()) tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile;
@@ -343,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool SiempreMostrarBannerPL20()
         {
-            string controllerName = GetControllerActual(); //this.ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
@@ -352,7 +352,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool NuncaMostrarBannerPL20()
         {
-            string controllerName = GetControllerActual(); //this.ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual();
 
             return controllerName == "Pedido"
                 || controllerName == "CatalogoPersonalizado"
@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool NuncaMostrarBannerTopPL20()
         {
-            string controllerName = GetControllerActual(); //this.ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
             return (controllerName == "Bienvenida" && actionName == "Index")

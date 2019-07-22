@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.SessionManager;
@@ -18,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
     public class OfertaBaseProvider
     {
         private static readonly HttpClient httpClient = new HttpClient();
-
+        private const string contentType = "application/json";
         private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
 
         static OfertaBaseProvider()
@@ -28,15 +29,18 @@ namespace Portal.Consultoras.Web.Providers
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        
-        public EstrategiaPersonalizadaProductoModel ObtenerModeloOfertaDesdeApi(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoIso)
-        {                                                                       
-            var taskApi = Task.Run(() => ObtenerOfertaDesdeApi(estrategiaModelo.CUV2, estrategiaModelo.CampaniaID.ToString(), estrategiaModelo.CodigoEstrategia, codigoIso));
+
+        public DetalleEstrategiaFichaModel ObtenerModeloOfertaDesdeApi(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoIso)
+        {
+            return ObtenerModeloOfertaFichaDesdeApi(estrategiaModelo.CUV2, estrategiaModelo.CampaniaID.ToString(), estrategiaModelo.CodigoEstrategia, codigoIso);
+        }
+
+        public List<ServiceOferta.BEEstrategia> ObtenerEntidadOfertasDesdeApi(string pathMS, string codigoIso)
+        {
+            var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathMS, codigoIso));
             Task.WhenAll(taskApi);
-            Estrategia estrategia = taskApi.Result ?? new Estrategia();
-            var modeloEstrategia = new EstrategiaPersonalizadaProductoModel();
-            modeloEstrategia.Hermanos = Mapper.Map<IList<Componente>, List<EstrategiaComponenteModel>>(estrategia.Componentes ?? new List<Componente>());
-            return modeloEstrategia;
+            List<ServiceOferta.BEEstrategia> listEstrategia = taskApi.Result ?? new List<ServiceOferta.BEEstrategia>();
+            return listEstrategia;
         }
 
         public DetalleEstrategiaFichaModel ObtenerModeloOfertaFichaDesdeApi(string cuv, string campania, string tipoEstrategia, string codigoIso)
@@ -44,12 +48,12 @@ namespace Portal.Consultoras.Web.Providers
             var taskApi = Task.Run(() => ObtenerOfertaDesdeApi(cuv, campania, tipoEstrategia, codigoIso));
             Task.WhenAll(taskApi);
             Estrategia estrategia = taskApi.Result ?? new Estrategia();
-            var modeloEstrategia = new DetalleEstrategiaFichaModel();
-            modeloEstrategia = Mapper.Map<Estrategia, DetalleEstrategiaFichaModel>(estrategia ?? new Estrategia());
+            var modeloEstrategia = Mapper.Map<Estrategia, DetalleEstrategiaFichaModel>(estrategia ?? new Estrategia());
             return modeloEstrategia;
         }
 
-        private async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion, string codigoIso)
+
+        private static async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion, string codigoIso)
         {
             var estrategia = new Estrategia();
 
@@ -68,15 +72,16 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             string jsonString = await httpResponse.Content.ReadAsStringAsync();
-            if (Util.Trim(jsonString) == string.Empty)
-            {
-                return estrategia;
-            }
+            httpResponse.Dispose();
 
-            OutputOferta respuesta = new OutputOferta();
             try
             {
-                respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
+                if (Util.Trim(jsonString) == string.Empty)
+                {
+                    return estrategia;
+                }
+
+                OutputOferta respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
                 estrategia = respuesta.Result ?? new Estrategia();
             }
             catch (Exception ex)
@@ -88,7 +93,7 @@ namespace Portal.Consultoras.Web.Providers
             return estrategia;
         }
 
-        public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
+        private static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
         {
             List<ServiceOferta.BEEstrategia> estrategias = new List<ServiceOferta.BEEstrategia>();
             HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
@@ -99,13 +104,13 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             string jsonString = await httpResponse.Content.ReadAsStringAsync();
+            httpResponse.Dispose();
             if (Util.Trim(jsonString) == string.Empty)
             {
                 return estrategias;
             }
 
-            var respuesta = new OutputOfertaLista();
-            var listaSinPrecio2 = new List<string>();
+            OutputOfertaLista respuesta;
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputOfertaLista>(jsonString);
@@ -122,14 +127,14 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            //List<string> listaCuvPrecio0 = new List<string>();
-            string codTipoEstrategia = string.Empty, codCampania = string.Empty;
             respuesta.Result = respuesta.Result ?? new List<Models.Search.ResponseOferta.Estructura.Estrategia>();
-            if (respuesta.Result == null)
+            if (respuesta.Result.Count == 0)
             {
                 return estrategias;
             }
 
+            var listaSinPrecio2 = new List<string>();
+            string codTipoEstrategia = string.Empty, codCampania = string.Empty;
             foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
             {
                 try
@@ -164,7 +169,6 @@ namespace Portal.Consultoras.Web.Providers
                         TipoEstrategiaImagenMostrar = 6,
                         EsSubCampania = Convert.ToBoolean(item.EsSubCampania) ? 1 : 0,
                         Niveles = item.Niveles,
-                        // TODO: liberar comentario
                         CantidadPack = item.CantidadPack
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };
@@ -313,43 +317,90 @@ namespace Portal.Consultoras.Web.Providers
             return nombreOferta;
         }
 
+        public MSPersonalizacionConfiguracionModel GetConfigMicroserviciosPersonalizacion()
+        {
+            var msPersonalizacionConfi = _sessionManager.GetConfigMicroserviciosPersonalizacion();
+            msPersonalizacionConfi.PaisHabilitado = msPersonalizacionConfi.PaisHabilitado ?? "";
+            msPersonalizacionConfi.EstrategiaHabilitado = msPersonalizacionConfi.EstrategiaHabilitado ?? "";
+            msPersonalizacionConfi.GuardaDataEnLocalStorage = msPersonalizacionConfi.GuardaDataEnLocalStorage ?? "";
+            msPersonalizacionConfi.GuardaDataEnSession = msPersonalizacionConfi.GuardaDataEnSession ?? "";
+            msPersonalizacionConfi.EstrategiaDisponibleParaFicha = msPersonalizacionConfi.EstrategiaDisponibleParaFicha ?? "";
+
+            return msPersonalizacionConfi;
+        }
+
         public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {
             if (dbDefault) return false;
+            pais = Util.Trim(pais);
+            tipoEstrategia = Util.Trim(tipoEstrategia);
+            if (pais == "" || tipoEstrategia == "") return false;
 
-            bool paisHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado.Contains(pais); //WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
-            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            var configMs = GetConfigMicroserviciosPersonalizacion();
+
+            bool paisHabilitado = configMs.PaisHabilitado.Contains(pais);
+            bool tipoEstrategiaHabilitado = configMs.EstrategiaHabilitado.Contains(tipoEstrategia);
+
             return paisHabilitado && tipoEstrategiaHabilitado;
         }
 
         public bool UsarMsPersonalizacion(string tipoEstrategia)
         {
-            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            tipoEstrategia = Util.Trim(tipoEstrategia);
+            if (tipoEstrategia == "") return false;
+
+            bool tipoEstrategiaHabilitado = GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
         }
 
         public bool UsarLocalStorage(string tipoEstrategia)
         {
-            if (_sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage.IsNullOrEmptyTrim())
+            tipoEstrategia = Util.Trim(tipoEstrategia);
+            if (tipoEstrategia == "") return false;
+
+            var configMs = GetConfigMicroserviciosPersonalizacion();
+            if (configMs.GuardaDataEnLocalStorage.IsNullOrEmptyTrim())
                 return false;
 
-            bool usaLocalStorage = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage.Contains(tipoEstrategia);
+            bool usaLocalStorage = configMs.GuardaDataEnLocalStorage.Contains(tipoEstrategia);
             return usaLocalStorage;
         }
 
         public bool UsarSession(string tipoEstrategia)
         {
-            if (_sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.IsNullOrEmptyTrim())
+            tipoEstrategia = Util.Trim(tipoEstrategia);
+            if (tipoEstrategia == "") return false;
+
+            var configMs = GetConfigMicroserviciosPersonalizacion();
+            if (configMs.GuardaDataEnSession.IsNullOrEmptyTrim())
                 return false;
 
-            bool usaSession = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.Contains(tipoEstrategia);
+            bool usaSession = configMs.GuardaDataEnSession.Contains(tipoEstrategia);
             return usaSession;
         }
 
         public bool UsaFichaMsPersonalizacion(string tipoEstrategia)
         {
-            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaDisponibleParaFicha.Contains(tipoEstrategia); 
+            tipoEstrategia = Util.Trim(tipoEstrategia);
+            if (tipoEstrategia == "") return false;
+
+            var msPersonalizacionConfi = GetConfigMicroserviciosPersonalizacion();
+            bool tipoEstrategiaHabilitado = msPersonalizacionConfi.EstrategiaDisponibleParaFicha.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
+        }
+
+        public async Task<T> PostAsyncMicroservicioSearch<T>(string url, object data) where T : class, new()
+        {
+            var dataJson = JsonConvert.SerializeObject(data);
+            var stringContent = new StringContent(dataJson, Encoding.UTF8, contentType);
+            var httpResponse = await httpClient.PostAsync(url, stringContent);
+
+            if (httpResponse == null || !httpResponse.IsSuccessStatusCode) return new T();
+
+            var httpContent = await httpResponse.Content.ReadAsStringAsync();
+            var dataObject = JsonConvert.DeserializeObject<T>(httpContent);
+
+            return dataObject;
         }
 
     }

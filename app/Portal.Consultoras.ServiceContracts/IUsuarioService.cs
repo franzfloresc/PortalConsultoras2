@@ -1,7 +1,9 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion;
 using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
@@ -177,6 +179,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID);
+
+        [OperationContract]
+        IList<BEMisPedidosDetalle> GetMisPedidosDetallePendientesAll(int paisId, int campaniaId, long consultoraId);
 
         [OperationContract]
         int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania);
@@ -394,7 +399,7 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         #region Pin Autenticidad
-        [OperationContract]
+        [OperationContract]        
         BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb);
         [OperationContract]
         BERespuestaSMS EnviarSmsVerificacionAutenticidad(int paisID, BEUsuarioDatos oUsu);
@@ -421,6 +426,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string ActualizarNovedadBuscador(int paisID, string codigoUsuario);
 
+        [OperationContract]
+        IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest);
+
         #region ActualizacionDatos
         [OperationContract]
         BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
@@ -439,5 +447,35 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega);
         #endregion
+
+        #region Camino Brillante
+        [OperationContract]
+        BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad);
+
+        [OperationContract]
+        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp);
+        #endregion
+
+        [OperationContract]
+        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario,string tipoEnvio1, string tipoEnvio2);
+
+        [OperationContract]
+        int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual);
+
+        [OperationContract]
+        int ActualizarFijo(int PaisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual);
+
+        [OperationContract]
+        int ValidaEstadoPopup(int PaisID);
+
+
+        [OperationContract]
+        List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario);
+
+        [OperationContract]
+        List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos);
+        
+        [OperationContract]
+        IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania);
     }
 }

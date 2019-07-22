@@ -21,14 +21,7 @@
         {
             <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Actualizar datos" class="subir_foto_mobile subir_foto_mobile_menu default-background"></a>
             <div class="foto_usuaria_mobile">
-                @if (ViewBag.FotoPerfilAncha)
-                {
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%" />
-                }
-                else
-                {
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
-                }
+                <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" class="ImageLoadPhotoUser" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
             </div>
         }
     </div>
@@ -37,7 +30,7 @@
 
     <div class="botones" id="ulNavPrincipal-0" data-menu-count="@(itemsMenu.Count())">
         <a role="menu" region="Menú Lateral" parent="Ingresa tu Pedido" title="Ingresa tu Pedido"
-           class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido">INGRESA<b>TU PEDIDO</b></a>
+           class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido">INGRESA <b>TU PEDIDO</b></a>
 
         @foreach (var item in itemsMenu)
         {
@@ -45,13 +38,15 @@
             {
                 if (item.Descripcion != "¿Necesitas ayuda?")
                 {
-                    if (!esDigital && item.Descripcion == "Bonificaciones")
+                    /* INI HD-4086 */
+                    if (!esDigital && item.MenuMobileID == Constantes.MenuMobileId.Bonificaciones)
                     {
                         continue;
                     }
+                    /* FIN HD-4086 */
                     <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
                        class="menu_mobile_belcorp @item.ClaseMenu @item.ClaseMenuItem" target="@item.PageTarget"
-                       href="@item.UrlItem" @item.OnClickFunt data-orden="@item.OrdenItem"
+                       href="@item.UrlItem" @Html.Raw(item.OnClickFunt) data-orden="@item.OrdenItem"
                        id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
                         @if (item.UrlImagen != "")
                         {
@@ -73,7 +68,7 @@
                     @foreach (var subItem in item.SubMenu)
                     {
                         <a role="menu" region="Menú Lateral" parent="@subItem.MenuPadreDescripcion" title="@subItem.Descripcion"
-                           class="menu_subHeader" href="@subItem.UrlItem" @subItem.OnClickFunt target="@subItem.PageTarget"
+                           class="menu_subHeader" href="@subItem.UrlItem" @Html.Raw(subItem.OnClickFunt) target="@subItem.PageTarget"
                            id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()">
                             @subItem.Descripcion
                             @if (tipoUsuario == 2 && subItem.Descripcion.ToLower().Trim() == "app de catálogos")
@@ -109,7 +104,7 @@
                       background-position: 10px 17px;
                       background-size: 10px;"
                    class="menu_mobile_belcorp indicador_ayuda @item.ClaseMenu @item.ClaseMenuItem" target="@item.PageTarget"
-                   href="@item.UrlItem" @item.OnClickFunt data-orden="@item.OrdenItem"
+                   href="@item.UrlItem" @Html.Raw(item.OnClickFunt) data-orden="@item.OrdenItem"
                    id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
                     @item.Descripcion
                 </a>
@@ -118,5 +113,5 @@
 
     </div>
 
-    <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
+    <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="javascript:CerrarSesionValidado();">Cerrar sesión</a>
 </div>

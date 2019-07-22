@@ -355,7 +355,7 @@
             </div>
             <div class="div-3">
                 <div class="titG" style="padding-bottom: 0;">
-                    Color Fondo:
+                    Color de fondo:
                     <h6>(#Hexadecimal)</h6>
                 </div>
                 <br />
@@ -365,7 +365,7 @@
             </div>
             <div class="div-3">
                 <div class="titG" style="padding-bottom: 0;">
-                    Color Texto:
+                    Color de títulos:
                     <h6>(#Hexadecimal)</h6>
                 </div>
                 <br />
@@ -373,6 +373,7 @@
                     @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppColorTexto, new { @maxlength = "7", @size = 7 })
                 </div>
             </div>
+            <div id="divAppComplementoDerecha" style="padding-top:80px"></div>
         </div>
         <div class="sideRight">
             <div class="div-3" style="display: inline-block; text-align: left; margin-bottom:0px;">
@@ -402,6 +403,40 @@
                 </div>
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppCantidadProductos, new { @style = "width: 312px;" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom:0;padding-top:17px">Texto botón inicial:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppTextoBotonInicial, new { @style = "width: 312px;", @maxlength = "24" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom:0">
+                    Texto botón final:
+                    <h6>&nbsp;</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppTextoBotonFinal, new { @style = "width: 312px;", @maxlength = "24" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom:0">
+                    Color del botón:
+                    <h6>&nbsp;</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppColorFondoBoton, new { @maxlength = "7", @size = 7 })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom:0">Color mensaje botón:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppColorTextoBoton, new { @maxlength = "7", @size = 7 })
                 </div>
             </div>
         </div>

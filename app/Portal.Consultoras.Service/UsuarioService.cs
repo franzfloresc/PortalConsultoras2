@@ -1,11 +1,14 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.CDR;
 using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;
@@ -17,17 +20,19 @@ namespace Portal.Consultoras.Service
     {
         private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
         private readonly IDireccionEntregaBusinessLogic _direccionEntregaBusinessLogic;
+        private readonly ICaminoBrillanteBusinessLogic _caminoBrillanteBusinessLogic;
         private readonly IConfiguracionPaisDatosBusinessLogic _configuracionPaisDatosBusinessLogic;
 
-        public UsuarioService() : this(new BLUsuario() , new BLDireccionEntrega(), new BLConfiguracionPaisDatos())
+        public UsuarioService() : this(new BLUsuario() , new BLDireccionEntrega(), new BLCaminoBrillante(), new BLConfiguracionPaisDatos())
         {
 
         }
 
-        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic , IDireccionEntregaBusinessLogic direccionEntregaBusinessLogic, IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic)
+        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic , IDireccionEntregaBusinessLogic direccionEntregaBusinessLogic, ICaminoBrillanteBusinessLogic caminoBrillanteBusinessLogic, IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic)
         {
             _usuarioBusinessLogic =          usuarioBusinessLogic;
             _direccionEntregaBusinessLogic = direccionEntregaBusinessLogic;
+            _caminoBrillanteBusinessLogic = caminoBrillanteBusinessLogic;
             _configuracionPaisDatosBusinessLogic = configuracionPaisDatosBusinessLogic;
         }
 
@@ -341,6 +346,13 @@ namespace Portal.Consultoras.Service
             var blNotificaciones = new BLNotificaciones();
             return blNotificaciones.GetNotificacionesConsultoraDetallePedido(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
+ 
+
+        public IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetSolicitudesPedidoPendiente(PaisID, ConsultoraId, Campania);
+        }
 
         public IList<BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania)
         {
@@ -352,6 +364,12 @@ namespace Portal.Consultoras.Service
         {
             var blMisPedidos = new BLConsultoraOnline();
             return blMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
+        }
+
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetallePendientesAll(int paisId, int campaniaId, long consultoraId)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetMisPedidosDetalleAll(paisId, campaniaId, consultoraId);
         }
 
         public int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
@@ -905,6 +923,15 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ActuaizarNovedadBuscador(paisID, codigoUsuario);
         }
 
+        #region Recomendados
+
+        public IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetRecomendados(RecomendadoRequest);
+        }
+        #endregion
+
         #region Direccion de Entrega
         public BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion)
         {
@@ -945,5 +972,55 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.GetUsuarioOpciones(paisID, codigoUsuario);
         }
         #endregion
+        
+        #region Camino Brillante
+
+        public BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad) {
+            return _caminoBrillanteBusinessLogic.GetConsultoraNivel(entidad);
+        }
+
+        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp)
+        {
+            return _caminoBrillanteBusinessLogic.GetCaminoBrillanteConfiguracion(paisID, esApp);
+        }
+        #endregion
+
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario, tipoEnvio1, tipoEnvio2);
+        }
+
+        public int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarSMS(PaisID, codigoConsultora, tipoEnvio, celularAnterior, celularActual);
+        }
+
+        public int ActualizarFijo(int PaisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarFijo(PaisID, codigoConsultora, tipoEnvio, telefonoAnterior, telefonoActual);
+        }
+
+        public int ValidaEstadoPopup(int PaisID)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ValidaEstadoPopup(PaisID);
+        }
+
+        public List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetTipoEnvioActivos(PaisID, CodigoUsuario);
+        }
+
+        public List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ListarValidacionDatos(beValidacionDatos);
+        }
+
+
     }
 }

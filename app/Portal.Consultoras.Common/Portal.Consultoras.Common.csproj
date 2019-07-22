@@ -162,12 +162,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseUtilities.cs" />
+    <Compile Include="Constante\CodigoUbigeoPortal.cs" />
+    <Compile Include="OrigenPedidoWeb\ConsOrigenPedidoWeb.cs" />
     <Compile Include="Constante\ConsTablaLogica.cs" />
+    <Compile Include="Cryptography\DesAlgorithm.cs" />
+    <Compile Include="Cryptography\HmacShaAlgorithm.cs" />
     <Compile Include="Excel\ExcelProtection.cs" />
     <Compile Include="LogManager\CustomTraceException.cs" />
     <Compile Include="ExcelCellHeader.cs" />
     <Compile Include="ExcelColumn.cs" />
     <Compile Include="ExcelExportHelper.cs" />
+    <Compile Include="OrigenPedidoWeb\OrigenPedidoWebModel.cs" />
     <Compile Include="Nodo.cs" />
     <Compile Include="ClientIP.cs" />
     <Compile Include="CollectionExtension.cs" />
@@ -196,6 +201,7 @@
     <Compile Include="MapUtil.cs" />
     <Compile Include="MaxMind\MaxMindReader.cs" />
     <Compile Include="NeoGridCipher.cs" />
+    <Compile Include="OrigenPedidoWeb\UtilOrigenPedidoWeb.cs" />
     <Compile Include="PagoEnLinea\Data.cs" />
     <Compile Include="PagoEnLinea\DataRequestAut.cs" />
     <Compile Include="PagoEnLinea\JsonHelper.cs" />
@@ -207,6 +213,7 @@
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="Response\GenericResponse.cs" />
     <Compile Include="Rest.cs" />
+    <Compile Include="RestApi.cs" />
     <Compile Include="SeguridadApi\JwtAutentication.cs" />
     <Compile Include="SeguridadApi\JwtContext.cs" />
     <Compile Include="SeguridadApi\JwtModule.cs" />

@@ -67,7 +67,6 @@ $(document).ready(function () {
                 var dateFormat = "mm/dd/yy",
                     from = $("#fechaMin")
                         .datepicker({
-                            // defaultDate: "+1w",
                             changeMonth: true,
                             numberOfMonths: 1
                         })
@@ -77,7 +76,6 @@ $(document).ready(function () {
                             to.val(fecha);
                         }),
                     to = $("#fechaMax").datepicker({
-                        //  defaultDate: "+1w",
                         changeMonth: true,
                         numberOfMonths: 1
                     })
@@ -138,21 +136,21 @@ $(document).ready(function () {
                 $('body').css('overflow-y', '');
             },
             AbrirPoupValidador: function (e) {
-               var overlay = document.getElementById('overlay'),
-                   popup = document.getElementById('popup');
-                   overlay.classList.add('active');
+                var overlay = document.getElementById('overlay'),
+                    popup = document.getElementById('popup');
+                overlay.classList.add('active');
                 popup.classList.add('active');
                 LimpiarCamposPoputValidador();
                 GetCargaListadoPoputValidador();
-                
+
             },
             CerrarPoupValidador: function (e) {
                 var overlay = document.getElementById('overlay'),
                     popup = document.getElementById('popup');
-                    e.preventDefault();
-                    overlay.classList.remove('active');
-                    popup.classList.remove('active');
-                    LimpiarCamposPoputValidador();
+                e.preventDefault();
+                overlay.classList.remove('active');
+                popup.classList.remove('active');
+                LimpiarCamposPoputValidador();
             }
         },
             me.Inicializar = function () {
@@ -242,11 +240,7 @@ function CargaEstadoValidadorDatos() {
         }
     });
 
-
-    //if (data.NombreArchivoCCV.length > 0)
-        document.getElementById("EliminarArchivo").style.display = "block";
-    //else
-    //    $("#nameArchivo").html(OBJETO_MENJASE.validaArchivoCsv);
+    document.getElementById("EliminarArchivo").style.display = "block";
 }
 
 function GetCargaListadoPoputValidador() {
@@ -282,7 +276,7 @@ function LimpiarCamposPoputValidador() {
     localStorage.removeItem("datosCSValidador");
 }
 
-function ConstruyeGrillaPoputValidador(data,valor) {
+function ConstruyeGrillaPoputValidador(data, valor) {
     var Region, Zona, Estado, Consultora;
     $("#divTablaValidador").empty();
 
@@ -306,7 +300,6 @@ function ConstruyeGrillaPoputValidador(data,valor) {
     ];
 
     /*Cabecera*/
-    var cantidadPoputs = "<h2 class='d__block text__bold administracion__popups__grilla__titulo'>" + (parseInt(data.length) + (data.length == 1 ? " Poput" : " Poputs") + " agregados") + "</h2 >";
     var cabecera = "<div class='background__color__m row__grilla administracion__popups__grilla__cabecera'>";
     listColumnas.forEach(function (element) {
         cabecera += "<div class='col__grilla " + (element.claseColumna).toString() + " text__center'>" + (element.tituloColumna).toString() + "</div>";
@@ -330,11 +323,11 @@ function ConstruyeGrillaPoputValidador(data,valor) {
         detalle += "<div class='d__block background__color__m__lighter ui-state-default row__grilla'>";
         detalle += "<div class='col__grilla col__grilla--fondo'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (Region == "0" ? "" : Region) + "</span></div ></div >";
         detalle += "<div class='col__grilla col__grilla--titulo'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (Zona == "0" ? "" : Zona) + "</span></div ></div >";
-        detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (Estado == 0 ? "" : Estado)+ "</span></div ></div >";
-        detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (Consultora == "0" ? "" : Consultora)  + "</span></div ></div >";
+        detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (Estado == 0 ? "" : Estado) + "</span></div ></div >";
+        detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (Consultora == "0" ? "" : Consultora) + "</span></div ></div >";
         detalle += "</div>";
-        }
-    
+    }
+
     detalle += "</div>";
     $("#divTablaValidador").append(cabecera + detalle);
 
@@ -440,7 +433,7 @@ function getCargarArchivoCSVPoputLocalStorageValidador(data) {
         localStorage.setItem('datosCSVValidador', JSON.stringify(data["listArchivo"]));
     }
 }
- /*Fin de carga popup informativo*/
+/*Fin de carga popup informativo*/
 
 function GetCargaDetallePoput(comunicadoid) {
 
@@ -580,7 +573,7 @@ function ClearFileView() {
 }
 
 function getFileCSV() {
-   
+
     var frmData = new FormData();
     var file = document.getElementById("fileCSV").files[0];
     frmData.append("fileCSV", file);
@@ -592,7 +585,7 @@ function getFileCSV() {
         contentType: false,
         processData: false,
         success: function (msg) {
-       
+
             if (msg.dataerror) {
                 alert(msg.archivo);
                 document.getElementById("EliminarArchivo").style.display = "none";

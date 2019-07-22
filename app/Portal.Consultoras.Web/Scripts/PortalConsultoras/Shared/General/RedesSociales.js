@@ -1,6 +1,4 @@
 ﻿var RedesSociales = (function () {
-  
-
 
     var _variables = {
         clickDataCompartir: "[data-compartir]",
@@ -18,9 +16,7 @@
 
         var padre = obj.parents("[data-item]");
         var article = $(padre).find("[data-compartir-campos]").eq(0);
-
-        var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
-
+        
         CompartirRedesSocialesInsertar(article, tipoRedes);
     }
 
@@ -50,8 +46,6 @@
         if (_palanca === "FAV") {
             pcDetalle += "|" + _vol + "|" + _descProd;
         }
-        try {
-        } catch (e) { console.log(e); }
 
         var Item = {
             mCUV: $(article).find(".CUV").val(),
@@ -94,7 +88,7 @@
 
         if (!(typeof AnalyticsPortalModule === 'undefined'))
             AnalyticsPortalModule.MarcaCompartirRedesSociales(tipoRedes, ruta);
-        var url = "";
+
         if (tipoRedes == "FB") {
             var popWwidth = 570;
             var popHeight = 420;
@@ -116,10 +110,7 @@
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaRedesSocialesBuscador('Whatsapp', ruta);
 
-
-
         }
-
 
     }
 
@@ -135,35 +126,7 @@
 
         return "whatsapp://send?text=" + texto;
     }
-
-    var CompartirRedesSocialesAnalytics = function (tipoRedes, ruta, nombre) {
-
-        try {
-            if (typeof origenPedidoWebEstrategia !== "undefined" && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-                rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
-            } else {
-
-                if (tipoRedes === "FB") {
-                    dataLayer.push({
-                        'event': 'socialEvent',
-                        'network': 'Facebook',
-                        'action': 'Share',
-                        'target': ruta
-                    });
-                } else if (tipoRedes == "WA") {
-                    dataLayer.push({
-                        'event': 'socialEvent',
-                        'network': 'Whatsapp',
-                        'action': 'Compartir',
-                        'target': ruta
-                    });
-                }
-            }
-        } catch (e) { console.log(e) }
-
-
-    }
-
+    
     // catalogo compartir por Facebook
     var CompartirFacebook = function (catalogo, campaniaCatalogo, btn) {
         dataLayer.push({
@@ -173,7 +136,6 @@
             'label': catalogo,
             'value': 0
         });
-        InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
         var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
 
@@ -198,7 +160,6 @@
         });
 
         $("#comentarios").val(valContenidoCorreoDefecto);
-        // remover todos los tag
         $('#tagCorreo').removeTagAll();
         // asignar el check al catalogo correspondiente mediante tipoCatalogo
         campaniaEmail = campania;
@@ -219,13 +180,13 @@
 
         var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
         $("#divCheckbox [data-cat]").fadeOut(100);
-        for (var i = 0; i < cata.length; i++) {
-            var cat = $(cata[i]).attr("data-cat");
+        for (var iCata = 0; iCata < cata.length; iCata++) {
+            var cat = $(cata[iCata]).attr("data-cat");
             $("#divCheckbox [data-cat='" + cat + "']").fadeIn(100);
         }
     }
 
-  
+
     // catalogo compartir por Facebook actual
     var CompartirMessengerActual = function (/*catalogo,*/ campaniaCatalogo/*, texto, isMovil, FBAppId*/) {
         dataLayer.push({
@@ -235,28 +196,6 @@
             'label': campaniaCatalogo,
             'value': 0
         });
-
-        //texto = texto.ReplaceAll("/", "%2F");
-        //texto = texto.ReplaceAll(":", "%3A");
-        //texto = texto.ReplaceAll("?", "%3F");
-        //texto = texto.ReplaceAll("=", "%3D");
-        //texto = texto.ReplaceAll("&", "%26");
-        //texto = texto.ReplaceAll(" ", "%20");
-
-        //var popWwidth = 570;
-        //var popHeight = 420;
-        //var left = (screen.width / 2) - (popWwidth / 2);
-        //var top = (screen.height / 2) - (popHeight / 2);
-        //var url;
-        //if (isMovil == true) {
-        //    url = 'fb-messenger://share?link=' + encodeURIComponent(texto) + '&app_id=' + encodeURIComponent(FBAppId);
-        //    window.open(url);
-        //}
-        //else
-        //{
-        //    url = "https://www.facebook.com/dialog/send?app_id=" + FBAppId + "&link=" + texto + "&redirect_uri=" + texto;
-        //    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-        //}
     }
 
     // catalogo email actual
@@ -272,7 +211,6 @@
         });
 
         $("#comentarios").val(tipoCatalogo == 'Todo' ? valContenidoCorreoPilotoDefecto : valContenidoCorreoDefecto);
-        // remover todos los tag
         $('#tagCorreo').removeTagAll();
         // asignar el check al catalogo correspondiente mediante tipoCatalogo
         campaniaEmail = campania;
@@ -290,11 +228,11 @@
         else {
 
             var divs = document.getElementById('divCheckbox').children;
-            for (var i = 0; i < divs.length; i++) {
-                var atribute = divs[i].getAttribute("data-cat");
+            for (var idiv = 0; idiv < divs.length; idiv++) {
+                var atribute = divs[idiv].getAttribute("data-cat");
                 if (atribute == tipoCatalogo) {
-                    divs[i].firstElementChild.firstElementChild.setAttribute("checked", "checked");
-                    divs[i].firstElementChild.lastElementChild.click();
+                    divs[idiv].firstElementChild.firstElementChild.setAttribute("checked", "checked");
+                    divs[idiv].firstElementChild.lastElementChild.click();
                 }
             }
 
@@ -303,7 +241,6 @@
             $('#divCheckbox').fadeIn(100);
 
             $('#CompartirCorreo').fadeIn(100);
-            //$('#CompartirCorreoMobile').fadeIn(100);
 
             for (var i = 0; i < 3; i++) {
                 var cata = $("#divCatalogo" + i + " [data-cam='" + campania + "'][data-estado='1']");
@@ -327,7 +264,6 @@
             'label': campania,
             'value': 0
         });
-        InsertarLogCatalogoDynamo('Whatsapp', campania, catalogo, 1);
 
         texto = _variables.mensajeURLws + texto;
         texto = texto.ReplaceAll("/", "%2F");
@@ -349,7 +285,6 @@
             'label': catalogo,
             'value': 0
         });
-        InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
     }
 
     var _bindingEvents = function () {

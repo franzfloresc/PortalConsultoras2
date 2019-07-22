@@ -8,6 +8,9 @@ namespace Portal.Consultoras.Web.Models
         public string OrigenUrl { get; set; }
         public int OrigenAgregar { get; set; }
         public int OrigenAgregarCarrusel { get; set; }
+        public int OrigenAgregarCarruselCroselling { get; set; }
+        public int OrigenAgregarCarruselSugeridos { get; set; }
+        public string CodigoUbigeoPortal { get; set; } //util para la marcación analytics de Ficha Resumida
         public string Palanca { get; set; }
         public bool TieneSession { get; set; }
         public int Campania { get; set; }
@@ -36,10 +39,21 @@ namespace Portal.Consultoras.Web.Models
         public bool NoEsCampaniaActual { get; set; }
 
         public bool Error { get; set; }
+
         public int Cantidad { get; set; }
 
         public bool MostrarCliente { get; set; }
 
-        public bool MostrarAdicional { get; set; }
+        public bool MostrarFichaEnriquecida { get; set; }
+
+        public bool MostrarUpselling { get; set; }
+    }
+
+    public class DetalleEstrategiaFichaDisenoModel : DetalleEstrategiaFichaModel
+    {
+        public string ImagenFondo { get; set; }
+        public string ColorFondo { get; set; }
+        public string SubTitulo { get; set; }
+        public string ColorTexto { get; set; }
     }
 }

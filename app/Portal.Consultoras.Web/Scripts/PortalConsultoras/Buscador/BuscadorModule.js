@@ -1,6 +1,7 @@
 ﻿var BuscadorPortalConsultoras;
 var CategoriaProductosDatos;
 var xhr = null;
+var baseUrl = baseUrl || "";
 
 var delay = (function () {
     var timer = 0;
@@ -209,7 +210,7 @@ var BuscadorModule = (function () {
                 }
             } else {
                 $(".seccion_categorias_productos_busqueda_wrapper").fadeOut(150);
-            } 
+            }
         },
         EsAlfanumericoLetras: function (valorBusqueda) {
             var letras = "abcdefghyjklmnñopqrstuvwxyzáéíóú";
@@ -373,7 +374,7 @@ var BuscadorModule = (function () {
 
                 if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) {
                     $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
-                }                
+                }
             }
         },
         LimpiarCampoBusqueda: function (e) {
@@ -384,12 +385,11 @@ var BuscadorModule = (function () {
             $("#CampoBuscadorProductos").focus();
             $("#ResultadoBuscador").html("");
 
-            if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) { 
+            if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) {
                 $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
-            }            
+            }
         },
         CerrarResultadosBusqueda: function (e) {
-            //e.preventDefault();
             var buscadorProductos = $(".buscador_productos");
             var seMuestraListaResultadosBusqueda = $(".lista_resultados_busqueda_productos").css("display") == "block";
             if (seMuestraListaResultadosBusqueda) {
@@ -421,24 +421,36 @@ var BuscadorModule = (function () {
             var codigoCuv = $(divPadre).find(".hdBuscadorCUV").val();
             var OrigenPedidoWeb = $(divPadre).find(".hdBuscadorOrigenPedidoWeb").val();
             var descripcionProducto = $(divPadre).find(".hdBuscadorDescripcion").val();
+            var tipoPersonalizacionProducto = $(divPadre).find(".hdBuscadorTipoPersonalizacion").val();
 
             var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
+            var tipoPersonalizacion = ["CAT"];
 
             if (textoBusqueda != "")
-                localStorage.setItem('valorBuscador', textoBusqueda);            
+                localStorage.setItem('valorBuscador', textoBusqueda);
 
+            var UrlDetalle = "";
             if (codigo.indexOf(codigoEstrategia) >= 0) {
-                var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
-                if (UrlDetalle === "") return false;
-                UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-                _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);
-                window.location = UrlDetalle;
-
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
-
-                return true;
+                UrlDetalle = FichaVerDetalle.GetPalanca(codigoEstrategia, OrigenPedidoWeb);
             }
+            if (UrlDetalle == "" && tipoPersonalizacion.indexOf(tipoPersonalizacionProducto) >= 0) {
+                UrlDetalle = FichaVerDetalle.GetUrlTipoPersonalizacion(tipoPersonalizacionProducto);
+                //
+                var key = ConstantesModule.KeysLocalStorage.DescripcionProductoCatalogo(codigoCampania, codigoCuv);
+                if (descripcionProducto != '') localStorage.setItem(key, descripcionProducto);
+            }
+
+            if (UrlDetalle === "") return false;
+
+            UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
+            _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);
+            
+            window.location = UrlDetalle;
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
+
+            return true;
         },
         ClickVerTodos: function () {
             var valorBusqueda = $(_elementos.campoBuscadorProductos).val();
@@ -453,11 +465,12 @@ var BuscadorModule = (function () {
         },
         RedireccionarMenuPrincipal: function (e) {
             e.preventDefault();
+             
             if (!_config.isMobile) {
-                window.location.href = '/Bienvenida';
+                window.location.href = baseUrl+'Bienvenida';
             }
             else {
-                window.location.href = '/Mobile/Bienvenida';
+                window.location.href = baseUrl +'Mobile/Bienvenida';
             }
         }
     };

@@ -3,9 +3,8 @@
     if (typeof config === "undefined" || config === null) throw "config parameter is null";
 
     var _config = {
-        //urlPanelMantener: config.urlPanelMantener || "",
         urlPanelMantener: "#hfUrlFrmRegistro",
-        tusClientesProvider: config.tusClientesProvider /*|| TusClientesProvider()*/
+        tusClientesProvider: config.tusClientesProvider
     };
 
     var _elements = {
@@ -14,13 +13,13 @@
         btnAgregar: "#btnPanelListaAgregar",
         txtNombreCliente: "#txtPanelListaBusqueda",
         btnBuscarCliente: "#btnBuscarCliente",
-        //
+
         hfPaisID: "#hfPaisID",
         hfClienteID: "#hfClienteID",
         hfCodigoCliente: "#hfCodigoCliente",
         hfNombreCliente: "#hfNombreCliente",
         hfNombre: "#hfNombre",
-        //
+
         hbsClientes: "#handlebars_plantilla1",
         divClientes: "#handlebars_contenedor1",
 
@@ -79,8 +78,7 @@
     };
 
     var _seleccionarRegistro = function (paisId, clienteId, codigoCliente, nombreCliente, nombre) {
-        //console.log(paisId, clienteId, codigoCliente, nombreCliente, nombre);
-
+        
         paisId = paisId || "";
 
         $(_elements.hfPaisID).val(paisId);
@@ -90,11 +88,11 @@
         $(_elements.hfNombre).val(nombre);
 
         if (paisId != "") {
-            console.log('_seleccionarRegistro - DivPopupFichaResumida overflow auto');
             $("#DivPopupFichaResumida").css("overflow", "auto");
         }
 
         $("#btnPanelListaAceptar").click();
+        
     };
 
     var _renderLayoutPanel = function () {

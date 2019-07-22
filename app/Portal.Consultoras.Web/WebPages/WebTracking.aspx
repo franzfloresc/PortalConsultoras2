@@ -195,11 +195,11 @@
                                 <td>                                                                        
                                     <table style="width: 100%;"> <!--ESTILOS DE LA PRIMERA GRILLA-->
                                         <tr>
-                                            <td id="cellPedidos" runat="server" class="width_50" style="vertical-align: top; text-align: left">                                               
+                                            <td id="cellPedidos" runat="server" class="width_37 grilla_lista_mis_pedidos" style="vertical-align: top; text-align: left">                                               
                                                 <asp:Panel ID="pFiltros" runat="server" Width="100%"
                                                     ForeColor="#666666" GroupingText="Mis <b>pedidos</b>"
                                                     Font-Names="verdana" Font-Size="8pt" HorizontalAlign="Left">
-                                                    <asp:GridView ID="gridPedidos" runat="server" AutoGenerateColumns="False" CssClass="tabla2"
+                                                    <asp:GridView ID="gridPedidos" runat="server" AutoGenerateColumns="False" CssClass="tabla2 width_100"
                                                         GridLines="Horizontal" OnRowCommand="gridPedidos_RowCommand" CellPadding="0" CellSpacing="0">
                                                        
                                                         <Columns>
@@ -309,7 +309,7 @@
                                                 </asp:Panel>
 
                                             </td>
-                                            <td class="width_50" style="vertical-align: super; text-align: center"><!--AÑADIR CLASE "width_100" PARA PÁGINA DE MIS PEDIDOS-->
+                                            <td class="width_50 grilla_seguimiento_pedido" style="vertical-align: super; text-align: center"><!--AÑADIR CLASE "width_100" PARA PÁGINA DE MIS PEDIDOS-->
                                                 <asp:Panel ID="pnlSeguimientoPedido" runat="server" Width="100%"
                                                     CssClass="qpanelBorder" ForeColor="#666666" GroupingText="Seguimiento <b>del Pedido</b>"
                                                      Font-Size="10pt" HorizontalAlign="Left">
@@ -340,14 +340,14 @@
                                                     </asp:Panel>
 
                                                     <asp:GridView ID="gridDatos" runat="server" AutoGenerateColumns="False" CssClass="tabla2"
-                                                        GridLines="Horizontal" OnRowDataBound="gridDatos_RowDataBound" CellPadding="0" CellSpacing="0" OnRowCommand="gridDatos_RowCommand">
+                                                        GridLines="Horizontal" OnRowDataBound="gridDatos_RowDataBound" CellPadding="0" OnRowCommand="gridDatos_RowCommand">
 
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="Etapa">
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblEtapa" runat="server" Text='<%# ((GridViewRow) Container).RowIndex + 1 %>'></asp:Label>
                                                                 </ItemTemplate>
-                                                                <HeaderStyle Width="14%" />
+                                                                <HeaderStyle Width="2%" />
                                                             </asp:TemplateField>
                                                             <asp:TemplateField>
                                                                 <ItemTemplate>
@@ -359,7 +359,7 @@
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblSituacion" runat="server" Text='<%# Eval("Situacion") %>' Font-Size="10pt"></asp:Label>
                                                                 </ItemTemplate>
-                                                                <HeaderStyle Width="35%" />
+                                                                <HeaderStyle Width="25%" />
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Fecha">
                                                                 <ItemTemplate>
@@ -368,7 +368,13 @@
                                                                     <asp:Label ID="lblTexto" runat="server" Text='<%# Eval("NumeroPedido") %>' Font-Size="10pt" Visible="false"></asp:Label>
                                                                     <asp:LinkButton ID="imgSegPed" runat="server" CommandName="NOVEDADES" Text="AQUI" Width="28px" Visible="false" />
                                                                 </ItemTemplate>
-                                                                <HeaderStyle Width="35%" />
+                                                                <HeaderStyle Width="25%" />
+                                                            </asp:TemplateField>
+                                                            <asp:TemplateField HeaderText="" ShowHeader="False">
+                                                                <ItemTemplate>
+                                                                    <asp:Label ID="lblHoraEstimadaDesdeHasta" runat="server" Text='<%# Eval("HoraEstimadaDesdeHasta") %>' Font-Size="10pt" color="black"></asp:Label>
+                                                                </ItemTemplate>
+                                                                
                                                             </asp:TemplateField>
                                                             <asp:TemplateField>
                                                                 <ItemTemplate>

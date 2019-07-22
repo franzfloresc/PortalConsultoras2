@@ -3,7 +3,6 @@
 var belcorp = belcorp || {};
 belcorp.showroom = belcorp.showroom || {};
 belcorp.showroom.initialize = function (config) {
-    var self = this;
 
     function initBindings() {
         if (config.botonCerrar) {
@@ -56,20 +55,20 @@ belcorp.showroom.initialize = function (config) {
 
     function desactivarBanner(banner) {
         desactivarPromise()
-        .then(function (result) {
-            if (!result.Success)
-                err(result);
+            .then(function (result) {
+                if (!result.Success)
+                    err(result);
 
-            config.banner.style.display = "none";
+                config.banner.style.display = "none";
 
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Home',
-                'action': 'Ofertas Insuperables',
-                'label': 'Cerrar Pop-up'
-            });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Ofertas Insuperables',
+                    'label': 'Cerrar Pop-up'
+                });
 
-        }, err);
+            }, err);
     }
 
     function desactivarPromise() {

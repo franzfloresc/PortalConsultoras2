@@ -1,16 +1,17 @@
 ﻿var GruposPresenter = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
-    //
     if (typeof config.gruposView === "undefined" || config.gruposView === null) throw "config.gruposView is null or undefined";
-    //if (typeof config.armaTuPackProvider === "undefined" || config.armaTuPackProvider === null) throw "config.armaTuPackProvider is null or undefined";
     if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
     if (typeof config.armaTuPackDetalleEvents === "undefined" || config.armaTuPackDetalleEvents === null) throw "config.armaTuPackDetalleEvents is null or undefined";
+    if (typeof config.analyticsPortalModule === "undefined" || config.analyticsPortalModule === null) throw "config.analyticsPortalModule is null or undefined";
+
 
     var _config = {
         gruposView: config.gruposView,
         armaTuPackProvider: config.armaTuPackProvider,
         generalModule: config.generalModule,
-        armaTuPackDetalleEvents: config.armaTuPackDetalleEvents
+        armaTuPackDetalleEvents: config.armaTuPackDetalleEvents,
+        analyticsPortalModule: config.analyticsPortalModule
     };
 
     var _packComponentsModel = null;
@@ -52,6 +53,7 @@
         if (!Array.isArray(packComponents.componentes) || packComponents.componentes.length === 0) {
             throw "packComponents has no components";
         }
+
         _packComponents(packComponents);
         _config.gruposView.renderGrupos(packComponents);
     };
@@ -79,10 +81,10 @@
         }
         else if (factorCuadre == 1 && cantidadSeleccionadosPorGrupo == factorCuadre) {
             _config.gruposView.showChosen(cuvComponente);
-             _config.gruposView.hideGroupOptions(codigoGrupo);
-             _config.gruposView.showGroupReady(codigoGrupo);
-             _config.gruposView.blockGroup(codigoGrupo,cuvComponente);
-             _config.gruposView.removeGroupHighlight(codigoGrupo);
+            _config.gruposView.hideGroupOptions(codigoGrupo);
+            _config.gruposView.showGroupReady(codigoGrupo);
+            _config.gruposView.blockGroup(codigoGrupo, cuvComponente);
+            _config.gruposView.removeGroupHighlight(codigoGrupo);
         }
         else if (factorCuadre > 1 && cantidadSeleccionadosPorGrupo == factorCuadre) {
             _config.gruposView.showQuantitySelector(cuvComponente, cantidadSeleccionadosPorComponente);
@@ -100,6 +102,14 @@
         codigoGrupo = $.trim(codigoGrupo);
         cuvComponente = $.trim(cuvComponente);
 
+        if (typeof _config.analyticsPortalModule !== "undefined") {
+            //var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+            var estrategia = _packComponents().estrategia || {};
+            var codigoubigeoportal = estrategia.CodigoUbigeoPortal || "";
+            if (codigoubigeoportal !== "") {
+                _config.analyticsPortalModule.MarcaEligeloClickArmaTuPack(codigoubigeoportal, estrategia);
+            }
+        }
         var model = _packComponents();
         var compSelCounter = model.componentesSeleccionados.length;
 

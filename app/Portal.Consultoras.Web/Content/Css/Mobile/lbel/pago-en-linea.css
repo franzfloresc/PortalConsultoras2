@@ -1592,5 +1592,8 @@
     height: 45px !important;
 }
 
-
 /* FIN - POPUP TÉRMINOS Y CONDICIONES */
+
+.childs-tachado > * {
+    text-decoration: line-through;
+}

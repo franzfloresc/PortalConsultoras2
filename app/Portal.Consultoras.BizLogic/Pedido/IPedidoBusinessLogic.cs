@@ -30,10 +30,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle);
         List<BEPedidoDetalleResult> InsertMasivo(List<BEPedidoDetalle> lstPedidoDetalle);
         List<BEProductoRecomendado> GetProductoRecomendado(int paisID, bool RDEsSuscrita, bool RDEsActiva, List<BEProductoRecomendado> lst);
-        Task<BEProducto> GetRegaloOfertaFinal(BEUsuario usuario);
+        BEProducto GetRegaloOfertaFinal(BEUsuario usuario);
         BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle);
         BEPedidoDetalleResult AgregaRegaloDefault(BEPedidoDetalle pedidoDetalle);
         List<BEEstrategia> ListaRegalosApp(BEUsuario usuario);
-
+        BEPedidoDetalleResult RespuestaModificarPedido(BEUsuario usuario);
+        bool InsertKitSE(BEUsuario usuario);
     }
 }

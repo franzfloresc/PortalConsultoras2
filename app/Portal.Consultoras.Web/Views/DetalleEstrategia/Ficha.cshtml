@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Providers
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
@@ -15,25 +16,11 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
     <script type="text/javascript">
-        AbrirLoad();
-
-        var fichaModule;
-
-        $(document).ready(function () {
-            fichaModule = FichaModule({
-                localStorageModule: LocalStorageModule(),
-                analyticsPortalModule: AnalyticsPortalModule,
-                generalModule: GeneralModule,
-                palanca: "@Model.Palanca",
-                campania: "@Model.Campania",
-                cuv: "@Model.Cuv",
-                origen: "@Model.OrigenUrl"
-            });
-            fichaModule.Inicializar();
-
-            CerrarLoad();
-        });
-
-        $(document).ajaxStop(function () { });
+    var modelPalanca = "@Model.Palanca";
+    var modelCampania = "@Model.Campania";
+    var modelCuv = "@Model.Cuv";
+    var modelOrigen = "@Model.OrigenUrl";
+    var urlSinImagenTiposyTonos = '@System.Configuration.ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos)';
     </script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/Ficha.js"></script>
 }

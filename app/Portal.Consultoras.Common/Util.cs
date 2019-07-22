@@ -4,6 +4,8 @@ using MaxMind.Db;
 using MaxMind.Util;
 using Microsoft.IdentityModel.Protocols.WSIdentity;
 using Microsoft.IdentityModel.Protocols.WSTrust;
+using Portal.Consultoras.Common.Exceptions;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -28,7 +30,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Common
 {
@@ -125,6 +126,13 @@ namespace Portal.Consultoras.Common
             DateTime dtValue = new DateTime(iYear, iMonth, iDay);
 
             return dtValue;
+        }
+
+        public static decimal TruncarADecimales(decimal number, int digits)
+        {
+            decimal stepper = (decimal)(Math.Pow(10.0, (double)digits));
+            int temp = (int)(stepper * number);
+            return (decimal)temp / stepper;
         }
 
         /// <summary>
@@ -296,7 +304,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -354,7 +362,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -432,7 +440,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -494,7 +502,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -552,7 +560,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -650,7 +658,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             return true;
         }
@@ -704,7 +712,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -715,6 +723,80 @@ namespace Portal.Consultoras.Common
         public static bool EnviarMailPedido(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
         {
             return Util.EnviarMailPedido(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null);
+        }
+
+        public static bool EnviarMailPedidoPendienteRechazado(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string displayNameDe)
+        {
+            if (string.IsNullOrEmpty(strPara))
+                return true;
+
+            if (strPara.ToLower().Contains("ñ") || strPara.ToLower().Contains("á") || strPara.ToLower().Contains("é") ||
+                strPara.ToLower().Contains("í") || strPara.ToLower().Contains("ó") || strPara.ToLower().Contains("ú"))
+                return true;
+
+            RegexUtilities emailutil = new RegexUtilities();
+            if (!emailutil.IsValidEmail(strPara))
+                return true;
+
+            string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
+            string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
+            string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
+
+            MailMessage objMail = new MailMessage();
+            SmtpClient objClient = new SmtpClient(strServidor);
+
+            AlternateView avHtml = AlternateView.CreateAlternateViewFromString(String.Format(strMensaje, "Logo"), null, MediaTypeNames.Text.Html);
+
+            LinkedResource logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/logotipo_belcorp_05.png"), MediaTypeNames.Image.Gif);
+            logo.ContentId = "Logo";
+            avHtml.LinkedResources.Add(logo);
+
+            if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
+            {
+                strPara = strUsuario;
+            }
+            objMail.AlternateViews.Add(avHtml);
+            objMail.To.Add(strPara);
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
+                ? new MailAddress(strDe)
+                : new MailAddress(strDe, displayNameDe);
+
+            var css = "a,body,table,td{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}table,td{mso-table-lspace:0;mso-table-rspace:0}img{-ms-interpolation-mode:bicubic}img{border:0;height:auto;line-height:100%;outline:0;text-decoration:none}a.disable-link{pointer-events:none;cursor:default}table{border-collapse:collapse!important}body{height:100%!important;margin:0!important;padding:0!important;width:100%!important}a[x-apple-data-detectors=true]{color:inherit!important;text-decoration:none!important;font-size:inherit!important;font-family:inherit!important;font-weight:inherit!important;line-height:inherit!important}@media screen and (max-width:480px){.mobile-hide{display:none!important}.mobile-center{text-align:center!important}.centerImage{width:100%!important}.centerMobile{text-align:center}.noPaddingTop{padding-top:35px!important}a[class=disable-link]{pointer-events:auto!important;cursor:auto!important;text-decoration:underline!important}}div[style*='margin: 16px 0;']{margin:0!important}";
+            var head = "<head> <meta charset = 'UTF-8'>  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0' >    <meta http-equiv = 'X-UA-Compatible' content = 'ie=edge' ><link href = 'https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i' rel = 'stylesheet'><style type='text/css'>" + css + "</style></head>";
+
+            StringBuilder body = new StringBuilder();
+            body.Append("<HTML>" + head + "<body topmargin='0' leftmargin='0' marginheight='0' marginwidth='0' style='font-family:Lato, Arial, Helvetica, Arial, sans-serif;'> ");
+
+            body.Append(String.Format(strMensaje, logo.ContentId));
+ 
+            body.Append("</body></HTML>");
+
+
+            objMail.Subject = strTitulo;
+            objMail.Body = body.ToString();
+            objMail.IsBodyHtml = isHTML;
+
+            NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
+            objClient.EnableSsl = true;
+            objClient.Credentials = credentials;
+
+            try
+            {
+                objClient.Send(objMail);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+            }
+            finally
+            {
+                objMail.Dispose();
+            }
+            return true;
+        }
+        public static bool EnviarMailPedidoPendienteRechazado(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc)
+        {
+            return Util.EnviarMailPedidoPendienteRechazado(strDe, strPara, strTitulo, strMensaje, isHTML, strBcc, null);
         }
 
 
@@ -768,7 +850,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -827,7 +909,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ClientInformationException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -876,7 +958,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ClientInformationException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -946,13 +1028,13 @@ namespace Portal.Consultoras.Common
                     }
                     catch (Exception ex)
                     {
-                        throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                        throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
                     }
                 });
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ClientInformationException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -961,6 +1043,61 @@ namespace Portal.Consultoras.Common
             return Util.EnviarMailMasivoColas2(strDe, strPara, strTitulo, strMensaje, isHTML, tags, null);
         }
 
+        public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null)
+        {
+            if (string.IsNullOrEmpty(strPara))
+                return false;
+
+            if (strPara.ToLower().Contains("ñ") || strPara.ToLower().Contains("á") || strPara.ToLower().Contains("é") ||
+                strPara.ToLower().Contains("í") || strPara.ToLower().Contains("ó") || strPara.ToLower().Contains("ú"))
+                return false;
+
+            RegexUtilities emailutil = new RegexUtilities();
+            if (!emailutil.IsValidEmail(strPara))
+                return false;
+
+            string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
+            string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
+            string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
+
+            MailMessage objMail = new MailMessage();
+            SmtpClient objClient = new SmtpClient(strServidor);
+
+            AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
+
+            if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
+            {
+                strPara = strUsuario;
+            }
+            objMail.AlternateViews.Add(avHtml);
+            objMail.To.Add(strPara);
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
+                ? new MailAddress(strDe)
+                : new MailAddress(strDe, displayNameDe);
+
+            objMail.Subject = strTitulo;
+            objMail.Body = strMensaje;
+            objMail.IsBodyHtml = isHTML;
+
+            NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
+            objClient.EnableSsl = true;
+            objClient.Credentials = credentials;
+
+            try
+            {
+                objClient.Send(objMail);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+            }
+            finally
+            {
+                objMail.Dispose();
+            }
+            return true;
+        }
+      
         /// <summary>
         /// Metodo que permite llenar la entidad de páginación para grillas sin filtros
         /// </summary>
@@ -2599,13 +2736,13 @@ namespace Portal.Consultoras.Common
             string iso;
             try
             {
-                iso =  (from c in listaPaises
-                        where c.Key == paisID.ToString()
-                        select c.Value).SingleOrDefault();
+                iso = (from c in listaPaises
+                       where c.Key == paisID.ToString()
+                       select c.Value).SingleOrDefault();
             }
             catch (Exception)
             {
-                throw new Exception("Hubo un error en obtener el País");
+                throw new ClientInformationException("Hubo un error en obtener el País");
             }
             return (iso == null ? string.Empty : iso);
         }
@@ -2625,7 +2762,7 @@ namespace Portal.Consultoras.Common
 
         public static bool CheckIsImage(string contentType, string allowSubtypes)
         {
-            if (contentType == null) throw new ArgumentNullException("contentType", "Este parametro es obligatorio");
+            if (contentType == null) throw new ClientInformationException("contentType Este parametro es obligatorio");
             var result = contentType.StartsWith("image/");
             if (result && allowSubtypes != null)
             {
@@ -3276,6 +3413,11 @@ namespace Portal.Consultoras.Common
             return displayTiempo;
         }
 
+        public static DateTime GetDiaActual(double zonaHoraria)
+        {
+            return DateTime.Now.AddHours(zonaHoraria).Date;
+        }
+
         public static int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
         {
             var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
@@ -3505,7 +3647,7 @@ namespace Portal.Consultoras.Common
 
         public static string EnmascararCorreo(string correo)
         {
-            if (string.IsNullOrEmpty(correo.Trim())) return "";
+            if (string.IsNullOrWhiteSpace(correo)) return "";
             string[] separada = correo.Split('@');
             int inicio = 2;
             int final = 1;
@@ -3585,7 +3727,7 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
-     
+
         public static class Security
         {
             public static string ToMd5(string input)
@@ -3616,10 +3758,18 @@ namespace Portal.Consultoras.Common
             }
         }
 
+
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+
         //Validación de la descripción del producto
         public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista,
             bool suscripcion,
-            string codigoEstrategia,
+            string tipoPersonalizacion,
             string tipoEstrategiaCodigo,
             int marcaId,
             int codigoCatalago,
@@ -3643,23 +3793,34 @@ namespace Portal.Consultoras.Common
                         result = lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE];
                         break;
                     default:
-                        result = "";
+                        if (marcaId == Constantes.Marca.Esika)
+                        {
+                            result = lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA];
+                        }
+                        if (marcaId == Constantes.Marca.Cyzone)
+                        {
+                            result = lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE];
+                        }
+                        if (marcaId == Constantes.Marca.LBel)
+                        {
+                            result = lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL];
+                        }
                         break;
                 }
             }
             else
             {
-                switch (codigoEstrategia)
+                switch (tipoPersonalizacion)
                 {
-                    case "LIQ":
+                    case Constantes.TipoPersonalizacion.Liquidacion:
                         result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
                         break;
-                    case "CAT":
+                    case Constantes.TipoPersonalizacion.Catalogo:
                         result = (marcaId == 1 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL] :
                             (marcaId == 2 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA] :
                             lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE]));
                         break;
-                    case "ODD":
+                    case Constantes.TipoPersonalizacion.OfertaDelDia:
                         result = lista[Constantes.NuevoCatalogoProducto.SOLOHOY];
                         break;
                     default:
@@ -3705,12 +3866,14 @@ namespace Portal.Consultoras.Common
 
         public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
             bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion, string tipoEstrategiaCodigo,
-            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec, bool esCuponIndependiente)
+            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec, bool esCuponIndependiente, int? OrigenPedidoWeb = null,
+            bool esCaminoBrillante = false)
         {
             if (esPremioElec) return lista[Constantes.NuevoCatalogoProducto.ESPREMIOELEC];
             if (esCuponIndependiente) return lista[Constantes.NuevoCatalogoProducto.ESCUPONINDEPENDIENTE];
             if (EsElecMultipleNuevas) return lista[Constantes.NuevoCatalogoProducto.ESELECMULTIPLENUEVAS];
             if (esCuponNuevas) return lista[Constantes.NuevoCatalogoProducto.ESCUPONNUEVAS];
+            if (esCaminoBrillante) return "CAMINO BRILLANTE";
 
             var result = "";
             if (pedidoValidado)
@@ -3743,182 +3906,118 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                if (consultoraOnline) result = "CLIENTE ONLINE";
-                else
+                switch (origenPedido)
                 {
-                    switch (origenPedido)
-                    {
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
-                            result = "";
-                            break;
-                        default:
-                            result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
+                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
+                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
+                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
+                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
+                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
+                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
+                        result = "";
+                        break;
+                    default:
+                        result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
 
-                            if (result == "") result = descripcion;
+                        if (result == "") result = descripcion;
 
-                            if (string.IsNullOrWhiteSpace(result))
+                        if (string.IsNullOrWhiteSpace(result))
+                        {
+                            switch (ofertaId)
                             {
-                                switch (ofertaId)
-                                {
-                                    case Constantes.TipoOferta.Liquidacion:
-                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
-                                        break;
-                                    case Constantes.TipoOferta.Flexipago:
-                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
-                                        break;
-                                    default:
-                                        result = "";
-                                        break;
-                                }
+                                case Constantes.TipoOferta.Liquidacion:
+                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                                    break;
+                                case Constantes.TipoOferta.Flexipago:
+                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
+                                    break;
+                                default:
+                                    result = "";
+                                    break;
                             }
+                        }
 
-                            break;
-                    }
+                        break;
                 }
             }
 
             return result;
         }
 
-        public static string obtenerCodigoOrigenWeb(string codigoEstrategia,string codigoTipoEstrategia,
+        public static string obtenerCodigoOrigenWeb(string tipoPersonalizacion, string codigoTipoEstrategia,
             int marcaId, bool mobile, bool home, bool recomendaciones, bool materialGanancia, bool suscripcion)
 
         {
-            var result = "";
+            var modelo = new OrigenPedidoWebModel();
+            modelo.Dispositivo = mobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop;
+            modelo.Seccion = recomendaciones ? ConsOrigenPedidoWeb.Seccion.Recomendado : home ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
+            modelo.Pagina = recomendaciones ? ConsOrigenPedidoWeb.Pagina.Pedido : home ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
 
-            switch (codigoEstrategia)
+            switch (tipoPersonalizacion)
             {
-                case "LIQ":
-                    result = home ?
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() : 
-                            Constantes.OrigenPedidoWeb.DesktopBuscadorLiquidacionDesplegableBuscador.ToString())
-                        :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLiquidacionCarrusel.ToString() : 
-                            Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLiquidacionCarrusel.ToString());
-                    break;
-                case "CAT":
-                    result = home ?
-                        ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() : 
-                                Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoLbelDesplegableBuscador.ToString()) :
-                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() : 
-                                Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoEsikaDesplegableBuscador.ToString()) :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() : 
-                            Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoCyzoneDesplegableBuscador.ToString()))))
-                        :
-                         ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoLbelCarrusel.ToString() : 
-                                 Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoLbelCarrusel.ToString()) :
-                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoEsikaCarrusel.ToString() : 
-                                Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoEsikaCarrusel.ToString()) :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() : 
-                            Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoCyzoneCarrusel.ToString()))));
+                case Constantes.TipoPersonalizacion.Catalogo:
+                    modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaId);
                     break;
                 default:
-                    switch (codigoTipoEstrategia)
-                    {
-                        case Constantes.TipoEstrategiaCodigo.ShowRoom:
-                            result = recomendaciones ? 
-                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom.ToString()) 
-                                : home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador.ToString())
-                                :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomCarrusel.ToString());
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                            result = recomendaciones ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLan.ToString() :
-                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan.ToString())
-                                : home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador.ToString())
-                                :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosCarrusel.ToString());
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
-                        case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
-                        case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                            result = recomendaciones && materialGanancia ? 
-                                    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras.ToString() :
-                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras.ToString())
-                                : materialGanancia && suscripcion ? (home ?
-                                            (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable.ToString() :
-                                                Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable.ToString())
-                                            :
-                                            (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel.ToString() :
-                                                Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel.ToString()))
-                                : recomendaciones ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpm.ToString() :
-                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm.ToString())
-                                : home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador.ToString())
-                                :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel.ToString());
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-                            result = recomendaciones ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOdd.ToString() :
-                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd.ToString())
-                                : home ?
-                                 (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : 
-                                     Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString())
-                                 :
-                                 (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() : 
-                                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString());
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                            result = home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador.ToString())
-                                :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDCarrusel.ToString());
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                            result = recomendaciones ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHv.ToString() :
-                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv.ToString())
-                                : home ?
-                               (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() : 
-                                   Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador.ToString())
-                               :
-                               (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel.ToString() : 
-                                   Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel.ToString());
-                            break;
-                    }
+                    codigoTipoEstrategia = tipoPersonalizacion == Constantes.TipoPersonalizacion.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
+                    modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoTipoEstrategia, materialGanancia, recomendaciones, suscripcion);
                     break;
             }
+            return UtilOrigenPedidoWeb.ToStr(modelo);
 
-            return result;
         }
 
+        public static int obtenerCodigoOrigenWebApp(string tipoPersonalizacion, string codigoTipoEstrategia, int marcaId, bool desplegable, bool landing, bool ficha, bool fichaCarrusel, bool materialGanancia)
+        {
+
+            if (desplegable == landing)
+            {
+                return 0;
+            }
+
+            var modelo = new OrigenPedidoWebModel
+            {
+                Dispositivo = ConsOrigenPedidoWeb.Dispositivo.AppConsultora
+            };
+            modelo.Pagina = desplegable ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
+            modelo.Seccion = UtilOrigenPedidoWeb.GetSeccionSegunFicha(ficha, fichaCarrusel, desplegable);
+
+            switch (tipoPersonalizacion)
+            {
+                case Constantes.TipoPersonalizacion.Catalogo:
+                    modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaId);
+                    break;
+                default:
+                    codigoTipoEstrategia = tipoPersonalizacion == Constantes.TipoPersonalizacion.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
+                    modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoTipoEstrategia, materialGanancia);
+                    break;
+            }
+            return UtilOrigenPedidoWeb.ToInt(modelo);
+        }
 
         public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
         {
             var tipoPersonalizacion = string.Empty;
-
+            
             switch (codigoEstrategia)
             {
-                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                    tipoPersonalizacion = Constantes.TipoPersonalizacion.Lanzamiento;
-                    break;
                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaParaTi;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.Lanzamiento;
                     break;
                 case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertasParaMi;
                     break;
                 case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.PackAltoDesembolso;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
                     break;
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.GuiaDeNegocioDigitalizada;
@@ -3929,11 +4028,17 @@ namespace Portal.Consultoras.Common
                 case Constantes.TipoEstrategiaCodigo.ShowRoom:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.ShowRoom;
                     break;
-                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
-                    break; 
-                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
-                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack;
+                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.RevistaDigital;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.Catalogo:
+                    tipoPersonalizacion = Constantes.TipoEstrategiaCodigo.Catalogo;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.CaminoBrillanteDemostradores:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.CaminoBrillanteDemostradores;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.CaminoBrillanteKits:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.CaminoBrillanteKits;
                     break;
                 default:
                     break;
@@ -3957,6 +4062,7 @@ namespace Portal.Consultoras.Common
             fnSet(value);
             return value;
         }
+
         public static string ProcesarOrigenPedidoAppFicha(string origenActual)
         {
             if (string.IsNullOrEmpty(origenActual)) return origenActual;
@@ -3980,6 +4086,11 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
+        public static string OrigenSegunDispositivo()
+        {
+            return EsDispositivoMovil() ? "sb-mobile" : "sb-desktop";
+        }
+
         public static string DecryptCryptoJs(string CipherText, string Password, string Salt, string Key, string Iv)
         {
             var cipherText = Convert.FromBase64String(CipherText);
@@ -3991,18 +4102,42 @@ namespace Portal.Consultoras.Common
             var iv = Convert.FromBase64String(Iv);
             if (!Enumerable.SequenceEqual(iv, crypto.IV))
             {
-                throw new Exception("IVs do not match");
+                throw new ClientInformationException("IVs do not match");
             }
 
             var key = Convert.FromBase64String(Key);
             if (!Enumerable.SequenceEqual(key, crypto.Key))
             {
-                throw new Exception("Keys do not match");
+                throw new ClientInformationException("Keys do not match");
             }
 
             var plainText = crypto.Decrypt(cipherText);
 
             return Encoding.UTF8.GetString(plainText);
+        }
+
+        public static int convertirAEstadoBuro(int estado)
+        {
+            switch (estado)
+            {
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Datacredito_con_error_de_escritura_en_sus_BD:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Documento_existe_en_fuentes_oficiales:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Nombres_o_Apellidos_corresponden_al_Documento:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                default: return estado;
+            }
+        }
+
+        public static List<string> GetCodigosCatalogo()
+        {
+            return new List<string>
+            {
+                Constantes.ODSCodigoCatalogo.CatalogoCyzone,
+                Constantes.ODSCodigoCatalogo.CatalogoEbel,
+                Constantes.ODSCodigoCatalogo.CatalogoEsika,
+            };
         }
     }
 
@@ -4322,5 +4457,7 @@ namespace Portal.Consultoras.Common
                 updator(item);
             }
         }
-    }    
+    }
+
+
 }

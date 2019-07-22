@@ -82,7 +82,7 @@ function OfertaObtenerFiltro(filtro, clear) {
         }
     }
 
-    var listaFiltros = Clone(filtroIni);
+    listaFiltros = Clone(filtroIni);
     campaniaId = campaniaId || $(filtro).parents("[data-listado-campania]").attr("data-listado-campania") || 0;
     campaniaId = parseInt(campaniaId) || 0;
     listaFiltros.CampaniaID = campaniaId;
@@ -246,7 +246,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     $.ajaxSetup({
         cache: false
     });
-    //console.log('OfertaCargarProductos - ajax', busquedaModel, busquedaModel.UrlCargarProductos);
+
     busquedaModel.IsMobile = isMobile();
     jQuery.ajax({
         type: 'POST',
@@ -284,8 +284,7 @@ function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
             CantidadMostrar: response.lista.length,
             Origen: origen
         };
-
-        //console.log('OfertaCargarProductoRespuesta', obj);
+        
         AnalyticsPortalModule.MarcaGenericaLista("", obj);
     }
 

@@ -19,6 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -298,6 +301,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
             Mapper.CreateMap<BETracking, SeguimientoMobileModel>();
+            Mapper.CreateMap<BETracking, PedidoSeguimientoModel>();
 
 
             Mapper.CreateMap<ServiceCliente.BECliente, ClienteModel>();
@@ -656,10 +660,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<ServiceCliente.BEPedidoWeb, PedidoWebMobilModel>()
                .ForMember(t => t.Descuento, f => f.MapFrom(c => -1 * c.DescuentoProl));
-            
+
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebClienteMobilModel>();
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebDetalleMobilModel>();
             Mapper.CreateMap<ServicePedido.BEEstrategia, PremioElectivoModel>()
+                .ForMember(t => t.Precio2, f => f.MapFrom(c => c.PrecioUnitario))
                 .ForMember(t => t.DescripcionResumen, f => f.MapFrom(c => c.DescripcionCUV2));
 
             Mapper.CreateMap<ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>()
@@ -668,9 +673,22 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
                 .ForMember(t => t.CheckBox, f => f.MapFrom(c => c.CheckBox));
 
+            Mapper.CreateMap<EstrategiaComponenteCabecera, EstrategiaComponenteCabeceraModel>()
+                .ForMember(t => t.ContenidoNeto, f => f.MapFrom(c => c.ContenidoNeto))
+                .ForMember(t => t.Dimensiones, f => f.MapFrom(c => c.Dimensiones))
+                .ForMember(t => t.TallaMedidas, f => f.MapFrom(c => c.TallaMedidas));
+
+            Mapper.CreateMap<EstrategiaComponenteSeccion, EstrategiaComponenteSeccionModel>()
+                .ForMember(t => t.Tipo, f => f.MapFrom(c => c.Tipo))
+                .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
+                .ForMember(t => t.Detalles, f => f.MapFrom(c => c.Detalles));
+
+            Mapper.CreateMap<EstrategiaComponenteSeccionDetalle, EstrategiaComponenteSeccionDetalleModel>()
+                .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                .ForMember(t => t.Key, f => f.MapFrom(c => c.Key));
+
             Mapper.CreateMap<Componente, EstrategiaComponenteModel>()
-                //.ForMember(t => t.Id, f => f.MapFrom(c => Convert.ToInt32((c._id))));
-                //.ForMember(t => t.Id, f => f.Ignore())
                 .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
                 .ForMember(t => t.FactorCuadre, f => f.MapFrom(c => c.FactorCuadre))
@@ -679,10 +697,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.NombreComercial, f => f.MapFrom(c => c.NombreComercial))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion1))
                 .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioUnitario))
-                .ForMember(t => t.Digitable, f => f.MapFrom(c => c.IndicadorDigitable ? 1 : 0 ))
-
+                .ForMember(t => t.Digitable, f => f.MapFrom(c => c.IndicadorDigitable ? 1 : 0))
                 .ForMember(t => t.DescripcionPlural, f => f.MapFrom(c => c.DescripcionPlural))
-                .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular));
+                .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular))
+                .ForMember(t => t.Cabecera, f => f.MapFrom(c => c.Cabecera))
+                .ForMember(t => t.Secciones, f => f.MapFrom(c => c.Secciones))
+                .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoSap));
 
             Mapper.CreateMap<Search.ResponseOferta.Estructura.Estrategia, DetalleEstrategiaFichaModel>()
                 .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CodigoCampania))
@@ -691,7 +711,42 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CodigoVariante, f => f.MapFrom(c => c.CodigoEstrategia))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.MarcaDescripcion))
                 .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
-                .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion));
+                .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
+                .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
+
+            Mapper.CreateMap<Search.ResponseOferta.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>()
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CodigoCampania))
+                .ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva ? 1 : 0))
+                .ForMember(t => t.Hermanos, f => f.MapFrom(c => c.Componentes))
+                .ForMember(t => t.CodigoVariante, f => f.MapFrom(c => c.CodigoEstrategia))
+                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.MarcaDescripcion))
+                .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
+                .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
+                .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
+
+            Mapper.CreateMap<Search.ResponseOferta.Estructura.FotosComponente, FotosComponenteModel>();
+
+            #region Camino Brillante
+
+            Mapper.CreateMap<BEKitCaminoBrillante, KitCaminoBrillanteModel>();
+            Mapper.CreateMap<BEDemostradoresCaminoBrillante, DemostradorCaminoBrillanteModel>();
+            Mapper.CreateMap<BENivelCaminoBrillante, NivelCaminoBrillanteModel>();
+            Mapper.CreateMap<BEBeneficioCaminoBrillante, NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
+            Mapper.CreateMap<BELogroCaminoBrillante, LogroCaminoBrillanteModel>();
+            Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>();
+            Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel.MedallaCaminoBrillanteModel>();
+            Mapper.CreateMap<BEFiltro, FiltrosDatosCaminoBrillante>();
+            Mapper.CreateMap<BEOrden, OrdenDatosCaminoBrillante>();            
+            Mapper.CreateMap<BEOfertaCaminoBrillante, KitCaminoBrillanteModel>();
+            Mapper.CreateMap<BEOfertaCaminoBrillante, DemostradorCaminoBrillanteModel>();
+            Mapper.CreateMap<BEOfertaCaminoBrillante, OfertaCaminoBrillanteModel>();
+            Mapper.CreateMap<BECarruselCaminoBrillante, CarruselCaminoBrillanteModel>();
+            #endregion
+
+            #region Historial
+            Mapper.CreateMap<BEContenidoAppDetaAct, AdministrarHistorialDetaActModel>();
+            #endregion
+
         }
     }
 }

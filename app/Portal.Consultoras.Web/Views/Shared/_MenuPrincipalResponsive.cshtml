@@ -44,6 +44,7 @@
 
     var subMenuMiNegocioConEnlaceMisEventos = (ViewBag.CodigoISODL == "PE") ? " submenu__lista--miNegocioConEnlaceMisEventos" : "";
 
+    var esDigital = ViewBag.esConsultoraDigital == null ? false : ViewBag.esConsultoraDigital;
 }
 
 <!-- MENÚ PRINCIPAL MOBILE -->
@@ -55,16 +56,8 @@
         <div class="consultora__datos consultora__datos--menu">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
-                <div class="consultora__imagen w-100">
-                    @if (ViewBag.FotoPerfilAncha)
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="Foto Consultora" style="width:auto; height:100%" />
-                    }
-                    else
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="Foto Consultora" style="width:100%; height:auto" />
-                    }
-
+                <div class="foto_usuaria_mobile">
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" class="ImageLoadPhotoUser w-100" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="Foto Consultora" />
                 </div>
                 <div class="icono__actualizarDatos text-center">
                     <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Actualizar datos">
@@ -95,7 +88,7 @@
                     <li class="menu__item" data-title="@item.Descripcion">
                         <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
                            class="menu__link d-block" target="@item.PageTarget"
-                           href="@item.UrlItem" @item.OnClickFunt data-orden="@item.OrdenItem"
+                           href="@item.UrlItem" @Html.Raw(item.OnClickFunt) data-orden="@item.OrdenItem"
                            id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
                             @if (item.UrlImagen != "")
                             {
@@ -321,23 +314,47 @@
                                 }
                                 else
                                 {
-                                    <li class="submenu__item submenu__item--Incentivos">
-                                        <a href="javascript:;" class="submenu__link d-block" onclick="RedirectMenu('Index', 'Incentivos', 0, 'Incentivos')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Incentivos" id="lnk-pri-Incentivos">
-                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" class="w-100" alt="Incentivos">
-                                            <div class="submenu__item__title w-100">Incentivos</div>
-                                        </a>
-                                    </li>
+                                    if (@ViewBag.CodigoISODL == "CO")
+                                    {
+                                        <li class="submenu__item submenu__item--Incentivos">
+                                            <a href="javascript:;" class="submenu__link d-block" onclick="RedirectMenu('Index', 'Incentivos', 0, 'Incentivos')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Incentivos" id="lnk-pri-Incentivos">
+                                                <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" class="w-100" alt="Incentivos">
+                                                <div class="submenu__item__title w-100">Incentivos</div>
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        if (esDigital)
+                                        {
+                                            <li class="submenu__item submenu__item--Incentivos">
+                                                <a href="javascript:;" class="submenu__link d-block" onclick="RedirectMenu('IndexExterno', 'Bonificaciones', 0, 'Bonificaciones')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Bonificaciones" id="lnk-pri-Incentivos">
+                                                    <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/bonificaciones_digital.png" class="w-100" alt="Incentivos">
+                                                    <div class="submenu__item__title w-100">BONIFICACIONES</div>
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="submenu__item submenu__item--Incentivos">
+                                                <a href="javascript:;" class="submenu__link d-block" onclick="RedirectMenu('Index', 'Bonificaciones', 0, 'Bonificaciones')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Bonificaciones" id="lnk-pri-Incentivos">
+                                                    <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" class="w-100" alt="Incentivos">
+                                                    <div class="submenu__item__title w-100">BONIFICACIONES</div>
+                                                </a>
+                                            </li>
+                                        }
+                                    }
                                 }
 
                                 if (ViewBag.CodigoISODL == "PE")
                                 {
-                                     <li class="submenu__item submenu__item--MisEventos">
-                                         <a href="@(ViewBag.UrlRaizS3)FileConsultoras/@(ViewBag.codigoISOMenu)/MisEventos.pdf" class="submenu__link d-block" target="_blank" role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Eventos" id="lnk-pri-Eventos">
-                                             <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/top_y_brillas.png" class="w-100" alt="Mis Eventos">
-                                             <div class="submenu__item__title w-100">MIS EVENTOS</div>
-                                         </a>
-                                     </li>
-                                 }
+                                    <li class="submenu__item submenu__item--MisEventos">
+                                        <a href="@(ViewBag.UrlRaizS3)FileConsultoras/@(ViewBag.codigoISOMenu)/MisEventos.pdf" class="submenu__link d-block" target="_blank" role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Eventos" id="lnk-pri-Eventos">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/top_y_brillas.png" class="w-100" alt="Mis Eventos">
+                                            <div class="submenu__item__title w-100">MIS EVENTOS</div>
+                                        </a>
+                                    </li>
+                                }
                             }
                         }
                     </ul>
@@ -372,11 +389,6 @@
             }
         }
     </ul>
-
-
-
-
-
     <a class="menu__link menu__link--cerrar-sesion text-underline mostrarEnMobile" title="Cerrar Sesión">
         Cerrar sesión
     </a>

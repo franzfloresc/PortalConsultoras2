@@ -37,14 +37,6 @@ var rdAnalyticsModule = (function () {
     },
 
     _origenWeb = {
-        home: "1101", // solo para RedireccionarContenedorComprar
-        homeLan: "1103", // solo para RedireccionarContenedorComprar
-        catalogo: "1401", // solo para RedireccionarContenedorComprar
-        pedido: "1201", // solo para RedireccionarContenedorComprar
-        homeMobile: "2101", // solo para RedireccionarContenedorComprar
-        homeLanMobile: "2103", // solo para RedireccionarContenedorComprar
-        catalogoMobile: "2401", // solo para RedireccionarContenedorComprar
-        pedidoMobile: "2201", // solo para RedireccionarContenedorComprar
         rdLan: "1070001", // anterior "1721",
         rdOfertas: "1070001", // anterior "1711",
         rdDetalle: "1080202", // anterior "1731",
@@ -185,24 +177,7 @@ var rdAnalyticsModule = (function () {
             "label":  label
         });
     };
-
-    var _promotionClickPush = function (name, position, creative) {
-        dataLayer.push({
-            "event": _event.promotionClick,
-            "ecommerce": {
-                "promoView": {
-                    "promotions": [
-                        {
-                            "id": "1",
-                            "name": name.trim(),
-                            "position": position,
-                            "creative": creative
-                        }]
-                }
-            }
-        });
-    }
-
+    
     var _promotionViewPush = function (name, position, creative) {
         dataLayer.push({
             "event": _event.promotionView,
@@ -220,50 +195,6 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    var _addToCartPush = function (list, estrategia) {
-        dataLayer.push({
-            "event": _event.addToCart,
-            "ecommerce": {
-                "currencyCode": "PEN",
-                "add": {
-                    "actionField": { "list": list },
-                    "products": [
-                        {
-                            "name": (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim(),
-                            "price": estrategia.Precio2.toString(),
-                            "brand": estrategia.DescripcionMarca,
-                            "id": estrategia.CUV2,
-                            "category": _text.noDisponible,
-                            "variant": (estrategia.DescripcionEstrategia === undefined) ? _text.estandar : estrategia.DescripcionEstrategia,
-                            "quantity": parseInt(estrategia.Cantidad)
-                        }
-                    ]
-                }
-            }
-        });
-    }
-
-    var _productClickPush = function (list, estrategia) {
-        dataLayer.push({
-            "event": _event.productClick,
-            "ecommerce": {
-                "currencyCode": "PEN",
-                "click": {
-                    "actionField": { "list": list },
-                    "products": [{
-                        "name": (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim(),
-                        "id": estrategia.CUV2,
-                        "price": estrategia.Precio2.toString(),
-                        "brand": estrategia.DescripcionMarca,
-                        "category": _text.noDisponible,
-                        "variant": (estrategia.DescripcionEstrategia === undefined) ? _text.estandar : estrategia.DescripcionEstrategia,
-                        "position": parseInt(estrategia.posicionItem === undefined ? estrategia.Posicion : estrategia.posicionItem)
-                    }]
-                }
-            }
-        });
-    }
-
     var _socialEventPush = function (socialNetwork, socialAction, socialUrl) {
         dataLayer.push({
             'event': _event.socialEvent,
@@ -272,39 +203,40 @@ var rdAnalyticsModule = (function () {
             'socialUrl': socialUrl
         });
     }
-    
-    var _capitalizeFirstLetter = function(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
 
     function Access(origenWeb) {
         try {
             var origenWebString = origenWeb.toString();
             switch (origenWebString) {
-                case _origenWeb.home:
-                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
-                    break;
-                case _origenWeb.catalogo:
+                 
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalMobileCatalogoSeccion:
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.pedido:
-                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalMobileCatalogoSeccion:
+                    _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.homeLan:
-                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
-                    break;
-                case _origenWeb.homeLanMobile:
-                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
-                    break;
-                case _origenWeb.homeMobile:
+                    
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalHomeSeccion:
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
                     break;
-                case _origenWeb.catalogoMobile:
-                    _virtualEventPush(_seccionWeb.catalogoMobile, _text.epm, _action.clickBanner);
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalHomeSeccion:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
                     break;
-                case _origenWeb.pedidoMobile:
+
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalResumenBelcorp:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalResumenBelcorp:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+                  
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobilePedidoRevistaDigital:
                     _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopPedidoRevistaDigital:
+                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                    break;
+               
             }
         } catch (e) {
             console.log(_text.exception + e);
@@ -349,72 +281,6 @@ var rdAnalyticsModule = (function () {
         }
     }
 
-    function AgregarProducto(origenWeb, estrategia, popup) {
-        if (!popup) {
-            popup = false;
-        }
-        try {
-            var origenWebString = origenWeb.toString();
-            switch (origenWebString) {
-                case _origenWeb.rdLan:
-                    if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
-                    else _addToCartPush(_text.rdBannerPrincipal, estrategia);
-                    break;
-                case _origenWeb.rdLanMobile:
-                    if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
-                    else _addToCartPush(_text.rdBannerPrincipal, estrategia);
-                    break;
-                case _origenWeb.rdOfertas:
-                    if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
-                    else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
-                    break;
-                case _origenWeb.rdOfertasMobile:
-                    if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
-                    else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
-                    break;
-                case _origenWeb.rdDetalle:
-                    _addToCartPush(_text.rdDetalleProducto, estrategia);
-                    break;
-                case _origenWeb.rdDetalleMobile:
-                    _addToCartPush(_text.rdDetalleProducto, estrategia);
-                    break;
-                default:
-                    _addToCartPush(_text.rdHome, estrategia);
-            }
-        } catch (e) {
-            console.log(_text.exception + e);
-        }
-    }
-
-    // se utilizaba en el popup de ver detalle, ahora es la ficha
-    function VerDetalleComprar(origenWeb, estrategia) {
-        try {
-            var origenWebString = origenWeb.toString();
-            switch (origenWebString) {
-                case _origenWeb.rdLan:
-                    _productClickPush(_text.rdBannerPrincipal, estrategia);
-                    break;
-                case _origenWeb.rdLanMobile:
-                    _productClickPush(_text.rdBannerPrincipal, estrategia);
-                    break;
-                case _origenWeb.rdOfertas:
-                    _productClickPush(_text.rdMisOfertas, estrategia);
-                    break;
-                case _origenWeb.rdOfertasMobile:
-                    _productClickPush(_text.rdMisOfertas, estrategia);
-                    break;
-                case _origenWeb.rdDetalle:
-                    _productClickPush(_text.rdDetalleProducto, estrategia);
-                    break;
-                case _origenWeb.rdDetalleMobile:
-                    _productClickPush(_text.rdDetalleProducto, estrategia);
-                    break;
-            }
-        } catch (e) {
-            console.log(_text.exception + e);
-        }
-    }
-
     function AgregarProductoDeshabilitado(origenWeb, campania, name, popup) {
         try {
             var category = _text.epm;
@@ -422,45 +288,20 @@ var rdAnalyticsModule = (function () {
             var origenWebString = origenWeb.toString();
             switch (origenWebString) {
                 case _origenWeb.rdLan:
-                    if (popup) _virtualEventPush(category, _text.rdAgregarBannerDetPrincipal, label);
-                    else _virtualEventPush(category, _text.rdAgregarBannerPrincipal, label);
-                    break;
                 case _origenWeb.rdLanMobile:
                     if (popup) _virtualEventPush(category, _text.rdAgregarBannerDetPrincipal, label);
                     else _virtualEventPush(category, _text.rdAgregarBannerPrincipal, label);
                     break;
                 case _origenWeb.rdOfertas:
-                    if (popup) _virtualEventPush(category, _text.rdAgregarDetalleMisOfertas, label);
-                    _virtualEventPush(category, _text.rdAgregarMisOfertas, label);
-                    break;
                 case _origenWeb.rdOfertasMobile:
                     if (popup) _virtualEventPush(category, _text.rdAgregarDetalleMisOfertas, label);
                     _virtualEventPush(category, _text.rdAgregarMisOfertas, label);
                     break;
                 case _origenWeb.rdDetalle:
-                    _virtualEventPush(category, _text.rdAgregarDetalleProducto, label);
-                    break;
                 case _origenWeb.rdDetalleMobile:
                     _virtualEventPush(category, _text.rdAgregarDetalleProducto, label);
                     break;
             }
-        } catch (e) {
-            console.log(_text.exception + e);
-        }
-    }
-
-    function VerDetalleBloqueada(campania, name) {
-        try {
-            var label = campania + " - " + name;
-            _virtualEventPush(_text.epm, "Ver producto", label);
-        } catch (e) {
-            console.log(_text.exception + e);
-        }
-    }
-
-    function VerDetalleLan(estrategia) {
-        try {
-            _productClickPush(_text.rdDetalleMisOfertas, estrategia);
         } catch (e) {
             console.log(_text.exception + e);
         }
@@ -490,11 +331,6 @@ var rdAnalyticsModule = (function () {
             console.log(_text.exception + e);
         }
     }
-
-    function SuscripcionExistosa() {
-        _virtualEventPush(_category.ganaMas, _action.suscripcionExitosa, _text.notAvailable);
-    }
-
 
     function MostrarPopup() {
         _promotionViewPush(_text.roInscribirme, _text.popup, _text.banner);
@@ -526,10 +362,6 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_category.ganaMas, _action.popupSuscripcion, _text.guardarDatos);
     }
 
-    function IrCancelarSuscripcion() {
-        _virtualEventPush(_text.ro, _action.clickCancelar, _text.banner);
-    }
-
     function CancelarSuscripcion() {
         _virtualEventPush(_text.epm, _action.clickEnBoton, _action.cancelarInscripcion);
     }
@@ -547,10 +379,6 @@ var rdAnalyticsModule = (function () {
         _popupDesuscripcionCerrar(_text.epm, _action.popupDesuscripcion, texto);
     }
 
-    function ContendorSection(titulo) {
-        _virtualEventPush(_text.contenedor + " - Home", _capitalizeFirstLetter(titulo.toLowerCase()) + " - Click Botón", _action.verMas);
-    }
-    
     function IrEnterate() {
         _virtualEventPush(_category.ganaMas, _action.popupEnterate, _text.enterate);
     }
@@ -561,21 +389,14 @@ var rdAnalyticsModule = (function () {
     return {
         CancelarSuscripcionEncuesta: CancelarSuscripcionEncuesta,
         CancelarSuscripcion: CancelarSuscripcion,
-        IrCancelarSuscripcion: IrCancelarSuscripcion,
         CerrarPopUp: CerrarPopUp,
-        SuscripcionExistosa: SuscripcionExistosa,
         Inscripcion: Inscripcion,
         MostrarPopup: MostrarPopup,
         CompartirProducto: CompartirProducto,
-        VerDetalleLan: VerDetalleLan,
-        VerDetalleBloqueada: VerDetalleBloqueada,
         AgregarProductoDeshabilitado: AgregarProductoDeshabilitado,
-        VerDetalleComprar: VerDetalleComprar,
-        AgregarProducto: AgregarProducto,
         FiltrarProducto: FiltrarProducto,
         Tabs: Tabs,
         Access: Access,
-        ContendorSection: ContendorSection,
         IrEnterate: IrEnterate,
         GuardarDatos: GuardarDatos,
         ClickArrowLan: ClickArrowLan,

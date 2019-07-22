@@ -12,6 +12,11 @@ namespace Portal.Consultoras.Web.Providers
     {
         protected ISessionManager sessionManager;
 
+        public virtual void setSessionManager(ISessionManager sessionManager)
+        {
+            this.sessionManager = sessionManager;
+        }
+
         public TablaLogicaProvider()
         {
             sessionManager = SessionManager.SessionManager.Instance;
@@ -43,7 +48,7 @@ namespace Portal.Consultoras.Web.Providers
             return "";
         }
 
-        public List<TablaLogicaDatosModel> GetTablaLogicaDatos(int paisId, short tablaLogicaId, bool saveInSession = false)
+        public virtual List<TablaLogicaDatosModel> GetTablaLogicaDatos(int paisId, short tablaLogicaId, bool saveInSession = false)
         {
             var datos = saveInSession ? sessionManager.GetTablaLogicaDatosLista(Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId) : null;
             if (datos == null)
@@ -89,7 +94,7 @@ namespace Portal.Consultoras.Web.Providers
 
         #region Get Valor Segun Codigo
 
-        private string GetTablaLogicaDatoValor(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
+        public string GetTablaLogicaDatoValorCodigo(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
         {
             var datos = GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession);
             return GetValueByCode(datos, codigo);
@@ -104,10 +109,36 @@ namespace Portal.Consultoras.Web.Providers
             return Util.Trim(par.Valor);
         }
 
+        public int GatCampoValorInt(List<TablaLogicaDatosModel> datos, string codigo)
+        {
+            var strCodigo = GetValueByCode(datos, codigo);
+            int valorInt;
+            int.TryParse(strCodigo, out valorInt);
+            return valorInt;
+        }
+
+        public bool GatCampoValorBool(List<TablaLogicaDatosModel> datos, string codigo)
+        {
+            var strCodigo = GetValueByCode(datos, codigo);
+            bool valor = false;
+            if (strCodigo != "")
+            {
+                bool.TryParse(strCodigo, out valor);
+            }
+            return valor;
+        }
+
         public bool GetTablaLogicaDatoValorBool(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
         {
-            var valor = GetTablaLogicaDatoValor(paisId, tablaLogicaId, codigo, saveInSession);
+            var valor = GetTablaLogicaDatoValorCodigo(paisId, tablaLogicaId, codigo, saveInSession);
             return valor == "1";
+        }
+
+        public virtual int GetTablaLogicaDatoValorInt(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
+        {
+            var valor = GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession);
+            var valInt = GatCampoValorInt(valor, codigo);
+            return valInt;
         }
 
         #endregion

@@ -2,10 +2,14 @@
 
 /* HEADER */
 
-.header__marca__pais img{
-    width:auto;
-    height:100%;
-    margin-top:-1px;
+.header__marca__pais{
+    width:90px;
+}
+
+.header__marca__pais img {
+    width: 100%;
+    height: auto;
+    margin-top: -7px;
 }
 
 .icono__actualizarDatos,
@@ -134,10 +138,15 @@
         /*background-position:59% center;*/
     }
 
-    .header__marca__pais picture {
-        margin-top: 3px;
-        height:27px;
-    }
+        .header__marca__pais picture {
+            margin-top: 9px;
+            height: 31px;
+        }
+
+        .header__marca__pais img{
+            width:auto;
+            height:100%;
+        }
 
 }
 
@@ -223,9 +232,9 @@
 
 /* MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
 
-.layout__content{
+/*.layout__content{
     margin-top:28px;
-}
+}*/
 
 .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
     min-height:346px;
@@ -290,3 +299,130 @@
 /* FIN - MIS CATÁLOGOS Y REVISTAS (MOBILE) */
 
 /* FIN - ESTILOS MARCA PAÍS ÉSIKA */
+/*HD-4450*/
+.MensajeAlertaMobile {
+    position: fixed;
+    z-index: 2010;
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    top: 0;
+    background: rgba(0,0,0,.5);
+}
+
+.content_mensajeAlerta {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.icono_alerta {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+check_icono_mobile {
+    background: url('/Content/Images/Esika/icono_check_esika.svg') no-repeat;
+    background-size: cover;
+}
+
+.check_icono_mobile_gano {
+    width: 60px !important;
+    height: 60px !important;
+    background: url('/Content/Images/Mobile/Esika/gift-rojo-2.png') no-repeat;
+    background-position: center;
+}
+
+.exclamacion_icono_mobile {
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.png') no-repeat;
+    background-size: cover;
+}
+.icono_alerta img {
+    width: 100%;
+}
+
+.mensaje_alerta {
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: center;
+    margin-top: 13px;
+    margin-bottom: 17px;
+    color: black;
+}
+
+.btn_ok_mobile {
+    margin: 0 auto;
+    width: 139px;
+    height: 45px;
+    line-height: 45px;
+    color: white;
+    text-align: center;
+    display: block;
+    background-color: #e81c36;
+    margin-bottom: 20px;
+}
+
+.btn_ok_mobile {
+    color: #FFF !important;
+    text-decoration: none !important;
+}
+.btn_ok_mobile b{
+    color: #FFF !important;
+}
+
+.btn_ok_mobile-inline {
+    display: inline-block;
+}
+.cerrar_popMobile {
+    cursor: pointer;
+    width: 19px;
+    height: 19px;
+    display: block;
+    position: relative;
+    right: 0;
+    float: right;
+}
+
+    .cerrar_popMobile img {
+        width: 100%;
+    }
+
+@media only screen and (max-width : 425px) {
+    .mostrar_todos {
+        float: left;
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    .Label_compartir {
+        width: 100%;
+    }
+
+    .titulo_compartir {
+        font-size: 16px;
+        line-height: 28px;
+        text-align: center;
+    }
+}
+
+.clear {
+    background: none;
+    border: 0;
+    clear: both;
+    display: block;
+    float: none;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}

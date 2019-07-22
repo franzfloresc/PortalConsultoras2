@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
-using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -17,6 +15,15 @@ namespace Portal.Consultoras.Web.Controllers
     [RoutePrefix("ArmaTuPack")]
     public class ArmaTuPackController : BaseController
     {
+        private readonly ConfiguracionOfertasHomeProvider _confiOfertasHomeProvider;
+
+        public ArmaTuPackController() : this(new ConfiguracionOfertasHomeProvider()) { }
+
+        public ArmaTuPackController(ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider) : base()
+        {
+            _confiOfertasHomeProvider = configuracionOfertasHomeProvider;
+        }
+
         public ActionResult Index()
         {
             return RedirectToAction("Detalle", "ArmaTuPack");
@@ -32,6 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Ofertas", new { Area = area });
             }
 
+            var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
             var listaOfertasATP = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(esMobile, userData.CodigoISO, userData.CampaniaID, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.ArmaTuPack).ToList();
 
             if (listaOfertasATP == null || !listaOfertasATP.Any())
@@ -39,24 +47,46 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Ofertas", new { Area = area });
             }
 
-            var OfertaATP = listaOfertasATP.FirstOrDefault();
-            var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado(false);
+            var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaOfertasATP, lstPedidoAgrupado, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
+
+            var OfertaATP = listModel.FirstOrDefault();
+
+            var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaDisenoModel>(OfertaATP);
+            
+            #region Asignacion de propiedades de diseño
+            var listaSeccion = _confiOfertasHomeProvider
+                .ObtenerConfiguracionSeccion(revistaDigital, esMobile)
+                .FirstOrDefault(x => x.Codigo == Constantes.TipoPersonalizacion.ArmaTuPack);
+
+            if (listaOfertasATP.Count > 0)
+            {
+                modelo.ImagenFondo = listaSeccion.ImagenFondo;
+                modelo.ColorFondo = listaSeccion.ColorFondo;
+                modelo.SubTitulo = listaSeccion.SubTitulo
+                    .Replace("#Cantidad", modelo.CantidadPack.ToString())
+                    .Replace("#PrecioTotal", userData.Simbolo + " " + modelo.PrecioVenta);
+                modelo.ColorTexto = listaSeccion.ColorTexto;
+            }
+            #endregion
+
             var packAgregado = lstPedidoAgrupado != null ? lstPedidoAgrupado.FirstOrDefault(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack) : null;
 
-            var DetalleEstrategiaFichaModel = new DetalleEstrategiaFichaModel
-            {
+            modelo.EsEditable = packAgregado != null;
+            modelo.IsMobile = esMobile;
+            modelo.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPack;
 
-                CUV2 = OfertaATP.CUV2,
-                TipoEstrategiaID = OfertaATP.TipoEstrategiaID,
-                EstrategiaID = OfertaATP.EstrategiaID,
-                FlagNueva = OfertaATP.FlagNueva,
-                CodigoVariante = OfertaATP.CodigoEstrategia,
-                EsEditable = packAgregado != null,
-                IsMobile = esMobile,
-                CampaniaID = userData.CampaniaID,
-                CodigoEstrategia = Constantes.TipoEstrategiaCodigo.ArmaTuPack
+
+            var modeloOrigenPedido = new OrigenPedidoWebModel
+            {
+                Dispositivo = esMobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop,
+                Pagina = ConsOrigenPedidoWeb.Pagina.ArmaTuPackDetalle,
+                Palanca = ConsOrigenPedidoWeb.Palanca.ArmaTuPack,
+                Seccion = ConsOrigenPedidoWeb.Seccion.Ficha
             };
-            return View(DetalleEstrategiaFichaModel);
+
+            modelo.OrigenAgregar = UtilOrigenPedidoWeb.ToInt(modeloOrigenPedido);
+
+            return View(modelo);
         }
 
         public ActionResult AgregarATPApp()

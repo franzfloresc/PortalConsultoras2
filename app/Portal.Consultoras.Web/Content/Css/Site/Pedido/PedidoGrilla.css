@@ -206,6 +206,9 @@ h1#penmostreo .campana {
     top: 0;
     left: 0;
     z-index: 1;
+    background-color:#000;
+    background-position: center bottom;
+    background-repeat:no-repeat;
 }
 
 .caja_pedidos {
@@ -300,13 +303,22 @@ div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos {
         }
 
 
-.texto_cantidad_pedidos{
+.texto_cantidad_pedidos {
     font-size: 14px !important;
+    width: 41px;
+    text-align: center;
 }
 
-.texto_pedidos.texto_cantidad_regalo{
-    padding-left:15px;
+.texto_pedidos_cliente {
+    width: 90%;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    font-size: 12px !important;
 }
+
+/*.texto_pedidos.texto_cantidad_regalo{
+    padding-left:15px;
+}*/
 
 .grilla_pedidos div.fila_mensajeProductoAgotado div {
     padding-top: 0;
@@ -483,6 +495,18 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     vertical-align: top;
 }
 
+.caja_montos.PedidoValidado {
+    width: auto;
+}
+
+.PedidoValidado .separador_montos {
+    bottom: 90px;
+}
+
+.PedidoValidado .monto_total {
+    margin-bottom: 10px;
+}
+
     .caja_montos div.info_extra_Validado {
         vertical-align: top;
         position: absolute;
@@ -499,8 +523,8 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     .caja_montos div.info_extra_Validado:hover .monto_resumenValidado {
         display: block;
     }
-
-    .caja_montos div {
+    .caja_montos .caja_montos_cantidades,
+    .caja_montos .caja_montos_textos {
         display: inline-block;
     }
 
@@ -1577,3 +1601,89 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     background-repeat: no-repeat;
     background-position: center center ;    
 }
+
+
+.btn--pedidos{
+    font-size: 14px; font-weight: 700; 
+    letter-spacing: 1px; color: #fff; 
+    border-radius: 4px; 
+    background-color: #000; 
+    padding: 10px 14px; 
+    margin-top: -4px;
+    cursor: pointer;
+}
+
+.title--middle{
+    font-size: 25px; 
+    color: #000; 
+    font-weight: 700; 
+    letter-spacing: 1.5px; 
+}
+
+/* HD-4288 - SWITCH CONSULTORA 100% DIGITAL */
+
+.contenedor_info_recepcion_pedido,
+.switch__control__contenedor {
+    display: flex;
+    align-items: center;
+}
+
+    .contenedor_info_recepcion_pedido {
+        justify-content: flex-end;
+    }
+
+.contenedor_info_recepcion_pedido > div{
+    flex:0 0 340px;
+    max-width:340px;
+}
+
+.switch__control__contenedor{
+    justify-content:space-between;
+    height:71px;
+}
+
+.switch__control__descrip {
+    flex: 0 0 204px;
+    max-width:204px;
+}
+
+.info_recepcion_pedido{
+    margin-top:15px;
+}
+
+.datos__receptor__pedido{
+    margin-top:8px;
+}
+
+.contenedor_info_recepcion_pedido > div,
+.btn__sb--cambiarPersona {
+    background-color: #f5f5f5;
+}
+
+.contenedor_info_recepcion_pedido > div {
+    padding: 0 20px;
+}
+
+.info_recepcion_pedido p{
+    padding:0;
+}
+
+.info_recepcion_pedido p:first-child{
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+.datos__receptor__pedido{
+    font-size:14px;
+}
+
+    .datos__receptor__pedido span {
+        color: #505050;
+    }
+
+.btn__sb--cambiarPersona{
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+/* FIN - HD-4288 - SWITCH CONSULTORA 100% DIGITAL */

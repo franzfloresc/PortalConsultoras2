@@ -369,7 +369,7 @@ footer {
 
 #grupos {
     margin-bottom: 95px;
-    padding-top: 95px;
+    padding-top: 15px;
 }
 
 .Select_Group .slick-track article {
@@ -417,7 +417,7 @@ footer {
 
 @media screen and (min-width:768px) {
     .content_responsive {
-        margin-top: 142px;
+        /*margin-top: 142px;*/
     }
 
     #grupos {
@@ -496,6 +496,14 @@ footer {
     .Agregar_ArmaTuPack_fixed .popover {
         right: -461px;
     }
+}
+
+@media screen and (max-width:991px){
+
+    .btn_chat_messenger {
+        display: none !important;
+    }
+
 }
 
 
@@ -620,7 +628,8 @@ footer {
         position: fixed;
         width: 100%;
         z-index: 999;
-        top: 105px;
+        top: 112px;
+        box-shadow: 0 3px 5px 0 rgba(126, 126, 126, .35);
     }
 
     .Agregar_ArmaTuPack_fixed .popover {
@@ -630,6 +639,11 @@ footer {
         .Agregar_ArmaTuPack_fixed .popover.top {
             margin-top: -78px;
         }
+
+    .grupos_top {
+        margin-top: 185px;
+    }
+
 }
 
 

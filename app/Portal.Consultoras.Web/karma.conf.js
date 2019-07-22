@@ -29,16 +29,24 @@ module.exports = function (config) {
 
             // General
             'Scripts/General.js',
+            
+            // shared
+            'Scripts/PortalConsultoras/Shared/AnalyticsPortal.js',
+            'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
+            'Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js',
 
             // FichaModule
-            'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
             'Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js',
+
+            //#region Provider
             'Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js',
             'Scripts/PortalConsultoras/TusClientes/PanelListaModule.js',
             'Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js',
             'Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
-            'Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/Ficha/FichaModule.js',
+            'scripts/portalconsultoras/estrategiaagregar/estrategiaagregar.js',
+            //#endregion
 
             // TusClientes
             'Scripts/PortalConsultoras/TusClientes/TusClientesView.js',
@@ -48,14 +56,28 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenter.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraView.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js',
-            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposMobileView.js',
-            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposView.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/ArmaTuPackDetalleEvents.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js',
             'Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPackProvider.js',
 
+            // FichaResponsive
+            'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesAnalyticsPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js',
             // Specs
             'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaModuleSpec.js',
             //
@@ -64,7 +86,14 @@ module.exports = function (config) {
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenterSpec.js',
-            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js'
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js',
+            
+            'Scripts/tests/PortalConsultoras/Shared/AnalyticsPortalSpec.js',
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenterSpec.js',
+            
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenterSpec.js',
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaPresenterSpec.js'
+
         ],
 
 
@@ -91,7 +120,7 @@ module.exports = function (config) {
 
         coverageReporter: {
             type: 'text'
-        },      
+        },
 
         // web server port
         port: 9876,
@@ -112,9 +141,9 @@ module.exports = function (config) {
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: [
-            //'ChromeDebugging'
+            'ChromeDebugging'
             //'Chrome'
-            'PhantomJS'
+            //'PhantomJS'
         ],
 
         customLaunchers: {
@@ -126,7 +155,7 @@ module.exports = function (config) {
         },
 
         browserNoActivityTimeout: 100000,
-        
+
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: false,

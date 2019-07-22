@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common.Exceptions;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -112,15 +113,19 @@ namespace Portal.Consultoras.Common
             return UTFEncoder.GetString(decryptedBytes);
         }
 
+        /// <summary>
         /// Convert a string to a byte array.  NOTE: Normally we'd create a Byte Array from a string using an ASCII encoding (like so).
-        //      System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
-        //      return encoding.GetBytes(str);
-        // However, this results in character values that cannot be passed in a URL.  So, instead, I just
-        // lay out all of the byte values in a long string of numbers (three per - must pad numbers less than 100).
+        ///      System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+        ///      return encoding.GetBytes(str);
+        /// However, this results in character values that cannot be passed in a URL.  So, instead, I just
+        /// lay out all of the byte values in a long string of numbers (three per - must pad numbers less than 100).
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public byte[] StrToByteArray(string str)
         {
             if (str.Length == 0)
-                throw new Exception("Invalid string value in StrToByteArray");
+                throw new ClientInformationException("Invalid string value in StrToByteArray");
 
             byte[] byteArr = new byte[str.Length / 3];
             int i = 0;
@@ -135,9 +140,13 @@ namespace Portal.Consultoras.Common
             return byteArr;
         }
 
-        // Same comment as above.  Normally the conversion would use an ASCII encoding in the other direction:
-        //      System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-        //      return enc.GetString(byteArr);    
+        /// <summary>
+        /// Same comment as above.  Normally the conversion would use an ASCII encoding in the other direction:
+        ///      System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+        ///      return enc.GetString(byteArr); 
+        /// </summary>
+        /// <param name="byteArr"></param>
+        /// <returns></returns>
         public string ByteArrToString(byte[] byteArr)
         {
             var txtBuil = new StringBuilder();

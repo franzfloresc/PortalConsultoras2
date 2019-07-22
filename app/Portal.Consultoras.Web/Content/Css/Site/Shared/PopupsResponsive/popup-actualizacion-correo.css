@@ -1,0 +1,38 @@
+﻿
+/* MC - HD-3680 - POPUP ACTUALIZACIÓN CORREO ECUADOR */
+
+.popup__somos__belcorp--actualizacionCorreo {
+    max-width: 326px;
+    min-height: 312px;
+    padding: 26px 31px 22px;
+}
+
+.popup__somos__belcorp__icono__cerrar--actualizacionCorreo {
+    right: -26px;
+    top: -21px;
+}
+
+.popup__somos__belcorp__icono--actualizacionCorreo {
+    width: 84px;
+    height: 84px;
+    margin-bottom: 4px!important;
+}
+
+.popup__somos__belcorp__titulo--actualizacionCorreo {
+    font-size: 18px;
+    margin-bottom: 8px!important;
+    color: #000;
+}
+
+.popup__somos__belcorp__mensaje--actualizacionCorreo {
+    margin-bottom: 18px!important;
+}
+
+.popup__somos__belcorp__btn--actualizar {
+    width: 100%;
+    margin-bottom: 10px!important;
+    color: #FFF;
+    max-width: 209px;
+}
+
+/* FIN - MC - HD-3680 - POPUP ACTUALIZACIÓN CORREO ECUADOR */

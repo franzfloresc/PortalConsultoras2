@@ -40,7 +40,7 @@
       <xs:element minOccurs="0" name="ActiveDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ActiveMonto" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActivePremioAuto" nillable="true" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ActivePremioElectivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivePremioElectivo" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveTooltip" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveTooltipDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ActiveTooltipMontoDesc" nillable="true" type="xs:string" />

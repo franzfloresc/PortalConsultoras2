@@ -63,6 +63,7 @@ namespace Portal.Consultoras.Web
 
         protected void Session_Start(object sender, EventArgs e)
         {
+            //
         }
 
         private void Application_BeginRequest(object sender, EventArgs e)
@@ -76,25 +77,13 @@ namespace Portal.Consultoras.Web
         {
             var exception = Server.GetLastError();
 
+            var userData = new UsuarioModel();
             if (HttpContext.Current != null && HttpContext.Current.Session != null)
             {
-                var userData = SessionManager.SessionManager.Instance.GetUserData();
+                userData = SessionManager.SessionManager.Instance.GetUserData() ?? new UsuarioModel();
+            }
 
-                LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario, userData.CodigoISO);
-            }
-            else
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(exception, "", "");
-            }
+            LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario ?? "", userData.CodigoISO ?? "");
         }
-    }
-
-    //public class PreApplicationStart
-    //{
-    //    public static void Start()
-    //    {
-
-    //        Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(Portal.Consultoras.Common.JwtModule));
-    //    }
-    //}
+}
 }

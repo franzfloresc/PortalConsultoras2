@@ -1,5 +1,7 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUsuario;
+using System.Configuration;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -22,17 +24,31 @@ namespace Portal.Consultoras.Web.Controllers
                 strCodigoUsuario = userData.CodigoUsuario;
             }
 
-            string[] parametros = new string[] { userData.PaisID.ToString() + "|" + strCodigoUsuario };
-            string str = Util.EncriptarQueryString(parametros);
-            string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
+            string urlAccesoExterno = string.Empty;
+            string secretKey = ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? "";
 
-            if (!SessionManager.GetIngresoPortalLideres())
-            {
-                RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalLideres, Constantes.LogDynamoDB.RolSociaEmpresaria, "HOME", "INGRESAR");
-                SessionManager.SetIngresoPortalLideres(true);
-            }
 
-            return Redirect(url);
+            PayLoad payLoad = new PayLoad();
+
+            payLoad.ConsultoraID = userData.ConsultoraID;
+            payLoad.CodigoConsultora = strCodigoUsuario;
+            payLoad.PaisID = userData.PaisID;
+            payLoad.CodigoISO = userData.CodigoISO;
+            payLoad.FuenteOrigen = "SomosBelcorp";
+
+            var cadenaEncriptada = JWT.JsonWebToken.Encode(payLoad, secretKey, JWT.JwtHashAlgorithm.HS256);
+            urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/?token=" + cadenaEncriptada;
+
+            return Redirect(urlAccesoExterno);
+        }
+
+        public class PayLoad
+        {
+            public long ConsultoraID { get; set; }
+            public string CodigoConsultora { get; set; }
+            public int PaisID { get; set; }
+            public string CodigoISO { get; set; }
+            public string FuenteOrigen { get; set; }
         }
 
     }

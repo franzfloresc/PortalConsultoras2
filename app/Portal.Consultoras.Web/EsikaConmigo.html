@@ -9,13 +9,11 @@
     <meta property="og:site_name" content="Somos Belcorp">
     <meta property="og:title" content="App Ésika Conmigo">
     <meta property="og:description" content="Descárgalo gratis y gestiona tu negocio estés donde estés">
-
     <script>
         var isIPAD = navigator.userAgent.match(/iPad/i) != null,
                                         isIPHONE = !isIPAD && ((navigator.userAgent.match(/iPhone/i) != null) || (navigator.userAgent.match(/iPod/i) != null)),
                                         isIOS = isIPAD || isIPHONE,
                                         isANDROID = !isIOS && navigator.userAgent.match(/android/i) != null;
-
         if (isANDROID) window.location.href = 'https://play.google.com/store/apps/details?id=biz.belcorp.consultoras.esika&hl=es';
         //else if (isIOS) window.location.href = 'https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8';
         else window.location.href = 'https://www.somosbelcorp.com/';

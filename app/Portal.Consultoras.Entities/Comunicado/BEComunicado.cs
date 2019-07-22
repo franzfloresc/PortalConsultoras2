@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Entities.Comunicado;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -50,9 +49,9 @@ namespace Portal.Consultoras.Entities
         public bool SegmentacionEstadoActividad { get; set; }
         [DataMember]
         public List<BEComunicadoVista> Vistas { get; set; }
-        [DataMember] //HD-3550 EINCA
-        [Column("TipoComunicado")] //HD-3550 EINCA
-        public int TipoComunicado { get; set; } //HD-3550 EINCA
+        [DataMember]
+        [Column("TipoComunicado")]
+        public int TipoComunicado { get; set; }
 
         [DataMember]
         [Column("FechaInicio")]
@@ -92,7 +91,6 @@ namespace Portal.Consultoras.Entities
 
     }
 
-    
 
 
 
@@ -100,4 +98,5 @@ namespace Portal.Consultoras.Entities
 
 
 
-    }
+
+}

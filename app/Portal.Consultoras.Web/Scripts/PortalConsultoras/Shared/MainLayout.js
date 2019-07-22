@@ -81,6 +81,11 @@ $(document).ready(function () {
                 $('#dialog_SesionMainLayout').hide();
                 window.location.href = "Login";
             }
+
+            if ($('#PopupCierreSesion').is(':visible')) {
+                $('#PopupCierreSesion').hide();
+                window.location.href = "Login";
+            }
         }
     });
 
@@ -170,10 +175,26 @@ $(document).ready(function () {
         width: 400,
         draggable: true,
         buttons: {
-            "Aceptar": function () {
+            "Entendido": function () {
                 HideDialog("alertDialogMensajes");
             }
         }
+    });
+
+    $('#alertDialogMensajes25seg').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: false,
+        close: function (event, ui) {
+            HideDialog("alertDialogMensajes25seg");
+        },
+        beforeClose: function (event, ui) {
+            document.querySelector('.setBottom').style.transition = null
+        },
+        draggable: false,
+        dialogClass: 'setBottom',
+        position: "bottom"
     });
 
     $('#ModalFeDeErratas').dialog({
@@ -239,6 +260,7 @@ $(document).ready(function () {
         }
     });
 
+
     $("body").on("keypress", ".ValidaNumeral", function (e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
             return false;
@@ -272,10 +294,21 @@ $(document).ready(function () {
 
     $("body").on('click', '.belcorpChat', function (e) {
         e.preventDefault();
+        if (typeof habilitarChatEmtelco === 'undefined') {
+            return false;
+        }
 
-        var connected = localStorage.getItem('connected');
-        var idBtn = connected ? '#btn_open' : '#btn_init';
-        $(idBtn).trigger("click");
+        if (habilitarChatEmtelco == 'True') {
+            var connected = localStorage.getItem('connected');
+            var idBtn = connected ? '#btn_open' : '#btn_init';
+            $(idBtn).trigger("click");
+
+            return false;
+        }
+
+        if (habilitarChatBot === 'True') {
+            AbrirChatBot();
+        }
 
         return false;
     });
@@ -302,21 +335,30 @@ function AbrirVentanaBelcorpChat(url) {
 function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
-        $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-        $('#dialog_ErrorMainLayout').show();
 
-        $('#dialog_ErrorMainLayout .btn_ok').off('click');
-        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+        if (window.matchMedia("(max-width:991px)").matches) {
+            $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(message);
+            $('#popupInformacionSB2Error').show();
+        }
+        else {
+            $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+            $('#dialog_ErrorMainLayout').show();
 
-        $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
-            $('#dialog_ErrorMainLayout').hide();
-            if ($.isFunction(fnAceptar)) fnAceptar();
-        });
+            $('#dialog_ErrorMainLayout .btn_ok').off('click');
+            $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
 
-        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
-            $('#dialog_ErrorMainLayout').hide();
-            if ($.isFunction(fnAceptar)) fnAceptar();
-        });
+            $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+                $('#dialog_ErrorMainLayout').hide();
+                if ($.isFunction(fnAceptar)) fnAceptar();
+            });
+
+            $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+                $('#dialog_ErrorMainLayout').hide();
+                if ($.isFunction(fnAceptar)) fnAceptar();
+            });
+        }
+
+
     }
 }
 
@@ -354,8 +396,17 @@ function CargarResumenCampaniaHeader(showPopup) {
                     });
 
                     if (data.ultimosTresPedidos.length == 0) {
+                        var textoSinPedido = "";
                         $('#carrito_items').hide();
                         $('#SinProductos').show();
+                        if (data.cantidadPedidosPendientes > 0) {
+                            textoSinPedido = 'Tienes ' + data.cantidadPedidosPendientes + ((data.cantidadPedidosPendientes > 1) ? ' Pedidos pendientes' : ' Pedido pendiente') + ',<br />';
+                            $('#linkPendientesSinProductos').css('display', 'block');
+                        } else {
+                            textoSinPedido = 'Todavía no has agregado<br/> ningún producto a tu<br/>pedido.';
+                            $('#linkPendientesSinProductos').css('display', 'none');
+                        }
+                        $('#textoSinProductos').html(textoSinPedido);
                     } else {
                         $('#carrito_items').show();
                         $('#SinProductos').hide();
@@ -375,7 +426,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58
+    var sparam = localStorage.getItem('KeyPseudoParam');
     $.ajax({
         type: 'GET',
         url: baseUrl + "Notificaciones/GetNotificacionesSinLeer?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",
@@ -402,7 +453,7 @@ function CargarCantidadNotificacionesSinLeer() {
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
                     $(document).find("#mensajeNotificaciones").html("No tienes notificaciones. ");
                 }
-             
+
                 data.mensaje = data.mensaje || "";
             }
         },
@@ -468,7 +519,7 @@ function SeparadorMiles(pnumero) {
 
 function alert_msg(message, titulo, funcion) {
     titulo = titulo || "MENSAJE";
-    $('#alertDialogMensajes .terminos_title_2').html(titulo);
+    //$('#alertDialogMensajes .terminos_title_2').html(titulo);***HD-4450
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     if (typeof funcion == "function") {
         $("#alertDialogMensajes").dialog("option", "buttons", {
@@ -478,13 +529,7 @@ function alert_msg(message, titulo, funcion) {
     showDialogSinScroll("alertDialogMensajes");
 }
 
-function OpenUrl(url, newPage) {
-    if (newPage) {
-        window.open(url, '_blank');
-        return;
-    }
 
-    window.location.href = url;
 }
 
 function ValidarCorreo(correo) {
@@ -878,7 +923,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
     return qty;
 }
 
-function messageConfirmacion(title, message, fnAceptar) {
+function messageConfirmacion(title, message, fnAceptar, fnCancelar) {
     title = $.trim(title);
     if (title == "")
         title = "MENSAJE";
@@ -894,6 +939,10 @@ function messageConfirmacion(title, message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+    if ($.isFunction(fnCancelar)) {
+        $('#divMensajeConfirmacion .btnMensajeCancelar').off('click');
+        $('#divMensajeConfirmacion .btnMensajeCancelar').on('click', fnCancelar);
     }
 }
 

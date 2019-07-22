@@ -10,10 +10,22 @@
 
 @Html.Partial("FichaTemplate")
 
+<style>
+
+    /* Para ocultar botón de chat Messenger en la vista de Ficha de Producto */
+
+    .btn_chat_messenger {
+        display: none !important;
+    }
+
+    /* Fin - Para ocultar botón de chat Messenger en la vista de Ficha de Producto */
+
+</style>
+
 @*@if (Model.NoEsCampaniaActual)
-{
-    @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
-}*@
+    {
+        @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
+    }*@
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
@@ -21,27 +33,11 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
     <script type="text/javascript">
-        AbrirLoad();
-
-        var fichaModule;
-
-        var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new {area = ""})';
-
-        $(document).ready(function () {
-            fichaModule = FichaModule({
-                localStorageModule: LocalStorageModule(),
-                analyticsPortalModule: AnalyticsPortalModule,
-                generalModule: GeneralModule,
-                palanca: "@Model.Palanca",
-                campania: "@Model.Campania",
-                cuv: "@Model.Cuv",
-                origen: "@Model.OrigenUrl"
-            });
-            fichaModule.Inicializar();
-
-            CerrarLoad();
-        });
-
-        $(document).ajaxStop(function () { })
+    var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new {area = ""})';
+    var modelPalanca = "@Model.Palanca";
+    var modelCampania = "@Model.Campania";
+    var modelCuv = "@Model.Cuv";
+    var modelOrigen = "@Model.OrigenUrl";
     </script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/Ficha.js"></script>
 }

@@ -29,6 +29,7 @@
 
     var _getPackComponents = function () {
         var estrategia = _getEstrategia();
+
         var params = {
             estrategiaId: estrategia.EstrategiaID,
             cuv2: estrategia.CUV2,
@@ -37,7 +38,7 @@
             codigoEstrategia: estrategia.CodigoEstrategia
         };
 
-        var urlReturn = !estrategia.IsMobile ? "/ofertas" : "mobile/ofertas";
+        var urlReturn = !estrategia.IsMobile ? "/ofertas" : "/mobile/ofertas";
 
         _config.armaTuPackProvider
             .getPackComponentsPromise(params)
@@ -49,16 +50,20 @@
                     return false;
                 }
                 var dataClone = jQuery.extend(true, {}, data);
+                dataClone.estrategia = jQuery.extend(true, {}, estrategia);
+                dataClone.subTituloCabecera = estrategia.SubTitulo || "";
+                dataClone.colorTexto = estrategia.ColorTexto;
 
                 $.each(data.componentes, function (idx, grupo) {
-                    if (typeof grupo.Hermanos === "undefined" || grupo.Hermanos === null || grupo.Hermanos.length === 0) {
+                    if (typeof grupo.Hermanos === "undefined" || grupo.Hermanos === null || 
+                    !Array.isArray(grupo.Hermanos) || grupo.Hermanos.length === 0) {
                         $.each(dataClone.componentes, function (idxClone, grupoClone) {
                             if (grupo.Grupo === grupoClone.Grupo) {
                                 dataClone.componentes.splice(idxClone, 1);
                                 return false;
                             }
                         });
-                    };
+                    }
                 });
 
                 _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposLoaded, dataClone);

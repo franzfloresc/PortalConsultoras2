@@ -147,10 +147,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lst)
                     {
-                        item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
-                        item.ImagenProductoSmall = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
-                        item.ImagenProductoMedium = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
-                        item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
+                        if (!string.IsNullOrEmpty(item.ImagenProducto))
+                        {
+                            if (item.ImagenProducto.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
+                                SetearImagenesGIF(item);
+                            else
+                                SetearImagenesPNG(item, extensionNombreImagenSmall, extensionNombreImagenMedium);
+
+                            item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
+                        }
                     }
                 }
             }
@@ -165,6 +170,24 @@ namespace Portal.Consultoras.Web.Controllers
                 verMas = estado
             }, JsonRequestBehavior.AllowGet);
         }
+
+      
+
+        private void SetearImagenesGIF(BEOfertaProducto item)
+        {
+            item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
+            item.ImagenProductoSmall = item.ImagenProducto;
+            item.ImagenProductoMedium = item.ImagenProducto;
+        }
+
+        private void SetearImagenesPNG(BEOfertaProducto item, string extensionNombreImagenSmall, string extensionNombreImagenMedium)
+        {
+            item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
+            item.ImagenProductoSmall = Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
+            item.ImagenProductoMedium = Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
+        }
+
+
 
         public List<OfertaProductoModel> GetListadoOfertasLiquidacion()
         {
@@ -183,95 +206,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
         }
 
-        //[HttpPost]
-        //public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
-        //{
-        //    string mensaje;
-        //    var noPasa = ReservadoEnHorarioRestringido(out mensaje);
-        //    if (noPasa)
-        //    {
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = mensaje,
-        //            extra = ""
-        //        });
-        //    }
-
-        //    try
-        //    {
-        //        BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
-
-        //        entidad.PaisID = userData.PaisID;
-        //        entidad.ConsultoraID = userData.ConsultoraID;
-        //        entidad.CampaniaID = userData.CampaniaID;
-        //        entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
-        //        entidad.IPUsuario = userData.IPUsuario;
-
-        //        entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-        //        entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-        //        entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
-
-        //        using (PedidoServiceClient sv = new PedidoServiceClient())
-        //        {
-        //            sv.InsPedidoWebDetalleOferta(entidad);
-
-        //            SessionManager.SetPedidoWeb(null);
-        //            SessionManager.SetDetallesPedido(null);
-        //            SessionManager.SetDetallesPedidoSetAgrupado(null);
-        //        }
-
-        //        UpdPedidoWebMontosPROL();
-
-        //        BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico
-        //        {
-        //            PedidoID = entidad.PedidoID,
-        //            CampaniaID = entidad.CampaniaID,
-        //            PedidoDetalleID = entidad.PedidoDetalleID,
-        //            IndicadorIPUsuario = GetIPCliente(),
-        //            IndicadorFingerprint = "",
-        //            IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
-        //                ? SessionManager.GetTokenPedidoAutentico().ToString()
-        //                : ""
-        //        };
-
-        //        InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
-
-        //        using (var pedidoServiceClient = new PedidoServiceClient())
-        //        {
-        //            pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-        //                , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
-        //        }
-
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            message = "Se agregó la Oferta Web satisfactoriamente.",
-        //            extra = "",
-        //            DataBarra = GetDataBarra()
-        //        });
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //}
 
         [HttpPost]
         public JsonResult UpdateOfertaWebPortal(PedidoDetalleModel model)
@@ -502,7 +436,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
-            string habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
+            string habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(PaisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.BusquedaNemotecnicoOfertaLiquidacion);
 
             return Json(new
             {

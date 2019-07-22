@@ -14,7 +14,7 @@ function LayoutHeader() {
 }
 
 function LayoutHeaderFin() {
-    var wtop = $("header").innerHeight();
+    var wtop = $("header").innerHeight() || 0;
     $("[data-content]").css("margin-top", (wtop) + "px");
 }
 
@@ -26,9 +26,6 @@ function LayoutMenu() {
 }
 
 function LayoutMenuFin() {
-
-    //if (typeof menuModule !== "undefined")
-    //    menuModule.Resize();
 
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
@@ -98,12 +95,10 @@ function LayoutMenuFin() {
     // caso no entre en el menu
     // poner en dos renglones
     if ($(idnMenuHeader).height() > 61) {
+        //
     }
 
     LayoutHeader();
-
-    //if (typeof menuModule !== "undefined")
-    //    menuModule.Resize();
 }
 
 function OcultarMenu(codigo) {

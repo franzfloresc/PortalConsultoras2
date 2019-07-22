@@ -3,18 +3,48 @@
 /// <reference path="../../../../../General.js" />
 /// <reference path="../../../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
 /// <reference path="../../../../../PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
+/// <reference path="../../../../../portalconsultoras/shared/analyticsportal.js" />
 
-///  <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposMobileView.js" />
-///  <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js" />
+
+///  <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposView.js" />
 ///  <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js" />
 
 describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
-    describe("Constructor", function () {
-        var errorMsg = '';
+    var errorMsg = '';
+    //
+    var gruposView = null;
+    var gruposPresenter = null;
 
-        beforeEach(function () {
-            errorMsg = '';
+    var generalModule = null;
+    var armaTuPackDetalleEvents = null;
+    var analyticsPortalModule = null;
+
+    beforeEach(function () {
+        errorMsg = '';
+        //
+        generalModule = sinon.stub(GeneralModule);
+        armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
+        analyticsPortalModule = sinon.stub(AnalyticsPortalModule);
+        gruposView = sinon.stub(
+            GruposView({
+                generalModule: generalModule,
+                gruposContainerId: "#grupos"
+            })
+        );
+        //
+        gruposPresenter = GruposPresenter({
+            gruposView: gruposView,
+            generalModule: generalModule,
+            armaTuPackDetalleEvents: armaTuPackDetalleEvents,
+            analyticsPortalModule: analyticsPortalModule
         });
+    });
+
+    afterEach(function () {
+        sinon.restore();
+    });
+
+    describe("Constructor", function () {
 
         it("throw an exception when config is undefined", function () {
 
@@ -125,39 +155,43 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
             expect(errorMsg).to.have.string("config.armaTuPackDetalleEvents is null or undefined");
         });
+
+        it("throw an exception when config.analyticsPortalModule is undefined", function () {
+
+            try {
+                GruposPresenter({
+                    gruposView: {},
+                    armaTuPackProvider: {},
+                    generalModule: {},
+                    armaTuPackDetalleEvents: {},
+                    analyticsPortalModule: undefined
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("config.analyticsPortalModule is null or undefined");
+        });
+
+        it("throw an exception when config.analyticsPortalModule is null", function () {
+
+            try {
+                GruposPresenter({
+                    gruposView: {},
+                    armaTuPackProvider: {},
+                    generalModule: {},
+                    armaTuPackDetalleEvents: {},
+                    analyticsPortalModule: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("config.analyticsPortalModule is null or undefined");
+        });
     });
 
     describe("onGruposLoaded", function () {
-        var errorMsg = '';
-        //
-        var gruposView = null;
-        var gruposPresenter = null;
-
-        var generalModule = null;
-        var armaTuPackDetalleEvents = null;
-
-        beforeEach(function () {
-            errorMsg = '';
-            //
-            generalModule = sinon.stub(GeneralModule);
-            armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
-            gruposView = sinon.stub(
-                GruposDesktopView({
-                    generalModule: generalModule,
-                    gruposContainerId: "#grupos"
-                })
-            );
-            //
-            gruposPresenter = GruposPresenter({
-                gruposView: gruposView,
-                generalModule: generalModule,
-                armaTuPackDetalleEvents: armaTuPackDetalleEvents
-            });
-        });
-
-        afterEach(function () {
-            sinon.restore();
-        });
 
         it("throw an exception when data object is undefined", function () {
 
@@ -1775,13 +1809,6 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
     });
 
     describe("addComponente", function () {
-        var errorMsg = '';
-        
-        var gruposView = null;
-        var gruposPresenter = null;
-
-        var generalModule = null;
-        var armaTuPackDetalleEvents = null;
 
         var fakeData = function () {
             return {
@@ -3090,24 +3117,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         var cuvComponenteFC4 = "30405";
 
         beforeEach(function () {
-            errorMsg = '';
-            
-            generalModule = sinon.stub(GeneralModule);
-            armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
-            gruposView = sinon.stub(GruposDesktopView({
-                generalModule: generalModule,
-                gruposContainerId: "#grupos"
-            }));
-            gruposPresenter = GruposPresenter({
-                gruposView: gruposView,
-                generalModule: generalModule,
-                armaTuPackDetalleEvents: armaTuPackDetalleEvents
-            });
             gruposPresenter.onGruposLoaded(fakeData());
-        });
-
-        afterEach(function () {
-            sinon.restore();
         });
 
         it("should throw an exception when codigoGrupo is undefined", function () {
@@ -3217,10 +3227,10 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                     gruposPresenter.addComponente(codigoGrupo, cuvComponente);
                     gruposPresenter.addComponente(codigoGrupo, cuvComponente);
                     gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-        
+
                     //Act
                     gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-        
+
                     //Assert
                     var model = gruposPresenter.packComponents();
                     expect(model.componentesSeleccionados.length).to.be.equals(4);
@@ -3233,7 +3243,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         cuvComponente = cuvComponenteFC1;
                         gruposPresenter.addComponente(codigoGrupo, cuvComponente);
                     });
-                    
+
                     it("should hide options label and show ready label", function () {
                         var model = gruposPresenter.packComponents();
                         var quantitySelected = 0;
@@ -3248,7 +3258,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         expect(gruposView.hideGroupOptions.calledOnce).to.be.equals(true);
                         expect(gruposView.showGroupReady.calledOnce).to.be.equals(true);
                     });
-    
+
                     it("should change choose it  to chosen", function () {
                         var model = gruposPresenter.packComponents();
                         var quantitySelected = 0;
@@ -3287,7 +3297,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         expect(gruposView.blockGroup.args[firstCall][firstParam]).to.equals(codigoGrupo);
                         expect(gruposView.blockGroup.args[firstCall][secondParam]).to.equals(cuvComponente);
                     });
-    
+
                     it("should remove group highlight", function () {
                         var model = gruposPresenter.packComponents();
                         var quantitySelected = 0;
@@ -3301,16 +3311,16 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         expect(quantitySelected).to.be.equal(factorCuadre);
                         expect(gruposView.removeGroupHighlight.calledOnce).to.be.equals(true);
                     });
-                
-                });    
-    
+
+                });
+
                 describe("and Factor Cuadre is upper than 1 ", function () {
 
                     beforeEach(function () {
                         gruposPresenter.addComponente(codigoGrupo, cuvComponente);
                     });
 
-                    
+
                     it("should show quantity selector when quantity is less than factorCuadre", function () {
                         var model = gruposPresenter.packComponents();
                         var quantitySelected = 0;
@@ -3338,7 +3348,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         expect(quantitySelected).to.be.lessThan(factorCuadre);
                         expect(gruposView.showGroupOptions.calledOnce).to.be.equals(true);
                     });
-    
+
                     it("should hide ready label when quantity is less than factorCuadre", function () {
                         var model = gruposPresenter.packComponents();
                         var quantitySelected = 0;
@@ -3351,23 +3361,15 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         });
                         expect(quantitySelected).to.be.lessThan(factorCuadre);
                         expect(gruposView.hideGroupReady.calledOnce).to.be.equals(true);
-                    });    
-                    
+                    });
+
                 });
-                
+
             });
         });
     });
 
     describe("deleteComponent", function () {
-        var errorMsg = '';
-        
-        var gruposView = null;
-        var gruposPresenter = null;
-
-        var generalModule = null;
-        var armaTuPackDetalleEvents = null;
-
         var fakeData = function () {
             return {
                 "success": true,
@@ -4919,24 +4921,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         var cuvComponente = "30405";
 
         beforeEach(function () {
-            errorMsg = '';
-            
-            generalModule = sinon.stub(GeneralModule);
-            armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
-            gruposView = sinon.stub(GruposDesktopView({
-                generalModule: generalModule,
-                gruposContainerId: "#grupos"
-            }));
-            gruposPresenter = GruposPresenter({
-                gruposView: gruposView,
-                generalModule: generalModule,
-                armaTuPackDetalleEvents: armaTuPackDetalleEvents
-            });
             gruposPresenter.onGruposLoaded(fakeData());
-        });
-
-        afterEach(function () {
-            sinon.restore();
         });
 
         it("should throw an exception when codigoGrupo is undefined", function () {
@@ -5085,16 +5070,9 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
     });
 
     describe("onShowWarnings", function () {
-        var errorMsg = '';
-        
-        var gruposView = null;
-        var gruposPresenter = null;
-        var generalModule = null;
-        var armaTuPackDetalleEvents = null;
-        
         var codigoGrupo = "1";
         var cuvComponente = "30405";
-        
+
         var fakeComponentsWithNoSelected = function () {
             return {
                 "success": true,
@@ -5265,26 +5243,6 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 "mensaje": "SiMongo|GetEstrategiaProductos = 57|GetEstrategiaDetalleCompuesta = 4|OrdenarComponentesPorMarca = 4|"
             };
         };
-
-        beforeEach(function () {
-            errorMsg = '';
-            
-            generalModule = sinon.stub(GeneralModule);
-            armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
-            gruposView = sinon.stub(GruposDesktopView({
-                generalModule: generalModule,
-                gruposContainerId: "#grupos"
-            }));
-            gruposPresenter = GruposPresenter({
-                gruposView: gruposView,
-                generalModule: generalModule,
-                armaTuPackDetalleEvents: armaTuPackDetalleEvents
-            });
-        });
-
-        afterEach(function () {
-            sinon.restore();
-        });
 
         it("Should throw an exception when data object is undefined", function () {
 

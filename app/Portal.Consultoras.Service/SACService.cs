@@ -1111,6 +1111,12 @@ namespace Portal.Consultoras.Service
             return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
         }
 
+        public List<BEComunicado> ObtenerSegmentacionInformativaPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+          string CodigoZona, int IdEstadoActividad)
+        {
+            return _comunicadoBusinessLogic.ObtenerSegmentacionInformativaPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
+        }
+
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
         {
             return BLPopupPais.ObtenerOrdenPopUpMostrar(PaisID).ToList();
@@ -1234,6 +1240,26 @@ namespace Portal.Consultoras.Service
         public void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo)
         {
             BLSolicitudCliente.RechazarSolicitudCliente(paisID, solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
+        }
+
+        public void UpdSolicitudClienteDetalleEstado(int paisID, long solicitudId, string cuv, bool estado)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteDetalleEstado(paisID, solicitudId, cuv, estado);
+        }
+
+        public void UpdSolicitudClienteDetalleCantidad(int paisID, long solicitudId, string cuv, int cantidad)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteDetalleCantidad(paisID, solicitudId, cuv, cantidad);
+        }
+
+        public void UpdSolicitudClienteRechazar(int paisID, long solicitudId, int motivoRechazoId, string motivoRechazoTexto)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteRechazar(paisID, solicitudId, motivoRechazoId, motivoRechazoTexto);
+        }
+
+        public void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteRechazarPorCuv(paisID, solicitudId, cuv);
         }
 
         public BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo)

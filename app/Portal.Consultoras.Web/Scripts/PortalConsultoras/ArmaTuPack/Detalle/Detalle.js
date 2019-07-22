@@ -7,8 +7,7 @@
 /// <reference path="cabecera/cabeceraview.js" />
 /// <reference path="cabecera/cabecerapresenter.js" />
 
-/// <reference path="grupos/gruposdesktopview.js" />
-/// <reference path="grupos/gruposmobileview.js" />
+/// <reference path="grupos/GruposView.js" />
 /// <reference path="grupos/grupospresenter.js" />
 
 /// <reference path="seleccionados/seleccionadosview.js" />
@@ -21,6 +20,7 @@ var armaTuPackDetalleEvents = ArmaTuPackDetalleEvents();
 
 var armaTuPackProvider = ArmaTuPackProvider();
 var generalModule = GeneralModule;
+var analyticsPortalModule = AnalyticsPortalModule;
 
 var detallePresenter = DetallePresenter({
     armaTuPackProvider: armaTuPackProvider,
@@ -28,17 +28,27 @@ var detallePresenter = DetallePresenter({
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
 
-var gruposDesktopView = GruposDesktopView({
-    generalModule: generalModule,
-    gruposContainerId: "#grupos"
-});
-var gruposDesktopPresenter = GruposPresenter({
-    gruposView: gruposDesktopView,
+var cabeceraView = CabeceraView({});
+var cabeceraPresenter = CabeceraPresenter({
+    cabeceraView: cabeceraView,
     armaTuPackProvider: armaTuPackProvider,
     generalModule: generalModule,
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
-gruposDesktopView.setPresenter(gruposDesktopPresenter);
+//cabeceraView.setPresenter(cabeceraPresenter);
+
+var gruposView = GruposView({
+    generalModule: generalModule,
+    gruposContainerId: "#grupos"
+});
+var gruposPresenter = GruposPresenter({
+    gruposView: gruposView,
+    armaTuPackProvider: armaTuPackProvider,
+    generalModule: generalModule,
+    armaTuPackDetalleEvents: armaTuPackDetalleEvents,
+    analyticsPortalModule: analyticsPortalModule
+});
+gruposView.setPresenter(gruposPresenter);
 
 var seleccionadosView = SeleccionadosView({
     seleccionadosContainerId: "#seleccionados"
@@ -55,17 +65,17 @@ $(document).ready(function () {
     detallePresenter.init();
 });
 
-
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (packComponents) {
-    gruposDesktopPresenter.onGruposLoaded(packComponents);
+    cabeceraPresenter.onGruposLoaded(packComponents);
+    gruposPresenter.onGruposLoaded(packComponents);
     seleccionadosPresenter.onGruposLoaded(packComponents);
 });
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, function (packComponents) {
-    gruposDesktopPresenter.onSelectedComponentsChanged(packComponents);
+    gruposPresenter.onSelectedComponentsChanged(packComponents);
     seleccionadosPresenter.onSelectedComponentsChanged(packComponents);
 });
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onShowWarnings, function (packComponents) {
-    gruposDesktopPresenter.onShowWarnings(packComponents);
+    gruposPresenter.onShowWarnings(packComponents);
 });

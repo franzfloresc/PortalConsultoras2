@@ -40,5 +40,7 @@ namespace Portal.Consultoras.Entities.Usuario
         public string MensajeAmbos { get; set; }
         [DataMember]
         public List<BEUsuarioPerfil> oDatosPerfil { get; set; }
+        [DataMember]
+        public string MensajeFijo { get; set; }
     }
 }

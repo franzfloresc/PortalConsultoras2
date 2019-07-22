@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var title = Model.Titulo;
     ViewBag.Title = title;
+    ViewBag.FbCustomInit = "1";
 }
 
 
@@ -50,18 +51,24 @@ else
     <!-- FIN - TITULO DE VISTA CATÁLOGOS -->
     <!-- TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
     <ul class="row flex-row justify-content-between ml-0 mr-0 mb-0 tabs__catalogos__revistas mostrarEnMobile">
-        <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__catalogos">
+        <li id="catalog" class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__catalogos">
             <a class="d-block text-uppercase text-center" title="Catálogos">
                 Catálogos
             </a>
             <div class="col-12 pl-0 pr-0 d-block indicador__catalogos__revistas indicador__catalogos__revistas--activo"></div>
         </li>
-        <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__revistas">
-            <a class="d-block text-uppercase text-center" title="Revistas">
-                Revistas
-            </a>
-            <div class="col-12 pl-0 pr-0 d-block indicador__catalogos__revistas"></div>
-        </li>
+
+        @if (ViewBag.TieneSeccionRevista)
+        {
+            <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__revistas">
+                <a class="d-block text-uppercase text-center" title="Revistas">
+                    Revistas
+                </a>
+                <div class="col-12 pl-0 pr-0 d-block indicador__catalogos__revistas"></div>
+            </li>
+        }
+
+
     </ul>
     <!-- FIN - TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
 
@@ -156,10 +163,10 @@ else
                         </a>
                         <div class="row flex-row justify-content-around align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
 
-                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="javascript: RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
+                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="javascript: RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{WSP_textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
                             </a>
-                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="javascript: CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
+                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="javascript: CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{FB_textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_facebook2.svg")" alt="Compartir por Facebook" />
                             </a>
                             <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger" data-accion="ms" onclick="javascript: RedesSociales.CompartirMessengerActual(/*'{tipoCatalogoTodo}',*/ '{campania}'/*, '{textourl}', '{isMovil}', '{FBAppId}'*/)">
@@ -378,14 +385,31 @@ else
 
     <script type="text/javascript" id="js-ready-Catalogo">
         var urlCatalogoPiloto = '@Html.Raw(ViewBag.UrlCatalogoPiloto)';
+        /* INI HD-4248 */
+        var urlCatalogoPiloto_WSP = '@Html.Raw(ViewBag.UrlCatalogoPiloto_WSP)';
+        var urlCatalogoPiloto_FB = '@Html.Raw(ViewBag.UrlCatalogoPiloto_FB)';
+        var urlCatalogoPiloto_MSN = '@Html.Raw(ViewBag.UrlCatalogoPiloto_MSN)';
+        var urlCatalogoPiloto_EMAIL = '@Html.Raw(ViewBag.UrlCatalogoPiloto_EMAIL)';
+        /* FIN HD-4248 */
+
+
         var piloto = '@ViewBag.Piloto';
+        var TieneSeccionRevista =  ('@ViewBag.TieneSeccionRevista').toLocaleLowerCase();
+         if (!JSON.parse(TieneSeccionRevista)) {
+             $('#catalog').css('max-width', '100%');
+             $('#catalog').css('flex', '0 0 100%');
+            
+            
+        };
+           
+
 
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
             '{img}' +
             '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
-        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "MisCatalogosRevistas", new { area = "" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var valContenidoCorreoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreo)';
