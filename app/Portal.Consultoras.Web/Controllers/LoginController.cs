@@ -482,6 +482,10 @@ namespace Portal.Consultoras.Web.Controllers
                 flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);
                 sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
 
+                flagMiAcademiaPdf = Convert.ToInt32(TempData["FlagAcademiaPdf"]);  // PPC
+                sessionManager.SetMiAcademiaPdf(flagMiAcademiaPdf);                // PPC                           
+
+
                 returnUrl = Url.Action("Index", "MiAcademia");
 
                 if (usuario.RolID != Constantes.Rol.Consultora)
