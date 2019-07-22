@@ -942,7 +942,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
         var _newTopDialog = _topWithoutPXAfterCreateDialog + 200;
         var _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px';
 
-        CerrarLoad();
+        //CerrarLoad();
 
         $("body").css("overflow", "hidden");
 
@@ -960,7 +960,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
         }, 3000)
 
     } catch (e) {
-
+        console.log(e);
     }
 }
 
