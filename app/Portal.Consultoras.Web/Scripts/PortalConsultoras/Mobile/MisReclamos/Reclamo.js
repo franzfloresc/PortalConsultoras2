@@ -589,6 +589,10 @@ $(document).ready(function () {
 
                     var $elements = $("#contenedorCuvTrueque .item-producto-cambio");
                     var $arrCuv = $elements.find(me.Constantes.SPAN_NAME_CODIGO);
+
+                    if ($arrCuv && $arrCuv.length > 0 && !flagTruequeUnoMuchos)
+                        return false;
+
                     if (me.Funciones.ValidarCUVYaIngresado($arrCuv, $this.val())) {
                         $this.val("");
                         messageInfoValidado(me.Constantes.mensajeValidacionCUVYaIngresado);
@@ -625,7 +629,12 @@ $(document).ready(function () {
                                 $this.val("");
                                 me.Funciones.CalcularTotal();
                                 $this.blur();
-                                $target.animate({ scrollTop: $target.height() }, 1000);
+
+                                if(!flagTruequeUnoMuchos)
+                                    $(me.Variables.txtCuvMobile2).fadeOut(100);
+
+                                $target.animate({ scrollTop: $target.height() }, 2500);
+
                             }
                         }
                     });
@@ -765,6 +774,36 @@ $(document).ready(function () {
         me.Funciones = {
 
             callAjax: function (pUrl, pSendData, callbackSuccessful, callbackError) {
+                var sendData = typeof pSendData === "undefined" ? {} : pSendData;
+                $.ajax({
+                    type: "POST",
+                    url: pUrl,
+                    beforeSend: function () {
+                        ShowLoading();
+                    },
+                    complete: function () {
+                        CloseLoading();
+                    },
+                    data: JSON.stringify(sendData),
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    dataType: "json",
+                    success: function (result) {
+                        if (callbackSuccessful && typeof callbackSuccessful === "function") {
+                            callbackSuccessful(result);
+                        }
+                    },
+                    error: function (msg) {
+                        if (callbackError && typeof callbackError === "function") {
+                            callbackError(msg);
+                        } else {
+                            CloseLoading();
+                        }
+                    }
+                });
+            },
+
+            callAjaxAsync: function (pUrl, pSendData, callbackSuccessful, callbackError) {
                 var sendData = typeof pSendData === "undefined" ? {} : pSendData;
                 $.ajax({
                     type: "POST",
@@ -1066,7 +1105,7 @@ $(document).ready(function () {
                     if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
                         callbackWhenFinish(data);
                     }
-                });
+                },);
             },
 
             BuscarMotivo: function () {
@@ -1159,7 +1198,7 @@ $(document).ready(function () {
                     CampaniaID: $(me.Variables.ComboCampania).val()
                 };
 
-                me.Funciones.callAjax(url, sendData, function (data) {
+                me.Funciones.callAjaxAsync(url, sendData, function (data) {
                     if (!checkTimeout(data))
                         return false;
                     if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
@@ -1419,7 +1458,7 @@ $(document).ready(function () {
                     Reemplazo: operacionId === me.Variables.operaciones.trueque ? Reemplazo : null
                 };
 
-                me.Funciones.callAjax(url, sendData, function (data) {
+                me.Funciones.callAjaxAsync(url, sendData, function (data) {
                     if (!checkTimeout(data)) {
                         return false;
                     }
@@ -1563,7 +1602,7 @@ $(document).ready(function () {
                 var sendData = {
                     correo: correo
                 };
-                me.Funciones.callAjax(url, sendData, function (data) {
+                me.Funciones.callAjaxAsync(url, sendData, function (data) {
                     if (!checkTimeout(data))
                         return false;
                     if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
@@ -1624,7 +1663,7 @@ $(document).ready(function () {
                 }
 
                 setTimeout(function () {
-                    me.Funciones.callAjax(url, sendData, function (data) {
+                    me.Funciones.callAjaxAsync(url, sendData, function (data) {
                         if (!checkTimeout(data))
                             return false;
 
@@ -1678,7 +1717,7 @@ $(document).ready(function () {
                     Telefono: celular
                 };
 
-                me.Funciones.callAjax(url, sendData, function (data) {
+                me.Funciones.callAjaxAsync(url, sendData, function (data) {
                     if (!checkTimeout(data))
                         return false;
                     if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
@@ -1958,7 +1997,7 @@ $(document).ready(function () {
 
                 //Faltante de abono
                 if (id === me.Variables.operaciones.faltanteAbono) {
-                    if (!me.ValidarPasoDosFaltanteAbono(id)) {
+                    if (!me.Funciones.ValidarPasoDosFaltanteAbono(id)) {
                         return { result: false, id: id };
                     }
                 }
@@ -2049,6 +2088,9 @@ $(document).ready(function () {
             },
             EliminarCUVTrueque: function (el) {
                 $(el).parent().parent().remove();
+                if (!flagTruequeUnoMuchos)
+                    $(me.Variables.txtCuvMobile2).fadeIn(100).focus();
+                
                 me.Funciones.CalcularTotal();
             },
             CalcularTotal: function () {

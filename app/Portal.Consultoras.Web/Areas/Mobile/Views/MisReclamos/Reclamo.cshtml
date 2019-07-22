@@ -833,6 +833,7 @@
         var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
         if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto + " " + mensajeChatEnLinea;
         var CantidadReclamosPorPedidoConfig = '@Html.Raw(Model.CantidadReclamosPorPedido)';
+        var flagTruequeUnoMuchos = @Html.Raw(Json.Encode(Model.FlagTruequeUnoMuchos));
         var OrigenCDR = true;
 
     </script>

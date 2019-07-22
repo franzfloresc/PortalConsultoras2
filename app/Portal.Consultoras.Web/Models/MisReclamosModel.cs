@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Web.Models
             Complemento = new HashSet<ProductoComplementarioModel>();
             Reemplazo = new HashSet<ProductoComplementarioModel>();
             flagLimiteReclamo = false;
+            FlagTruequeUnoMuchos = false;
         }
         public int CDRWebID { get; set; }
         public int PedidoID { get; set; }
@@ -123,5 +124,6 @@ namespace Portal.Consultoras.Web.Models
         }
         public int MostrarTab { get; set; }
         public bool flagLimiteReclamo { get; set; }
+        public bool FlagTruequeUnoMuchos { get; set; }
     }
 }

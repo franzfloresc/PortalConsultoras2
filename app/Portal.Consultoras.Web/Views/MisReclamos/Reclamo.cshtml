@@ -83,8 +83,6 @@
                 <br />
             </div>
             <div class="text-center content_reclamo" id="Paso2" style="display: none; max-width: 890px;">
-                @*<div class="content_reclamo" id="Cambio1" style="display: none; max-width: 890px;">
-                    </div>*@
                 <div class="subtitulo_reclamo">Escoge una solución</div>
                 <div id="divOperacion" class="text-center lista_opciones_cdr_wrapper">
                 </div>
@@ -110,10 +108,13 @@
                             <div id="contenedorCuvTrueque">
 
                             </div>
-                            <button type="button" name="Agregar" class="d-block border-radius-4 text-bold text-uppercase btn_cdr btn_agregar_mas_productos_a_cambiar" onclick="AgregarCUVTrueque();">
-                                <span><img src="@Url.Content("~/Content/Images/icono_plus.svg")" alt="Agregar productos" /></span>
-                                <span>Agregar más productos</span>
-                            </button>
+                            @if (Model.FlagTruequeUnoMuchos)
+                            {
+                                <button type="button" name="Agregar" class="d-block border-radius-4 text-bold text-uppercase btn_cdr btn_agregar_mas_productos_a_cambiar" onclick="AgregarCUVTrueque();">
+                                    <span><img src="@Url.Content("~/Content/Images/icono_plus.svg")" alt="Agregar productos" /></span>
+                                    <span>Agregar más productos</span>
+                                </button>
+                            }
                             <div id="MontoTotalProductoACambiar" class="text-bold total_precio_reclamo" style="display:none;">
                                 <input type="hidden" id="hdImporteTotal2" />
                                 Total:

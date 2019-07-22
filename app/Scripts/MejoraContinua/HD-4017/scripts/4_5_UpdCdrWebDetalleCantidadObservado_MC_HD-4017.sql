@@ -13,6 +13,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -31,6 +39,13 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -50,6 +65,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -69,6 +92,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -88,6 +119,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -107,6 +146,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -126,6 +173,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -145,6 +200,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -164,6 +227,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -183,6 +254,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado =1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -202,6 +281,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 
@@ -221,6 +308,14 @@ set
 	DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
 where 
 	CDRWebDetalleID = @CDRWebDetalleID
+
+--Actualizar la cabecera para que lo vuelva a tomar
+update CDRWeb
+set
+	Estado = 1 --pendiente
+where 
+	CDRWebID IN (SELECT DISTINCT CDRWebId FROM dbo.CDRWebDetalle WHERE CDRWebDetalleID = @CDRWebDetalleID);
+
 end
 GO
 

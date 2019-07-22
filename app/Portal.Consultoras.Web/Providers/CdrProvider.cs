@@ -595,16 +595,36 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     return sessionManager.GetNroPedidosCDRConfig();
                 }
-
-                result = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisID, ConsTablaLogica.NroSolicitudePedido.TablaLogicaId, ConsTablaLogica.NroSolicitudePedido.Cod01);
-
+                result = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisID, ConsTablaLogica.ConfigCdr.TablaLogicaId, ConsTablaLogica.ConfigCdr.NroSolicitudPorPedido);
+                sessionManager.SetNroPedidosCDRConfig(result);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, codigoISO);
             }
-            sessionManager.SetNroPedidosCDRConfig(result);
+           
             return result;
+        }
+
+        public bool GetTruequeUnoPorMuchos(int paisID, string codigoConsultora, string codigoISO)
+        {
+            int result = 0;
+            try
+            {
+                if (sessionManager.GetTruequeUnoPorMuchos() != null)
+                {
+                    return (bool)sessionManager.GetTruequeUnoPorMuchos();
+                }
+
+                result = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisID, ConsTablaLogica.ConfigCdr.TablaLogicaId, ConsTablaLogica.ConfigCdr.TruequeUnoMuchos);
+                sessionManager.SetTruequeUnoPorMuchos(result == 1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, codigoISO);
+                result = 0;
+            }
+            return result == 1;
         }
 
         private class PedidosEstadoCDRWeb

@@ -58,6 +58,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
                 model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
                 model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
+                model.FlagTruequeUnoMuchos = _cdrProvider.GetTruequeUnoPorMuchos(userData.PaisID, userData.CodigoConsultora, userData.CodigoISO);
                 model.CantidadReclamosPorPedido = _cdrProvider.GetNroSolicitudesReclamoPorPedido(userData.PaisID, userData.CodigoConsultora, userData.CodigoISO);
                 if (listaCdrWebModel.Any())
                 {
@@ -97,7 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaCampania = SessionManager.GetCDRCampanias();
 
             model.CantidadReclamosPorPedido = SessionManager.GetNroPedidosCDRConfig();
-
+            model.FlagTruequeUnoMuchos = (bool)SessionManager.GetTruequeUnoPorMuchos();
 
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
 
