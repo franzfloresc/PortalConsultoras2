@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -25,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             try
             {
-                var CodigoTipoOfertaPremio = base._configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoTipoOfertaPremio);
+                var codigoTipoOfertaPremio = base._configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoTipoOfertaPremio);
 
                 var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
 
@@ -49,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.GetRevistaDigital().EsSuscrita,
                     flagLaMasGanadoras,
                     buscadorPromocionEstaActivo,
-                    CodigoTipoOfertaPremio);
+                    codigoTipoOfertaPremio);
             }
             catch (Exception ex)
             {

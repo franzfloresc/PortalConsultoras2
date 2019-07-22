@@ -1,10 +1,21 @@
-﻿1. Microservicio Sync
+﻿1. Personalizacion.Sync/appsettings.json
 	Modificar dentro de "Palancas" y agregar "LMG" a la cadena
 	
 	"Palancas": "...,LMG"
 
-2. Portal.Consultoras.Web
-	Modificar "Configuration/appSettings/EstrategiaDisponibleMicroservicioPersonalizacion"
-	agregando "LMG" en la cadena.
+2. Personalizacion.SearchNode/config.js
+	Modificar dentro de "Personalizacion" y "Pum" y agregar "LMG" a la cadena
+
+	constantes: {
+		...
+		Personalizacion: [..., 'LMG'],
+		Pum: [...,'LMG'],
+		...
+	} 
+
+3. Portal.Consultoras.Web
+
+	Agregar:
 	
 	<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="...,LMG"/>
+	<add key="CodigoTipoOfertaPremio" value="044,047,024,046,038,039"/>

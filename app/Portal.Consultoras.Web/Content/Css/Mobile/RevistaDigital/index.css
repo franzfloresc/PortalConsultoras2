@@ -705,6 +705,7 @@ body {
         margin: 5% auto auto auto;
         height: 432px;
         display: table;
+        position: relative;
     }
         .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
             vertical-align: middle;
@@ -785,9 +786,12 @@ body {
                 height: 40px;
             }
         .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-            float: right;
+            /*float: right;
             margin-top: -5px;
             margin-left: 441px;
+            position: absolute;*/
+            right: 5px;
+            top: 5px;
             position: absolute;
         }
     .contenido-popup-nuevo-2017 .cerrargndtxt {
