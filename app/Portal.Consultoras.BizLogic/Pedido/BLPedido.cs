@@ -136,7 +136,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal &&
                         !UtilOrigenPedidoWeb.EsCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
                     {
-                        var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
+                        var respuesta = pedidoDetalle.IsPedidoPendiente ? null : RespuestaModificarPedido(pedidoDetalle.Usuario);
                         if (respuesta != null)
                         {
                             if (pedidoDetalle.ReservaProl != null)
@@ -1489,6 +1489,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     var lstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
                     if (lstEstrategia.Any() && lstDetalle.Any()) lstDetalle.ForEach(p => p.EsPremioElectivo = lstEstrategia.Any(c => c.CUV2 == p.CUV));
+                    
                 }
 
                 //Duo Perfecto
@@ -1499,7 +1500,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         detalle.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, detalle.CUV);
                     });
                 }
-
+                
                 //Web set y detalle
                 lstDetalle.Where(filtro => filtro.SetID > 0).Update(detalle =>
                 {
@@ -1507,6 +1508,22 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 });
 
                 pedido.olstBEPedidoWebDetalle = lstDetalle;
+
+                //Pago Contado
+                //Solo se llama cuando este en dentro de las fecha de facturacion.
+
+
+                if (usuario.PagoContado && !pedido.ModificaPedidoReservado && !pedido.ValidacionAbierta)
+                {
+                    pedido.STPPagoContado = usuario.PagoContado;
+                    pedido.CodigoConsultora = usuario.CodigoConsultora;
+                    pedido.PaisID = usuario.PaisID;
+                    var objPedidoTotal = _pedidoWebBusinessLogic.UpdPedidoTotalPagoContado(pedido);
+                    pedido.STPPagoTotal = objPedidoTotal.STPPagoTotal;
+                    pedido.STPDeuda = objPedidoTotal.STPDeuda;
+                    pedido.STPGastTransporte = objPedidoTotal.STPGastTransporte;
+                    pedido.STPDescuento = objPedidoTotal.STPDescuento;
+                }
             }
             catch (Exception ex)
             {

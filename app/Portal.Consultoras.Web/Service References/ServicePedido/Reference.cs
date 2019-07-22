@@ -158,6 +158,30 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string RutaPaqueteDocumentarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double STPDescuentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double STPDeudaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string STPDeudaLogField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double STPGastTransporteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool STPPagoContadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double STPPagoTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double STPPagoTotalSinDeudaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double STPTotalPagarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal SaldoDeudaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -766,6 +790,110 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.RutaPaqueteDocumentarioField, value) != true)) {
                     this.RutaPaqueteDocumentarioField = value;
                     this.RaisePropertyChanged("RutaPaqueteDocumentario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double STPDescuento {
+            get {
+                return this.STPDescuentoField;
+            }
+            set {
+                if ((this.STPDescuentoField.Equals(value) != true)) {
+                    this.STPDescuentoField = value;
+                    this.RaisePropertyChanged("STPDescuento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double STPDeuda {
+            get {
+                return this.STPDeudaField;
+            }
+            set {
+                if ((this.STPDeudaField.Equals(value) != true)) {
+                    this.STPDeudaField = value;
+                    this.RaisePropertyChanged("STPDeuda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string STPDeudaLog {
+            get {
+                return this.STPDeudaLogField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.STPDeudaLogField, value) != true)) {
+                    this.STPDeudaLogField = value;
+                    this.RaisePropertyChanged("STPDeudaLog");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double STPGastTransporte {
+            get {
+                return this.STPGastTransporteField;
+            }
+            set {
+                if ((this.STPGastTransporteField.Equals(value) != true)) {
+                    this.STPGastTransporteField = value;
+                    this.RaisePropertyChanged("STPGastTransporte");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool STPPagoContado {
+            get {
+                return this.STPPagoContadoField;
+            }
+            set {
+                if ((this.STPPagoContadoField.Equals(value) != true)) {
+                    this.STPPagoContadoField = value;
+                    this.RaisePropertyChanged("STPPagoContado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double STPPagoTotal {
+            get {
+                return this.STPPagoTotalField;
+            }
+            set {
+                if ((this.STPPagoTotalField.Equals(value) != true)) {
+                    this.STPPagoTotalField = value;
+                    this.RaisePropertyChanged("STPPagoTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double STPPagoTotalSinDeuda {
+            get {
+                return this.STPPagoTotalSinDeudaField;
+            }
+            set {
+                if ((this.STPPagoTotalSinDeudaField.Equals(value) != true)) {
+                    this.STPPagoTotalSinDeudaField = value;
+                    this.RaisePropertyChanged("STPPagoTotalSinDeuda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double STPTotalPagar {
+            get {
+                return this.STPTotalPagarField;
+            }
+            set {
+                if ((this.STPTotalPagarField.Equals(value) != true)) {
+                    this.STPTotalPagarField = value;
+                    this.RaisePropertyChanged("STPTotalPagar");
                 }
             }
         }
@@ -5164,6 +5292,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool PROLSinStockField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PagoContadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7473,6 +7604,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PROLSinStockField.Equals(value) != true)) {
                     this.PROLSinStockField = value;
                     this.RaisePropertyChanged("PROLSinStock");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PagoContado {
+            get {
+                return this.PagoContadoField;
+            }
+            set {
+                if ((this.PagoContadoField.Equals(value) != true)) {
+                    this.PagoContadoField = value;
+                    this.RaisePropertyChanged("PagoContado");
                 }
             }
         }
@@ -14896,6 +15040,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int NivelAlcanzadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NivelSiguienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEIncentivoNivel[] NivelesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15100,6 +15247,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.NivelAlcanzadoField.Equals(value) != true)) {
                     this.NivelAlcanzadoField = value;
                     this.RaisePropertyChanged("NivelAlcanzado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NivelSiguiente {
+            get {
+                return this.NivelSiguienteField;
+            }
+            set {
+                if ((this.NivelSiguienteField.Equals(value) != true)) {
+                    this.NivelSiguienteField = value;
+                    this.RaisePropertyChanged("NivelSiguiente");
                 }
             }
         }
@@ -19669,6 +19829,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string IngresoExternoOrigenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsPedidoPendienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int LimiteVentaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -19911,6 +20074,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.IngresoExternoOrigenField, value) != true)) {
                     this.IngresoExternoOrigenField = value;
                     this.RaisePropertyChanged("IngresoExternoOrigen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsPedidoPendiente {
+            get {
+                return this.IsPedidoPendienteField;
+            }
+            set {
+                if ((this.IsPedidoPendienteField.Equals(value) != true)) {
+                    this.IsPedidoPendienteField = value;
+                    this.RaisePropertyChanged("IsPedidoPendiente");
                 }
             }
         }
@@ -30358,6 +30534,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionMarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante[] DetalleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -30468,6 +30647,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionMarcaField, value) != true)) {
                     this.DescripcionMarcaField = value;
                     this.RaisePropertyChanged("DescripcionMarca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante[] Detalle {
+            get {
+                return this.DetalleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DetalleField, value) != true)) {
+                    this.DetalleField = value;
+                    this.RaisePropertyChanged("Detalle");
                 }
             }
         }
@@ -47976,6 +48168,18 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/VerificarConsultoraDigital", ReplyAction="http://tempuri.org/IPedidoService/VerificarConsultoraDigitalResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultora> VerificarConsultoraDigitalAsync(string codigoConsultora, int pedidoID, int paisID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContado", ReplyAction="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContadoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb UpdPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContado", ReplyAction="http://tempuri.org/IPedidoService/UpdPedidoTotalPagoContadoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> UpdPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContado", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContadoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb GetPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContado", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoTotalPagoContadoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> GetPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetReporteMovimientosPedido", ReplyAction="http://tempuri.org/IPedidoService/GetReporteMovimientosPedidoResponse")]
         Portal.Consultoras.Web.ServicePedido.BEReporteMovimientosPedido[] GetReporteMovimientosPedido(int paisID, int campaniaID, string codigoConsultora);
         
@@ -50642,6 +50846,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultora> VerificarConsultoraDigitalAsync(string codigoConsultora, int pedidoID, int paisID) {
             return base.Channel.VerificarConsultoraDigitalAsync(codigoConsultora, pedidoID, paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb UpdPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb) {
+            return base.Channel.UpdPedidoTotalPagoContado(bEPedidoWeb);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> UpdPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb) {
+            return base.Channel.UpdPedidoTotalPagoContadoAsync(bEPedidoWeb);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb GetPedidoTotalPagoContado(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb) {
+            return base.Channel.GetPedidoTotalPagoContado(bEPedidoWeb);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> GetPedidoTotalPagoContadoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bEPedidoWeb) {
+            return base.Channel.GetPedidoTotalPagoContadoAsync(bEPedidoWeb);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEReporteMovimientosPedido[] GetReporteMovimientosPedido(int paisID, int campaniaID, string codigoConsultora) {

@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Infraestructure
         {
             var virtualPathData = base.GetVirtualPath(requestContext, values);
 
-            virtualPathData.VirtualPath = virtualPathData.VirtualPath.Replace("%23", "#");
+            if (virtualPathData != null) virtualPathData.VirtualPath = virtualPathData.VirtualPath.Replace("%23", "#");
 
             return !_isGuidRoute ? null : virtualPathData;
         }
