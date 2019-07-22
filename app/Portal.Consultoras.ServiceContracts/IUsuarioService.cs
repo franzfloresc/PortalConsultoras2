@@ -417,6 +417,9 @@ namespace Portal.Consultoras.ServiceContracts
         string GetActualizacionEmail(int paisID, string codigoUsuario);
 
         [OperationContract]
+        string GetActualizacionCelular(int paisID, string codigoUsuario);
+
+        [OperationContract]
         BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario);
 
         [OperationContract]
