@@ -1062,7 +1062,7 @@ var FichaPartialModule = (function () {
 
             if ($(".slider-nav-detail").length > 0) {
                 $('.slider-nav-detail').slick({
-                    slidesToShow: 2,
+                    slidesToShow: 5,
                     slidesToScroll: 1,
                     asNavFor: '.slider-for-detail',
                     dots: false,
