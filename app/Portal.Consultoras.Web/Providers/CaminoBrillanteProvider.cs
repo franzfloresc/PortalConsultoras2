@@ -10,6 +10,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
+using AutoMapper.Internal;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -172,7 +173,7 @@ namespace Portal.Consultoras.Web.Providers
                 var codigoNivel = oConsultora.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
                 int codNivel = 0;
                 if (!int.TryParse(codigoNivel, out codNivel)) return null;
-                codigoNivel = string.Format("{0}",codNivel + 1);
+                codigoNivel = string.Format("{0}", codNivel + 1);
 
                 return Mapper.Map<NivelCaminoBrillanteModel>(oConsultora.Niveles.FirstOrDefault(x => x.CodigoNivel == codigoNivel));
             }
@@ -376,17 +377,20 @@ namespace Portal.Consultoras.Web.Providers
 
         private CarruselCaminoBrillanteModel Format(CarruselCaminoBrillanteModel carrusel)
         {
-            if (carrusel != null && usuarioModel != null)
+            if (carrusel == null || usuarioModel == null)
             {
-                if (carrusel.Items != null)
-                {
-                    carrusel.Items.Update(e =>
-                    {
-                        e.PaisISO = usuarioModel.CodigoISO;
-                        e.CampaniaID = usuarioModel.CampaniaID;
-                    });
-                }
+                return carrusel;
             }
+
+            if (carrusel.Items != null)
+            {
+                carrusel.Items.Update(e =>
+                {
+                    e.PaisISO = usuarioModel.CodigoISO;
+                    e.CampaniaID = usuarioModel.CampaniaID;
+                });
+            }
+
             return carrusel;
         }
 
@@ -521,10 +525,11 @@ namespace Portal.Consultoras.Web.Providers
             return misGanancias;
         }
 
-        private string GetMisGananciasCaminoBrillante_Title(List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> niveles, Func<string, string> funcCampania) {
+        private string GetMisGananciasCaminoBrillante_Title(List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> niveles, Func<string, string> funcCampania)
+        {
             var nivelesOrdenados = niveles.OrderBy(e => e.Campania).ToList();
             if (!nivelesOrdenados.Any()) return string.Empty;
-            string end = nivelesOrdenados.Count() > 1 ? " a "+ funcCampania(nivelesOrdenados[nivelesOrdenados.Count - 1].Campania) : string.Empty;
+            string end = nivelesOrdenados.Count > 1 ? " a " + funcCampania(nivelesOrdenados[nivelesOrdenados.Count - 1].Campania) : string.Empty;
             return string.Format("Monto de mi pedido {0}{1}", funcCampania(nivelesOrdenados[0].Campania), end);
         }
 
@@ -535,7 +540,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 if (campania == null) return string.Empty;
                 if (campania.Length < 6) return string.Empty;
-                return string.Format(format, campania.Substring(4,2));
+                return string.Format(format, campania.Substring(4, 2));
             };
         }
 
@@ -551,7 +556,8 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 var ofertas = new List<EstrategiaPersonalizadaProductoModel>();
-                if (tipoOferta == -1 || tipoOferta == Constantes.CaminoBrillante.TipoOferta.Kit) {
+                if (tipoOferta == -1 || tipoOferta == Constantes.CaminoBrillante.TipoOferta.Kit)
+                {
                     var kits = GetKitsCaminoBrillante() ?? new List<KitCaminoBrillanteModel>();
                     ofertas.AddRange(kits.Select(e => ToEstrategiaPersonalizadaProductoModel(e)).ToList());
                 }
@@ -566,7 +572,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                 return null;
-            }           
+            }
         }
 
         /// <summary>
@@ -597,10 +603,11 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        private DetalleEstrategiaFichaDisenoModel ToDetalleEstrategiaFichaDisenoModel(BEOfertaCaminoBrillante e, bool loadDetalle = true) {
+        private DetalleEstrategiaFichaDisenoModel ToDetalleEstrategiaFichaDisenoModel(BEOfertaCaminoBrillante e, bool loadDetalle = true)
+        {
             return new DetalleEstrategiaFichaDisenoModel()
             {
-                CodigoEstrategia =  e.TipoOferta == 1 ? "036" : "035",
+                CodigoEstrategia = e.TipoOferta == 1 ? "036" : "035",
                 TipoOfertaCaminoBrillante = e.TipoOferta,
                 CodigoPalanca = "0",
                 FotoProducto01 = e.FotoProductoMedium,
@@ -620,24 +627,26 @@ namespace Portal.Consultoras.Web.Providers
                 EstrategiaID = e.EstrategiaID.ToInt(),
                 FlagNueva = 0,
                 Ganancia = e.PrecioCatalogo - e.PrecioValorizado,
-                GananciaString = Util.DecimalToStringFormat(e.PrecioCatalogo - e.PrecioValorizado, usuarioModel.CodigoISO),                
+                GananciaString = Util.DecimalToStringFormat(e.PrecioCatalogo - e.PrecioValorizado, usuarioModel.CodigoISO),
                 ImagenURL = e.FotoProductoMedium,
                 MarcaID = e.MarcaID,
                 Precio = e.PrecioCatalogo,
                 Precio2 = e.PrecioValorizado,
                 PrecioTachado = Util.DecimalToStringFormat(e.PrecioCatalogo, usuarioModel.CodigoISO),
-                PrecioVenta = Util.DecimalToStringFormat(e.PrecioValorizado, usuarioModel.CodigoISO), 
+                PrecioVenta = Util.DecimalToStringFormat(e.PrecioValorizado, usuarioModel.CodigoISO),
                 TienePaginaProducto = false,
                 TienePaginaProductoMob = false,
-                TipoAccionAgregar = 2,                
+                TipoAccionAgregar = 2,
                 Hermanos = GetHermanos(e, loadDetalle)
 
             };
         }
 
-        private List<EstrategiaComponenteModel> GetHermanos(BEOfertaCaminoBrillante e, bool loadDetalle) {
+        private List<EstrategiaComponenteModel> GetHermanos(BEOfertaCaminoBrillante e, bool loadDetalle)
+        {
             if (!loadDetalle) return null;
-            switch (e.TipoOferta) {
+            switch (e.TipoOferta)
+            {
                 case Constantes.CaminoBrillante.TipoOferta.Kit:
                     return e.Detalle != null ? e.Detalle.Select(d => ToEstrategiaComponenteModel(d)).ToList() : null;
                 case Constantes.CaminoBrillante.TipoOferta.Demostrador:
@@ -646,18 +655,20 @@ namespace Portal.Consultoras.Web.Providers
             return null;
         }
 
-        private EstrategiaComponenteModel ToEstrategiaComponenteModel(BEOfertaCaminoBrillante e) {
-            return new EstrategiaComponenteModel() {
+        private EstrategiaComponenteModel ToEstrategiaComponenteModel(BEOfertaCaminoBrillante e)
+        {
+            return new EstrategiaComponenteModel()
+            {
                 TieneStock = true,
                 CodigoProducto = e.CUV,
                 IdMarca = e.MarcaID,
                 DescripcionMarca = e.DescripcionMarca,
-                Descripcion = e.DescripcionCUV,                
+                Descripcion = e.DescripcionCUV,
                 Cantidad = 1,
                 NombreComercial = e.DescripcionCUV,
             };
         }
-               
+
         private EstrategiaComponenteModel ToEstrategiaComponenteModel(KitCaminoBrillanteModel e)
         {
             return new EstrategiaComponenteModel()
@@ -700,7 +711,7 @@ namespace Portal.Consultoras.Web.Providers
                 EsSubcampania = false,
                 EstrategiaID = 0,
                 FlagNueva = 0,
-                Ganancia =  e.PrecioValorizado - e.PrecioCatalogo,
+                Ganancia = e.PrecioValorizado - e.PrecioCatalogo,
                 GananciaString = Util.DecimalToStringFormat(e.PrecioValorizado - e.PrecioCatalogo, usuarioModel.CodigoISO),
                 ImagenURL = e.FotoProductoMedium,
                 MarcaID = e.MarcaID,
@@ -713,7 +724,7 @@ namespace Portal.Consultoras.Web.Providers
                 TienePaginaProductoMob = false,
                 TipoAccionAgregar = 1,
                 Hermanos = (loadDetalle && e.Detalle != null) ? e.Detalle.Select(d => ToEstrategiaComponenteModel(d)).ToList() : null,
-                
+
             };
         }
 
@@ -731,7 +742,17 @@ namespace Portal.Consultoras.Web.Providers
             };
         }
 
-        private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(DemostradorCaminoBrillanteModel e) {
+        private List<EstrategiaComponenteModel> ToEstrategiaComponenteModelList(DemostradorCaminoBrillanteModel e)
+        {
+            var result = new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) };
+            if (e.Detalle!= null) {
+                result.AddRange(e.Detalle.Select(d=> ToEstrategiaComponenteModel(d)));
+            }
+            return result;
+        }
+
+        private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(DemostradorCaminoBrillanteModel e)
+        {
             return new EstrategiaPersonalizadaProductoModel()
             {
                 TipoOfertaCaminoBrillante = Constantes.CaminoBrillante.TipoOferta.Demostrador,
@@ -769,7 +790,7 @@ namespace Portal.Consultoras.Web.Providers
                 TienePaginaProducto = false,
                 TienePaginaProductoMob = false,
                 TipoAccionAgregar = 2,
-                Hermanos = new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) }
+                Hermanos = ToEstrategiaComponenteModelList(e)
             };
         }
 
@@ -777,22 +798,21 @@ namespace Portal.Consultoras.Web.Providers
         /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
         /// Nota: Alinear con BLCaminoBrillante.IsOrigenPedidoCaminoBrillante
         /// </summary>
-        public bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb) {
-            return origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel
-                    ;
-
-        }
+        //public bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb) {
+        //    return origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel ||
+        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel
+        //            ;
+        //}
 
         #endregion
 
@@ -806,7 +826,7 @@ namespace Portal.Consultoras.Web.Providers
                     lst = svc.GetCaminoBrillanteConfiguracion(usuarioModel.PaisID, "0").ToList();
 
                 if (lst != null) sessionManager.SetConfiguracionCaminoBrillante(lst);
-            }            
+            }
             return lst;
         }
         #endregion

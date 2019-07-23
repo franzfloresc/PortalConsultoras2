@@ -23,7 +23,7 @@ var ConstantesModule = (function() {
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
         SR: "ShowRoom",
-        DuoPerfecto: "DuoPerfecto", //HD-3473 EINCA
+        DuoPerfecto: "DuoPerfecto",
         CaminoBrillanteDemostradores: "CaminoBrillanteDemostradores",
         CaminoBrillanteKits: "CaminoBrillanteKits"
     }
@@ -34,12 +34,15 @@ var ConstantesModule = (function() {
         Lanzamiento: "LANLista",
         RevistaDigital: "RDLista",
         Ganadoras: "MGLista",
-        //INI HD-3908
         PackNuevas: "PNLista",
         DuoPerfecto: "DPLista",
-        //FIN HD-3908
         CaminoBrillanteDemostradores: "CBDLista",
-        CaminoBrillanteKits: "CBKLista"
+        CaminoBrillanteKits: "CBKLista",
+        EstrategiaTemporal: 'EstrategiaTemporal',
+        DescripcionProductoCatalogo: function (codigoCampania, codigoCuv) {
+            var key = 'producto-catalogo-descripcion-' + codigoCampania + '-' + codigoCuv;
+            return key;
+        }
     }
 
     var _codigoVariedad = {
@@ -74,11 +77,19 @@ var ConstantesModule = (function() {
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0",
-        DuoPerfecto: "034", //HD-3473 EINCA
+        DuoPerfecto: "034",
 
         CaminoBrillanteDemostradores: "035", // No tiene referecia con BD, GCP
         CaminoBrillanteKits: "036" // No tiene referecia con BD, GCP
     }
+
+    var _tipoPersonalizacion = {
+        Catalogo: "CAT",
+    };
+
+    var _tipoPersonalizacionTexto = {
+        Catalogo: "Catalogo",
+    };
 
     var _diccionarioTipoEstrategia = [
         { codigo: _codigoTipoEstrategia.OfertaParaTi, texto: _codigoTipoEstrategiaTexto.OfertaParaTi },
@@ -88,17 +99,15 @@ var ConstantesModule = (function() {
         { codigo: _codigoTipoEstrategia.OfertasParaMi, texto: _codigoTipoEstrategiaTexto.OfertasParaMi },
         { codigo: _codigoTipoEstrategia.PackAltoDesembolso, texto: _codigoTipoEstrategiaTexto.PackAltoDesembolso },
         { codigo: _codigoTipoEstrategia.OfertaDelDia, texto: _codigoTipoEstrategiaTexto.OfertaDelDia },
-        {
-            codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
-            texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada
-        },
+        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada },
         { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaNegocio },
         { codigo: _codigoTipoEstrategia.HerramientasVenta, texto: _codigoTipoEstrategiaTexto.HerramientasVenta },
         { codigo: _codigoTipoEstrategia.ShowRoom, texto: _codigoTipoEstrategiaTexto.ShowRoom },
         { codigo: _codigoTipoEstrategia.RevistaDigital, texto: _codigoTipoEstrategiaTexto.RevistaDigital },
         { codigo: _codigoTipoEstrategia.MasGanadoras, texto: _codigoTipoEstrategiaTexto.Ganadoras },
+        { codigo: _tipoPersonalizacion.Catalogo, texto: _tipoPersonalizacionTexto.Catalogo },
         { codigo: _codigoTipoEstrategia.CaminoBrillanteDemostradores, texto: _codigoTipoEstrategiaTexto.CaminoBrillanteDemostradores },
-        { codigo: _codigoTipoEstrategia.CaminoBrillanteKits, texto: _codigoTipoEstrategiaTexto.CaminoBrillanteKits },
+        { codigo: _codigoTipoEstrategia.CaminoBrillanteKits, texto: _codigoTipoEstrategiaTexto.CaminoBrillanteKits }
     ];
 
     var _configuracionOferta = {
@@ -123,9 +132,7 @@ var ConstantesModule = (function() {
         SR: "SR",
         ATP: "ATP",
         DP: "DP",
-        //INI HD-3908
-        PN:"PN",
-        //FIN HD-3908
+        PN: "PN",
         CBD: "CBD",
         CBK: "CBK"
     };
@@ -142,12 +149,7 @@ var ConstantesModule = (function() {
     };
 
     // en AnalyticsPortal.js tambiar actualizar los valores
-
-          //CB-CORREGIR  LandingCaminoBrillanteDemostradores: '16',  //GCP
-          //CB-CORREGIR  LandingCaminoBrillanteKits: '17'  //GCP
-          //CB-CORREGIR  CaminoBrillanteDemostradores: '18', // GCP
-          //CB-CORREGIR  CaminoBrillanteKits: '19' // GCP
-
+    
     var _origenPedidoWeb = {
 
         CaminoBrillanteDesktopPedido : "1181901",
@@ -158,7 +160,7 @@ var ConstantesModule = (function() {
         CaminoBrillanteDesktopPedido_Carrusel: "1201901",
         CaminoBrillanteMobilePedido_Carrusel: "2201901",
         CaminoBrillanteAppMobilePedido_Home: "4181902",
-        CaminoBrillanteAppMobilePedido_Home: "4201901",
+        CaminoBrillanteAppMobilePedido_Ficha: "4201901",
         CaminoBrillanteAppMobilePedido_Carrusel: "4201902",
 
         DesktopHomeOfertaDeliaBannerSuperior: "1010306",
@@ -193,20 +195,12 @@ var ConstantesModule = (function() {
         Activo: 1,
         Inactivo: 2
     };
-
-    var _urlDetalleEstrategia = {
-        obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
-        obtenerComponenteDetalle: '/DetalleEstrategia/ObtenerComponenteDetalle',
-        obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
-        //obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
-    }
-
+    
     var _urlPedido = {
         cargarDetallePedido: '/Pedido/CargarDetallePedido',
         ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
         updatePostulanteMensaje: '/Pedido/UpdatePostulanteMensaje'
-    }
+    };
 
     var _getTipoPersonalizacionByTipoEstrategia = function(codigoTipoEstrategia) {
 
@@ -224,19 +218,26 @@ var ConstantesModule = (function() {
     var _mensajeAgregarPedido = {
         normal: '¡Listo! Agregaste con éxito a tu pedido.',
         reservado: '¡Listo! Agregaste con éxito a tu pedido reservado.'
-    }
+    };
 
     var _mensajeModificarPedido = {
         normal: '¡Listo! Tu pedido ha sido modificado',
         reservado: '¡Listo! Tu pedido reservado ha sido modificado'
-    }
+    };
+
     var _tiempo = {
         ToolTip: 2500
-    }
+    };
 
     var _tipoSeccion = {
         Video: "01",
         Texto: "02"
+    };
+
+    var _tipoVentaIncremental = {
+        CrossSelling: "CrossSell",
+        Sugerido: "Suggested",
+        UpSelling: "UpSelling"
     }
 
     return {
@@ -250,13 +251,15 @@ var ConstantesModule = (function() {
         TipoAccionNavegar: _tipoAccionNavegar,
         EditarItemPedido: _editarItemPedido,
         UrlObtenerEstrategia: _urlObtenerEstrategia,
-        UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
         MensajeAgregarPedido: _mensajeAgregarPedido,
         MensajeModificarPedido: _mensajeModificarPedido,
         Tiempo: _tiempo,
-        TipoSeccion: _tipoSeccion
+        TipoSeccion: _tipoSeccion,
+        TipoVentaIncremental: _tipoVentaIncremental,
+        TipoPersonalizacion: _tipoPersonalizacion,
+        TipoPersonalizacionTexto: _tipoPersonalizacionTexto
     }
 })();

@@ -1,4 +1,4 @@
-
+﻿
 * {
     font-family: Lato,sans-serif !important
 }
@@ -87,11 +87,13 @@ strong {
 .boxtom {
     display: none;
 }
-    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after, .cambio-crec:after, .cent-mant:after{
+
+    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after, .cambio-crec:after, .cent-mant:after, .right-m:after {
         content: "";
         display: block;
         clear: both
     }
+
 
 .box-beneficios li {
     width: 32%;
@@ -102,7 +104,6 @@ strong {
     min-height: 60px;
     margin-bottom: 0px
 }
-
     .box-beneficios li img {
         display: block;
         float: left;
@@ -328,6 +329,12 @@ div .owl-carousel .owl-stage-outer {
     animation-iteration-count: 1;
     animation-duration: 2s
 }
+
+.urlImagenActiva {
+    position: absolute;
+    top: 0;
+}
+
 
 .medal-1 {
     width: 0%;
@@ -602,28 +609,37 @@ div .owl-carousel .owl-stage-outer {
     top: -5px;
     left: -5px;
     z-index: 5;
-    transform: rotate(50deg);
+    transform: rotate(174deg);
 }
+
 .cent-mant {
     margin: 30px auto;
-    margin-bottom:0;
+    margin-bottom: 0;
     display: block;
-    max-width: 700px;
+    max-width: 730px;
     width: 100%;
 }
+
     .cent-mant .etiq-mant, .cent-mant .etiq-falta {
         width: 48%;
         float: left;
         margin: 0;
         text-align: left;
-        font-weight: bold;
+        font-weight: normal;
     }
+
+        .cent-mant .etiq-falta span {
+            display: inline-block;
+            font-weight: bold;
+        }
+
 .bord-bot {
     max-width: 970px;
     width: 100%;
     padding-bottom: 15px;
     border-bottom: 1px solid #e2e2e2;
 }
+
 #ProgressBar .brillante em {
     color: #000;
     font-weight: bold;
@@ -646,7 +662,6 @@ div .owl-carousel .owl-stage-outer {
 #ProgressBar .pt3 {
     display: block;
     left: 36%;
-    
 }
 
 #ProgressBar .pt4 {
@@ -844,19 +859,36 @@ div .owl-carousel .owl-stage-outer {
     float: left
 }
 
+.box-incremento {
+    margin: 35px auto;
+    width: 100%;
+    padding: 0 3%;
+    box-sizing: border-box;
+    /*float: left;*/
+    align-content: center;
+}
+
 .cambio-crec {
     width: 100%;
     display: block;
     margin-top: 20px
 }
 
-.itm {
+/*.itm {
     width: 24%;
     float: left;
     max-width: 85px;
     display: block;
     padding: 0 1%;
     margin-bottom: 18px
+}*/
+.itm {
+    width: 24%;
+    float: left;
+    max-width: 108px;
+    display: block;
+    padding: 0 1%;
+    margin-bottom: 15px;
 }
 
 .contain-camb {
@@ -884,9 +916,9 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
     background: 0 0
 }
 
-.ficha__producto__descrip .boxheight {
-    min-height: 30px !important
-}
+/*.ficha__producto__descrip .boxheight {
+    min-height: 57px !important
+}*/
 
 .ficha__producto__tag_enable {
     display: block;
@@ -937,12 +969,10 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
     font-style: normal;
 }
 
-.regular.slider .ficha__producto__kit .producto_img_home {
-    margin-top: 27px;
-}
+
 
 .regular.slider .ficha__producto {
-    min-height: 418px;
+    min-height: 419px;
 }
 
 #overlayer {
@@ -1060,23 +1090,32 @@ div.opOrdenar {
     margin-bottom: 40px;
 }
 
-.box-camb .text-bold, .owl-stage-outer .text-bold, .txt-benf .text-bold {
-    color: #000;
-    font-size: 14px;
-    text-align: left;
-    font-weight: 700;
-    line-height: 17px;
-    margin-bottom: 20px;
-}
-.box-camb .text-bold {
+.box-camb .text-bold, .box-incremento .text-bold {
     font-size: 17px;
 }
-    .box-left-ganancias, .box-right-ganancias {
-        display: block;
-        float: right;
-        width: 30%;
-        max-width: 300px;
-    }
+
+.box-incremento .text-bold {
+    text-align: center;
+}
+
+.box-incremento .cambio-crec {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.mo-3 .text-bold {
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.box-left-ganancias, .box-right-ganancias {
+    display: block;
+    float: right;
+    width: 30%;
+    max-width: 300px;
+}
 
 .box-left-ganancias {
     margin-top: 60px;
@@ -1272,7 +1311,7 @@ div.opOrdenar {
 
 .box-cent-valor {
     position: absolute;
-    right: -6px;
+    right: -12px;
     top: 12px;
 }
 
@@ -1311,12 +1350,17 @@ div.opOrdenar {
 
     .valor-final span {
         font-size: 15px;
-        color: gray;
+        color: #464646;
         display: block;
         text-align: left;
         margin-top: -5px;
         font-size: 13px;
     }
+
+        .valor-final span em {
+            font-style: normal;
+            color: #464646;
+        }
 
 .flagimg {
     display: block;
@@ -1330,7 +1374,6 @@ div.opOrdenar {
     margin: 30px auto;
     margin-bottom: 60px;
     display: block;
-
 }
 
 .box-pg-bar {
@@ -1366,17 +1409,19 @@ div.opOrdenar {
     position: relative;
 }
 
-.etiq-mant i, .etiq-falta i {
-    display: inline-block;
-    margin-right: 7px;
-    width: 12px;
-}
+    .etiq-mant i, .etiq-falta i {
+        display: inline-block;
+        margin-right: 7px;
+        width: 12px;
+    }
+
 .cent-mant span {
     text-align: center;
     font-weight: normal;
     display: block;
     margin-bottom: 5px;
 }
+
 .tope {
     height: 24px;
     width: 3px;
@@ -1386,17 +1431,17 @@ div.opOrdenar {
     left: 50%;
 }
 
-.tope:before {
-    content: "";
-    display: block;
-    width: 8px;
-    height: 8px;
-    background: #cd5b5b;
-    position: absolute;
-    top: 0;
-    left: -3px;
-    border-radius: 8px;
-}
+    .tope:before {
+        content: "";
+        display: block;
+        width: 8px;
+        height: 8px;
+        background: #cd5b5b;
+        position: absolute;
+        top: 0;
+        left: -3px;
+        border-radius: 8px;
+    }
 
 .etiq-mant .tope {
     position: relative;
@@ -1626,6 +1671,10 @@ button.close {
     margin: 0 auto
 }
 
+.cambio-crec .regular .itm img {
+    min-width: 54px;
+}
+
 .cambio-crec > .col-3 {
     margin-bottom: 20px
 }
@@ -1637,19 +1686,23 @@ button.close {
     border-radius: 50px;
     margin: 0 auto;
     margin-bottom: 6px;
-    position:relative;
+    position: relative;
 }
 
     .circle-porcent.crec-activo {
-        background: #64425e
+        background: #64425e;
     }
 
+
     .circle-porcent.crec-inactivo {
-        background: #848484
+        background: #cacacc;
+    }
+
+    .circle-porcent.crec-activo span {
+        color: #fff;
     }
 
     .cambio-crec .circle-porcent span, .indicador-nivel .circle-porcent span, .owl-carousel .owl-item .circle-porcent span {
-        color: #fff;
         font-size: 19px;
         text-align: center;
         line-height: 50px;
@@ -1667,7 +1720,7 @@ button.close {
 }
 
 .como-log {
-    margin-top: 12px !important
+    margin-top: 8px !important
 }
 
 header.layout__header {
@@ -2187,8 +2240,9 @@ div .ficha__producto__precio__normal {
 .top-boxlogros {
     display: block;
     margin: 30px auto;
-    margin-bottom:60px;
+    margin-bottom: 60px;
 }
+
 .tabs {
     margin: 0;
     padding: 0;
@@ -2246,22 +2300,26 @@ div .ficha__producto__precio__normal {
         font-weight: normal;
     }
 
-    .msj-boxnivel span strong {
-        font-weight: bold;
-    }
+        .msj-boxnivel span strong {
+            font-weight: bold;
+        }
 
 .Coral {
     background: #faeded;
 }
+
 .Ambar {
     background: #fcf5e7;
 }
+
 .Perla {
     background: #f8ebe7;
 }
+
 .Topacio {
     background: #e6eff6;
 }
+
 .Brillante {
     background: #f2ede5;
 }
@@ -2281,7 +2339,7 @@ div .ficha__producto__precio__normal {
 
 .bglogros {
     width: 100%;
-    max-width: 1250px;
+    max-width: 1000px;
     margin: 35px auto;
 }
 
@@ -2296,7 +2354,7 @@ div .ficha__producto__precio__normal {
 
 .right-banner {
     position: absolute;
-    right: 18%;
+    right: 4%;
     top: 0;
     height: 158px;
     bottom: 0;
@@ -2323,18 +2381,76 @@ div .ficha__producto__precio__normal {
         color: #fff !important;
         border-radius: 5px;
         border: 0;
-        padding: 12px 20px;
+        padding: 10px 20px;
         max-width: 175px;
         text-align: center;
         margin-top: 10px;
         text-decoration: none;
         overflow: inherit;
         background: #000;
+        font-size: 16px;
     }
 
 .img-log {
     display: none;
 }
+
+
+.cambio-crec .logreg {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+/*.conta li {
+    list-style-type: none;
+    width: 15em;
+    border: 5px solid green;
+}*/
+
+.mo-2 .slick-arrow {
+    width: 10px;
+    height: 30px;
+}
+
+.slick-arrow img {
+    width: 100%;
+    display: block;
+}
+
+.slick-arrow {
+    width: 20px;
+    height: 197px;
+}
+/*.trunktext, .ficha__producto__descrip__nom {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+}*/
+.movshow {
+    display: none;
+}
+
+.deskshow {
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media only screen and (max-width: 900px) and (min-width: 521px) {
     .right-banner {
@@ -2395,13 +2511,15 @@ div .ficha__producto__precio__normal {
 
 
 
-.avat-logros {
-    display: block;
-    margin: 0 auto;
-    max-width: 40px;
-}
+    .avat-logros {
+        display: block;
+        margin: 0 auto;
+        max-width: 40px;
+    }
+
     .right-banner p {
         font-size: 17px;
+        width: 164px;
     }
 }
 
@@ -2464,15 +2582,16 @@ div .ficha__producto__precio__normal {
         font-size: 18px;
         line-height: 19px;
     }
+
     .bar-logros span {
-        margin-bottom:15px;
+        margin-bottom: 15px;
     }
 
-        .bar-logros p {
-            margin-top: 8px;
-            display: block;
-            font-weight: bold;
-        }
+    .bar-logros p {
+        margin-top: 8px;
+        display: block;
+        font-weight: bold;
+    }
 
 .foto_perfil_home {
     width: 99px;
@@ -2487,36 +2606,43 @@ div .ficha__producto__precio__normal {
     overflow: hidden;
 }
 
-.foto_perfil_home img {
-    width: 100%;
-}
+    .foto_perfil_home img {
+        width: 100%;
+    }
+
 .logreg {
     margin: 0 auto;
     margin-bottom: 50px;
     display: block;
-     max-width: 700px; 
+    max-width: 646px;
+    /*max-width: 700px;*/
     width: 90%;
 }
-.logreg a.slick-arrow {
-    top: 20%;
-    width: 14px;
-    height: 30px;
-}
-.logreg a.slick-arrow img {
-    width:100%;
-}
-    .logreg .slick-track {
-        margin-left:0 !important;
+
+    .logreg a.slick-arrow {
+        top: 20%;
+        width: 14px;
+        height: 30px;
     }
+
+        .logreg a.slick-arrow img {
+            width: 100%;
+        }
+
+    .logreg .slick-track {
+        margin-left: 0 !important;
+    }
+
     .logreg > .text-bold {
         text-align: center;
         margin-bottom: 30px;
         font-size: 17px;
     }
+
 .carousel-inner .item:after {
-    content:"";
-    clear:both;
-    display:block;
+    content: "";
+    clear: both;
+    display: block;
 }
 
 .carousel-control {
@@ -2524,8 +2650,9 @@ div .ficha__producto__precio__normal {
     width: 14px !important;
     height: 30px;
     margin-top: 22px;
-    opacity:1 !important;
+    opacity: 1 !important;
 }
+
 .carousel-inner .itm {
     width: 10.5%;
     margin: 0 3%;
@@ -2533,14 +2660,16 @@ div .ficha__producto__precio__normal {
     max-width: 85px;
     display: block;
     padding: 0 1%;
-    padding-top:2px;
+    padding-top: 2px;
     margin-bottom: 18px;
 }
+
 .carousel-control span {
     width: 14px;
     height: 30px;
     display: block;
-    }
+}
+
 #alertDialogMensajes25seg {
     padding-bottom: 20px !important;
     min-height: 100px !important;
@@ -2571,19 +2700,21 @@ div .ficha__producto__precio__normal {
     height: auto;
     width: 100px;
 }
- 
+
 .ui-dialog .ui-dialog-content {
     padding-left: 20px;
     padding-right: 20px;
 }
 
-    .carousel-control span img {
-        margin: 0;
-        width: 100%;
-    }
-.carousel-indicators {
-    display:none;
+.carousel-control span img {
+    margin: 0;
+    width: 100%;
 }
+
+.carousel-indicators {
+    display: none;
+}
+
 .bord:before {
     content: "";
     display: block;
@@ -2595,18 +2726,15 @@ div .ficha__producto__precio__normal {
     top: -2px;
     left: -2px;
 }
+
 .left.carousel-control {
     left: -8px;
 }
+
 .regular .itm {
-    width: 10.5%;
-    margin: 0 3%;
     float: left;
-    max-width: 85px;
-    display: block;
     padding: 0 1%;
     padding-top: 2px;
-    margin-bottom: 0;
 }
 
 .snackbar-align {
@@ -2619,17 +2747,20 @@ div .ficha__producto__precio__normal {
 }
 
 .ficha__producto__imagen a img {
-    width: 100%!important;
-    height:auto!important;
+    width: 100% !important;
+    height: auto !important;
 }
+
 .ui-draggable .ui-dialog-titlebar {
-    background:white;
+    background: white;
 }
+
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
     float: none !important;
     float: none;
     margin: 0 auto;
 }
+
 .ui-dialog .ui-dialog-buttonpane button {
     height: 35px;
     width: 200px;
@@ -2646,6 +2777,7 @@ div .ficha__producto__precio__normal {
     margin: 0 auto;
     padding-top: 2px;
 }
+
 .ui-dialog .ui-dialog-buttonpane {
     margin-bottom: 40px;
 }
@@ -2653,6 +2785,7 @@ div .ficha__producto__precio__normal {
 .ui-dialog .ui-dialog-content {
     padding-bottom: 40px;
 }
+
 .terminos_title_2 {
     font-weight: 700;
     margin-bottom: 10px;
@@ -2665,9 +2798,11 @@ div .ficha__producto__precio__normal {
     color: #000;
     letter-spacing: .5px;
 }
+
 .snackbar-align {
-    display:block;
+    display: block;
 }
+
 .pop_image img {
     margin: 10px auto;
 }
@@ -2740,9 +2875,18 @@ div .ficha__producto__precio__normal {
 }
 
 @media screen and (max-width:860px) {
-    .box-beneficios li {
+    /*.box-beneficios li {
         width: 46%;
         margin: 20px 2%
+    }*/
+    .box-beneficios li {
+        width: 96%;
+        margin: 0 0;
+    }
+
+    .tog-vermas, .tog-vermenos {
+        margin: 0 auto;
+        margin-top: 5px;
     }
 
     .modal-dialog {
@@ -2787,9 +2931,32 @@ div .ficha__producto__precio__normal {
     }
 }
 
+@media screen and (min-width:621px) {
+    #activo {
+        display: none !important;
+    }
+
+    .mo-3 .logreg .bigitem {
+        width: 16%;
+    }
+
+    .mo-3 .logreg .right-m {
+        width: 84%;
+        float: left;
+    }
+}
+
 @media screen and (max-width:620px) {
     .modal-dialog {
         margin: 1.5rem;
+    }
+
+    .movshow {
+        display: block;
+    }
+
+    .deskshow {
+        display: none;
     }
 
     div.ui-dialog.ui-widget-content {
@@ -3062,7 +3229,7 @@ div .ficha__producto__precio__normal {
         margin-right: 3%;
     }
 
-    .slick-arrow {
+    .camino_brillante .slick-arrow {
         display: none !important;
     }
 
@@ -3087,7 +3254,8 @@ div .ficha__producto__precio__normal {
     }
 
     .regular.slider .ficha__producto {
-        min-height: 458px;
+        min-height: 465px;
+        padding: 26px 7px 12px 7px;
     }
 
     .box-left-ganancias span {
@@ -3103,9 +3271,9 @@ div .ficha__producto__precio__normal {
         text-indent: 19px
     }
 
-    .ficha__producto__descrip__nom {
-        min-height: 47px !important
-    }
+    /*.ficha__producto__descrip__nom {
+        min-height: 47px !important;
+        word-break: break-word;
 
     .ficha__producto__precio {
         min-height: inherit
@@ -3160,19 +3328,21 @@ div .ficha__producto__precio__normal {
         width: 90px;
         margin: 0 auto;
         margin-bottom: 15px;
-        }
+    }
+
     .mb-title {
-        display:none;
+        display: none;
     }
 
     .cent-mant .etiq-mant, .cent-mant .etiq-falta {
-        width: 100%;
+        width: 92%;
         float: none;
         margin: 0 auto;
-        margin-bottom:5px;
-        margin-left: 10%;
+        margin-bottom: 8px;
+        margin-left: 5%;
+        font-size: 14px;
     }
-    
+
 
     .bar-logros {
         padding-bottom: 8px;
@@ -3191,27 +3361,94 @@ div .ficha__producto__precio__normal {
     .regular .itm {
         width: 18.5%;
     }
+
     .bord:before {
         width: 44px;
         height: 44px;
         top: -2px;
         left: -2px;
     }
+
     .regular .itm {
-        margin-bottom:15px;
+        margin-bottom: 15px;
     }
+
     .logreg {
-        padding:0;
+        padding: 0;
     }
+
     .cambio-crec .itm {
         width: 18.5%;
         margin: 0 3%;
-        margin-bottom:15px;
+        margin-bottom: 15px;
     }
+
     .logreg > .text-bold {
-        text-align:left;
+        text-align: left;
+    }
+    /*nuevo logros unif*/
+    .cambio-crec .bigitem {
+        width: 25%;
+        display: block;
+        float: left;
+        max-width: 80px;
+        margin: 0 2%;
+        margin-right: 5%;
+    }
+
+    .right-m {
+        width: 68%;
+        display: block;
+        float: right;
+    }
+
+    .bigitem .circle-porcent {
+        width: 70px;
+        height: 70px;
+        border-radius: 70px;
+    }
+
+    .bigitem .bord:before {
+        display: none;
+    }
+
+    .right-m .itm {
+        width: 25%;
+        margin: 0 4%;
+        margin-bottom: 15px;
+    }
+
+    .bigitem .circle-porcent span {
+        font-size: 22px;
+        line-height: 72px;
+    }
+
+    .logreg .text-bold span {
+        display: block;
+        font-size: 16px;
+    }
+
+    .cambio-crec .logreg {
+        display: block;
+    }
+
+    .mo-3 .text-bold {
+        text-align: left;
+    }
+
+    .cambio-crec .regular .itm img {
+        min-width: inherit;
+        max-width: 44px;
+    }
+
+    .box-incremento .cambio-crec {
+        display: block;
     }
 }
+
+
+
+
 @media screen and (max-width:600px) {
 
     .ficha__producto .etiqueta-box img {
@@ -3274,12 +3511,10 @@ div .ficha__producto__precio__normal {
 @media screen and (max-width:530px) {
     .box-beneficios li {
         width: 96%;
-        margin: 10px 2%
+        margin: 0 0;
     }
 
-    .box-beneficios li {
-        margin: 0 0
-    }
+
 
     .cam-exito a {
         font-size: 13px
@@ -3303,15 +3538,19 @@ div .ficha__producto__precio__normal {
         left: 18%;
     }
 
-    div .ficha__producto__descrip .boxheight {
-        min-height: 17px !important
-    }
+    /*div .ficha__producto__descrip .boxheight {
+            min-height: 17px !important
+        }*/
 
-    .slick-list {
+    .camino_brillante .slick-list {
         padding: 0 15px !important;
     }
+    /*.logreg .slick-list {
+          
+            padding-left: 22px !important;
+        }*/
 
-    .slick-track {
+    .camino_brillante .slick-track {
         margin-left: -20px;
     }
 
@@ -3321,28 +3560,27 @@ div .ficha__producto__precio__normal {
         padding-top: 25px;
         padding-left: 20px;
         padding-right: 20px;
-        padding-bottom:30px;
+        padding-bottom: 30px;
     }
 
     .progress-barnew {
         width: 62%;
         margin-bottom: 80px;
-        margin-left: 10%;
+        margin-left: 9%;
     }
 
     .valor-final {
         right: -3px;
-        top: -6px;
-        width: 78px;
+        top: -16px;
     }
 
         .valor-final p {
-            font-size: 15px;
+            font-size: 13px;
             text-align: left;
         }
 
         .valor-final span {
-            font-size: 12px;
+            font-size: 11px;
             text-align: left;
         }
 
@@ -3350,8 +3588,24 @@ div .ficha__producto__precio__normal {
         font-size: 14px;
         margin-left: 10%;
     }
+
     .etiq-mant {
         margin-left: 10%;
+    }
+
+    .flagimg {
+        width: 18px;
+        right: -23px;
+        top: -10px;
+    }
+    /*.regular.slider .ficha__producto__kit .producto_img_home {
+            margin-top: 13px;
+        }*/
+    .trunktext, .ficha__producto__descrip__nom {
+        font-size: 11px;
+        line-height: 14px;
+        min-height: 48px !important;
+        margin-bottom: 0;
     }
 }
 
@@ -3384,6 +3638,11 @@ div .ficha__producto__precio__normal {
     .medal-6 {
         width: 100%;
         animation-name: MovilDosprogressSeis;
+    }
+
+    .valor-final {
+        right: -20px;
+        width: 78px;
     }
 }
 
@@ -3479,62 +3738,7 @@ div .ficha__producto__precio__normal {
     display: inline-block;
 }
 
-.bglogros {
-    width: 100%;
-    max-width: 1250px;
-    margin: 35px auto;
-}
 
-.banner-logros {
-    background: #f9f9f9 url(/Content/CaminoBrillante/imgs/bannerlogros.png) no-repeat left center;
-    width: 100%;
-    height: 330px;
-    position: relative;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    margin: 50px auto;
-}
-
-.right-banner {
-    position: absolute;
-    right: 18%;
-    top: 0;
-    height: 158px;
-    bottom: 0;
-    margin: auto;
-}
-
-    .right-banner h2 {
-        font-size: 32px;
-        display: block;
-        font-weight: bold;
-    }
-
-    .right-banner p {
-        font-size: 20px;
-        display: block;
-        width: 210px;
-        margin-bottom: 18px;
-        margin-top: 10px;
-        line-height: 22px;
-    }
-
-    .right-banner a {
-        display: block;
-        color: #fff !important;
-        border-radius: 5px;
-        border: 0;
-        padding: 12px 20px;
-        max-width: 175px;
-        text-align: center;
-        margin-top: 10px;
-        text-decoration: none;
-        overflow: inherit;
-        background: #000;
-    }
-
-.img-log {
-    display: none;
-}
 @media only screen and (max-width: 900px) and (min-width: 521px) {
     .right-banner {
         background: rgba(255, 255, 255, 0.8);
@@ -3545,6 +3749,7 @@ div .ficha__producto__precio__normal {
         padding-top: 90px;
     }
 }
+
 @media screen and (max-width:520px) {
     .img-log {
         display: block;
@@ -3554,6 +3759,7 @@ div .ficha__producto__precio__normal {
         margin-left: 0%;
         box-sizing: border-box;
     }
+
     .banner-logros {
         background: #fff;
         height: auto;
@@ -3590,6 +3796,6 @@ div .ficha__producto__precio__normal {
     }
 
     .right-banner p {
-        font-size: 17px;
+        font-size: 16px;
     }
 }

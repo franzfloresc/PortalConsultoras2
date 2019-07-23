@@ -2,7 +2,6 @@
 @using Portal.Consultoras.Common
 
 @{
-    //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel;
     ViewBag.origenPedido = origenPedido;
@@ -49,15 +48,21 @@
                 {
                     if (ViewBag.EsMobile)
                     {
-                        decorador = nivel.EsPasado ? "onclick =\"MostrarSecciones();\" data-toggle=\"collapse\" data-target=\"#tab-" + nivel.CodigoNivel + "_Bnf\"" : "onclick =\"MostrarBeneficios('" + nivel.DescripcionNivel + "');\" data-toggle=\"tab-content\" data-target=\"#tab-" + nivel.DescripcionNivel + "_Bnf\"";
+                        decorador = nivel.EsPasado ? "onclick =\"MostrarSecciones();\" data-toggle=\"collapse\" data-target=\"#tab-" + nivel.CodigoNivel + "_Bnf\"" : "onclick =\"MostrarBeneficios('" + nivel.DescripcionNivel + "','" + nivel.CodigoNivel + "','" + nivel.UrlImagenNivelFull + "');\" data-toggle=\"tab-content\" data-target=\"#tab-" + nivel.DescripcionNivel + "_Bnf\"";
                     }
                     else
                     {
-                        decorador = nivel.EsPasado ? "" : "onclick=\"TagMostrarPopupNivel('" + nivel.DescripcionNivel + "');\" data-toggle=\"modal\" data-target=\"#Nivel_" + nivel.CodigoNivel + "_Bnf\"";
+                        decorador = nivel.EsPasado ? "" : "onclick=\"TagMostrarPopupNivel('" + nivel.DescripcionNivel + "','" + nivel.CodigoNivel + "','" + nivel.UrlImagenNivelFull + "');\" data-toggle=\"modal\" data-target=\"#Nivel_" + nivel.CodigoNivel + "_Bnf\"";
                     }
                     var estilos = "pt" + nivel.CodigoNivel + (nivel.EsActual ? " brillante" : "");
                     <span class='point @estilos' @Html.Raw(decorador) onclick='TagClickSeleccionNivel("@nivel.DescripcionNivel")'>
                         <img src=@nivel.UrlImagenNivel>
+                        @if (ViewBag.EsMobile)
+                        {
+                            <i id="activo">
+                                <img id="@nivel.CodigoNivel" src="" style="display:none">
+                            </i>
+                        }
                         <em>@nivel.DescripcionNivel</em>
                     </span>
                 }
@@ -76,7 +81,6 @@
             var montoMinimoBarra = showMoneda ? ViewBag.NivelActual.MontoMinimo : 0;
             var montoMaximoBarra = showMoneda ? Math.Max(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), (decimal)(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) * (decimal)1.10)) : nivelEvaluacion.Puntaje;
             var montoAlcanzadoBarra = showMoneda ? nivelEvaluacion.MontoAlcanzado : nivelEvaluacion.PuntajeAcumulado;
-            //nivelSiguiente = nivelSiguiente ?? nivelEvaluacion;
 
             if (nivelEvaluacion != null)
             {
@@ -108,13 +112,13 @@
                                 <p> @((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
                                 <span>
                                     @if (showMoneda)
-                                    {
-                                        @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
-                                    }
-                                    else
-                                    {
-                                        @montoMaximoBarra @Html.Raw("pts")
-                                    }
+                                    {<em>@ViewBag.SimboloMoneda</em>
+                                    @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                }
+                                else
+                                {
+                                    @montoMaximoBarra @Html.Raw("pts")
+                                }
                                 </span>
                             </div>
                         </div>
@@ -129,13 +133,13 @@
                                 }
                                 if (nivelEvaluacion == nivelSiguiente)
                                 {
-                                    <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a <span>Nivel @nivelSiguiente.DescripcionNivel</span></p>
+                                    <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a  <strong>Nivel @nivelSiguiente.DescripcionNivel</strong></p>
                                 }
                             }
                             else
                             {
-                                <span>Acumulaste @montoAlcanzadoBarra pts</span>
-                                <span>Recurda pasar pedido hasta C02</span>
+                                <span><strong>Acumulaste @montoAlcanzadoBarra pts</strong></span>
+                                <span>Recuerda pasar pedido hasta C02</span>
                             }
                         </div>
                     </div>
@@ -153,11 +157,11 @@
 
         var idTab = nivel.DescripcionNivel;
         <div id='@idTab' class="tab-content">
-            <div id="boxnivel" class="msj-boxnivel">
+            <div id="boxnivel" class="msj-boxnivel @idTab">
 
                 @if (nivel.PuntajeAcumulado.HasValue)
                 {
-                    <p>Nivel @nivel.DescripcionNivel @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.Puntaje), @ViewBag.CodigoISODL) @Html.Raw(" pts")</p>
+                    <p>Nivel @nivel.DescripcionNivel @Util.EnteroFormat(Convert.ToDecimal(nivel.Puntaje), @ViewBag.CodigoISODL) @Html.Raw(" pts")</p>
                 }
                 else
                 {
@@ -166,11 +170,11 @@
 
                 @if (nivel.MontoFaltante.HasValue)
                 {
-                    <span>Te falta <strong> @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL)</strong></span>
+                    <span>Te falta <strong> @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL)</strong> para cambiar de nivel a @nivel.DescripcionNivel</span>
                 }
                 @if (nivel.PuntajeAcumulado.HasValue)
                 {
-                    <span>Acumulaste @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.PuntajeAcumulado), @ViewBag.CodigoISODL) pts</span>
+                    <span>Acumulaste @Util.EnteroFormat(Convert.ToDecimal(nivel.PuntajeAcumulado), @ViewBag.CodigoISODL) pts</span>
                 }
 
             </div>
@@ -280,7 +284,7 @@
                                 <div class="left-mod" style="width: 100%; margin-left: 0px; ">
                                     @if (nivel.PuntajeAcumulado.HasValue)
                                     {
-                                        <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;">Nivel @nivel.DescripcionNivel @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.PuntajeAcumulado), @ViewBag.CodigoISODL) pts</h2>
+                                        <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;">Nivel @nivel.DescripcionNivel @Util.EnteroFormat(Convert.ToInt32(nivel.Puntaje), @ViewBag.CodigoISODL) pts</h2>
                                     }
                                     else
                                     {
@@ -295,7 +299,7 @@
                                         }
                                         @if (nivel.PuntajeAcumulado.HasValue)
                                         {
-                                            <span>Acumulaste @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.PuntajeAcumulado), @ViewBag.CodigoISODL) pts</span>
+                                            <span>Acumulaste @Util.EnteroFormat(Convert.ToDecimal(nivel.PuntajeAcumulado), @ViewBag.CodigoISODL) pts</span>
                                         }
                                     </div>
                                     @if (nivel.EnterateMas == 1 || nivel.EnterateMas == 2)
@@ -437,6 +441,7 @@
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Chart")
 
     <script>
         /* temporal Eliminar con el Homologado  */
