@@ -982,7 +982,7 @@ namespace Portal.Consultoras.Service
         public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp)
         {
             return _caminoBrillanteBusinessLogic.GetCaminoBrillanteConfiguracion(paisID, esApp);
-        }
+        } 
 
         public List<BENivelCaminoBrillante> GetNiveles(int paisID)
         {

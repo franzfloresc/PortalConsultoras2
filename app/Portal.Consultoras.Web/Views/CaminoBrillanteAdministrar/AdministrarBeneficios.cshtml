@@ -27,38 +27,11 @@
             $("#txtPaisModal").val($("#ddlPais option:selected").html());
             var _ddlNivel = $("#ddlNivel").val();
             $("#ddlNivelModal").val(_ddlNivel);
+            $("#hdCodigoNivel").val($("#ddlNivelModal").val());
             $('#chkActivoModal').attr("checked", true);
 
             /*** Limpiando ***/
             limpiar();
-
-            @*$("#chkNueva").attr("checked", false);
-            $("#chkRecoProduc").attr("checked", false);
-            $("#chkRecoPerfil").attr("checked", false);
-            $("#txtPaisOferta").val($("#ddlPais option:selected").html());
-            
-            $("#hdPais").val($("#ddlPais").val());
-            $("#txtDescripcionOriginalModal").val("");
-            $("#txtOrden").val("");
-            $('#img01').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-            $('#imgOfertaIndependiente').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-            $("#hdofertas").val("");
-            $("#chkActivo").attr("checked", true);
-            $("#imagenProducto01").val("");
-            $("#imagenProductoAnterior01").val("");
-            $("#hdImagenOfertaIndependiente").val("");
-            $("#hdImagenOfertaIndependienteAnterior").val("");
-
-            $("#hdTipoEstrategiaID").val("0");
-            $("#txtCodigoPrograma").prop('disabled', true).val("");
-
-            $("#chkMostrarImg").attr("checked", false);
-
-            $("#chkMostrarImgIndependiente").attr("checked", false);
-            $(".divOfertaIndependiente").hide();
-
-			$("#chkValImg").attr("checked", false);
-			$("#txtPesoMaximoImagen").val("0");*@
 
             //fnGrillaOfertas('0');
             showDialog("DialogAdministracionTipoEstrategia");
@@ -83,103 +56,7 @@
             limpiar();
             $("#hdCodigoNivel").val($("#ddlNivelModal").val());
             $("#hdCodigoBeneficio").val("");
-        });
-
-        
-
-        //$("#btnAgregarOferta").click(function () {
-
-        //    //var ofertaID = $("#hdofertaid").val();
-        //    //var paisID = $("#hdPais").val();
-        //    //var codigoOferta = $("#txtCodigoOferta").val();
-        //    //var descripcionOferta = $("#txtDescripcionOferta").val();
-        //    //var flagNueva = ($("#chkNueva").attr("checked")) ? true : false;
-        //    //var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
-
-        //    var model = {
-        //        CodigoNivel: codigoNivel,
-        //        CodigoBeneficio: 
-        //    };
-
-        //    Registro 
-        //    CodigoNivel 
-        //    CodigoBeneficio 
-        //    NombreBeneficio 
-        //    Descripcion 
-        //    Icono 
-        //    UrlIcono
-
-        //    var paisID = $("#txtPaisModal").val();
-        //    var codigoNivel = $("#ddlNivelModal").val();
-        //    var nombreBeneficio = $("#txtNombreBeneficioModal").val();
-        //    var descripcionBeneficio = $("#txtDescripcionModal").val();
-        //    var orden = $("#txtordenModal").val();
-        //    var activo = ($("#chkActivoModal").attr("checked")) ? true : false;
-        //    //var paisID = $("#txtPaisModal").val();
-        //    //var paisID = $("#txtPaisModal").val();
-        //    //var paisID = $("#txtPaisModal").val();
-
-        //    if (flagNueva && $("#txtCodigoPrograma").val() == "") {
-        //        alert("No ingresó Codigo de Programa");
-        //        return false;
-        //    }
-
-        //    if ($.trim(codigoOferta) == "") {
-        //        alert("No ingresó el código de oferta.");
-        //        return false;
-        //    }
-
-        //    if ($.trim(descripcionOferta) == "") {
-        //        alert("No ingresó la descripción de oferta.");
-        //        return false;
-        //    }
-
-
-        //    var params = {
-        //        OfertaID: ofertaID,
-        //        PaisID: paisID,
-        //        CodigoOferta: codigoOferta,
-        //        DescripcionOferta: descripcionOferta,
-        //        CodigoPrograma: codigoPrograma
-        //    };
-
-        //    jQuery.ajax({
-        //        type: 'POST',
-        //        url: baseUrl + 'AdministrarTipoEstrategia/RegistrarOferta',
-        //        dataType: 'json',
-        //        contentType: 'application/json; charset=utf-8',
-        //        data: JSON.stringify(params),
-        //        async: true,
-        //        success: function (data) {
-        //            if (checkTimeout(data)) {
-        //                if (data.success == true) {
-
-        //                    var id = $("#hdTipoEstrategiaID").val()
-        //                    var ofertas = $("#hdofertas").val() + codigoOferta + ',';
-        //                    $("#hdofertas").val(ofertas);
-
-        //                    $("#hdofertaid").val("0");
-        //                    $("#txtCodigoOferta").val("");
-        //                    $("#txtDescripcionOferta").val("");
-        //                    $("#btnAgregarOferta").val("Agregar");
-        //                    $("#txtCodigoOferta").focus();
-
-        //                    fnGrillaOfertas(id);
-        //                }
-        //                else {
-        //                    alert(data.message);
-        //                }
-        //            }
-        //        },
-        //        error: function (data, error) {
-        //            if (checkTimeout(data)) {
-        //                alert(data.message);
-        //                HideDialog("DialogAdministracionNuevaOferta");
-        //            }
-        //        }
-        //    });
-
-        //});       
+        });  
 
         $(".select_imagen").click(function () {
             $('#hdcodigoicono').val($(this).attr('data-codigo'));
@@ -203,14 +80,12 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                //CampaniaID: function () { return jQuery.trim($("#ddlCampania").val()); },
                 paisID: function () { return jQuery.trim($("#ddlPais").val()); },
                 CodigoNivel: function () { return jQuery.trim($("#ddlNivel").val());},
                 Consulta: function () { return jQuery.trim($("#hdTipoConsulta").val()) }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            //colNames: ['TipoEstrategiaID', 'Código de Estrategia', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente', 'ImagenOfertaIndependiente', 'FlagValidarImagen', 'PesoMaximoImagen'],
             colNames: ['Codigo Beneficio', 'Nro', 'Nombre Beneficio', 'Descripción', 'Orden', 'Activo', 'Icono', 'Opcion'],
             colModel: [
                 { name: 'CodigoBeneficio', index: 'CodigoBeneficio', editable: true, resizable: false, hidden: true },
@@ -221,18 +96,6 @@
                 { name: 'FlagActivo', index: 'FlagActivo', width: 40, editable: true, resizable: false, align: 'center' },
                 { name: 'UrlIcono', index: 'UrlIcono', width: 70, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
                 { name: 'Opcion', index: 'Opcion', width: 70, editable: true, resizable: false, sortable: true, align: 'center', formatter: ShowActions }, 
-                
-                //{ name: 'OfertaID', index: 'OfertaID', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'FlagActivo', index: 'FlagActivo', width: 40, align: 'center', editable: true, resizable: false, formatter: ShowActions },
-                //{ name: 'FlagNueva', index: 'FlagNueva', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'FlagRecoProduc', index: 'FlagRecoProduc', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'FlagRecoPerfil', index: 'FlagRecoPerfil', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'CodigoPrograma', index: 'CodigoPrograma', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'FlagMostrarImg', index: 'FlagMostrarImg', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'MostrarImgOfertaIndependiente', index: 'MostrarImgOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true },
-                //{ name: 'ImagenOfertaIndependiente', index: 'ImagenOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true, formatter: ShowImage },
-                //{ name: 'FlagValidarImagen', index: 'FlagValidarImagen', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'PesoMaximoImagen', index: 'PesoMaximoImagen', width: 180, editable: true, resizable: false, hidden: true },
             ],
             jsonReader:
             {
@@ -279,15 +142,6 @@
             buttons:
             {
                 "Guardar": function () {
-                    //var tipoEstrategiaID = $("#hdTipoEstrategiaID").val();
-                    //var descripcionEstrategia = $("#txtDescripcionOriginalModal").val();
-                    //var imagenEstrategia = $("#imagenProducto01").val();
-                    //var imagenAnterior = $("#imagenProductoAnterior01").val();
-                    //var orden = $("#txtOrden").val();
-                    //var flagActivo = "0";
-                    //var ofertaID = "";
-                    //var imagenOfertaIndependiente = $("#hdImagenOfertaIndependiente").val();
-                    //var imagenOfertaIndependienteAnterior = $("#hdImagenOfertaIndependienteAnterior").val();
 
                     var codigoNivel = $("#hdCodigoNivel").val();
                     var codigoBeneficio = $("#hdCodigoBeneficio").val();
@@ -295,76 +149,13 @@
                     var nombreBeneficio = $("#txtNombreBeneficioModal").val();
                     var descripcionBeneficio = $("#txtDescripcionModal").val();
                     var orden = $("#txtordenModal").val();
-                    var flagActivo = ($("#chkActivoModal").attr("checked")) ? "1" : "0";
+                    var flagActivo = ($("#chkActivoModal").attr("checked")) ? true : false;
                     var codigoIcono = $("#hdcodigoicono").val();
 
                     if ($.trim(nombreBeneficio) == "") {
                         alert("No ingresó Nombre de Beneficio.");
                         return false;
                     }
-
-
-                    //if ($("#chkActivo").attr("checked")) {
-                    //    flagActivo = "1";
-                    //}
-
-                    //if ($.trim(descripcionEstrategia) == "") {
-                    //    alert("No ingresó la descripción.");
-                    //    return false;
-                    //}
-
-                    //if (!$.isNumeric(orden)) {
-                    //    alert("No ingresó un valor válido para el orden a mostrar.");
-                    //    return false;
-                    //}
-
-                    //if ($.trim(orden) == "") {
-                    //    alert("No ingresó el orden a mostrar.");
-                    //    return false;
-                    //}
-
-                    //if (parseInt(orden) <= 0) {
-                    //    alert("Ingrese un orden mayor a cero.");
-                    //    return false;
-                    //}
-
-                    //ofertaID = $("#hdofertas").val();
-
-                    //if (ofertaID.length > 0) {
-                    //    ofertaID = ofertaID.substring(0, ofertaID.length - 1);
-                    //}
-
-                    //if ($("#chkMostrarImg").attr("checked")) {
-                    //    if ($("#img01").attr("src") == "" || ($("#img01").attr("src").indexOf('prod_grilla_vacio.png') >= 0)) {
-                    //        alert("Se debe seleccionar una imagen.");
-                    //        return false;
-                    //    }
-                    //}
-
-                    //if ($("#chkMostrarImgIndependiente").attr("checked")) {
-                    //    if ($("#imgOfertaIndependiente").attr("src") == "" || ($("#imgOfertaIndependiente").attr("src").indexOf('prod_grilla_vacio.png') >= 0)) {
-                    //        alert("Debe seleccionar una imagen para oferta independiente.");
-                    //        return false;
-                    //    }
-                    //}
-
-                    //if ($("#chkValImg").attr("checked")) {
-                    //    if ($("#txtPesoMaximoImagen").val() == "" || $("#txtPesoMaximoImagen").val() == "0") {
-                    //        alert("Debe Ingresar un tamaño en Kb mayor a 0 de la imagen a validar.");
-                    //        return false;
-                    //    }
-                    //}
-
-
-                    //var flagNueva = ($("#chkNueva").attr("checked")) ? "1" : "0";
-                    //var flagRecoPerfil = ($("#chkRecoPerfil").attr("checked")) ? "1" : "0";
-                    //var flagRecoProduc = ($("#chkRecoProduc").attr("checked")) ? "1" : "0";
-                    //var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
-                    //var flagMostrarImg = ($("#chkMostrarImg").attr("checked")) ? "1" : "0";
-                    //var flagMostrarImgIndependiente = ($("#chkMostrarImgIndependiente").attr("checked")) ? true : false;
-                    //var codigo = $("#txCodigoOriginalModal").val();
-                    //var flagValidarImagen = ($("#chkValImg").attr("checked")) ? "1" : "0";
-                    //var pesoMaximoImagen = flagValidarImagen ? $("#txtPesoMaximoImagen").val() : "0";
                     
                     var model = {
                         CodigoNivel: codigoNivel,
@@ -372,7 +163,7 @@
                         NombreBeneficio: nombreBeneficio,
                         Descripcion: descripcionBeneficio,
                         Icono: codigoIcono,
-                        FlagActivo: flagActivo,
+                        Estado: flagActivo,
                         Orden: orden
                     };
 
@@ -410,31 +201,6 @@
                 }
             }
         });
-
-
-        //$('#DialogAdministracionNuevaOferta').dialog({
-        //    autoOpen: false,
-        //    resizable: false,
-        //    modal: true,
-        //    closeOnEscape: true,
-        //    width: 700,
-        //    draggable: true,
-        //    title: "Registro de Ofertas",
-        //    buttons:
-        //    {
-        //        "Nueva Oferta": function () {
-        //            $("#hdofertaid").val("0");
-        //            $("#txtCodigoOferta").val("");
-        //            $("#txtDescripcionOferta").val("");
-        //            $("#btnAgregarOferta").val("Agregar");
-        //            $("#txtCodigoOferta").focus();
-        //        },
-        //        "Salir": function () {
-        //            HideDialog("DialogAdministracionNuevaOferta");
-        //        }
-        //    }
-        //});
-
     }
 
     function ShowImage(cellvalue, options, rowObject) {
@@ -516,12 +282,6 @@
             + "','" + rowObject[5]
             + "','" + rowObject[6]
             + "','" + rowObject[7]
-            //+ "','" + rowObject[11]
-            //+ "','" + rowObject[12]
-            //+ "','" + rowObject[13]
-            //+ "','" + rowObject[14]
-            //+ "','" + rowObject[15]
-            //+ "','" + rowObject[16]
             + "');\" >"
             + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
 
@@ -530,7 +290,6 @@
     }
 
     $.jgrid.extend({
-        //Editar: function (id, codigo, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente, flagValidarImagen, pesoMaximoImagen) {
         Editar: function (CodigoBeneficio, nro, nombreBeneficio, descripcion, orden, flagActivo, urlIcono, opcion) {
             
             if (CodigoBeneficio) {                
@@ -544,81 +303,13 @@
                 $("#txtordenModal").val(orden);
                 $('#chkActivoModal').attr("checked", (flagActivo.toLowerCase() == "si" ? "1" : "0"));
 
-                //$("#hdPais").val($("#ddlPais").val());
+
                 $("#hdCodigoNivel").val($("#ddlNivel").val());
                 $("#hdCodigoBeneficio").val(CodigoBeneficio);
-                //$("#txtPaisModal").val($("#ddlPais option:selected").html());
-                //$("#hdPais").val($("#ddlPais").val());
-                //$("#txCodigoOriginalModal").val(codigo)
-                //$("#txtDescripcionOriginalModal").val(descripcion);
-                //$("#txtOrden").val(orden);
-                //$("#txtPaisOferta").val($("#ddlPais option:selected").html());
                 var img = $($("#list").jqGrid('getCell', CodigoBeneficio, 'UrlIcono')).attr('src');
                 
                 $('#img01').attr('src', img);
                 img = img.replace(/^.*[\\\/]/, '');
-
-                //if (img.length > 0) {
-                //    $('#imagenProducto01').val(img);
-                //    $('#imagenProductoAnterior01').val(img);
-                //}
-
-                ////var imgOfertaIndependiente = $($("#list").jqGrid('getCell', id, 'ImagenOfertaIndependiente')).attr('src');
-                ////$('#imgOfertaIndependiente').attr('src', imgOfertaIndependiente);
-
-                ////imgOfertaIndependiente = imgOfertaIndependiente.replace(/^.*[\\\/]/, '');
-
-
-
-                //var flagValidarImagen = jQuery("#list").jqGrid('getCell', id, 'FlagValidarImagen');
-                //$("#chkValImg").attr("checked", (flagValidarImagen == "1"));
-
-                //$("#txtPesoMaximoImagen").val(pesoMaximoImagen);
-
-
-
-                ////if (imgOfertaIndependiente.length > 0) {
-                ////    $('#hdImagenOfertaIndependiente').val(imgOfertaIndependiente);
-                ////    $('#hdImagenOfertaIndependienteAnterior').val(imgOfertaIndependiente);
-                ////}
-
-                //var flagNueva = jQuery("#list").jqGrid('getCell', id, 'FlagNueva');
-                //var flagRecoProduc = jQuery("#list").jqGrid('getCell', id, 'FlagRecoProduc');
-                //var flagRecoPerfil = jQuery("#list").jqGrid('getCell', id, 'FlagRecoPerfil');
-                //var flagImagenOfertaIndependiente = jQuery("#list").jqGrid('getCell', id, 'MostrarImgOfertaIndependiente');
-
-
-                //$('#chkNueva').attr("checked", (flagNueva == "1"));
-                //$('#chkRecoProduc').attr("checked", (flagRecoProduc == "1"));
-                //$('#chkRecoPerfil').attr("checked", (flagRecoPerfil == "1"));
-                //$('#chkMostrarImgIndependiente').attr("checked", (flagImagenOfertaIndependiente == "1"));
-
-                //$("#hdTipoEstrategiaID").val(id);
-                //$("#hdofertas").val(ofertas + ',');
-
-                //if (flagactivo == "1") {
-                //    $("#chkActivo").attr("checked", true);
-                //}
-                //$("#txtCodigoPrograma").prop('disabled', true);
-                //$("#txtCodigoPrograma").val(codigoPrograma);
-
-                //if (flagMostrarImg == "1") {
-                //    $("#chkMostrarImg").attr("checked", true);
-                //}
-                //else {
-                //    $("#chkMostrarImg").attr("checked", false);
-                //}
-                //if (flagNueva == "1") {
-                //    $(".divOfertaIndependiente").show();
-                //} else {
-                //    $(".divOfertaIndependiente").hide();
-                //}
-
-                //if (flagValidarImagen == "1") {
-                //    $("#txtPesoMaximoImagen").prop('disabled', false);
-                //} else {
-                //    $("#txtPesoMaximoImagen").prop('disabled', true);
-                //}
 
                 ////fnGrillaOfertas(id);
 
@@ -702,11 +393,6 @@
     </div>
 </div>
 <div id="DialogAdministracionTipoEstrategia" style="display: none;">
-    @*<input type="hidden" id="hdPais" value="" />
-        <input type="hidden" id="hdofertas" value="" />
-        <input type="hidden" id="hdofertaid" value="0" />
-        <input type="hidden" id="hdTipoEstrategiaID" value="0" />*@
-    @*<input type="hidden" id="hdPais" value="" />*@
     <input type="hidden" id="hdCodigoNivel" value="" />
     <input type="hidden" id="hdCodigoBeneficio" value="" />
     <div class="Content_modal">
@@ -764,83 +450,11 @@
                         }
                     }
                     <input type="hidden" id="hdcodigoicono" value="" />
-                    @*<div class="titB" style="display: none;">Oferta:</div>
-                        <div class="container clearfix" style="display: none;">
-                            <div class="selectA borde_redondeado">
-                            </div>
-                        </div>*@
                 </div>
-                @*<div class="div-3">
-                        <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
-                        <div class="titG" style="width: 180px;">
-                            <div class="input_search">
-                                <input type="hidden" id="imagenProducto01" />
-                                <input type="hidden" id="imagenProductoAnterior01" />
-                                <div id="fpUpload01">
-                                    <script type="text/javascript">
-                                        $.ajaxSetup({ cache: false });
-                                        var uploader = new qq.FileUploader({
-                                            allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                            element: document.getElementById('fpUpload01'),
-                                            action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
-                                            onComplete: function (id, fileName, responseJSON) {
-                                                if (checkTimeout(responseJSON)) {
-                                                    $(".qq-upload-list").css("display", "none");
-                                                    if (responseJSON.success) {
-                                                        $("#imagenProducto01").val(responseJSON.name);
-                                                        $('#img01').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
-                                                    }
-                                                    else {
-                                                        alert(responseJSON.message);
-                                                    }
-                                                }
-                                            },
-                                            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                                        });
-                                    </script>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>*@
             </div>
         </div>
     </div>
 </div>
-
-@*<div id="DialogAdministracionNuevaOferta" style="display: none;">
-    <div class="Content_modal">
-        <div class="div-3" style="display: none">
-            <div class="titB">País:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPaisOferta" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titB">Código:</div>
-            <div class="selectP2 borde_redondeado" style="width:50px">
-                <input type="text" id="txtCodigoOferta" style="width:50px" />
-            </div>
-            <div class="titB">Descripción:</div>
-            <div class="selectP2 borde_redondeado" style="width:230px">
-                <input type="text" id="txtDescripcionOferta" style="width:230px" />
-            </div>
-            <div class="input_search">
-                <input type="button" name="btnAgregarOferta" id="btnAgregarOferta" value="Agregar" style="float:right" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="container clearfix">
-                <div class="selectA borde_redondeado" style="width:630px">
-                    <table id="listaOfertas"></table>
-                    <div id="pagerOferta"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
 <div id="loadingScreen"></div>
 
 

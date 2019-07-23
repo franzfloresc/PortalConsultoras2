@@ -34,12 +34,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var lst = Consulta == "1" ? GetListaBeneficiosByNivel(paisID, CodigoNivel) : new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
                 lst = lst ?? new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
 
-                //if (lst.Count > 0)
-                //{
-                //    lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenEstrategia));
-                //    lst.Update(x => x.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenOfertaIndependiente));
-                //}
-
                 BEGrid grid = new BEGrid
                 {
                     PageSize = rows,
@@ -98,19 +92,6 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.Orden.ToString(),
                                    a.FlagActivo,
                                    a.UrlIcono,                                   
-                                   //a.Orden.ToString(),
-                                   //a.ImagenEstrategia,
-                                   //a.OfertaID,
-                                   //a.FlagActivo.ToString(),
-                                   //a.FlagNueva.ToString(),
-                                   //a.FlagRecoProduc.ToString(),
-                                   //a.FlagRecoPerfil.ToString(),
-                                   //string.IsNullOrEmpty( a.CodigoPrograma) ? string.Empty: a.CodigoPrograma,
-                                   //a.FlagMostrarImg.ToString(),
-                                   //a.MostrarImgOfertaIndependiente.ToInt().ToString(),
-                                   //a.ImagenOfertaIndependiente,
-                                   //a.FlagValidarImagen.ToString(),
-                                   //a.PesoMaximoImagen.ToString()
                                 }
                            }
                 };
@@ -125,21 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
             string operacion = "registró";
             try
             {
-
-                //BEOferta entidad = new BEOferta
-                //{
-                //    OfertaID = Convert.ToInt32(OfertaID),
-                //    PaisID = userData.PaisID,
-                //    CodigoOferta = CodigoOferta,
-                //    DescripcionOferta = DescripcionOferta,
-                //    UsuarioRegistro = userData.CodigoUsuario,
-                //    UsuarioModificacion = userData.CodigoUsuario,
-                //    CodigoPrograma = CodigoPrograma
-                //};
-
-                if (model.FlagActivo == "1") model.Estado = true;
-                if (model.FlagActivo == "0") model.Estado = false;
-
+                model.CodigoBeneficio = string.IsNullOrEmpty(model.CodigoBeneficio) ? "" : model.CodigoBeneficio;
                 var entidad = Mapper.Map<BEBeneficioCaminoBrillante>(model) ?? new BEBeneficioCaminoBrillante();
 
                 using (var sv = new UsuarioServiceClient())
@@ -147,10 +114,6 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.InsBeneficioCaminoBrillante(userData.PaisID, entidad);
                 }
 
-                //if (OfertaID != "0")
-                //{
-                //    operacion = "modificó";
-                //}
                 return Json(new
                 {
                     success = true,
