@@ -6323,10 +6323,6 @@
       <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
       <Name>Portal.Consultoras.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Portal.Consultoras.Service\Portal.Consultoras.Service.csproj">
-      <Project>{b3ad057a-2326-4f70-8723-0b2b3afce4ea}</Project>
-      <Name>Portal.Consultoras.Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
