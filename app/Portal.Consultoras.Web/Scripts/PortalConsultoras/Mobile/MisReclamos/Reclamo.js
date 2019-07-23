@@ -1103,7 +1103,7 @@ $(document).ready(function () {
                     if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
                         callbackWhenFinish(data);
                     }
-                },);
+                });
             },
 
             BuscarMotivo: function () {
