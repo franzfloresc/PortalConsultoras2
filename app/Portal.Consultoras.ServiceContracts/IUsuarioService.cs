@@ -463,6 +463,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad);
+
+        [OperationContract]
+        void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);
         #endregion
 
         [OperationContract]

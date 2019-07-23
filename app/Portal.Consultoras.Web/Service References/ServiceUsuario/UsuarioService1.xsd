@@ -1001,6 +1001,20 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="DelBeneficioCaminoBrillante">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoBeneficio" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelBeneficioCaminoBrillanteResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ActualizarValidacionDatos">
     <xs:complexType>
       <xs:sequence>

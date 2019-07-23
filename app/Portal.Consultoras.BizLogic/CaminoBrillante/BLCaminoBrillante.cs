@@ -1429,6 +1429,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             new DACaminoBrillante(paisId).InsBeneficioCaminoBrillante(entidad);
         }
+
+        public void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio)
+        {
+            new DACaminoBrillante(paisId).DelBeneficioCaminoBrillante(CodigoNivel, CodigoBeneficio);
+        }        
         #endregion
     }
 }

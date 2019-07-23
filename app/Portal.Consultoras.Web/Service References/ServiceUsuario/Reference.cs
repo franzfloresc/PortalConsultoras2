@@ -18277,6 +18277,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillanteResponse")]
         System.Threading.Tasks.Task InsBeneficioCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillanteResponse")]
+        void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillanteResponse")]
+        System.Threading.Tasks.Task DelBeneficioCaminoBrillanteAsync(int paisId, string CodigoNivel, string CodigoBeneficio);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
         int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
         
@@ -19389,6 +19395,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task InsBeneficioCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante entidad) {
             return base.Channel.InsBeneficioCaminoBrillanteAsync(paisId, entidad);
+        }
+        
+        public void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio) {
+            base.Channel.DelBeneficioCaminoBrillante(paisId, CodigoNivel, CodigoBeneficio);
+        }
+        
+        public System.Threading.Tasks.Task DelBeneficioCaminoBrillanteAsync(int paisId, string CodigoNivel, string CodigoBeneficio) {
+            return base.Channel.DelBeneficioCaminoBrillanteAsync(paisId, CodigoNivel, CodigoBeneficio);
         }
         
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2) {

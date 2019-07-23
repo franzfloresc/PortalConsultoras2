@@ -998,6 +998,11 @@ namespace Portal.Consultoras.Service
         {
             _caminoBrillanteBusinessLogic.InsBeneficioCaminoBrillante(paisId, entidad);
         }
+
+        public void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio)
+        {
+            _caminoBrillanteBusinessLogic.DelBeneficioCaminoBrillante(paisId, CodigoNivel, CodigoBeneficio);
+        }
         #endregion
 
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)

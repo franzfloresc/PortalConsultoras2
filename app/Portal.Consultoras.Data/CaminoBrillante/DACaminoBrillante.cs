@@ -68,13 +68,21 @@ namespace Portal.Consultoras.Data.CaminoBrillante
         public void InsBeneficioCaminoBrillante(BEBeneficioCaminoBrillante entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsBeneficioCaminoBrillante");
-            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.AnsiString, entidad.CodigoNivel);
-            Context.Database.AddInParameter(command, "@CodigoBeneficio", DbType.AnsiString, entidad.CodigoBeneficio);
+            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
+            Context.Database.AddInParameter(command, "@CodigoBeneficio", DbType.String, entidad.CodigoBeneficio);
             Context.Database.AddInParameter(command, "@NombreBeneficio", DbType.AnsiString, entidad.NombreBeneficio);
             Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entidad.Descripcion);
-            Context.Database.AddInParameter(command, "@UrlIcono", DbType.AnsiString, entidad.Icono);
+            Context.Database.AddInParameter(command, "@UrlIcono", DbType.String, entidad.Icono);
             Context.Database.AddInParameter(command, "@Orden", DbType.Int32, entidad.Orden);
             Context.Database.AddInParameter(command, "@Estado", DbType.Boolean, entidad.Estado);
+            Context.ExecuteScalar(command);
+        }
+
+        public void DelBeneficioCaminoBrillante(string CodigoNivel, string CodigoBeneficio)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelBeneficioCaminoBrillante");
+            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.AnsiString, CodigoNivel);
+            Context.Database.AddInParameter(command, "@CodigoBeneficio", DbType.AnsiString, CodigoBeneficio);
             Context.ExecuteScalar(command);
         }
     }

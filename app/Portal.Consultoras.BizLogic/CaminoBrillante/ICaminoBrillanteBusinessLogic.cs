@@ -23,5 +23,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb);
         List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
         void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad);
+        void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);
     }
 }

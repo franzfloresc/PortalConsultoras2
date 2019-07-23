@@ -131,5 +131,33 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public JsonResult DesactivarBeneficio(string CodigoNivel, string CodigoBeneficio)
+        {
+            try
+            {
+                using (var sv = new UsuarioServiceClient())
+                {
+                    sv.DelBeneficioCaminoBrillante(userData.PaisID, CodigoNivel, CodigoBeneficio);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se desactivó con éxito el beneficio.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
     }
 }

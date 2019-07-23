@@ -431,6 +431,12 @@
   <wsdl:message name="IUsuarioService_InsBeneficioCaminoBrillante_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsBeneficioCaminoBrillanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_DelBeneficioCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelBeneficioCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_DelBeneficioCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelBeneficioCaminoBrillanteResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarValidacionDatos_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarValidacionDatos" />
   </wsdl:message>
@@ -1243,6 +1249,10 @@
     <wsdl:operation name="InsBeneficioCaminoBrillante">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante" message="tns:IUsuarioService_InsBeneficioCaminoBrillante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillanteResponse" message="tns:IUsuarioService_InsBeneficioCaminoBrillante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DelBeneficioCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante" message="tns:IUsuarioService_DelBeneficioCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillanteResponse" message="tns:IUsuarioService_DelBeneficioCaminoBrillante_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ActualizarValidacionDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos" message="tns:IUsuarioService_ActualizarValidacionDatos_InputMessage" />
@@ -2193,6 +2203,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsBeneficioCaminoBrillante">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelBeneficioCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3610,6 +3629,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsBeneficioCaminoBrillante">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelBeneficioCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

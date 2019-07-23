@@ -213,63 +213,63 @@
         return image;
     }
 
-    function fnGrillaOfertas(id) {
-        $("#listaOfertas").jqGrid("GridUnload");
-        var url = "AdministrarTipoEstrategia/ConsultarOfertas/" + id
-        jQuery("#listaOfertas").jqGrid({
-            url: baseUrl + url,
-            hidegrid: false,
-            datatype: 'json',
-            mtype: 'GET',
-            contentType: "application/json; charset=utf-8",
-            colNames: ['', 'Codigo', 'Descripción', ''],
-            colModel: [
-                { name: 'OfertaID', index: 'OfertaID', width: 10, editable: true, resizable: false, hidden: false, formatter: ShowChecks },
-                { name: 'CodigoOferta', index: 'CodigoOferta', width: 30, editable: true, resizable: false, hidden: false },
-                { name: 'DescripcionOferta', index: 'DescripcionOferta', width: 200, editable: true, hidden: false },
-                { name: 'AccionOferta', index: 'AccionOferta', width: 30, editable: true, hidden: false, formatter: ShowActionsOferta }
-            ],
-            jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
-            pager: jQuery('#pagerOferta'),
-            loadtext: 'Cargando datos...',
-            recordtext: "",
-            emptyrecords: 'No hay resultados',
-            rowNum: 10,
-            scrollOffset: 0,
-            rowList: [],
-            sortname: 'Descripcion',
-            sortorder: 'asc',
-            viewrecords: true,
-            multiselect: false,
-            height: 'auto',
-            width: 625,
-            pgtext: '',
-            altRows: true,
-            altclass: 'jQGridAltRowClass',
-            loadComplete: function () { },
-            gridComplete: function () {
-                $("#listaOfertas input[type='checkbox']").each(function () {
-                    var valor = $(this).attr("value");
-                    var contenedor = $("#hdofertas").val();
-                    var n = contenedor.lastIndexOf(valor);
-                    if (n > -1) {
-                        $(this).attr("checked", true)
-                    }
-                });
-            }
-        });
-        jQuery("#listaOfertas").jqGrid('navGrid', "#pagerOferta", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#listaOfertas").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-    }
+    //function fnGrillaOfertas(id) {
+    //    $("#listaOfertas").jqGrid("GridUnload");
+    //    var url = "AdministrarTipoEstrategia/ConsultarOfertas/" + id
+    //    jQuery("#listaOfertas").jqGrid({
+    //        url: baseUrl + url,
+    //        hidegrid: false,
+    //        datatype: 'json',
+    //        mtype: 'GET',
+    //        contentType: "application/json; charset=utf-8",
+    //        colNames: ['', 'Codigo', 'Descripción', ''],
+    //        colModel: [
+    //            { name: 'OfertaID', index: 'OfertaID', width: 10, editable: true, resizable: false, hidden: false, formatter: ShowChecks },
+    //            { name: 'CodigoOferta', index: 'CodigoOferta', width: 30, editable: true, resizable: false, hidden: false },
+    //            { name: 'DescripcionOferta', index: 'DescripcionOferta', width: 200, editable: true, hidden: false },
+    //            { name: 'AccionOferta', index: 'AccionOferta', width: 30, editable: true, hidden: false, formatter: ShowActionsOferta }
+    //        ],
+    //        jsonReader:
+    //        {
+    //            root: "rows",
+    //            page: "page",
+    //            total: "total",
+    //            records: "records",
+    //            repeatitems: true,
+    //            cell: "cell",
+    //            id: "id"
+    //        },
+    //        pager: jQuery('#pagerOferta'),
+    //        loadtext: 'Cargando datos...',
+    //        recordtext: "",
+    //        emptyrecords: 'No hay resultados',
+    //        rowNum: 10,
+    //        scrollOffset: 0,
+    //        rowList: [],
+    //        sortname: 'Descripcion',
+    //        sortorder: 'asc',
+    //        viewrecords: true,
+    //        multiselect: false,
+    //        height: 'auto',
+    //        width: 625,
+    //        pgtext: '',
+    //        altRows: true,
+    //        altclass: 'jQGridAltRowClass',
+    //        loadComplete: function () { },
+    //        gridComplete: function () {
+    //            $("#listaOfertas input[type='checkbox']").each(function () {
+    //                var valor = $(this).attr("value");
+    //                var contenedor = $("#hdofertas").val();
+    //                var n = contenedor.lastIndexOf(valor);
+    //                if (n > -1) {
+    //                    $(this).attr("checked", true)
+    //                }
+    //            });
+    //        }
+    //    });
+    //    jQuery("#listaOfertas").jqGrid('navGrid', "#pagerOferta", { edit: false, add: false, refresh: false, del: false, search: false });
+    //    jQuery("#listaOfertas").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    //}
 
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
@@ -285,14 +285,14 @@
             + "');\" >"
             + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
 
-        Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
+        Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "','" + rowObject[5] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
 
     $.jgrid.extend({
-        Editar: function (CodigoBeneficio, nro, nombreBeneficio, descripcion, orden, flagActivo, urlIcono, opcion) {
-            
-            if (CodigoBeneficio) {                
+        Editar: function (CodigoBeneficio, nro, nombreBeneficio, descripcion, orden, flagActivo, urlIcono, opcion) {            
+            if (CodigoBeneficio) {  
+                debugger
                 $("#divddlnivel").hide();
                 $("#divtxtnivel").show();
                 $("#txtPaisModal").val($("#ddlPais option:selected").html());                
@@ -301,7 +301,7 @@
                 $("#txtNombreBeneficioModal").val(nombreBeneficio);
                 $("#txtDescripcionModal").val(descripcion);
                 $("#txtordenModal").val(orden);
-                $('#chkActivoModal').attr("checked", (flagActivo.toLowerCase() == "si" ? "1" : "0"));
+                $('#chkActivoModal').attr("checked", (flagActivo.toLowerCase() == "si" ? true : false));
 
 
                 $("#hdCodigoNivel").val($("#ddlNivel").val());
@@ -319,21 +319,26 @@
             }
             return false;
         },
-        Eliminar: function (Id) {
-            var paisID = $("#hdPais").val();
+        Eliminar: function (codigoBeneficio, Activo) {
 
-            var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
+            if (Activo.toLowerCase() === 'no') {
+                alert('El beneficio ya se encuentra desactivado.');
+                return false;
+            }                
+            debugger
+            var elimina = confirm('¿Está seguro que desea desactivar el beneficio seleccionado?');
             if (!elimina)
                 return false;
 
+            var codigoNivel = $("#ddlNivel").val();
             waitingDialog({});
 
             jQuery.ajax({
                 type: 'POST',
-                url: baseUrl + 'AdministrarTipoEstrategia/Eliminar',
+                url: baseUrl + 'CaminoBrillanteAdministrar/DesactivarBeneficio',
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({ PaisID: paisID, TipoEstrategiaID: Id }),
+                data: JSON.stringify({ CodigoNivel: codigoNivel, CodigoBeneficio: codigoBeneficio }),
                 async: true,
                 success: function (data) {
                     if (checkTimeout(data)) {

@@ -94,28 +94,6 @@ namespace Portal.Consultoras.Web.Providers
                 return new List<NivelCaminoBrillanteModel>();
             }
         }
-
-        /// <summary>
-        /// Obtiene solamente el listado de niveles para administrador de contenidos.
-        /// </summary>
-        public List<NivelCaminoBrillanteModel> GetListaNiveles()
-        {
-            using (var svc = new UsuarioServiceClient())
-            {
-                return Mapper.Map<List<NivelCaminoBrillanteModel>>(svc.GetNiveles(usuarioModel.PaisID).ToList());
-            }
-        }
-
-        /// <summary>
-        /// Obtiene solamente el listado de Beneficos para administrador de contenidos.
-        /// </summary>
-        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
-        {
-            using (var svc = new UsuarioServiceClient())
-            {
-                return Mapper.Map<List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>>(svc.GetBeneficiosCaminoBrillante(paisID, codigoNivel).ToList());  
-            }
-        }
         #endregion
 
         #region Consultora
@@ -809,12 +787,25 @@ namespace Portal.Consultoras.Web.Providers
         #endregion
 
         #region Mantenedor Beneficios
-        public void InsBeneficioCaminoBrillante(NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel model)
+        /// <summary>
+        /// Obtiene solamente el listado de niveles para administrador de contenidos.
+        /// </summary>
+        public List<NivelCaminoBrillanteModel> GetListaNiveles()
         {
-            var entidad = Mapper.Map<BEBeneficioCaminoBrillante>(model) ?? new BEBeneficioCaminoBrillante();
             using (var svc = new UsuarioServiceClient())
             {
-                svc.InsBeneficioCaminoBrillante(usuarioModel.PaisID, entidad);
+                return Mapper.Map<List<NivelCaminoBrillanteModel>>(svc.GetNiveles(usuarioModel.PaisID).ToList());
+            }
+        }
+
+        /// <summary>
+        /// Obtiene solamente el listado de Beneficos para administrador de contenidos.
+        /// </summary>
+        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
+        {
+            using (var svc = new UsuarioServiceClient())
+            {
+                return Mapper.Map<List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>>(svc.GetBeneficiosCaminoBrillante(paisID, codigoNivel).ToList());
             }
         }
         #endregion

@@ -178,6 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return lstIconos;
         }
+
         #endregion
 
     }
