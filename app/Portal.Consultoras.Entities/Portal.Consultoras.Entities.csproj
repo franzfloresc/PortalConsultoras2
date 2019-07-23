@@ -86,6 +86,7 @@
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
     <Compile Include="BEParametrosLider.cs" />
+    <Compile Include="BETvoPanelConfig.cs" />
     <Compile Include="BEValidacionDatos.cs" />
     <Compile Include="BEPremiosProgramaNuevas.cs" />
     <Compile Include="BuscadorYFiltros\BEBuscadorYFiltrosConfiguracion.cs" />
