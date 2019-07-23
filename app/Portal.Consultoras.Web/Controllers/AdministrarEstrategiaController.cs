@@ -1490,8 +1490,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(CampaniaID))
-                    return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
+                if (string.IsNullOrEmpty(CampaniaID)) {
+                    return Json(
+                        new { total = 1, page = 1, records = 0, rows = new List<ServicePedido.BEEstrategia>() },
+                        JsonRequestBehavior.AllowGet
+                    );
+                }
 
                 var entidad = new ServicePedido.BEEstrategia()
                 {
@@ -1536,7 +1540,10 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
+                return Json(
+                    new { total = 1, page = 1, records = 0, rows = new List<ServicePedido.BEEstrategia>() },
+                    JsonRequestBehavior.AllowGet
+                );
             }
         }
 

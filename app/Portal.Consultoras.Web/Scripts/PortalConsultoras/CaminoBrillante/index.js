@@ -3,7 +3,6 @@ var scrollLogros = true
 
 
 $(document).ready(function () {
-
     Carusel();
     if ($("#template-kit").length > 0) {
         Handlebars.registerPartial("kit_template", $("#template-kit").html());
@@ -413,9 +412,7 @@ function ArmarMisGanancias(data) {
             title: {
                 display: true
             },
-            responsive: true,
-            showAllTooltips: true,
-
+            responsive: true 
         }
     });
 

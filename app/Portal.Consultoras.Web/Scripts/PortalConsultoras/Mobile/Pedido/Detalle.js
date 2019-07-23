@@ -70,8 +70,11 @@ $(document).ready(function () {
         else mostrar.fadeOut(200);
     });
     
-    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) },1);
-    
+    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) }, 1);
+    //FIN HD-4200
+
+
+
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
             event.preventDefault();
@@ -83,6 +86,19 @@ $(document).ready(function () {
         numactual = numactual < 1 ? 1 : numactual > 99 ? 99 : numactual;
         $("#txtCantidad").val(numactual);
     });
+
+    $(window).bind("load", function () { //se ejecuta al finalizar la carga de la página
+        if (typeof cantPedidosPendientes !== "undefined" && typeof esDiaProl !== "undefined") {
+            if (cantPedidosPendientes > 0 && esDiaProl) {
+                $("#spnCantidadPendientes").text(cantPedidosPendientes);
+                $("#accionIgnorar").hide();
+                setTimeout(function () {
+                    $("#PopupPedidosPendientes").fadeIn(250);
+                }, 200);
+            }
+        }
+    });
+
 });
 
 var pedidoProvider = PedidoProvider();
@@ -807,7 +823,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
@@ -817,7 +833,6 @@ function SeparadorMiles(pnumero) {
 }
 
 function EjecutarPROL(cuvOfertaProl) {
-
     if (gTipoUsuario == '2') {
         var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#popupInformacionSB2Malo').find('#mensajeInformacionSB2_Malo').text(msgg);
@@ -854,9 +869,9 @@ function EjecutarServicioPROL() {
         success: function (response) {
             CloseLoading();
             if (!checkTimeout(response)) return;
-            if (!response.success) {
+            if (!response.success) {               
                 messageInfoMalo(mensajeErrorReserva);
-                return;
+                return false;
             }
 
             if (response.mensajeCondicional) {
@@ -877,7 +892,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
     pedidoProvider
         .ejecutarServicioProlPromise()
         .done(function (response) {
-            
+
             if (!checkTimeout(response)) return;
             if (!response.success) {
                 messageInfoMalo(mensajeErrorReserva);
@@ -903,10 +918,30 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
     if (cumpleOferta) {
         return;
     }
-
-    if (!response.data.Reserva) {
-        ShowPopupObservacionesReserva();
-        return;
+    var res = response.data;
+    if (!res.Reserva) {
+        if (res.hasOwnProperty("MostrarMensajeExito")) {
+            console.info(res.MostrarMensajeExito);
+            if (res.MostrarMensajeExito) {
+                var idPedidoGuardado = "#PopupPedidoGuardado", idPedidoPendiente = "#PopupPedidosPendientes", accionIgnorar = "#accionIgnorar";
+                $(accionIgnorar).hide();
+                $(idPedidoGuardado).fadeIn(250);
+                setContainerLluvia(idPedidoGuardado);
+                mostrarLluvia();
+                setTimeout(function () {
+                    var cantidad = res.hasOwnProperty("CantPedidosPendientes") ? res.CantPedidosPendientes : 0;
+                    $(idPedidoGuardado).fadeOut(700);
+                    if (cantidad > 0) {
+                        $(idPedidoPendiente).delay(300);
+                        $(idPedidoPendiente).fadeIn(700);
+                    }
+                }, 3750);
+                return false;
+            }
+        } else {
+            ShowPopupObservacionesReserva();
+            return false;
+        }
     }
 
     EjecutarAccionesReservaExitosa(response);
@@ -915,7 +950,7 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
-
+   
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
     
     if (!response.data.IsEmailConfirmado) {
@@ -924,12 +959,18 @@ function EjecutarAccionesReservaExitosa(response) {
 
     }
     else {
-        messageInfoBueno('<h3>Tu pedido fue reservado con &eacute;xito.</h3>');
-    	if (ultimoDiaFacturacion) {
+         var idPedidoGuardado = "#PopupPedidoGuardado", msgReservado = "#msgPedidoReservado", msgGuardado = "#msgPedidoGuardado";
+         $(msgGuardado).hide();
+         $(msgReservado).show();
+
+         setContainerLluvia(idPedidoGuardado);
+         mostrarLluvia();
+         $(idPedidoGuardado).fadeIn(250);
+    	 if (ultimoDiaFacturacion) {
 	    RedirigirPedidoValidado();
-    	} else {
+    	 } else {
 	    location.reload();
-    	}
+    	 }
     }
     
 
@@ -946,9 +987,13 @@ function ConstruirObservacionesPROL(model) {
     else if (!model.ValidacionInteractiva) messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
     else {
         mensajeBloqueante = false;
-
         if (model.ObservacionRestrictiva) CrearPopupObservaciones(model);
-        else ArmarPopupObsReserva(true, '!LO <b>LOGRASTE</b>!', 'Tu pedido fue guardado con &eacute;xito. Recuerda, al final de tu campa&ntilde;a valida tu pedido para reservar tus productos.');
+        else {
+            model.MostrarMensajeExito = true;
+            $("#spnCantidadPendientes").text(model.CantPedidosPendientes);
+            //ArmarPopupObsReserva(true, '!LO <b>LOGRASTE</b>!', 'Tu pedido fue guardado con &eacute;xito. Recuerda, al final de tu campa&ntilde;a valida tu pedido para reservar tus productos.');
+        }
+
     }
 
     CargarPedido();
@@ -988,7 +1033,7 @@ function ArmarPopupObsReserva(esIconCheck, titulo, mensaje) {
     objIcon.addClass(esIconCheck ? 'check_icono_mobile' : 'exclamacion_icono_mobile');
 }
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {
-    if (typeof esAviso !== 'undefined') esAviso = false;
+    if (typeof esAviso === 'undefined') esAviso = false;
     ArmarPopupObsReserva(false, esAviso ? 'AVISO' : 'ERROR', mensajePedido);
 
     $('#popup-observaciones-prol').show();

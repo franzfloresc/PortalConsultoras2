@@ -221,9 +221,21 @@
                                 MONTO TOTAL :
                             </span>
                             <span class="ganancia-total first-color">
-                                <span>@Model.Simbolo <span data-pedidocondescuento="">@Model.MontoConDsctoStr</span></span>
+                                <span>@Model.Simbolo <span data-pedidocondescuento="">&nbsp;@Model.MontoConDsctoStr</span></span>
                             </span>
                         </div>
+                         @*HD-4513*@
+                        @if (ViewBag.PagoContado)
+                        {
+                            <div class="ganancia-info pb-2">
+                                <span class="ganancia-titulo titulo-up titulo-700">
+                                    TOTAL A PAGAR :
+                                </span>
+                                <span class="ganancia-total first-color">
+                                    <span>@Model.Simbolo <span data-stppagototalresumen="">&nbsp;0.00</span></span>
+                                </span>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="ganancia-estimada PedidoMobile">
@@ -238,7 +250,7 @@
                                     @(cabezaEscala) :
                                 </span>
                                 <span id="div-ganancia-total" class="ganancia-total accent-color">
-                                    @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">@Model.FormatoTotalMontoGanancia</span>
+                                    @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">&nbsp;@Model.FormatoTotalMontoGanancia</span>
                                 </span>
                             </div>
                         </div>
@@ -248,7 +260,7 @@
                                     Catálogo
                                 </span>
                                 <span class="ganancia-total first-color">
-                                    @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@Model.FormatoMontoAhorroCatalogo</span>
+                                    @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">&nbsp;@Model.FormatoMontoAhorroCatalogo</span>
                                 </span>
                             </div>
                             <div class="toggle-info">
@@ -256,7 +268,7 @@
                                     Guía de negocio
                                 </span>
                                 <span class="ganancia-total first-color">
-                                    @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@Model.FormatoGananciaRevista</span>
+                                    @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">&nbsp;@Model.FormatoGananciaRevista</span>
                                 </span>
                             </div>
                             <div class="toggle-info">
@@ -264,7 +276,7 @@
                                     @ViewBag.LabelGananciaWeb
                                 </span>
                                 <span class="ganancia-total first-color">
-                                    @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@Model.FormatoGananciaWeb</span>
+                                    @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">&nbsp;@Model.FormatoGananciaWeb</span>
                                 </span>
                             </div>
                             <div class="toggle-info">
@@ -272,7 +284,7 @@
                                     Otros
                                 </span>
                                 <span class="ganancia-total first-color">
-                                    @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@Model.FormatoGananciaOtros</span>
+                                    @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">&nbsp;@Model.FormatoGananciaOtros</span>
                                 </span>
                             </div>
                         </div>
