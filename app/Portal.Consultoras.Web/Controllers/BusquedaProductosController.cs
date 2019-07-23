@@ -1,9 +1,7 @@
-﻿using Portal.Consultoras.Web.Models.Buscador;
-using System.Web.Mvc;
-using Portal.Consultoras.Common;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models.Buscador;
 using Portal.Consultoras.Web.ServiceSAC;
-using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {

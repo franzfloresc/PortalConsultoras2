@@ -287,18 +287,10 @@ function ProcesarAceptarPedido(pedido) {
                     }
                     else if (response.code == 2) {
 
-                        //INI HD-3693
-                        //$('#MensajePedidoReservado').text(response.message);
-                        //$('#AlertaPedidoReservado').show();
-                        var msjBloq = validarpopupBloqueada(response.message);
-                        if (msjBloq != "") {
-                            alert_msg_bloqueadas(msjBloq);
-                        }
-                        else {
+              
+                        $('#MensajePedidoReservado').text(response.message);
+                        $('#AlertaPedidoReservado').show();
 
-                            $('#MensajePedidoReservado').text(response.message);
-                            $('#AlertaPedidoReservado').show();
-                        }
                     }
                 }
             }
@@ -480,7 +472,6 @@ function AceptarPedidoProducto(id, option) {
         $(texto).addClass('text-white');
         $(aceptado).addClass('active');
         $(aceptado).text('Aceptar');
-        //document.location.href = urlPedido;
         
     }
 
@@ -504,10 +495,8 @@ function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo)
             CloseLoading();
 
             if (response.success) {
-
-                //vPendientes = response.Pendientes;
+                
                 SeRechazoConExito();
-                // document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
             }
             else {
                 alert(response.message);
@@ -564,10 +553,8 @@ function ContinuarPedido(option) {
     $('.pedidos').each(function () {
 
         if ($(this).find('a[id*="aceptar_"]').hasClass('active') == false) {
-            //$(aceptado).addClass('active');
             var pedidoId = $(this).find(".pedidoId").val();
             var cuv = $(this).find(".cuv").val();
-            //var cantidad = $(this).find(".cantidad").val();
             var cantNew = $(this).find('[data-cantNew]').val();
 
             var detalle = {
@@ -590,7 +577,6 @@ function ContinuarPedido(option) {
             url: "/ConsultoraOnline/ContinuarPedidos",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            //data: JSON.stringify(lstDetalle),
             data: JSON.stringify(obj),
             success: function (response) {
 	            //marcacion analytics de Continuar
@@ -789,29 +775,9 @@ function SeRechazoConExito() {
 
 function CerrarModalMotivosRechazo() {
     if ($('#MotivosRechazo-Paso2').is(':visible')) {
-        //$('#hdPedidoId').val('');
-        //$('#hdMotivoRechazoId').val('');
-        //$('#txtOtroMotivo').val('');
-        //$('#MotivosRechazo-Paso1').css('display', '');
-        //$('#MotivosRechazo-Paso2').css('display', 'none');
-        //$('[name="motivoRechazo"]').prop('checked', false);
-        //$('#OtroMotivo').prop('checked', false);
-        //$('#OtroMotivo').trigger("change");
-        //$('#MotivosRechazo').hide();
 
-        //$('#rechazarTodop').addClass('hide');
-        //$("#Paso1-Productos").hide();
-        //$('body').removeClass('visible');
-        //$(".modal-fondo").hide();
-
-        //document.location.href = '/ConsultoraOnline/Pendientes';
         document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
-
-        //var Pendientes = JSON.parse(vPendientes) || [];
-        //RenderizarPendientes(Pendientes);
-        //cambiaTabs();
-
-
+        
     } else {
         $('#MotivosRechazo').fadeOut(100);
     }
