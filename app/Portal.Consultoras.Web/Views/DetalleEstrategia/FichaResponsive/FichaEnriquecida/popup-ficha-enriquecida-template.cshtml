@@ -6,53 +6,19 @@
             <button class="button_cerrar button_volver" onclick="javascript:fichaEnriquecidaPresenter.hidePopupFichaEnriquecida()">
                 <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""> Volver
             </button>
-            <div class="row ficha_producto">
-                <div class="col-12 col-lg-7 descripcion_enriquecida">
-                    <div>
-                        {{#IsNullOrEmpty DescripcionMarca '!='}}
-                        <div class="nombre_marca">{{DescripcionMarca}}</div>
-                        {{/IsNullOrEmpty}}
-
-                        {{#IsNullOrEmpty NombreComercial '!='}}
-                        <div class="descripcion">{{NombreComercial}}</div>
-                        {{/IsNullOrEmpty}}
-
-                        {{#IsNullOrEmpty Cabecera.ContenidoNeto '!='}}
-                        <div class="descripcion_item">{{Cabecera.ContenidoNeto}}</div>
-                        {{/IsNullOrEmpty}}
-
-                        {{#IsNullOrEmpty Cabecera.Dimensiones '!='}}
-                        <div class="descripcion_item">{{Cabecera.Dimensiones}}</div>
-                        {{/IsNullOrEmpty}}
-
-                        {{#IsNullOrEmpty Cabecera.TallaMedidas '!='}}
-                        <div class="descripcion_item">{{Cabecera.TallaMedidas}}</div>
-                        {{/IsNullOrEmpty}}
-
-                        {{#iff PrecioCatalogo '>' 0}}
-                        <div class="descripcion_item" style="font-weight:bold">
-                            Precio para ti: <span style="font-weight:bold">{{SimboloMoneda}} {{DecimalToStringFormat PrecioCatalogo}}</span>
-                        </div>
-                        {{/iff}}
-                        {{#IsNullOrEmpty UnidadMedidaContenido '!='}}
-                        {{#iff PrecioContenido '>' 0}}
-                        <div class="descripcion_item item_pum">{{UnidadMedidaContenido}} a {{SimboloMoneda}} {{PrecioContenidoStr}}</div>
-                        {{/iff}}
-                        {{/IsNullOrEmpty}}
-                    </div>
-                </div>
-                <div class="col-12 col-lg-5">
+            <div class="row ficha_producto" style="margin-top:30px">
+                <div class="col-12 col-lg-6">
 
                     {{#iff this.FotosCarrusel.length '==' 0 }}
                     <div class="contenedor_imagen">
-                        <div>
+                        <div class="contenedor_carrusel">
                             <img src={{ImgUrl ImagenBulk}}>
                         </div>
                         <p>* Foto Referencial</p>
                     </div>
                     {{else}}
                     <div class="row no-gutters">
-                        <div class="col-3 d-none d-sm-none d-md-none d-lg-block">
+                        <div class="col-2 d-none d-sm-none d-md-none d-lg-block"  style="margin-top: 20px;">
                             <div class="contenedor_imagen_thumbnail slider-nav-detail">
 
                                 <div class="contenedor_carrusel">
@@ -84,7 +50,42 @@
                     </div>
                     {{/iff}}
                 </div>
+
+                <div class="col-12 col-lg-6 descripcion_enriquecida">
+                    <div>
+                        {{#IsNullOrEmpty DescripcionMarca '!='}}
+                        <div class="nombre_marca">{{DescripcionMarca}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty NombreComercial '!='}}
+                        <div class="descripcion">{{NombreComercial}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty Cabecera.ContenidoNeto '!='}}
+                        <div class="descripcion_item">{{Cabecera.ContenidoNeto}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty Cabecera.Dimensiones '!='}}
+                        <div class="descripcion_item">{{Cabecera.Dimensiones}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty Cabecera.TallaMedidas '!='}}
+                        <div class="descripcion_item">{{Cabecera.TallaMedidas}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#iff PrecioCatalogo '>' 0}}
+                        <div class="descripcion_item precio_para_ti" style="font-weight:bold">
+                            Precio para ti: <span style="font-weight:bold">{{SimboloMoneda}} {{DecimalToStringFormat PrecioCatalogo}}</span>
+                        </div>
+                        {{/iff}}
+                        {{#IsNullOrEmpty UnidadMedidaContenido '!='}}
+                        {{#iff PrecioContenido '>' 0}}
+                        <div class="descripcion_item item_pum">{{UnidadMedidaContenido}} a {{SimboloMoneda}} {{PrecioContenidoStr}}</div>
+                        {{/iff}}
+                        {{/IsNullOrEmpty}}
                     </div>
+                </div>
+            </div>
 
                     <div id="popup_tabs_ficha_enriquecida_contenedor" class="popup_tabs_ficha">
 
