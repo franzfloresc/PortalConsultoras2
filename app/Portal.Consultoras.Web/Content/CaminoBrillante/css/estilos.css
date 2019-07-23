@@ -3271,6 +3271,14 @@ div .ficha__producto__precio__normal {
         text-indent: 19px
     }
 
+    .cent-mant .etiq-mant, .cent-mant .etiq-falta {
+        width: 94%;
+        float: none;
+        margin: 0 auto;
+        margin-bottom: 8px;
+        margin-left: 2%;
+        font-size: 12px;
+    }
     /*.ficha__producto__descrip__nom {
         min-height: 47px !important;
         word-break: break-word;
@@ -3334,14 +3342,7 @@ div .ficha__producto__precio__normal {
         display: none;
     }
 
-    .cent-mant .etiq-mant, .cent-mant .etiq-falta {
-        width: 92%;
-        float: none;
-        margin: 0 auto;
-        margin-bottom: 8px;
-        margin-left: 5%;
-        font-size: 14px;
-    }
+
 
 
     .bar-logros {
@@ -3386,6 +3387,8 @@ div .ficha__producto__precio__normal {
     .logreg > .text-bold {
         text-align: left;
     }
+
+
     /*nuevo logros unif*/
     .cambio-crec .bigitem {
         width: 25%;
