@@ -54,11 +54,12 @@ namespace Portal.Consultoras.Web.Providers
                 result.EncuestaId = data.Select(a => a.EncuestaId).Distinct().Single();
                 result.CodigoCampania = verificarEncuestado == 1 ? data.Select(a => a.CodigoCampania).Distinct().Single(): codigoCampania;
                 result.EncuestaCalificacion = data
-                    .GroupBy(a => new { a.CalificacionId, a.Calificacion, a.EstiloCalificacion, a.ImagenCalificacion,a.TipoCalificacion })
+                    .GroupBy(a => new { a.CalificacionId, a.Calificacion, a.EstiloCalificacion,a.PreguntaDescripcion, a.ImagenCalificacion,a.TipoCalificacion })
                     .Select(a => new EncuestaCalificacionModel()
                     {
                         EncuestaCalificacionId = a.Key.CalificacionId,
                         Descripcion = a.Key.Calificacion,
+                        PreguntaDescripcion = a.Key.PreguntaDescripcion,
                         EstiloCalificacion = a.Key.EstiloCalificacion,
                         ImagenCalificacion = a.Key.ImagenCalificacion,
                         TipoCalificacion = a.Key.TipoCalificacion,

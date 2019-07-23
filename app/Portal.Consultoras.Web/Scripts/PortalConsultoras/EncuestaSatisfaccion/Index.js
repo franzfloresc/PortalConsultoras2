@@ -10,7 +10,8 @@ var EncuestaSatisfaccion = (function () {
         motivosCalificacion: ".seccion__encuesta__satisfaccion__motivosCalificacion",
         enlaceCerrarEncuestaSatisfaccion: ".enlace__cerrar__encuesta__satisfaccion",
         txtOtroMotivoCalificacion: "#txtOtroMotivoCalificacion",
-        chkOtroMotivoCalificacion:"#chkOtroMotivoCalificacion",
+        chkOtroMotivoCalificacion: "#chkOtroMotivoCalificacion",
+        lblPreguntaCalificacion:"#lblPreguntaCalificacion",
         ListaMotivo: "#ListaMotivo",
         hdfCalificacionId: "#hdfCalificacionId",
         hdfEncuestaId: "#hdfEncuestaId",
@@ -21,6 +22,9 @@ var EncuestaSatisfaccion = (function () {
         Spinner: "#PrecargaEncuesta",
         Paso2:"#Paso2",
         btnConfirmar: "#btnConfirmaMotivo"
+    };
+    var _constantes = {
+      preguntaDefault:"¿A qué se debe tu calificación ?"
     };
     var _config = {
         isDesktop: window.matchMedia("(min-width: 992px)").matches
@@ -120,7 +124,11 @@ var EncuestaSatisfaccion = (function () {
                 $(_elementos.txtOtroMotivoCalificacion).val("");
                 $(_elementos.btnConfirmar).addClass("btn__sb--disabled");
                 var $motivo = $(_elementos.motivosCalificacion);
-                var arrData = _funciones.ObtenerCalificacionById(calificacionId);
+                var arrData = _funciones.ObtenerCalificacionById(calificacionId) || [];
+
+                //actualizamos la pregunta
+                var pregunta = arrData.length > 0 ? arrData[0].PreguntaDescripcion : _constantes.preguntaDefault;
+                $(_elementos.lblPreguntaCalificacion).text(pregunta);
 
                 $motivo.removeClass('seccion__encuesta__satisfaccion__motivosCalificacion--mostrar');
                 $motivo.slideUp(200);
