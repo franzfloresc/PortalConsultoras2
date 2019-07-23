@@ -238,5 +238,15 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["ServicioActualizarBoletaImp"] ?? string.Empty;
             }
         }
+
+        /*INI HD-4513*/
+        #region ServicioTotalPagarSicc
+        public static string ServicioTotalPagarSicc(string CodPaisISO)
+        {
+            return ConfigurationManager.AppSettings["ServicioTotalPagarSicc_"+ CodPaisISO] ?? string.Empty;
+        }
+        #endregion ServicioTotalPagarSicc
+        /*INI HD-4513*/
+
     }
 }

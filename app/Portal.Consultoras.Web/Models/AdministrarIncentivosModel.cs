@@ -19,6 +19,8 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<PaisModel> listaPaises { set; get; }
         public IEnumerable<CampaniaModel> listaCampania { set; get; }
         public string grupoUrlPDF { get; set; }
+        public string Segmento { set; get; }
+        public string Zona { set; get; }        
 
         public AdministrarIncentivosModel()
         {
