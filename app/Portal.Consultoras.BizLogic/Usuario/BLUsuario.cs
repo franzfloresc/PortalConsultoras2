@@ -3900,8 +3900,6 @@ namespace Portal.Consultoras.BizLogic
         public string RegistrarPerfil(BEUsuario usuario)
         {
             string resultado = string.Empty;
-
-            
             string mesajeErrorGenerico = "0|4|Ocurrió un error al registrar los datos, intente nuevamente.|0";
             string[] lst = null;
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -3913,7 +3911,12 @@ namespace Portal.Consultoras.BizLogic
                     lst = resultado.Split('|');
 
                     if (lst[0] == "0")
+                    {
+                        string _mensajeError = TemplateCustomError("RegistrarPerfil", "ActualizarMisDatos", lst[2]);
+                        LogManager.SaveLog(new ClientInformationException(_mensajeError), string.Empty, usuario.PaisID);
                         return resultado;
+                    }
+
                     /*Insertar dirección entrega*/
                     if (usuario.DireccionEntrega != null)
                         RegistrarDireccionEntrega(usuario.CodigoISO, usuario.DireccionEntrega, false);
@@ -3942,14 +3945,14 @@ namespace Portal.Consultoras.BizLogic
                                 });
                                 var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
                                 if (result.estado == 1)
+                                {
+                                    string _mensajeError = TemplateCustomError("RegistrarPerfil", "Servicio->ProcesoMAEActualizaFlagImpBoletasWebServiceImpl.actualizaFlagImpBoletas", result.mensaje);
+                                    LogManager.SaveLog(new ClientInformationException(_mensajeError), string.Empty, usuario.PaisID);
                                     return resultado = mesajeErrorGenerico;
-                       
-
+                                }
                             }
-
                         }
                     }
-
                     ts.Complete();
                 }
                 catch (Exception ex)
@@ -3957,7 +3960,6 @@ namespace Portal.Consultoras.BizLogic
                     LogManager.SaveLog(ex, string.Empty, usuario.PaisID);
                     resultado = mesajeErrorGenerico;
                 }
-               
             }
             return resultado;
         }
@@ -4046,8 +4048,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (conTransaccion) ts.Dispose();
             }
-
-           
         }
   
         private string TemplateCustomErrorService(string metodo , string mensaje)
@@ -4058,8 +4058,7 @@ namespace Portal.Consultoras.BizLogic
         private string TemplateCustomError(string metodo, string subMetodo , string mensaje)
         {
             mensaje = string.IsNullOrEmpty(mensaje) ? "Ocurrió un Error al ejecutar el metodo." : mensaje;
-           return string.Format("class : BLUsuario ,  Metodo  : {0} , Invocación : {1}, Mensaje :{2}", metodo , subMetodo , mensaje);
-      
+            return string.Format("class : BLUsuario ,  Metodo  : {0} , Invocación : {1}, Mensaje :{2}", metodo , subMetodo , mensaje);
         }
     }
 }
