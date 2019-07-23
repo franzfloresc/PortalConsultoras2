@@ -1874,16 +1874,16 @@ namespace Portal.Consultoras.BizLogic
             }
             //HD-4357
             #region Estado Encuesta Satisfacción
-                var aux = _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.EncuestaSatisfaccion.TablaLogicaId).FirstOrDefault(a => a.TablaLogicaDatosID == ConsTablaLogica.EncuestaSatisfaccion.MisPedidosTop).Valor;
-                int EncuestaTop = (string.IsNullOrEmpty(aux)) ? 1 : Convert.ToInt32(aux);
-                var listaPedidoEncuesta = new BLEncuesta().GetEncuestaByConsultora(new BEEncuestaPedido() {PaisID= paisID, CodigoConsultora= codigoConsultora });
+            var aux = _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.EncuestaSatisfaccion.TablaLogicaId).FirstOrDefault(a => a.TablaLogicaDatosID == ConsTablaLogica.EncuestaSatisfaccion.MisPedidosTop)?? new BETablaLogicaDatos();
+            int EncuestaTop = string.IsNullOrEmpty(aux.Valor) ? 1 : Convert.ToInt32(aux.Valor);
+            var listaPedidoEncuesta = new BLEncuesta().GetEncuestaByConsultora(new BEEncuestaPedido() { PaisID = paisID, CodigoConsultora = codigoConsultora });
 
-                int index = 1;
-                foreach (var x in listaPedidosFacturados)
-                {
-                    if (x.EstadoPedidoDesc != "FACTURADO") x.EstadoEncuesta = Constantes.EstadoEncuestaSatisfaccion.NoAplica;
-                    else x.EstadoEncuesta = ((index++) > EncuestaTop) ? Constantes.EstadoEncuestaSatisfaccion.NoAplica : ((listaPedidoEncuesta.Any(y => y.ConsultoraID == consultoraID && y.CodigoCampania == x.CampaniaID.ToString())) ? Constantes.EstadoEncuestaSatisfaccion.Realizada : Constantes.EstadoEncuestaSatisfaccion.Pendiente);
-                }
+            int index = 1;
+            foreach (var x in listaPedidosFacturados)
+            {
+                if (x.EstadoPedidoDesc != "FACTURADO") x.EstadoEncuesta = Constantes.EstadoEncuestaSatisfaccion.NoAplica;
+                else x.EstadoEncuesta = ((index++) > EncuestaTop) ? Constantes.EstadoEncuestaSatisfaccion.NoAplica : (listaPedidoEncuesta.Any(y => y.ConsultoraID == consultoraID && y.CodigoCampania == x.CampaniaID.ToString() && y.FlagTieneEncuesta) ? Constantes.EstadoEncuestaSatisfaccion.Realizada : Constantes.EstadoEncuestaSatisfaccion.Pendiente);
+            }
 
             #endregion
             return listaPedidosFacturados;
