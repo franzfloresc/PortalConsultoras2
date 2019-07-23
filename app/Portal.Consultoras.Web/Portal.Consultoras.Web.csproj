@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\FechaFacturacionController.cs" />
     <Compile Include="Areas\Mobile\Controllers\IncentivosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BonificacionesController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
@@ -1470,6 +1471,8 @@
     <Content Include="Content\Banderas\SV.png" />
     <Content Include="Content\Banderas\VE.png" />
     <Content Include="Content\Banners\FolderContent.txt" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CaminoBrillante\Content.css" />
     <Content Include="Content\CaminoBrillante\css\estilos.css" />
     <Content Include="Content\CaminoBrillante\imgs\add-to-cart.svg" />
@@ -4133,6 +4136,7 @@
     <Content Include="Content\layer-flx-co\img\boton_inscribete_03.png" />
     <Content Include="Content\layer-flx-co\img\fondo_banner_CO_flexipago.jpg" />
     <Content Include="Content\Ofertas\FolderContent.txt" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\Template\mailing_pago_en_linea.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4148,6 +4152,7 @@
     <Content Include="CustomError.html" />
     <Content Include="emt_chat\js\inject.js" />
     <Content Include="EsikaConmigo.html" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="google04fc719c24157f19.html" />
     <Content Include="karma.conf.js" />
@@ -4216,6 +4221,9 @@
     <Content Include="Scripts\ImageHelper\xzoomSetup.js" />
     <Content Include="Scripts\ion.rangeSlider\ion.rangeSlider.js" />
     <Content Include="Scripts\ion.rangeSlider\ion.rangeSlider.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
@@ -4242,6 +4250,7 @@
     <Content Include="Scripts\jquery.ui.touch-punch.min.js" />
     <Content Include="Scripts\jquery.ui.widget.js" />
     <Content Include="Scripts\LogError.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
     <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />
     <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-de.js" />
@@ -4807,6 +4816,13 @@
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoPendienteClientes.cshtml" />
     <Content Include="Areas\Mobile\Views\Incentivos\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Incentivos\IndexExterno.cshtml" />
+    <Content Include="Areas\Mobile\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Mobile\Views\FechaFacturacion\Index.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.wsdl" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.xsd">
       <SubType>Designer</SubType>

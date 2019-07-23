@@ -437,6 +437,12 @@
   <wsdl:message name="ISACService_ObtenerBuscadorComplemento_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerBuscadorComplementoResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetFechasFacturacionConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFechasFacturacionConsultora" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetFechasFacturacionConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFechasFacturacionConsultoraResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_SelectBelcorpNoticias_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectBelcorpNoticias" />
   </wsdl:message>
@@ -1722,6 +1728,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" message="tns:ISACService_ObtenerBuscadorComplemento_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerBuscadorComplementoResponse" message="tns:ISACService_ObtenerBuscadorComplemento_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetFechasFacturacionConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFechasFacturacionConsultora" message="tns:ISACService_GetFechasFacturacionConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFechasFacturacionConsultoraResponse" message="tns:ISACService_GetFechasFacturacionConsultora_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SelectBelcorpNoticias">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticias" message="tns:ISACService_SelectBelcorpNoticias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse" message="tns:ISACService_SelectBelcorpNoticias_OutputMessage" />
@@ -2992,6 +3002,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerBuscadorComplemento">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFechasFacturacionConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetFechasFacturacionConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5120,6 +5139,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerBuscadorComplemento">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFechasFacturacionConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetFechasFacturacionConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
