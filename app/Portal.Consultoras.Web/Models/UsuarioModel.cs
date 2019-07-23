@@ -50,7 +50,6 @@ namespace Portal.Consultoras.Web.Models
             this.ValidacionAbierta = false;
             this.MenuNotificaciones = 0;
             this.TieneNotificaciones = 0;
-            this.EsUsuarioComunidad = false;
             this.SegmentoConstancia = string.Empty;
             this.SeccionAnalytics = string.Empty;
             this.DescripcionNivel = string.Empty;
@@ -259,7 +258,6 @@ namespace Portal.Consultoras.Web.Models
             return false;
         }
         public DateTime FechaPromesaEntrega { get; set; }
-        public bool EsUsuarioComunidad { get; set; }
         public string SegmentoConstancia { get; set; }
         public string SeccionAnalytics { get; set; }
         public string DescripcionNivel { get; set; }

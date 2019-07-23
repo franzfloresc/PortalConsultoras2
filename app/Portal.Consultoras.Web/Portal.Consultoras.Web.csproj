@@ -442,7 +442,6 @@
     <Compile Include="Controllers\BienvenidaController.cs" />
     <Compile Include="Controllers\ClienteContactaConsultoraController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
-    <Compile Include="Controllers\ComunidadController.cs" />
     <Compile Include="Controllers\ConfiguracionValidacionController.cs" />
     <Compile Include="Controllers\ConfiguracionValidacionNuevoPROLController.cs" />
     <Compile Include="Controllers\ConsultaAdministrativaController.cs" />
@@ -942,11 +941,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\ServiceComunidad\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\ServiceContenido\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1099,13 +1093,6 @@
     <Compile Include="WebPages\BloqueoPedidoImp.aspx.designer.cs">
       <DependentUpon>BloqueoPedidoImp.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\CambiarClaveComunidad.aspx.cs">
-      <DependentUpon>CambiarClaveComunidad.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\CambiarClaveComunidad.aspx.designer.cs">
-      <DependentUpon>CambiarClaveComunidad.aspx</DependentUpon>
-    </Compile>
     <Compile Include="WebPages\CambioExitoso.aspx.cs">
       <DependentUpon>CambioExitoso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1119,34 +1106,6 @@
     </Compile>
     <Compile Include="WebPages\CatalogoVirtual.aspx.designer.cs">
       <DependentUpon>CatalogoVirtual.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebPages\Comunidad.aspx.cs">
-      <DependentUpon>Comunidad.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\Comunidad.aspx.designer.cs">
-      <DependentUpon>Comunidad.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebPages\ComunidadLogOut.aspx.cs">
-      <DependentUpon>ComunidadLogOut.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\ComunidadLogOut.aspx.designer.cs">
-      <DependentUpon>ComunidadLogOut.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebPages\CambiarUsuarioComunidad.aspx.cs">
-      <DependentUpon>CambiarUsuarioComunidad.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\CambiarUsuarioComunidad.aspx.designer.cs">
-      <DependentUpon>CambiarUsuarioComunidad.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebPages\ConfirmacionRegistroComunidad.aspx.cs">
-      <DependentUpon>ConfirmacionRegistroComunidad.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\ConfirmacionRegistroComunidad.aspx.designer.cs">
-      <DependentUpon>ConfirmacionRegistroComunidad.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\ConsultaPedidoImp.aspx.cs">
       <DependentUpon>ConsultaPedidoImp.aspx</DependentUpon>
@@ -1183,20 +1142,6 @@
     <Compile Include="WebPages\DownloadPDF.aspx.designer.cs">
       <DependentUpon>DownloadPDF.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\IngresoComunidad.aspx.cs">
-      <DependentUpon>IngresoComunidad.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\IngresoComunidad.aspx.designer.cs">
-      <DependentUpon>IngresoComunidad.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebPages\MasterComunidad.Master.cs">
-      <DependentUpon>MasterComunidad.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\MasterComunidad.Master.designer.cs">
-      <DependentUpon>MasterComunidad.Master</DependentUpon>
-    </Compile>
     <Compile Include="WebPages\NavidadConsultora.aspx.cs">
       <DependentUpon>NavidadConsultora.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1204,26 +1149,12 @@
     <Compile Include="WebPages\NavidadConsultora.aspx.designer.cs">
       <DependentUpon>NavidadConsultora.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\RecuperarClaveComunidad.aspx.cs">
-      <DependentUpon>RecuperarClaveComunidad.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\RecuperarClaveComunidad.aspx.designer.cs">
-      <DependentUpon>RecuperarClaveComunidad.aspx</DependentUpon>
-    </Compile>
     <Compile Include="WebPages\RecuperarClaveMobile.aspx.cs">
       <DependentUpon>RecuperarClaveMobile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebPages\RecuperarClaveMobile.aspx.designer.cs">
       <DependentUpon>RecuperarClaveMobile.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebPages\RegistroComunidad.aspx.cs">
-      <DependentUpon>RegistroComunidad.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\RegistroComunidad.aspx.designer.cs">
-      <DependentUpon>RegistroComunidad.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\ReporteActualizacionDatos.aspx.cs">
       <DependentUpon>ReporteActualizacionDatos.aspx</DependentUpon>
@@ -4732,7 +4663,6 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueBannerShowRoomTop.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueBannerShowRoom.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupMensajesInformacion.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupComunidad.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
     <Content Include="Areas\Mobile\Views\GuiaNegocio\Index.cshtml" />
@@ -5424,23 +5354,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\HojaInscripcionODS\ODSService.disco" />
-    <None Include="Service References\ServiceComunidad\ComunidadService.wsdl" />
-    <None Include="Service References\ServiceComunidad\ComunidadService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceComunidad\ComunidadService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceComunidad\ComunidadService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceComunidad\ComunidadService.disco" />
-    <None Include="Service References\ServiceComunidad\configuration91.svcinfo" />
-    <None Include="Service References\ServiceComunidad\configuration.svcinfo" />
-    <None Include="Service References\ServiceComunidad\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Service References\ServiceEvaluacionCrediticia\EvaluacionCrediticiaService.wsdl" />
     <None Include="Service References\ServiceEvaluacionCrediticia\EvaluacionCrediticiaService.xsd">
       <SubType>Designer</SubType>
@@ -5548,51 +5461,13 @@
     <Content Include="WebPages\AppCatalogoTyC\EC_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\MX_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\PE_AppCatalogoTyC.HTML" />
-    <Content Include="WebPages\CambiarClaveComunidad.aspx" />
     <Content Include="WebPages\CambioExitoso.aspx" />
-    <Content Include="WebPages\Comunidad.aspx" />
-    <Content Include="WebPages\ComunidadLogOut.aspx" />
-    <Content Include="WebPages\CambiarUsuarioComunidad.aspx" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_10.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_11.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_12.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_13.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_14.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_2.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_3.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_4.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_5.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_6.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_7.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_8.html" />
-    <Content Include="WebPages\Comunidad\CondicionesServicio_9.html" />
-    <Content Include="WebPages\Comunidad\old.footercomunidad.html" />
-    <Content Include="WebPages\Comunidad\footercomunidad.html" />
-    <Content Include="WebPages\Comunidad\old.menucomunidad.html" />
-    <Content Include="WebPages\Comunidad\menucomunidad.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_10.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_11.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_12.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_13.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_14.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_2.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_3.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_4.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_5.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_6.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_7.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_8.html" />
-    <Content Include="WebPages\Comunidad\PoliticasPrivacidad_9.html" />
-    <Content Include="WebPages\ConfirmacionRegistroComunidad.aspx" />
     <Content Include="WebPages\CorreoEnviado.aspx" />
     <Content Include="WebPages\DespachosCobranza.aspx" />
     <Content Include="WebPages\DownloadFTP.aspx" />
     <Content Include="WebPages\DownloadPDF.aspx" />
-    <Content Include="WebPages\IngresoComunidad.aspx" />
     <Content Include="WebPages\NavidadConsultora.aspx" />
-    <Content Include="WebPages\RecuperarClaveComunidad.aspx" />
     <Content Include="WebPages\RecuperarClaveMobile.aspx" />
-    <Content Include="WebPages\RegistroComunidad.aspx" />
     <Content Include="WebPages\ReporteActualizacionDatos.aspx" />
     <Content Include="WebPages\RestablecerContrasena.aspx" />
     <Content Include="WebPages\SetVentaDigital.aspx" />
@@ -5792,7 +5667,6 @@
     <Content Include="Views\Shared\VistaParcialMenu\_vpMenuB.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpFeDeErratas.cshtml" />
     <Content Include="Views\Shared\_template-ofertadeldia-style.cshtml" />
-    <Content Include="Views\Shared\VistaParcialMainLayout\_vpRegistroComunidad.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpBannerLateralShowRoom.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogPedidoReservado.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajePostulante.cshtml" />
@@ -6286,7 +6160,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\ServicePROLConsultas\wsConsulta.wsdl" />
-    <Content Include="WebPages\MasterComunidad.Master" />
     <None Include="Web References\ServicesCalculosPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -6423,7 +6296,6 @@
     <WCFMetadataStorage Include="Service References\ServiceAsesoraOnline\" />
     <WCFMetadataStorage Include="Service References\ServiceCDR\" />
     <WCFMetadataStorage Include="Service References\ServiceCliente\" />
-    <WCFMetadataStorage Include="Service References\ServiceComunidad\" />
     <WCFMetadataStorage Include="Service References\ServiceContenido\" />
     <WCFMetadataStorage Include="Service References\ServiceEvaluacionCrediticia\" />
     <WCFMetadataStorage Include="Service References\ServiceODS\" />

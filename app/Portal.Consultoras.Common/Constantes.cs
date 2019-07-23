@@ -560,8 +560,6 @@ namespace Portal.Consultoras.Common
             public const string UneteMailSubject = "UneteMailSubject";
             public const string WSGEO_Url = "WSGEO_Url";
             public const string UneteURL = "UneteURL";
-            public const string URL_COM_LO = "URL_COM_LO";
-            public const string URL_SB = "URL_SB";
             public const string KeyPaisFormatDecimal = "KeyPaisFormatDecimal";
             public const string PaisesShowRoom = "PaisesShowRoom";
             public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
@@ -589,10 +587,6 @@ namespace Portal.Consultoras.Common
             public const string URL_FAMILIAPROTEGIDA_ = "URL_FAMILIAPROTEGIDA_";
             public const string ProductoSugeridoAppCatalogosNroCampaniasAtras = "ProductoSugeridoAppCatalogosNroCampaniasAtras";
             public const string ConsultoraOnlineEmailDe = "ConsultoraOnlineEmailDe";
-            public const string AMB_COM = "AMB_COM";
-            public const string COM_CLIENT_ID = "COM_CLIENT_ID";
-            public const string URL_COM = "URL_COM";
-            public const string COM_DOMAIN = "COM_DOMAIN";
 
             public const string RDUrlTerminosCondiciones = "UrlTerminosCondiciones";
             public const string RDUrlPreguntasFrecuentes = "UrlPreguntasFrecuentes";
