@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                        }
             };
-            System.Web.HttpContext.Current.Session["ListaReporteEncuesta"] = items;
+            System.Web.HttpContext.Current.Session["ListaReporteEncuesta"] = items.ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
             ReporteEncuestaSatisfaccionModel objEncuesta = Newtonsoft.Json.JsonConvert.DeserializeObject<ReporteEncuestaSatisfaccionModel>(obj);
             var entidad = Mapper.Map<ReporteEncuestaSatisfaccionModel, BEEncuestaReporte>(objEncuesta);
 
-            IEnumerable<BEEncuestaReporte> lst;
+            List<BEEncuestaReporte> lst;
             var result=System.Web.HttpContext.Current.Session["ListaReporteEncuesta"];
             if (result == null)
             {
@@ -115,7 +115,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = ps.GetReporteEncuestaSatisfaccion(entidad).ToList();
                 }
             }
-            else lst = (IEnumerable<BEEncuestaReporte>)result;
+            else lst = (List<BEEncuestaReporte>)result;
 
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
