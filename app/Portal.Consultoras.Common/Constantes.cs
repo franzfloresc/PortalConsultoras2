@@ -3715,6 +3715,7 @@ namespace Portal.Consultoras.Common
                 public const string CRECIMIENTO = "CRECIMIENTO";
                 public const string RESUMEN = "RESUMEN";
                 public const string RESUMEN_UNIFICADO = "RESUMEN_UNIFICADO";
+                public const string CONSTANCIA_DETALLADA = "CONSTANCIA_DETALLADA";
 
                 public static class Indicadores
                 {
