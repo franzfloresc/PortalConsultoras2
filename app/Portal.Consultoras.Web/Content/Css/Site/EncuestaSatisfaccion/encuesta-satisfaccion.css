@@ -362,8 +362,9 @@ input.field__checkbox__sb{
         }
     }
 
-        .seccion__encuesta__satisfaccion__titulo--motivoCalificacion{
+        .seccion__encuesta__satisfaccion__expandir .seccion__encuesta__satisfaccion__titulo--motivoCalificacion{
             margin:24px 0 16px 0;
+            font-size:16px;
         }
 
             .encuesta__satisfaccion__motivosCalificacion__lista{
@@ -527,6 +528,10 @@ input.field__checkbox__sb{
                 }
             }
 
+            .seccion__encuesta__satisfaccion__titulo{
+                font-size:20px;
+            }
+
             .encuesta__satisfaccion__estado--pesimo{
                 animation-delay:1s;
             }
@@ -554,6 +559,10 @@ input.field__checkbox__sb{
         .spinner__animacion {
             width:56px!important;
             height:56px!important;
+        }
+
+        .seccion__encuesta__satisfaccion__titulo--motivoCalificacion{
+            text-align:center;
         }
 
 }
