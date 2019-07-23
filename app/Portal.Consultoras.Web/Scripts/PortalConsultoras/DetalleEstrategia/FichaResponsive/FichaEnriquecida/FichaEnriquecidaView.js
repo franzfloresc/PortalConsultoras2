@@ -16,6 +16,10 @@
         },
         carruselVideo: {
             id: "#carrusel-video"
+        },
+        galeria: {
+            templateId: "#galeria-template",
+            id: "#contenedor-enriquecido-galeria"
         }
     };
 
@@ -78,6 +82,8 @@
     var _renderFichaEnriquecida = function (componente, popup) {
         var contenedor = popup ? _elements.tabsComponente.contenedorPopup : _elements.tabsComponente.id;
         SetHandlebars(_elements.tabsComponente.templateId, componente, contenedor);
+        _renderGaleria(componente, true);
+
         _util.setCarrusel(_elements.carruselVideo.id);
         _util.setYoutubeId();
         _util.setYoutubeApi();
@@ -151,7 +157,14 @@
             setTimeout(_reloadCarruselVideos, 50);
         }
         return true;
-    }
+    };
+
+    var _renderGaleria = function (objeto, esFichaEnriquecida) {
+        objeto.EsFichaEnriquecida = esFichaEnriquecida;
+
+        SetHandlebars(_elements.galeria.templateId, objeto, _elements.galeria.id);
+        return true;
+    };
 
     return {
         renderFichaEnriquecida: _renderFichaEnriquecida,
