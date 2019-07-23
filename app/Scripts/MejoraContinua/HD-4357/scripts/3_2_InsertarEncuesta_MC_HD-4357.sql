@@ -20,33 +20,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -70,6 +94,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 
 USE BelcorpChile
@@ -94,33 +119,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -144,6 +193,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 
 USE BelcorpColombia
@@ -168,33 +218,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -218,6 +292,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 	
 USE BelcorpCostaRica
@@ -242,33 +317,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -292,6 +391,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 
 USE BelcorpDominicana
@@ -316,33 +416,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -366,6 +490,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 
 USE BelcorpEcuador
@@ -390,33 +515,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -440,6 +589,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 
 USE BelcorpGuatemala
@@ -464,33 +614,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -514,6 +688,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 
 USE BelcorpMexico
@@ -538,33 +713,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -588,6 +787,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 
 USE BelcorpPanama
@@ -612,33 +812,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -662,6 +886,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 
 USE BelcorpPeru
@@ -686,33 +911,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -736,6 +985,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 
 USE BelcorpPuertoRico
@@ -760,33 +1010,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -810,6 +1084,7 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 
 
 USE BelcorpSalvador
@@ -835,33 +1110,57 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier;
+  DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
+  SET @EncuestaResultadoId = NULL;
 
-  SET @EncuestaResultadoId = NEWID();
+  SELECT 
+      @EncuestaResultadoId = ER.Id 
+  FROM 
+      dbo.EncuestaResultado ER 
+  WHERE 
+      ER.CodigoCampania = @CodigoCampania 
+	  and ER.CodigoConsultora = @CodigoConsultora 
+	  and ER.SeleccionoMotivo = 0;
 
-  INSERT INTO dbo.EncuestaResultado(
-	   Id,
-	   EncuestaId,
-	   CanalId,
-	   CodigoCampania,
-	   CodigoConsultora,
-	   SeleccionoMotivo,
-	   CreatedBy,
-	   CreatedHost
-   )
-  VALUES
-  (
-	  @EncuestaResultadoId,
-	  @EncuestaId,
-	  @CanalId,
-	  @CodigoCampania,
-	  @CodigoConsultora,
-	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
-	  @CreatedBy,
-	  @CreateHost
-  );
-  
+  IF LEN( @EncuestaResultadoId ) > 0
+  BEGIN
+    SET @FlagUsuarioNoRealizoEncuesta = 1;
+  END
+
+  IF (@FlagUsuarioNoRealizoEncuesta = 0) 
+	  BEGIN
+	       
+		   SET @EncuestaResultadoId = NEWID();
+
+		   INSERT INTO dbo.EncuestaResultado(
+			   Id,
+			   EncuestaId,
+			   CanalId,
+			   CodigoCampania,
+			   CodigoConsultora,
+			   SeleccionoMotivo,
+			   CreatedBy,
+			   CreatedHost
+		   )
+		  VALUES
+		  (
+			  @EncuestaResultadoId,
+			  @EncuestaId,
+			  @CanalId,
+			  @CodigoCampania,
+			  @CodigoConsultora,
+			  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
+			  @CreatedBy,
+			  @CreateHost
+		  );
+	  END
+  ELSE 
+	  BEGIN
+	    UPDATE EncuestaResultado SET SeleccionoMotivo = 1 WHERE Id = @EncuestaResultadoId AND  @XMLDetalle IS NOT NULL;
+	  END
+
   INSERT INTO 
 		  dbo.EncuestaResultadoDetalle
 		   (
@@ -885,4 +1184,5 @@ BEGIN
   SET @RetornoID = 1;
 END
 GO
+
 

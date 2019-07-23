@@ -228,7 +228,7 @@ var EncuestaSatisfaccion = (function () {
             var arrMotivoOtro = [];
             var idCalif = parseInt($(_elementos.hdfCalificacionId).val());
             var arrCalif = _funciones.ObtenerCalificacionById(idCalif) || [];
-            if (!arrCalif.hasOwnProperty("TipoCalificacion"))
+            if (arrCalif.length === 0)
                 return motivoSeleccionado;
 
             if (arrCalif[0].TipoCalificacion === 2) {
