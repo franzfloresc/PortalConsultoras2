@@ -41,6 +41,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Data.DataTable dtPedidosDetWebField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string fechaFacturacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string fechaProcesoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -139,6 +142,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.dtPedidosDetWebField, value) != true)) {
                     this.dtPedidosDetWebField = value;
                     this.RaisePropertyChanged("dtPedidosDetWeb");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string fechaFacturacion {
+            get {
+                return this.fechaFacturacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.fechaFacturacionField, value) != true)) {
+                    this.fechaFacturacionField = value;
+                    this.RaisePropertyChanged("fechaFacturacion");
                 }
             }
         }

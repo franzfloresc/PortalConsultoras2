@@ -1122,6 +1122,7 @@ namespace Portal.Consultoras.Data
                     oSqlBulkCopyCabecera.ColumnMappings.Add("Origen", "Origen");
                     oSqlBulkCopyCabecera.ColumnMappings.Add("LogCodigoUsuarioProceso", "CodigoUsuarioProceso");
                     oSqlBulkCopyCabecera.ColumnMappings.Add("VersionProl", "VersionProl");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogFechaCarga", "FechaCarga");
 
                     oSqlBulkCopyCabecera.WriteToServer(dtPedidosCabecera);
                     oSqlBulkCopyCabecera.Close();

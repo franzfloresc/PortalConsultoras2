@@ -2567,7 +2567,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BEDescargaArchivoSinMarcar DescargaPedidosSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
         {
-
+            string fechaFacturacion = string.Empty;
             DAPedidoWeb daPedidoWeb = null;
             DAPedidoDD daPedidoDD = null;
             DataSet dsPedidosWeb = null, dsPedidosDD = null;
@@ -2585,6 +2585,7 @@ namespace Portal.Consultoras.BizLogic
                         dsPedidosWeb = daPedidoWeb.DescargaPedidosClienteSinMarcarWEB(nroLote);
                         dtPedidosCabWeb = dsPedidosWeb.Tables[0]; // Obtiene cabecera
                         dtPedidosDetWeb = dsPedidosWeb.Tables[1]; // Obtiene detalle
+                        fechaFacturacion =  dtPedidosCabWeb.Rows[0].ItemArray[7] !=null ? dtPedidosCabWeb.Rows[0].ItemArray[7].ToString():string.Empty;
                     }
                     catch (SqlException ex)
                     {
@@ -2638,6 +2639,7 @@ namespace Portal.Consultoras.BizLogic
                         objBEDescargaArchivoSinMarcar.msnRespuesta = Constantes.MensajeProcesoDescargaregular.respuestaexito;
                         objBEDescargaArchivoSinMarcar.codigoPais = codigoPais;
                         objBEDescargaArchivoSinMarcar.fechaProceso = fechaProceso;
+                        objBEDescargaArchivoSinMarcar.fechaFacturacion = fechaFacturacion;
                         objBEDescargaArchivoSinMarcar.lote = nroLote;
                         return objBEDescargaArchivoSinMarcar;
                     }
@@ -2711,7 +2713,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         if (dsPedidosWeb.Tables[0].Rows.Count > 0 && dsPedidosWeb.Tables[0].Rows.Count > 0)
                         {
-                            this.ConfigurarDTCargaWebSinMarcar(dsPedidosWeb, campanaId, nuevoNroLote, usuario, codigoPais);
+                            this.ConfigurarDTCargaWebSinMarcar(dsPedidosWeb, campanaId, nuevoNroLote, usuario, codigoPais, fechaFacturacion);
                             daPedidoWeb.InsLogPedidoDescargaWebSinMarcar(dsPedidosWeb);
                             valor = Constantes.MensajeProcesoDescargaregular.respuestaexito;
                         }
@@ -2719,7 +2721,7 @@ namespace Portal.Consultoras.BizLogic
 
                         if (dsPedidosDd.Tables[0].Rows.Count > 0 && dsPedidosDd.Tables[0].Rows.Count > 0)
                         {
-                            this.ConfigurarDTCargaDDSinMarcar(dsPedidosDd, campanaId, nuevoNroLote, usuario, codigoPais);
+                            this.ConfigurarDTCargaDDSinMarcar(dsPedidosDd, campanaId, nuevoNroLote, usuario, codigoPais, fechaFacturacion);
                             daPedidoWeb.InsLogPedidoDescargaDDSinMarcar(dsPedidosDd);
                             valor = valor + Constantes.MensajeProcesoDescargaregular.respuestaexito;
                         }
@@ -2779,17 +2781,17 @@ namespace Portal.Consultoras.BizLogic
             return pedidoDescarga;
         }
 
-        private void ConfigurarDTCargaWebSinMarcar(DataSet dsPedidosWeb, int campaniaid, int nroLote, string usuario, string codigoPais)
+        private void ConfigurarDTCargaWebSinMarcar(DataSet dsPedidosWeb, int campaniaid, int nroLote, string usuario, string codigoPais, DateTime fechaFacturacion)
         {
-            this.ConfigurarDTCargaHeaderSinMarcar(dsPedidosWeb, campaniaid, nroLote, "W", usuario);
+            this.ConfigurarDTCargaHeaderSinMarcar(dsPedidosWeb, campaniaid, nroLote, "W", usuario, fechaFacturacion);
         }
 
-        private void ConfigurarDTCargaDDSinMarcar(DataSet dsPedidosDD, int campaniaid, int nroLote, string usuario, string codigoPais)
+        private void ConfigurarDTCargaDDSinMarcar(DataSet dsPedidosDD, int campaniaid, int nroLote, string usuario, string codigoPais, DateTime fechaFacturacion)
         {
-            this.ConfigurarDTCargaHeaderSinMarcar(dsPedidosDD, campaniaid, nroLote, "D", usuario);
+            this.ConfigurarDTCargaHeaderSinMarcar(dsPedidosDD, campaniaid, nroLote, "D", usuario, fechaFacturacion);
         }
 
-        private void ConfigurarDTCargaHeaderSinMarcar(DataSet dsPedidos, int campaniaid, int nroLote, string origen, string usuario)
+        private void ConfigurarDTCargaHeaderSinMarcar(DataSet dsPedidos, int campaniaid, int nroLote, string origen, string usuario, DateTime fechaCarga)
         {
             if (dsPedidos == null) return;
 
@@ -2798,9 +2800,10 @@ namespace Portal.Consultoras.BizLogic
 
             AddDTColumn(dtPedidosCabecera, "LogCampaniaid", campaniaid);
             AddDTColumn(dtPedidosCabecera, "LogNroLote", nroLote);
+            if (origen != string.Empty) AddDTColumn(dtPedidosCabecera, "Origen", origen);
             AddDTColumn(dtPedidosCabecera, "LogCantidad", 0);
             AddDTColumn(dtPedidosCabecera, "LogCodigoUsuarioProceso", usuario);
-            if (origen != string.Empty) AddDTColumn(dtPedidosCabecera, "Origen", origen);
+            AddDTColumn(dtPedidosCabecera, "LogFechaCarga", fechaCarga);
             if (!DataRecord.HasColumn(dtPedidosCabecera, "VersionProl")) AddDTColumn<byte>(dtPedidosCabecera, "VersionProl", 2);
 
             ConfigurarDTCargaDetalleSinMarcar(dsPedidos, campaniaid, nroLote, usuario);

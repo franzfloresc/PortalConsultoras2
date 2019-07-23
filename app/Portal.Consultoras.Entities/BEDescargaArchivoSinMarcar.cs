@@ -49,6 +49,10 @@ namespace Portal.Consultoras.Entities
         public string fechaProceso { get; set; }
 
         [DataMember]
+        [Column("fechaFacturacion")]
+        public string fechaFacturacion { get; set; }
+
+        [DataMember]
         [Column("lote")]
         public int lote { get; set; }
 

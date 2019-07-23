@@ -144,6 +144,8 @@
     }
 
     function fnGrilla() {
+
+
         jQuery("#list").jqGrid({
             url: baseUrl + "ReporteConsultoraPedidoSAC/ObtenerUltimaDescargaPedidoSinMarcar?campaniaID=" + $("#ddlCampania").val(),
             hidegrid: false,
@@ -218,6 +220,7 @@
 
 
     function ArchivoClientes(rowId) {
+        
         var waiting = {
             message: 'Espere unos minutos, por favor...',
             title: 'Ejecutando Proceso'
@@ -229,10 +232,9 @@
             url: baseUrl + 'ReporteConsultoraPedidoSAC/DescargarArchivoClienteSinMarcar',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: "{nroLote: " + rowId + ", campaniaid: " + $("#ddlCampania").val() + "}",
+            data: "{nroLote: " + rowId + ", campaniaid: " + $("#ddlCampania").val() +  "}",
             async: true,
             success: function (data) {
-                
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     if (data.msnRespuesta_ == "a") {
