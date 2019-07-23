@@ -37,6 +37,13 @@ namespace Portal.Consultoras.BizLogic.Contenido
             return config;
         }
 
+        public string GetUrl(BEUsuario user)
+        {
+            var config = GetPanelConfig(user.PaisID);
+
+            return GetUrl(config, user);
+        }
+
         public string GetUrl(BETvoPanelConfig panelConfig, BEUsuario user)
         {
             var currentTimeSeconds = Util.ToUnixTimespan(DateTime.Now);
