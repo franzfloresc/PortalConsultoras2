@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
         {
-            if (session && SessionManager.GetMontosProl() != null) return SessionManager.GetMontosProl();
+            if (session && SessionManager.GetMontosProl() != null && SessionManager.GetMontosProl()[0].MontoTotalDescuento != null) return SessionManager.GetMontosProl();
 
             var montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
@@ -293,7 +293,14 @@ namespace Portal.Consultoras.Web.Controllers
                     montosProl = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigoZona, cuvs, cantidades, userData.CodigosConcursos).ToList();
                 }
             }
-
+            else {
+                montosProl[0].AhorroCatalogo = "0";
+                montosProl[0].AhorroRevista = "0";
+                montosProl[0].MontoEscala = "0";
+                montosProl[0].MontoTotalDescuento = "0";
+                montosProl[0].observacion = "";
+                montosProl[0].ListaConcursoIncentivos = null;
+            }
             SessionManager.SetMontosProl(montosProl);
 
             return montosProl;
@@ -1555,5 +1562,74 @@ namespace Portal.Consultoras.Web.Controllers
 
             return r;
         }
+
+        /*HD-4513*/
+
+        #region Pago Contado
+        public bool GetPagoContado()
+        {
+            bool band = true;
+
+            if (!userData.DiaPROL) band = false;
+
+
+            return userData.PagoContado && band;
+        }
+        public BEPedidoWeb UpdConfPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            BEPedidoWeb obj = new BEPedidoWeb();
+
+            bePedidoWeb.STPPagoContado =  GetPagoContado();
+            obj.STPPagoContado = bePedidoWeb.STPPagoContado;
+
+            if (!bePedidoWeb.STPPagoContado)
+                return obj;
+
+            //Consultar servicio
+            try
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    obj = sv.UpdPedidoTotalPagoContado(bePedidoWeb);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return obj;
+
+        }
+
+        public BEPedidoWeb GetConfPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            BEPedidoWeb obj = new BEPedidoWeb();
+
+            bePedidoWeb.STPPagoContado = GetPagoContado();
+            obj.STPPagoContado = bePedidoWeb.STPPagoContado;
+
+            if (!bePedidoWeb.STPPagoContado)
+                return obj;
+
+            //Consultar servicio
+            try
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    obj = sv.GetPedidoTotalPagoContado(bePedidoWeb);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return obj;
+
+        }
+
+
+        #endregion
     }
 }

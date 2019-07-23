@@ -149,13 +149,20 @@
             asignarEventos();
 
             var fn = function () { irVista2(config.CorreoActual) };
-            if (config.IsConfirmar == 1) {
+            if (config.IsConfirmar == 1) {  
                 postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, fn);
             } else {
                 irVista(config.VistaActual);
 
             }
-
+            //FIN HD-3897
+            
+            /*HD-4520*/
+            $(".infoActual").css("display", "none");
+            if (config.CorreoActual.length > 0) {
+                $(".infoActual").css("display", "block");
+                document.getElementById("correoActual").innerHTML = config.CorreoActual;
+            }
         },
 		actualizarEnviarCorreo: actualizarEnviarCorreo
     }

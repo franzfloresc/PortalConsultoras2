@@ -3,6 +3,20 @@
   <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
   <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
   <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="EliminarArchivoCsvValidador">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarArchivoCsvValidadorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EliminarArchivoCsvValidadorResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="CargaEstadoValidadorDatos">
     <xs:complexType>
       <xs:sequence>
@@ -1182,6 +1196,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ContenidoAppDetaVideo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="p" nillable="true" type="q68:BEContenidoAppDeta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContenidoAppDetaVideoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ContenidoAppDetaVideoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetListaPopup">
     <xs:complexType>
       <xs:sequence>
@@ -1196,7 +1225,7 @@
   <xs:element name="GetListaPopupResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListaPopupResult" nillable="true" type="q68:ArrayOfBEComunicado" />
+        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListaPopupResult" nillable="true" type="q69:ArrayOfBEComunicado" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1211,7 +1240,7 @@
   <xs:element name="GetDetallePopupResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDetallePopupResult" nillable="true" type="q69:BEComunicado" />
+        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDetallePopupResult" nillable="true" type="q70:BEComunicado" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1286,20 +1315,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="EliminarArchivoCsvResult" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EliminarArchivoCsvValidador">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EliminarArchivoCsvValidadorResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="EliminarArchivoCsvValidadorResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
