@@ -437,10 +437,9 @@ input[type="checkbox"].switch__control,
     margin-bottom:0;
 }
 
-    .nav__tab__sb{
-        display:inline-block;
-        flex:0 0 50%;
-        max-width:50%;
+    .nav__tab__sb {
+        display: inline-block;
+        flex: 1 0 0;
     }
 
     .nav__tab__sb__link {
