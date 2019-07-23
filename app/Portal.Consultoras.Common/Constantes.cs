@@ -11,6 +11,12 @@ namespace Portal.Consultoras.Common
             public const string Texto = "02";
         }
 
+        public static class CantidadFechasFacturacion
+        {
+            public const int CantidadAnterior = 6;
+            public const int CantidadProxima =  6;
+        }
+
         public static class TipoLink
         {
             public const int Ayuda = 301;
