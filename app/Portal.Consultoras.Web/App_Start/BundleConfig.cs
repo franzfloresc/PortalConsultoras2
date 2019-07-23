@@ -404,7 +404,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/jquery.rateyo.js",
                 "~/Scripts/jquery.easy-pie-chart.js",
-                "~/Scripts/jquery.custom-scrollbar.js"
+                "~/Scripts/jquery.custom-scrollbar.js",
+                "~/Scripts/PortalConsultoras/EncuestaSatisfaccion/Index.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-CssPedido").Include(
@@ -485,7 +486,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
                 "~/Scripts/jquery.rateyo.js",
-                "~/Scripts/jquery.custom-scrollbar.js"
+                "~/Scripts/jquery.custom-scrollbar.js",
+                "~/Scripts/PortalConsultoras/EncuestaSatisfaccion/Index.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/CcsBienvenida").Include(

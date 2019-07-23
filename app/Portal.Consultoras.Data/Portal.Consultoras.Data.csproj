@@ -105,6 +105,7 @@
     <Compile Include="DAContenidoAppResumen.cs" />
     <Compile Include="DAContenidoApp.cs" />
     <Compile Include="DADireccionEntega.cs" />
+    <Compile Include="Encuesta\DAEncuesta.cs" />
     <Compile Include="DAHorario.cs" />
     <Compile Include="DAClienteDB.cs" />
     <Compile Include="DACalculoPROL.cs" />

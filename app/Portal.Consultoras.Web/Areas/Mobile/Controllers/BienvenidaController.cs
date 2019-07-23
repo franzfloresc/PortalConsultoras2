@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Encuesta;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -31,6 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new BienvenidaModel();
             try
             {
+               
                 if (userData.RolID != Constantes.Rol.Consultora)
                     if (userData.RolID == 0)
                         return RedirectToAction("LogOut", "Login");
@@ -467,6 +469,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
+       
     }
 }

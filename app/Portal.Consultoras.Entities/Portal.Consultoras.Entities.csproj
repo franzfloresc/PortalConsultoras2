@@ -113,6 +113,15 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
+    <Compile Include="Encuesta\BEEncuestaPedido.cs" />
+    <Compile Include="Encuesta\BEEncuestaReporte.cs" />
+    <Compile Include="Encuesta\BEDataConfigEncuesta.cs" />
+    <Compile Include="Encuesta\BEEncuesta.cs" />
+    <Compile Include="Encuesta\BEEncuestaCalificacion.cs" />
+    <Compile Include="Encuesta\BEEncuestaMotivo.cs" />
+    <Compile Include="Encuesta\BEEncuestaResultado.cs" />
+    <Compile Include="Encuesta\BEEncuestaResultadoDetalle.cs" />
+    <Compile Include="Encuesta\BEEntityBase.cs" />
     <Compile Include="Estrategia\EstrategiaComponente.cs" />
     <Compile Include="Oferta\BEConfiguracionOfertasHomeApp.cs" />
     <Compile Include="OpcionesVerificacion\BECodigoGenerado.cs" />

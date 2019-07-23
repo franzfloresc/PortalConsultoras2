@@ -4139,6 +4139,7 @@ namespace Portal.Consultoras.Common
                 Constantes.ODSCodigoCatalogo.CatalogoEsika,
             };
         }
+
     }
 
     public class SimpleCrypto
