@@ -419,7 +419,7 @@ namespace MaxMind.Util
         /// 
         public Country() { }
 
-        public Country(int? confidence = null, int? geoNameId = null, string isoCode = null,
+        public Country(int? confidence, int? geoNameId = null, string isoCode = null,
             IDictionary<string, string> names = null, IEnumerable<string> locales = null)
             : base(geoNameId, names, locales)
         {
@@ -432,7 +432,7 @@ namespace MaxMind.Util
         /// </summary>
         [Constructor]
         public Country(
-            int? confidence = null,
+            int? confidence,
             // See note in City model
             [Parameter("geoname_id")] long? geoNameId = null,
             [Parameter("iso_code")] string isoCode = null,
@@ -546,7 +546,7 @@ namespace MaxMind.Util
         /// 
         public Continent() { }
 
-        public Continent(string code = null, int? geoNameId = null, IDictionary<string, string> names = null,
+        public Continent(string code, int? geoNameId = null, IDictionary<string, string> names = null,
             IEnumerable<string> locales = null)
             : base(geoNameId, names, locales)
         {
@@ -558,7 +558,7 @@ namespace MaxMind.Util
         /// </summary>
         [Constructor]
         public Continent(
-            string code = null,
+            string code,
             // See note in City model
             [Parameter("geoname_id")] long? geoNameId = null,
             IDictionary<string, string> names = null,
@@ -581,7 +581,7 @@ namespace MaxMind.Util
         /// </summary>
         /// 
         public RepresentedCountry() { }
-        public RepresentedCountry(string type = null, int? confidence = null, int? geoNameId = null,
+        public RepresentedCountry(string type, int? confidence = null, int? geoNameId = null,
             string isoCode = null, IDictionary<string, string> names = null, IEnumerable<string> locales = null)
             : base(confidence, geoNameId, isoCode, names, locales)
         {
@@ -593,7 +593,7 @@ namespace MaxMind.Util
         /// </summary>
         [Constructor]
         public RepresentedCountry(
-            string type = null,
+            string type,
             int? confidence = null,
             // See note in City model
             [Parameter("geoname_id")] long? geoNameId = null,
