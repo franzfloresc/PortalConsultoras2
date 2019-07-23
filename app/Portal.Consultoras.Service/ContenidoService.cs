@@ -9,6 +9,9 @@ using System.Data;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.ServiceModel;
+using Portal.Consultoras.BizLogic.Encuesta;
+using System.Linq;
+using Portal.Consultoras.Entities.Encuesta;
 
 namespace Portal.Consultoras.Service
 {
@@ -19,6 +22,7 @@ namespace Portal.Consultoras.Service
         private readonly BLMailing _BLMailing;
         private readonly Bl_Conte.IContenidoAppResumenBusinessLogic _BLContenidoAppResumenBusinessLogic;
         private readonly BLBelcorpResponde _BLBelcorpResponde;
+        private readonly BLEncuesta _BLEncuesta;
 
         public ContenidoService()
         {
@@ -27,6 +31,7 @@ namespace Portal.Consultoras.Service
             _BLMailing = new BLMailing();
             _BLContenidoAppResumenBusinessLogic = new Bl_Conte.BLContenidoApp();
             _BLBelcorpResponde = new BLBelcorpResponde();
+            _BLEncuesta = new BLEncuesta();
         }
 
         #region Gestion Banners
@@ -529,7 +534,7 @@ namespace Portal.Consultoras.Service
         }
 
 
-        public int EliminarArchivoCsvValidador( int PaisId)
+        public int EliminarArchivoCsvValidador(int PaisId)
         {
             return _BLBelcorpResponde.EliminarArchivoCsvValidador(PaisId);
         }
@@ -551,7 +556,7 @@ namespace Portal.Consultoras.Service
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<BEComunicadoSegmentacion>));
                 listdatosCSV = (List<BEComunicadoSegmentacion>)ser.ReadObject(ms);
             }
-            return _BLBelcorpResponde.GuardarPopupsValidador( checkDesktop, listdatosCSV,  PaisID);
+            return _BLBelcorpResponde.GuardarPopupsValidador(checkDesktop, listdatosCSV, PaisID);
         }
 
         public List<BEComunicadoSegmentacion> GetCargaListadoPopupValidador(int PaisID)
@@ -559,7 +564,7 @@ namespace Portal.Consultoras.Service
             return _BLBelcorpResponde.GetCargaListadoPopupValidador(PaisID);
         }
 
-      
+
         #endregion
 
         public List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter, string codigoBanner)
@@ -582,13 +587,13 @@ namespace Portal.Consultoras.Service
             var bl = new BLContenidoAppHistoria();
             bl.UpdateContenidoApp(paisID, formularioDato);
         }
-       
+
         public List<BEContenidoAppList> ListContenidoApp(int paisID, BEContenidoAppList entidad)
         {
             var bl = new BLContenidoAppHistoria();
             return bl.GetList(paisID, entidad);
         }
-        
+
         public void InsertContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
             var bl = new BLContenidoAppHistoria();
@@ -598,7 +603,7 @@ namespace Portal.Consultoras.Service
         public int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
             var bl = new BLContenidoAppHistoria();
-           return bl.UpdateContenidoAppDeta(paisID, p);
+            return bl.UpdateContenidoAppDeta(paisID, p);
         }
 
         public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID)
@@ -607,6 +612,9 @@ namespace Portal.Consultoras.Service
             return bl.GetContenidoAppDetaActList(paisID);
         }
 
-
+        public List<BEDataConfigEncuesta> GetEncuestaHome(int paisId, string codigoConsultora, int verificarEncuestado)
+        {
+            return _BLEncuesta.ObtenerDataEncuesta(paisId, codigoConsultora, verificarEncuestado);
+        }
     }
 }
