@@ -114,7 +114,13 @@
         .tabs__wrapper__sb--fechasFacturacion{
             padding-left:16px;
             padding-right:16px;
+            justify-content:flex-end;
         }
+
+            .tabs__wrapper__sb--fechasFacturacion .nav__tabs__sb{
+                flex:0 0 300px;
+                max-width:300px;
+            }
 
         .tabs__content__sb__wrapper--fechasFacturacion{
             min-height:332px;
