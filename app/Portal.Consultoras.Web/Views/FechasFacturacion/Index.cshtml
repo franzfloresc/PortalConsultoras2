@@ -6,6 +6,13 @@
     ViewBag.Title = "Fechas de Facturación";
 }
 
+
+
+
+
+
+
+
 <link href="@Url.Content("~/Content/Css/Site/FechasFacturacion/fechas-facturacion.css")" rel="stylesheet" />
 
 <!-- TITULO DE VISTA FECHAS DE FACTURACIÓN -->
@@ -24,11 +31,10 @@
 </section>
 <div class="row flex-row mx-auto pestana__lbel"></div>
 <!-- FIN - TITULO DE VISTA FECHAS DE FACTURACIÓN -->
-
 <!-- CONTENIDO VISTA -->
 
 <main class="d-flex flex-row flex-wrap justify-content-center center-block layout__container layout__container--fechasFacturacion">
-    <section class="d-flex flex-row flex-wrap border-radius-4 seccion__campania__actual">
+    <section class="d-flex flex-row flex-wrap border-radius-4 seccion__campania__actual" id="FechaActual">
         <div class="d-flex flex-row flex-nowrap justify-content-between align-items-center flex-grow-1">
             <div class="d-inline-block text-left num__campania">
                 <span class="d-block color-multimarca">Estás en:</span>
@@ -68,7 +74,6 @@
             </ul>
         </nav>
         <!-- FIN - TABS NAVEGACIÓN -->
-
         <!-- TABS CONTENIDO -->
         <section class="tabs__content__sb__wrapper tabs__content__sb__wrapper--fechasFacturacion">
             <div id="Anteriores" class="tab__content__sb">
@@ -232,7 +237,36 @@
 <!-- FIN - CONTENIDO VISTA -->
 
 @section scripts{
-    
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FechasFacturacion/Index.js")"></script>
 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FechasFacturacion/Index.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            CargarFechasFacturacion();
+        });
+
+
+        function CargarFechasFacturacion() {
+            
+            $.ajax({
+                url: baseUrl + 'FechasFacturacion/GetFechasFacturacion',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    debugger;
+                    GenerarFechas(data);
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        CerrarLoad();
+                        deferredObject.reject();
+                    }
+                }
+            });
+        }
+
+
+        function GenerarFechas(data) {
+
+        }
+    </script>
 }

@@ -1665,5 +1665,12 @@ namespace Portal.Consultoras.Service
         {
             return _buscadorBusinessLogic.ObtenerBuscadorComplemento(paisID, codigoUsuario, suscripcionActiva, lst, isApp);
         }
+
+        #region HD-4639
+        public BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima)
+        {
+            return BLEstadoCuenta.GetFechasFacturacionConsultora(paisID, consultora, campaniaActual, cantidadAnterior, cantidadProxima);
+        }
+        #endregion
     }
 }
