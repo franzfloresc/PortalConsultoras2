@@ -565,6 +565,17 @@ input.field__checkbox__sb{
             text-align:center;
         }
 
+        .encuesta__satisfaccion__motivosCalificacion__lista{
+            justify-content:flex-start;
+        }
+
+            .encuesta__satisfaccion__motivoCalificacion{
+                flex: 0 0 150px;
+                max-width: 150px;
+                margin-left: 6px;
+                margin-right: 6px;
+            }
+
 }
 
 @media screen and (max-width:991px){
