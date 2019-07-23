@@ -139,7 +139,7 @@ var EncuestaSatisfaccion = (function () {
                 $(_elementos.estadoEncuestaSatisfaccion).addClass('encuesta__satisfaccion__disabled');
                 $(el).removeClass('encuesta__satisfaccion__disabled');
                 $motivo.slideDown(200);
-                $motivo.css('display', '');
+                $motivo.css("display", "");
                 $motivo.addClass('seccion__encuesta__satisfaccion__motivosCalificacion--mostrar');
             }
         },
@@ -203,6 +203,12 @@ var EncuestaSatisfaccion = (function () {
                 }
             });
         },
+        CerrarEncuesta: function () {
+            $(_elementos.PopUpEncuesta).fadeOut(250);
+            if (lanzarEncuesta) {
+                _funciones.GrabarEncuesta();
+            }
+        },
         LanzarEncuesta: function (codigoCampania) {
             refrezcarPage = true;
             _funciones.ObtenerDataEncuesta(codigoCampania, false, function () {
@@ -213,7 +219,10 @@ var EncuestaSatisfaccion = (function () {
             var motivoSeleccionado = [];
             var arrMotivoOtro = [];
             var idCalif = parseInt($(_elementos.hdfCalificacionId).val());
-            var arrCalif = _funciones.ObtenerCalificacionById(idCalif);
+            var arrCalif = _funciones.ObtenerCalificacionById(idCalif) || [];
+            if (!arrCalif.hasOwnProperty("TipoCalificacion"))
+                return motivoSeleccionado;
+
             if (arrCalif[0].TipoCalificacion === 2) {
                 arrMotivoOtro = _funciones.ObtenerMotivoByCalificacionYTipo(idCalif, 3);
                 if (arrMotivoOtro.length > 0) {

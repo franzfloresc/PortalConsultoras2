@@ -116,6 +116,7 @@ BEGIN
 	   CanalId,
 	   CodigoCampania,
 	   CodigoConsultora,
+	   SeleccionoMotivo,
 	   CreatedBy,
 	   CreatedHost
    )
@@ -126,6 +127,7 @@ BEGIN
 	  @CanalId,
 	  @CodigoCampania,
 	  @CodigoConsultora,
+	  CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,
 	  @CreatedBy,
 	  @CreateHost
   );

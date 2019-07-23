@@ -112,6 +112,7 @@ EncuestaId INT NOT NULL,
 CanalId INT NOT NULL,
 CodigoCampania VARCHAR(6) NOT NULL,
 CodigoConsultora NVARCHAR(25) NOT NULL,
+SeleccionoMotivo BIT NOT NULL,
 CreatedBy NVARCHAR(30) NOT NULL,
 CreatedOn DATETIME NOT NULL CONSTRAINT DF_EncuestaResultado_CreatedOn DEFAULT (GETDATE()),
 CreatedHost NVARCHAR(20) NULL
@@ -120,7 +121,6 @@ CreatedHost NVARCHAR(20) NULL
 CREATE TABLE dbo.EncuestaResultadoDetalle(
 Id uniqueidentifier NOT NULL,
 EncuestaResultadoId uniqueidentifier NOT NULL,
-
 MotivoId INT NOT NULL,
 Observacion NVARCHAR(MAX) NULL,
 CreatedBy NVARCHAR(30) NOT NULL,

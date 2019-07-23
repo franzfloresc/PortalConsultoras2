@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -2324,11 +2325,11 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult ObtenerDataEncuesta(string codigoCampania,bool verificarEncuestado = true)
+        public async Task<JsonResult> ObtenerDataEncuesta(string codigoCampania,bool verificarEncuestado = true)
         {
             try
             {
-                var data = _encuestaProvider.ObtenerEncuesta(userData.PaisID, userData.CodigoConsultora, codigoCampania, verificarEncuestado ? 1 : 0);
+                var data = await _encuestaProvider.ObtenerEncuesta(userData.PaisID, userData.CodigoConsultora, codigoCampania, verificarEncuestado ? 1 : 0);
                 if (data.EncuestaId == 0)
                     return Json(new
                     {
@@ -2356,14 +2357,14 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GrabarEncuesta(EncuestaCalificacionModel model)
+        public async Task<JsonResult> GrabarEncuesta(EncuestaCalificacionModel model)
         {
             try
             {
                 model.CodigoConsultora = userData.CodigoConsultora;
                 model.CanalId = Util.EsDispositivoMovil() ? 2:1;
                 model.CreatedBy = userData.UsuarioNombre;
-                var result = _encuestaProvider.GrabarEncuesta(model, userData.PaisID);
+                var result = await _encuestaProvider.GrabarEncuesta(model, userData.PaisID);
 
                 return Json(new
                 {
