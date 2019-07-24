@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var sessionMg = SessionManager.MasGanadoras.GetModel();
-                if (sessionMg.TieneLanding)
+                if (sessionMg.TieneLanding && revistaDigital.EsActiva)
                     return MasGanadorasViewLanding();
             }
             catch (Exception ex)

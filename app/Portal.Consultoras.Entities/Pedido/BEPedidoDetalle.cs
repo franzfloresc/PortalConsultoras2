@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Entities.Pedido
             Producto = new BEProducto();
             Usuario = new BEUsuario();
             Estrategia = new BEEstrategia();
+            IsPedidoPendiente = false;
         }
 
         [DataMember]
@@ -75,8 +76,10 @@ namespace Portal.Consultoras.Entities.Pedido
         public string IngresoExternoOrigen { get; set; }
         [DataMember]
         public List<BEPedidoWebPromocion> PedidoWebPromociones { get; set; }
-
+        public bool IsPedidoPendiente { get; set; }
         public bool Reservado { get; set; }
+
+        
         public object Clone()
         {
             return this.MemberwiseClone();

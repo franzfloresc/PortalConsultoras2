@@ -5055,6 +5055,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private bool PROLSinStockField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PagoContadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7364,6 +7367,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.PROLSinStockField.Equals(value) != true)) {
                     this.PROLSinStockField = value;
                     this.RaisePropertyChanged("PROLSinStock");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PagoContado {
+            get {
+                return this.PagoContadoField;
+            }
+            set {
+                if ((this.PagoContadoField.Equals(value) != true)) {
+                    this.PagoContadoField = value;
+                    this.RaisePropertyChanged("PagoContado");
                 }
             }
         }

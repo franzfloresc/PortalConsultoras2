@@ -498,6 +498,10 @@ namespace Portal.Consultoras.Web.Providers
                         break;
 
                     case Constantes.ConfiguracionPais.MasGanadoras:
+                        if (!revistaDigital.EsActiva)
+                        {
+                            continue;
+                        }
 
                         config.UrlMenu = config.EsAncla
                             ? config.UrlMenu

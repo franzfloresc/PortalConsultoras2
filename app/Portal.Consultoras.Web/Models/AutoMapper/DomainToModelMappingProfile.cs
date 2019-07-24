@@ -754,7 +754,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             #endregion
 
             #region Historial
-            Mapper.CreateMap<BEContenidoAppDetaAct, AdministrarHistorialDetaActModel>();
+            Mapper.CreateMap<ServiceZonificacion.BEContenidoAppDetaAct, AdministrarHistorialDetaActModel>();
             #endregion
 
         }

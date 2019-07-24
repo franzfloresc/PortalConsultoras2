@@ -408,16 +408,13 @@
             }
         },
         DropDownCerrar: function (evt) {
-
+            evt = evt || window.event;
             var dpwOrdenar = $('#dpw-ordenar');
 
-            evt = evt || window.event;
-
-            if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
+            if (!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0) {
                 $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
                 $('#ul-ordenar').addClass('d-none');
             }
-
         },
         ClickItemOrdenar: function () {
             _funciones.abrirCargaFiltros();

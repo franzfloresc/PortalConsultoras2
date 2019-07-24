@@ -29,5 +29,6 @@ namespace Portal.Consultoras.Web.Models
         //INI HD-4289
         public string ConfiguracionZona { get; set; }
         //FIN HD-4289
+        public bool ImagenAppCatalogo { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
         private const string contentType = "application/json";
         private static readonly HttpClient httpClientBuscador = new HttpClient();
         private static readonly HttpClient httpClientMicroserviceSearch = new HttpClient();
-
+        
         static BuscadorBaseProvider()
         {
             if (!string.IsNullOrEmpty(WebConfig.RutaServiceBuscadorAPI)) SetHttpClientBuscador();
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Providers
             httpClientMicroserviceSearch.DefaultRequestHeaders.Accept.Clear();
             httpClientMicroserviceSearch.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
         }
-
+        
         public async Task<string> ObtenerPersonalizaciones(string path)
         {
             var httpResponse = await httpClientBuscador.GetAsync(path);
@@ -75,7 +75,7 @@ namespace Portal.Consultoras.Web.Providers
             bool mobile,
             bool home,
             bool recomendaciones,
-            bool suscrita,
+            bool suscrita)
             bool flagLaMasGanadoras = false,
             bool flagPromocion = false,
             string CodigoTipoOfertaPremio = "")
@@ -167,11 +167,11 @@ namespace Portal.Consultoras.Web.Providers
                 if (configBuscador == null ||
                     configBuscador.IndicadorConsultoraDummy == 0 ||
                     configBuscador.PersonalizacionDummy != null) return result;
-
+                
                 result = await GetPersonalizacion(usuario, configBuscador.IndicadorConsultoraDummy);
-
+                
                 if (!persistInSession) return result;
-
+                
                 configBuscador.PersonalizacionDummy = result ?? "";
                 _sessionManager.SetBuscadorYFiltrosConfig(configBuscador);
             }

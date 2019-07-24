@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Buscador;
 using Portal.Consultoras.Web.Providers;
 using System;
@@ -14,14 +13,13 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly BuscadorYFiltrosProvider _buscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
 
         public ActionResult Index()
-        {
+        {            
             return View();
         }
 
         public async Task<JsonResult> BusquedaProductos(BuscadorModel model)
         {
             BuscadorYFiltrosModel productosModel;
-            
             try
             {
                 var codigoTipoOfertaPremio = base._configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoTipoOfertaPremio);
@@ -74,5 +72,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(categoriasModel, JsonRequestBehavior.AllowGet);
         }
+
+
+
     }
 }

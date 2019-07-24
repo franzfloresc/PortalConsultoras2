@@ -823,7 +823,7 @@ namespace Portal.Consultoras.Web.Controllers
             return indiceActualPagina;
         }
 
-        private List<BEPedidoWebDetalle> AgregarDetallePedido(PedidoSb2Model model)
+        private List<BEPedidoWebDetalle> AgregarDetallePedido(PedidoSb2Model model,bool IsPedidoPendiente = false)
         {
             try
             {
@@ -856,7 +856,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.EsSugerido = model.EsSugerido;
                 pedidoDetalle.EsKitNueva = model.EsKitNueva;
                 pedidoDetalle.OfertaWeb = model.OfertaWeb;
-
+                pedidoDetalle.IsPedidoPendiente = IsPedidoPendiente;
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
                 if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
@@ -1142,7 +1142,10 @@ namespace Portal.Consultoras.Web.Controllers
                         default:
                             break;
                     }
-                    
+
+
+                    double totalPedido = 0;
+
                     String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
                                            userData.PrimerApellido + " - " + medio;
                     StringBuilder mensajecliente = new StringBuilder();
@@ -2546,7 +2549,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
                         pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
-                        
                     });
 
                     SessionManager.SetPedidoWeb(null);
@@ -2588,7 +2590,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     OrigenPedidoWeb = GetOrigenPedidoWeb(pedido.FlagMedio, detalle.MarcaID, parametros.Dispositivo, parametros.OrigenTipoVista)
                                 };
 
-                                var olstPedidoWebDetalle = AgregarDetallePedido(model);
+                                var olstPedidoWebDetalle = AgregarDetallePedido(model,true);
 
                                 if (olstPedidoWebDetalle != null)
                                 {
@@ -3021,8 +3023,7 @@ namespace Portal.Consultoras.Web.Controllers
             String titulocliente = "Tu pedido ha sido " + estadoPedido + " por " + consultora + " - " + medio;
 
             String cliente = pedido.Cliente.Split(' ').First();
-
-            StringBuilder mensajecliente = new StringBuilder();
+            
 
             try
             {

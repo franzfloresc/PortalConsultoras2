@@ -208,6 +208,10 @@ namespace Portal.Consultoras.Web.Providers
                             modeloOrigenPedido.Palanca = ConsOrigenPedidoWeb.Palanca.HerramientasVenta;
                             break;
                         case Constantes.ConfiguracionPais.MasGanadoras:
+                            if (!revistaDigital.EsActiva)
+                            {
+                                continue;
+                            }
 
                             seccion.UrlObtenerProductos = "Estrategia/MGObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras";

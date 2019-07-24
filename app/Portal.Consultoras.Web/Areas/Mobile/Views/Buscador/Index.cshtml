@@ -20,7 +20,6 @@
     {
         <link href="@Url.Content("~/Content/Css/Site/Lbel/buscador-filtros.css")" rel="stylesheet">
     }
-    <link href="@Url.Content("~/Content/Css/Site/Shared/Buscador/BuscadorCarrusel.css")" rel="stylesheet">
 
 }
 
@@ -43,7 +42,8 @@
             Categorías
         </h3>
         <div class="d-block listado_categorias_productos_busqueda_wrapper">
-            <ul class="listado_categorias_productos_busqueda" id="CategoriaProductos"></ul>
+            <ul class="listado_categorias_productos_busqueda" id="CategoriaProductos">                
+            </ul>
         </div>
     </div>
     <!-- LISTA DE RESULTADOS DE BÚSQUEDA MOBILE -->
@@ -80,30 +80,30 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js")"></script>
 }
 
-<script id="js-categoriasProductos" type="text/x-handlebars-template">
-    {{#each this as |item|}}
-    {{#if item.ImagenAncha}}
-    <li class="categoria_producto categoria_full_width {{#iff item.Cantidad '==' 0}} categoria_sin_productos_disponibles {{/iff}}">
-        {{else}}
-    <li class="categoria_producto categoria_half_width {{#iff item.Cantidad '==' 0}} categoria_sin_productos_disponibles {{/iff}}">
-        {{/if}}
-        <div class="categoria_producto_fondo_estado"></div>
-        <img class="d-block" src="{{item.Imagen}}" alt="{{item.Nombre}}" />
-        <a href="{{#iff item.Cantidad '>' 0}}/BusquedaProductos?c={{item.Codigo}}{{else}}#!{{/iff}}" title="{{item.Nombre}}"
-           class="d-flex categoria_producto_enlace" onclick="AnalyticsPortalModule.MarcaCategoria('{{item.Nombre}}')">
-            <span class="d-block text-bold titulo_categoria_producto_busqueda">{{item.Nombre}}</span>
-            @if (@ViewBag.FlagBuscarPorCategoriaTotalProductos == true)
-            {
-                <span class="d-block cantidad_productos_por_categoria_busqueda">{{item.Cantidad}} productos</span>
-            }
-        </a>
-    </li>
-    {{/each}}
-</script>
+    <script id="js-categoriasProductos" type="text/x-handlebars-template">
+        {{#each this as |item|}}
+            {{#if item.ImagenAncha}}
+                <li class="categoria_producto categoria_full_width {{#iff item.Cantidad '==' 0}} categoria_sin_productos_disponibles {{/iff}}">
+            {{else}}
+                <li class="categoria_producto categoria_half_width {{#iff item.Cantidad '==' 0}} categoria_sin_productos_disponibles {{/iff}}">
+            {{/if}}
+                    <div class="categoria_producto_fondo_estado"></div>
+                    <img class="d-block" src="{{item.Imagen}}" alt="{{item.Nombre}}" />
+                    <a href="{{#iff item.Cantidad '>' 0}}/BusquedaProductos?c={{item.Codigo}}{{else}}#!{{/iff}}" title="{{item.Nombre}}" 
+                       class="d-flex categoria_producto_enlace" onclick="AnalyticsPortalModule.MarcaCategoria('{{item.Nombre}}')">
+                        <span class="d-block text-bold titulo_categoria_producto_busqueda">{{item.Nombre}}</span>
+                        @if (@ViewBag.FlagBuscarPorCategoriaTotalProductos == true)
+                        {
+                            <span class="d-block cantidad_productos_por_categoria_busqueda">{{item.Cantidad}} productos</span>
+                        }
+                    </a>
+                </li>
+        {{/each}}
+    </script>
 
-<script>
+    <script>
         var boolSuscrita = '@ViewBag.boolSuscrita'.toLowerCase() === 'true';
         var FlagBuscarPorCategoria = '@ViewBag.FlagBuscarPorCategoria'.toLowerCase() === 'true';
         var CaracteresBuscadorNumerico = '@ViewBag.CaracteresBuscadorNumerico';
-        var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
-</script>
+        var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';    
+    </script>
