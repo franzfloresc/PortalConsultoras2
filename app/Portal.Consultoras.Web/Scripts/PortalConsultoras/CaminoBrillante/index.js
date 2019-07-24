@@ -10,6 +10,7 @@ $(document).ready(function () {
     if (TineCarrusel == "1") CargarCarrusel();
 
     if (TieneGanancias == "1") CargarGanancias();
+    var nivelactual = $("#hfNivelActual").val();
 
     //Barra monto Acumulado
     if (TieneMontoAcumulado == '1') {
@@ -23,10 +24,13 @@ $(document).ready(function () {
             var percTope = (minBar / maxBar) * 100;
             $('.progress-barnew .tope').css("left", percTope + '%');            
         }
+        if (nivelactual == '5') {
+            $(".bord-bot").addClass("centtopacio");
+        }
     }
     //fin
 
-    var nivelactual = $("#hfNivelActual").val();
+    
     for (var i = 1; i <= nivelactual; i++)
         $(".pt" + i).addClass("activo");
 
