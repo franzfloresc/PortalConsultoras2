@@ -50,6 +50,9 @@ namespace Portal.Consultoras.Web.ServiceEncuesta {
         private string NombreEncuestaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PreguntaDescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoCalificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -178,6 +181,19 @@ namespace Portal.Consultoras.Web.ServiceEncuesta {
                 if ((object.ReferenceEquals(this.NombreEncuestaField, value) != true)) {
                     this.NombreEncuestaField = value;
                     this.RaisePropertyChanged("NombreEncuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PreguntaDescripcion {
+            get {
+                return this.PreguntaDescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PreguntaDescripcionField, value) != true)) {
+                    this.PreguntaDescripcionField = value;
+                    this.RaisePropertyChanged("PreguntaDescripcion");
                 }
             }
         }

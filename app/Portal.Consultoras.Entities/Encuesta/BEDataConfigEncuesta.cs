@@ -18,6 +18,8 @@ namespace Portal.Consultoras.Entities.Encuesta
         [DataMember]
         public int TipoCalificacion { get; set; }
         [DataMember]
+        public string PreguntaDescripcion { get; set; }
+        [DataMember]
         public string EstiloCalificacion { get; set; }
         [DataMember]
         public string ImagenCalificacion { get; set; }
@@ -35,6 +37,7 @@ namespace Portal.Consultoras.Entities.Encuesta
             EncuestaId = row.ToInt32("EncuestaId");
             CalificacionId = row.ToInt32("CalificacionId");
             TipoCalificacion = row.ToInt32("TipoCalificacion");
+            PreguntaDescripcion = row.ToString("PreguntaDescripcion");
             Calificacion = row.ToString("Calificacion");
             ImagenCalificacion = row.ToString("ImagenCalificacion");
             EstiloCalificacion = row.ToString("EstiloCalificacion");

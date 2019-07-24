@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.ServiceEncuesta;
 using Portal.Consultoras.Web.SessionManager;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -16,7 +17,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
         }
 
-        private List<DataConfigEncuestaModel> ObtenerDataEncuesta(int paisId,string consultoraCodigo,int verificarEncuestado) {
+        private async Task<List<DataConfigEncuestaModel>> ObtenerDataEncuesta(int paisId,string consultoraCodigo,int verificarEncuestado) {
             var result = new List<DataConfigEncuestaModel>();
             try
             {
@@ -25,7 +26,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 using (var sv = new EncuestaServiceClient())
                 {
-                    var response = sv.ObtenerDataEncuesta(paisId, consultoraCodigo, verificarEncuestado).ToList();
+                    var response = await sv.ObtenerDataEncuestaAsync(paisId, consultoraCodigo, verificarEncuestado);
                     result = Mapper.Map<List<DataConfigEncuestaModel>>(response);
                     if (result[0].EncuestaId != 0)
                         sessionManager.SetDataConfigEncuesta(result);
@@ -42,22 +43,23 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
-        public EncuestaModel ObtenerEncuesta(int paisId, string consultoraCodigo,string codigoCampania, int verificarEncuestado) {
+        public async Task<EncuestaModel> ObtenerEncuesta(int paisId, string consultoraCodigo,string codigoCampania, int verificarEncuestado) {
             var result = new EncuestaModel();
             try
             {
-                var data = ObtenerDataEncuesta(paisId, consultoraCodigo, verificarEncuestado);
+                var data = await ObtenerDataEncuesta(paisId, consultoraCodigo, verificarEncuestado);
                 if (!data.Any())
                     return result;
 
                 result.EncuestaId = data.Select(a => a.EncuestaId).Distinct().Single();
                 result.CodigoCampania = verificarEncuestado == 1 ? data.Select(a => a.CodigoCampania).Distinct().Single(): codigoCampania;
                 result.EncuestaCalificacion = data
-                    .GroupBy(a => new { a.CalificacionId, a.Calificacion, a.EstiloCalificacion, a.ImagenCalificacion,a.TipoCalificacion })
+                    .GroupBy(a => new { a.CalificacionId, a.Calificacion, a.EstiloCalificacion,a.PreguntaDescripcion, a.ImagenCalificacion,a.TipoCalificacion })
                     .Select(a => new EncuestaCalificacionModel()
                     {
                         EncuestaCalificacionId = a.Key.CalificacionId,
                         Descripcion = a.Key.Calificacion,
+                        PreguntaDescripcion = a.Key.PreguntaDescripcion,
                         EstiloCalificacion = a.Key.EstiloCalificacion,
                         ImagenCalificacion = a.Key.ImagenCalificacion,
                         TipoCalificacion = a.Key.TipoCalificacion,
@@ -79,14 +81,14 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
-        public bool GrabarEncuesta(EncuestaCalificacionModel model, int paisId)
+        public async Task<bool> GrabarEncuesta(EncuestaCalificacionModel model, int paisId)
         {
             try
             {
-                if (model.EncuestaMotivo != null)
-                {
+                if (model.EncuestaMotivo.Any())
                     model.XMLMotivo = EncuestaCalificacionModel.ListToXML(model.EncuestaMotivo.ToList());
-                }
+                else
+                    model.XMLMotivo = null;
                 var request = new BEEncuestaCalificacion();
                 request.EncuestaCalificacionId = model.EncuestaCalificacionId;
                 request.EncuestaId = model.EncuestaId;
@@ -99,7 +101,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 using (var sv = new EncuestaServiceClient())
                 {
-                    var response = sv.InsEncuesta(request, paisId);
+                    var response = await sv.InsEncuestaAsync(request, paisId);
                     return response > 0;
                 }
             }

@@ -10,7 +10,8 @@ var EncuestaSatisfaccion = (function () {
         motivosCalificacion: ".seccion__encuesta__satisfaccion__motivosCalificacion",
         enlaceCerrarEncuestaSatisfaccion: ".enlace__cerrar__encuesta__satisfaccion",
         txtOtroMotivoCalificacion: "#txtOtroMotivoCalificacion",
-        chkOtroMotivoCalificacion:"#chkOtroMotivoCalificacion",
+        chkOtroMotivoCalificacion: "#chkOtroMotivoCalificacion",
+        lblPreguntaCalificacion:"#lblPreguntaCalificacion",
         ListaMotivo: "#ListaMotivo",
         hdfCalificacionId: "#hdfCalificacionId",
         hdfEncuestaId: "#hdfEncuestaId",
@@ -21,6 +22,9 @@ var EncuestaSatisfaccion = (function () {
         Spinner: "#PrecargaEncuesta",
         Paso2:"#Paso2",
         btnConfirmar: "#btnConfirmaMotivo"
+    };
+    var _constantes = {
+      preguntaDefault:"¿A qué se debe tu calificación ?"
     };
     var _config = {
         isDesktop: window.matchMedia("(min-width: 992px)").matches
@@ -120,7 +124,11 @@ var EncuestaSatisfaccion = (function () {
                 $(_elementos.txtOtroMotivoCalificacion).val("");
                 $(_elementos.btnConfirmar).addClass("btn__sb--disabled");
                 var $motivo = $(_elementos.motivosCalificacion);
-                var arrData = _funciones.ObtenerCalificacionById(calificacionId);
+                var arrData = _funciones.ObtenerCalificacionById(calificacionId) || [];
+
+                //actualizamos la pregunta
+                var pregunta = arrData.length > 0 ? arrData[0].PreguntaDescripcion : _constantes.preguntaDefault;
+                $(_elementos.lblPreguntaCalificacion).text(pregunta);
 
                 $motivo.removeClass('seccion__encuesta__satisfaccion__motivosCalificacion--mostrar');
                 $motivo.slideUp(200);
@@ -139,7 +147,7 @@ var EncuestaSatisfaccion = (function () {
                 $(_elementos.estadoEncuestaSatisfaccion).addClass('encuesta__satisfaccion__disabled');
                 $(el).removeClass('encuesta__satisfaccion__disabled');
                 $motivo.slideDown(200);
-                $motivo.css('display', '');
+                $motivo.css("display", "");
                 $motivo.addClass('seccion__encuesta__satisfaccion__motivosCalificacion--mostrar');
             }
         },
@@ -203,6 +211,12 @@ var EncuestaSatisfaccion = (function () {
                 }
             });
         },
+        CerrarEncuesta: function () {
+            $(_elementos.PopUpEncuesta).fadeOut(250);
+            if (lanzarEncuesta) {
+                _funciones.GrabarEncuesta();
+            }
+        },
         LanzarEncuesta: function (codigoCampania) {
             refrezcarPage = true;
             _funciones.ObtenerDataEncuesta(codigoCampania, false, function () {
@@ -213,7 +227,10 @@ var EncuestaSatisfaccion = (function () {
             var motivoSeleccionado = [];
             var arrMotivoOtro = [];
             var idCalif = parseInt($(_elementos.hdfCalificacionId).val());
-            var arrCalif = _funciones.ObtenerCalificacionById(idCalif);
+            var arrCalif = _funciones.ObtenerCalificacionById(idCalif) || [];
+            if (arrCalif.length === 0)
+                return motivoSeleccionado;
+
             if (arrCalif[0].TipoCalificacion === 2) {
                 arrMotivoOtro = _funciones.ObtenerMotivoByCalificacionYTipo(idCalif, 3);
                 if (arrMotivoOtro.length > 0) {
