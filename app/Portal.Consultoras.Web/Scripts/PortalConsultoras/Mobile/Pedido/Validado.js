@@ -13,7 +13,7 @@
     $('.btn_ver_pedido_reservado').on('click', function () {
         $('.btn_ver_pedido_reservado').hide();
         $('.tooltip_validado').hide();
-    })
+    });
 });
 
 function ConfirmarModificarPedido() {

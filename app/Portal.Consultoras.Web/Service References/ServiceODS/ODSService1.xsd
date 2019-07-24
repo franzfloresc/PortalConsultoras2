@@ -510,6 +510,7 @@
       <xs:element minOccurs="0" name="OfertaFinalGanaMas" type="xs:int" />
       <xs:element minOccurs="0" name="OptBloqueoProductoDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="PROLSinStock" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PagoContado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PasePedidoWeb" type="xs:int" />
