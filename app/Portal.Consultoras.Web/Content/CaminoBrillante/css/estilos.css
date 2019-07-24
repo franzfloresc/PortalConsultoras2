@@ -94,6 +94,7 @@ strong {
         clear: both
     }
 
+
 .box-beneficios li {
     width: 32%;
     display: block;
@@ -103,7 +104,6 @@ strong {
     min-height: 60px;
     margin-bottom: 0px
 }
-
     .box-beneficios li img {
         display: block;
         float: left;
@@ -1311,7 +1311,7 @@ div.opOrdenar {
 
 .box-cent-valor {
     position: absolute;
-    right: -6px;
+    right: -12px;
     top: 12px;
 }
 
@@ -3271,9 +3271,17 @@ div .ficha__producto__precio__normal {
         text-indent: 19px
     }
 
+    .cent-mant .etiq-mant, .cent-mant .etiq-falta {
+        width: 94%;
+        float: none;
+        margin: 0 auto;
+        margin-bottom: 8px;
+        margin-left: 2%;
+        font-size: 12px;
+    }
     /*.ficha__producto__descrip__nom {
-        min-height: 47px !important
-    }*/
+        min-height: 47px !important;
+        word-break: break-word;
 
     .ficha__producto__precio {
         min-height: inherit
@@ -3334,14 +3342,7 @@ div .ficha__producto__precio__normal {
         display: none;
     }
 
-    .cent-mant .etiq-mant, .cent-mant .etiq-falta {
-        width: 92%;
-        float: none;
-        margin: 0 auto;
-        margin-bottom: 8px;
-        margin-left: 5%;
-        font-size: 14px;
-    }
+
 
 
     .bar-logros {
@@ -3386,6 +3387,8 @@ div .ficha__producto__precio__normal {
     .logreg > .text-bold {
         text-align: left;
     }
+
+
     /*nuevo logros unif*/
     .cambio-crec .bigitem {
         width: 25%;
@@ -3570,9 +3573,8 @@ div .ficha__producto__precio__normal {
     }
 
     .valor-final {
-        right: -8px;
-        top: -6px;
-        width: 78px;
+        right: -3px;
+        top: -16px;
     }
 
         .valor-final p {
