@@ -2582,6 +2582,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+
+
+                /*HD-4635*/
+                GetValidaActualizaPedido(mobil);
                 var listaDetalle = GetPedidoWebDetalle(mobil);
 
                 if (mobil)
@@ -2689,6 +2693,67 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        #region HD-4635
+        private void GetValidaActualizaPedido(bool mobil)
+        {
+            SessionManager.SetPedidoWeb(null);
+            SessionManager.SetDetallesPedido(null);
+            SessionManager.SetDetallesPedidoSetAgrupado(null);
+            SessionManager.SetMisPedidosDetallePorCampania(null);
+
+            var listaDetalle = ObtenerPedidoWebDetalle();
+
+            foreach (var item in listaDetalle)
+            {
+                if (item.Cantidad > 99)
+                {
+                    item.Cantidad = 99;
+                    /*Se actualiza el pedido*/
+                    UpdateTransactionIndex(item);
+                }
+            }
+        }
+
+        public void UpdateTransactionIndex(BEPedidoWebDetalle model)
+        {
+            var txtBuildCliente = new StringBuilder();
+            BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+            pedidoDetalle.Producto = new ServicePedido.BEProducto();
+
+            pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+            pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
+            pedidoDetalle.Producto.PrecioCatalogo = model.PrecioUnidad;
+            pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID == 0 ? model.TipoOfertaSisID.ToString() : model.TipoEstrategiaID.ToString();
+            pedidoDetalle.Producto.CUV = model.CUV;
+            pedidoDetalle.Producto.Descripcion = model.DescripcionProd;
+            pedidoDetalle.PaisID = userData.PaisID;
+            pedidoDetalle.EsCuponNuevas = model.EsCuponNuevas;
+            pedidoDetalle.SetID = model.SetID;
+            pedidoDetalle.PedidoDetalleID = (short)model.PedidoDetalleID;
+            pedidoDetalle.ClienteID = (short)model.ClienteID;
+            pedidoDetalle.PedidoID = model.PedidoID;
+            pedidoDetalle.StockNuevo = model.Stock;
+            pedidoDetalle.ClienteDescripcion = model.Nombre;
+            pedidoDetalle.IPUsuario = GetIPCliente();
+            pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+            pedidoDetalle.IngresoExternoOrigen = Constantes.IngresoExternoOrigen.Portal;
+
+            pedidoDetalle.OrigenSolicitud = "WebMobile";
+            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
+            var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
+
+            if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR))
+            {
+                SessionManager.SetPedidoWeb(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
+                SetMontosProl(pedidoDetalleResult);
+                SessionManager.SetMisPedidosDetallePorCampania(null);
+            }
+        }
+        #endregion
+
 
         private bool AgregarCuvsAutomatico()
         {

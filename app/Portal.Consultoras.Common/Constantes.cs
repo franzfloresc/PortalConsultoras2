@@ -525,6 +525,7 @@ namespace Portal.Consultoras.Common
             public const string BelcorpRespondeTEL = "BelcorpRespondeTEL_{0}";
             public const string DES_UBIGEO = "DES_UBIGEO_";
             public const string FechaChat = "FechaChat_";
+            public const string MensajeCantiad = "Excediste el límite de compras de este producto. (Máx.: {0} unidades)";
             public const string MensajeChatBienvenida = " tú eres nuestro ejemplo e inspiración. En un momento uno de nuestros creadores de experiencia te atenderá.";
             public const string PaisesBelcorpChatEMTELCO = "PaisesBelcorpChatEMTELCO";
             public const string UrlBelcorpChat = "UrlBelcorpChat";
