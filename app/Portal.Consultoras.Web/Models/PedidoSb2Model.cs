@@ -9,6 +9,10 @@ namespace Portal.Consultoras.Web.Models
 {
     public class PedidoSb2Model
     {
+        public PedidoSb2Model()
+        {
+            CantPedidosPendientes = 0;
+        }
         public string CodigoIso { get; set; }
 
         public bool EstadoSimplificacionCuv { get; set; }
@@ -291,6 +295,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool EsConsultoraOficina { get; set; }
 
+        public int CantPedidosPendientes { get; set; }
         public bool IsEmailConfirmado { get; set; }
 
         public decimal? GananciaRevista { get; set; }
@@ -341,5 +346,8 @@ namespace Portal.Consultoras.Web.Models
         public string FormatoTotalGananciaWebStr { get; set; }
         public string FormatoTotalMontoAhorroCatalogoStr { get; set; }
         public string FormatoTotalMontoGananciaStr { get; set; }
+
+
+
     }
 }
