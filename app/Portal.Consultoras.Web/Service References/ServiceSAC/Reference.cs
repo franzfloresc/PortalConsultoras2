@@ -8579,6 +8579,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string CodigoTipoEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoTipoOfertaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8671,6 +8674,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.CodigoTipoEstrategiaField, value) != true)) {
                     this.CodigoTipoEstrategiaField = value;
                     this.RaisePropertyChanged("CodigoTipoEstrategia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoTipoOferta {
+            get {
+                return this.CodigoTipoOfertaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoTipoOfertaField, value) != true)) {
+                    this.CodigoTipoOfertaField = value;
+                    this.RaisePropertyChanged("CodigoTipoOferta");
                 }
             }
         }
@@ -17110,6 +17126,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string PaisNombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SegmentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SubtituloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -17117,6 +17136,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ZonaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -17272,6 +17294,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Segmento {
+            get {
+                return this.SegmentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SegmentoField, value) != true)) {
+                    this.SegmentoField = value;
+                    this.RaisePropertyChanged("Segmento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Subtitulo {
             get {
                 return this.SubtituloField;
@@ -17306,6 +17341,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.UrlField, value) != true)) {
                     this.UrlField = value;
                     this.RaisePropertyChanged("Url");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Zona {
+            get {
+                return this.ZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ZonaField, value) != true)) {
+                    this.ZonaField = value;
+                    this.RaisePropertyChanged("Zona");
                 }
             }
         }
@@ -18203,10 +18251,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task UpdSolicitudClienteDetalleCantidadAsync(int paisID, long solicitudId, string cuv, int cantidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdSolicitudClienteRechazar", ReplyAction="http://tempuri.org/ISACService/UpdSolicitudClienteRechazarResponse")]
-        void UpdSolicitudClienteRechazar(int paisID, long solicitudId);
+        void UpdSolicitudClienteRechazar(int paisID, long solicitudId, int motivoRechazoId, string motivoRechazoTexto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdSolicitudClienteRechazar", ReplyAction="http://tempuri.org/ISACService/UpdSolicitudClienteRechazarResponse")]
-        System.Threading.Tasks.Task UpdSolicitudClienteRechazarAsync(int paisID, long solicitudId);
+        System.Threading.Tasks.Task UpdSolicitudClienteRechazarAsync(int paisID, long solicitudId, int motivoRechazoId, string motivoRechazoTexto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdSolicitudClienteRechazarPorCuv", ReplyAction="http://tempuri.org/ISACService/UpdSolicitudClienteRechazarPorCuvResponse")]
         void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv);
@@ -19936,12 +19984,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.UpdSolicitudClienteDetalleCantidadAsync(paisID, solicitudId, cuv, cantidad);
         }
         
-        public void UpdSolicitudClienteRechazar(int paisID, long solicitudId) {
-            base.Channel.UpdSolicitudClienteRechazar(paisID, solicitudId);
+        public void UpdSolicitudClienteRechazar(int paisID, long solicitudId, int motivoRechazoId, string motivoRechazoTexto) {
+            base.Channel.UpdSolicitudClienteRechazar(paisID, solicitudId, motivoRechazoId, motivoRechazoTexto);
         }
         
-        public System.Threading.Tasks.Task UpdSolicitudClienteRechazarAsync(int paisID, long solicitudId) {
-            return base.Channel.UpdSolicitudClienteRechazarAsync(paisID, solicitudId);
+        public System.Threading.Tasks.Task UpdSolicitudClienteRechazarAsync(int paisID, long solicitudId, int motivoRechazoId, string motivoRechazoTexto) {
+            return base.Channel.UpdSolicitudClienteRechazarAsync(paisID, solicitudId, motivoRechazoId, motivoRechazoTexto);
         }
         
         public void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv) {

@@ -240,5 +240,13 @@ namespace Portal.Consultoras.Data
         }
 
         
+        #region Carga de ContenidoAppDetaAct HD-4144
+        public IDataReader GetContenidoAppDetaAct(int parent)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetContenidoAppDetaAct");
+            Context.Database.AddInParameter(command, "@Parent", DbType.Int32, parent);
+            return Context.ExecuteReader(command);
+        }
+        #endregion
     }
 }

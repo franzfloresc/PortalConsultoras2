@@ -1,6 +1,4 @@
 ﻿var PanelMantenerModule = function (config) {
-    "user strict";
-
     if (typeof config === "undefined" || config === null) throw "config parameter is null";
 
     var _config = {
@@ -66,29 +64,29 @@
     };
 
     var _btnGuardarClienteOnClick = function (e) {
-        console.log('_btnGuardarClienteOnClick');
+
         _ocultarMensajesError();
 
         var cliente = _getCliente();
         var errorDatos = false;
         if (cliente.NombreCliente === "") {
             $(_elements.divErrorNombre).show();
-            var errorDatos = true;
+            errorDatos = true;
         }
 
         if (cliente.ApellidoCliente === "") {
             $(_elements.divErrorApellido).show();
-            var errorDatos = true;
+            errorDatos = true;
         }
 
         if (cliente.Telefono === "") {
             $(_elements.divErrorTelefono).show();
-            var errorDatos = true;
+            errorDatos = true;
         }
 
         if (cliente.Celular === "") {
             $(_elements.divErrorCelular).show();
-            var errorDatos = true;
+            errorDatos = true;
         }
 
         if (cliente.eMail !== "" && !validateEmail(cliente.eMail)) {

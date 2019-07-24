@@ -3,8 +3,8 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
     if (ControllerName == "ShowRoom") {
         var pEventoIDVenta = $("#hdEventoIDShowRoomVenta").val();
         if (ActionName == "Index") {
-            var pnombreedescripcion = $("#spnShowRoomEventoVenta").val();
-            var pnombreeventodescripcion = $("#spnShowRoomEventoDescripcionVenta").val();
+            var pnombreedescripcionV = $("#spnShowRoomEventoVenta").val();
+            var pnombreeventodescripcionV = $("#spnShowRoomEventoDescripcionVenta").val();
 
             dataLayer.push({
                 'event': 'promotionClick',
@@ -12,7 +12,7 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
                     'promoView': [
                         {
                             'id': pEventoIDVenta,
-                            'name': pnombreedescripcion + ' ' + pnombreeventodescripcion + ' ' + '- Compra ya',
+                            'name': pnombreedescripcionV + ' ' + pnombreeventodescripcionV + ' ' + '- Compra ya',
                             'position': 'Desktop menu - 1',
                             'creative': 'Menu'
                         }

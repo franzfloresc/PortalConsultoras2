@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="foto_usuaria_mobile">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
+                    <img id="imgFotoUsuario" class="ImageLoadPhotoUser" src="@ViewBag.FotoPerfil" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
                 </div>
 
             }
@@ -912,7 +912,7 @@
         var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
         var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
+        @*var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';*@
 
         var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel';

@@ -1,0 +1,129 @@
+﻿@* MC - HD-4294 - VALIDAR CORREO EN EL PASE DE PEDIDO *@
+
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/popup-reserva-pedido.css")" rel="stylesheet" />
+
+<div class="popup__wrapper bg__popups__default" id="PopupReservaPedido">
+    <div class="popup__somos__belcorp popup__somos__belcorp--reservaPedido">
+        <div id="Paso1-RegistroCorreo" class="vistaPopup">
+            <div class="popup__somos__belcorp__cabecera">
+                <a onclick="javascript: $('#PopupReservaPedido').fadeOut(100, function () { $(this).trigger('close');})" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--reservaPedido">
+                    <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+                </a>
+                <div class="mt-53 popup__somos__belcorp__icono popup__somos__belcorp__icono--reservaPedido center-block">
+                    <img src="@Url.Content("~/Content/Images/hands-up-icon.png")" alt="Tienes pedidos pendientes por aprobar" />
+                </div>
+                <h1 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--reservaPedido">
+                    Tu pedido fue reservado<br />con éxito
+                </h1>
+            </div>
+            <div class="popup__somos__belcorp__contenido popup__somos__belcorp__contenido--reservaPedido">
+                <h2 class="center-block popup__somos__belcorp__titulo popup__somos__belcorp__titulo--boletaElectronica">
+                    Para recibir las últimas novedades, tips de negocio y recordatorios de pase de pedido<br />actualizar tu correo
+                </h2>
+                <p class="center-block text-left popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--reservaPedido">
+                    ¡Entérate de los últimos lanzamientos y las mejores ofertas de la campaña!
+                </p>
+                <div class="center-block form__group__fields form__group__fields--confirmacionCorreoBoleta">
+                    <input id="txtCorreoElectronicoBoletaElectronica" type="text" class="d-block w-100 text-bold text__field__sb eventActPerfil_Auto" name="txtCorreoElectronicoBoletaElectronica" value="" />
+                    <label for="txtCorreoElectronicoBoletaElectronica" class="d-block w-100 text-regular label__field__sb">Correo electrónico</label>
+                    <a href="#" title="Editar" class="d-block enlace__editar__correo__reservaPedido"  style="display:none" id="iconActivaEditar">
+                        <img src="@Url.Content("~/Content/Images/icono_edit.svg")" alt="Editar"  />
+                    </a>
+                    <span id="ValidateCorreo" class="validation__message"></span>
+                </div>
+                <button id="btnActualizarCorreo" class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--actualizarCorreo">
+                    Actualizar
+                </button>
+            </div>
+        </div>
+        <div id="VistaPrecarga" class="spinner__wrapper spinner__wrapper--reservaPedido vistaPopup" style="display:none;">
+            <div class="d-block center-block">
+                <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="precarga__spinner">
+                    <symbol id="s--circle">
+                        <circle r="9" cx="15" cy="15"></circle>
+                    </symbol>
+                    <g class="spinner__circulos">
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <p class="w-100 d-block center-block text-center text-bold spinner__texto">
+                Cargando
+            </p>
+        </div>
+        <div id="Paso2-ConfirmacionCorreo" style="display:none;" class="vistaPopup">
+            <div class="popup__somos__belcorp__cabecera">
+                <a onclick="javascript: $('#PopupReservaPedido').fadeOut(100, function () { $(this).trigger('close');})" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--confirmaCorreo">
+                    <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+                </a>
+                <div class="mt-53 popup__somos__belcorp__icono popup__somos__belcorp__icono--reservaPedido center-block">
+                    <img src="@Url.Content("~/Content/Images/mensaje-icono.png")" alt="Confirma tu correo" />
+                </div>
+            </div>
+            <div class="text-center popup__somos__belcorp__contenido popup__somos__belcorp__contenido--confirmaCorreo">
+                <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--reservaPedido">
+                    Confirma tu correo
+                </h2>
+                <p class="text-left popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--confirmaCorreo">
+                    Te enviamos un mensaje a:
+                </p>
+                <div class="w-100 d-inline-block form__group__fields form__group__fields--confirmaCorreo">
+                    <input id="txtCorreoElectronicoPorConfirmar" type="text" class="d-inline-block text-center text-bold text__field__sb" name="txtCorreoElectronicoPorConfirmar" value="cambiodecorreo@example.com" readonly/>
+                </div>
+                <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--reenvioAlCorreo">
+                    <span class="d-block">¿Aún no recibes nuestro correo?</span>
+                    <a id="btnReenviameInstruciones" href="#" class="d-block enlace__sb enlace__sb--reenviarCorreo" title="Reenviar el correo">Reenviar el correo</a>
+                </p>
+                <div id="spnReenviarInstrucciones" class="notificacion_estado notificacion_estado--exito" style="display:none">
+                    <span class="notificacion_estado_img">
+                        <img src="@Url.Content("~/Content/Images/icono_confirmacion_con_fondo.svg")" alt="Éxito" />
+                    </span>
+                    <span class="text-bold">¡Listo! Se reenvió el correo.</span>
+                </div>
+                <div id="spnReenviarInstruccionesError" class="notificacion_estado notificacion_estado--error" style="display:none">
+                    <span class="notificacion_estado_img">
+                        <img src="@Url.Content("~/Content/Images/icono_alerta_cierre_sesion.svg")" alt="Error" />
+                    </span>
+                    <span class="text-bold textError">Hubo un error al reenviar el correo, inténtalo de nuevo.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* FIN - MC - HD-4294 - VALIDAR CORREO EN EL PASE DE PEDIDO *@

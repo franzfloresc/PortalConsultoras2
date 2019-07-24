@@ -41,16 +41,30 @@
 
         var model = _estrategiaModel();
 
-        if (model.MostrarFichaEnriquecida &&
-            model.MostarTabsFichaEnriquecidaSinDetalle &&
-            !_config.fichaEnriquecidaView.renderFichaEnriquecida(model.Hermanos[0])) throw "fichaEnriquecidaView don't render ficha enriquecida.";
+        if (
+            model.MostrarFichaEnriquecida &&
+            model.MostarTabsFichaEnriquecidaSinDetalle
+        ) {
+            var componente1 = model.Hermanos[0];
+            componente1.Secciones = componente1.Secciones || [];
+            var valorx = !_config.fichaEnriquecidaView.renderFichaEnriquecida(componente1, false);
+            if (valorx) {
+                throw "fichaEnriquecidaView don't render ficha enriquecida.";
+            }
+        }
 
         return true;
+    }
+
+    var _reloadCarruselVideosFichaEnriquecida = function (seccionTipo) {
+        if (seccionTipo == ConstantesModule.TipoSeccion.Video &&
+            !_config.fichaEnriquecidaView.reloadCarouselVideos()) throw "carousel videos don't render in ficha enriquecida";
     }
 
     return {
         onFichaResponsiveModelLoaded: _onFichaResponsiveModelLoaded,
         showPopupFichaEnriquecida: _showPopupFichaEnriquecida,
-        hidePopupFichaEnriquecida: _hidePopupFichaEnriquecida
+        hidePopupFichaEnriquecida: _hidePopupFichaEnriquecida,
+        reloadCarruselVideosFichaEnriquecida: _reloadCarruselVideosFichaEnriquecida
     }
 }

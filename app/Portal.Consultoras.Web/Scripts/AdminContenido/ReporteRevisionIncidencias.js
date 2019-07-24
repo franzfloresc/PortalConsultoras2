@@ -42,71 +42,6 @@
         });
     }
 
-    //var _exportarExcel = function () {
-    //    if ($("#ddlPais").val() == "") {
-    //        alert("Debe seleccionar el País, verifique.");
-    //        return false;
-    //    }
-    //    if ($("#ddlCampania").val() == "") {
-    //        alert("Debe seleccionar la Campaña, verifique.");
-    //        return false;
-    //    }
-    //    if ($("#ddlTipoEstrategia").val() == "") {
-    //        alert("Debe seleccionar el tipo de estrategia, verifique.");
-    //        return false;
-    //    }
-    //    setTimeout(function () {
-    //        _downloadAttachExcel();
-    //    }, 0);
-    //}
-
-    var _downloadAttachExcel = function () {
-        var content = _config.urlExportarExcel +
-            "?CampaniaID=" +
-            $("#ddlCampania").val() +
-            "&TipoEstrategiaID=" +
-            $('#ddlTipoEstrategia').find(':selected').data('id');
-
-        var iframe_ = document.createElement("iframe");
-        iframe_.style.display = "none";
-        iframe_.setAttribute("src", content);
-
-        iframe_.onload = function () {
-            closeWaitingDialog();
-        };
-
-        if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
-            // Si es Internet Explorer
-            iframe_.onreadystatechange = function () {
-                switch (this.readyState) {
-                    case "loading":
-                        waitingDialog({});
-                        break;
-                    case "complete":
-                    case "interactive":
-                    case "uninitialized":
-                        closeWaitingDialog();
-                        break;
-                    default:
-                        closeWaitingDialog();
-                        break;
-                }
-            };
-        }
-        else {
-            $(iframe_).ready(function () {
-            });
-        }
-
-        document.body.appendChild(iframe_);
-    }
-
-    //var _paginador = Paginador({
-    //    elementId: "matriz-" +
-    //        "imagen" +
-    //        "es-paginacion"
-    //});
-
     var _basicFieldsValidation = function () {
         if ($("#ddlTipo").val() == "") {
             _toastHelper.error("Debe seleccionar el tipo de revisión, verifique.");
@@ -588,10 +523,8 @@
     var _fnEstrategiasConsultora = function () {
 
         var fechaConsulta = $("#txtFechaConsulta").val();
-        //var tipoEstrategia = $("#ddlTipoEstrategia").val();
 
         if (fechaConsulta == "") fechaConsulta = "01/01/1990";
-        //if (tipoEstrategia == "") tipoEstrategia = 0;
 
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarReporteRevisionIncidencias/ConsultarReporteEstrategiasConsultora",

@@ -244,8 +244,7 @@ var ListaOpcionesModule = (function () {
     var _eliminarOpcionDeComponenteModel = function (cuv, _indice) {
         var hermanoSeleccionadoIndex;
         var HermanosSeleccionadosClone = jQuery.extend(true, [], _componente.HermanosSeleccionados);
-        HermanosSeleccionadosClone = HermanosSeleccionadosClone.reverse();
-        $.each(HermanosSeleccionadosClone, function (index1, hermano) {
+        $.each(HermanosSeleccionadosClone.reverse(), function (index1, hermano) {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 hermanoSeleccionadoIndex = index1;
@@ -343,7 +342,6 @@ var ListaOpcionesModule = (function () {
             $(".modal-fondo").css("opacity", "0");
             $(".modal-fondo").hide();
             $("body").removeClass("modal_activado");
-            console.log('CloseElegirOpcionesModal - DivPopupFichaResumida overflow auto');
             $("#DivPopupFichaResumida").css("overflow", "auto");
         }
         if (!_callFromSeleccionarPaletaOpcion) {

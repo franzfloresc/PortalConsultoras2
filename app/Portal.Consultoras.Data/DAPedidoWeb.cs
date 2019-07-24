@@ -703,6 +703,10 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, pedidoWeb.MontoEscala);
             Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, pedidoWeb.VersionProl);
             Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, pedidoWeb.PedidoSapId);
+            Context.Database.AddInParameter(command, "@GananciaRevista", DbType.Decimal, pedidoWeb.GananciaRevista);
+            Context.Database.AddInParameter(command, "@GananciaWeb", DbType.Decimal, pedidoWeb.GananciaWeb);
+            Context.Database.AddInParameter(command, "@GananciaOtros", DbType.Decimal, pedidoWeb.GananciaOtros);
+
             Context.ExecuteNonQuery(command);
         }
 
@@ -1182,6 +1186,67 @@ namespace Portal.Consultoras.Data
         }
         #endregion
 
+
+        #region HD-4288
+        public IDataReader VerificarConsultoraDigital(string codigoConsultora, int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.VerificarConsultoraDigitalRecibe");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+            return Context.ExecuteReader(command);
+        }
+
+        public int DeshacerRecepcionPedido(int pedidoID)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.DeshacerRecepcionPedido"))
+            {
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+
+                return Context.ExecuteNonQuery(command);
+            }
+        }
+
+        public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GuardarRecepcionPedido"))
+            {
+                Context.Database.AddInParameter(command, "@NombreYApellido", DbType.String, nombreYApellido);
+                Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.String, numeroDocumento);
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+
+                return Context.ExecuteNonQuery(command);
+            }
+        }
+
+        #endregion
+        /*HD-4513*/
+        #region Consultora Pago Contado
+        public void UpdLogConsultoraPagoContado(BEPedidoWeb bEPedidoWeb)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.LogConsultoraPagoContado_Update"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, bEPedidoWeb.CampaniaID);
+                Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, bEPedidoWeb.ConsultoraID);
+                Context.Database.AddInParameter(command, "@TotalAtendido", DbType.String, bEPedidoWeb.STPTotalPagar);
+                Context.Database.AddInParameter(command, "@TotalDescuento", DbType.String, bEPedidoWeb.STPDescuento);
+                Context.Database.AddInParameter(command, "@TotalFlete", DbType.String, bEPedidoWeb.STPGastTransporte);
+                Context.Database.AddInParameter(command, "@PagoTotalSinDeuda", DbType.String, bEPedidoWeb.STPPagoTotalSinDeuda);
+                Context.Database.AddInParameter(command, "@PagoTotal", DbType.String, bEPedidoWeb.STPPagoTotal);
+                Context.Database.AddInParameter(command, "@TotalDeuda", DbType.String, bEPedidoWeb.STPDeudaLog);
+                Context.ExecuteNonQuery(command);
+            }
+        }
+
+
+        public IDataReader ListLogConsultoraPagoContado(BEPedidoWeb bEPedidoWeb)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.LogConsultoraPagoContado_List");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, bEPedidoWeb.CampaniaID);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.String, bEPedidoWeb.ConsultoraID);
+            return Context.ExecuteReader(command);
+        }
+
+        #endregion
 
     }
 }

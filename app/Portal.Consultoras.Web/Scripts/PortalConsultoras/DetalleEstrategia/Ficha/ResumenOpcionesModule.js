@@ -1,6 +1,8 @@
 ﻿var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
 
+var componentesAnalyticsPresenter = null;
+
 var ResumenOpcionesModule = (function () {
     "use strict";
 
@@ -113,32 +115,13 @@ var ResumenOpcionesModule = (function () {
         }
         
         _verificarActivarBtn(codigoVariante);
-
-        console.log('AplicarOpciones - DivPopupFichaResumida overflow auto');
+        
         $("#DivPopupFichaResumida").css("overflow", "auto");
 
         if (!esEditar) {
             var tipo = callCloseElegirOpcionesModal ? _const.tipoSelector.Panel : _const.tipoSelector.Paleta;
             _applySelectedAnalytics(_componente, tipo);
         }
-
-        //if (callCloseElegirOpcionesModal) {
-        //    var estrategia = fichaModule.GetEstrategia();
-        //    var nombreConcat = "";
-        //    if (_componente.FactorCuadre === 1) {
-        //        AnalyticsPortalModule.MarcarBotonAplicarSeleccion(estrategia, _componente);
-        //    } else {
-        //        $.each(_componente.resumenAplicados, function (index, opcion) {
-        //            if (opcion.cantidadSeleccionada > 0) {
-        //                nombreConcat += " " + estrategia.DescripcionCompleta + " " + opcion.NombreBulk + " |";
-        //            }
-        //        });
-
-        //        nombreConcat = Left(nombreConcat, nombreConcat.length - 1).trim();
-
-        //        AnalyticsPortalModule.MarcarPopupBotonAplicarSeleccionVariasOpciones(nombreConcat);
-        //    }
-        //}
 
         var isDesactivado = $('#btnAgregalo').hasClass('.btn_desactivado_general');
         if (!isDesactivado) {
@@ -176,27 +159,16 @@ var ResumenOpcionesModule = (function () {
         return false;
     };
     
-    var _applySelectedAnalytics = function (componentes, tipo) {
+    var _applySelectedAnalytics = function (componente, tipo) {
+        componente = componente || {};
+        tipo = tipo || '';
 
-        var modeloMarcar = {
-            Const: {
-                TipoSelector: _const.tipoSelector
-            },
-            TipoSelectorTono: tipo || _const.tipoSelector.Panel,
-            Label: ''
+        if (!componentesAnalyticsPresenter) {
+            componentesAnalyticsPresenter = ComponentesAnalyticsPresenter({
+                analyticsPortal: AnalyticsPortalModule
+            });
         }
-
-        //cuvPadre = $.trim(cuvPadre);
-        componentes = componentes || [];
-        $.each(componentes, function (idxComponente, componente) {
-            if (typeof componente !== 'undefined' && componente !== null) {
-                if (componente.cantidadSeleccionada > 0) {
-                    modeloMarcar.Label = " " + componente.NombreComercial;
-                }
-            }            
-        });
-
-        AnalyticsPortalModule.VirtualEventFichaAplicarCambio(modeloMarcar);
+        componentesAnalyticsPresenter.applySelectedAnalytics(componente, tipo);
     };
 
     return {
