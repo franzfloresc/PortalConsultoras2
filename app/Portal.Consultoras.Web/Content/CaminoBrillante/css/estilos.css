@@ -1360,6 +1360,7 @@ div.opOrdenar {
         .valor-final span em {
             font-style: normal;
             color: #464646;
+            font-size:12px;
         }
 
 .flagimg {
@@ -2291,7 +2292,7 @@ div .ficha__producto__precio__normal {
     }
 
     .msj-boxnivel p {
-        font-size: 18px;
+        font-size: 17px;
         margin-top: 0;
     }
 
@@ -2435,7 +2436,10 @@ div .ficha__producto__precio__normal {
 .deskshow {
     display: block;
 }
-
+.centtopacio .etiq-mant, .centtopacio .etiq-falta {
+    float:none;
+    margin:0 auto;
+}
 
 
 
@@ -3272,7 +3276,7 @@ div .ficha__producto__precio__normal {
     }
 
     .cent-mant .etiq-mant, .cent-mant .etiq-falta {
-        width: 94%;
+        width: 100%;
         float: none;
         margin: 0 auto;
         margin-bottom: 8px;
@@ -3573,8 +3577,8 @@ div .ficha__producto__precio__normal {
     }
 
     .valor-final {
-        right: -3px;
-        top: -16px;
+        right: -34px;
+        top: -14px;
     }
 
         .valor-final p {
@@ -3591,10 +3595,14 @@ div .ficha__producto__precio__normal {
         font-size: 14px;
         margin-left: 10%;
     }
+        .etiq-falta strong {
+            font-weight: bold;
+            font-size: 12px;
+        }
 
-    .etiq-mant {
-        margin-left: 10%;
-    }
+        .etiq-mant {
+            margin-left: 10%;
+        }
 
     .flagimg {
         width: 18px;
@@ -3610,6 +3618,13 @@ div .ficha__producto__precio__normal {
         min-height: 48px !important;
         margin-bottom: 0;
     }
+    .regular.slider .ficha__producto__kit .flex-grow-1 {
+        margin-top: 50px;
+    }
+    .cent-mant .etiq-mant, .cent-mant .etiq-falta {
+        font-size:11px;
+    }
+
 }
 
 @media screen and (max-width:330px) {
@@ -3644,7 +3659,7 @@ div .ficha__producto__precio__normal {
     }
 
     .valor-final {
-        right: -20px;
+        right: -22px;
         width: 78px;
     }
 }

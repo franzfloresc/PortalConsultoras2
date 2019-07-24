@@ -81,6 +81,11 @@
             var montoMaximoBarra = showMoneda ? Math.Max(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), (decimal)(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) * (decimal)1.10)) : nivelEvaluacion.Puntaje;
             var montoAlcanzadoBarra = showMoneda ? nivelEvaluacion.MontoAlcanzado : nivelEvaluacion.PuntajeAcumulado;
 
+            if (ViewBag.GranBrillante != null)
+            {
+                montoMaximoBarra = Convert.ToDecimal(ViewBag.GranBrillante.MontoMinimo);
+            }
+
             if (nivelEvaluacion != null)
             {
                 <div id="progress-b">
@@ -108,16 +113,27 @@
                                 }
                             </div>
                             <div class="valor-final">
-                                <p> @((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
-                                <span>
-                                    @if (showMoneda)
-                                    {<em>@ViewBag.SimboloMoneda</em>
-                                    @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                @if (ViewBag.GranBrillante != null)
+                                {
+                                    <p style="font-size: 15px;" >@ViewBag.GranBrillante.DescripcionNivel</p>
                                 }
                                 else
                                 {
-                                    @montoMaximoBarra @Html.Raw("pts")
+                                    <p>@((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
                                 }
+                                <span>
+                                    @if (showMoneda)
+                                    {
+                                        if (ViewBag.NivelActual.CodigoNivel != "5")
+                                        {
+                                            <em>@ViewBag.SimboloMoneda</em>
+                                            @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @Util.EnteroFormat(Convert.ToDecimal(@montoMaximoBarra), @ViewBag.CodigoISODL) @Html.Raw(" pts")
+                                    }
                                 </span>
                             </div>
                         </div>
@@ -137,8 +153,11 @@
                             }
                             else
                             {
-                                <span><strong>Acumulaste @montoAlcanzadoBarra pts</strong></span>
-                                <span>Recuerda pasar pedido hasta C02</span>
+                                <span><strong>Acumulaste @Util.EnteroFormat(Convert.ToDecimal(@montoAlcanzadoBarra), @ViewBag.CodigoISODL) pts</strong></span>
+                                if (ViewBag.NivelActual.Mensaje != null)
+                                {
+                                    <span>@ViewBag.NivelActual.Mensaje</span>
+                                }
                             }
                         </div>
                     </div>
@@ -381,17 +400,68 @@
 
         <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal" style="@mostrarBotonOfertas">Ver ofertas</a>
     }
-</div>
-<div class="container bglogros">
-    <div class="banner-logros">
-        <img src="~/Content/CaminoBrillante/imgs/mobile-logros.svg" class="img-log" />
-        <div class="right-banner">
-            <h2>Tus logros</h2>
-            <p>Todo tu esfuerzo tiene grandes resultados.</p>
-            <a href="@Url.Action("Logros", "CaminoBrillante")">Ver logros</a>
+
+
+    @if (ViewBag.ResumenLogros != null)
+    {
+        var logro = ViewBag.ResumenLogros as LogroCaminoBrillanteModel;
+        <div id="cont-logros" class="cont-logros">
+            <h2 class="title" id="TituloLogros">@logro.Titulo</h2>
+            <div class="boxcenter">
+                <div class="owl-carousel owl-crec" id="Carusel-Logros">
+
+                    @foreach (var indicador in logro.Indicadores)
+                    {
+                        <div class="item">
+                            <input type="hidden" value="@indicador.Titulo" />
+                            <div class="shad box-@indicador.Titulo">
+                                <p class="text-bold">@indicador.Titulo</p>
+                                <span class="text-down">@indicador.Descripcion</span>
+                                <ul class="list-crec">
+                                    @foreach (var medalla in indicador.Medallas)
+                                    {
+                                        <li>
+                                            @if (medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC)
+                                            {
+                                                var decorator = medalla.Estado ? "crec-activo" : "crec-inactivo";
+                                                <div class="circle-porcent @decorator">
+                                                    <span>@medalla.Valor</span>
+                                                </div>
+                                            }
+                                            else if (medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE
+                                                || medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED
+                                                || medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.TIM)
+                                            {
+                                                <img src="@medalla.UrlMedalla" />
+                                            }
+                                            <p>@medalla.Titulo</p>
+                                        </li>
+                                    }
+                                </ul>
+                                <a onclick="TagVerTodos('@indicador.Codigo')" href="@Url.Action("Logros", "CaminoBrillante", new { opcion = indicador.Codigo })" class="btn-link">Ver todos</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
-    </div>
+    }
+
+
 </div>
+
+
+
+@*<div class="container bglogros">
+        <div class="banner-logros">
+            <img src="~/Content/CaminoBrillante/imgs/mobile-logros.svg" class="img-log" />
+            <div class="right-banner">
+                <h2>Tus logros</h2>
+                <p>Todo tu esfuerzo tiene grandes resultados.</p>
+                <a href="@Url.Action("Logros", "CaminoBrillante")">Ver logros</a>
+            </div>
+        </div>
+    </div>*@
 
 
 <div class="container">
