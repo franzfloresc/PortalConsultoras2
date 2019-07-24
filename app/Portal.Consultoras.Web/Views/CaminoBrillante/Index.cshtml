@@ -84,6 +84,7 @@
             if (ViewBag.GranBrillante != null)
             {
                 montoMaximoBarra = Convert.ToDecimal(ViewBag.GranBrillante.MontoMinimo);
+                montoMinimoBarra = ViewBag.NivelActual.Puntaje;
             }
 
             if (nivelEvaluacion != null)
@@ -108,6 +109,10 @@
                                 </div>
                                 <img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" />
                                 @if (ViewBag.NivelActual.CodigoNivel != "1" && showMoneda)
+                                {
+                                    <span class="tope tp-@ViewBag.NivelActual.CodigoNivel"></span>
+                                }
+                                else if (ViewBag.GranBrillante != null)
                                 {
                                     <span class="tope tp-@ViewBag.NivelActual.CodigoNivel"></span>
                                 }
