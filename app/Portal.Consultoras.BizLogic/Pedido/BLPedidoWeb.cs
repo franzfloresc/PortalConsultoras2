@@ -2625,7 +2625,7 @@ namespace Portal.Consultoras.BizLogic
                         dsPedidosWeb = daPedidoWeb.DescargaPedidosClienteSinMarcarWEB(nroLote);
                         dtPedidosCabWeb = dsPedidosWeb.Tables[0]; // Obtiene cabecera
                         dtPedidosDetWeb = dsPedidosWeb.Tables[1]; // Obtiene detalle
-                        fechaFacturacion =  dtPedidosCabWeb.Rows[0].ItemArray[7] !=null ? dtPedidosCabWeb.Rows[0].ItemArray[7].ToString():string.Empty;
+                        fechaFacturacion =  dtPedidosCabWeb.Rows.Count > 0  ? dtPedidosCabWeb.Rows[0].ItemArray[7].ToString():string.Empty;
                     }
                     catch (SqlException ex)
                     {

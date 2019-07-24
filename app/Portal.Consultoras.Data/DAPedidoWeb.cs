@@ -1127,7 +1127,9 @@ namespace Portal.Consultoras.Data
                     oSqlBulkCopyCabecera.ColumnMappings.Add("LogCodigoUsuarioProceso", "CodigoUsuarioProceso");
                     oSqlBulkCopyCabecera.ColumnMappings.Add("VersionProl", "VersionProl");
                     oSqlBulkCopyCabecera.ColumnMappings.Add("LogFechaCarga", "FechaCarga");
-
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("IPUsuario", "IPUsuario");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("TipoCupon", "TipoCupon");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("ValorCupon", "ValorCupon");
                     oSqlBulkCopyCabecera.WriteToServer(dtPedidosCabecera);
                     oSqlBulkCopyCabecera.Close();
 
