@@ -4828,7 +4828,7 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
     <None Include="Service References\ServiceEncuesta\configuration91.svcinfo" />
     <None Include="Service References\ServiceEncuesta\configuration.svcinfo" />
-    <None Include="Service References\ServiceEncuesta\Reference.svcmap">
+    <None Include="Service References\ServiceEncuesta\Reference.svcmap"/>
     <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
     <None Include="Service References\ServiceUnete\configuration.svcinfo" />
     <None Include="Service References\ServiceUnete\Reference.svcmap">
