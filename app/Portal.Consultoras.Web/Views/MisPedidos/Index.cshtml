@@ -783,6 +783,15 @@
 @Html.Partial("~/Views/EncuestaSatisfaccion/_EncuestaSatisfaccion.cshtml")
 @section scripts{
     <script>
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-r.svg")',
+        ];
+        var noIniciarLluvia = true;
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlPedidos = '@ViewBag.URLWebTracking';
         var lanzarTabClienteOnline = ('@Model.LanzarTabClienteOnline' == 'True');
@@ -804,6 +813,8 @@
         </script>
         <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/ClienteOnline.js")"></script>
         <script src="@Url.Content("~/Scripts/PortalConsultoras/EncuestaSatisfaccion/Index.js")"></script>
+        <script src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/barra.js")"></script>        
+        <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
 
-    }
+}
 }
