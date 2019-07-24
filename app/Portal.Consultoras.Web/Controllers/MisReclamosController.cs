@@ -332,10 +332,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if ((bool)flagSetsOrPacks)
                 {
                     var desc = _cdrProvider.ObtenerDescripcion(model.Motivo, Constantes.TipoMensajeCDR.Motivo, userData.PaisID).Descripcion;
-                    listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || a.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion).ToList();
-                    if (desc.Contains("mal estado") || desc.Contains("incompleta"))
-                        listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje).ToList();
-
+                    if (model.Motivo == Constantes.MotivoRechazo.NoRecibiProductoEnFactura)
+                        listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Faltante).ToList();
+                    else
+                    {
+                        listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || a.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion).ToList();
+                        if (desc.Contains("mal estado") || desc.Contains("incompleta"))
+                            listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje).ToList();
+                    }
                 }
 
                 return listaRetorno;

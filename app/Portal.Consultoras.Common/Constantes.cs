@@ -1214,6 +1214,10 @@ namespace Portal.Consultoras.Common
             public const string MensajeFinalizado = "MensajeFinalizado";
         }
 
+        public static class MotivoRechazo {
+            public const string NoRecibiProductoEnFactura = "11";
+        }
+
         public static class ParametriaCDR
         {
             public const string Faltante = "STO_PMON_FM";
