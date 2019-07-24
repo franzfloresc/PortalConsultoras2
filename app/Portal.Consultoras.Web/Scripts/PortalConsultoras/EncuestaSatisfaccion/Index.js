@@ -47,11 +47,14 @@ var EncuestaSatisfaccion = (function () {
                         $(_elementos.Paso2).fadeIn(200);
                         $(_elementos.Paso2).css('display', '');
                         $(_elementos.Paso2).addClass('encuesta__satisfaccion__agradecimiento__wrapper--mostrar');
+                        setContainerLluvia(_elementos.PopUpEncuesta);
+                        mostrarLluvia();
                         setTimeout(function () {
-                            $(_elementos.PopUpEncuesta).fadeOut(250);
+                            $(_elementos.PopUpEncuesta).fadeOut(250);                            
                             if (refrezcarPage)
                                 window.location.reload();                            
                         }, 3000);
+                        
                     } else {
                         $(_elementos.PopUpEncuesta).fadeOut(250);
                     }
@@ -108,6 +111,8 @@ var EncuestaSatisfaccion = (function () {
                         $(_elementos.Paso2).fadeIn(200);
                         $(_elementos.Paso2).css('display', '');
                         $(_elementos.Paso2).addClass('encuesta__satisfaccion__agradecimiento__wrapper--mostrar');
+                        setContainerLluvia(_elementos.PopUpEncuesta);
+                        mostrarLluvia();
                         setTimeout(function () {
                             $(_elementos.PopUpEncuesta).fadeOut(250);
                             if (refrezcarPage)
