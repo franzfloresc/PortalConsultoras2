@@ -307,9 +307,19 @@ var EncuestaSatisfaccion = (function () {
         },
         cerrarEncuestaSatisfaccion: function (e) {
             e.preventDefault();
-            $(_elementos.btnConfirmar).fadeOut(100);
+            if ($(_elementos.encuestaSatisfaccion).is('.seccion__encuesta__satisfaccion__expandir')) {
+                $(_elementos.encuestaSatisfaccion).removeClass('seccion__encuesta__satisfaccion__expandir');
+                $(_elementos.btnConfirmar).fadeOut(100);
+                $(_elementos.divInconvenienteOSugerencia).slideUp(100);
+                $(_elementos.estadoEncuestaSatisfaccion).removeClass('encuesta__satisfaccion__disabled');
+            }
+            $(_elementos.PopUpEncuesta).fadeOut(150);
             $(_elementos.encuestaSatisfaccion).removeClass('seccion__encuesta__satisfaccion--mostrar');
-            $(_elementos.encuestaSatisfaccion).addClass('seccion__encuesta__satisfaccion--ocultar');
+            if (_config.isDesktop) {
+                $(_elementos.bgEncuestaDesktop).removeClass("bg__popup__encuestaSatisfaccion__desktop--mostrar");
+            } else {
+                $(_elementos.encuestaSatisfaccion).addClass('seccion__encuesta__satisfaccion--ocultar');
+            }
         }
     };
     function Inicializar() {
