@@ -81,6 +81,11 @@
             var montoMaximoBarra = showMoneda ? Math.Max(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), (decimal)(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) * (decimal)1.10)) : nivelEvaluacion.Puntaje;
             var montoAlcanzadoBarra = showMoneda ? nivelEvaluacion.MontoAlcanzado : nivelEvaluacion.PuntajeAcumulado;
 
+            if (ViewBag.GranBrillante != null)
+            {
+                montoMaximoBarra = Convert.ToDecimal(ViewBag.GranBrillante.MontoMinimo);
+            }
+
             if (nivelEvaluacion != null)
             {
                 <div id="progress-b">
@@ -108,16 +113,27 @@
                                 }
                             </div>
                             <div class="valor-final">
-                                <p> @((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
-                                <span>
-                                    @if (showMoneda)
-                                    {<em>@ViewBag.SimboloMoneda</em>
-                                    @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                @if (ViewBag.GranBrillante != null)
+                                {
+                                    <p style="font-size: 15px;" >@ViewBag.GranBrillante.DescripcionNivel</p>
                                 }
                                 else
                                 {
-                                    @montoMaximoBarra @Html.Raw("pts")
+                                    <p>@((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
                                 }
+                                <span>
+                                    @if (showMoneda)
+                                    {
+                                        if (ViewBag.NivelActual.CodigoNivel != "5")
+                                        {
+                                            <em>@ViewBag.SimboloMoneda</em>
+                                            @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @Util.EnteroFormat(Convert.ToDecimal(@montoMaximoBarra), @ViewBag.CodigoISODL) @Html.Raw(" pts")
+                                    }
                                 </span>
                             </div>
                         </div>
@@ -137,8 +153,11 @@
                             }
                             else
                             {
-                                <span><strong>Acumulaste @montoAlcanzadoBarra pts</strong></span>
-                                <span>Recuerda pasar pedido hasta C02</span>
+                                <span><strong>Acumulaste @Util.EnteroFormat(Convert.ToDecimal(@montoAlcanzadoBarra), @ViewBag.CodigoISODL) pts</strong></span>
+                                if (ViewBag.NivelActual.Mensaje != null)
+                                {
+                                    <span>@ViewBag.NivelActual.Mensaje</span>
+                                }
                             }
                         </div>
                     </div>
