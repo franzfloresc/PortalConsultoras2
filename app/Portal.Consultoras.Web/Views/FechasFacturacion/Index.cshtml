@@ -1,0 +1,272 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+
+@{
+    Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+    ViewBag.Title = "Fechas de Facturación";
+}
+
+
+
+
+
+
+
+
+<link href="@Url.Content("~/Content/Css/Site/FechasFacturacion/fechas-facturacion.css")" rel="stylesheet" />
+
+<!-- TITULO DE VISTA FECHAS DE FACTURACIÓN -->
+<section class="row flex-row justify-content-start ml-0 mr-0 layout__view__title__wrapper">
+    <div class="col-12 pl-0 pr-0 mx-auto layout__view__title">
+        <div class="layout__view__title__background mostrarEnDesktop"></div>
+        <h1 class="col-12 col-lg-6 col-xl-6 pl-lg-0 pl-xl-0 pr-lg-0 pr-xl-0 row flex-column flex-lg-row flex-wrap flex-lg-nowrap justify-content-center justify-content-lg-start align-items-lg-center layout__view__title__text layout__view__title__text--fechasFacturacion">
+            <a href="@Request.UrlReferrer" class="d-block layout__view__title__icono__volver mostrarEnMobile">
+                <img class="d-block" src="@Url.Content("~/Content/Images/icono_volver_mobile.svg")" alt="" />
+            </a>
+            <span class="d-block text-bold">
+                Fechas de facturación
+            </span>
+        </h1>
+    </div>
+</section>
+<div class="row flex-row mx-auto pestana__lbel"></div>
+<!-- FIN - TITULO DE VISTA FECHAS DE FACTURACIÓN -->
+<!-- CONTENIDO VISTA -->
+
+<main class="d-flex flex-row flex-wrap justify-content-center center-block layout__container layout__container--fechasFacturacion">
+    <section class="d-flex flex-row flex-wrap border-radius-4 seccion__campania__actual" id="FechaActual">
+        <div class="d-flex flex-row flex-nowrap justify-content-between align-items-center flex-grow-1">
+            <div class="d-inline-block text-left num__campania">
+                <span class="d-block color-multimarca">Estás en:</span>
+                <span class="d-block text-bold color-multimarca">C-07</span>
+            </div>
+            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                <div class="d-block flex-grow-1">
+                    <span class="d-block text-bold">
+                        Facturación:
+                    </span>
+                    <span class="d-block">
+                        Lunes 05 Mayo - Jueves 09 Mayo
+                    </span>
+                </div>
+                <div class="d-block flex-grow-1">
+                    <span class="d-block text-bold">
+                        Fecha de pago pedido <span>C07</span>:
+                    </span>
+                    <span class="d-block">
+                        Miércoles 14 Junio
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="d-flex flex-row flex-wrap seccion__campanias__anteriores__y__siguientes">
+
+        <!-- TABS NAVEGACIÓN -->
+        <nav class="tabs__wrapper__sb tabs__wrapper__sb--fechasFacturacion">
+            <ul class="nav__tabs__sb">
+                <li class="nav__tab__sb">
+                    <a href="#Anteriores" title="Anteriores" class="text-bold nav__tab__sb__link nav__tab__sb__link--fechasFacturacion nav__tab__sb__link--active">Anteriores</a>
+                </li>
+                <li class="nav__tab__sb">
+                    <a href="#Proximas" title="Próximas" class="text-bold nav__tab__sb__link nav__tab__sb__link--fechasFacturacion">Próximas</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- FIN - TABS NAVEGACIÓN -->
+        <!-- TABS CONTENIDO -->
+        <section class="tabs__content__sb__wrapper tabs__content__sb__wrapper--fechasFacturacion">
+            <div id="Anteriores" class="tab__content__sb">
+                <ul class="card__sb__container card__sb__container--fechasFacturacion">
+                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
+                        <div class="d-inline-block text-center num__campania">
+                            <span class="d-block">Anteriormente</span>
+                            <span class="d-block text-bold">C-05</span>
+                        </div>
+                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Facturación:
+                                </span>
+                                <span class="d-block">
+                                    Lunes 05 Mayo - Jueves 09 Mayo
+                                </span>
+                            </div>
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Fecha de pago pedido <span>C07</span>:
+                                </span>
+                                <span class="d-block">
+                                    Miércoles 14 Junio
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
+                        <div class="d-inline-block text-center num__campania">
+                            <span class="d-block">Anteriormente</span>
+                            <span class="d-block text-bold">C-06</span>
+                        </div>
+                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Facturación:
+                                </span>
+                                <span class="d-block">
+                                    Lunes 05 Mayo - Jueves 09 Mayo
+                                </span>
+                            </div>
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Fecha de pago pedido <span>C07</span>:
+                                </span>
+                                <span class="d-block">
+                                    Miércoles 14 Junio
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
+                        <div class="d-inline-block text-center num__campania">
+                            <span class="d-block">Anteriormente</span>
+                            <span class="d-block text-bold">C-07</span>
+                        </div>
+                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Facturación:
+                                </span>
+                                <span class="d-block">
+                                    Lunes 05 Mayo - Jueves 09 Mayo
+                                </span>
+                            </div>
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Fecha de pago pedido <span>C07</span>:
+                                </span>
+                                <span class="d-block">
+                                    Miércoles 14 Junio
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="Proximas" class="tab__content__sb" style="display:none;">
+                <ul class="card__sb__container card__sb__container--fechasFacturacion">
+                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
+                        <div class="d-inline-block text-center num__campania">
+                            <span class="d-block">Próximamente</span>
+                            <span class="d-block text-bold">C-08</span>
+                        </div>
+                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Facturación:
+                                </span>
+                                <span class="d-block">
+                                    Lunes 05 Mayo - Jueves 09 Mayo
+                                </span>
+                            </div>
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Fecha de pago pedido <span>C07</span>:
+                                </span>
+                                <span class="d-block">
+                                    Miércoles 14 Junio
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
+                        <div class="d-inline-block text-center num__campania">
+                            <span class="d-block">Próximamente</span>
+                            <span class="d-block text-bold">C-09</span>
+                        </div>
+                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Facturación:
+                                </span>
+                                <span class="d-block">
+                                    Lunes 05 Mayo - Jueves 09 Mayo
+                                </span>
+                            </div>
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Fecha de pago pedido <span>C07</span>:
+                                </span>
+                                <span class="d-block">
+                                    Miércoles 14 Junio
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
+                        <div class="d-inline-block text-center num__campania">
+                            <span class="d-block">Próximamente</span>
+                            <span class="d-block text-bold">C-10</span>
+                        </div>
+                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Facturación:
+                                </span>
+                                <span class="d-block">
+                                    Lunes 05 Mayo - Jueves 09 Mayo
+                                </span>
+                            </div>
+                            <div class="d-block flex-grow-1">
+                                <span class="d-block text-bold">
+                                    Fecha de pago pedido <span>C07</span>:
+                                </span>
+                                <span class="d-block">
+                                    Miércoles 14 Junio
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <!-- FIN - TABS CONTENIDO -->
+
+    </section>
+</main>
+
+<!-- FIN - CONTENIDO VISTA -->
+
+@section scripts{
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FechasFacturacion/Index.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            CargarFechasFacturacion();
+        });
+
+
+        function CargarFechasFacturacion() {
+            
+            $.ajax({
+                url: baseUrl + 'FechasFacturacion/GetFechasFacturacion',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    debugger;
+                    GenerarFechas(data);
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        CerrarLoad();
+                        deferredObject.reject();
+                    }
+                }
+            });
+        }
+
+
+        function GenerarFechas(data) {
+
+        }
+    </script>
+}

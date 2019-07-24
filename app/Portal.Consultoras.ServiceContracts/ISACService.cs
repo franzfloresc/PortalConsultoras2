@@ -865,5 +865,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEEncuestaReporte> GetReporteEncuestaSatisfaccion(BEEncuestaReporte bEncuesta);
         #endregion
+        
+        [OperationContract]
+        BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima);
     }
 }

@@ -8972,6 +8972,195 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEFechaFacturacion", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEFechaFacturacion : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CampaniaPartidaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FacturacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaLimitePagoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FinFacturacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string InicioFacturacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion[] ListFechaFacturacionActualField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion[] ListFechaFacturacionAnteriorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion[] ListFechaFacturacionProximaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaId {
+            get {
+                return this.CampaniaIdField;
+            }
+            set {
+                if ((this.CampaniaIdField.Equals(value) != true)) {
+                    this.CampaniaIdField = value;
+                    this.RaisePropertyChanged("CampaniaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CampaniaPartida {
+            get {
+                return this.CampaniaPartidaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CampaniaPartidaField, value) != true)) {
+                    this.CampaniaPartidaField = value;
+                    this.RaisePropertyChanged("CampaniaPartida");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Facturacion {
+            get {
+                return this.FacturacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FacturacionField, value) != true)) {
+                    this.FacturacionField = value;
+                    this.RaisePropertyChanged("Facturacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaLimitePago {
+            get {
+                return this.FechaLimitePagoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaLimitePagoField, value) != true)) {
+                    this.FechaLimitePagoField = value;
+                    this.RaisePropertyChanged("FechaLimitePago");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FinFacturacion {
+            get {
+                return this.FinFacturacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FinFacturacionField, value) != true)) {
+                    this.FinFacturacionField = value;
+                    this.RaisePropertyChanged("FinFacturacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string InicioFacturacion {
+            get {
+                return this.InicioFacturacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.InicioFacturacionField, value) != true)) {
+                    this.InicioFacturacionField = value;
+                    this.RaisePropertyChanged("InicioFacturacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion[] ListFechaFacturacionActual {
+            get {
+                return this.ListFechaFacturacionActualField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ListFechaFacturacionActualField, value) != true)) {
+                    this.ListFechaFacturacionActualField = value;
+                    this.RaisePropertyChanged("ListFechaFacturacionActual");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion[] ListFechaFacturacionAnterior {
+            get {
+                return this.ListFechaFacturacionAnteriorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ListFechaFacturacionAnteriorField, value) != true)) {
+                    this.ListFechaFacturacionAnteriorField = value;
+                    this.RaisePropertyChanged("ListFechaFacturacionAnterior");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion[] ListFechaFacturacionProxima {
+            get {
+                return this.ListFechaFacturacionProximaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ListFechaFacturacionProximaField, value) != true)) {
+                    this.ListFechaFacturacionProximaField = value;
+                    this.RaisePropertyChanged("ListFechaFacturacionProxima");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEEncuestaReporte", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Encuesta")]
     [System.SerializableAttribute()]
     public partial class BEEncuestaReporte : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -17980,8 +18169,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccion", ReplyAction="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccionResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte[] GetReporteEncuestaSatisfaccion(Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte bEncuesta);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechasFacturacionConsultora", ReplyAction="http://tempuri.org/ISACService/GetFechasFacturacionConsultoraResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccion", ReplyAction="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccionResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte[]> GetReporteEncuestaSatisfaccionAsync(Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte bEncuesta);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechasFacturacionConsultora", ReplyAction="http://tempuri.org/ISACService/GetFechasFacturacionConsultoraResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion> GetFechasFacturacionConsultoraAsync(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectBelcorpNoticias", ReplyAction="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[] SelectBelcorpNoticias(int paisID, int campaniaID);
@@ -19569,6 +19764,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte[]> GetReporteEncuestaSatisfaccionAsync(Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte bEncuesta) {
             return base.Channel.GetReporteEncuestaSatisfaccionAsync(bEncuesta);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima) {
+            return base.Channel.GetFechasFacturacionConsultora(paisID, consultora, campaniaActual, cantidadAnterior, cantidadProxima);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion> GetFechasFacturacionConsultoraAsync(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima) {
+            return base.Channel.GetFechasFacturacionConsultoraAsync(paisID, consultora, campaniaActual, cantidadAnterior, cantidadProxima);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[] SelectBelcorpNoticias(int paisID, int campaniaID) {

@@ -85,6 +85,16 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt64(Context.ExecuteScalar(command));
         }
 
+        public IDataReader GetFechasFacturacionConsultora(string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFechasFacturacionConsultora");
+            Context.Database.AddInParameter(command, "@Consultora", DbType.String, consultora);
+            Context.Database.AddInParameter(command, "@CampaniaActual", DbType.Int64, campaniaActual);
+            Context.Database.AddInParameter(command, "@CantidadAnterior", DbType.Int64, cantidadAnterior);
+            Context.Database.AddInParameter(command, "@Cantidadproxima", DbType.Int64, cantidadProxima);
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetConsultoraDatoSAC(string paisID, string codigoConsultora, string documento)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraDatoSAC");
