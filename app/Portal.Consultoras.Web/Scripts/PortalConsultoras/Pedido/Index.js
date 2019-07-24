@@ -260,27 +260,6 @@ $(document).ready(function () {
             return false;
         }
     });
-    //$("#btnValidarPROL").on("click", function (e) {
-    //    var cantidadPendiente = cantPedidosPendientes == "" && typeof cantPedidosPendientes != "undefined" ? 0 : parseInt(cantPedidosPendientes);
-    //    if (cantidadPendiente > 0) {
-    //        $("#PopupPedidosPendientes").fadeIn(250);
-    //        return false;
-    //    }
-
-    //    if (gTipoUsuario == 2) { //Postulante
-    //        var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
-    //        $("#dialog_MensajePostulante #tituloContenido").text("IMPORTANTE");
-    //        $("#dialog_MensajePostulante #mensajePostulante").text(mesg);
-    //        $("#dialog_MensajePostulante").show();
-
-    //        if (indicadorGPRSB == 1) ConfirmarModificar();
-    //    }
-    //    else EjecutarPROL();
-
-    //    e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
-    //});
-
-
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var rowElement = $(this).closest(".contenido_ingresoPedido");
         var cant = $(rowElement).find(".txtLPCant").val();
@@ -539,7 +518,7 @@ $(document).ready(function () {
 });
 
 function PreValidarProl() {
-    var cantidadPendiente = cantPedidosPendientes == "" && typeof cantPedidosPendientes != "undefined" ? 0 : parseInt(cantPedidosPendientes);
+    var cantidadPendiente = typeof cantPedidosPendientes == "undefined" || cantPedidosPendientes == "" ? 0 : parseInt(cantPedidosPendientes);
     if (cantidadPendiente > 0) {
         $("#accionVerDespues").hide();
         $("#accionIgnorar").html(!esDiaProl ? "Quiero verlo despu&eacute;s,<br /> Guardar de todos modos" : "Prefiero ignorarlo");

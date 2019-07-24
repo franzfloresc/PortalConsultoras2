@@ -832,7 +832,7 @@ function SeparadorMiles(pnumero) {
 }
 
 function PreValidarProl() {
-    var cantidadPendiente = cantPedidosPendientes == "" && typeof cantPedidosPendientes != "undefined" ? 0 : parseInt(cantPedidosPendientes);
+    var cantidadPendiente = typeof cantPedidosPendientes == "undefined" || cantPedidosPendientes == "" ? 0 : parseInt(cantPedidosPendientes);
     if (cantidadPendiente > 0) {
         $("#accionVerDespues").hide();
         $("#accionIgnorar").html(!esDiaProl ? "Quiero verlo despu&eacute;s,<br /> Guardar de todos modos": "Prefiero ignorarlo");
