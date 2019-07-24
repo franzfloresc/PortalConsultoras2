@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System;
@@ -98,6 +99,12 @@ namespace Portal.Consultoras.BizLogic
                 lista = new List<BEContenidoAppDetaAct>();
             }
             return lista;
+        }
+
+        public int ContenidoAppDetaVideo(int paisID, BEContenidoAppDeta p)
+        {
+            var da = new DAContenidoApp(paisID);
+            return da.ContenidoAppDetaVideo(p);
         }
     }
 }

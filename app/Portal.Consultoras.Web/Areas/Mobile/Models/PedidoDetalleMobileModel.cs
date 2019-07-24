@@ -1,11 +1,17 @@
 ﻿using Portal.Consultoras.Web.ServicePedido;
 using System.Collections.Generic;
 using System.Linq;
+using Portal.Consultoras.Common;
+using System;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
     public class PedidoDetalleMobileModel
     {
+        public PedidoDetalleMobileModel()
+        {
+            CantPedidosPendientes = 0;
+        }
         public List<PedidoDetalleMobileDetalleModel> Detalle { get; set; }
         public decimal Total { get; set; }
 
@@ -152,5 +158,68 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool MostrarPopupPrecargados { get; set; }
 
         public string MensajeKitNuevas { get; set; }
+
+        public bool EsDiaProl { get; set; }
+
+        public int CantPedidosPendientes { get; set; }
+        public decimal? GananciaRevista { get; set; }
+        public decimal? GananciaWeb { get; set; }
+        public decimal? GananciaOtros { get; set; }
+
+        /*HD-4315*/
+        public string STPDescuento { get; set; }
+        public string STPFlete { get; set; }
+        public string STPDeuda { get; set; }
+        public string STPPagoTotal { get; set; }
+
+        public string FormatoMontoAhorroCatalogo
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(MontoAhorroCatalogo, CodigoISO);
+            }
+        }
+        public string FormatoGananciaRevista
+        {
+            get
+            {
+                if (GananciaRevista != null)
+                    return Util.DecimalToStringFormat(GananciaRevista.Value, CodigoISO);
+                else
+                    return Util.DecimalToStringFormat(Decimal.Zero, CodigoISO);
+            }
+        }
+        public string FormatoGananciaWeb
+        {
+            get
+            {
+                if (GananciaWeb != null)
+                    return Util.DecimalToStringFormat(GananciaWeb.Value, CodigoISO);
+                else
+                    return Util.DecimalToStringFormat(Decimal.Zero, CodigoISO);
+            }
+        }
+        public string FormatoGananciaOtros
+        {
+            get
+            {
+                if (GananciaOtros != null)
+                    return Util.DecimalToStringFormat(GananciaOtros.Value, CodigoISO);
+                else
+                    return Util.DecimalToStringFormat(Decimal.Zero, CodigoISO);
+            }
+        }
+        public string FormatoTotalMontoGanancia
+        {
+            get
+            {
+                if (GananciaOtros != null && GananciaWeb != null && GananciaRevista != null)
+                    return Util.DecimalToStringFormat((GananciaOtros.Value + GananciaWeb.Value + GananciaRevista.Value + MontoAhorroCatalogo), CodigoISO);
+                else
+                    return Util.DecimalToStringFormat(Decimal.Zero, CodigoISO);
+            }
+        }
+
+
     }
 }
