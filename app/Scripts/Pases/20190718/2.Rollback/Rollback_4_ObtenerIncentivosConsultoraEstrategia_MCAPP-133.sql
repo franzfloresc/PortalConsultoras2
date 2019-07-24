@@ -24,7 +24,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -76,7 +75,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -94,7 +92,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -118,7 +115,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -140,7 +136,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -153,7 +148,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -226,7 +221,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -265,6 +259,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpMexico
@@ -293,7 +288,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -345,7 +339,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -363,7 +356,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -387,7 +379,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -409,7 +400,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -422,7 +412,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -495,7 +485,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -534,6 +523,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpColombia
@@ -562,7 +552,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -614,7 +603,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -632,7 +620,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -656,7 +643,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -678,7 +664,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -691,7 +676,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -764,7 +749,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -803,6 +787,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpSalvador
@@ -831,7 +816,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -883,7 +867,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -901,7 +884,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -925,7 +907,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -947,7 +928,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -960,7 +940,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -1033,7 +1013,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -1072,6 +1051,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpPuertoRico
@@ -1100,7 +1080,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -1152,7 +1131,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -1170,7 +1148,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -1194,7 +1171,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -1216,7 +1192,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -1229,7 +1204,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -1302,7 +1277,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -1341,6 +1315,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpPanama
@@ -1369,7 +1344,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -1421,7 +1395,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -1439,7 +1412,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -1463,7 +1435,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -1485,7 +1456,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -1498,7 +1468,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -1571,7 +1541,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -1610,6 +1579,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpGuatemala
@@ -1638,7 +1608,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -1690,7 +1659,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -1708,7 +1676,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -1732,7 +1699,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -1754,7 +1720,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -1767,7 +1732,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -1840,7 +1805,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -1879,6 +1843,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpEcuador
@@ -1907,7 +1872,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -1959,7 +1923,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -1977,7 +1940,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -2001,7 +1963,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -2023,7 +1984,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -2036,7 +1996,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -2109,7 +2069,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -2148,6 +2107,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpDominicana
@@ -2176,7 +2136,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -2228,7 +2187,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -2246,7 +2204,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -2270,7 +2227,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -2292,7 +2248,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -2305,7 +2260,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -2378,7 +2333,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -2417,6 +2371,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpCostaRica
@@ -2445,7 +2400,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -2497,7 +2451,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -2515,7 +2468,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -2539,7 +2491,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -2561,7 +2512,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -2574,7 +2524,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -2647,7 +2597,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -2686,6 +2635,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpChile
@@ -2714,7 +2664,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -2766,7 +2715,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -2784,7 +2732,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -2808,7 +2755,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -2830,7 +2776,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -2843,7 +2788,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -2916,7 +2861,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -2955,6 +2899,7 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
 
 USE BelcorpBolivia
@@ -2983,7 +2928,6 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -3035,7 +2979,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -3053,7 +2996,6 @@ BEGIN
 		NULL,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NivelAlcanzado,0),
-		INC.NivelSiguiente,
 		NULL,
 		ISNULL(INC.PuntajeExigido,0),
 		ISNULL(INC.PuntosFaltantesSiguienteNivel,0)
@@ -3077,7 +3019,6 @@ BEGIN
 		FechaVentaRetail,
 		IndicadorPremioAcumulativo,
 		NivelAlcanzado,
-		NivelSiguiente,
 		CampaniaIDPremiacion,
 		PuntajeExigido,
 		PuntosFaltantesSiguienteNivel
@@ -3099,7 +3040,6 @@ BEGIN
 			ELSE INC.FEC_VIGE_RETA END,
 		PAR.IND_PREM_ACUM,
 		ISNULL(INC.NIV_ALCA,0),
-		INC.NIV_SIGU,
 		PAR.DES_INIC,
 		0,
 		ISNULL(INC.PUN_FALT_NIVS,0)
@@ -3112,7 +3052,7 @@ BEGIN
 	WHERE INC.COD_CLIE = @CodigoConsultora
 	AND INC.DES_ESTA = 'EN COMPETENCIA'
 	AND CAST(PAR.DES_INIC AS INT) >= @CodigoCampania
-	AND INC.PUN_TOTA > 0 AND INC.TIP_CONC<>'T'
+	AND INC.PUN_TOTA > 0
 	AND NOT EXISTS(SELECT 1 FROM @TblConcurso TMP WHERE TMP.CodigoConcurso = INC.COD_CONC)
 
 	INSERT INTO @TblNiveles
@@ -3185,7 +3125,6 @@ BEGIN
 		CON.PuntosAcumulados,
 		CON.IndicadorPremioAcumulativo,
 		CON.NivelAlcanzado,
-		CON.NivelSiguiente,
 		CON.CampaniaIDPremiacion,
 		CON.PuntajeExigido
 	FROM @TblConcurso CON
@@ -3224,4 +3163,6 @@ BEGIN
 
 	SET NOCOUNT OFF
 END
+
 GO
+

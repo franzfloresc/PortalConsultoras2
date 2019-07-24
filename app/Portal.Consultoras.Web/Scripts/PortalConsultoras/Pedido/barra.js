@@ -99,7 +99,6 @@ function MostrarBarra(datax, destino) {
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
-    //HD-4066
     var TippingPointBarraActive = false;
     if (dataBarra.hasOwnProperty("TippingPointBarra"))
         TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
@@ -127,7 +126,7 @@ function MostrarBarra(datax, destino) {
             indDesde = ind;
         }
     });
-    //Fin
+
     var textoPunto = '<div style="font-size:12px; font-weight:400; margin-bottom:4px;">{titulo}</div><div style="font-size: 12px;">{detalle}</div>';
     if (mx > 0 && destino == '2') {
         listaLimite.push({
@@ -405,7 +404,6 @@ function MostrarBarra(datax, destino) {
                 else {
                     if (caminoBrillante == "True") {
                         txtDscto = "";
-                        (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
                     } else {
                         txtDscto = "DSCTO";
                         txtDetalle = indPuntoLimite - 1 != ind ? "" :
@@ -645,7 +643,7 @@ function MostrarBarra(datax, destino) {
                     document.getElementById('punto_1').className = 'EscalaDescuento';
                 }
             }
-        } else if (montoPedidoIngresado > 0) {
+        } else if (destino == "2") {
             for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
                 if (x == 0) {
                     if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
@@ -865,7 +863,6 @@ function initCarruselPremios(barra) {
 
 function cerrarProgramaNuevas(valor) {
     var valorCerrar = "icono_cerrar_popup_eleccion_regalo_programaNuevas";
-    /*HD-3710 - 6_7 (Pop up Felicidades -  Click Botón) -  (Pop up Regalos - Click Botón) */
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Carrito de Compras',
@@ -887,7 +884,7 @@ function cargarPopupEleccionRegalo(disableCheck) {
     }
 
     showTextsPremio();
-    /*HD-3710 - 1_Click en regalo Web*/
+
     var disableValue = typeof disableCheck === 'string' && disableCheck.length > 0;
     if (disableValue) {
         dataLayer.push({
@@ -920,9 +917,6 @@ function isTippingPointSuperado() {
 function checkPremioSelected(validateInCarrusel) {
     var details = tpElectivos.pedidoDetails;
     if (!details || details.length === 0) {
-        //if (!tpElectivos.premioSelected) {
-        //    setPremio(null);
-        //}
 
         return;
     }
@@ -1350,8 +1344,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
 
         return;
     }
-
-    //HD-4066
+    
     if (!TieneMontoMaximo()) {
         showPopupEscalaSiguiente(barra, prevLogro);
     }
@@ -1360,7 +1353,6 @@ function showPopupNivelSuperado(barra, prevLogro) {
             showPopupEscalaSiguiente(barra, prevLogro);
         }
     }
-    //Fin
 }
 
 function showPopupPremio() {
@@ -1482,20 +1474,10 @@ function CalculoLlenadoBarra() {
                     AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
             }
             else {
-                if (ConfiguradoRegalo == true) {
-
-                    if (montoActual < montoMinimo) {
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
-                    } else
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
-                }
-                else {
-                    if (montoActual < montoMinimo) {
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
-                    } else
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
-
-                }
+                if (montoActual < montoMinimo) {
+                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
+                } else
+                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
             }
 
         }
