@@ -4136,6 +4136,9 @@
     <Content Include="Content\layer-flx-co\img\boton_inscribete_03.png" />
     <Content Include="Content\layer-flx-co\img\fondo_banner_CO_flexipago.jpg" />
     <Content Include="Content\Ofertas\FolderContent.txt" />
+    <Content Include="Content\Template\mailing_detalle_codigo_operacion_trueque_multiple.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Template\mailing_pago_en_linea.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -6322,10 +6325,6 @@
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
       <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
       <Name>Portal.Consultoras.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Portal.Consultoras.Service\Portal.Consultoras.Service.csproj">
-      <Project>{b3ad057a-2326-4f70-8723-0b2b3afce4ea}</Project>
-      <Name>Portal.Consultoras.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

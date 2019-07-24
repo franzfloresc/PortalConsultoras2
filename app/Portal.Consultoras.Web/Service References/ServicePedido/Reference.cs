@@ -20890,6 +20890,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TituloMensajeField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int flagCantidadMayorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string mensajeCantidadMayorField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -21143,6 +21149,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.TituloMensajeField, value) != true)) {
                     this.TituloMensajeField = value;
                     this.RaisePropertyChanged("TituloMensaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int flagCantidadMayor {
+            get {
+                return this.flagCantidadMayorField;
+            }
+            set {
+                if ((this.flagCantidadMayorField.Equals(value) != true)) {
+                    this.flagCantidadMayorField = value;
+                    this.RaisePropertyChanged("flagCantidadMayor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string mensajeCantidadMayor {
+            get {
+                return this.mensajeCantidadMayorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.mensajeCantidadMayorField, value) != true)) {
+                    this.mensajeCantidadMayorField = value;
+                    this.RaisePropertyChanged("mensajeCantidadMayor");
                 }
             }
         }
