@@ -15,6 +15,7 @@ namespace Portal.Consultoras.Web.Models.Encuesta
         public string Descripcion { get; set; }
         public string EstiloCalificacion { get; set; }
         public string ImagenCalificacion { get; set; }
+        public string PreguntaDescripcion { get; set; }
         public int TipoCalificacion { get; set; }
         public string CreatedBy { get; set; }
         public string CreateHost { get; set; }
