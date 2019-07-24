@@ -99,7 +99,7 @@ function MostrarBarra(datax, destino) {
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
-
+    //HD-4066
     var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn;
     if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
     listaEscalaDescuento = listaEscalaDescuento || new Array();
@@ -122,7 +122,7 @@ function MostrarBarra(datax, destino) {
             indDesde = ind;
         }
     });
-
+    //Fin
     var textoPunto = '<div style="font-size:12px; font-weight:400; margin-bottom:4px;">{titulo}</div><div style="font-size: 12px;">{detalle}</div>';
     if (mx > 0 && destino == '2') {
         listaLimite.push({
@@ -867,6 +867,7 @@ function initCarruselPremios(barra) {
 
 function cerrarProgramaNuevas(valor) {
     var valorCerrar = "icono_cerrar_popup_eleccion_regalo_programaNuevas";
+    /*HD-3710 - 6_7 (Pop up Felicidades -  Click Botón) -  (Pop up Regalos - Click Botón) */
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Carrito de Compras',
@@ -888,7 +889,7 @@ function cargarPopupEleccionRegalo(disableCheck) {
     }
 
     showTextsPremio();
-
+    /*HD-3710 - 1_Click en regalo Web*/
     var disableValue = typeof disableCheck === 'string' && disableCheck.length > 0;
     if (disableValue) {
         dataLayer.push({
@@ -921,6 +922,9 @@ function isTippingPointSuperado() {
 function checkPremioSelected(validateInCarrusel) {
     var details = tpElectivos.pedidoDetails;
     if (!details || details.length === 0) {
+        //if (!tpElectivos.premioSelected) {
+        //    setPremio(null);
+        //}
 
         return;
     }
@@ -1348,7 +1352,8 @@ function showPopupNivelSuperado(barra, prevLogro) {
 
         return;
     }
-    
+
+    //HD-4066
     if (!TieneMontoMaximo()) {
         showPopupEscalaSiguiente(barra, prevLogro);
     }
@@ -1357,6 +1362,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
             showPopupEscalaSiguiente(barra, prevLogro);
         }
     }
+    //Fin
 }
 
 function showPopupPremio() {
@@ -2390,10 +2396,10 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                         } else {
                             if (limite >= 6 && montoMaximo1 == 195000) {
-                                document.getElementById('divBarraEspacioLimite').style.width = '16%';
-                                document.getElementById('barra_0').style.left = '16%';
-                                document.getElementById('punto_0').style.left = '2%';
-                                document.getElementById('punto_1').style.left = '15%';
+                               // document.getElementById('divBarraEspacioLimite').style.width = '16%';
+                                document.getElementById('barra_0').style.left = '20%';
+                                document.getElementById('punto_0').style.left = '9%';
+                                document.getElementById('punto_1').style.left = '20%';
                                 document.getElementById('punto_2').style.left = '21.8%';
                                 document.getElementById('punto_0').getElementsByTagName('div')[2].style.marginLeft = '45%';
                                 document.getElementById('punto_0').getElementsByTagName('div')[3].style.marginLeft = '15%';
@@ -2483,14 +2489,22 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
         if (IsoPais == 'CO') {
 
+
+            var adjuste = 1;
+            if (mMinimo <= dataBarra.ListaEscalaDescuento[1].MontoDesde && mMinimo != 0) {
+                adjuste = 0;
+            }
+
             //aparicion de bandera
             if (dataBarra.ListaEscalaDescuento.length > 1) {
-                if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[1].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1) {
+                if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[adjuste].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1) {
                     document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
                 }
                 else
                     document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
             }
+
+
 
         }
         else {
@@ -2569,6 +2583,7 @@ function FixPorcentajes(barra) {
 
 function AgregarPremio(premio) {
 
+    /*HD-3710 - 2_3_Popup elige tu regalo - Click en botón cambiar -  Web - Mobile*/
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Carrito de Compras',
@@ -2584,7 +2599,7 @@ function AgregarPremio(premio) {
         TipoEstrategiaID: premio.TipoEstrategiaID,
         MarcaID: premio.MarcaID,
         FlagNueva: $.trim(premio.FlagNueva),
-        OrigenPedidoWeb: parseInt(PedidoEscogeRegaloCarrusel)
+        OrigenPedidoWeb: parseInt(PedidoEscogeRegaloCarrusel) /*HD-3710*/
     };
 
     return InsertarPremio(params);
@@ -2620,6 +2635,7 @@ function InsertarPremio(model) {
 
 function ClosePopupRegaloElectivo(valor) {
     var valorCerrar = "icono_cerrar_popup_eleccion_regalo_programaNuevas";
+    /*HD-3710 - 4_5_ Cerrar pop up elige tu regalo - Pop up regalos - Click Botón -- Web, Mobile */
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Carrito de Compras',
