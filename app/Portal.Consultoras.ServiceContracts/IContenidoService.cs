@@ -339,5 +339,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEDataConfigEncuesta> GetEncuestaHome(int paisId, string codigoConsultora, int verificarEncuestado);
+
+        [OperationContract]
+        int InsEncuesta(BEEncuestaCalificacion entity, int paisId);
+
     }
 }

@@ -616,5 +616,10 @@ namespace Portal.Consultoras.Service
         {
             return _BLEncuesta.ObtenerDataEncuesta(paisId, codigoConsultora, verificarEncuestado);
         }
+
+        public int InsEncuesta(BEEncuestaCalificacion entity, int paisId)
+        {
+            return _BLEncuesta.InsEncuesta(entity, paisId);
+        }
     }
 }
