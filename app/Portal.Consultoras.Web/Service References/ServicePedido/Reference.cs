@@ -71,6 +71,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DireccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstadoEncuestaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short EstadoPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -413,6 +416,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DireccionField, value) != true)) {
                     this.DireccionField = value;
                     this.RaisePropertyChanged("Direccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstadoEncuesta {
+            get {
+                return this.EstadoEncuestaField;
+            }
+            set {
+                if ((this.EstadoEncuestaField.Equals(value) != true)) {
+                    this.EstadoEncuestaField = value;
+                    this.RaisePropertyChanged("EstadoEncuesta");
                 }
             }
         }

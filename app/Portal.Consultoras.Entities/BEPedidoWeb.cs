@@ -140,6 +140,10 @@ namespace Portal.Consultoras.Entities
         /*HD-4513*/
         [DataMember]
         public bool STPPagoContado { get; set; }
+        
+        [DataMember]
+        public int EstadoEncuesta { get; set; }// HD-4357
+
 
         [DataMember]
         public double STPTotalPagar { get; set; }

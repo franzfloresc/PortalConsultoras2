@@ -19429,7 +19429,7 @@ body {
 }
 
 .fecha_pedido {
-    width: 12.5%;
+    width: 9.5%;
     padding-left: 0;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -19443,7 +19443,7 @@ body {
     width: 12.5%;
     padding-top: 30px;
     padding-bottom: 30px;
-    text-align: right;
+    text-align: center;
     display: inline-block;
     vertical-align: middle;
 }
@@ -19458,7 +19458,7 @@ body {
 }
 
 .cantidad_prod {
-    width: 12.5%;
+    width: 9.5%;
     padding-top: 30px;
     padding-bottom: 30px;
     text-align: center;
@@ -19658,6 +19658,39 @@ body {
     margin-top: -18px !important;
     opacity: .4;
 }
+
+.estado_encuesta_satisfaccion {
+    display: inline-block;
+    vertical-align: middle;
+    width: 8%;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+    .estado_encuesta_satisfaccion_enlace{
+        width:24px;
+        height:auto;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
+    }
+
+        .estado_encuesta_satisfaccion_enlace:hover{
+            margin-top:-18px;
+            opacity:.4;
+        }
+
+        .encuesta_satisfaccion_enlace--realizado{
+            pointer-events:none;
+        }
+
+        .estado_encuesta_satisfaccion_enlace img{
+            width:100%;
+            height:auto;
+            position:relative;
+            top:2px;
+        }
 
 @media screen and (max-width:1280px) {
     .content_belcorp.content_belcorp_misPedidos {

@@ -639,5 +639,11 @@ namespace Portal.Consultoras.Common
             public const short Id = 232;
         }
 
+        //HD-4357
+        public static class EncuestaSatisfaccion
+        {
+            public const short TablaLogicaId = 235;
+            public const short MisPedidosTop = 23501;
+        }
     }
 }

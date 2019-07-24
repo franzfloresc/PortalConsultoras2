@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Encuesta" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Encuesta" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfBEDataConfigEncuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEDataConfigEncuesta" nillable="true" type="tns:BEDataConfigEncuesta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEDataConfigEncuesta" nillable="true" type="tns:ArrayOfBEDataConfigEncuesta" />
+  <xs:complexType name="BEDataConfigEncuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Calificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CalificacionId" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EncuestaId" type="xs:int" />
+      <xs:element minOccurs="0" name="EstiloCalificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenCalificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Motivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MotivoId" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreEncuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoCalificacion" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoMotivo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEDataConfigEncuesta" nillable="true" type="tns:BEDataConfigEncuesta" />
+  <xs:complexType name="BEEncuestaCalificacion">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BEEntityBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CanalId" type="xs:int" />
+          <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EncuestaCalificacionId" type="xs:int" />
+          <xs:element minOccurs="0" name="EncuestaId" type="xs:int" />
+          <xs:element minOccurs="0" name="TipoCalificacion" type="xs:int" />
+          <xs:element minOccurs="0" name="XMLMotivo" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BEEncuestaCalificacion" nillable="true" type="tns:BEEncuestaCalificacion" />
+  <xs:complexType name="BEEntityBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreateHost" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreateOn" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CreatedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModifiedHost" type="xs:int" />
+      <xs:element minOccurs="0" name="ModifiedOn" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Status" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEEntityBase" nillable="true" type="tns:BEEntityBase" />
+</xs:schema>
