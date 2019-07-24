@@ -48,6 +48,7 @@
       <xs:element minOccurs="0" name="CodigoReclamo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DetalleReemplazo" nillable="true" type="tns:ArrayOfBECDRProductoComplementario" />
       <xs:element minOccurs="0" name="Eliminado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
@@ -61,9 +62,30 @@
       <xs:element minOccurs="0" name="Solicitud" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SolucionSolicitada" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoMotivoRechazo" type="xs:int" />
+      <xs:element minOccurs="0" name="XMLReemplazo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BECDRWebDetalle" nillable="true" type="tns:BECDRWebDetalle" />
+  <xs:complexType name="ArrayOfBECDRProductoComplementario">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRProductoComplementario" nillable="true" type="tns:BECDRProductoComplementario" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBECDRProductoComplementario" nillable="true" type="tns:ArrayOfBECDRProductoComplementario" />
+  <xs:complexType name="BECDRProductoComplementario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoMotivoRechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioFormato" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BECDRProductoComplementario" nillable="true" type="tns:BECDRProductoComplementario" />
   <xs:complexType name="ArrayOfBECDRWeb">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRWeb" nillable="true" type="tns:BECDRWeb" />

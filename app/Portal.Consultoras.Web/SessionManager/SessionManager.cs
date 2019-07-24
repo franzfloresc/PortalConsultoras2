@@ -154,6 +154,20 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session[Constantes.ConstSession.CDRFlagIsSetsOrPacks] = flag;
         }
 
+        public bool? GetTruequeUnoPorMuchos()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.CDRFlagTruequeUnoMuchos];
+            if (val == null) return null;
+            return (bool)val;
+        }
+
+        public void SetTruequeUnoPorMuchos(bool? flag)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRFlagTruequeUnoMuchos] = flag;
+        }
+
+        
+
         #endregion
 
         public IShowRoom ShowRoom

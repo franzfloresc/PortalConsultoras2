@@ -412,6 +412,7 @@ namespace Portal.Consultoras.Common
             public const string CDRWebDatos = "CDRWebDatos";
             public const string CDRExpressMensajes = "CDRExpressMensajes";
             public const string CDRFlagIsSetsOrPacks = "CDRSetsYPacks";
+            public const string CDRFlagTruequeUnoMuchos = "CDRFlagTruequeUnoMuchos";
 
             // Tabla LOgica
             public const string TablaLogicaDatos = "TablaLogicaDatos";
