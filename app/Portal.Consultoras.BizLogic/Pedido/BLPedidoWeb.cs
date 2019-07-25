@@ -2655,8 +2655,9 @@ namespace Portal.Consultoras.BizLogic
                     {
                         string fechaProceso = DateTime.Now.ToString("yyyyMMdd");
                         int tmpCronograma = Constantes.TipoProceso.Regular;
-                        string codigoPais = null;
+                        string codigoPais = null, codigopaisProduccion=string.Empty;
                         codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
+                        var codigoPaisProd = new BLZonificacion().SelectPais(paisID).CodigoISOProd;
 
                         codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
                         var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
@@ -2677,7 +2678,7 @@ namespace Portal.Consultoras.BizLogic
                         objBEDescargaArchivoSinMarcar.dtPedidosCabDD = dtPedidosCabDD;
                         objBEDescargaArchivoSinMarcar.dtPedidosDetDD = dtPedidosDetDD;
                         objBEDescargaArchivoSinMarcar.msnRespuesta = Constantes.MensajeProcesoDescargaregular.respuestaexito;
-                        objBEDescargaArchivoSinMarcar.codigoPais = codigoPais;
+                        objBEDescargaArchivoSinMarcar.codigoPais = codigoPaisProd;
                         objBEDescargaArchivoSinMarcar.fechaProceso = fechaProceso;
                         objBEDescargaArchivoSinMarcar.fechaFacturacion = fechaFacturacion;
                         objBEDescargaArchivoSinMarcar.lote = nroLote;
@@ -2973,8 +2974,7 @@ namespace Portal.Consultoras.BizLogic
 
             for (int index = 0; index < parts.Length; index++)
             {
-                var templateField = getTemplateSplit(parts[index]);// new BETemplateSinMarcar(parts[index]);
-                if (templateField.FieldName == "CAMPANIA") templateField.Size = 10;
+                var templateField = getTemplateSplit(parts[index]);
                 if (!descargaActDatosv2 && camposActDatosv2.Contains(templateField.FieldName)) continue;
                 listTemplate.Add(templateField);
             }

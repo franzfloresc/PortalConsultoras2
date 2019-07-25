@@ -10,7 +10,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO
@@ -27,7 +28,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO
@@ -44,7 +46,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO
@@ -61,7 +64,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO
@@ -78,7 +82,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 )
 
 GO
@@ -95,7 +100,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO
@@ -112,7 +118,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO
@@ -129,7 +136,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO
@@ -146,7 +154,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO
@@ -163,7 +172,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO
@@ -180,7 +190,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO
@@ -197,7 +208,8 @@ CREATE TABLE [dbo].[LogCargaPedidoDetalleSinMarcar](
 	[PedidoID] [int] NOT NULL,
 	[CUV] [varchar](20) NOT NULL,
 	[Cantidad] [int] NOT NULL,
-	[CodigoUsuarioProceso] [varchar](25) NULL
+	[CodigoUsuarioProceso] [varchar](25) NULL,
+	[OrigenPedidoWeb] [int] NOT NULL,
 ) 
 
 GO

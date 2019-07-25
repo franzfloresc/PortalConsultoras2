@@ -367,6 +367,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string item;
                 switch (field.FieldName)
                 {
+
                     case "PAIS": item = codigoPais; break;
                     case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
                     case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
