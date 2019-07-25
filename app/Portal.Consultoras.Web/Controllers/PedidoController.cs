@@ -294,11 +294,22 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
-                var cantidad = ObtenerCantidadPedidosPendientes();
-                if (cantidad > 0)
+                if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
-                    ViewBag.MostrarPedidosPendientes = "1";
-                    ViewBag.CantPedidosPendientes = cantidad;
+                    var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
+                    if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
+                    {
+                        using (var svc = new UsuarioServiceClient())
+                        {
+                            var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                            if (cantPedidosPendientes > 0)
+                            {
+                                ViewBag.MostrarPedidosPendientes = "1";
+                                ViewBag.CantPedidosPendientes = cantPedidosPendientes;
+
+                            }
+                        }
+                    }
                 }
 
                 #endregion

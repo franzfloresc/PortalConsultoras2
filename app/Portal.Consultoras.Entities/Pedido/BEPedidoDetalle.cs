@@ -76,7 +76,9 @@ namespace Portal.Consultoras.Entities.Pedido
         public string IngresoExternoOrigen { get; set; }
         [DataMember]
         public List<BEPedidoWebPromocion> PedidoWebPromociones { get; set; }
+        [DataMember]
         public bool IsPedidoPendiente { get; set; }
+        [DataMember]
         public bool Reservado { get; set; }
 
         

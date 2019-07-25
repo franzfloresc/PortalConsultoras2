@@ -75,7 +75,7 @@ namespace Portal.Consultoras.Web.Providers
             bool mobile,
             bool home,
             bool recomendaciones,
-            bool suscrita)
+            bool suscrita,
             bool flagLaMasGanadoras = false,
             bool flagPromocion = false,
             string CodigoTipoOfertaPremio = "")

@@ -3024,6 +3024,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             String cliente = pedido.Cliente.Split(' ').First();
             
+            StringBuilder mensajecliente = new StringBuilder();
 
             try
             {
