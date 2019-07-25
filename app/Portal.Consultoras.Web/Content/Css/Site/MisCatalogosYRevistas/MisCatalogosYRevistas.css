@@ -312,6 +312,10 @@ hr{
     max-width:900px;
 }
 
+    .catalogos__por__campania__item__descrip--mensajePrincipal{
+        padding-right:40px;
+    }
+
 .catalogos__por__campania__item__descrip div,
 .catalogos__por__campania__item__descrip span
 {
@@ -821,6 +825,14 @@ input[type='checkbox']:checked + span:after {
     }
 
 /* FIN - POPUP MENSAJES ALERTA */
+
+@media screen and (min-width:992px){
+
+    .layout__content--misCatalogosYRevistas {
+        padding-top:32px;
+    }
+
+}
 
 /*  MIS CATÁLOGOS Y REVISTAS MOBILE */
 

@@ -72,7 +72,7 @@ else
     </ul>
     <!-- FIN - TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
 
-    <section class="row flex-row justify-content-center ml-0 mr-0 mx-auto layout__content">
+    <section class="row flex-row justify-content-center ml-0 mr-0 mx-auto layout__content layout__content--misCatalogosYRevistas">
 
         <!-- CONTENIDO DE VISTA -->
         <section class="col-12 pl-0 pr-0 contenido__seccion__catalogo">
@@ -155,7 +155,7 @@ else
                     <input id="txtUrlActual" value="" class="txtUrlActual" />
                     @if (!String.IsNullOrEmpty(ViewBag.MensajePrincipal))
                     {
-                        <div class="col-9 pl-0 pr-0 mostrarEnDesktop">
+                        <div class="col-9 pl-0 mostrarEnDesktop catalogos__por__campania__item__descrip--mensajePrincipal">
                             @ViewBag.MensajePrincipal
                         </div>
                     }
