@@ -32,6 +32,17 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaFacturacion { get; set; }
 
+
+        [DataMember]
+        public int CampaniaId { get; set; }
+
+
+        [DataMember]
+        public int EstadoProcesoGeneral { get; set; }
+
+        [DataMember]
+        public string DescripcionEstadoProcesoGeneral { get; set; }
+
         [DataMember]
         public int NroLote { get; set; }
 
@@ -41,6 +52,7 @@ namespace Portal.Consultoras.Entities
         public DateTime FechaProceso { get; set; }
         [DataMember]
         public DateTime FechaEnvio { get; set; }
+
         public BEPedidoDescarga()
         {
         }
@@ -59,6 +71,9 @@ namespace Portal.Consultoras.Entities
             Desmarcado = row.ToBoolean("Desmarcado");
             FechaProceso = row.ToDateTime("FechaProceso");
             FechaEnvio = row.ToDateTime("FechaEnvio");
+            EstadoProcesoGeneral= row.ToInt32("EstadoProcesoGeneral");
+            DescripcionEstadoProcesoGeneral = row.ToString("DescripcionEstadoProcesoGeneral");
+            CampaniaId = row.ToInt32("CampaniaId");
         }
     }
 }

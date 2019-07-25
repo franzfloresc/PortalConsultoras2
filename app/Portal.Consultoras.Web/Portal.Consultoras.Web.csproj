@@ -28,7 +28,8 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
     <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -244,6 +245,7 @@
     <Compile Include="Controllers\CaminoBrillanteController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\ArmaTuPackController.cs" />
+    <Compile Include="Controllers\ReporteConsultoraPedidoSACController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\BundleExtention.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="Controllers\PremioNuevasController.cs" />
@@ -322,9 +324,10 @@
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\ChatActivation.cs" />
     <Compile Include="Models\CaminoBrillante\CarruselCaminoBrillante.cs" />
-    <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ConfirmarPosicionModelPrePostulante.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
+    <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
+    <Compile Include="Models\ReporteConsultoraPedidoSACModels.cs" />
     <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
     <Compile Include="Models\DistanciaLimiteZonaSeccionModel.cs" />
     <Compile Include="Models\LogDetalleParametroUneteModel.cs" />
@@ -5853,6 +5856,7 @@
     <Content Include="Views\AdministrarHistorias\Partials\MantenimientoVideoEliminar.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
+    <Content Include="Views\ReporteConsultoraPedidoSAC\Index.cshtml" />
     <Content Include="Views\Unete\DistanciaLimiteZonaSeccion.cshtml" />
     <Content Include="Views\Pedido\_PopupRecepcionPedido.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
@@ -6178,6 +6182,7 @@
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="CustomHelpers\GestionPasos\Asignaciones\" />
+    <Folder Include="Uploads\Files\" />
     <Folder Include="Views\App\" />
     <Folder Include="Views\BaseHerramientasVenta\" />
     <Folder Include="Views\BaseShowRoom\" />
