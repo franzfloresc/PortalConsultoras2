@@ -2535,7 +2535,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 /*HD-4635*/
-                GetValidaActualizaPedido(mobil);
+                GetValidaActualizaPedido();
                 var listaDetalle = GetPedidoWebDetalle(mobil);
 
                 if (mobil)
@@ -2618,7 +2618,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region HD-4635
-        private void GetValidaActualizaPedido(bool mobil)
+        private void GetValidaActualizaPedido()
         {
             SessionManager.SetPedidoWeb(null);
             SessionManager.SetDetallesPedido(null);
@@ -2640,7 +2640,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public void UpdateTransactionIndex(BEPedidoWebDetalle model)
         {
-            var txtBuildCliente = new StringBuilder();
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
             pedidoDetalle.Producto = new ServicePedido.BEProducto();
 
@@ -2653,8 +2652,8 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.PaisID = userData.PaisID;
             pedidoDetalle.EsCuponNuevas = model.EsCuponNuevas;
             pedidoDetalle.SetID = model.SetID;
-            pedidoDetalle.PedidoDetalleID = (short)model.PedidoDetalleID;
-            pedidoDetalle.ClienteID = (short)model.ClienteID;
+            pedidoDetalle.PedidoDetalleID = model.PedidoDetalleID;
+            pedidoDetalle.ClienteID = model.ClienteID;
             pedidoDetalle.PedidoID = model.PedidoID;
             pedidoDetalle.StockNuevo = model.Stock;
             pedidoDetalle.ClienteDescripcion = model.Nombre;
