@@ -82,6 +82,19 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoUbigeo { get; set; }
 
+        // HD-4288
+        [DataMember]
+        public string nombreYApellido { get; set; }
+
+        [DataMember]
+        public string numeroDocumento { get; set; }
+
+        [DataMember]
+        public bool IndicadorRecepcion { get; set; }
+
+        [DataMember]
+        public bool IndicadorConsultoraDigital { get; set; }
+
         public BEConsultora()
         {
 

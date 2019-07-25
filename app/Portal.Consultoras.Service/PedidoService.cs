@@ -1636,9 +1636,9 @@ namespace Portal.Consultoras.Service
 
         #region Producto Sugerido
 
-        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
+        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, BEProductoSugerido entidad)
         {
-            return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
+            return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, entidad);
         }
 
         public BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv)
@@ -2492,5 +2492,34 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoBusinessLogic.InsertKitSE(usuario);
         }
+
+        #region HD-4288 - Switch Consultora 100%
+        public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)
+        {
+            return BLPedidoWeb.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID, paisID);
+        }
+
+        public int DeshacerRecepcionPedido(int pedidoID, int paisID)
+        {
+            return BLPedidoWeb.DeshacerRecepcionPedido(pedidoID, paisID);
+        }
+
+        public BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID)
+        {
+            return BLPedidoWeb.VerificarConsultoraDigital(codigoConsultora, pedidoID, paisID);
+        }
+        #endregion
+        /*HD-4513*/
+        #region Consultora Pago Contado
+        public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb)
+        {
+            return _pedidoWebBusinessLogic.UpdPedidoTotalPagoContado(bEPedidoWeb);
+        }
+
+        public BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb)
+        {
+            return _pedidoWebBusinessLogic.GetPedidoTotalPagoContado(bEPedidoWeb);
+        }
+        #endregion
     }
 }

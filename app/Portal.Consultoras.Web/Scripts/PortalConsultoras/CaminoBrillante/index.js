@@ -1,30 +1,25 @@
 ﻿var scrollBeneficios = true
 var scrollLogros = true
 
+
 $(document).ready(function () {
-    Carusel();    
+    Carusel();
     if ($("#template-kit").length > 0) {
         Handlebars.registerPartial("kit_template", $("#template-kit").html());
         Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
     }
-    if (TineCarrusel == "1") CargarCarrusel();    
+    if (TineCarrusel == "1") CargarCarrusel();
 
     if (TieneGanancias == "1") CargarGanancias();
 
-    //Barra monto Acumulado
-    if (TieneMontoAcumulado == '1') {
-        var progreso = $("#bar-progreso");
-        if (progreso.length > 0) {
-            var maxBar = $(progreso).data("max");
-            var curBar = $(progreso).data("cur");
-            var perc = (curBar / maxBar) * 100;
-            $('.new-bar').width(perc + '%');
-            var minBar = $(progreso).data("min");
-            var percTope = (minBar / maxBar) * 100;
-            $('.progress-barnew .tope').css("left", percTope + '%');            
-        }
+    var progreso = $("#bar-progreso");
+    if (progreso.length > 0) {
+        var maxBar = $(progreso).data("max");
+        var curBar = $(progreso).data("cur");
+        var perc = (curBar / maxBar) * 100;
+        $('.new-bar').width(perc + '%');
     }
-    //fin
+
 
     var nivelactual = $("#hfNivelActual").val();
     for (var i = 1; i <= nivelactual; i++)
@@ -42,6 +37,7 @@ $(document).ready(function () {
 
     $('#loadingScreen').hide();
 });
+
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
 
@@ -118,7 +114,7 @@ $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
     var imagenProducto = obj.FotoProductoMedium;
     if (obj.TipoOferta == 1) {
         descTipoOferta = "kits";
-    } else if (obj.TipoOferta == 2){
+    } else if (obj.TipoOferta == 2) {
         descTipoOferta = "Demostradores";
         var cantidad = $(contenedor).find("#txtCantidad").val();
         if (cantidad <= 0) {
@@ -127,7 +123,7 @@ $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
         }
     }
     AgregarProducto(obj, cantidad, imagenProducto, contenedor, descTipoOferta, false);
-    if (obj.TipoOferta == 1) { $(contenedor).addClass("producto_desactivado");}
+    if (obj.TipoOferta == 1) { $(contenedor).addClass("producto_desactivado"); }
 });
 
 function TagVerTodos(MisLogros) {
@@ -139,48 +135,23 @@ function TagVerTodos(MisLogros) {
     });
 }
 
-function TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva ) {
-   
+function TagClickSeleccionNivel(nivelConsultora) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
         'action': 'Seleccionar nivel',
         'label': 'Nivel: ' + nivelConsultora
     });
-
-    for (var i = 1; i <= 6; i++) {
-
-        if ($("#" + i).hasClass('urlImagenActiva')) {
-            $("#" + i).hide();
-        }
-    }
-
-    $("#" + codigoNivel).addClass("urlImagenActiva");
-    $("#" + codigoNivel).show();
-    $("#" + codigoNivel).attr('src', urlImagenActiva);
-
 }
- 
-function TagMostrarPopupNivel(nivelConsultora, codigoNivel, urlImagenActiva) {
 
-    TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva);
+function TagMostrarPopupNivel(nivelConsultora) {
+    TagClickSeleccionNivel(nivelConsultora);
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
         'action': 'Ver Pop-up del nivel',
         'label': 'Nivel: ' + nivelConsultora
     });
-}
-
-function MostrarSecciones() {
-    $("#BeneficiosPrincipal").show();
-    $("#boxganancias").show();
-    $("#progress-b").show();
-    $("#carrusel").show();
-    $(".bglogros").show();
-    $('.tab-content').removeClass('current');
-    $(".urlImagenActiva").hide();
-
 }
 
 function TagClickBotonVerOfertas() {
@@ -216,7 +187,7 @@ function CargarCarrusel() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 ArmarCarrusel(data);
             }
         },
@@ -269,6 +240,7 @@ function ArmarMisGanancias(data) {
         serie.push(item.ValorSerie);
         titles.push(item.ValorSerieFormat);
         backgroundColors.push(colorBar);
+
         if (item.FlagSeleccionMisGanancias) {
             indexSeleccion = x;
         }
@@ -330,10 +302,8 @@ function ArmarMisGanancias(data) {
             labels: labels,
             datasets: [
                 {
-
                     borderColor: "#ffdaf3",
                     borderWidth: 0,
-
                     backgroundColor: backgroundColors,
                     hoverBackgroundColor: backgroundColors,
                     data: serie
@@ -351,16 +321,14 @@ function ArmarMisGanancias(data) {
                     backgroundColors[indexSeleccion] = colorBar;
                     // Reset old state
                     dataset = myBar.data.datasets[datasetIndex];
+
                     dataset.backgroundColor = backgroundColors.slice();
                     dataset.hoverBackgroundColor = dataset.backgroundColor;
 
                     dataset.backgroundColor[index] = colorBarSelected;
                     dataset.hoverBackgroundColor[index] = colorBarSelected;
-                    // 
-                } else {
-                
-
                 }
+
                 myBar.update();
             },
             tooltips: {
@@ -444,13 +412,12 @@ function ArmarMisGanancias(data) {
             title: {
                 display: true
             },
-            responsive: true,
-            showAllTooltips: true,
-
+            responsive: true 
         }
     });
 
     var item = data.MisGanancias[indexSeleccion];
+    var iteminicial = data.MisGanancias[0];
     $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
     $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
     $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
@@ -513,17 +480,15 @@ $(".tog-vermas").click(function () {
     }
 });
 
-function MostrarBeneficios(tab_id, codigoNivel, urlImagenActiva) {
-
-    $("#OfertasEspeciales").hide();
-    $("#BeneficiosPrincipal").hide();
-    $("#boxganancias").hide();
-    $("#progress-b").hide();
-    $("#carrusel").hide();
-    $(".bglogros").hide();
-
-    $('.tab-content').removeClass('current');
-    $("#" + tab_id).addClass('current');
-
-    TagMostrarPopupNivel(tab_id, codigoNivel, urlImagenActiva);
-}
+$(document).ready(function ($) {
+    var progreso = $("#bar-progreso");
+    if (progreso.length > 0) {
+        var minBar = $(progreso).data("min");
+        var maxBar = $(progreso).data("max");
+        var curBar = $(progreso).data("cur");
+        var perc = (curBar / maxBar) * 100;
+        $('.new-bar').width(perc + '%');
+        var perc_min = (minBar / maxBar) * 100;
+        $('.tope').css("left", perc_min + "%");
+    }
+});

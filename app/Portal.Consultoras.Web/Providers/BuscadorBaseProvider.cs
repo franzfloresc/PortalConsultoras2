@@ -77,15 +77,16 @@ namespace Portal.Consultoras.Web.Providers
             bool recomendaciones,
             bool suscrita)
         {
+            if (productos == null || !productos.Any()) return new List<Productos>();
+
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
-            if (!productos.Any()) return new List<Productos>();
+           
 
             foreach (var item in productos)
             {
-                var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
                 var labelAgregado = "";
 
-                if (pedidoAgregado.Any())
+                if (pedidos.Any(x => x.CUV == item.CUV))
                 {
                     labelAgregado = "Agregado";
                 }

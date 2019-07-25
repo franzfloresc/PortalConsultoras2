@@ -153,8 +153,10 @@
       <xs:element minOccurs="0" name="Genero" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IdEstadoActividad" type="xs:int" />
       <xs:element minOccurs="0" name="IdEstadoDatamart" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorConsultoraDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="IndicadorPROL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorPasoPedido" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IndicadorRecepcion" type="xs:boolean" />
       <xs:element minOccurs="0" name="KitNueva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ModificacionDatosBB" type="xs:boolean" />
       <xs:element minOccurs="0" name="MontoFlexipago" type="xs:decimal" />
@@ -173,6 +175,8 @@
       <xs:element minOccurs="0" name="TerritorioID" type="xs:int" />
       <xs:element minOccurs="0" name="UltimaCampanaFacturada" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
+      <xs:element minOccurs="0" name="nombreYApellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultora" nillable="true" type="tns:BEConsultora" />
@@ -351,6 +355,7 @@
       <xs:element minOccurs="0" name="AceptaTerminosCondiciones" type="xs:boolean" />
       <xs:element minOccurs="0" name="AceptacionConsultoraDA" type="xs:int" />
       <xs:element minOccurs="0" name="AceptoContrato" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivaNotificacionesWhatsapp" type="xs:boolean" />
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActualizarClave" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="AniosPermanencia" type="xs:int" />
@@ -494,6 +499,7 @@
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreGerenteZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotificacionesWhatsapp" type="xs:boolean" />
       <xs:element minOccurs="0" name="NovedadBuscador" type="xs:int" />
       <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
       <xs:element minOccurs="0" name="NuevoPROL" type="xs:boolean" />
@@ -504,6 +510,7 @@
       <xs:element minOccurs="0" name="OfertaFinalGanaMas" type="xs:int" />
       <xs:element minOccurs="0" name="OptBloqueoProductoDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="PROLSinStock" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PagoContado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PasePedidoWeb" type="xs:int" />

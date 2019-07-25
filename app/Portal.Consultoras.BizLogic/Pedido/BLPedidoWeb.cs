@@ -1,6 +1,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
+using Portal.Consultoras.Data.ServiceTotalPagarSiccEC;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -12,9 +13,12 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Web.Script.Serialization;
+using Portal.Consultoras.Data.ServiceTotalPagarSiccEC;
+using Util = Portal.Consultoras.Common.Util;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -1080,7 +1084,7 @@ namespace Portal.Consultoras.BizLogic
             BEConfiguracionCampania configuracion = null;
 
             var daPedidoWeb = new DAPedidoWeb(PaisID);
-            int estado = 201;
+            int estado = Constantes.EstadoPedido.Pendiente;
             bool modifica = false;
             bool validacionAbierta = false;
 
@@ -1239,13 +1243,13 @@ namespace Portal.Consultoras.BizLogic
                 lstPedidos = new List<BEPedidoDDWeb>();
                 if (lstPedidosWeb.Count > 0)
                 {
-                    lstPedidosWeb.Where(x => x.EstadoValidacionNombre == "NO").Update(x => x.EstadoValidacion = 201);
-                    lstPedidosWeb.Where(x => x.EstadoValidacionNombre == "SI").Update(x => x.EstadoValidacion = 202);
+                    lstPedidosWeb.Where(x => x.EstadoValidacionNombre == "NO").Update(x => x.EstadoValidacion = Constantes.EstadoPedido.Pendiente);
+                    lstPedidosWeb.Where(x => x.EstadoValidacionNombre == "SI").Update(x => x.EstadoValidacion = Constantes.EstadoPedido.Procesado);
                     lstPedidos.AddRange(lstPedidosWeb);
                 }
                 if (lstPedidosDd.Count > 0)
                 {
-                    lstPedidosDd.Update(x => x.EstadoValidacion = 201);
+                    lstPedidosDd.Update(x => x.EstadoValidacion = Constantes.EstadoPedido.Pendiente);
                     lstPedidosDd.Update(x => x.EstadoValidacionNombre = "NO");
                     lstPedidos.AddRange(lstPedidosDd);
                 }
@@ -2355,6 +2359,42 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(paisID);
             daPedidoWeb.UpdateMostradoProductosPrecargados(CampaniaID, ConsultoraID, IPUsuario);
         }
+
+
+
+        #endregion
+
+
+        #region HD-4288
+        public int DeshacerRecepcionPedido(int pedidoID, int paisID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            return daPedidoWeb.DeshacerRecepcionPedido(pedidoID);
+        }
+
+        public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            return daPedidoWeb.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID);
+        }
+
+        public BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID)
+        {
+            var objBEConsultora = new BEConsultora();
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+
+            using (IDataReader reader = daPedidoWeb.VerificarConsultoraDigital(codigoConsultora, pedidoID))
+            {
+                if (reader.Read())
+                {
+                    objBEConsultora.IndicadorRecepcion = reader[0].ToBool();
+                    objBEConsultora.nombreYApellido = reader[1] == null ? string.Empty : reader[1].ToString();
+                    objBEConsultora.numeroDocumento = reader[2] == null ? string.Empty : reader[2].ToString();
+                    objBEConsultora.IndicadorConsultoraDigital = reader[3].ToBool();
+                }
+            }
+            return objBEConsultora;
+        }
         #endregion
 
         #region Certificado Digital
@@ -2512,11 +2552,9 @@ namespace Portal.Consultoras.BizLogic
 
         public BEPedidoWeb GetPedidoWebConCalculosGanancia(BEUsuario usuario, decimal montoAhorroCatalogo, decimal montoAhorroRevista, decimal montoDescuento, decimal montoEscala, List<BEPedidoWebDetalle> pedidoWebSetDetalleAgrupado)
         {
-            //var pedidoWebSetDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out int pedidoID);
-
             var codigosCatalogosWeb = GetCodigosCatalogoWeb(false);
             var codigosCatalogosRevista = GetCodigosCatalogoRevista();
-            var itemsCatalogo = GetCodigosCatalogo();
+            var itemsCatalogo = Common.Util.GetCodigosCatalogo();
 
             var itemsWeb = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosWeb.Contains(p.CodigoCatalago.ToString()) ||
                         (p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && p.CodigoTipoOferta == "002") ||
@@ -2553,16 +2591,6 @@ namespace Portal.Consultoras.BizLogic
             return bePedidoWeb;
         }
 
-        private List<string> GetCodigosCatalogo()
-        {
-            return new List<string>
-            {
-                Constantes.ODSCodigoCatalogo.CatalogoCyzone,
-                Constantes.ODSCodigoCatalogo.CatalogoEbel,
-                Constantes.ODSCodigoCatalogo.CatalogoEsika,
-            };
-        }
-
         private List<string> GetCodigosCatalogoRevista()
         {
             return new List<string>
@@ -2587,6 +2615,84 @@ namespace Portal.Consultoras.BizLogic
                 lista.Add(Constantes.ODSCodigoCatalogo.WebPortalFFVV);
             return lista;
         }
+        /*HD-4513*/
+        #region Consultora Pago Contado
+        public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(bePedidoWeb.PaisID);
+            try
+            {
+                if (bePedidoWeb.STPPagoContado)
+                {
+
+                    var remoteAddress = new EndpointAddress(WebConfig.ServicioTotalPagarSicc(Util.GetPaisISO(bePedidoWeb.PaisID)));
+
+                    List<PedidoDetalleWebServiceParameter> PedidoWebDetallePrm = null;
+
+                    PedidoWebDetallePrm= bePedidoWeb.olstBEPedidoWebDetalle.Select(x => new PedidoDetalleWebServiceParameter
+                                        {
+                                            cuv = x.CUV,
+                                            unidadesSol = x.Cantidad
+                                        }).ToList();
+              
+                    var PedidoWeb = new PedidoWebServiceParameter
+                    {
+                        accion = "8",
+                        consultora = bePedidoWeb.CodigoConsultora,
+                        oidSicc = 0,
+                        periodo = bePedidoWeb.CampaniaID.ToString(),
+                        detalle = PedidoWebDetallePrm.ToArray()
+
+                    };
+                    using (var svr = new ProcesoPEDPedidoRechazadoWebServiceImplClient(new BasicHttpBinding(), remoteAddress))
+                    {
+                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0,50);
+                        var result = svr.ejecutarProcesoPEDPedidoRechazado(PedidoWeb);
+                        if (result.mensajeError != "") throw new Exception(result.mensajeError);
+                        bePedidoWeb.STPDescuento = result.totalDesc;
+                        bePedidoWeb.STPPagoTotalSinDeuda = result.totalPaga;
+                        bePedidoWeb.STPDeudaLog = result.deuda;
+                        bePedidoWeb.STPDeuda = (string.IsNullOrEmpty(result.deuda)) ? 0 : Convert.ToDouble(result.deuda.Replace(",",""));
+                        bePedidoWeb.STPPagoTotal = bePedidoWeb.STPPagoTotalSinDeuda + bePedidoWeb.STPDeuda;
+                        bePedidoWeb.STPGastTransporte = result.totalFlet;
+                    }
+
+                    /*Actualizar Log*/
+                    daPedidoWeb.UpdLogConsultoraPagoContado(bePedidoWeb);
+                }
+                
+               
+            }
+            catch (Exception ex)
+            {
+                
+                LogManager.SaveLog(ex, bePedidoWeb.CodigoConsultora, bePedidoWeb.PaisID);
+                throw new Exception("Exception BLPedidoWeb- ValidarPedidoTotalPagarContado", ex);
+            }
+            return bePedidoWeb;
+        }
+
+
+
+        public BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            BEPedidoWeb obj = null;
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(bePedidoWeb.PaisID);
+
+            using (IDataReader reader = daPedidoWeb.ListLogConsultoraPagoContado(bePedidoWeb))
+            {
+                if (reader.Read()) obj = new BEPedidoWeb(reader);
+            }
+
+            obj = obj?? UpdPedidoTotalPagoContado(bePedidoWeb);
+            obj.STPDeuda = (string.IsNullOrEmpty(obj.STPDeudaLog)) ? 0 : Convert.ToDouble(obj.STPDeudaLog.Replace(",", ""));
+            obj.STPTotalPagar = obj.STPPagoTotalSinDeuda + obj.STPDeuda;
+
+
+            return obj;
+        }
+
+        #endregion
     }
 
     internal class TemplateField
@@ -2612,5 +2718,5 @@ namespace Portal.Consultoras.BizLogic
         }
     }
 
-    
+
 }
