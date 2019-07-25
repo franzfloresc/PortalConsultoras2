@@ -4,6 +4,9 @@
 }
 <script>
     jQuery(document).ready(function () {
+
+        fnGrilla();
+
         // Establece los efectos para cada uno de los Tabs
         $(".contenido_tab").hide(); //Ocultar capas
         $("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
@@ -183,6 +186,65 @@
         });
     });
 
+        function fnGrilla() {
+        jQuery("#list").jqGrid({
+            url: baseUrl + "CaminoBrillanteAdministrar/ConsultarMontoExigencia",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                vBusqueda: function () { return jQuery.trim($("#ddlPais").val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Campaña', 'Región', 'Zona', 'Monto Exigido', 'Opcion'],
+            colModel: [
+                { name: 'FactorGananciaID', index: 'FactorGananciaID', width: 100, editable: false, align: 'left'},
+                { name: 'PaisID', index: 'PaisID', width: 100, editable: false, align: 'left'},
+                { name: 'Pais', index: 'Pais', width: 90, editable: true, resizable: false },
+                { name: 'RangoMinimo', index: 'RangoMinimo', width: 80, editable: true, resizable: false, formatter: 'currency', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" } },
+                //{ name: 'RangoMaximo', index: 'RangoMaximo', width: 80, editable: true, resizable: false, formatter: 'currency', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" } },
+                //{ name: 'Porcentaje', index: 'Porcentaje', width: 80, editable: true, resizable: false, formatter: 'number', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" } },
+                { name: 'Activo', index: 'Activo', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            width: '930',
+            height: 'auto',
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+        function ShowActions(cellvalue, options, rowObject) {
+            var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Factor' title='Editar Factor' border='0' /></a>";
+            var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Cliente' title='Eliminar Cliente' border='0' /></a>";
+            return Edit + Del;
+        };
+    }
+
 </script>
 
 <div class="wrap_cab">
@@ -240,8 +302,21 @@
 </div>
 
 <div class="wrap">
-    <div class="container-dato-consultora clearfix">
+    <div class="container clearfix">
         <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+        <div class="div-3">
+            <div class="titAuto">
+                <div class="input_search">
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="return AbrirModal();" />
+                </div>
+            </div>
+        </div>
+
+
+        @*<div class="border-wrapper">
             <ul class="tabs">
                 <li><a href="#tab-datoConsultora">Datos de Consultora</a></li>
                 <li><a href="#tab-estadoConsultora">Estado de Consultora</a></li>
@@ -271,24 +346,24 @@
                 </div>
 
                 <div id="tab-datoConsultora" class="contenido_tab">
-                    @*@Html.Partial("_DatoConsultora")*@
+                    @Html.Partial("_DatoConsultora")
                 </div>
                 <div id="tab-estadoConsultora" class="contenido_tab">
-                    @*@Html.Partial("_EstadoConsultora")*@
+                    @Html.Partial("_EstadoConsultora")
                 </div>
                 <div id="tab-estadoCuenta" class="contenido_tab">
-                    @*@Html.Partial("_EstadoCuenta")*@
+                    @Html.Partial("_EstadoCuenta")
                 </div>
                 <div id="tab-pedidoFacturado" class="contenido_tab">
-                    @*@Html.Partial("_PedidoFacturado")*@
+                    @Html.Partial("_PedidoFacturado")
                 </div>
                 <div id="tab-seguimientoPedido" class="contenido_tab">
-                    @*@Html.Partial("_SeguimientoPedido")*@
+                   @Html.Partial("_SeguimientoPedido")
                 </div>
                 <div id="tab-paqueteDocumentario" class="contenido_tab">
-                    @*@Html.Partial("_PaqueteDocumentario")*@
+                    @Html.Partial("_PaqueteDocumentario")
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
 </div>

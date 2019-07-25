@@ -44,6 +44,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View(model);
         }
+        public JsonResult ConsultarMontoExigencia()
+        {
+            return null;
+        }
 
         //public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)
         //{

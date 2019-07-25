@@ -62,5 +62,19 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
             return Context.ExecuteReader(command);
         }
+
+
+
+
+        #region Exigencia Monto Incentivos
+        public IDataReader InsIncentivosMontoExigencia(int periodoId, int campaniaId, long consultoraId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleCaminoBrillante");
+            Context.Database.AddInParameter(command, "@Periodo", DbType.Int32, periodoId);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraId);
+            return Context.ExecuteReader(command);
+        }
+        #endregion
     }
 }
