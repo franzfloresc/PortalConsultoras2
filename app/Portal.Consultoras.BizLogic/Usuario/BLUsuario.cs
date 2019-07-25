@@ -326,12 +326,14 @@ namespace Portal.Consultoras.BizLogic
 
                 //HD-4513
                 var tienePagoContadoActivo = tabla.GetListCache(paisID, ConsTablaLogica.PagoContado.Id);
-                bool FalgPagoContado = false;
+                bool flagPagoContado = false;
 
-                if (tienePagoContadoActivo!= null)
-                    FalgPagoContado = tienePagoContadoActivo.FirstOrDefault().Valor == "1";
+                if (tienePagoContadoActivo != null && tienePagoContadoActivo.Count > 0)
+                {
+                    flagPagoContado = tienePagoContadoActivo[0].Valor == "1";
+                }
 
-                usuario.PagoContado = usuario.PagoContado && FalgPagoContado;
+                usuario.PagoContado = usuario.PagoContado && flagPagoContado;
 
                 return usuario;
             }
