@@ -74,8 +74,7 @@ hr{
 .info__pasos__compartir__catalogo__campaniaActual__wrapper{
     margin-top:32px;
     margin-bottom:60px;
-    padding-top:70px;
-    padding-bottom:70px;
+    padding:16px 8px;
     max-width:821px;
     border:1px solid #000;
     border-radius:4px;
@@ -308,7 +307,7 @@ hr{
 
 .catalogos__por__campania__item__descrip{
     margin-top:48px;
-    margin-bottom:26px;
+    margin-bottom:0;
     max-width:900px;
 }
 
@@ -343,7 +342,7 @@ hr{
     position:absolute;
     left: -124px;
     bottom: 55px;
-    padding:20px 27px;
+    padding:16px 27px;
     height: 72px;
     border-radius:4px;
     -moz-box-shadow: 0 0 2px rgba(0,0,0,0.37);
@@ -373,7 +372,7 @@ hr{
 
     .opciones__compartir__catalogos:before {
 	    border-color: rgba(194, 225, 245, 0);
-	    border-top-color: rgba(0,0,0,0.37);
+	    border-top-color: rgba(0,0,0,0.17);
 	    border-width: 18px;
 	    margin-left: -18px;
     }
@@ -832,6 +831,10 @@ input[type='checkbox']:checked + span:after {
         padding-top:32px;
     }
 
+    .icono__paso__compartir__catalogo__campaniaActual__descrip{
+        font-size:16px;
+    }
+
 }
 
 /*  MIS CATÁLOGOS Y REVISTAS MOBILE */
@@ -1014,8 +1017,8 @@ input[type='checkbox']:checked + span:after {
         max-width:587px;
     }
 
-    .info__pasos__compartir__catalogo__campaniaActual__subtitulo{
-        margin-bottom:24px;
+    .info__pasos__compartir__catalogo__campaniaActual__subtitulo {
+        margin-bottom: 24px;
     }
 
     .info__pasos__compartir__catalogo__campaniaActual__subtitulo span,
