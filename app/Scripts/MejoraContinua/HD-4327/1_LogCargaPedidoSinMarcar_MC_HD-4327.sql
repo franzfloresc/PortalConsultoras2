@@ -15,6 +15,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -40,6 +43,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -65,6 +71,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -94,6 +103,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -123,6 +135,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -152,6 +167,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -181,6 +199,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -210,6 +231,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -239,6 +263,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -268,6 +295,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -297,6 +327,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC
@@ -326,6 +359,9 @@ CREATE TABLE [dbo].[LogCargaPedidoSinMarcar](
 	[CodigoUsuarioProceso] [varchar](25) NOT NULL,
 	[FechaCarga] [datetime] NULL,
 	[VersionProl] [tinyint] NULL,
+	[IPUsuario] [nvarchar](2000) NULL,
+	[TipoCupon] [nvarchar](2000) NULL,
+	[ValorCupon] [nvarchar](2000) NULL,
  CONSTRAINT [PK_LogCargaPedidoSinMarcar] PRIMARY KEY CLUSTERED 
 (
 	[IdRegistro] ASC

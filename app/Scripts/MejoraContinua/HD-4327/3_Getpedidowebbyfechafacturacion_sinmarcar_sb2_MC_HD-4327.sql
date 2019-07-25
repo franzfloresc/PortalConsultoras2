@@ -1,4 +1,4 @@
-﻿use [BelcorpBolivia]	
+use [BelcorpBolivia]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -8,255 +8,263 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
-
-  use [BelcorpChile]	
+use BelcorpChile	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -266,256 +274,265 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
-
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
 
-use [BelcorpColombia]	
+
+use BelcorpColombia	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -525,256 +542,265 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
-
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
 
-use [BelcorpCostaRica]	
+
+use BelcorpCostaRica	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -784,256 +810,265 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
-
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
 
-use [BelcorpDominicana]	
+
+use BelcorpDominicana	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -1043,256 +1078,265 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
-
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
 
-use [BelcorpEcuador]	
+
+use BelcorpEcuador	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -1302,256 +1346,265 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
-
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
 
-use [BelcorpGuatemala]	
+
+use BelcorpGuatemala	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -1561,256 +1614,265 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
-
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
 
-use [BelcorpMexico]	
+
+use BelcorpMexico	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -1820,256 +1882,265 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
-
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
 
-use [BelcorpPanama]	
+
+use BelcorpPanama	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -2079,256 +2150,265 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
-
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
 
-use [BelcorpPeru]	
+
+use BelcorpPeru	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -2338,256 +2418,265 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
-
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
 
-use [BelcorpPuertoRico]	
+
+use BelcorpPuertoRico	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -2597,256 +2686,265 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
-
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
-
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
 
-use [BelcorpSalvador]	
+
+use BelcorpSalvador	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -2856,250 +2954,260 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2]
 GO
-/*             
-CREADO POR  : PAQUIRRI SEPERAK             
-FECHA : 24/06/2019             
-DESCRIPCIÓN : ACTUALIZA LA CANTIDAD DE PEDIDOS     
---  Getpedidowebbyfechafacturacion_sinmarcar_sb2  201909, 1, 38, '2019-06-17'
-*/ 
-CREATE PROCEDURE [DBO].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] 
+CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10-19',1,1
   -- '2015-10-19',1  
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
  /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
-WITH RECOMPILE 
-AS 
-  BEGIN 
-      --SET NOCOUNT ON; 
+with recompile
+as
+/*
+GetPedidoWebByFechaFacturacion_SB2 '2018-03-13',1,1598
+*/
+BEGIN
+       set nocount on;
+ 
+       declare @Tipo smallint
+       if @TipoCronograma = 1
+       set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+       else if @TipoCronograma = 2
+       set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+ 
+       else
+       set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+ 
+       declare @EsquemaDAConsultora bit
+       declare @tiene_cupon_pais bit 
+ 
+       select
+             @EsquemaDAConsultora = EsquemaDAConsultora,
+             @tiene_cupon_pais = tieneCupon
+       from pais with(nolock)
+       where EstadoActivo = 1
+ 
+       declare @ConfValZonaTemp table
+       (
+       Campaniaid int,
+       Regionid int,
+       Zonaid int,
+       FechaInicioFacturacion smalldatetime,
+       FechaFinFacturacion smalldatetime,
+       CodigoRegion varchar(8),
+       CodigoZona varchar(8),
+       CodigoCampania int
+       )
+ 
+       declare @tabla_pedido_detalle table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      DECLARE @TIPO SMALLINT 
-      DECLARE @ESQUEMADACONSULTORA BIT 
+	   declare @tabla_pedido_detalle_temp table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       CUV varchar(20) null,
+       Cantidad int null,
+       PedidoDetalleIDPadre bit,
+       OrigenPedidoWeb int,
+        IPUsuario varchar(25),
+		TipoEstrategiaID int,
+		EsKitNueva bit
+       )
 
-      SET @TIPO = (SELECT ISNULL(PROCESOREGULAR, 0) 
-                   FROM   [DBO].[CONFIGURACIONVALIDACION]) 
+       declare @tabla_pedido table
+       (
+       CampaniaId int null,
+       PedidoId int null,
+       Clientes int,
+       EstadoPedido smallint null,
+       ValidacionAbierta bit null,
+       Bloqueado bit null,
+       IndicadorEnviado bit null,
+       ModificaPedidoReservadoMovil bit null,
+       CodigoConsultora varchar(25) null,
+       CodigoRegion varchar(8) null,
+       CodigoZona varchar(8) null,
+       CampaniaIdSicc int null,
+       ZonaId int,
+       IPUsuario varchar(25)
+       )
 
-      SELECT @ESQUEMADACONSULTORA = ESQUEMADACONSULTORA 
-      FROM   PAIS WITH(NOLOCK) 
-      WHERE  ESTADOACTIVO = 1 
+	   declare   @TempPedidoWebID as table(NroLote int , CampaniaID int , PedidoID int)
+     
+       insert into @ConfValZonaTemp
+       select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,
+          cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+          ,r.Codigo, z.Codigo, cast(ca.Codigo as int)
+       from ods.Cronograma cr with(nolock)
+       left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+       inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId
+       inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
+       inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
+       left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
+       where cr.FechaInicioFacturacion <= @FechaFacturacion and
+          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+          IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
+ 
+       IF @EsquemaDAConsultora = 0
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+       END
+       ELSE
+       BEGIN
+         insert into @tabla_pedido_detalle_temp
+         select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
+             c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
+             IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
+             pd.OrigenPedidoWeb,
+             p.IPUsuario, pd.TipoEstrategiaID,isnull(PD.EsKitNueva, '0')
+         from dbo.PedidoWeb p with(nolock)
+         join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID --AND isnull(PD.EsKitNueva, '0') != 1
+         join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+         join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
+             and c.RegionID = cr.RegionID
+             and c.ZonaID = cr.ZonaID
+         --left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
+         left join (
+             select distinct CampaniaID, ConsultoraID, TipoConfiguracion
+             from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
+         ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
+         where cr.FechaInicioFacturacion <= @FechaFacturacion
+          and cr.FechaFinFacturacion >= @FechaFacturacion
+          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+       END
+       end
+  
 
-      DECLARE @CONFVALZONATEMP TABLE 
-        ( 
-           CAMPANIAID             INT, 
-           REGIONID               INT, 
-           ZONAID                 INT, 
-           FECHAINICIOFACTURACION SMALLDATETIME, 
-           FECHAFINFACTURACION    SMALLDATETIME, 
-           CODIGOREGION           VARCHAR(8), 
-           CODIGOZONA             VARCHAR(8), 
-           CODIGOCAMPANIA         INT 
-        ) 
-      DECLARE @TABLA_PEDIDO_DETALLE TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT, 
-           CUV                          VARCHAR(20) NULL, 
-           CANTIDAD                     INT NULL, 
-           PEDIDODETALLEIDPADRE         BIT 
-        ) 
-      DECLARE @TABLA_PEDIDO TABLE 
-        ( 
-           CAMPANIAID                   INT NULL, 
-           PEDIDOID                     INT NULL, 
-           CLIENTES                     INT, 
-           ESTADOPEDIDO                 SMALLINT NULL, 
-           VALIDACIONABIERTA            BIT NULL, 
-           BLOQUEADO                    BIT NULL, 
-           INDICADORENVIADO             BIT NULL, 
-           MODIFICAPEDIDORESERVADOMOVIL BIT NULL, 
-           CODIGOCONSULTORA             VARCHAR(25) NULL, 
-           CODIGOREGION                 VARCHAR(8) NULL, 
-           CODIGOZONA                   VARCHAR(8) NULL, 
-           CAMPANIAIDSICC               INT NULL, 
-           ZONAID                       INT 
-        ) 
+	   insert into @tabla_pedido_detalle
+	   select *
+	   from @tabla_pedido_detalle_temp
+	   where EsKitNueva = 0
 
-      /*SOLO VÁLIDO CUANDO EL TIPO DE PROGRAMA ES 1=REGULAR*/ 
-      INSERT INTO @CONFVALZONATEMP 
-      SELECT CR.CAMPANIAID, 
-             CR.REGIONID, 
-             CR.ZONAID, 
-             CR.FECHAINICIOFACTURACION, 
-             CR.FECHAINICIOFACTURACION 
-             + ISNULL(CZ.DIASDURACIONCRONOGRAMA, 1) - 1 + ISNULL( 
-             DBO.GETHORASDURACIONRESTRICCION(CR.ZONAID, 
-             CZ.DIASDURACIONCRONOGRAMA, 
-                    CR.FECHAINICIOFACTURACION), 0), 
-             R.CODIGO, 
-             Z.CODIGO, 
-             CAST(CA.CODIGO AS INT) 
-      FROM   ODS.CRONOGRAMA CR WITH(NOLOCK) 
-             LEFT JOIN CONFIGURACIONVALIDACIONZONA CZ WITH(NOLOCK) 
-                    ON CR.ZONAID = CZ.ZONAID 
-             INNER JOIN ODS.REGION R WITH(NOLOCK) 
-                     ON CR.REGIONID = R.REGIONID 
-             INNER JOIN ODS.ZONA Z WITH(NOLOCK) 
-                     ON CR.ZONAID = Z.ZONAID 
-             INNER JOIN ODS.CAMPANIA CA WITH(NOLOCK) 
-                     ON CR.CAMPANIAID = CA.CAMPANIAID 
-             LEFT JOIN CRONOGRAMA CO WITH(NOLOCK) 
-                    ON CR.CAMPANIAID = CO.CAMPANIAID 
-                       AND CR.ZONAID = CO.ZONAID 
-      WHERE  CA.CODIGO = @CAMPANAID 
-             AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-             AND CR.FECHAINICIOFACTURACION + 10 >= @FECHAFACTURACION 
-             AND IIF(ISNULL(CO.ZONAID, 0) = 0, 1, 
-                 IIF(@ESQUEMADACONSULTORA = 0, 0, 
-                 1)) 
-                 = 1 
+ 
+       insert into @tabla_pedido
+       select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
+       from @tabla_pedido_detalle
+       group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
+       CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario	   
+	   
+       insert into @TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+       select @NroLote, p.CampaniaID, p.PedidoID
+       from @tabla_pedido p
+       where
+            -- p.IndicadorEnviado = 0 and p.Bloqueado = 0
+            -- and
+             (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201))
+			 and CodigoConsultora not in (
+				select CodigoConsultora from ConsultoraOficinaExonerada
+			 )
+ 
+       --**********************************Cupon*********************************** 
+       create table #pedido_cupon(CampaniaID int,pedidoId int,CuponID int,CodigoConsultora varchar(25),TipoCupon char(2),ValorCupon Char(12))    
+       create index #pedido_cupon_idx_2 on #pedido_cupon(CampaniaID,PedidoID)   
+          
+        if @tiene_cupon_pais = 1 
+        begin  
+			 select 
+                    p.PedidoID,
+                    p.CampaniaID,
+                    p.CodigoConsultora
+             into #temp
+             from @tabla_pedido_detalle p
+             inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+             inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+             where pk.NroLote = @NroLote
+             group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
+             having sum(p.Cantidad) > 0;
+ 
+          insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
+          select Distinct   
+              pwd.CampaniaID,   
+              pwd.PedidoID,   
+              c.CuponID,   
+              CodigoConsultora = cc.CodigoConsultora,   
+            TipoCupon = right('00' + RTrim(Ltrim(Convert(varchar,c.Tipo))),2), 
+            ValorCupon = right('000000000000' + replace(RTrim(Ltrim(Convert(varchar,cc.ValorAsociado))),'.',''),12) 
+         From #temp pwd 
+          Inner join Cupon c with (nolock) On  
+                    pwd.CampaniaId = c.CampaniaId 
+					And c.Estado = 1   
+          Inner join CuponConsultora cc with (nolock) On       
+                    c.CuponID = cc.CuponID 
+					And c.CampaniaId = cc.CampaniaId 
+					And pwd.CodigoConsultora = cc.CodigoConsultora 
+					And cc.EstadoCupon = 2  
 
-      -- SELECT * FROM @CONFVALZONATEMP  
-      IF @ESQUEMADACONSULTORA = 0 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-        END 
-      ELSE 
-        BEGIN 
-            INSERT INTO @TABLA_PEDIDO_DETALLE 
-            SELECT P.CAMPANIAID, 
-                   P.PEDIDOID, 
-                   P.CLIENTES, 
-                   P.ESTADOPEDIDO, 
-                   P.VALIDACIONABIERTA, 
-                   P.BLOQUEADO, 
-                   P.INDICADORENVIADO, 
-                   P.MODIFICAPEDIDORESERVADOMOVIL, 
-                   C.CODIGO, 
-                   CR.CODIGOREGION, 
-                   CR.CODIGOZONA, 
-                   CR.CAMPANIAID, 
-                   CR.ZONAID, 
-                   PD.CUV, 
-                   PD.CANTIDAD, 
-                   IIF(PD.PEDIDODETALLEIDPADRE IS NULL, 0, 1) 
-            FROM   DBO.PEDIDOWEB P WITH(NOLOCK) 
-                   JOIN DBO.PEDIDOWEBDETALLE PD WITH(NOLOCK) 
-                     ON PD.CAMPANIAID = P.CAMPANIAID 
-                        AND PD.PEDIDOID = P.PEDIDOID 
-                   JOIN ODS.CONSULTORA C WITH(NOLOCK) 
-                     ON P.CONSULTORAID = C.CONSULTORAID 
-                   JOIN @CONFVALZONATEMP CR 
-                     ON P.CAMPANIAID = CR.CODIGOCAMPANIA 
-                        AND C.REGIONID = CR.REGIONID 
-                        AND C.ZONAID = CR.ZONAID 
-                   LEFT JOIN CONFIGURACIONCONSULTORADA DA WITH(NOLOCK) 
-                          ON P.CAMPANIAID = DA.CAMPANIAID 
-                             AND P.CONSULTORAID = DA.CONSULTORAID 
-            WHERE  P.CAMPANIAID = @CAMPANAID 
-                   AND CR.FECHAINICIOFACTURACION <= @FECHAFACTURACION 
-                   AND CR.FECHAFINFACTURACION >= @FECHAFACTURACION 
-                   AND ISNULL(DA.TIPOCONFIGURACION, 0) = 0 
-        END 
+            drop table #temp
+       End  
+       --**********************************Cupon ***********************************
+      
+       select
+             p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+             p.Clientes, p.CodigoRegion,
+             p.CodigoZona,
+             IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+             p.IPUsuario,
+             TipoCupon = isnull(pc.TipoCupon,'00') ,
+             ValorCupon = isnull(pc.ValorCupon,'000000000000')
+       from @tabla_pedido p
+       inner join @TempPedidoWebID pk  on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+         left join #pedido_cupon pc on pc.CampaniaID = p.CampaniaID and pc.PedidoID = p.PedidoID --Cupon
+       where pk.NroLote = @NroLote;
+ 
+       select p.PedidoID, p.CampaniaID, p.CodigoConsultora,
+       p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad,p.OrigenPedidoWeb
+       from @tabla_pedido_detalle p
+       inner join @TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+       --inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV
+       where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0
+       group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV, p.OrigenPedidoWeb
+       having sum(p.Cantidad) > 0;
+go
 
-      INSERT INTO @TABLA_PEDIDO 
-      SELECT CAMPANIAID, 
-             PEDIDOID, 
-             CLIENTES, 
-             ESTADOPEDIDO, 
-             VALIDACIONABIERTA, 
-             BLOQUEADO, 
-             INDICADORENVIADO, 
-             MODIFICAPEDIDORESERVADOMOVIL, 
-             CODIGOCONSULTORA, 
-             CODIGOREGION, 
-             CODIGOZONA, 
-             CAMPANIAIDSICC, 
-             ZONAID 
-      FROM   @TABLA_PEDIDO_DETALLE 
-      WHERE 
-        -- INDICADORENVIADO = 0  
-        -- BLOQUEADO = 0  
-        ( @TIPO = 0 
-           OR @TIPO = IIF(ESTADOPEDIDO = 202 
-                          AND VALIDACIONABIERTA = 0, 202, 201) ) 
-      GROUP  BY CAMPANIAID, 
-                PEDIDOID, 
-                CLIENTES, 
-                ESTADOPEDIDO, 
-                VALIDACIONABIERTA, 
-                BLOQUEADO, 
-                INDICADORENVIADO, 
-                MODIFICAPEDIDORESERVADOMOVIL, 
-                CODIGOCONSULTORA, 
-                CODIGOREGION, 
-                CODIGOZONA, 
-                CAMPANIAIDSICC, 
-                ZONAID 
 
-      -- ORDER BY  
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CLIENTES, 
-             P.CODIGOREGION, 
-             P.CODIGOZONA, 
-             IIF(P.ESTADOPEDIDO = 202 
-                 AND P.VALIDACIONABIERTA = 0, 1, 0) AS VALIDADO 
-      FROM   @TABLA_PEDIDO P 
-
-      -- WHERE PEDIDOID=9728014 
-      SELECT P.PEDIDOID, 
-             P.CAMPANIAID, 
-             P.CODIGOCONSULTORA, 
-             P.CUV             AS CODIGOVENTA, 
-             PR.CODIGOPRODUCTO AS CODIGOPRODUCTO, 
-             SUM(P.CANTIDAD)   AS CANTIDAD 
-      FROM   @TABLA_PEDIDO_DETALLE P 
-             INNER JOIN ODS.PRODUCTOCOMERCIAL PR WITH(NOLOCK) 
-                     ON P.CAMPANIAIDSICC = PR.CAMPANIAID 
-                        AND P.CUV = PR.CUV 
-      WHERE  P.PEDIDODETALLEIDPADRE = 0 
-      --AND PEDIDOID=9728014 
-      GROUP  BY P.CAMPANIAID, 
-                P.PEDIDOID, 
-                P.CODIGOCONSULTORA, 
-                P.CUV, 
-                PR.CODIGOPRODUCTO 
-      HAVING SUM(P.CANTIDAD) > 0; 
-  END
-  GO

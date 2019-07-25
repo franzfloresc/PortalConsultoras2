@@ -27,6 +27,7 @@ CREATE TABLE [dbo].[PedidoDescargaSinMarcar](
 
 GO
 
+
 use [BelcorpChile]	
 go
 IF EXISTS (
