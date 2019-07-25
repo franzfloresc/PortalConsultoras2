@@ -1872,26 +1872,45 @@ namespace Portal.Consultoras.BizLogic
             return daUsuario.UpdateUsuarioEmailTelefono(ConsultoraID, Email, Telefono);
         }
 
-        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        public string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
-            bool resultado;
+            string resultado = string.Empty;
 
             try
             {
                 var daUsuario = new DAUsuario(paisId);
-                daUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
-                daUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
-                    correo, Enum.GetName(typeof(EAplicacionOrigen), origen));
-                daUsuario.InsMetaConsultora(codigoUsuario, Constantes.MetaConsultora.VerificacionCambioClave, "0");
-                resultado = true;
+                resultado = ValidarReglasClave(nuevacontrasena);
+                if (string.IsNullOrEmpty(resultado))
+                {
+                    daUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
+                    daUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
+                        correo, Enum.GetName(typeof(EAplicacionOrigen), origen));
+                    daUsuario.InsMetaConsultora(codigoUsuario, Constantes.MetaConsultora.VerificacionCambioClave, "0");
+                }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, codigoUsuario, paisIso);
-                resultado = false;
+                resultado = ex.Message;
             }
 
             return resultado;
+        }
+
+        public string ValidarReglasClave(string contrasena)
+        {            
+            string pattern = Constantes.Regex.CadenaRegexPassword;
+            string message = string.Empty;
+            if (string.IsNullOrEmpty(Common.Util.Trim(contrasena)))
+                message += Constantes.MensajesError.IngreseLaContrasenia;
+            if (Common.Util.Trim(contrasena).Length <= 6)
+                message += Constantes.MensajesError.AlMenosTotalCaracteres;
+            if (!Regex.IsMatch(contrasena, pattern.Split('¦')[2]))
+                message += Constantes.MensajesError.AlMenosDigito;
+            if (!Regex.IsMatch(contrasena, pattern.Split('¦')[4]))
+                message += Constantes.MensajesError.AlMenosLetra;
+
+            return message;
         }
 
         public bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)

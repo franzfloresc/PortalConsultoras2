@@ -1649,6 +1649,14 @@ namespace Portal.Consultoras.Common
             public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado {2} unidad(es) para ti. Por favor modifica las unidades ingresadas.";
             public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
             public const string ServicioCatalogoVirtuales = "Por favor vuelva ingresar en unos momentos, ya que el servicio de catálogos virtuales está teniendo problemas.";
+            public const string IngreseLaContrasenia = "- Debe ingresar la Nueva Contraseña.\n";
+            public const string AlMenosTotalCaracteres = "- La Nueva Contraseña debe de tener mínimo 7 caracteres.\n";
+            public const string AlMenosLetraMayuscula = "- La Nueva Contraseña debe de tener al menos una letra en mayúscula.\n";
+            public const string AlMenosLetraMinuscula = "- La Nueva Contraseña debe de tener al menos una letra en minúscula.\n";
+            public const string AlMenosLetra = "- La Nueva Contraseña debe de tener al menos una letra.\n";
+            public const string AlMenosDigito = "- La Nueva Contraseña debe de tener al menos un dígito.\n";
+            public const string AlMenosCaracterEspecial = "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
+            public const string CambioSatisfactorioContrasenia = "Se cambió satisfactoriamente la contraseña.";
         }
 
         public static class MensajesExito
@@ -2046,6 +2054,11 @@ namespace Portal.Consultoras.Common
                     });
                 }
             }
+        }
+
+        public static class Regex
+        {
+            public const string CadenaRegexPassword = "[A-Z]¦[a-z]¦[0-9]¦[°|¬!#@$%^&/()[=¿?¡*+~{};,:._-]¦[a-zA-Z]";
         }
 
         public static class ClienteValidacion

@@ -722,14 +722,24 @@ function CambiarContrasenia() {
         vMessage += "- Debe ingresar la Nueva Contraseña.\n";
 
     if (newPassword02 == "")
-        vMessage += "- Debe repetir la Nueva Contraseña.\n";
-
-    if (newPassword01.length <= 6)
-        vMessage += "- La Nueva Contraseña debe de tener más de 6 caracteres.\n";
+        vMessage += "- Debe repetir la Nueva Contraseña.\n";    
 
     if (newPassword01 != "" && newPassword02 != "") {
         if (newPassword01 != newPassword02)
             vMessage += "- Los campos de la nueva contraseña deben ser iguales, verifique.\n";
+    }
+
+    if (newPassword01.length <= 6)
+        vMessage += "- La Nueva Contraseña debe de tener mínimo 7 caracteres.\n";
+    
+    var pDigi = patronRegex.split('¦')[2];
+    if (newPassword01.match(pDigi) == null) {
+        vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
+    }
+
+    var pLetra = patronRegex.split('¦')[4];
+    if (newPassword01.match(pLetra) == null) {
+        vMessage += "- La Nueva Contraseña debe de tener al menos una letra.\n";
     }
 
     if (oldPassword != "" && newPassword01 != "" && newPassword02 != "") {
