@@ -1,4 +1,6 @@
-﻿var animacion = true;
+﻿var UR_DESHACERRECEPCION_PEDIDO = baseUrl + "Pedido/DeshacerRecepcionPedidoRequest",
+    URL_VERIFICAR_CONSULTORA_DIGITAL = baseUrl + "Pedido/VerificarConsultoraDigitalRequest"
+var animacion = true;
 var contadorNext = 2;
 var positionCarrousel = 0;
 var posicionInicial = 0;
@@ -7,7 +9,6 @@ var posicionTotal = 0;
 var salto = 3;
 
 var arrayOfertasParaTi = [];
-//var array_odd = [];
 var arrayProductosSugeridos = [];
 var arrayProductosGuardadoExito = [];
 var numImagen = 1;
@@ -23,14 +24,11 @@ var listaMensajeMeta = listaMensajeMeta;
 var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsCuponNuevas = false;
-//INI HD-3908
 var _flagNueva = false;
-//FIN HD-3908
 var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
     ValidarKitNuevas();
-
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
@@ -62,8 +60,6 @@ $(document).ready(function () {
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
-
- 
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -224,8 +220,6 @@ $(document).ready(function () {
     $("#txtCUV").on('input', function () {
         if (isNaN($("#txtCUV").val()) == true) {
             $("#txtCUV").val("");
-            //document.getElementById('divObservaciones').style.display = 'block';
-            //$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>El codigo CUV debe ser un número</div></div>");
             return false;
         }
     });
@@ -267,6 +261,7 @@ $(document).ready(function () {
         }
     });
     $("#btnValidarPROL").on("click", function (e) {
+
         if (gTipoUsuario == 2) { //Postulante
             var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
             $("#dialog_MensajePostulante #tituloContenido").text("IMPORTANTE");
@@ -279,7 +274,7 @@ $(document).ready(function () {
 
         e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
     });
-    
+
 
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var rowElement = $(this).closest(".contenido_ingresoPedido");
@@ -440,11 +435,10 @@ $(document).ready(function () {
         if (cuv.substring(0, 3) == '999') {
             sessionStorage.setItem('cuvPack', cuv);
         }
-
+        
         ProcesarActualizacionMostrarContenedorCupon();
         ProductoRecomendadoModule.OcultarProductosRecomendados();
         $("#btnAgregar").removeAttr("disabled");
-
         return false;
     });
     $("body").on("click", "[data-paginacion]", function (e) {
@@ -476,11 +470,9 @@ $(document).ready(function () {
 
     CrearDialogs();
     MostrarBarra();
-
-    //INI HD-4200
-    ValidarSuscripcionSE(function () { CargarDetallePedido();},0);
-    //FIN HD-4200
     
+    ValidarSuscripcionSE(function () { CargarDetallePedido(); }, 0);
+
     CargarCarouselEstrategias();
     CargarAutocomplete();
     CargarDialogMesajePostulantePedido();
@@ -503,8 +495,6 @@ $(document).ready(function () {
             clearInterval(myvar);
 
     }
-
-
 
 
     $("#observaciones_alerta").dialog({
@@ -530,8 +520,23 @@ $(document).ready(function () {
         HideDialog("observaciones_alerta");
         return false;
     });
+    //
+    //doWhatYouNeed();
 
+    $(window).bind("load", function () { //se ejecuta al finalizar la carga de la página
+        if (typeof cantPedidosPendientes !== "undefined" && typeof esDiaProl !== "undefined") {
+            if (cantPedidosPendientes > 0 && esDiaProl) {
+                $("#spnCantidadPendientes").text(cantPedidosPendientes);
+                $("#accionIgnorar").hide();
+                setTimeout(function () {
+                    $("#PopupPedidosPendientes").fadeIn(250);
+                }, 200);
+            }
+        }
+    });
 });
+
+//paco
 
 function CargarDetallePedido(page, rows, asyncrono) {
     $(".pMontoCliente").css("display", "none");
@@ -653,6 +658,8 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     }
                 }
 
+                /* Switch Consultora 100% */
+                doWhatYouNeed()
             }
         })
         .fail(function (response, error) {
@@ -775,15 +782,15 @@ function CrearDialogs() {
         }
     });
     $("#divConfirmValidarPROL2").dialog({
-	    autoOpen: false,
-	    resizable: false,
-	    modal: true,
-	    closeOnEscape: true,
-	    width: 550,
-	    draggable: true,
-	    close: function (event, ui) {
-		    HideDialog("divConfirmValidarPROL");
-	    }
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 550,
+        draggable: true,
+        close: function (event, ui) {
+            HideDialog("divConfirmValidarPROL");
+        }
     });
 
     $("#divReservaSatisfactoria").dialog({
@@ -979,17 +986,6 @@ function ValidarDescripcion() {
         $("#divMensaje").text("");
     }
 }
-
-//function PreValidarCUV(event) {
-
-//    event = event || window.event;
-
-//    if (event.keyCode == 13) {
-//        if ($("#btnAgregar")[0].disabled == false) {
-//            PedidoRegistroModule.AgregarProductoListadoPasePedido();
-//        }
-//    }
-//}
 
 function SeleccionarContenido(control) {
     control.select();
@@ -1214,11 +1210,10 @@ function BuscarByCUV(CUV) {
                 if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
-                //INI HD-3908
                 _flagNueva = (data[0].FlagNueva == "1") ? true : false;
                 $("#hdfCodigoPalanca").val(data[0].CodigoPalanca);
                 $("#hdfCampaniaID").val(data[0].CampaniaID);
-                //FIN HD-3908
+
                 CargarProductosRecomendados(data[0]);
 
             } else {
@@ -1365,7 +1360,11 @@ function ObtenerProductosSugeridos(CUV) {
             $("#divCarruselSugerido").prepend($(".js-slick-prev-h"));
             $("#divCarruselSugerido").prepend($(".js-slick-next-h"));
             TagManagerCarruselSugeridosInicio(data);
-
+            // Ver zoom producto en los productos sugeridos
+            setTimeout(function () {
+                productoSugeridoZoom.init('#ProductoSugeridoCarruselWrapper');
+            }, 1000);
+            // FIN - Ver zoom producto en los productos sugeridos
         },
         error: function (data, error) {
             CerrarSplash();
@@ -1669,6 +1668,7 @@ function CerrarProductoAgregado() {
 
 function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, esElecMultipleNuevas) {
 
+
     ValidDeleteElectivoNuevas(
         cuv,
         esElecMultipleNuevas,
@@ -1729,7 +1729,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             if (data.success != true) {
                 btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
                 messageInfoError(data.message);
-                
+
                 return false;
             }
 
@@ -1913,7 +1913,7 @@ function EsValidoMontoTotalReserva() {
 }
 
 function EjecutarServicioPROL() {
-	
+
     PedidoProvider
         .PedidoEjecutarServicioProlPromise()
         .done(function (response) {
@@ -1921,9 +1921,10 @@ function EjecutarServicioPROL() {
             if (!checkTimeout(response)) return;
             if (!response.success) {
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
-                return;
+                return false;
             }
 
+            //abre el mensaje de la olla
             if (response.mensajeCondicional) {
                 AbrirMensajeImagen(response.mensajeCondicional);
             }
@@ -1933,7 +1934,6 @@ function EjecutarServicioPROL() {
             AnalyticsPortalModule.MarcarGuardaTuPedido();
 
             if (RespuestaEjecutarServicioPROL(response.data)) return;
-
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
         })
         .fail(function (data, error) {
@@ -1970,7 +1970,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(data, inicio) {
-
     if (data.ErrorProl) {
         MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
         return true;
@@ -1987,15 +1986,14 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
     }
     else {
         mensajeBloqueante = false;
-
         if (data.ObservacionRestrictiva) {
             CrearPopupObservaciones(data, inicio);
         }
         else {
             $('#divMensajeObservacionesPROL').data('prop-NotExito', data.ObservacionRestrictiva);
-            ArmarPopupObsReserva("¡Lo lograste! Tu pedido fue guardado con éxito", "");
+            data.MostrarMensajeExito = true;
+            $("#spnCantidadPendientes").text(data.CantPedidosPendientes);
         }
-
     }
 
     AlmacenarRespuestaReservaEnHidden(data);
@@ -2082,28 +2080,55 @@ function ActualizarBtnGuardar(data) {
 function MostrarMensajeProl(response, fnOfertaFinal) {
     var cumpleOferta = fnOfertaFinal(response);
     if (cumpleOferta) return;
-
-    if (!response.data.Reserva) {
-        ShowPopupObservacionesReserva();
-        return;
+    var res = response.data;
+    if (!res.Reserva) {
+        if (res.hasOwnProperty("MostrarMensajeExito")) {
+            console.info(res.MostrarMensajeExito);
+            if (res.MostrarMensajeExito) {
+                var idPedidoGuardado = "#PopupPedidoGuardado", idPedidoPendiente = "#PopupPedidosPendientes", accionIgnorar = "#accionIgnorar";
+                $(accionIgnorar).hide();
+                $(idPedidoGuardado).fadeIn(250);
+                //setContainerLluvia(idPedidoGuardado);
+                //mostrarLluvia();
+                setTimeout(function () {
+                    var cantidad = res.hasOwnProperty("CantPedidosPendientes") ? res.CantPedidosPendientes : 0;
+                    $(idPedidoGuardado).fadeOut(500);
+                    if (cantidad > 0) {
+                        $(idPedidoPendiente).delay(300);
+                        $(idPedidoPendiente).fadeIn(500);
+                    }
+                }, 3750);
+                return false;
+            }
+        } else {
+            ShowPopupObservacionesReserva();
+            return false;
+        }
     }
-
     EjecutarAccionesReservaExitosa(response);
 }
 
-function EjecutarAccionesReservaExitosa(response) {
-    if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
+function CerrarPopUpGrabadoConExito() {
 
+}
+
+function EjecutarAccionesReservaExitosa(response) {
+    if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();    
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
-    //INI HD-4294
+
     if (!response.data.IsEmailConfirmado) {
        
         configActualizarCorreo.UrlPedidoValidado = (!ultimoDiaFacturacion) ? configActualizarCorreo.UrlPedido: configActualizarCorreo.UrlPedidoValidado;
         new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
-   //FIN HD-4294
+
     }else {
-        $("#dialog_divReservaSatisfactoria").show();
-    
+        var idPedidoGuardado = "#PopupPedidoGuardado", msgReservado = "#msgPedidoReservado", msgGuardado = "#msgPedidoGuardado";
+        $(msgGuardado).hide();
+        $(msgReservado).show();
+        setContainerLluvia(idPedidoGuardado);
+        mostrarLluvia();
+        $(idPedidoGuardado).fadeIn(250);
+
         if (ultimoDiaFacturacion) {
 	        RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
         } else {
@@ -2153,17 +2178,10 @@ function EliminarPedido() {
             }
 
             if (data.success != true) {
+                
+                messageInfoError(data.message);
+                CerrarSplash();
 
-                //INI HD-3693
-                //messageInfoError(data.message);
-                //CerrarSplash();
-                var msjBloq = validarpopupBloqueada(data.message);
-                if (msjBloq != "") { alert_msg_bloqueadas(msjBloq); }
-                else {
-                    messageInfoError(data.message);
-                    CerrarSplash();
-                }
-                //FIN HD-3693
                 return false;
             }
 
@@ -2653,12 +2671,12 @@ function CargarProductoAgotados(identificador) {
         CargarFiltrosProductoAgotados();
 
     var data =
-        {
-            cuv: $("#producto-faltante-busqueda-cuv").val(),
-            descripcion: $("#producto-faltante-busqueda-descripcion").val(),
-            categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
-            revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
-        };
+    {
+        cuv: $("#producto-faltante-busqueda-cuv").val(),
+        descripcion: $("#producto-faltante-busqueda-descripcion").val(),
+        categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
+        revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
+    };
 
     AbrirSplash();
     jQuery.ajax({
@@ -2721,7 +2739,6 @@ $.fn.CreateSelected = function (array, val, text, etiqueta, index) {
         }
 
         $.each(array, function (i, item) {
-            //var objtemp = item;
             $(obj).append('<option value="' + item[val] + '">' + item[text] + "</option>");
         });
     } catch (e) {
@@ -2845,7 +2862,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 restringido = false;
                 return false;
             }
-            
+
             if (data.pedidoReservado) {
                 if (mostrarAlerta == true) {
                     CerrarSplash();
@@ -2856,14 +2873,9 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                     location.href = urlValidadoPedido;
                 }
             }
-            //INI HD-3693
-            //else if (mostrarAlerta == true) AbrirMensaje(data.message);
-            else if (mostrarAlerta == true) {
-                var msjBloq = validarpopupBloqueada(data.message);
-                if (msjBloq != "") { alert_msg_bloqueadas(msjBloq); }
-                else AbrirMensaje(data.message);
-            }
-            //FIN HD-3693
+
+            else if (mostrarAlerta == true) AbrirMensaje(data.message);
+
         },
         error: function (error, x) {
             AbrirMensaje("Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.");
@@ -2893,6 +2905,7 @@ function ConfirmarModificar() {
                 }
                 else {
                     closeWaitingDialog();
+                    HideDialog("divConfirmValidarPROL2");
                     messageInfoError(data.message);
                 }
             }
@@ -2916,16 +2929,11 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 }
 
 function closeDialogObservacionesProl() {
-
     var notExitoFromProl = $('#divMensajeObservacionesPROL').data('prop-NotExito');
-
     if (!notExitoFromProl)
         if (!(typeof AnalyticsPortalModule === 'undefined'))
             AnalyticsPortalModule.MarcaGuardarPedidoExito(arrayProductosGuardadoExito);
-
-
     HideDialog("divObservacionesPROL");
-
 }
 
 function ArmarPopupObsReserva(titulo, mensaje) {
@@ -2957,13 +2965,13 @@ function InsertarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, es
     var _cuvprecio = esAceptado == true ? precio : DecimalToStringFormat($("#txtPrecioR").val());
     waitingDialog({});
     var model =
-        {
-            CUV: cuvbuscado,
-            CUVSugerido: cuvSugerido,
-            PrecioUnidad: _cuvprecio,
-            Cantidad: cantidad,
-            CuvEsAceptado: esAceptado
-        };
+    {
+        CUV: cuvbuscado,
+        CUVSugerido: cuvSugerido,
+        PrecioUnidad: _cuvprecio,
+        Cantidad: cantidad,
+        CuvEsAceptado: esAceptado
+    };
 
     jQuery.ajax({
         type: "POST",
@@ -3032,11 +3040,11 @@ function CargarProductosRecomendados(item) {
 }
 
 function ModificarPedido() {
-	showDialog("divConfirmValidarPROL2");
+    showDialog("divConfirmValidarPROL2");
 }
 
 function CerrarDialogo(dialog) {
-	HideDialog(dialog);
+    HideDialog(dialog);
 }
 
 function PedidosPendientesPorAprobar() {
@@ -3046,3 +3054,125 @@ function PedidosPendientesPorAprobar() {
     }
     window.location.href = '/ConsultoraOnline/Pendientes';
 }
+
+/* Switch Consultora 100% */
+function doWhatYouNeed() {
+    var object = { codigoConsultora: userData.codigoConsultora}
+
+    $.ajax({
+        type: "POST",
+        url: URL_VERIFICAR_CONSULTORA_DIGITAL,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(object),
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            
+            if (checkTimeout(data)) {
+                if (data != null) {
+                    if (data.IndicadorConsultoraDigital) {
+                        if (document.getElementById("bPedidoPaginarRegistrosTotal") != undefined && document.getElementById("bPedidoPaginarRegistrosTotal").innerHTML > 0 ) {
+                            if (data.IndicadorRecepcion) {
+                                $("div.contenedor_info_recepcion_pedido").css("display", "flex");
+                                $(".info_recepcion_pedido").css("display", "block");
+                                $(".switch__control").prop("checked", true);
+                                cargarDatosrecepcion(data);
+                            } else {
+                                $("div.contenedor_info_recepcion_pedido").css("display", "flex");
+                                $(".info_recepcion_pedido").css("display", "none");
+                                $(".switch__control").prop("checked", false);
+                            }
+
+                        } else {
+                            $("div.contenedor_info_recepcion_pedido").css("display", "none");
+                            $(".info_recepcion_pedido").css("display", "none");
+                            $(".switch__control").prop("checked", false);
+                        }
+                    } else $("div.contenedor_info_recepcion_pedido").css("display", "none")
+                }
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+
+
+}
+
+$("input:checkbox[class=switch__control]").change(function () {
+    // 
+    if (!document.querySelectorAll("input[type=checkbox]:not(:checked )").length) {
+        LimpiarCamposRecepcionPoput();
+        $('#PopupRecepcionPedido').fadeIn(100);
+    } else {
+        DeshacerRecepcionpedido();
+    }
+
+});
+
+
+function DeshacerRecepcionpedido() {
+    $.ajax({
+        type: "POST",
+        url: UR_DESHACERRECEPCION_PEDIDO,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data > 0) {
+                    $(".info_recepcion_pedido").css("display", "none");
+                }
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+}
+
+function cargarDatosrecepcion(object) {
+    var ListChildren = document.getElementsByClassName("datos__receptor__pedido")[0].children;
+    ListChildren[0].textContent = object.nombreYApellido;
+    ListChildren[1].textContent = object.numeroDocumento;
+}
+
+
+function LimpiarCamposRecepcionPoput() {
+    $("#txtNombreYApellido").removeClass('text__field__sb--withContent');
+    $("#txtNumeroDocumento").removeClass('text__field__sb--withContent');
+    document.getElementsByClassName("form__group__fields--nombreApellido")[0].children[2].textContent = "";
+    document.getElementsByClassName("form__group__fields--numeroDocumento")[0].children[2].textContent = "";
+    $("#txtNombreYApellido").val("");
+    $("#txtNumeroDocumento").val("");
+    $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");  
+        
+    object = {};
+}
+
+$(".popup__somos__belcorp__icono__cerrar--popupRecepcionPedido").click(function () {
+    ActualizarCheck(); 
+})
+
+$(".btn__sb--cambiarPersona").click(function () {
+    $("#txtNombreYApellido").addClass('text__field__sb--withContent');
+    $("#txtNumeroDocumento").addClass('text__field__sb--withContent');
+    $("#txtNombreYApellido").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[0].textContent);
+    $("#txtNumeroDocumento").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[1].textContent);
+    $(".btn__sb__primary--multimarca").removeClass("btn__sb--disabled");  
+});
+
+
+function ActualizarCheck() {
+    LimpiarCamposRecepcionPoput();
+    if ($(".info_recepcion_pedido").css("display") == "none") {
+        $(".switch__control").prop("checked", false);
+    }
+}
+
+/* Switch Consultora 100% - FIN*/

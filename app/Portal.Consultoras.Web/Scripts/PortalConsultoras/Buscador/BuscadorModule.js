@@ -421,24 +421,36 @@ var BuscadorModule = (function () {
             var codigoCuv = $(divPadre).find(".hdBuscadorCUV").val();
             var OrigenPedidoWeb = $(divPadre).find(".hdBuscadorOrigenPedidoWeb").val();
             var descripcionProducto = $(divPadre).find(".hdBuscadorDescripcion").val();
+            var tipoPersonalizacionProducto = $(divPadre).find(".hdBuscadorTipoPersonalizacion").val();
 
             var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
+            var tipoPersonalizacion = ["CAT"];
 
             if (textoBusqueda != "")
                 localStorage.setItem('valorBuscador', textoBusqueda);
 
+            var UrlDetalle = "";
             if (codigo.indexOf(codigoEstrategia) >= 0) {
-                var UrlDetalle = FichaVerDetalle.GetPalanca(codigoEstrategia, OrigenPedidoWeb);
-                if (UrlDetalle === "") return false;
-                UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-                _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);
-                window.location = UrlDetalle;
-
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
-
-                return true;
+                UrlDetalle = FichaVerDetalle.GetPalanca(codigoEstrategia, OrigenPedidoWeb);
             }
+            if (UrlDetalle == "" && tipoPersonalizacion.indexOf(tipoPersonalizacionProducto) >= 0) {
+                UrlDetalle = FichaVerDetalle.GetUrlTipoPersonalizacion(tipoPersonalizacionProducto);
+                //
+                var key = ConstantesModule.KeysLocalStorage.DescripcionProductoCatalogo(codigoCampania, codigoCuv);
+                if (descripcionProducto != '') localStorage.setItem(key, descripcionProducto);
+            }
+
+            if (UrlDetalle === "") return false;
+
+            UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
+            _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);
+            
+            window.location = UrlDetalle;
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
+
+            return true;
         },
         ClickVerTodos: function () {
             var valorBusqueda = $(_elementos.campoBuscadorProductos).val();

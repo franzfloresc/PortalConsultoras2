@@ -1,0 +1,65 @@
+﻿
+@model Portal.Consultoras.Web.Models.AdministrarHistorialDetaListModel
+@{
+    string imagenVacia = "prod_grilla_vacio.png";
+}
+<style>
+    .div-3 .titC {
+        height: auto;
+        padding: 9px;
+        background: none;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+        float: none;
+        width: auto;
+        text-align: left;
+    }
+
+    .Content_modal form {
+        display: inline-block;
+    }
+</style>
+@using (Html.BeginForm("UploadFile", "AdministrarHistorias", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+<div class="div-12">
+    @Html.HiddenFor(model => model.Proc, new { id = "ProcVideo" })
+    @Html.HiddenFor(model => model.IdContenidoDeta, new { id = "IdContenidoDetaVideo" })
+    @Html.HiddenFor(model => model.IdContenido, new { id = "IdContenidoVideo" })
+    @Html.HiddenFor(model => model.RutaContenido, new { id = "RutaContenidoVideo" })
+    <div class="div-3">
+        <div class="titG">Campaña:</div>
+        <div class="selectP2 borde_redondeado">
+            @if (Model.Proc == 1)
+            {
+                @Html.DropDownListFor(model => model.Campania, new SelectList(Model.ListaCampanias, "CampaniaID", "Codigo"), new { id = "ddlCampaniaVideo" })
+            }
+            else
+            {
+                @Html.DropDownListFor(model => model.Campania, new SelectList(Model.ListaCampanias, "CampaniaID", "Codigo"), new { id = "ddlCampaniaVideo", @disabled = "disabled" })
+            }
+        </div>
+    </div>
+
+    <div class="div-3 divHomeImagenFondo"
+         style="display: inline-block; text-align: left; margin-bottom: 15px;">
+        <div class="titG">
+            <span id="">Video: </span>
+            <h6 id="lblMedidasHistApp">Extensión (.MP4)</h6>
+        </div>
+        <div style="display: inline-block;">
+            <div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;">
+                <span>Examinar</span>
+                @Html.TextBox("file", "", new { type = "file", style = "position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;" }) <br />
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+}

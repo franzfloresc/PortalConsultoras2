@@ -9,6 +9,10 @@ namespace Portal.Consultoras.Web.Models
 {
     public class PedidoSb2Model
     {
+        public PedidoSb2Model()
+        {
+            CantPedidosPendientes = 0;
+        }
         public string CodigoIso { get; set; }
 
         public bool EstadoSimplificacionCuv { get; set; }
@@ -16,7 +20,7 @@ namespace Portal.Consultoras.Web.Models
         public string ErrorInsertarProducto { get; set; }
 
         public List<BEEstrategia> ListaEstrategias { get; set; }
-        
+
         public int IndicadorFlexiPago { get; set; }
 
         public decimal LineaCredito { get; set; }
@@ -291,9 +295,9 @@ namespace Portal.Consultoras.Web.Models
 
         public bool EsConsultoraOficina { get; set; }
 
-        //INI HD-4294
+        public int CantPedidosPendientes { get; set; }
         public bool IsEmailConfirmado { get; set; }
-        //FIN HD-4294
+
         public decimal? GananciaRevista { get; set; }
         public decimal? GananciaWeb { get; set; }
         public decimal? GananciaOtros { get; set; }
@@ -301,7 +305,7 @@ namespace Portal.Consultoras.Web.Models
         {
             get
             {
-                if(GananciaRevista != null)
+                if (GananciaRevista != null)
                     return Util.DecimalToStringFormat(GananciaRevista.Value, CodigoIso);
                 else
                     return Util.DecimalToStringFormat(Decimal.Zero, CodigoIso);
@@ -332,7 +336,7 @@ namespace Portal.Consultoras.Web.Models
             get
             {
                 if (GananciaOtros != null && GananciaWeb != null && GananciaRevista != null)
-                    return Util.DecimalToStringFormat((GananciaOtros.Value + GananciaWeb.Value + GananciaRevista.Value + MontoAhorroCatalogo ), CodigoIso);
+                    return Util.DecimalToStringFormat((GananciaOtros.Value + GananciaWeb.Value + GananciaRevista.Value + MontoAhorroCatalogo), CodigoIso);
                 else
                     return Util.DecimalToStringFormat(Decimal.Zero, CodigoIso);
             }
@@ -342,6 +346,8 @@ namespace Portal.Consultoras.Web.Models
         public string FormatoTotalGananciaWebStr { get; set; }
         public string FormatoTotalMontoAhorroCatalogoStr { get; set; }
         public string FormatoTotalMontoGananciaStr { get; set; }
-        //public bool IsShowGananciaConsultora { get; set; }
+
+
+
     }
 }
