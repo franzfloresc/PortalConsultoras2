@@ -412,6 +412,7 @@ namespace Portal.Consultoras.Common
             public const string CDRWebDatos = "CDRWebDatos";
             public const string CDRExpressMensajes = "CDRExpressMensajes";
             public const string CDRFlagIsSetsOrPacks = "CDRSetsYPacks";
+            public const string CDRFlagTruequeUnoMuchos = "CDRFlagTruequeUnoMuchos";
 
             // Tabla LOgica
             public const string TablaLogicaDatos = "TablaLogicaDatos";
@@ -525,6 +526,7 @@ namespace Portal.Consultoras.Common
             public const string BelcorpRespondeTEL = "BelcorpRespondeTEL_{0}";
             public const string DES_UBIGEO = "DES_UBIGEO_";
             public const string FechaChat = "FechaChat_";
+            public const string MensajeCantiad = "Excediste el límite de compras de este producto. (Máx.: {0} unidades)";
             public const string MensajeChatBienvenida = " tú eres nuestro ejemplo e inspiración. En un momento uno de nuestros creadores de experiencia te atenderá.";
             public const string PaisesBelcorpChatEMTELCO = "PaisesBelcorpChatEMTELCO";
             public const string UrlBelcorpChat = "UrlBelcorpChat";
@@ -627,7 +629,6 @@ namespace Portal.Consultoras.Common
             public const string BonificacionesURL = "BonificacionesURL";
             public const string BonificacionesRegiones = "BonificacionesRegiones";
             public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
-            public const string QuestionProUrl = "QuestionProUrl";
             public const string ChatbotSecret = "ChatbotSecret";
             public const string ChatBotPageId = "ChatBotPageId";
             public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
@@ -1205,6 +1206,10 @@ namespace Portal.Consultoras.Common
             public const string TenerEnCuenta = "TenerEnCuenta";
             public const string Finalizado = "Finalizado";
             public const string MensajeFinalizado = "MensajeFinalizado";
+        }
+
+        public static class MotivoRechazo {
+            public const string NoRecibiProductoEnFactura = "11";
         }
 
         public static class ParametriaCDR

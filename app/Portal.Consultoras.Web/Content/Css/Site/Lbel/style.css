@@ -19567,6 +19567,12 @@ color:white;
         margin-right: 15px;
     }
 
+.estado_detalleObservado {
+    background: white;
+    border: 1px solid #e81c36;
+    color: #e81c36;
+}
+
 .estado_detalleIngresado {
     background: #e7e7e7;
 }
@@ -25574,6 +25580,178 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-family: 'Lato';
     position: relative;
 }
+
+/* HD-4017 - POPUP PRODUCTOS OBSERVADOS */
+
+.popup_productos_observados{
+    min-width:1189px;
+}
+
+    .titulo_grilla.titulo_grilla--productosObservados,
+    .subtitulo_grilla.subtitulo_grilla--productosObservados{
+        margin-left:0;
+    }
+
+    .subtitulo_grilla.subtitulo_grilla--productosObservados{
+        margin-top:24px;
+        font-size:14px;
+    }
+
+    .content_listado_reclamo.content_listado_reclamo--contenidoGrilla{
+        border-bottom:1px solid #000;
+    }
+
+    .popup_productos_observados .pop_solicitud_producto--nom,
+    .popup_productos_observados .pop_solicitud_tipo--nomSolucion,
+    .popup_productos_observados .pop_solicitud_solucion--listadoProductos,
+    .popup_productos_observados .pop_solicitud_solucion--listadoProductos--content,
+    .popup_productos_observados .pop_solicitud_resolucion--estado,
+    .popup_productos_observados .pop_solicitud_solucion--acciones{
+        padding-left:0;
+    }
+
+    .popup_productos_observados .content_listado_reclamo,
+    .popup_productos_observados .content_listado_reclamo--contenidoGrilla{
+        justify-content: flex-start;
+    }
+
+        .popup_productos_observados .content_listado_reclamo,
+        .popup_productos_observados .producto_solicitud_row{
+            align-items:center;
+        }
+
+        .popup_productos_observados .pop_solicitud_producto--nom{
+            width:20%;
+        }
+
+        .popup_productos_observados .pop_solicitud_tipo--nomSolucion {
+            margin-right: 0;
+        }
+
+        .popup_productos_observados .pop_solicitud_solucion--listadoProductos {
+            width: 26%;
+        }
+
+        .popup_productos_observados .pop_solicitud_solucion--listadoProductos--content {
+            width: 64%;
+            padding-right: 0;
+            padding-bottom: 0;
+        }
+
+            .producto_solicitud_row {
+                padding-top: 16px;
+                padding-bottom: 16px;
+                border-bottom: 1px solid #000;
+            }
+
+                .producto_solicitud_row:first-child{
+                    padding-top:0;
+                }
+
+                .producto_solicitud_row:last-child {
+                    border-bottom:0;
+                }
+
+        .popup_productos_observados .pop_solicitud_resolucion--estado {
+            width: 25%;
+        }
+
+        .popup_productos_observados .pop_solicitud_solucion--acciones{
+            width:13%;
+        }
+
+.producto_solicitud_row {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+    .producto_solicitud {
+        flex: 0 0 40%;
+        max-width: 40%;
+        padding-right:20px;
+    }
+
+    .estado_producto_solicitud {
+        flex: 0 0 37%;
+        max-width: 37%;
+        flex-wrap:wrap;
+        align-items:center;
+    }
+
+        .tag_sb--estado{
+            font-size:12px;
+            letter-spacing:0.5px;
+        }
+
+    .acciones_solicitud {
+        flex: 0 0 23%;
+        max-width: 23%;
+        padding-left: 4px;
+        padding-right: 4px;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+        .acciones_solicitud .rango_producto_observado {
+            margin: 0;
+        }
+
+            .acciones_solicitud .liquidacion_rango_cantidad_pedido{
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+
+            .acciones_solicitud .liquidacion_rango_right_pedido{
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+                overflow: hidden;
+            }
+
+            .acciones_solicitud .menos{
+                padding-top: 1px;
+                border-bottom: 0;
+            }
+
+    .descripcion_estado_producto_solicitud{
+        font-size:13px;
+    }
+
+    .nota_producto_observado_y_eliminar_todos_los_productos_wrapper{
+        justify-content: space-around;
+        align-items: center;
+        padding-left: 16px;
+        padding-right: 16px;
+        height:68px!important;
+    }
+
+        .nota_producto_observado_y_eliminar_todos_los_productos_wrapper:after {
+            display: none;
+        }
+
+        .nota_producto_observado_y_eliminar_todos_los_productos_wrapper .nota_producto_observado {
+            margin-top: 0;
+            margin-left: 0;
+            flex: 0 0 1;
+            float: none;
+            width: auto;
+        }
+
+        .btn__sb--eliminarTodosLosProductos{
+            flex: 0 0 280px;
+            max-width: 280px;
+            line-height:37px;
+        }
+
+    .btn__sb--continuarEnvio{
+        min-width: 196px;
+        margin-top: 24px;
+        line-height: 37px;
+    }
+
+/* FIN - HD-4017 - POPUP PRODUCTOS OBSERVADOS */
+
 /*información adicional*/
 .mensajes_deAtencion span {
     width: 50%;
@@ -28283,6 +28461,14 @@ div.motivoRechazo textarea {
     margin-top: 25px;
 }
 
+    .subtitulo_reclamo--seccionSolicitudEnviada{
+        font-size: 21px;
+        margin-top: 55px;
+        margin-bottom:20px;
+        border-top: 1px solid #000;
+        padding-top: 32px;
+    }
+
 .subtitulo_reclamo_motivo {
     font-size: 16px;
     margin-top: 30px;
@@ -28473,7 +28659,7 @@ div.motivoRechazo textarea {
 
 .resultado_busqueda_por_cuv_codigo_prod {
     color: #808080;
-    margin-bottom: 3px;
+    margin-bottom: 0;
 }
 
 .resultado_busqueda_por_cuv_codigo_prod,
@@ -28712,7 +28898,8 @@ div.motivoRechazo textarea {
 .opcion_cdr,
 .opcion_cdr_seleccionada_campo_busqueda,
 .validacion_datos_correo_electronico,
-.validacion_datos_celular_contacto {
+.validacion_datos_celular_contacto,
+.btn_agregar_mas_productos_a_cambiar span{
     display: inline-block;
 }
 
@@ -28740,7 +28927,9 @@ div.motivoRechazo textarea {
         }
 
 .opcion_cdr,
-.opcion_cdr_seleccionada_campo_busqueda {
+.opcion_cdr_seleccionada_campo_busqueda,
+.btn_eliminar_trueque,
+.btn_agregar_mas_productos_a_cambiar span{
     vertical-align: middle;
 }
 
@@ -28750,10 +28939,22 @@ div.motivoRechazo textarea {
     border-radius: 4px;
     margin-right: 16px;
     border: 1px solid #808080;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
     .opcion_cdr:last-child {
         margin-right: 0;
+    }
+
+    .opcion_cdr:hover,
+    .opcion_cdr_seleccionada {
+        border: 2px solid #000;
+        -moz-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+        -webkit-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+        box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
     }
 
 .opcion_cdr_enlace,
@@ -28873,6 +29074,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     width: 130px;
 }
 
+.opcion_cdr_seleccionada_campo_busqueda--precio {
+    margin-right: 6px;
+}
+
 .opcion_cdr_seleccionada_campo_busqueda--descripcion {
     width: 261px;
 }
@@ -28941,6 +29146,35 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos img {
         left: -1.5px;
     }
+
+.btn_agregar_mas_productos_a_cambiar {
+    width: 249px !important;
+    border: 0 !important;
+    background-color: #FFF !important;
+    color: #000 !important;
+}
+
+    .btn_agregar_mas_productos_a_cambiar:hover span:last-child {
+        text-decoration: underline;
+    }
+
+    .btn_agregar_mas_productos_a_cambiar span:first-child{
+        margin-right:8px;
+        height:30px;
+    }
+
+        .btn_agregar_mas_productos_a_cambiar img{
+            width:95%;
+        }
+
+.btn_eliminar_trueque {
+    /*border: 1px solid #909094;*/
+    border: 0;
+    background-color: #FFF;
+    width: 40px;
+    height: 40px;
+    margin-left: -4px;
+}
 
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto {
     margin-bottom: 8px;
@@ -29115,6 +29349,14 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     line-height: 45px;
     cursor: pointer;
     letter-spacing:0.5px;
+}
+
+.btn__sb--agregarOtroProductoASolicitud,
+.btn__sb--enviarSolicitud {
+    line-height: 40px;
+    padding-left:15px;
+    padding-right:15px;
+    margin-bottom:60px;
 }
 
 *::-webkit-input-placeholder {
@@ -29318,8 +29560,13 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         border-top: 1px solid #000;
     }
 
-    .content_listado_reclamo--contenido {
+    .content_listado_reclamo--contenido,
+    .content_listado_reclamo--contenido:last-child{
         border-bottom: 1px solid #d8d8d8;
+    }
+
+    .content_listado_reclamo--content{
+        justify-content:flex-start;
     }
 
 .listado_producto_reclamo, .listado_solicitud_reclamo, .listado_solicitada_reclamo, .listado_eliminar_reclamo {
@@ -29333,14 +29580,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .listado_producto_reclamo {
-    width: 37%;
-    padding-right: 15px;
+    width: 26%;
 }
 
 .listado_solicitud_reclamo {
     width: 17%;
-    margin-right: 100px;
+    margin-right: 117px;
 }
+
+    .listado_solicitud_reclamo--solucionSolicitada {
+        padding-left: 29px;
+    }
 
 .listado_solicitud_reclamo--paso3 {
     margin-right: 85px;
@@ -29365,8 +29615,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .listado_solicitada_reclamo {
-    width: 26%;
+    width: 36%;
 }
+
+    .listado_solicitada_reclamo div {
+        margin-bottom: 16px;
+    }
+
+        .listado_solicitada_reclamo div:last-child {
+            margin-bottom: 4px;
+            font-size: 17px;
+        }
 
 .listado_eliminar_reclamo {
     width: 11%;
@@ -29579,25 +29838,26 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     border: 1px solid black;
 }
 
+    .content_btn_imprimir--solicitudEnviada {
+        border: 0;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
 .btn_imprimir_reclamo {
-    display: inline-block;
     width: 100%;
-    vertical-align: middle;
-    text-align: center;
-    line-height: 41px;
-    font-family: 'LAto';
+    line-height: 38px;
     font-size: 13px;
-    font-weight: 700;
 }
 
-.icono_imprimir_reclamo {
-    display: inline-block;
-    width: 25px;
-    height: 24px;
-    margin-right: 10px;
-    vertical-align: middle;
-    background: url('/Content/Images/Esika/imprimir_reclamo.png') no-repeat;
-}
+    .icono_imprimir_reclamo {
+        display: inline-block;
+        width: 25px;
+        height: 24px;
+        margin-right: 10px;
+        vertical-align: middle;
+        background: url('/Content/Images/Esika/imprimir_reclamo.png') no-repeat;
+    }
 
 .detalle_estado_reclamo {
     font-family: 'LAto';
@@ -29633,6 +29893,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     box-shadow: 0 2px 4px 0 rgba(154, 154, 154, .5);
 }
 
+.content_detalle_solicitudEnviada {
+    position: relative;
+    overflow: hidden;
+    padding: 0 30px 30px 30px;
+}
+
 .btn_ver_solicitudes {
     font-family: 'Lato', sans-serif;
     font-size: 14px;
@@ -29648,8 +29914,13 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background-position: 0 4px;
 }
 
-    .btn_ver_solicitudes--paso3{
+    .btn_ver_solicitudes--paso3,
+    .btn_ver_solicitudes--seccionSolicitudEnviada{
         margin-bottom:60px;
+    }
+
+    .btn_ver_solicitudes--seccionSolicitudEnviada{
+        margin-top:0;
     }
 
 .UltimasSolicitudes {
@@ -29658,7 +29929,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     height: auto;
     padding: 10px 14px 10px 20px;
     right: 0;
-    top: -15px;
+    top: 33px;
     -webkit-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
     -moz-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
     box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
@@ -29809,6 +30080,13 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
             background: #cfcfcf;
             left: 0;
         }
+
+.lista_solicitudes_registradas_wrapper {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom:80px;
+}
 
 .texto_solicitud_registrada {
     float: left;
@@ -29993,20 +30271,51 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     /*padding-left: 2%;*/
 }
 
+    .pop_solicitud_producto--nom{
+        width:30%;
+    }
+
 .pop_solicitud_tipo {
     width: 16%;
     /*padding-left: 1%;*/
 }
+
+    .pop_solicitud_tipo--nomSolucion{
+        margin-right:24px;
+    }
 
 .pop_solicitud_solucion {
     width: 22.5%;
     /*padding-left: 1%;*/
 }
 
+    .pop_solicitud_solucion--listadoProductos{
+        width:36%;
+    }
+
+        .pop_solicitud_solucion--listadoProductos > div {
+            padding-top: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #808080;
+        }
+
+            .pop_solicitud_solucion--listadoProductos > div:first-child {
+                padding-top: 0;
+            }
+
+            .pop_solicitud_solucion--listadoProductos > div:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+            }
+
 .pop_solicitud_resolucion {
     width: 28.5%;
     /*padding-left: 4%;*/
 }
+
+    .pop_solicitud_resolucion--estado{
+        width:16%;
+    }
 
 .texto_estado_solicitud {
     display: block;
@@ -30314,7 +30623,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-top: 23px;
     width: 360px;
     padding-left: 25px;
-    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat top left;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat center left;
+    background-size: 18px;
 }
 
 .btn_eliminar_observado {
@@ -32346,8 +32656,9 @@ height:30px;
     margin-left: 3%;
 }
 
+.enlace_chat,
 .enlace_chat a {
-    display: inline;
+    display: inline-block;
     font-weight: bold;
     text-decoration: underline;
 }
