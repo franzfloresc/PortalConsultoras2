@@ -5124,6 +5124,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.DateTime FechaFinFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaIngresoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaInicioFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6716,6 +6719,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.FechaFinFacturacionField.Equals(value) != true)) {
                     this.FechaFinFacturacionField = value;
                     this.RaisePropertyChanged("FechaFinFacturacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaIngreso {
+            get {
+                return this.FechaIngresoField;
+            }
+            set {
+                if ((this.FechaIngresoField.Equals(value) != true)) {
+                    this.FechaIngresoField = value;
+                    this.RaisePropertyChanged("FechaIngreso");
                 }
             }
         }
