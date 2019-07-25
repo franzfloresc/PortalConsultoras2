@@ -1,6 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
-
+@using Portal.Consultoras.Web.ServiceSAC
+@model BEFechaFacturacion
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     ViewBag.Title = "Fechas de Facturación";
@@ -35,30 +36,62 @@
 
 <main class="d-flex flex-row flex-wrap justify-content-center center-block layout__container layout__container--fechasFacturacion">
     <section class="d-flex flex-row flex-wrap border-radius-4 seccion__campania__actual" id="FechaActual">
-        <div class="d-flex flex-row flex-nowrap justify-content-between align-items-center flex-grow-1">
-            <div class="d-inline-block text-left num__campania">
-                <span class="d-block color-multimarca">Estás en:</span>
-                <span class="d-block text-bold color-multimarca">C-07</span>
-            </div>
-            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
-                <div class="d-block flex-grow-1">
-                    <span class="d-block text-bold">
-                        Facturación:
-                    </span>
-                    <span class="d-block">
-                        Lunes 05 Mayo - Jueves 09 Mayo
-                    </span>
+        @if (Model.ListFechaFacturacionActual != null && Model.ListFechaFacturacionActual.Length > 0)
+        {
+            var FacturacionActual = Model.ListFechaFacturacionActual.FirstOrDefault();
+            <div class="d-flex flex-row flex-nowrap justify-content-between align-items-center flex-grow-1">
+                <div class="d-inline-block text-left num__campania">
+                    <span class="d-block color-multimarca">Estás en:</span>
+                    <span class="d-block text-bold color-multimarca">@(FacturacionActual.CampaniaPartida)</span>
                 </div>
-                <div class="d-block flex-grow-1">
-                    <span class="d-block text-bold">
-                        Fecha de pago pedido <span>C07</span>:
-                    </span>
-                    <span class="d-block">
-                        Miércoles 14 Junio
-                    </span>
+                <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                    <div class="d-block flex-grow-1">
+                        <span class="d-block text-bold">
+                            Facturación:
+                        </span>
+                        <span class="d-block">
+                            @(FacturacionActual.Facturacion)
+                        </span>
+                    </div>
+                    <div class="d-block flex-grow-1">
+                        <span class="d-block text-bold">
+                            Fecha de pago pedido <span>@(FacturacionActual.CampaniaPartida)</span>:
+                        </span>
+                        <span class="d-block">
+                            @(FacturacionActual.FechaLimitePago)
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="d-flex flex-row flex-nowrap justify-content-between align-items-center flex-grow-1">
+                <div class="d-inline-block text-left num__campania">
+                    <span class="d-block color-multimarca">Estás en:</span>
+                    <span class="d-block text-bold color-multimarca">C-07</span>
+                </div>
+                <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                    <div class="d-block flex-grow-1">
+                        <span class="d-block text-bold">
+                            Facturación:
+                        </span>
+                        <span class="d-block">
+                            -
+                        </span>
+                    </div>
+                    <div class="d-block flex-grow-1">
+                        <span class="d-block text-bold">
+                            Fecha de pago pedido <span></span>:
+                        </span>
+                        <span class="d-block">
+                            -
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+
     </section>
     <section class="d-flex flex-row flex-wrap seccion__campanias__anteriores__y__siguientes">
 
@@ -78,154 +111,66 @@
         <section class="tabs__content__sb__wrapper tabs__content__sb__wrapper--fechasFacturacion">
             <div id="Anteriores" class="tab__content__sb">
                 <ul class="card__sb__container card__sb__container--fechasFacturacion">
-                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
-                        <div class="d-inline-block text-center num__campania">
-                            <span class="d-block">Anteriormente</span>
-                            <span class="d-block text-bold">C-05</span>
-                        </div>
-                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Facturación:
-                                </span>
-                                <span class="d-block">
-                                    Lunes 05 Mayo - Jueves 09 Mayo
-                                </span>
+                    @foreach (var item in Model.ListFechaFacturacionAnterior)
+                    {
+                        <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
+                            <div class="d-inline-block text-center num__campania">
+                                <span class="d-block">Anteriormente</span>
+                                <span class="d-block text-bold">@(item.CampaniaPartida)</span>
                             </div>
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Fecha de pago pedido <span>C07</span>:
-                                </span>
-                                <span class="d-block">
-                                    Miércoles 14 Junio
-                                </span>
+                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                                <div class="d-block flex-grow-1">
+                                    <span class="d-block text-bold">
+                                        Facturación:
+                                    </span>
+                                    <span class="d-block">
+                                      @(item.Facturacion)
+                                    </span>
+                                </div>
+                                <div class="d-block flex-grow-1">
+                                    <span class="d-block text-bold">
+                                        Fecha de pago pedido <span>@(item.CampaniaPartida)</span>:
+                                    </span>
+                                    <span class="d-block">
+                                        @(item.FechaLimitePago)
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
-                        <div class="d-inline-block text-center num__campania">
-                            <span class="d-block">Anteriormente</span>
-                            <span class="d-block text-bold">C-06</span>
-                        </div>
-                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Facturación:
-                                </span>
-                                <span class="d-block">
-                                    Lunes 05 Mayo - Jueves 09 Mayo
-                                </span>
-                            </div>
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Fecha de pago pedido <span>C07</span>:
-                                </span>
-                                <span class="d-block">
-                                    Miércoles 14 Junio
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
-                        <div class="d-inline-block text-center num__campania">
-                            <span class="d-block">Anteriormente</span>
-                            <span class="d-block text-bold">C-07</span>
-                        </div>
-                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Facturación:
-                                </span>
-                                <span class="d-block">
-                                    Lunes 05 Mayo - Jueves 09 Mayo
-                                </span>
-                            </div>
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Fecha de pago pedido <span>C07</span>:
-                                </span>
-                                <span class="d-block">
-                                    Miércoles 14 Junio
-                                </span>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    }
+
                 </ul>
             </div>
             <div id="Proximas" class="tab__content__sb" style="display:none;">
                 <ul class="card__sb__container card__sb__container--fechasFacturacion">
-                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
-                        <div class="d-inline-block text-center num__campania">
-                            <span class="d-block">Próximamente</span>
-                            <span class="d-block text-bold">C-08</span>
-                        </div>
-                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Facturación:
-                                </span>
-                                <span class="d-block">
-                                    Lunes 05 Mayo - Jueves 09 Mayo
-                                </span>
+                    @foreach (var item in Model.ListFechaFacturacionProxima)
+                    {
+                        <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
+                            <div class="d-inline-block text-center num__campania">
+                                <span class="d-block">Próximamente</span>
+                                <span class="d-block text-bold"> @(item.CampaniaPartida)</span>
                             </div>
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Fecha de pago pedido <span>C07</span>:
-                                </span>
-                                <span class="d-block">
-                                    Miércoles 14 Junio
-                                </span>
+                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                                <div class="d-block flex-grow-1">
+                                    <span class="d-block text-bold">
+                                        Facturación:
+                                    </span>
+                                    <span class="d-block">
+                                        @(item.Facturacion)
+                                    </span>
+                                </div>
+                                <div class="d-block flex-grow-1">
+                                    <span class="d-block text-bold">
+                                        Fecha de pago pedido <span> @(item.CampaniaPartida)</span>:
+                                    </span>
+                                    <span class="d-block">
+                                        @(item.FechaLimitePago)
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
-                        <div class="d-inline-block text-center num__campania">
-                            <span class="d-block">Próximamente</span>
-                            <span class="d-block text-bold">C-09</span>
-                        </div>
-                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Facturación:
-                                </span>
-                                <span class="d-block">
-                                    Lunes 05 Mayo - Jueves 09 Mayo
-                                </span>
-                            </div>
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Fecha de pago pedido <span>C07</span>:
-                                </span>
-                                <span class="d-block">
-                                    Miércoles 14 Junio
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
-                        <div class="d-inline-block text-center num__campania">
-                            <span class="d-block">Próximamente</span>
-                            <span class="d-block text-bold">C-10</span>
-                        </div>
-                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Facturación:
-                                </span>
-                                <span class="d-block">
-                                    Lunes 05 Mayo - Jueves 09 Mayo
-                                </span>
-                            </div>
-                            <div class="d-block flex-grow-1">
-                                <span class="d-block text-bold">
-                                    Fecha de pago pedido <span>C07</span>:
-                                </span>
-                                <span class="d-block">
-                                    Miércoles 14 Junio
-                                </span>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    }
+                   
                 </ul>
             </div>
         </section>
@@ -246,7 +191,7 @@
 
 
         function CargarFechasFacturacion() {
-            
+
             $.ajax({
                 url: baseUrl + 'FechasFacturacion/GetFechasFacturacion',
                 type: 'GET',
