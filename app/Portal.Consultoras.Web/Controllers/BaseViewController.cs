@@ -150,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(esMobile),
                 FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
                 Success = true,
-                MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
+                MensajeProductoBloqueado = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile),
                 CantidadFilas = 10
             };
 

@@ -21,7 +21,12 @@ jQuery(document).ready(function () {
     UpdateGrillaPalanca();
     IniDialogs();
     IniDialogOfertasHome();
-    
+
+
+    $("#ddlTipoEstrategia").change(function () {
+
+    });
+
     $.jgrid.extend({
         Editar: Modificar,
         EditarOfertas: ModificarOfertas,
@@ -366,6 +371,7 @@ function IniDialogs() {
 
             },
             "Salir": function () {
+                $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
                 HideDialog("DialogMantenimientoPalanca");
             }
         }

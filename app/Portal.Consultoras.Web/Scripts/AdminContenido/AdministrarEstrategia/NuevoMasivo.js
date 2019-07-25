@@ -525,6 +525,7 @@
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
+                estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
                 nroLote: _variables.NroLote,
                 codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
                 estrategiaMIds: $('#precargadosdiv').text()

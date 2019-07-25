@@ -1,4 +1,4 @@
-﻿use BelcorpColombia_GANAMAS;
+use BelcorpColombia_GANAMAS;
 go
 
 begin

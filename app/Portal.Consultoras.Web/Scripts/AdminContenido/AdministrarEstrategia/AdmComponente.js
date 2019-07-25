@@ -190,15 +190,15 @@
                 { name: "Options", index: "Options", width: 40, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsDetalle, hidden: !ocultarGrupoEstrategia }
             ],
             jsonReader:
-                {
-                    root: "rows",
-                    page: "page",
-                    total: "total",
-                    records: "records",
-                    repeatitems: true,
-                    cell: "cell",
-                    id: "id"
-                },
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
             pager: jQuery("#pagerShowRoomDetalle"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
@@ -412,31 +412,31 @@
             draggable: true,
             title: "Registro / Edición de Productos",
             buttons:
-                {
-                    "Guardar": function () {
-                        var vMessage = "";
-                        if (jQuery.trim($("#txtCUVProductoDetalle").val()) == "")
-                            vMessage += "- Debe ingresar el CUV del Producto.\n";
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($("#txtCUVProductoDetalle").val()) == "")
+                        vMessage += "- Debe ingresar el CUV del Producto.\n";
 
-                        if (jQuery.trim($("#ddlMarcaProductoDetalle").val()) == "0")
-                            vMessage += "- Seleccione una marca del Producto.\n";
+                    if (jQuery.trim($("#ddlMarcaProductoDetalle").val()) == "0")
+                        vMessage += "- Seleccione una marca del Producto.\n";
 
-                        if (jQuery.trim($("#txtNombreProductoDetalle").val()) == "")
-                            vMessage += "- Debe ingresar la el nombre del Producto.\n";
+                    if (jQuery.trim($("#txtNombreProductoDetalle").val()) == "")
+                        vMessage += "- Debe ingresar la el nombre del Producto.\n";
 
-                        if (vMessage != "") {
-                            alert(vMessage);
-                            return false;
-                        }
-                        else {
-                            _registrarOfertaShowRoomDetalle();
-                        }
+                    if (vMessage != "") {
+                        alert(vMessage);
                         return false;
-                    },
-                    "Cancelar": function () {
-                        HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
                     }
+                    else {
+                        _registrarOfertaShowRoomDetalle();
+                    }
+                    return false;
+                },
+                "Cancelar": function () {
+                    HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
                 }
+            }
         });
     }
 

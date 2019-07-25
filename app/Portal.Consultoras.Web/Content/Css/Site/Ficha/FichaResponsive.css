@@ -473,8 +473,7 @@ ul.breadcumbs li a {
 
     .flip-clock-divider {
         top: 3px !important;
-    }
-    
+    } 
 }
 
 @media (max-width: 960px) {

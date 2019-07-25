@@ -1,5 +1,4 @@
-﻿
-if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
+﻿if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 var AnalyticsPortalModule = (function () {
 

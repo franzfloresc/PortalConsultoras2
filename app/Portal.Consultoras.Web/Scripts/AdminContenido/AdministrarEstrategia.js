@@ -619,7 +619,7 @@
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-
+        
         var params = {
             paisID: data.paisID,
             estragiaId: data.EstrategiaID,
@@ -1259,6 +1259,7 @@
     var _fnGrilla = function () {
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
+        var tipo = $("#ddlTipoEstrategia").find(":selected").data("id");
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
         var colNameActions = "";
@@ -2126,7 +2127,7 @@
         var elementoDivVerImagen = $(elementoPadre).find(".divPopupImagenPersonalizacion")[0];
         var elementoHiddenValor = $(elementoPadre).find(".hdValor")[0];
         $.ajaxSetup({ cache: false });
-        var uploader = new qq.FileUploader({
+        new qq.FileUploader({
             allowedExtensions: ["jpg", "png", "jpeg", "gif"],
             element: elementoAgregarImagen,
             action: _config.urlImageMatrizUpload,

@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {

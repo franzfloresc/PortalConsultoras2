@@ -718,6 +718,15 @@ namespace Portal.Consultoras.Web.Providers
             };
         }
 
+        private List<EstrategiaComponenteModel> ToEstrategiaComponenteModelList(DemostradorCaminoBrillanteModel e)
+        {
+            var result = new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) };
+            if (e.Detalle!= null) {
+                result.AddRange(e.Detalle.Select(d=> ToEstrategiaComponenteModel(d)));
+            }
+            return result;
+        }
+
         private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(DemostradorCaminoBrillanteModel e)
         {
             return new EstrategiaPersonalizadaProductoModel()
@@ -757,7 +766,7 @@ namespace Portal.Consultoras.Web.Providers
                 TienePaginaProducto = false,
                 TienePaginaProductoMob = false,
                 TipoAccionAgregar = 2,
-                Hermanos = new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) }
+                Hermanos = ToEstrategiaComponenteModelList(e)
             };
         }
         
