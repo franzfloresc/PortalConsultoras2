@@ -59,14 +59,14 @@ namespace Portal.Consultoras.BizLogic.Contenido
             {
                 {"EMailActivo", user.EMailActivo ? "Validado" : "NoValidado"},
                 {"CodigoConsultora", user.CodigoConsultora},
-                {"FechaNacimiento", user.FechaNacimiento == default(DateTime) ? string.Empty : user.FechaNacimiento.ToString("dd/MM/yyyy")},
+                {"FechaNacimiento", GetDateTimeFormat(user.FechaNacimiento, "dd/MM/yyyy")},
                 {"CodigoPais", user.CodigoISO},
                 {"CodigoZona", user.CodigoZona},
                 {"CodigoRegion", user.CodigorRegion},
                 {"CampaniaActual", user.CampaniaID.ToString()},
                 {"Lider", user.esConsultoraLider ? "Si" : "No"},
                 {"AñoCampaniaIngreso", user.AnoCampaniaIngreso},
-                {"FechaIngreso", string.Empty},
+                {"FechaIngreso", GetDateTimeFormat(user.FechaIngreso, "dd/MM/yyyy")},
                 {"DocumentoIdentidad", user.DocumentoIdentidad},
                 {"EsConsultoraNueva", user.EsConsultoraNueva ? "Si" : "No"},
                 {"EsConsultoraOficina", user.EsConsultoraOficina ? "Si" : "No"},
@@ -83,6 +83,11 @@ namespace Portal.Consultoras.BizLogic.Contenido
                 HmacShaAlgorithm.GetHash(parameters, panelConfig.Key),
                 panelConfig.Id
             );
+        }
+
+        private string GetDateTimeFormat(DateTime date, string format)
+        {
+            return date == default(DateTime) ? string.Empty : date.ToString(format);
         }
     }
 }

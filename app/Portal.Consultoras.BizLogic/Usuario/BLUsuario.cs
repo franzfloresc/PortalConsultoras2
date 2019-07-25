@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -1872,26 +1873,45 @@ namespace Portal.Consultoras.BizLogic
             return daUsuario.UpdateUsuarioEmailTelefono(ConsultoraID, Email, Telefono);
         }
 
-        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        public string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
-            bool resultado;
+            string resultado = string.Empty;
 
             try
             {
                 var daUsuario = new DAUsuario(paisId);
-                daUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
-                daUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
-                    correo, Enum.GetName(typeof(EAplicacionOrigen), origen));
-                daUsuario.InsMetaConsultora(codigoUsuario, Constantes.MetaConsultora.VerificacionCambioClave, "0");
-                resultado = true;
+                resultado = ValidarReglasClave(nuevacontrasena);
+                if (string.IsNullOrEmpty(resultado))
+                {
+                    daUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
+                    daUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
+                        correo, Enum.GetName(typeof(EAplicacionOrigen), origen));
+                    daUsuario.InsMetaConsultora(codigoUsuario, Constantes.MetaConsultora.VerificacionCambioClave, "0");
+                }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, codigoUsuario, paisIso);
-                resultado = false;
+                resultado = ex.Message;
             }
 
             return resultado;
+        }
+
+        public string ValidarReglasClave(string contrasena)
+        {            
+            string pattern = Constantes.Regex.CadenaRegexPassword;
+            string message = string.Empty;
+            if (string.IsNullOrEmpty(Common.Util.Trim(contrasena)))
+                message += Constantes.MensajesError.IngreseLaContrasenia;
+            if (Common.Util.Trim(contrasena).Length <= 6)
+                message += Constantes.MensajesError.AlMenosTotalCaracteres;
+            if (!Regex.IsMatch(contrasena, pattern.Split('¦')[2]))
+                message += Constantes.MensajesError.AlMenosDigito;
+            if (!Regex.IsMatch(contrasena, pattern.Split('¦')[4]))
+                message += Constantes.MensajesError.AlMenosLetra;
+
+            return message;
         }
 
         public bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
@@ -3997,6 +4017,7 @@ namespace Portal.Consultoras.BizLogic
         public string RegistrarPerfil(BEUsuario usuario)
         {
             string resultado = string.Empty;
+            string mesajeErrorGenerico = "0|4|Ocurrió un error al registrar los datos, intente nuevamente.|0";
             string[] lst = null;
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.RequiresNew))
             {
@@ -4008,11 +4029,14 @@ namespace Portal.Consultoras.BizLogic
 
                     if (lst[0] == "0")
                     {
-                        throw new ClientInformationException(lst[2]);
+                        string _mensajeError = TemplateCustomError("RegistrarPerfil", "ActualizarMisDatos", lst[2]);
+                        LogManager.SaveLog(new ClientInformationException(_mensajeError), string.Empty, usuario.PaisID);
+                        return resultado;
                     }
 
                     /*Insertar dirección entrega*/
-                    if (usuario.DireccionEntrega != null) RegistrarDireccionEntrega(usuario.CodigoISO, usuario.DireccionEntrega, false);
+                    if (usuario.DireccionEntrega != null)
+                        RegistrarDireccionEntrega(usuario.CodigoISO, usuario.DireccionEntrega, false);
 
                     /*Insertar permisos*/
                     if (usuario.UsuarioOpciones != null || usuario.UsuarioOpciones.Count != 0)
@@ -4023,34 +4047,35 @@ namespace Portal.Consultoras.BizLogic
                             DAUsuario.InsertarUsuarioOpciones(item, usuario.CodigoUsuario);
                         }
 
-                        if (usuario.PaisID == Constantes.PaisID.Chile
-                            && usuario.UsuarioOpciones.Any(a => a.OpcionesUsuarioId == Constantes.OpcionesUsuario.BoletaImpresa))
+                        if (usuario.PaisID == Constantes.PaisID.Chile && usuario.UsuarioOpciones.Any(a => a.OpcionesUsuarioId == Constantes.OpcionesUsuario.BoletaImpresa))
                         {
                             var urlService = new EndpointAddress(WebConfig.ServicioActualizarBoletaImp);
-                            string flagBolImp = !usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault() ? "N" : "S";
-                            using (var svr = new ProcesoMAEActualizaFlagImpBoletasWebServiceImplClient(new BasicHttpBinding(), urlService))
+                            string flagBolImp = !usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault() ? "N": "S";
+                            using (var svr =new ProcesoMAEActualizaFlagImpBoletasWebServiceImplClient(new BasicHttpBinding(), urlService))
                             {
                                 svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                                 var objActualizarFlagBoleta = new List<ConsultoraFlagImpBoleta>();
-                                objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
+                                objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta
+                                {
+                                    codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp,
+                                    indImprimePaquete = flagBolImp
+                                });
                                 var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
                                 if (result.estado == 1)
-                                    throw new ClientInformationException(result.mensaje);
+                                {
+                                    string _mensajeError = TemplateCustomError("RegistrarPerfil", "Servicio->ProcesoMAEActualizaFlagImpBoletasWebServiceImpl.actualizaFlagImpBoletas", result.mensaje);
+                                    LogManager.SaveLog(new ClientInformationException(_mensajeError), string.Empty, usuario.PaisID);
+                                    return resultado = mesajeErrorGenerico;
+                                }
                             }
-
                         }
                     }
-
                     ts.Complete();
                 }
                 catch (Exception ex)
                 {
                     LogManager.SaveLog(ex, string.Empty, usuario.PaisID);
-                    if (lst != null && lst[0] != "0")
-                    {
-                        resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al registrar los datos, intente nuevamente.");
-                    }
-                    ts.Dispose();
+                    resultado = mesajeErrorGenerico;
                 }
             }
             return resultado;
@@ -4125,7 +4150,8 @@ namespace Portal.Consultoras.BizLogic
                 {
                     svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                     var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
-                    if (result.codigo == "2") throw new ClientInformationException(result.mensaje);
+                    if (result.codigo == "2")
+                        throw new ClientInformationException(TemplateCustomErrorService("ProcesoMAEActualizarDireccionEntregaWebServiceImpl.actualizacionDireccionEntrega" , result.mensaje));
                 }
 
                 if (conTransaccion) ts.Complete();
@@ -4133,7 +4159,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 if (conTransaccion) LogManager.SaveLog(ex, direccionEntrega.ConsultoraID, direccionEntrega.PaisID);
-                throw new ClientInformationException("Exception BLUsuario - RegistrarDireccionEntrega", ex);
+                throw  ex;
             }
             finally
             {
@@ -4324,6 +4350,16 @@ namespace Portal.Consultoras.BizLogic
             return validaLogin;
         }
         #endregion
-
+  
+        private string TemplateCustomErrorService(string metodo , string mensaje)
+        {
+            mensaje = string.IsNullOrEmpty(mensaje) ? "Ocurrió un error al ejecutar el servicio." : mensaje;
+            return string.Format("Error al ejecutar el servicio , metodo : {0}, mensaje : {1}", metodo, mensaje);
+        }
+        private string TemplateCustomError(string metodo, string subMetodo , string mensaje)
+        {
+            mensaje = string.IsNullOrEmpty(mensaje) ? "Ocurrió un Error al ejecutar el metodo." : mensaje;
+            return string.Format("class : BLUsuario ,  Metodo  : {0} , Invocación : {1}, Mensaje :{2}", metodo , subMetodo , mensaje);
+        }
     }
 }
