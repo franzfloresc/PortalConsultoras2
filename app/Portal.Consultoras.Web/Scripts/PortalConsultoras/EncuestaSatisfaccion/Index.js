@@ -47,12 +47,13 @@ var EncuestaSatisfaccion = (function () {
                         $(_elementos.Paso2).fadeIn(200);
                         $(_elementos.Paso2).css('display', '');
                         $(_elementos.Paso2).addClass('encuesta__satisfaccion__agradecimiento__wrapper--mostrar');
-                        setContainerLluvia(_elementos.PopUpEncuesta);
+                        setContainerLluvia((_config.isDesktop)? _elementos.PopUpEncuesta: _elementos.encuestaSatisfaccion);
                         mostrarLluvia();
                         setTimeout(function () {
                             $(_elementos.PopUpEncuesta).fadeOut(250);                            
                             if (refrezcarPage)
-                                window.location.reload();                            
+                                window.location.reload();     
+                            ocultarLluvia()();
                         }, 3000);
                         
                     } else {
@@ -111,7 +112,7 @@ var EncuestaSatisfaccion = (function () {
                         $(_elementos.Paso2).fadeIn(200);
                         $(_elementos.Paso2).css('display', '');
                         $(_elementos.Paso2).addClass('encuesta__satisfaccion__agradecimiento__wrapper--mostrar');
-                        setContainerLluvia(_elementos.PopUpEncuesta);
+                        setContainerLluvia((_config.isDesktop) ? _elementos.PopUpEncuesta : _elementos.encuestaSatisfaccion);
                         mostrarLluvia();
                         setTimeout(function () {
                             $(_elementos.PopUpEncuesta).fadeOut(250);

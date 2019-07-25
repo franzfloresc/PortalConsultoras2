@@ -891,6 +891,15 @@
 
 @section scripts{
     <script type="text/javascript">
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-r.svg")',
+        ];
+        var noIniciarLluvia = true;
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         @*var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';*@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -952,6 +961,8 @@
         var urlGrabarEncuesta = '@Url.Action("GrabarEncuesta", "Bienvenida", new { area = "" })';
         var lanzarEncuesta = true;
     </script>
+
     @Scripts.Render("~/Bundle/Js/Mobile/Bienvenida")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
 
 }
