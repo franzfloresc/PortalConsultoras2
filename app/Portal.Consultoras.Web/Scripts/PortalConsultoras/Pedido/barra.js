@@ -1382,7 +1382,7 @@ function showPopupEscala(content) {
 
     $(idPopup).show();
     setContainerLluvia(idPopup);
-   // mostrarLluvia();
+    mostrarLluvia();
 
     setTimeout(function () {
         $(idPopup).fadeOut(2000);
