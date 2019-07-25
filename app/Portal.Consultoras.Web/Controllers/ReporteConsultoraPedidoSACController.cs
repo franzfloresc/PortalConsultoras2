@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ICSharpCode.SharpZipLib.Zip;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
@@ -9,15 +8,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Portal.Consultoras.Web.Controllers
 {
