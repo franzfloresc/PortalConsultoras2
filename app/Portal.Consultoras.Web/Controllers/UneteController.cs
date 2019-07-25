@@ -1831,7 +1831,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ConsultarEstadoTelefonico(int id, int idEstado)
         {
             bool actualizado;
-            int valor;
             using (var sv = new PortalServiceClient())
             {
                 actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoTelefonico, idEstado);
@@ -1843,7 +1842,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.TiempoDuracion = 0;
                 entidad.Fuente = "ValidacionEnSAC";
                 entidad = sv.EnviarCodigoVerificacionTelefonica(CodigoISO, entidad);
-                valor = sv.ValidarCodigoVerificacionTelefonica(CodigoISO, id, solicitudPostulante.NumeroDocumento, int.Parse(entidad.Codigo), "SAC");
+                sv.ValidarCodigoVerificacionTelefonica(CodigoISO, id, solicitudPostulante.NumeroDocumento, int.Parse(entidad.Codigo), "SAC");
             }
             var urlClient = string.Format("portal/EventoSPEstadoTelefonico/{0}/{1}/{2}/{3}/{4}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado, (int)Enumeradores.AppFuenteEstadoTelefonico.SAC);
             (new RestApi()).GetAsync<EventoInsert>(urlClient);
