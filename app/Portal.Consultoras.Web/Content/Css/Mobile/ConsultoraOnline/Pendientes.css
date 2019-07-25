@@ -205,6 +205,9 @@ button {
     padding-top: 8px;
     border-bottom: 1px solid #d1d1d4;
 }
+    .pending-top--title{
+        min-height:66px;
+    }
 .pending-subtitle {
   /* border-top: 1px solid #d1d1d4; */
   border-bottom: 1px solid #d1d1d4;

@@ -23,6 +23,8 @@ var objects = new Array(),
     winOffset = 0,
     winHeightSR, winWidthSR, togvis, moz = (document.getElementById && !document.all) ? 1 : 0;
 
+var i;
+
 function mostrarLluvia() {
     fallingObjects = new Array();
     objects = new Array();
@@ -46,7 +48,7 @@ function mostrarLluvia() {
     }
 
     winSize();
-    for (var i = 0; i < numObjects; i++) {
+    for (i = 0; i < numObjects; i++) {
         fallObject(i, parseInt(Math.random() * fallingObjects.length), 1);
     }
 
@@ -92,7 +94,7 @@ function fallObject(num, vari, nu) {
 }
 
 function fall() {
-    for (var i = 0; i < numObjects; i++) {
+    for (i = 0; i < numObjects; i++) {
         var fallingObject = document.getElementById('fO' + i);
         if (!fallingObject) continue;
 
