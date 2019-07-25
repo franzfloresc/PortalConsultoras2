@@ -201,8 +201,7 @@
 /**/
 /**/
 /**/
-
-.img_producto:hover .ver_detalle_producto{
+.promociones-modal .img_producto:hover .ver_detalle_producto{
     display: none;
 }
 /* End carrusel slick modal*/
