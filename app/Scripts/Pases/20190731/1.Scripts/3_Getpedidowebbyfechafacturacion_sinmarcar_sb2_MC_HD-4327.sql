@@ -1,4 +1,4 @@
-use [BelcorpBolivia]	
+﻿use [BelcorpBolivia]	
 go
 IF EXISTS (
 	SELECT * FROM sys.objects 
