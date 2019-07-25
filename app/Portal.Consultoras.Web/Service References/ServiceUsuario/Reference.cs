@@ -11782,6 +11782,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string EnterateMasParamField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> MontoAcumuladoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11873,6 +11876,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.EnterateMasParamField, value) != true)) {
                     this.EnterateMasParamField = value;
                     this.RaisePropertyChanged("EnterateMasParam");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Mensaje {
+            get {
+                return this.MensajeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeField, value) != true)) {
+                    this.MensajeField = value;
+                    this.RaisePropertyChanged("Mensaje");
                 }
             }
         }
