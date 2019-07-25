@@ -209,9 +209,6 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private bool AceptoContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ActivaNotificacionesWhatsappField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -641,9 +638,6 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string NombrePaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool NotificacionesWhatsappField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NovedadBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -672,9 +666,6 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PROLSinStockField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool PagoContadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PaisField;
@@ -971,19 +962,6 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.AceptoContratoField.Equals(value) != true)) {
                     this.AceptoContratoField = value;
                     this.RaisePropertyChanged("AceptoContrato");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ActivaNotificacionesWhatsapp {
-            get {
-                return this.ActivaNotificacionesWhatsappField;
-            }
-            set {
-                if ((this.ActivaNotificacionesWhatsappField.Equals(value) != true)) {
-                    this.ActivaNotificacionesWhatsappField = value;
-                    this.RaisePropertyChanged("ActivaNotificacionesWhatsapp");
                 }
             }
         }
@@ -2848,19 +2826,6 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool NotificacionesWhatsapp {
-            get {
-                return this.NotificacionesWhatsappField;
-            }
-            set {
-                if ((this.NotificacionesWhatsappField.Equals(value) != true)) {
-                    this.NotificacionesWhatsappField = value;
-                    this.RaisePropertyChanged("NotificacionesWhatsapp");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int NovedadBuscador {
             get {
                 return this.NovedadBuscadorField;
@@ -2986,19 +2951,6 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.PROLSinStockField.Equals(value) != true)) {
                     this.PROLSinStockField = value;
                     this.RaisePropertyChanged("PROLSinStock");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool PagoContado {
-            get {
-                return this.PagoContadoField;
-            }
-            set {
-                if ((this.PagoContadoField.Equals(value) != true)) {
-                    this.PagoContadoField = value;
-                    this.RaisePropertyChanged("PagoContado");
                 }
             }
         }

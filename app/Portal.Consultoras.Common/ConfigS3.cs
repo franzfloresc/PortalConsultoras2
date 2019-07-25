@@ -271,25 +271,7 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public static bool ExistFileS3(string carpetaPais, string fileName)
-        {
-            var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
-            var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
 
-            if (fileName.Trim() == "")
-                return false;
-
-            var client = Amazon.AWSClientFactory.CreateAmazonS3Client(
-                MY_AWS_ACCESS_KEY_ID,
-                MY_AWS_SECRET_KEY,
-                Amazon.RegionEndpoint.USEast1);
-
-            var s3FileInfo = new Amazon.S3.IO.S3FileInfo(client,
-                BUCKET_NAME,
-                root + carpeta + fileName);
-
-            return s3FileInfo.Exists;
-        }
 
     }
 }

@@ -29,12 +29,11 @@
                                 <p class="footer__link__text text-center">Escríbenos o llámanos a través de nuestra Central Telefónica</p>
                             </a>
                         </li>
-                        <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
-                            <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Tu Voz Online"
-                               href="javascript:;" onclick="OpenUrlCallbackNewPage('@Url.Action("Index", "TuVozOnline", new { area = ""})','@Url.Action("RequiereNuevaPagina", "TuVozOnline", new { area = ""})', 0);" region="Footer" parent="Tu Voz Online">
-                                <img class="footer__link__imagen footer__link__imagen--tuVozOnline" src="@Url.Content("~/Content/Images/icono_tu_voz_online.svg")" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE">
-                                <h3 class="footer__link__title text-uppercase">Tu Voz Online</h3>
-                                <p class="footer__link__text text-center" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE">Queremos escuchar tu voz, estés donde estés.</p>
+                        <li class="col-12 col-lg-3 col-xl-3 footer__item">
+                            <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Comunidad Virtual">
+                                <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_comunidad_virtual.svg")" alt="Comunidad Virtual">
+                                <h3 class="footer__link__title text-uppercase">Comunidad Virtual</h3>
+                                <p class="footer__link__text text-center">Conoce todo lo que compartimos las mujeres de esta comunidad.</p>
                             </a>
                         </li>
                         <li class="col-12 col-lg-3 col-xl-3 footer__item">
@@ -212,14 +211,29 @@
                                     <p class="footer__link__text text-center">Escríbenos o llámanos a través de nuestra Central Telefónica</p>
                                 </a>
                             </li>
-                            <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
-                                <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Tu Voz Online"
-                                   href="javascript:;" onclick="OpenUrlCallbackNewPage('@Url.Action("Index", "TuVozOnline", new { area = ""})','@Url.Action("RequiereNuevaPagina", "TuVozOnline", new { area = ""})', 0);" region="Footer" parent="Tu Voz Online">
-                                    <img class="footer__link__imagen footer__link__imagen--tuVozOnline" src="@Url.Content("~/Content/Images/icono_tu_voz_online.svg")" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE">
-                                    <h3 class="footer__link__title text-uppercase">Tu Voz Online</h3>
-                                    <p class="footer__link__text text-center" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE">Queremos escuchar tu voz, estés donde estés.</p>
-                                </a>
-                            </li>
+                            @if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Peru ||
+                                 ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+                            {
+                                <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
+                                    <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Tu Voz Online"
+                                       href="https://esikatuvozonline.questionpro.com/" role="outbound-link" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE" target="_blank">
+                                        <img class="footer__link__imagen footer__link__imagen--tuVozOnline" src="@Url.Content("~/Content/Images/icono_tu_voz_online.svg")" role="outbound-link" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE">
+                                        <h3 class="footer__link__title text-uppercase">Tu Voz Online</h3>
+                                        <p class="footer__link__text text-center" role="outbound-link" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE">Queremos escuchar tu voz, estés donde estés.</p>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
+                                    <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Comunidad Virtual"
+                                       href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" target="_blank">
+                                        <img class="footer__link__imagen footer__link__imagen--comunidadVirtual" src="@Url.Content("~/Content/Images/icono_comunidad_virtual.svg")" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL">
+                                        <h3 class="footer__link__title text-uppercase">Comunidad Virtual</h3>
+                                        <p class="footer__link__text text-center" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL">Conoce todo lo que compartimos las mujeres de esta comunidad.</p>
+                                    </a>
+                                </li>
+                            }
                             <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
                                 <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Catálogos"
                                    href="@Url.Action("Index", "MisCatalogosRevistas")" role="outbound-link" region="Footer" parent="Catálogos" target="_blank">

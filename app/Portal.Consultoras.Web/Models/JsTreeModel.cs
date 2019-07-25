@@ -33,18 +33,4 @@ namespace Portal.Consultoras.Web.Models
         public bool selected { get; set; }
         public string @class { get; set; }
     }
-
-    public class JsTreeModel3
-    {
-        public string data { get; set; }
-        public JsTreeAttribute3 attr { get; set; }
-        public JsTreeModel3[] children { get; set; }
-    }
-
-    public class JsTreeAttribute3
-    {
-        public string id { get; set; }
-        public bool selected { get; set; }
-    }
-
 }

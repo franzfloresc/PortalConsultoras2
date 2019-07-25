@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Service
 
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-             return new BLOfertaPersonalizada().GetEstrategiasPedido(entidad);
+            return new BLOfertaPersonalizada().GetEstrategiasPedido(entidad);
         }
     }
 }

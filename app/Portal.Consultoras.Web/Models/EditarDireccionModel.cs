@@ -57,7 +57,5 @@ namespace Portal.Consultoras.Web.Models
 
         public string CodigoPostal { get; set; }
 
-        public int SolicitudPrePostulanteID { get; set; }
-
     }
 }

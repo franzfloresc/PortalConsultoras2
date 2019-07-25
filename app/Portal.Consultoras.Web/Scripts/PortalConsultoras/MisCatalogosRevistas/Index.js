@@ -35,6 +35,17 @@ $(document).ready(function () {
             version: 'v3.0'
         });
 
+        if (typeof IsoPais !== 'undefined' && IsoPais == 'PE') {
+            FB.Event.subscribe('customerchat.load', function() {
+                setTimeout(function () {
+                    $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
+                    $('body').on('click', '.icono_chat_sb', function (e) {
+                        FB.CustomerChat.showDialog();
+                    });
+                }, 2000);
+            });
+        }
+
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 getInfoFB(1);
@@ -207,7 +218,6 @@ $(document).ready(function () {
             $('.background__opciones__compartir__catalogos').css('display', 'flex');
             $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
-            $('.btn_chat_messenger').fadeOut(100);
         } else {
             $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
@@ -357,11 +367,16 @@ function CargarCarruselCatalogo() {
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, urlCatalogoPiloto);
+                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{isMovil}/g, isMovil);
+                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FBAppId}/g, FBAppId);
+
+                /* INI HD-4248 */
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{WSP_textourl}/g, urlCatalogoPiloto_WSP);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FB_textourl}/g, urlCatalogoPiloto_FB);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{MSN_textourl}/g, urlCatalogoPiloto_MSN);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{EMAIL_textourl}/g, urlCatalogoPiloto_EMAIL);
-                
+                /* FIN HD-4248 */
+
                 $("#idSection" + icam).append(xHtmlItemCatalogoPasosActual);
                 $("#txtUrlActual").val(urlCatalogoPiloto);
                 $("#idSection" + icam).addClass(" catalogos__campania--actual");
@@ -538,14 +553,16 @@ function CopiarEnlaceActual(catalogo, campania) {
     }
     else
         copyText.select();
-    
+
+    //se agrego vento push - HD-3964
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
         'action': 'Catálogo Digital - Copiar Enlace - clic botón',
         'label': campania
     });
-    
+    // fin 
+
     try {
         var successful = document.execCommand('copy');
         var msg = successful ? 'successful' : 'unsuccessful';
@@ -630,9 +647,13 @@ function GetCatalogosLinksByCampania(data, campania) {
 
             if (piloto == '1' && contDiv == 1) {
                 if (isMovil == "True")
+                    /* INI HD-4248 */
                     $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto_MSN) + "&app_id=" + encodeURIComponent(FBAppId));
+                    /* FIN HD-4248 */
                 else {
+                    /* INI HD-4248 */
                     $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto_MSN) + "&redirect_uri=" + window.location.href + "?catalogo_compartido_fb_messenger=1");
+                    /* FIN HD-4248 */
                     $("[data-accion='ms']").attr("target", "_self");
                 }
             }
@@ -1016,6 +1037,7 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
     var defered = jQuery.Deferred();
 
     var data = JSON.stringify({
+        //codigoRevista: RevistaCodigoIssuu[codigoCampania],
         codigoCampania: codigoCampania
     });
     jQuery.ajax({
@@ -1045,10 +1067,8 @@ function ocultarTooltipCompartirCatalogo(e) {
         if ((!compartirCatalogoArea.is(e.target) && compartirCatalogoArea.has(e.target).length === 0)) {
             if (tooltipOpcionesCompartirCatalogoParteSuperior.is(':visible')) {
                 tooltipOpcionesCompartirCatalogoParteSuperior.fadeOut(100);
-                $('.btn_chat_messenger').fadeIn(100);
             } else {
                 tooltipOpcionesCompartirCatalogoParteInferior.fadeOut(100);
-                $('.btn_chat_messenger').fadeIn(100);
             }
         }
     }
@@ -1057,7 +1077,6 @@ function ocultarTooltipCompartirCatalogo(e) {
 function ocultarTooltipCompartirCatalogoMobile() {
     $('.opciones__compartir__catalogos').fadeOut(100);
     $(this).fadeOut(100);
-    $('.btn_chat_messenger').fadeIn(100);
 }
 
 // mensaje alerta

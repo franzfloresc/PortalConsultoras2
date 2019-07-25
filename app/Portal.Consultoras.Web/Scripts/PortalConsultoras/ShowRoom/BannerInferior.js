@@ -3,6 +3,7 @@
 var belcorp = belcorp || {};
 belcorp.showroom = belcorp.showroom || {};
 belcorp.showroom.initialize = function (config) {
+    //var self = this;
 
     function initBindings() {
         if (config.botonCerrar) {

@@ -62,31 +62,6 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogicaProvider = tablaLogicaProvider;
         }
 
-        public DetalleEstrategiaFichaModel FormatearCarruselImagenes(DetalleEstrategiaFichaModel estrategia)
-        {
-            List<String> FotosCarrusel = null;
-
-            foreach (var componente in estrategia.Hermanos)
-            {
-                FotosCarrusel = new List<string>();
-                if (componente.FotosComponente != null)
-                {
-                    if (componente.FotosComponente.FotoProducto != null) { componente.FotosComponente.FotoProducto.ForEach(x => { FotosCarrusel.Add(x); }); }
-                    if (componente.FotosComponente.FotoModelo != null) { componente.FotosComponente.FotoModelo.ForEach(x => { FotosCarrusel.Add(x); }); }
-                    if (componente.FotosComponente.FotoMontaje != null) { componente.FotosComponente.FotoMontaje.ForEach(x => { FotosCarrusel.Add(x); }); }
-                    if (componente.FotosComponente.FotoBulk != null) { componente.FotosComponente.FotoBulk.ForEach(x => { FotosCarrusel.Add(x); }); }
-                    if (componente.FotosComponente.FotoTipoBelleza1 != null) { componente.FotosComponente.FotoTipoBelleza1.ForEach(x => { FotosCarrusel.Add(x); }); }
-                    if (componente.FotosComponente.FotoTipoBelleza2 != null) { componente.FotosComponente.FotoTipoBelleza2.ForEach(x => { FotosCarrusel.Add(x); }); }
-                    if (componente.FotosComponente.FotoTipoBelleza3 != null) { componente.FotosComponente.FotoTipoBelleza3.ForEach(x => { FotosCarrusel.Add(x); }); }
-                    if (componente.FotosComponente.FotoTipoBelleza4 != null) { componente.FotosComponente.FotoTipoBelleza4.ForEach(x => { FotosCarrusel.Add(x); }); }
-
-                    componente.FotosCarrusel = FotosCarrusel.Take(10).ToList();
-                }
-            }
-
-            return estrategia;
-        }
-
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
         {
             esMultimarca = false;
@@ -101,7 +76,6 @@ namespace Portal.Consultoras.Web.Providers
                 estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
                 var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
-                estrategia = FormatearCarruselImagenes(estrategia);
                 listaEstrategiaComponente = estrategia.Hermanos;
                 esMultimarca = estrategia.EsMultimarca;
 
@@ -146,7 +120,7 @@ namespace Portal.Consultoras.Web.Providers
         public List<EstrategiaComponenteModel> FormatterEstrategiaComponentes(List<EstrategiaComponenteModel> listaEstrategiaComponente, string cuv2, int campania, bool esApiFicha = false)
         {
             var userData = SessionManager.GetUserData();
-            listaEstrategiaComponente = listaEstrategiaComponente ?? new List<EstrategiaComponenteModel>();
+
             if (listaEstrategiaComponente.Any())
             {
                 listaEstrategiaComponente.ForEach(x =>
@@ -165,7 +139,7 @@ namespace Portal.Consultoras.Web.Providers
                 });
 
                 var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(userData);
-                listaEstrategiaComponente = _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, cuv2, userData.CodigoISO, campania, userData.GetCodigoConsultora(), validarDias);
+                _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, cuv2, userData.CodigoISO, campania, userData.GetCodigoConsultora(), validarDias);
             }
 
             return listaEstrategiaComponente;
@@ -182,7 +156,8 @@ namespace Portal.Consultoras.Web.Providers
 
             return listaProducto;
         }
-        
+
+
         private List<BEEstrategiaProducto> GetEstrategiaProductos(EstrategiaPersonalizadaProductoModel estrategiaModelo)
         {
             var listaProducto = new List<BEEstrategiaProducto>();

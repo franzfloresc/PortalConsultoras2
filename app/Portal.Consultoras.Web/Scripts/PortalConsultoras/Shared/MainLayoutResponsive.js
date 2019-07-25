@@ -6,8 +6,7 @@
         enlaceConSubmenuMobile: ".menu__link--conSubmenuMobile",
         itemFooter: ".layout__footer--mobile .footer__item__title",
         idUrlContactanos: "#urlContactanos",
-        belcorpResponde: "·aBelcorpResponde",
-        btnChatMessenger: ".btn_chat_messenger"
+        belcorpResponde: "·aBelcorpResponde"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches
@@ -19,8 +18,6 @@
                     left: 0 + "%"
                 },
                 150);
-            $(_elements.btnChatMessenger).css('z-index', '999');
-
         },
         CerrarMenuMobile: function(e) {
             e.preventDefault();
@@ -29,7 +26,6 @@
                 },
                 150);
             $(_elements.enlaceConSubmenuMobile).next().slideUp(80);
-            $(_elements.btnChatMessenger).css('z-index', '');
         },
         AbrirSubmenuMobile: function(e) {
             e.preventDefault();
@@ -65,7 +61,7 @@
     //Public functions
     function Inicializar() {
         _funciones.InicializarEventos();
-        if (_config.isMobile && typeof esAppMobile === 'undefined') {
+        if (_config.isMobile) {
             document.getElementById("pUrlProductosPedido").href = "/Mobile/Pedido/Detalle";
         }
         _funciones.SetUrlContactanos();

@@ -77,9 +77,6 @@ namespace Portal.Consultoras.Entities
         [Column("EstadoConcurso")]
         [DataMember]
         public string EstadoConcurso { get; set; }
-        [Column("NivelSiguiente")]
-        [DataMember]
-        public int NivelSiguiente { get; set; }
         [DataMember]
         public List<BEIncentivoNivel> Niveles { get; set; }
 

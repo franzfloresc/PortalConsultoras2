@@ -265,6 +265,8 @@ var CodigoUbigeoPortal = (function () {
             ? ((seccion != "" ? separador : "") + seccion)
             : seccion;
 
+        //console.log("_getParametroListSegunOrigen = " + texto, origenEstructura);
+
         return texto;
     }
 

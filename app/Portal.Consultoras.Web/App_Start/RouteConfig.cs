@@ -73,15 +73,6 @@ namespace Portal.Consultoras.Web
                     Namespaces = new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
                 })));
 
-            routes.Add("UniqueRouteFichaResponsive", new UniqueRoute(
-                "g/{guid}/Detalles/{palanca}/{campaniaId}/{cuv}/{origen}",
-                new { controller = "DetalleEstrategia", action = "FichaResponsive", origen = UrlParameter.Optional },
-                new RouteValueDictionary(new
-                {
-                    Area = "",
-                    Namespaces = new[] { "Portal.Consultoras.Web.Controllers" }
-                })));
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

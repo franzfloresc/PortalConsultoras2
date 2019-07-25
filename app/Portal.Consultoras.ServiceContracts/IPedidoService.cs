@@ -881,7 +881,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region Producto SUgerido
 
         [OperationContract]
-        IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, BEProductoSugerido entidad);
+        IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
 
         [OperationContract]
         BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv);
@@ -1359,23 +1359,5 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool InsertKitSE(BEUsuario usuario);
-
-        #region HD-4288 - Switch Consultora 100%
-        [OperationContract]
-        int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID);
-        [OperationContract]
-        int DeshacerRecepcionPedido(int pedidoID, int paisID);
-        [OperationContract]
-        BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID);
-        #endregion
-
-        /*HD-4513*/
-        #region Consultora Pago Contado
-        [OperationContract]
-        BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb);
-
-        [OperationContract]
-        BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb);
-        #endregion
     }
 }

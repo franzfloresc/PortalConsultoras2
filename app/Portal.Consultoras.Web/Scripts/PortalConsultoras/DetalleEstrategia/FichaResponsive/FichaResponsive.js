@@ -4,7 +4,9 @@
 /// <reference path="../../../general.js" />
 /// <reference path="../detalleestrategiaprovider.js" />
 /// <reference path="../../shared/analyticsportal.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselInicializar.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
 
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
@@ -33,18 +35,32 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
     fichaEnriquecidaView: fichaEnriquecidaView
 });
 
-var estrategia = {};
+const carruselView = new CarruselView();
+const carruselPresenter = new CarruselPresenter();
+
+var estrategia = null;
 
 $(document).ready(function () {
-    try {
-        fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
-        analyticsPortal.MarcaVisualizarDetalleProducto(estrategia);
+    fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
 
-        let carruselInicializar = new CarruselInicializar();
-        carruselInicializar.crearCarruseles(params, estrategia);
-    } catch (e) {
-        GeneralModule.redirectTo('/Ofertas', true);
-    }
+    analyticsPortal.MarcaVisualizarDetalleProducto(estrategia);
+
+    const carruselModel = new CarruselModel(
+        params.palanca,
+        params.campania,
+        params.cuv,
+        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        params.origen,
+        estrategia.OrigenAgregarCarrusel,
+        "Ficha",
+        estrategia.DescripcionCompleta,
+        estrategia.Hermanos.length,
+        estrategia.CodigoProducto,
+        estrategia.Precio2,
+        estrategia.Hermanos,
+        estrategia.TieneStock);
+
+    carruselPresenter.initialize(carruselModel, carruselView);
 });
 
 fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function () {
@@ -52,11 +68,12 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategiaPresenter.cleanContainer();
         componentesPresenter.cleanContainer();
 
-    	estrategia = detalleEstrategia.promiseGetEstrategia(params);
+        estrategia = detalleEstrategia.promiseGetEstrategia(params);
         params.palanca = estrategia.Palanca || params.palanca;
-        if (estrategia.Error){  
+
+        if (estrategia.Error !== false) {
             GeneralModule.consoleLog(estrategia);
-            GeneralModule.redirectTo('/Ofertas', true);
+            GeneralModule.redirectTo("ofertas");
         }
 
         $("#data-estrategia").data("estrategia", estrategia);

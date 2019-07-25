@@ -1,6 +1,6 @@
-﻿var MiPerfil_ActualizarCorreo = function (_config) {
-    'use strict';
+﻿'use strict';
 
+var MiPerfil_ActualizarCorreo = function (_config) {
     var config = {
         UrlPaginaPrevia: _config.UrlPaginaPrevia || '',
         UrlActualizarEnviarCorreo: _config.UrlActualizarEnviarCorreo || '',
@@ -10,14 +10,27 @@
         CorreoActual: _config.CorreoActual,
         IsConfirmar: _config.IsConfirmar
     };
-
+    //INI HD-3897
     var activaGuardar = function () {
         var btn = $("#btnActualizarCorreo");
-        btn.removeClass('btn_deshabilitado');
+        btn.removeClass('btn_deshabilitado')
         if (getDataArrayError(getData()).length > 0 || !$('#chkAceptoContratoMD').prop('checked')) btn.addClass('btn_deshabilitado');
 
     }
+    var mensajeError = function () {
+        var obj = getData().correoNuevo;
+        var band;
+        showError("");
 
+        if (obj == "") band = null;
+        else if (obj != "" && !validateEmail(obj)) {
+            showError(getDataArrayError(getData()).join('<br>'));
+            band = false;
+        } else band = true;
+
+
+        activaCheck(band);
+    }
     var activaCheck = function (band) {
         var obj = $("div[vista-id=1] .grupo_form_cambio_datos");
         obj.removeClass("grupo_form_cambio_datos--validacionExitosa");
@@ -28,7 +41,8 @@
         else obj.addClass("grupo_form_cambio_datos--validacionErronea");
 
     }
-    
+    //FIN HD-3897
+
     var showError = function (error) { $("#ValidateCorreo").html(error); };
     var showArrayError = function (arrayError) {
         var mensaje = '';
@@ -70,15 +84,15 @@
     };
     var actualizarEnviarCorreo = function (fnSuccess) {
         var data = getData();
-
+        //INI HD-3897
         var arrayError = getDataArrayError(data);
         if (arrayError.length > 0) {
             showArrayError(arrayError);
             return;
         }
-
+        //FIN HD-3897
         if (document.getElementById('chkAceptoContratoMD').checked == false) {
-            showError('Debe aceptar los términos y condiciones para poder actualizar sus datos');
+            alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
             return false;
         }
 
@@ -98,20 +112,7 @@
         irVista(2);
         $('#txtCorreoEnviado').html(email);
     }
-    var mensajeError = function () {
-        var obj = getData().correoNuevo;
-        var band;
-        showError("");
 
-        if (obj == "") band = null;
-        else if (obj != "" && !validateEmail(obj)) {
-            showError(getDataArrayError(getData()).join('<br>'));
-            band = false;
-        } else band = true;
-
-
-        activaCheck(band);
-    }
     var asignarEventos = function () {
 
 
@@ -138,32 +139,26 @@
         $('#btnActualizarCorreo').on('click', function () { actualizarEnviarCorreo(function (data) { irVista2(data.correoNuevo); }); });
         $('#hrefTerminosMD').on('click', function () { enlaceTerminosCondiciones(); });
 
+        //INI HD-3897
         $('#tabVistas div[vista-id=1] input').on('keyup change', function () { activaGuardar(); return $(this).val() });
         $('#NuevoCorreo').on('focusout', function () { mensajeError(); });
-        
+        //FIN HD-3897
+
         FuncionesGenerales.AvoidingCopyingAndPasting('NuevoCorreo');
     };
 
     return {
         Inicializar: function () {
             asignarEventos();
-
-            var fn = function () { irVista2(config.CorreoActual) };
-            if (config.IsConfirmar == 1) {  
+            //INI HD-3897
+            var fn = function () { irVista2(config.CorreoActual)};
+            if (config.IsConfirmar == 1) {
                 postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, fn);
             } else {
                 irVista(config.VistaActual);
 
             }
             //FIN HD-3897
-            
-            /*HD-4520*/
-            $(".infoActual").css("display", "none");
-            if (config.CorreoActual.length > 0) {
-                $(".infoActual").css("display", "block");
-                document.getElementById("correoActual").innerHTML = config.CorreoActual;
-            }
-        },
-		actualizarEnviarCorreo: actualizarEnviarCorreo
+        }
     }
 }

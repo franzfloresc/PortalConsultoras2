@@ -34,18 +34,8 @@ else
                 </span>
             </a>
             <div class="form_actualizar_celular">
-
-                <!--INI HD-4520-->
-                <div class="w-100 infoActual" style="display:none;">
-                    <div class="w-100 infoActualDetalle">
-                        <span class="d-block">Tu número actual es :</span>
-                        <span class="d-block text-bold" id="numeroActual"></span>
-                    </div>
-                </div>
-                <!--FIN HD-4520-->
-
                 <!-- INICIO -Cuando el formato del celular sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
-    si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
+                 si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
                 <div class="grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCelular">
                     <div class="w-100">
                         <input id="NuevoCelular" name="NuevoCelular" class="w-100 eventActPerfil_Auto" type="text" value="" />
@@ -54,7 +44,7 @@ else
                     </div>
                 </div>
                 <!-- FIN -Cuando el formato del celular sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
-    si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
+                 si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">
                     <div class="checkbox_condiciones_wrapper w-100">
                         <div class="checkbox_condiciones_descripcion">
@@ -110,10 +100,10 @@ else
                             <div class="icono_validacion_codigo_sms validacion_erronea"></div>
                         </div>
                     </div>
-                    <div class="w-100 codigo_sms_caducidad"  style="display:block;">
+                    <div class="w-100 codigo_sms_caducidad" style="display:none;">
                         Puedes solicitar un código nuevo en<br /><span class="text-bold" id="time_counter">3</span><span class="text-bold"> segundos</span>
                     </div>
-                    <div class="w-100 envio_instrucciones_info" id="reenvioCelular" style="display:none;">
+                    <div class="w-100 envio_instrucciones_info">
                         <a href="#" title="Reenvíenme las instrucciones" class="enlace_reenviar_instrucciones w-100">
                             Reenviar nuevamente el código
                         </a>

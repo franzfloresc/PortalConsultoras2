@@ -118,10 +118,8 @@
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
     <Compile Include="Configuracion\BLConfiguracionPaisDatos.cs" />
-    <Compile Include="Configuracion\BLConfiguracionPaisFFVV.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
-    <Compile Include="Configuracion\IConfiguracionPaisFFVVDatosBusinessLogic.cs" />
     <Compile Include="Contenido\BLBelcorpResponde.cs" />
     <Compile Include="Contenido\BLContenidoApp.cs" />
     <Compile Include="Contenido\IBelcorpRespondeBusinessLogic.cs" />
@@ -373,9 +371,6 @@
     <Content Include="Templates\mailing_pago_en_linea.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\mailing_pedido_pendiente_aceptado_rechazado.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Templates\mailing_proceso_actualizar_misdatos.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -383,12 +378,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\mailing_proceso_Pin_Autenticacion.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\mailing_proceso_actualiza_contrasenia.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\mailing_proceso_Pin_Autenticacion2.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\mailing_proceso_recuperar_contrasenia.html">

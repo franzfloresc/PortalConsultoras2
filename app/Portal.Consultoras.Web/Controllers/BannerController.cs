@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Internal;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Reader;
 using Portal.Consultoras.Web.Infraestructure.Reader;
@@ -33,8 +32,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida");
                 model.DropDownListCampania = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru);
                 model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-                model.DropDownListContenidoAppDetaAct = _zonificacionProvider.GetContenidoAppDetaAct(Constantes.PaisID.Peru, Constantes.ParentContenidoAppDetaAct.ParenVerMas);
-                model.DropDownListContenidoAppDetaAct.Insert(0, new ServiceZonificacion.BEContenidoAppDetaAct() { Codigo = "0", Descripcion = "-- Seleccionar --" });
                 model.DropDownListTipoContenido = new List<BETipoContenido>() { new BETipoContenido { TipoContenido = 0, TipoContenidoNombre = "URL" },
                                                                                 new BETipoContenido { TipoContenido = 1, TipoContenidoNombre = "Mensaje" }};
 
@@ -61,77 +58,39 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEBanner obeBanner = new BEBanner();
-                List<string> listImagenActualizar = new List<string>();
-               
-                listImagenActualizar.Add(model.ImagenActualizar);
-                listImagenActualizar.Add(model.ImagenActualizarMobile);
 
                 if (model.Accion == "Insertar")
                 {
-                    /*HD-4144*/
-                    for (int i = 0; i < listImagenActualizar.Count; i++)
-                    {
-                        if (listImagenActualizar[i] != null)
-                        {
-                            if (i == 0)
-                        {
-                            var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(listImagenActualizar[i]));
-                            if (img.Width > model.Ancho || img.Height > model.Alto)
-                                return string.Format("El archivo adjunto para web no tiene las dimensiones correctas. Verifique que sea un archivo con " +
-                                                               "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
-                            img.Dispose();
-                        }
+                    var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(model.ImagenActualizar));
+                    if (img.Width > model.Ancho || img.Height > model.Alto)
+                        return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
+                                                       "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
+                    img.Dispose();
 
-
-                        string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = listImagenActualizar[i].Substring(0, System.Net.WebUtility.UrlDecode(listImagenActualizar[i]).Length - 4) + "_" + time + ".png";
-                        httpPath = Path.Combine(Globals.RutaTemporales, System.Net.WebUtility.UrlDecode(listImagenActualizar[i]));
-                        var carpetaPais = Globals.UrlBanner;
-                        ConfigS3.SetFileS3(httpPath, carpetaPais, newfilename);
-                        httpPath = newfilename;
-                        if (i == 0)
-                            obeBanner.Archivo = httpPath.Length > 0 ? httpPath : System.Net.WebUtility.UrlDecode(listImagenActualizar[i]);
-                        else
-                            obeBanner.ArchivoMobile = httpPath.Length > 0 ? httpPath : System.Net.WebUtility.UrlDecode(listImagenActualizar[i]);
-                    }
-                }
+                    string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                    var newfilename = model.ImagenActualizar.Substring(0, System.Net.WebUtility.UrlDecode(model.ImagenActualizar).Length - 4) + "_" + time + ".png";
+                    httpPath = Path.Combine(Globals.RutaTemporales, System.Net.WebUtility.UrlDecode(model.ImagenActualizar));
+                    var carpetaPais = Globals.UrlBanner;
+                    ConfigS3.SetFileS3(httpPath, carpetaPais, newfilename);
+                    httpPath = newfilename;
                 }
                 else
                 {
-                    for (int j = 0; j < listImagenActualizar.Count; j++)
+                    if (model.ImagenActualizar != null)
                     {
-                        if (listImagenActualizar[j] != null)
-                        {
-                            if (j == 0)
-                            {
-                                var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(listImagenActualizar[j]));
-                                if (img.Width > model.Ancho || img.Height > model.Alto)
-                                    return string.Format("El archivo adjunto para web no tiene las dimensiones correctas. Verifique que sea un archivo con " +
-                                                                   "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
+                        var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(model.ImagenActualizar));
+                        if (img.Width > model.Ancho || img.Height > model.Alto)
+                            return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
+                                                           "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
 
-                                img.Dispose();
-                            }
+                        img.Dispose();
 
-                            string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                            var newfilename = listImagenActualizar[j].Substring(0, System.Net.WebUtility.UrlDecode(listImagenActualizar[j]).Length - 4) + "_" + time + ".png";
-                            httpPath = Path.Combine(Globals.RutaTemporales, System.Net.WebUtility.UrlDecode(listImagenActualizar[j]));
-                            var carpetaPais = Globals.UrlBanner;
-                            ConfigS3.SetFileS3(httpPath, carpetaPais, newfilename);
-                            httpPath = newfilename;
-                            if (j == 0)
-                                obeBanner.Archivo = httpPath.Length > 0 ? httpPath : System.Net.WebUtility.UrlDecode(listImagenActualizar[j]);
-                            else
-                                obeBanner.ArchivoMobile = httpPath.Length > 0 ? httpPath : System.Net.WebUtility.UrlDecode(listImagenActualizar[j]);
-                        }
-                        else
-                        {
-                            if (j == 0)
-                                obeBanner.Archivo = httpPath.Length > 0 ? httpPath : System.Net.WebUtility.UrlDecode(model.Archivo);
-                            else
-                                obeBanner.ArchivoMobile = httpPath.Length > 0 ? httpPath : System.Net.WebUtility.UrlDecode(model.ArchivoMobile);
-                        }
-                            
-
+                        string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                        var newfilename = model.ImagenActualizar.Substring(0, System.Net.WebUtility.UrlDecode(model.ImagenActualizar).Length - 4) + "_" + time + ".png";
+                        httpPath = Path.Combine(Globals.RutaTemporales, System.Net.WebUtility.UrlDecode(model.ImagenActualizar));
+                        var carpetaPais = Globals.UrlBanner;
+                        ConfigS3.SetFileS3(httpPath, carpetaPais, newfilename);
+                        httpPath = newfilename;
                     }
                 }
 
@@ -140,6 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
                 obeBanner.GrupoBannerID = model.GrupoBannerID;
                 obeBanner.Orden = model.Orden;
                 obeBanner.Titulo = model.Titulo;
+                obeBanner.Archivo = httpPath.Length > 0 ? httpPath : System.Net.WebUtility.UrlDecode(model.Archivo);
                 obeBanner.URL = model.URL ?? string.Empty;
                 obeBanner.FlagGrupoConsultora = model.FlagGrupoConsultora;
                 obeBanner.UdpSoloBanner = true;
@@ -150,9 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
                 obeBanner.TipoAccion = model.TipoAccion;
                 obeBanner.CuvPedido = model.CUV;
                 obeBanner.CantCuvPedido = model.cantidadPedido;
-                /*HD-4144*/
-                obeBanner.URLMobile = model.URLMobile=="0" ? null : model.URLMobile;
-               
+
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
                 {
                     svc.SaveBanner(obeBanner);
@@ -389,7 +347,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var carpetaPais = Globals.UrlBanner;
                         lst.Update(x => x.Archivo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.Archivo));
-                        lst.Update(x => x.ArchivoMobile = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoMobile));
                     }                        
 
                     BEGrid grid = new BEGrid
@@ -459,10 +416,7 @@ namespace Portal.Consultoras.Web.Controllers
                 "TextoComentario",
                 "TipoAccion",
                 "CuvPedido",
-                "CantCuvPedido",
-                "ArchivoMobile",
-                "URLMobile",
-                "ArchivoRutaCompletoMobile",
+                "CantCuvPedido"
             };
 
             List<Model> colModel = new List<Model>
@@ -563,33 +517,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     name = "CantCuvPedido",
                     index = "CantCuvPedido",
-                    width = 0,
-                    key = true,
-                    sortable = false,
-                    hidden = true
-                },
-                    new Model
-                {
-                    name = "ArchivoMobile",
-                    index = "ArchivoMobile",
-                    width = 0,
-                    key = true,
-                    sortable = false,
-                    hidden = true
-                },
-                        new Model
-                {
-                    name = "URLMobile",
-                    index = "URLMobile",
-                    width = 0,
-                    key = true,
-                    sortable = false,
-                    hidden = true
-                }
-                    ,              new Model
-                {
-                    name = "ArchivoRutaCompletoMobile",
-                    index = "ArchivoRutaCompletoMobile",
                     width = 0,
                     key = true,
                     sortable = false,
@@ -809,7 +736,6 @@ namespace Portal.Consultoras.Web.Controllers
         
         public string[] CrearCellArray(BEBanner obe, List<BEPais> lstPais)
         {
-            
             List<string> lstCell = new List<string>
             {
                 obe.BannerID.ToString(),
@@ -824,10 +750,7 @@ namespace Portal.Consultoras.Web.Controllers
                 obe.TextoComentario ?? string.Empty,
                 obe.TipoAccion.ToString(),
                 obe.CuvPedido ?? string.Empty,
-                obe.CantCuvPedido.ToString(),
-                obe.ArchivoMobile.Length > 0 ? obe.ArchivoMobile.Substring(obe.Archivo.LastIndexOf("/") + 1):string.Empty,
-                obe.URLMobile?? string.Empty,/*HD-4144*/
-                obe.ArchivoMobile?? string.Empty,/*HD-4144*/
+                obe.CantCuvPedido.ToString()
             };
 
             foreach (BEPais obePais in lstPais)

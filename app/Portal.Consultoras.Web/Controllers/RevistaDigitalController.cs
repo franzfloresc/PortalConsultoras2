@@ -102,6 +102,20 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
+        //public ActionResult Detalle(string cuv, int campaniaId)
+        //{
+        //    try
+        //    {
+        //        return RDDetalleModel(cuv, campaniaId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //    }
+
+        //    return RedirectToAction("Index", "Ofertas");
+        //}
+
         public ActionResult MensajeBloqueado()
         {
             try
@@ -148,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 //Guardado en log DynamoDB, sólo si se realizó correctamente la suscripción (Consulta)
-                if (revistaDigital.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.Activo)
+                if (revistaDigital.EstadoSuscripcion == 1)
                     ActualizarDatosLogDynamoDB(null, "REVISTA DIGITAL|SUSCRIPCION", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", userData.CodigoConsultora, "Suscripcion");
 
                 return Json(new

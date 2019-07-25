@@ -6,11 +6,9 @@ using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -34,7 +32,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.UrlS3 = GetUrlS3();
                 ViewBag.UrlDetalleS3 = GetUrlDetalleS3();
-                ViewBag.UrlVideoS3 = GetUrlVideoS3();
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
 
                 string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAlto);
@@ -89,12 +86,6 @@ namespace Portal.Consultoras.Web.Controllers
             string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
             return ConfigCdn.GetUrlCdnAppConsultoraDetalle(paisIso, MatrizAppConsultora);
         }
-        private string GetUrlVideoS3()
-        {
-            var paisIso = Util.GetPaisISO(userData.PaisID);
-            string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
-            return ConfigCdn.GetUrlCdnAppConsultoraVideo(paisIso, MatrizAppConsultora);
-        }        
 
         [HttpPost]
         public ActionResult Update(AdministrarHistorialModel form)
@@ -163,11 +154,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania, string Codigo)
+        public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania)
         {
             try
             {
-                var list = ComponenteListarDetService(IdContenido, Campania, Codigo);
+                var list = ComponenteListarDetService(IdContenido, Campania);
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -213,7 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private IEnumerable<BEContenidoAppList> ComponenteListarDetService(int IdContenido, string Campania, string Codigo)
+        private IEnumerable<BEContenidoAppList> ComponenteListarDetService(int IdContenido, string Campania)
         {
             List<BEContenidoAppList> listaEntidad = new List<BEContenidoAppList>();
 
@@ -221,9 +212,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var entidad = new BEContenidoAppList
                 {
-                    IdContenido = IdContenido,
-                    Codigo = Codigo
-
+                    IdContenido = IdContenido
                 };
 
                 using (var sv = new ContenidoServiceClient())
@@ -448,7 +437,6 @@ namespace Portal.Consultoras.Web.Controllers
             return newfilename;
         }
 
-       
         private IEnumerable<AdministrarHistorialDetaActModel> GetContenidoAppDetaActService(int Parent)
         {
 
@@ -456,7 +444,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                List<ServiceContenido.BEContenidoAppDetaAct> listaDatos;
+                List<BEContenidoAppDetaAct> listaDatos;
                 using (var sv = new ContenidoServiceClient())
                 {
                     listaDatos = sv.GetContenidoAppDetaActList(userData.PaisID).ToList();
@@ -464,7 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var lista = from a in listaDatos
                             where a.Parent == Parent
                             select a;
-                listaEntidad = Mapper.Map<IList<ServiceContenido.BEContenidoAppDetaAct>, List<AdministrarHistorialDetaActModel>>(lista.ToList());
+                listaEntidad = Mapper.Map<IList<BEContenidoAppDetaAct>, List<AdministrarHistorialDetaActModel>>(lista.ToList());
 
             }
             catch (Exception ex)
@@ -576,295 +564,5 @@ namespace Portal.Consultoras.Web.Controllers
                                     }).ToArray();
             return Json(tree, JsonRequestBehavior.AllowGet);
         }
-
-        public JsonResult ComponenteVideoListar(string sidx, string sord, int page, int rows)
-        {
-            try
-            {
-                string Codigo = Constantes.DatosContenedorHistorias.CodigoGanaEnUnClick;
-                BEContenidoAppHistoria entidad = GetContenidoApp(Codigo);
-               
-                var list = ComponenteListarDetService(entidad.IdContenido, string.Empty, entidad.Codigo);
-                var grid = new BEGrid
-                {
-                    PageSize = rows,
-                    CurrentPage = page,
-                    SortColumn = sidx,
-                    SortOrder = sord
-                };
-                var items = list.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                var pag = Util.PaginadorGenerico(grid, list.ToList());
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
-                           {
-                               cell = new string[]
-                                {
-                                    a.IdContenidoDeta.ToString(),
-                                    a.Tipo,
-                                    a.Orden.ToString(),
-                                    a.IdContenido.ToString(),
-                                    a.Campania.ToString(),
-                                    a.RutaContenido,
-                                    a.RutaContenido,
-                                }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new { success = false });
-            }
-        }
-        
-        private BEContenidoAppHistoria GetContenidoApp(string Codigo)
-        {
-            BEContenidoAppHistoria entidad = new BEContenidoAppHistoria();
-            try
-            {
-                
-                using (var sv = new ContenidoServiceClient())
-                {                 
-                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, Codigo);
-                }
-
-              
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-               
-            }
-            return entidad;
-        }
-
-        [HttpGet]
-        public ActionResult GetViewVideo()
-        {
-            string Codigo = Constantes.DatosContenedorHistorias.CodigoGanaEnUnClick;
-            BEContenidoAppHistoria entidad = GetContenidoApp(Codigo);
-
-            var model = new AdministrarHistorialDetaListModel();
-            model.Proc = Constantes.DatosContenedorHistorias.ProcAdd;
-            model.IdContenido = entidad.IdContenido;
-            model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
-
-            return PartialView("Partials/MantenimientoVideo", model); 
-
-        }
-
-        public ActionResult GetViewEditarVideo(AdministrarHistorialDetaListModel entidad)
-        {
-            AdministrarHistorialDetaListModel model = new AdministrarHistorialDetaListModel();
-
-            try
-            {
-                model.Proc = Constantes.DatosContenedorHistorias.ProcEdit;
-                model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
-                model.IdContenidoDeta = entidad.IdContenidoDeta;
-                model.IdContenido = entidad.IdContenido;
-                model.Campania = entidad.Campania;
-                model.RutaContenido = entidad.RutaContenido;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                model = new AdministrarHistorialDetaListModel();
-            }
-            return PartialView("Partials/MantenimientoVideo", model);
-        }
-
-        public string GetCarpetaPaisVideo()
-        {
-            string cadena = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
-            string[] arrCadena;
-            arrCadena = cadena.Split(',');
-            var carpetaPais = string.Format("{0}/{1}", arrCadena[0], userData.CodigoISO);
-
-            return carpetaPais;
-        }
-
-        private int SaveFileVideoS3(AdministrarHistorialDetaListModel model, string imagenEstrategia, bool mantenerExtension = false)
-        {
-            int valRespuesta = 0;
-            imagenEstrategia = Util.Trim(imagenEstrategia);
-            if (imagenEstrategia == string.Empty)
-                return 0;
-
-            var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
-            var carpetaPais = GetCarpetaPaisVideo();
-
-            var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
-            var ext = !mantenerExtension ? ".png" : Path.GetExtension(path);
-            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), ext);
-
-            model.RutaContenido = newfilename;
-            using (ContenidoServiceClient sv = new ContenidoServiceClient())
-            {
-                var entidad = new BEContenidoAppDeta
-                {
-                    Proc = model.Proc,
-                    IdContenidoDeta = model.IdContenidoDeta,
-                    IdContenido = model.IdContenido,
-                    RutaContenido = model.RutaContenido,
-                    Campania = model.Campania,
-                    Tipo = Constantes.TipoContenido.Video
-                };
-                valRespuesta = sv.ContenidoAppDetaVideo(userData.PaisID, entidad);
-
-                if (valRespuesta == 1) {
-                    ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-                }
-            }
-
-            return valRespuesta;
-        }
-
-
-        [HttpPost]
-        public JsonResult ComponenteDatosVideoGuardar(AdministrarHistorialDetaListModel model)
-        {            
-            try
-            {
-                int valRespuesta = 0;
-                int maxRequestLength = 0;
-                HttpRuntimeSection section = ConfigurationManager.GetSection("system.web/httpRuntime") as HttpRuntimeSection;
-                if (section != null)
-                    maxRequestLength = section.MaxRequestLength;
-                
-                var allowedExtensions = new[] { ".mp4" };
-                string _name = string.Empty;
-                if (model.file != null && model.file.ContentLength > 0)
-                {
-                    var checkextension = Path.GetExtension(model.file.FileName).ToLower();
-                    if (!allowedExtensions.Contains(checkextension))
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "El formato no es correcto. Vuelve a intentar, por favor."
-                        });
-                    }
-                    else if (model.file.ContentLength > maxRequestLength)
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "El tama�o m�ximo de archivo permitido es 30MB."
-                        });
-                    }
-                    else
-                    {
-                        string _FileName = Path.GetFileName(model.file.FileName);
-
-                        var _time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
-                        var _path = Path.Combine(Globals.RutaTemporales, _time + _FileName);
-
-                        if (!Directory.Exists(Globals.RutaTemporales)) Directory.CreateDirectory(Globals.RutaTemporales);
-                        model.file.SaveAs(_path);
-
-                        _name = Path.GetFileName(_path);                
-                        
-                        var nombreImagenAnterior = model.RutaContenido;
-                        if (nombreImagenAnterior != null) {
-                            var carpetaPais = GetCarpetaPaisVideo();
-                            ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
-                        }
-
-                        valRespuesta = SaveFileVideoS3(model, _name, true);
-
-                    }
-                   
-                }                              
-
-                return Json(new
-                {
-                    success = true,
-                    message = valRespuesta,
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.StackTrace,
-                });
-            }
-        }
-
-        [HttpGet]
-        public ActionResult ComponenteVideoEliminar(AdministrarHistorialDetaListModel entidad)
-        {
-            AdministrarHistorialDetaListModel modelo;
-            try
-            {
-                modelo = new AdministrarHistorialDetaListModel
-                {
-                    IdContenidoDeta = entidad.IdContenidoDeta,
-                    IdContenido = entidad.IdContenido
-                };
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                modelo = new AdministrarHistorialDetaListModel();
-            }
-            return PartialView("Partials/MantenimientoVideoEliminar", modelo);
-        }
-
-        [HttpPost]
-        public JsonResult ComponenteVideoEliminarProceso(AdministrarHistorialDetaListModel form)
-        {          
-            try
-            {
-                int valRespuesta = 0;
-                var entidad = new BEContenidoAppDeta
-                {
-                    Proc = Constantes.DatosContenedorHistorias.ProcDelete,
-                    IdContenidoDeta = form.IdContenidoDeta,
-                    IdContenido = form.IdContenido
-
-                };
-                using (var sv = new ContenidoServiceClient())
-                {
-                    valRespuesta = sv.ContenidoAppDetaVideo(userData.PaisID, entidad);
-                }
-
-                if (valRespuesta == 0) {
-                    return Json(new
-                    {
-                        success = false,
-                        message = valRespuesta,
-                    });
-                }
-                else {
-                    return Json(new
-                    {
-                        success = true,
-                        message = valRespuesta,
-                    });
-                }
-              
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.StackTrace,
-                });
-            }
-        }
-        
     }
 }

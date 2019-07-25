@@ -165,21 +165,24 @@
         if (typeof AnalyticsPortalModule === 'undefined') {
             return;
         }
-        
+
+        //var origen = {
+        //    Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas,
+        //    OrigenPedidoWeb: _config.OrigenPedidoWeb.toString()
+        //};
+
         var origen = $(_elementos.divCarruselProducto).attr(_elementos.dataOrigenPedidoWeb.atributoAgregar)
             || $(_elementos.divCarruselProducto).attr(_elementos.dataOrigenPedidoWeb.atributo)
             || $(_elementos.divCarruselProducto).parents(_elementos.dataOrigenPedidoWeb.buscaAgregar).attr(_elementos.dataOrigenPedidoWeb.atributoAgregar)
             || $(_elementos.divCarruselProducto).parents(_elementos.dataOrigenPedidoWeb.busca).attr(_elementos.dataOrigenPedidoWeb.atributo);
 
-        var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(origen);
         if (tipo == 1) {
-            CarruselAyuda.MarcarAnalyticsInicio(_elementos.divCarruselProducto, data.lista, origenModelo);
+            CarruselAyuda.MarcarAnalyticsInicio(_elementos.divCarruselProducto, data.lista, origen);
         }
         else if (tipo == 2) {
-            var estrategia = CarruselAyuda.ObtenerEstrategiaSlick(slick, currentSlide, nextSlide, origenModelo);
+            var estrategia = CarruselAyuda.ObtenerEstrategiaSlick(slick, currentSlide, nextSlide);
             origen = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origen, estrategia.CodigoEstrategia);
-            origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(origen);
-            CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origenModelo);
+            CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
         }
     }
 

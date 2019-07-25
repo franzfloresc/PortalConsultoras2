@@ -39,7 +39,7 @@ $(document).ready(function () {
         $('.content_set_oferta_especial').slideUp();
 
     });
-
+    //var stilo;
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
         $(".footer_e").css("margin-bottom", "0px");
@@ -49,6 +49,12 @@ $(document).ready(function () {
     if (localStorage["cerrar_banner_sub_campanias"]) {
         $('.banner_especial_showroom').hide();
     }
+    //else {
+    //    stilo = $('.banner_especial_showroom').attr("style");
+    //    if (stilo != null) {
+    //        stilo = stilo.replace("display:none", "display:block");
+    //    }
+    //}
 
     $(".seleccion_filtro_fav").on("click", function () {
         $(this).toggleClass("seleccion_click_flitro");
@@ -209,10 +215,15 @@ $(document).ready(function () {
         compraxcompra_promotion_impression();
         $(".footer_e").css("margin-bottom", "73px");
     }
-    
+
+    //var cerrar_banner_sub_campanias = false;
     var ver_subcamapania = false;
     var ver_compraxcompra = false;
-    
+
+    //if (localStorage["cerrar_banner_sub_campanias"]) {
+    //    cerrar_banner_sub_campanias = true;
+    //}
+
     if (tieneCompraXCompra == "True" && closeBannerCompraPorCompra == "False") {
         ver_compraxcompra = true;
     }
@@ -221,11 +232,18 @@ $(document).ready(function () {
     }
     else if (ver_subcamapania == true && ver_compraxcompra == true) {
         $("#divBannerCompraPorCompra").hide();
-
+        //stilo = $('.banner_especial_showroom').attr("style");
+        //if (stilo != null) {
+        //    stilo = stilo.replace("display:none", "display:block");
+        //}
         $(".footer_e").css("margin-bottom", "73px");
     }
     else if (ver_subcamapania == true) {
         $("#divBannerCompraPorCompra").hide();
+        //stilo = $('.banner_especial_showroom').attr("style");
+        //if (stilo != null) {
+        //    stilo = stilo.replace("display:none", "display:block");
+        //}
     }
     else if (ver_compraxcompra == true) {
         $('.banner_especial_showroom').hide();
@@ -494,6 +512,27 @@ function AgregarTagManagerClickProducto(article, opcion) {
     });
 
 }
+
+//function AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
+//    var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
+//    dataLayer.push({
+//        'event': 'addToCart',
+//        'ecommerce': {
+//            'add': {
+//                'actionField': { 'list': lista },
+//                'products': [{
+//                    'name': nombreProducto,
+//                    'id': CUV,
+//                    'price': PrecioUnidad,
+//                    'brand': descripcionMarca,
+//                    'variant': 'Ofertas Showroom',
+//                    'category': 'NO DISPONIBLE',
+//                    'quantity': cantidad
+//                }]
+//            }
+//        }
+//    });
+//}
 
 function compraxcompra_promotion_impression() {
     var id = $("#divBannerCompraPorCompra").data("cuv");

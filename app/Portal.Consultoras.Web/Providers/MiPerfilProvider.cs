@@ -48,7 +48,6 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
-
         public virtual List<UsuarioOpcionesModel> ObtenerUsuarioOpciones(int paisId, string codigoUsuario)
         {
             using (var usuario = new UsuarioServiceClient())
@@ -57,7 +56,6 @@ namespace Portal.Consultoras.Web.Providers
                 return Mapper.Map<IEnumerable<BEUsuarioOpciones>, List<UsuarioOpcionesModel>>(datos);
             }
         }
-
         public async Task<List<ParametroUneteBE>> ObtenerUbigeoDependiente(string CodigoISO, int Nivel, int IdPadre)
         {
             List<ParametroUneteBE> result;
@@ -117,6 +115,26 @@ namespace Portal.Consultoras.Web.Providers
             return entidad;
         }
 
+        private BEUsuario BinderMisDatos(MisDatosModel model)
+        {
+            var entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+            entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : model.DatosExtra.CodigoUsuario;
+            entidad.CodigoConsultora = model.CodigoConsultoraAsociada ?? "";
+            entidad.EMail = entidad.EMail ?? "";
+            entidad.Telefono = entidad.Telefono ?? "";
+            entidad.TelefonoTrabajo = entidad.TelefonoTrabajo ?? "";
+            entidad.Celular = entidad.Celular ?? "";
+            entidad.Sobrenombre = entidad.Sobrenombre ?? "";
+            entidad.ZonaID = model.DatosExtra.ZonaID;
+            entidad.RegionID = model.DatosExtra.RegionID;
+            entidad.ConsultoraID = model.DatosExtra.ConsultoraID;
+            entidad.PaisID = model.DatosExtra.PaisID;
+            entidad.PrimerNombre = model.DatosExtra.PrimerNombre;
+            entidad.CodigoISO = model.DatosExtra.CodigoISO;
+
+            return entidad;
+        }
+
         public async Task<string> RegistrarAsync(MisDatosModel model)
         {
             string resultado = string.Empty;
@@ -140,34 +158,6 @@ namespace Portal.Consultoras.Web.Providers
                 //
             }
             return resultado;
-        }
-
-        public async Task<BEUsuario> GetUsuario(int paisId, string codigoUsuario)
-        {
-            using (var sv = new UsuarioServiceClient())
-            {
-                return await sv.SelectAsync(paisId, codigoUsuario);
-            }
-        }
-
-        private BEUsuario BinderMisDatos(MisDatosModel model)
-        {
-            var entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-            entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : model.DatosExtra.CodigoUsuario;
-            entidad.CodigoConsultora = model.CodigoConsultoraAsociada ?? "";
-            entidad.EMail = entidad.EMail ?? "";
-            entidad.Telefono = entidad.Telefono ?? "";
-            entidad.TelefonoTrabajo = entidad.TelefonoTrabajo ?? "";
-            entidad.Celular = entidad.Celular ?? "";
-            entidad.Sobrenombre = entidad.Sobrenombre ?? "";
-            entidad.ZonaID = model.DatosExtra.ZonaID;
-            entidad.RegionID = model.DatosExtra.RegionID;
-            entidad.ConsultoraID = model.DatosExtra.ConsultoraID;
-            entidad.PaisID = model.DatosExtra.PaisID;
-            entidad.PrimerNombre = model.DatosExtra.PrimerNombre;
-            entidad.CodigoISO = model.DatosExtra.CodigoISO;
-
-            return entidad;
         }
     }
 }

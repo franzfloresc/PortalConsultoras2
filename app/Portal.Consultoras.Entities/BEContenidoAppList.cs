@@ -39,8 +39,6 @@ namespace Portal.Consultoras.Entities
         public string DetaAccionDescripcion { get; set; }
         [DataMember]
         public string DetaCodigoDetalleDescripcion { get; set; }
-        [DataMember]
-        public string Codigo { get; set; }
 
     }
 }

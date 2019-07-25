@@ -104,10 +104,11 @@ function fall() {
         objects[i][4] += objects[i][3];
         var k = (100 - (objects[i][1] * 100 / winHeightSR)) / 100;
         k = Math.round(k * 100) / 100;
-
-        fallingObject.style.top = objects[i][1] + winOffset + 'px';
-        fallingObject.style.left = objects[i][0] + (objects[i][2] * Math.cos(objects[i][4])) + 'px';
-        fallingObject.style.opacity = k;
+        with (fallingObject.style) {
+            top = objects[i][1] + winOffset + 'px';
+            left = objects[i][0] + (objects[i][2] * Math.cos(objects[i][4])) + 'px';
+            opacity = k;
+        }
     }
 
     if (closeImagenRain == 0) {

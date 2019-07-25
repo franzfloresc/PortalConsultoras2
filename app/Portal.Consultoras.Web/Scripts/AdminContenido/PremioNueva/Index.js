@@ -71,6 +71,7 @@ function LoadGrilla() {
         pgtext: 'Pág: {0} de {1}',
         altRows: false,
         onCellSelect: function (rowId, iCol, content, event) {
+
             if (iCol == 10) LoadMantenedor(rowId);
             else if (iCol == 11) DesactivarPremio(rowId)
         }
@@ -78,6 +79,7 @@ function LoadGrilla() {
     jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
 }
 function ShowActionsEdit(cellvalue, options, rowObject) {
+
     var Des = "<img src='" + rutaImagenEdit + "' alt='Editar Premio' title='Editar Premio' border='0' style='cursor:pointer' /></a>";
     return Des;
 }
@@ -91,6 +93,7 @@ function RegistrarConstrains() {
 
     $("#txtPrograma").on('keypress', function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        //var inputVal = $(this).val();
         var keyChar = String.fromCharCode(charCode);
         var re = /[0-9]/;
         return re.test(keyChar);
@@ -120,6 +123,7 @@ function RegistrarEventos() {
         e.preventDefault();
 
         if ($("#ddlCampania").val() == "") {
+
             alert("Debe seleccionar la Campaña, verifique.");
             return false;
         }
@@ -157,12 +161,14 @@ function fnDialog() {
     });
 }
 function DesactivarPremio(rowId) {
+    
     var rowData = $("#list").jqGrid('getRowData', rowId);
     var Premio = rowData;
 
     if (Premio.ActivePremioAuto == 'false' && Premio.ActivePremioElectivo == 'false') return;
     var elimina = confirm('¿Está seguro que desea deshabilitar el premio?');
     if (!elimina) return;
+
 
     Premio.ActivePremioAuto = 0;
     Premio.ActivePremioElectivo = 0;
@@ -186,8 +192,9 @@ function DesactivarPremio(rowId) {
             closeWaitingDialog();
         }
     });
-}
 
+
+}
 function LoadMantenedor(rowId) {
     var url = UrlCRUD;
 

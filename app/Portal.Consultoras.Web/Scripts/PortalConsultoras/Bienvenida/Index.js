@@ -447,6 +447,7 @@ $(document).ready(function () {
         CargarProductoLiquidacionPopup(objProducto, objHidden);
     });
     $(document).on('click', '.js-agregar-popup-liquidacion', function () {
+
         var contenedor = $(this).parents('#divTonosTallas');
         PedidoRegistroModule.AgregarProductoLiquidacionBienvenida(contenedor);
     });
@@ -611,6 +612,10 @@ function mostrarVideoIntroductorio() {
         }
         primeraVezVideo = false;
         return true;
+
+        //if (viewBagVioTutorialSalvavidas == '0') {
+        //    mostrarUbicacionTutorial(false, false);
+        //}
     } catch (e) {
 
     }
@@ -741,8 +746,10 @@ function EstructurarDataCarouselLiquidaciones(array) {
             item.TextoBotonTallaColor = "";
             item.TieneTallaColor = false;
         }
+        /* INI HD-4009 */
         item.ValPUM = (item.UnidadMedida == "" || item.PUM == "") ? false : true;
         item.UnidadMedida = (item.UnidadMedida || '').toLowerCase();
+        /* FIN HD-4009 */
 
     });
 
@@ -2528,7 +2535,7 @@ function ActualizarVisualizoComunicado(comunicadoId) {
         data: JSON.stringify(params),
         contentType: 'application/json',
         success: function (data) {
-            checkTimeout(data);
+            //
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -2790,6 +2797,7 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
 }
 
 function MostrarPopupInicial() {
+
     if (showPopupMisDatos == '1' || popupCambioClave == "1") {
         CargarMisDatos();
         return;

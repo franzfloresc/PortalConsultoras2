@@ -40,9 +40,5 @@ namespace Portal.Consultoras.Entities
         public int TipoUsuario { get; set; }
         [DataMember(Order = 16)]
         public long UsuarioAppID { get; set; }
-        [DataMember(Order = 17)]
-        public string IDCDC { get; set; }
-        [DataMember(Order = 18)]
-        public string IDCMC { get; set; }
     }
 }

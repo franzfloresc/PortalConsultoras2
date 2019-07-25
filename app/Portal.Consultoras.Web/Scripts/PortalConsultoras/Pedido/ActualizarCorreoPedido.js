@@ -1,4 +1,4 @@
-﻿
+﻿//INI HD-4294
 var Pedido_ActualizarCorreo = function (_config) {
     var config = {
         UrlActualizarEnviarCorreo: _config.UrlActualizarEnviarCorreo,
@@ -147,5 +147,8 @@ var Pedido_ActualizarCorreo = function (_config) {
         }
     }
 }
+//FIN HD-4294
+
+
 
 

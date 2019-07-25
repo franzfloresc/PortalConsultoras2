@@ -1103,147 +1103,6 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEContenidoAppDetaAct", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEContenidoAppDetaAct : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ActivoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdContenidoActField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int OrdenField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ParentField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Activo {
-            get {
-                return this.ActivoField;
-            }
-            set {
-                if ((this.ActivoField.Equals(value) != true)) {
-                    this.ActivoField = value;
-                    this.RaisePropertyChanged("Activo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Codigo {
-            get {
-                return this.CodigoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
-                    this.CodigoField = value;
-                    this.RaisePropertyChanged("Codigo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion {
-            get {
-                return this.DescripcionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
-                    this.DescripcionField = value;
-                    this.RaisePropertyChanged("Descripcion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IdContenidoAct {
-            get {
-                return this.IdContenidoActField;
-            }
-            set {
-                if ((this.IdContenidoActField.Equals(value) != true)) {
-                    this.IdContenidoActField = value;
-                    this.RaisePropertyChanged("IdContenidoAct");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Orden {
-            get {
-                return this.OrdenField;
-            }
-            set {
-                if ((this.OrdenField.Equals(value) != true)) {
-                    this.OrdenField = value;
-                    this.RaisePropertyChanged("Orden");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Parent {
-            get {
-                return this.ParentField;
-            }
-            set {
-                if ((this.ParentField.Equals(value) != true)) {
-                    this.ParentField = value;
-                    this.RaisePropertyChanged("Parent");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceZonificacion.IZonificacionService")]
     public interface IZonificacionService {
@@ -1421,12 +1280,6 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetSegmentoInternoBanner", ReplyAction="http://tempuri.org/IZonificacionService/GetSegmentoInternoBannerResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BESegmentoBanner[]> GetSegmentoInternoBannerAsync(int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct", ReplyAction="http://tempuri.org/IZonificacionService/GetContenidoAppDetaActResponse")]
-        Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[] GetContenidoAppDetaAct(int paisId, int parent);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct", ReplyAction="http://tempuri.org/IZonificacionService/GetContenidoAppDetaActResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[]> GetContenidoAppDetaActAsync(int paisId, int parent);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetZonasByRegion", ReplyAction="http://tempuri.org/IZonificacionService/GetZonasByRegionResponse")]
         Portal.Consultoras.Web.ServiceZonificacion.BEZona[] GetZonasByRegion(int PaisID, int RegionID);
@@ -1698,14 +1551,6 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BESegmentoBanner[]> GetSegmentoInternoBannerAsync(int PaisID) {
             return base.Channel.GetSegmentoInternoBannerAsync(PaisID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[] GetContenidoAppDetaAct(int paisId, int parent) {
-            return base.Channel.GetContenidoAppDetaAct(paisId, parent);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[]> GetContenidoAppDetaActAsync(int paisId, int parent) {
-            return base.Channel.GetContenidoAppDetaActAsync(paisId, parent);
         }
         
         public Portal.Consultoras.Web.ServiceZonificacion.BEZona[] GetZonasByRegion(int PaisID, int RegionID) {

@@ -47,7 +47,7 @@
                                 </div>
                                 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
                                 <script type="text/javascript">
-                                    new qq.FileUploader({
+                                    var uploader = new qq.FileUploader({
                                         allowedExtensions: ['jpg', 'png', 'jpeg'],
                                         element: document.getElementById('file-uploader'),
                                         action: '@Url.Action("ImageUpload", "FileUpload")',

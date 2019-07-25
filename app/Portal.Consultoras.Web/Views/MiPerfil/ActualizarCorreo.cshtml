@@ -41,27 +41,17 @@ else
             </span>
         </a>
         <div vista-id="1" class="form_actualizar_correo" style="display:none;">
-
-            <!--INI HD-4520-->
-            <div class="w-100 infoActual" style="display:none;">
-                <div class="w-100 infoActualDetalle">
-                    <span class="d-block">Tu correo electrónico actual es :</span>
-                    <span class="d-block text-bold" id="correoActual"></span>
-                </div>
-            </div>
-            <!--FIN HD-4520-->
-
             <!-- INICIO -Cuando el formato del correo sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
-    si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
+         si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
             <div class="grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCorreo">
                 <div class="w-100">
                     <input id="NuevoCorreo" name="NuevoCorreo" class="w-100 eventActPerfil_Auto" type="text" value="" autocomplete="off" />
                     <label for="NuevoCorreo" class="w-100">Ingresa tu nuevo correo electrónico</label>
-                    <span id="ValidateCorreo" class="text-bold mensaje_validacion_campo mensaje_validacion_campo--vistasActualizacion"></span>
+                    <span id="ValidateCorreo" class="text-bold mensaje_validacion_campo mensaje_validacion_campo--vistasActualizacion" ></span>
                 </div>
             </div>
             <!-- FIN -Cuando el formato del correo sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
-    si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
+                 si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
             <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">
                 <div class="checkbox_condiciones_wrapper w-100">
                     <div class="checkbox_condiciones_descripcion">
@@ -146,10 +136,9 @@ else
 <input type="hidden" id="hdn_IsConfirmar" value="@ViewBag.IsConfirmar" />
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")?v=3"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCorreo.js")?v=3"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCorreo.js?v=2")"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            debugger;
             new MiPerfil_ActualizarCorreo({
                 UrlPaginaPrevia: '@Url.Action("Index")',
                 UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo")',

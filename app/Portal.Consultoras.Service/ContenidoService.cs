@@ -607,11 +607,6 @@ namespace Portal.Consultoras.Service
             return bl.GetContenidoAppDetaActList(paisID);
         }
 
-        public int ContenidoAppDetaVideo(int paisID, BEContenidoAppDeta p)
-        {
-            var bl = new BLContenidoAppHistoria();
-            return bl.ContenidoAppDetaVideo(paisID, p);
-        }
 
     }
 }

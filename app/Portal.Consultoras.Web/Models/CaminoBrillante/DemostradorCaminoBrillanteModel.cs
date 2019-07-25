@@ -16,9 +16,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public decimal PrecioCatalogo { get; set; }
         public string FotoProductoMedium { get; set; }
         public bool FlagSeleccionado { get; set; }
-        public bool EsPadre { get; set; }
-        public string CodigoProducto { get; set; }
-        public List<DemostradorCaminoBrillanteModel> Detalle { get; set; }
+
 
         public string CodigoEstrategia
         {

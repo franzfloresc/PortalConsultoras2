@@ -37,7 +37,6 @@ using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 using Portal.Consultoras.Common.Validator;
 using BEUsuario = Portal.Consultoras.Web.ServiceUsuario.BEUsuario;
 using BERespuestaServicio = Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio;
-using System.Text;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -58,7 +57,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private readonly ZonificacionProvider _zonificacionProvider;
         protected readonly RevistaDigitalProvider _revistaDigitalProvider = new RevistaDigitalProvider();
-        
+
+        //private UsuarioModel model = new UsuarioModel();
         private readonly LogDynamoProvider _logDynamoProvider = new LogDynamoProvider();
 
 
@@ -67,6 +67,8 @@ namespace Portal.Consultoras.Web.Controllers
         public LoginController()
         {
             _zonificacionProvider = new ZonificacionProvider();
+            //if (sessionManager != null && sessionManager.GetUserData() != null) model = sessionManager.GetUserData();
+            //model.MenuNotificaciones = 1;
         }
 
         public LoginController(ISessionManager sessionManager)
@@ -201,10 +203,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                        if (url9.Contains("MIACADEMIA") && url9.Contains("SAP"))
-                    {
-                        urlSapParametro = url9.Remove(0, 15);
-                        TempData["SapParametros"] = url9.Remove(0, 15);
-                    }
+                        {
+                            urlSapParametro = url9.Remove(0, 15);
+                            TempData["SapParametros"] = url9.Remove(0, 15);
+                        }                     
 
                 }
                 TempData["FlagAcademiaVideo"] = 1;
@@ -221,18 +223,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                     else
                     {
-                        if (url9.Contains("MIACADEMIAPDF"))
+                        if (url9.Contains("MIACADEMIAPDF"))  //PPC
                         {
-                            TempData["FlagAcademiaPdf"] = 1;
+                            TempData["FlagAcademiaPdf"] = 1;   //PPC
                             flagMiAcademiaPdf = 1;
                             TempData["FlagAcademiaVideo"] = 0;
                             flagMiAcademiaVideo = 0;
                         }
-                        else
+                        else  //PPC
                         {
                             TempData["FlagAcademiaVideo"] = 0;
                             flagMiAcademiaVideo = 0;
-                            TempData["FlagAcademiaPdf"] = 0;
+                            TempData["FlagAcademiaPdf"] = 0;   //PPC
                             flagMiAcademiaPdf = 0;
                         }
                     }
@@ -425,20 +427,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
 
 
-            if (TieneActualizarContraseniaDefault(paisId, codigoUsuario))
-            {
-                if (Request.IsAjaxRequest())
-                {
-                    return Json(new
-                    {
-                        success = true,
-                        redirectTo = Url.Action("ActualizarContrasenia", "Login")
-                    });
-                }
-                return RedirectToAction("ActualizarContrasenia", "Login");
-            }
-
-
             if (!Convert.ToBoolean(TempData["FlagPin"]) && TieneVerificacionAutenticidad(paisId, codigoUsuario))
             {
                 if (Request.IsAjaxRequest())
@@ -481,10 +469,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);
                 sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
-
-                flagMiAcademiaPdf = Convert.ToInt32(TempData["FlagAcademiaPdf"]);  // PPC
-                sessionManager.SetMiAcademiaPdf(flagMiAcademiaPdf);                // PPC                           
-
 
                 returnUrl = Url.Action("Index", "MiAcademia");
 
@@ -703,7 +687,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FlgCheckEMAIL = beusuario.FlgCheckEMAIL;
             ViewBag.PuedeConfirmarAllEmail = userData.PuedeConfirmarAllEmail;
             ViewBag.PuedeConfirmarAllSms = userData.PuedeConfirmarAllSms;
-
+            
             if (model.OpcionChat)
             {
                 var provider = new ChatEmtelcoProvider();
@@ -716,29 +700,39 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
-        public ActionResult ActualizarContrasenia()
-        {
-            Session["DatosUsuarioRedirect"] = null;
-            if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
-            var obj = (BEUsuarioDatos)Session["DatosUsuario"];
-
-            var model = new ActualizaContrasenia();
-            model.PrimerNombre = obj.PrimerNombre;
-            model.CodigoIso = obj.CodigoIso;
-            model.CodigoUsuario = obj.CodigoUsuario;
-            model.EsMobile = EsDispositivoMovil();
-
-            return View(model);
-        }
-
-
         [HttpPost]
         public JsonResult ActualizarCelular()
         {
+            //var userData = new UsuarioModel();
+
             var userData = (BEUsuarioDatos)Session["DatosUsuario"];
             try
             {
+
+                //if (sessionManager != null && sessionManager.GetUserData() != null) userData = sessionManager.GetUserData();
+                //userData.MenuNotificaciones = 1;
+
+                //if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
+                //var obj = (BEUsuarioDatos)Session["DatosUsuario"];
+                //var model = new BEUsuarioDatos();
+
+                //if (!userData.PuedeActualizar)
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        message = "Error: Usted no esta apta para actualizar datos"
+                //    });
+                //}
+
+                //if (!userData.PuedeEnviarSMS)
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        message = "Error: no puede enviar mensaje"
+                //    });
+                //}
                 int paisId = Util.GetPaisID(userData.CodigoIso);
 
                 var model = new ActualizaCelularModel();
@@ -861,8 +855,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var BEUserData = (BEUsuarioDatos)Session["DatosUsuario"];
-            var userData = await GetUserData(Common.Util.GetPaisID(BEUserData.CodigoIso), BEUserData.CodigoUsuario);
-
+            var userData = new UsuarioModel
+            {
+                CodigoUsuario = BEUserData.CodigoUsuario
+            };
             ISmsSender sender = new SmsProcess
             {
                 User = userData,
@@ -1202,7 +1198,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.HerramientasDeVenta:
                         return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
                     case Constantes.IngresoExternoPagina.Reclamos:
-                        return RedirectToUniqueRoute("MisReclamos", "Index", null);
+                        return RedirectToUniqueRoute("MisReclamos", "Index", null); // valido
                     case Constantes.IngresoExternoPagina.MetodosPagos:
                         return RedirectToUniqueRoute("PagoEnLinea", "MetodoPagoExterno", new { IdOrigen = model.OrigenPedido });
                     case Constantes.IngresoExternoPagina.PagarAqui:
@@ -1798,8 +1794,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.AutorizaPedido = usuario.AutorizaPedido;
                     usuarioModel.PuedeConfirmarAllEmail = usuario.PuedeConfirmarAllEmail;
                     usuarioModel.PuedeConfirmarAllSms = usuario.PuedeConfirmarAllSms;
-                    /*HD-4513*/
-                    usuarioModel.PagoContado = usuario.PagoContado;
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
@@ -2397,10 +2391,6 @@ namespace Portal.Consultoras.Web.Controllers
                                     usuarioModel.CaminoBrillanteMsg = listas[0].Valor1;
                                 }
 
-                                break;
-                            //HD-4729
-                            case Constantes.ConfiguracionPais.ActualizacionDatos:
-                                usuarioModel.TieneActualizacionDatos = c.Estado;
                                 break;
                         }
 
@@ -3277,7 +3267,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ProcesaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
+        public async Task<JsonResult> ProcesaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
         {
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             if (!String.IsNullOrEmpty(parametros.CorreoActualizado))
@@ -3288,50 +3278,8 @@ namespace Portal.Consultoras.Web.Controllers
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
             {
-                TempData["PaisID"] = paisID;
-                bool EstadoEnvio = false;
-                oUsu.EsMobile = EsDispositivoMovil();
-
-                using (var svc = new UsuarioServiceClient())
-                {
-                    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, parametros.CantidadEnvios);
-                }
-
-                oUsu.Correo = parametros.CorreoActualizado;
-                oUsu.CorreoEnmascarado = Util.EnmascararCorreo(parametros.CorreoActualizado);
-                Session["DatosUsuario"] = oUsu;
-
-                return Json(new
-                {
-                    success = EstadoEnvio,
-                    menssage = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
-                return Json(new
-                {
-                    success = false,
-                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas tarde"
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<JsonResult> ProcesaActualizaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
-        {
-            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
-            if (!String.IsNullOrEmpty(parametros.CorreoActualizado))
-            {
-                oUsu.Correo = parametros.CorreoActualizado;
-            }
-            if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
-            int paisID = Convert.ToInt32(TempData["PaisID"]);
-            try
-            {
-                UsuarioModel userData;
+                
+                UsuarioModel userData = new UsuarioModel();
                 userData = await GetUserData(Util.GetPaisID(oUsu.CodigoIso), oUsu.CodigoUsuario);
                 BERespuestaServicio respuesta;
                 BEUsuario usuario = Mapper.Map<BEUsuario>(userData);
@@ -3339,9 +3287,33 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respuesta = sv.ActualizarEmail(usuario, oUsu.Correo);
                 }
-                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();                
+                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
+                TempData["PaisID"] = paisID;
                 ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
                 return Json(new { success = respuesta.Succcess, message = respuesta.Message });
+
+
+
+                TempData["PaisID"] = paisID;
+                bool EstadoEnvio = false;
+                //oUsu.EsMobile = EsDispositivoMovil();
+
+                //using (var svc = new UsuarioServiceClient())
+                //{
+                //    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, parametros.CantidadEnvios);
+                //}
+
+                //oUsu.Correo = parametros.CorreoActualizado;
+                //oUsu.CorreoEnmascarado = Util.EnmascararCorreo(parametros.CorreoActualizado);
+                //Session["DatosUsuario"] = oUsu;
+
+
+
+                return Json(new
+                {
+                    success = EstadoEnvio,
+                    menssage = ""
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
@@ -3514,257 +3486,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-
-        #region CambioConrasenia
-
-        public bool TieneActualizarContraseniaDefault(int paisID, string codigoUsuario)
-        {
-            try
-            {
-                BEUsuarioDatos oVerificacion;
-                using (var sv = new UsuarioServiceClient())
-                {
-                    oVerificacion = sv.GetActualizarContraseniaDefault(paisID, codigoUsuario);
-                }
-
-                if (oVerificacion == null) return false;
-
-                Session["DatosUsuario"] = oVerificacion;
-                TempData["PaisID"] = paisID;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.TieneActualizarContraseniaDefault");
-                return false;
-            }
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        //public JsonResult CambiarContrasenia(string nuevaContrasenia, string codigoUsuario,string codigoISO)
-        public ActionResult CambiarContrasenia(ActualizaContrasenia actualizaContrasenia)
-        {
-            int rslt = 0;
-            try
-            {
-                var result = false;
-                BERespuestaServicio respuestasActivaEmail;
-                var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
-                int paisID = Common.Util.GetPaisID(actualizaContrasenia.CodigoIso);
-
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    respuestasActivaEmail = sv.ActivarEmail(paisID, oUsu.CodigoUsuario, oUsu.Correo);
-
-                    if (respuestasActivaEmail.Succcess == false)
-                    {
-                        return Json(new { success = respuestasActivaEmail.Succcess, message = respuestasActivaEmail.Message });
-                    }
-
-                    result = sv.CambiarContraseniaAleatoria(Util.GetPaisID(actualizaContrasenia.CodigoIso), actualizaContrasenia.CodigoIso, actualizaContrasenia.CodigoUsuario,
-                           actualizaContrasenia.Contrasenia, "", actualizaContrasenia.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
-
-                    rslt = result ? 2 : 1;
-                }
-
-                EnviarEmailCambioContrasenia(result);
-                if (result == true)
-                {
-                    Session["DatosUsuarioRedirect"] = Session["DatosUsuario"];
-                    Session.Remove("DatosUsuario");
-                }
-
-
-
-                return Json(new
-                {
-                    success = true,
-                    message = rslt
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, actualizaContrasenia.CodigoUsuario, actualizaContrasenia.CodigoIso);
-                return Json(new
-                {
-                    success = false,
-                    message = "Ocurrió un erro al actualizar la Contraseña, Intente nuevamente.",
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, actualizaContrasenia.CodigoUsuario, actualizaContrasenia.CodigoIso);
-                return Json(new
-                {
-                    success = false,
-                    message = "Ocurrió un erro al actualizar la Contraseña, Intente nuevamente.",
-                    extra = ""
-                });
-            }
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<JsonResult> RecibirPinCambioContrasenia(string emailNuevo = null)
-        {
-            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
-            if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
-            int paisID = Common.Util.GetPaisID(oUsu.CodigoIso);
-
-            try
-            {
-
-                UsuarioModel userData = new UsuarioModel();
-                userData = await GetUserData(Util.GetPaisID(oUsu.CodigoIso), oUsu.CodigoUsuario);
-                BERespuestaServicio respuesta;
-                BEUsuario usuario = Mapper.Map<BEUsuario>(userData);
-
-                bool cambioCorreoNuevo = (string.IsNullOrEmpty(emailNuevo)) ? false : ((emailNuevo != oUsu.Correo) ? true : false);
-
-                TempData["PaisID"] = paisID;
-                bool EstadoEnvio = false;
-
-                using (var sv = new UsuarioServiceClient())
-                {
-                    //if (cambioCorreoNuevo == true && oUsu.Correo.ToLower() != emailNuevo.Trim().ToLower())
-                    //{
-                    //    oUsu.Correo = emailNuevo.Trim();
-                    //    existeCorreoRegistrado = await svc.ValidarEmailConsultoraAsync(paisID, oUsu.Correo, oUsu.CodigoUsuario);
-                    //    if (existeCorreoRegistrado > 0)
-                    //    {
-                    //        return Json(new
-                    //        {
-                    //            success = false,
-                    //            menssage = "error: El correo ya se encuentra registrado por otro usuario",
-                    //            correo = oUsu.Correo,
-                    //        }, JsonRequestBehavior.AllowGet);
-                    //    }
-                    //}
-                    if (cambioCorreoNuevo == true && oUsu.Correo.ToLower() != emailNuevo.Trim().ToLower())
-                    {
-                        oUsu.Correo = emailNuevo.Trim();
-                        Session["DatosUsuario"] = oUsu;
-                    }
-
-
-                    respuesta = sv.ActualizarEmailSinEnvioCorreo(usuario, oUsu.Correo);
-                   
-                    if (respuesta.Succcess == false)
-                    {
-                        return Json(new
-                        {
-                            success = respuesta.Succcess,
-                            menssage = respuesta.Message,
-                            correo = oUsu.Correo,
-                        }, JsonRequestBehavior.AllowGet);
-                    }
-
-                    string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
-                    ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
-
-                    EstadoEnvio = await sv.ProcesaEnvioEmailCambiaContrasenia2Async(paisID, oUsu);
-                }
-
-                return Json(new
-                {
-                    success = EstadoEnvio,
-                    menssage = "",
-                    correo = oUsu.Correo,
-                    cambioCorreo = cambioCorreoNuevo
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
-                return Json(new
-                {
-                    success = false,
-                    menssage = "Sucedio un Error al enviar el C�digo de verificaci�n. Intentelo mas tarde"
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-
-
-        [AllowAnonymous]
-        [HttpPost]
-        public JsonResult ContraseniaRepetida(ActualizaContrasenia actualizaContrasenia)
-        {
-            var result = false;
-            try
-            {
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    result = sv.ContraseniaRepetida(Util.GetPaisID(actualizaContrasenia.CodigoIso), actualizaContrasenia.CodigoUsuario, actualizaContrasenia.Contrasenia);
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    repetido = result,
-                    menssage = (result) ? "Ingresar una contraseña diferente a la anterior" : "Contraseña válida"
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, actualizaContrasenia.CodigoUsuario, actualizaContrasenia.CodigoIso);
-                return Json(new
-                {
-                    success = false,
-                    menssage = "Error al validar contraseña repetida"
-                }, JsonRequestBehavior.AllowGet); ;
-            }
-        }
-
-        public void EnviarEmailCambioContrasenia(bool exito)
-        {
-            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
-            int paisID = Common.Util.GetPaisID(oUsu.CodigoIso);
-
-            try
-            {
-                string paisISO = Util.GetPaisISO(paisID);
-
-                string emailFrom = "no-responder@somosbelcorp.com";
-                string emailTo = oUsu.Correo;
-                string titulo = "Cambio de contrase&ntilde;a de Somosbelcorp";
-
-                string nombrecorreo = oUsu.PrimerNombre.Trim();
-                string displayname = "Somos Belcorp";
-
-                using (var svc = new UsuarioServiceClient())
-                {
-                    svc.ProcesaEnviarMailActualizaContraseniaFinalizado(paisID, oUsu, exito);
-                }
-
-
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
-            }
-
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> IrSomosBelcorp(string redirectUrl = null)
-        {
-            var oUsu = (BEUsuarioDatos)Session["DatosUsuarioRedirect"];
-            if (oUsu == null)
-            {
-                RedirectToAction("Login");
-            }
-            int paisID = Common.Util.GetPaisID(oUsu.CodigoIso);
-            return await Redireccionar(paisID, oUsu.CodigoUsuario, redirectUrl);
-
-        }
-
-        #endregion
-
-
 
     }
 }

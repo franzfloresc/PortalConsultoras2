@@ -41,13 +41,13 @@ var CalPosOffsetY = 0; //Y position offset relative to calendar icon, can be neg
 var SpanBorderColor = "#000000";//span border color
 var SpanBgColor = "#FFFFFF"; //span background color
 var MonthYearColor = "#000000"; //Font Color of Month and Year in Calendar header.
-var WeekHeadColor = "#3f9ad6";//Background Color in Week header.
-var SundayColor = "#C0F64F"; //Background color of Sunday.
+var WeekHeadColor = "#3f9ad6"; //var WeekHeadColor="#18861B";//Background Color in Week header.
+var SundayColor = "#C0F64F"; //var SundayColor="#C0F64F";//Background color of Sunday.
 var SaturdayColor = "#C0F64F"; //Background color of Saturday.
 var WeekDayColor = "#FFFFFF"; //Background color of weekdays.
 var FontColor = "blue"; //color of font in Calendar day cell.
-var TodayColor = "#c5c5c5"; //Background color of today.
-var SelDateColor = "#a7c6da"; //Backgrond color of selected date in textbox.
+var TodayColor = "#c5c5c5"; //var TodayColor="#FFFF33";//Background color of today.
+var SelDateColor = "#a7c6da"; //var SelDateColor = "#8DD53C";//Backgrond color of selected date in textbox.
 var YrSelColor = "#000000"; //color of font of Year selector.
 var MthSelColor = "#000000"; //color of font of Month selector if "MonthSelector" is "arrow".
 var HoverColor = "#E0FF38"; //color when mouse move over.

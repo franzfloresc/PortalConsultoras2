@@ -12,15 +12,13 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public IDataReader GetPaginateProductoSugerido(BEProductoSugerido entity)
+        public IDataReader GetPaginateProductoSugerido(int campaniaID, string cuvAgotado, string cuvSugerido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPaginateProductoSugerido_SB2");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "@CuvAgotado", DbType.String, entity.CUV);
-            Context.Database.AddInParameter(command, "@CuvSugerido", DbType.String, entity.CUVSugerido);
-            //INI HD-4289
-            Context.Database.AddInParameter(command, "@ConfiguracionZona", DbType.String, entity.ConfiguracionZona);
-            //FIN HD-4289
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@CuvAgotado", DbType.String, cuvAgotado);
+            Context.Database.AddInParameter(command, "@CuvSugerido", DbType.String, cuvSugerido);
+
             return Context.ExecuteReader(command);
         }
 
@@ -37,9 +35,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
             Context.Database.AddInParameter(command, "UsuarioRegistro", DbType.String, entity.UsuarioRegistro);
             Context.Database.AddInParameter(command, "MostrarAgotado", DbType.Int32, entity.MostrarAgotado);
-            //INI HD-4289
-            Context.Database.AddInParameter(command, "ConfiguracionZona", DbType.String,entity.ConfiguracionZona);
-            //FIN HD-4289
 
             Context.ExecuteNonQuery(command);
             var id = (string)Context.Database.GetParameterValue(command, "Return");
@@ -59,9 +54,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
             Context.Database.AddInParameter(command, "UsuarioModificacion", DbType.String, entity.UsuarioModificacion);
             Context.Database.AddInParameter(command, "MostrarAgotado", DbType.Int32, entity.MostrarAgotado);
-            //INI HD-4289
-            Context.Database.AddInParameter(command, "ConfiguracionZona", DbType.String, entity.ConfiguracionZona);
-            //FIN HD-4289
 
             Context.ExecuteNonQuery(command);
             var id = (string)Context.Database.GetParameterValue(command, "Return");

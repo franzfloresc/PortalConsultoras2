@@ -160,22 +160,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEZonificacionJerarquia" nillable="true" type="tns:BEZonificacionJerarquia" />
-  <xs:complexType name="ArrayOfBEContenidoAppDetaAct">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEContenidoAppDetaAct" nillable="true" type="tns:BEContenidoAppDetaAct" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEContenidoAppDetaAct" nillable="true" type="tns:ArrayOfBEContenidoAppDetaAct" />
-  <xs:complexType name="BEContenidoAppDetaAct">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IdContenidoAct" type="xs:int" />
-      <xs:element minOccurs="0" name="Orden" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="Parent" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEContenidoAppDetaAct" nillable="true" type="tns:BEContenidoAppDetaAct" />
 </xs:schema>

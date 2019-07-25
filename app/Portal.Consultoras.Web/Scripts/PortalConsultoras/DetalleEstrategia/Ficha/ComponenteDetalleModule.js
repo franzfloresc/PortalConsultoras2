@@ -13,6 +13,8 @@
     if (config.generalModule === null || typeof config.generalModule === "undefined")
         throw "config.generalModule is null or undefined";
 
+    //var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
+
     var _config = {
         localStorageModule: config.localStorageModule,
         analyticsPortalModule: config.analyticsPortalModule,
@@ -57,25 +59,23 @@
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
 
             //estrategia.Hermanos por default es solo 1
+            //console.log('mostrarDetalleIndividual', estrategia);
 
-            var idContenido = _template.getTagDataHtml(_template.componenteDetalleIndividual);
+            if (estrategia.Hermanos.length == 1) {
+                if (estrategia.MostrarFichaEnriquecida) {
 
-            if (estrategia.Hermanos.length == 1 && estrategia.MostrarFichaEnriquecida) {
+                    _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
 
-                _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
-
-                this.setYoutubeId();
-                if (!_config.generalModule.isMobile()) {
-                    this.setTabDetalleComponente();
+                    this.setYoutubeId();
+                    if (!_config.generalModule.isMobile()) {
+                        this.setTabDetalleComponente();
+                    }
+                    else {
+                        this.setAcordionDetalleComponente();
+                    }
+                    this.setCarrusel(_template.CarruselIndividualVideo);
+                    this.setYoutubeApi();
                 }
-                else {
-                    this.setAcordionDetalleComponente();
-                }
-                this.setCarrusel(_template.CarruselIndividualVideo);
-                this.setYoutubeApi();
-            }
-            else {
-                $(idContenido).html("");
             }
         },
         setCarrusel: function (id) {
@@ -99,6 +99,7 @@
         setTabDetalleComponente: function () {
             $("body").off("click", "[data-tab-header]");
             $("body").on("click", "[data-tab-header]", function (e) {
+                //console.log('click setTabDetalleComponente');
                 e.preventDefault();
                 $("[data-tab-header]").removeClass("active");
                 var numTab = $(e.target).data("num-tab");
@@ -109,6 +110,7 @@
         },
         setAcordionDetalleComponente: function () {
             $(_template.MenuDetalleComponente).click(function () {
+                //console.log('click setAcordionDetalleComponente');
                 var $this = $(this);
                 $this.parent().children("ul").slideToggle();
                 var clase = $this.attr("class");
@@ -165,5 +167,6 @@
     return {
         VerDetalle: _VerDetalle,
         VerDetalleIndividual: _VerDetalleIndividual
+        //OcultarControles: _OcultarControles
     };
 });

@@ -577,7 +577,7 @@
                     <div id="fpPopupImagenProductoDetalle">
                         <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
-                            new qq.FileUploader({
+                            var uploader = new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
                                 element: document.getElementById('fpPopupImagenProductoDetalle'),
                                 action: '@Url.Action("ImageMatrizUpload", "FileUpload")',

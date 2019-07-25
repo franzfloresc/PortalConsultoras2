@@ -1,9 +1,13 @@
 ﻿var masVendidosModule = (function () {
     "use strict";
 
+
+
     var setting = {
         baseUrl: ''
     };
+
+ 
 
     var _bindEvents = function () {
         $(document).ready(function () {
@@ -309,6 +313,8 @@
             $(element).hide();
         }
     }
+
+    //var _setDefaultValues = function () { };
 
     var _initializer = function (parameters) {
         _readVariables(parameters);

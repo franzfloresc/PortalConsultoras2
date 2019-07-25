@@ -34,16 +34,8 @@
         <!--END AGANA 456 -->
     </div>
     <div class="col-md-5 text-md-right">
-
         <div class="precio_venta_oferta">
-            {{#iff TipoPersonalizacion '!=' 'CAT'}}
             Precio para ti :
-            {{/iff}}
-
-            {{#iff TipoPersonalizacion '==' 'CAT'}}
-            Para tu cliente :
-            {{/iff}}
-
             <span data-precio_venta_oferta="">
                 {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
             </span>
@@ -62,7 +54,6 @@
         {{/each}}
         {{/iff}}
 
-        {{#iff TipoPersonalizacion '!=' 'CAT'}}
         {{#iff Precio '>' 0}}
         <div class="precio_valorizado">
             {{#iff CodigoEstrategia '==' '036'}}
@@ -91,7 +82,6 @@
             {{/iff}}
             <span class="primary_color" data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
         </div>
-        {{/iff}}
         {{/iff}}
     </div>
 </script>

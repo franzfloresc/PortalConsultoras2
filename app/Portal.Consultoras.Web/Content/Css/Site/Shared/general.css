@@ -64,10 +64,6 @@ button:focus{
 
 /* COMPONENTES UI */
 
-.background__color__multimarca{
-    background-color:#B9007E;
-}
-
 /* ENLACES */
 
 .enlace__sb,
@@ -104,12 +100,12 @@ button:focus{
     transition: all 0.3s ease;
 }
 
-.text__field__sb:focus + .label__field__sb,
-.text__field__sb--withContent + .label__field__sb {
-    color: #000;
-    font-size: 11px;
-    top: -12px;
-}
+    .text__field__sb:focus + .label__field__sb,
+    .text__field__sb--withContent + .label__field__sb{
+        color: #000;
+        font-size: 11px;
+        top: -12px;
+    }
 
 .label__checkbox__sb {
     flex: 0 0 19px;
@@ -138,6 +134,7 @@ button:focus{
         line-height: 18px;
         margin-top:-4px;
     }
+
 }
 
 /* FIN - LABELS */
@@ -151,12 +148,12 @@ button:focus{
     border-bottom: 1px solid #b4b4b4;
     height: 40px;
     background-color: transparent;
-    position: relative;
-    z-index: 2;
-    font-size: 14px;
-    color: #000;
-    outline: none;
-    order: 0;
+    position:relative;
+    z-index:2;
+    font-size:14px;
+    color:#000;
+    outline:none;
+    order:0;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -164,21 +161,11 @@ button:focus{
 }
 
     .text__field__sb:focus,
-    .text__field__sb--withContent {
-        border-bottom: 1px solid #000;
+    .text__field__sb--withContent{
+        border-bottom:1px solid #000;
     }
 
 /* FIN - INPUT TEXT */
-
-/* VALIDATION MESSAGE */
-
-.validation__message {
-    color: #e81c36;
-    font-size: 11px;
-    margin-top: 4px;
-}
-
-/* FIN - VALIDATION MESSAGE */
 
 /* CHECKBOXES */
 
@@ -186,8 +173,8 @@ button:focus{
 .field__checkbox__sb:checked + .label__checkbox__sb--active {
     background-image: url(/Content/Images/icono_check_mi_perfil.svg);
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: 13px;
+    background-position:center;
+    background-size:13px;
 }
 
 .field__checkbox__sb:checked + .label__checkbox__sb {
@@ -307,239 +294,6 @@ input[type="checkbox"].switch__control,
 
 /* BUTTONS */
 
-.btn__sb {
-    height: 40px;
-    line-height: 32px;
-    border: 0;
-    font-size: 14px;
-    position: relative;
-}
-
-.btn__sb__primary,
-.btn__sb__primary--multimarca {
-    color: #FFF;
-}
-
-.btn__sb__primary,
-.btn__sb__secondary {
-    border: 1px solid #000;
-}
-
-.btn__sb__primary {
-    background-color: #000;
-}
-
-.btn__sb__primary--multimarca {
-    background-color: #B9007E;
-    border: 1px solid #B9007E;
-}
-
-.btn__sb__secondary {
-    background-color: #FFF;
-    color: #000;
-}
-
-.btn__sb--disabled {
-    border: 1px solid #D1D1D4;
-    background-color: #D1D1D4;
-    pointer-events: none;
-    cursor: not-allowed;
-    color: #909094;
-}
-
-@media screen and (max-width:991px) {
-
-    .btn__sb {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 16px;
-    }
-}
-
-/* FIN - BUTTONS */
-
-/* FIN - FORMS */
-
-/* NOTIFICACIONES */
-
-.notificacion__estado {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-.notificacion__estado--exito span {
-    color: #569c04;
-}
-
-.notificacion__estado__img {
-    display: block;
-    width: 20px;
-    height: 20px;
-    margin-top: -1.2px;
-    margin-right: 4px;
-    margin-bottom: 0 !important;
-}
-
-    .notificacion__estado__img img {
-        width: 100%;
-        height: auto;
-    }
-
-.notificacion__estado--error span{
-    color:#e81c36;
-}
-
-/* FIN - NOTIFICACIONES */
-
-/* TAGS */
-
-.tag__sb {
-    display: inline-block;
-    border-radius: 10.5px;
-    width: auto;
-    height: 24px;
-    font-size: 14px;
-    line-height: 23px;
-    margin-bottom: 8px;
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-    .tag__sb--standard {
-        background-color: #000;
-        color: #FFF;
-    }
-
-/* FIN - TAGS */
-
-/* FIN - COMPONENTES UI */
-
-/* COMPONENTES UI */
-
-/* FORMS */
-
-.form__group__fields{
-    flex:0 0 100%;
-    max-width:100%;
-    position:relative;
-}
-
-/* LABELS */
-
-.label__field__sb {
-    position: absolute;
-    z-index: 1;
-    top: 6px;
-    left: 0;
-    color: #808080;
-    margin-bottom: 0;
-    font-size: 14px;
-    order: -1;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-    .text__field__sb:focus + .label__field__sb,
-    .text__field__sb--withContent + .label__field__sb{
-        color: #000;
-        font-size: 11px;
-        top: -12px;
-    }
-
-.label__checkbox__sb {
-    flex: 0 0 19px;
-    max-width: 19px;
-    height: 19px;
-    margin-right: 10px;
-    border: 1px solid #000;
-    background-color: #FFF;
-    cursor: pointer;
-    background-position: center;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-    .label__checkbox__sb + span{
-        font-size:13px;
-        margin-top:-5px;
-    }
-
-@media screen and (max-width:991px){
-
-    .label__checkbox__sb + span {
-        font-size: 13px;
-        line-height: 18px;
-        margin-top:-4px;
-    }
-
-}
-
-/* FIN - LABELS */
-
-/* INPUT TEXT */
-
-.text__field__sb {
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-    border-bottom: 1px solid #b4b4b4;
-    height: 40px;
-    background-color: transparent;
-    position:relative;
-    z-index:2;
-    font-size:14px;
-    color:#000;
-    outline:none;
-    order:0;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-    .text__field__sb:focus,
-    .text__field__sb--withContent{
-        border-bottom:1px solid #000;
-    }
-
-/* FIN - INPUT TEXT */
-
-/* CHECKBOXES */
-
-.field__checkbox__sb:checked + .label__checkbox__sb,
-.field__checkbox__sb:checked + .label__checkbox__sb--active {
-    background-image: url(/Content/Images/icono_check_mi_perfil.svg);
-    background-repeat: no-repeat;
-    background-position:center;
-    background-size:13px;
-}
-
-.field__checkbox__sb:checked + .label__checkbox__sb {
-    background-color: #000;
-    border: 1px solid #000;
-}
-
-.field__checkbox__sb:checked + .label__checkbox__sb--multimarca {
-    background-color: #b9007e;
-    border: 1px solid #b9007e;
-}
-
-/* FIN - CHECKBOXES */
-
-/* BUTTONS */
-
 .btn__sb{
     height:40px;
     line-height:32px;
@@ -572,13 +326,13 @@ input[type="checkbox"].switch__control,
         color:#000;
     }
 
-.btn__sb--disabled {
-    border: 1px solid #D1D1D4;
-    background-color: #D1D1D4;
-    pointer-events: none;
-    cursor: not-allowed;
-    color: #909094;
-}
+    .btn__sb--disabled {
+        border: 1px solid #D1D1D4!important;
+        background-color: #D1D1D4!important;
+        pointer-events: none;
+        cursor: not-allowed;
+        color: #909094;
+    }
 
 @media screen and (max-width:991px){
 
@@ -627,14 +381,39 @@ input[type="checkbox"].switch__control,
             height: auto;
         }
 
+    .notificacion__estado--error span{
+        color:#e81c36;
+    }
+
 /* FIN - NOTIFICACIONES */
+
+/* TAGS */
+
+.tag_sb {
+    display: inline-block;
+    border-radius: 10.5px;
+    width: auto;
+    height: 24px;
+    font-size: 14px;
+    line-height: 23px;
+    margin-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+    .tag_sb--standard {
+        background-color: #000;
+        color: #FFF;
+    }
+
+/* FIN - TAGS */
 
 /* FIN - COMPONENTES UI */
 
 /* HELPERS CSS (DESKTOP) */
 
-.ml-0 {
-    margin-left: 0;
+.ml-0{
+    margin-left:0;
 }
 
 .mr-0{
@@ -689,16 +468,12 @@ input[type="checkbox"].switch__control,
     display:flex;
 }
 
-.text-thin {
-    font-weight: 300;
-}
-
 .text-bold{
     font-weight:700;
 }
 
-.text-black {
-    font-weight: 900;
+.text-thin{
+    font-weight:300;
 }
 
 .text-underline{
@@ -759,7 +534,7 @@ input[type="checkbox"].switch__control,
 /* ESTILOS MODIFICADORES JQUERY UI (PRECARGA PÁGINA RESULTADOS VERSIÓN DESKTOP) */
 
 .ui-widget-overlay {
-    z-index: 99999999!important;
+    z-index: 99999999 !important;
 }
 
 .ui-dialog.ui-widget-content {
@@ -767,7 +542,7 @@ input[type="checkbox"].switch__control,
     background: #FFFFFF !important;
     color: #555 !important;
     border-radius: 0;
-    z-index: 999999999 !important;
+    z-index: 999999999 !important; /* cambio de equipo gana mas */
     /*z-index: 999999910 !important;*/  /* cambio de equipo ? */
 }
 
@@ -1250,7 +1025,7 @@ input[type="checkbox"].switch__control,
     font-weight: normal;
     color: #000;
     text-align: center;
-    margin-bottom: 25px !important;
+    margin-bottom: 25px;
 }
 
 .btn_ok {
@@ -1450,39 +1225,58 @@ input[type="checkbox"].switch__control,
 
 /* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
 
-.btn_chat_messenger {
-    display:block;
-    background-color: #FFF;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    padding: 0px;
-    position: fixed;
-    bottom: 18pt;
-    right: 18pt;
-    top: auto;
-    z-index: 1000;
-    padding: 13px 17px 13px 17px;
-    -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
-    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
-    box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
-    cursor: pointer;
+.fb_dialog_content {
+    position: relative !important;
 }
 
-    .btn_chat_messenger img{
-        width:100%;
-        height:auto;
-    }
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
+}
 
-.fb_dialog {
-    left: -200pt;
+.fb_dialog_content iframe {
+    display: none !important;
 }
 
 @media screen and (max-width:991px){
 
-    .btn_chat_messenger{
-        z-index:4000;
+    .fb_dialog_content{
+        display:none;
     }
+
+    .btn_chat_messenger_mobile {
+        background-color: #FFF;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        padding: 0px;
+        position: fixed;
+        bottom: 18pt;
+        right: 18pt;
+        top: auto;
+        z-index: 2147483647;
+        padding: 13px 17px 13px 17px;
+        -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+        -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+        box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+        cursor: pointer;
+    }
+
+        .btn_chat_messenger_mobile img {
+            width: 100%;
+            height: auto;
+        }
 
 }
 

@@ -23,7 +23,6 @@
 <input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 <input type="hidden" id="hdListaEscala" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra.ListaEscalaDescuento)" />
 <input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
-<input type="hidden" id="hdCodigoConsultora" value="@ViewBag.CodigoConsultora" />
 @{
     string colorEstilo = null;
     if (!System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -119,29 +118,6 @@
                         <img alt="Cargando..." src="@Url.Content("~/Content/images/Loading.gif")" />
                     </div>
                 </div>
-                <!-- HD-4288 - SWITCH CONSULTORA 100% DIGITAL -->
-                <div class="d-block contenedor_info_recepcion_pedido" style="display:none;">
-                    <div class="border-radius-4 text-left">
-                        <div class="d-block w-100 switch__control__contenedor">
-                            <span class="switch__control__descrip">Autorizo que otra persona reciba por mí este pedido</span>
-                            <label class="switch__control__wrapper">
-                                <input type="checkbox" class="switch__control">
-                                <span class="switch__slider"></span>
-                            </label>
-                        </div>
-                        <!-- Esta sección aparece una vez que se llena los datos de la persona que recibirá el pedido en el popup de recepción de pedido (id="PopupRecepcionPedido") -->
-                        <div class="d-block w-100 info_recepcion_pedido" style="display:none;">
-                            <p class="text-bold">Lo va a recibir:</p>
-                            <p class="datos__receptor__pedido">
-                                <span class="d-block"></span>
-                                <span class="d-block"></span>
-                            </p>
-                            <button onclick="javascript:$('#PopupRecepcionPedido').fadeIn(100);" class="d-block w-100 border-radius-4 text-center text-bold btn__sb btn__sb__secondary btn__sb--cambiarPersona">Cambia de persona</button>
-                        </div>
-                        <!-- Fin - Esta sección aparece una vez que se llena los datos de la persona que recibirá el pedido en el popup de recepción de pedido (id="PopupRecepcionPedido") -->
-                    </div>
-                </div>
-                <!-- FIN - HD-4288 - SWITCH CONSULTORA 100% DIGITAL -->
                 <div id="divPedidoTotalInferior"></div>
 
                 @*@if (Model.IsShowGananciaConsultora)
@@ -247,7 +223,7 @@
 <div class="btn_guardarPedido btn_guardarPedido--nuevoLookAndFeelEsika">
     @if (Model.EstadoPedido == 1)
     {
-        <input type="submit" style="text-transform: none" value="@Model.Prol" id="btnModificarPedidoMobile" onclick="AccionConfirmarModificarPedido();" />
+        <input type="submit" style="text-transform: none" value="@Model.Prol" id="btnModificarPedidoMobile" onclick="ShowPopupQuestionModificarPedido();" />
     }
     else
     {
@@ -389,13 +365,7 @@
         <span id="lblTotalResumen">
             Total :
         </span>
-         @*HD-4513*@
-        @if (ViewBag.PagoContado)
-        {
-        <span id="lblTotalPagoContado" style="padding-bottom:6px">
-            Total a Pagar:
-        </span>
-        }
+
         <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
         <input type="hidden" id="hdePieEscala" value="@pieEscala" />
         <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
@@ -408,11 +378,6 @@
     <div class="montos_resumen">
         <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;Unidad(es)</span>
         <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
-         @*HD-4513*@
-        @if (ViewBag.PagoContado)
-        {
-            <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-stppagototalResumen="">0.00</b></span>
-        }
         <span class="mi_ganancia"><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
     </div>
     <div class="contenedor_cupon" id="cupon-pedido-mobile" style="display: none;">
@@ -764,32 +729,6 @@
                     <span>{{SimboloMoneda}} <span data-pedidocondescuento="">{{FormatoTotalConDescuento}}</span></span>
                 </span>
             </div>
-                        @*HD-4513*@
-        @if (ViewBag.PagoContado){
-            <div class="ganancia-info first-color">
-                <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
-                <span class="ganancia-total first-color" data-stpdescuento>
-                </span>
-            </div>
-            <div class="ganancia-info first-color">
-                <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
-                <span class="ganancia-total first-color" data-stpflete>
-                    0.00
-                </span>
-            </div>  
-            <div class="ganancia-info first-color">
-                <span class="info_mis_descuentos">(+) Saldo Campaña Anterior:</span>
-                <span class="ganancia-total first-color" data-stpdeuda>
-                    0.00
-                </span>
-            </div>  
-            <div class="ganancia-info total_a_pagar_wrapper pb-2">
-                <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
-                <span class="ganancia-total first-color" data-stppagototal>
-                    0.00
-                </span>
-            </div>
-        }
             @*@if (!Model.IsShowGananciaConsultora)
             {
                 <div class="ganancia-info">
@@ -1237,14 +1176,11 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
-@Html.Partial("~/Views/Pedido/_PopupRecepcionPedido.cshtml")
 @{ Html.RenderPartial("_PopupEleccionRegalo");}
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupReservaPedido.cshtml");}
-@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidoGuardado.cshtml", new ViewDataDictionary { { "isMobile", true } })
-@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidosPendientes.cshtml", new ViewDataDictionary { { "isMobile", true } })
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
 </div>
@@ -1258,8 +1194,7 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
-        var cantPedidosPendientes = '@ViewBag.CantPedidoPendientes';//HD-4277 EINCA
-        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl)); 
+
         var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "Pedido", new {area = ""})';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
@@ -1360,7 +1295,6 @@
 
         </script>
     }
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/PopupRecepcionPedido.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
 
 }

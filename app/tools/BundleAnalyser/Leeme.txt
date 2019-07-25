@@ -1,9 +1,5 @@
 configuración:
 1. Buscar archivo BundleAnalyzer.exe.config
-2. si desea utilizar el aplicativo sin especificar la ruta del proyecto web asignar el valor 1 a la llave ModoDefault en al archivo especificado en el punto 1.
-3. si desea usar el aplicativo en cualquier proyecto que no sea SB actualizar el valor de la llave RutaApp con la ruta de su aplicativo y establecer key ModoDefault 
-   distinto a 1.
-4. si desea especificar una ruta para la generación del reporte de errores de bunble asignar un valor a la llave  ReportePath.
-4. en su proyecto web , si la versión de system.web.optimization es menor a 1.1 actualizar a la versión 1.1.3.
-5. compilar su proyecto web.
-6. ejecutar BundleAnalyzer.exe.
+2. actualizar el valor de la llave RutaApp con la ruta de su aplicativo.
+3. si la versión de system.web.optimization es menor a 1.1 actualizar a la versión 1.1.
+4. ejecutar BundleAnalyzer.exe.

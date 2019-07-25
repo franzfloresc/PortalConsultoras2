@@ -1,14 +1,12 @@
 ﻿"use strict";
 class CarruselView {
-
     constructor(presenter) {
         this.presenter = presenter;
 
-        this.divCarruselContenedor = "#divFichaCarrusel";
-        this.divCarruselProducto = ".carrusel_seccion";
+        this.divCarruselProducto = "#divFichaCarruselProducto";
         this.idPlantillaProducto = "#template-producto-carrusel-responsive";
-        this.idTituloCarrusel = ".titulo_seccion";
-
+        this.divCarruselContenedor = "#divFichaCarrusel";
+        this.idTituloCarrusel = "#tituloCarrusel";
         this.dataLazy = "img[data-lazy-seccion-revista-digital]";
         this.dataOrigenPedidoWeb = {
             busca: "[data-OrigenPedidoWeb]",
@@ -16,43 +14,22 @@ class CarruselView {
             buscaAgregar: "[data-origenpedidowebagregar]",
             atributoAgregar: "data-origenpedidowebagregar"
         }
-        this.fichaEnriquecida = {
-            id:"#divFichaEnriquecida",
-            capa: "divFichaEnriquecida"
-        };
-
-        this.divCarrusel = {
-            id: [
-                "#divFichaCarrusel_UpSelling", 
-                "#divFichaCarrusel_CrossSell", 
-                "#divFichaCarrusel_Suggested"
-            ],
-            capa: [
-                "divFichaCarrusel_UpSelling", 
-                "divFichaCarrusel_CrossSell", 
-                "divFichaCarrusel_Suggested"
-            ]
-        };
-        this.divCarruselFicha = {
-            ficha: ".contenedor_seccion_fichas .seccion_ficha",
-            visible: ".contenedor_seccion_fichas .seccion_ficha:not(:hidden)"
-        }
     }
 
-    fijarObjetosCarrusel(tipo) {
-        this.divCarruselContenedor = this.divCarruselContenedor + "_" + tipo;
-        this.divCarruselProducto = this.divCarruselContenedor + " " + this.divCarruselProducto;
-        this.idTituloCarrusel = this.divCarruselContenedor + " " + this.idTituloCarrusel;
+    ocultarElementos() {
+        $(this.divCarruselProducto).fadeOut();
+        $(this.divCarruselContenedor).hide();
     }
 
-    crearPlantilla(data, titulo) {
+    crearPlantilla(data, titulo, cantidadProdCarrusel) {
         SetHandlebars(this.idPlantillaProducto, data, this.divCarruselProducto);
-        this.mostrarSlicks();
+        this.mostrarSlicks(cantidadProdCarrusel);
         $(this.idTituloCarrusel).html(titulo);
         $(this.divCarruselContenedor).show();
         this.marcarAnalytics(1, data);
     }
-    
+
+
     setValueAttrHtml(attrObj, value) {
         $(this.divCarruselProducto).attr(attrObj, value);
     }
@@ -62,7 +39,7 @@ class CarruselView {
         this.setValueAttrHtml(this.dataOrigenPedidoWeb.atributoAgregar, OrigenAgregar);
     }
 
-    mostrarSlicks() {
+    mostrarSlicks(cantidadProdCarrusel) {
         const platform = !isMobile() ? "desktop" : "mobile";
         const slickArrows = {
             mobile: {
@@ -119,7 +96,7 @@ class CarruselView {
                     break;
             }
         }).on("lazyLoadError", function (event, slick, image, imageSource) {
-
+            //$(image[0]).attr("src", "/Content/Images/placeholder/img_placeholder_vertical.jpg");
         });
 
         $(this.divCarruselProducto).fadeIn();
@@ -134,15 +111,13 @@ class CarruselView {
             || $(this.divCarruselProducto).parents(this.dataOrigenPedidoWeb.buscaAgregar).attr(this.dataOrigenPedidoWeb.atributoAgregar)
             || $(this.divCarruselProducto).parents(this.dataOrigenPedidoWeb.busca).attr(this.dataOrigenPedidoWeb.atributo);
 
-        var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(origen);
         if (tipo === 1) {
-            CarruselAyuda.MarcarAnalyticsInicio(this.divCarruselProducto, data.lista, origenModelo);
+            CarruselAyuda.MarcarAnalyticsInicio(this.divCarruselProducto, data.lista, origen);
         }
         else if (tipo === 2) {
-            const estrategia = CarruselAyuda.ObtenerEstrategiaSlick(slick, currentSlide, nextSlide, origenModelo);
+            const estrategia = CarruselAyuda.ObtenerEstrategiaSlick(slick, currentSlide, nextSlide);
             origen = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origen, estrategia.CodigoEstrategia);
-            origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(origen);
-            CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origenModelo);
+            CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
         }
         else if (tipo === 3) {
             const estrategia = CarruselAyuda.ObtenerEstrategiaSlick(slick, currentSlide, nextSlide);
@@ -150,34 +125,4 @@ class CarruselView {
             CarruselAyuda.MostrarFlechaCarrusel(slick, currentSlide, origen);
         }
     }
-
-    filterFichaVisible(ficha){
-        return $(this.divCarruselFicha.visible).filter(function (indice, elemento) {
-            return elemento.id === ficha;
-        })[0];
-    }
-
-    //reorderFichaCarrusel(model){
-    //    var orden = 0;
-    //    var _this = this;
-        
-    //    $.each($(this.divCarruselFicha.ficha), function(indice, elemento){
-    //        $(elemento).css("order", "");
-    //    });
-
-    //    this.divCarrusel.capa.forEach(function (ficha) {
-    //        var encontrado = _this.filterFichaVisible(ficha);
-    //        if (encontrado != undefined) {
-    //            $(encontrado).css("order", orden);
-
-    //            if (orden == 0 && _this.filterFichaVisible(_this.fichaEnriquecida.capa) != undefined) {
-    //                $(_this.fichaEnriquecida.id).css("order", orden + 1);
-    //                orden++;
-    //            }
-
-    //            orden++;
-    //        }
-    //    });
-    //}
-
 }

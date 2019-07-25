@@ -2,7 +2,6 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" />
   <xs:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" />
-  <xs:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
   <xs:complexType name="BECliente">
     <xs:sequence>
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
@@ -88,14 +87,6 @@
       <xs:element minOccurs="0" name="RecogerDNI" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RecogerNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RutaPaqueteDocumentario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="STPDescuento" type="xs:double" />
-      <xs:element minOccurs="0" name="STPDeuda" type="xs:double" />
-      <xs:element minOccurs="0" name="STPDeudaLog" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="STPGastTransporte" type="xs:double" />
-      <xs:element minOccurs="0" name="STPPagoContado" type="xs:boolean" />
-      <xs:element minOccurs="0" name="STPPagoTotal" type="xs:double" />
-      <xs:element minOccurs="0" name="STPPagoTotalSinDeuda" type="xs:double" />
-      <xs:element minOccurs="0" name="STPTotalPagar" type="xs:double" />
       <xs:element minOccurs="0" name="SaldoDeuda" type="xs:decimal" />
       <xs:element minOccurs="0" name="TieneArmaTuPack" type="xs:boolean" />
       <xs:element minOccurs="0" name="TippingPoint" type="xs:decimal" />
@@ -184,7 +175,6 @@
       <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:short" />
       <xs:element minOccurs="0" name="PedidoDetalleIDPadre" type="xs:short" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" minOccurs="0" name="PedidoWebSet" nillable="true" type="q3:BEPedidoWebSet" />
       <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
       <xs:element minOccurs="0" name="ProgramaNuevoActivado" type="xs:boolean" />
       <xs:element minOccurs="0" name="QuitoCantBackOrder" type="xs:boolean" />
@@ -199,7 +189,6 @@
       <xs:element minOccurs="0" name="TipoObservacion" type="xs:int" />
       <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
       <xs:element minOccurs="0" name="TipoPedido" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoPersonalizacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="eMail" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -294,13 +283,13 @@
       <xs:element minOccurs="0" name="Insertado" type="xs:boolean" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoPedido" type="xs:decimal" />
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Movimientos" nillable="true" type="q4:ArrayOfBEMovimiento" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Movimientos" nillable="true" type="q3:ArrayOfBEMovimiento" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
-      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Notas" nillable="true" type="q5:ArrayOfBENota" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Notas" nillable="true" type="q4:ArrayOfBENota" />
       <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Recordatorios" nillable="true" type="q6:ArrayOfBEClienteRecordatorio" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Recordatorios" nillable="true" type="q5:ArrayOfBEClienteRecordatorio" />
       <xs:element minOccurs="0" name="Saldo" type="xs:decimal" />
       <xs:element minOccurs="0" name="Sexo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoContactoFavorito" type="xs:short" />

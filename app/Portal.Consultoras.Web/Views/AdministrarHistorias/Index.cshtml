@@ -12,19 +12,6 @@
     .elements {
         padding: 0px 0 7px;
     }
-
-    .Content_modal1 {
-        background: #fff;
-        padding: 10px 10px 10px 10px;
-        border: 1px solid #D0D0D0;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        -khtml-border-radius: 10px;
-        border-radius: 10px;
-    }
-    .contenedor_tab_pad {
-        padding: 8px; 
-    }
 </style>
 <script type="text/javascript">
     jQuery(document).ready(function () {
@@ -44,121 +31,96 @@
     }
 </script>
 
-<div class="wrap">
-    <div class="container-dato-consultora clearfix">
-        <div class="border-wrapper">
-            <ul class="tabs">
-                <li><a href="#tab-historias">Historias</a></li>
-                <li><a href="#tab-videos">Video Gana en un Click App</a></li>
-            </ul>
-            <div class="contenedor_tab">
-                <div id="tab-historias" class="contenido_tab">
-                    <div class="contenedor_tab_pad">
+@using (Ajax.BeginForm("Update", new AjaxOptions
+{
+    HttpMethod = "Post",
+    OnSuccess = "OnSuccess",
+    OnBegin = "AbrirSplash()",
+    OnComplete = "CerrarSplash()"
+}))
+{
+<div class="wrap_cab">
+  
+    <div class="filtros2">
+        <div class="elements">
 
-                        @using (Ajax.BeginForm("Update", new AjaxOptions
-                        {
-                            HttpMethod = "Post",
-                            OnSuccess = "OnSuccess",
-                            OnBegin = "AbrirSplash()",
-                            OnComplete = "CerrarSplash()"
-                        }))
-                        {
-                            <div class="div-3">
+         <div class="div-2">
+            <h2><span>Icono principal</span></h2>
+        </div>
+            <div class="div-3">
+                <div class="titG">
+                    <span id="">Imagen:</span>
+                    <h6 id="">(@Model.Ancho x @Model.Alto pixeles)</h6>
+                    <h6>La imagen debe ser redonda</h6>
+                </div>
 
-                                <div class="div-2">
-                                    <h3><span>Administrador de Contenidos APP</span></h3>
-                                </div>
-                                <div class="div-3">
-                                    <div class="titG">
-                                        <span id="">Imagen:</span>
-                                        <h6 id="">(@Model.Ancho x @Model.Alto pixeles)</h6>
-                                        <h6>La imagen debe ser redonda</h6>
-                                    </div>
+                <div class="fondo_left">
+                    <div class="fondo_image">
+                        @Html.HiddenFor(model => model.IdContenido)
+                        @Html.HiddenFor(model => model.Codigo)
+                        @Html.HiddenFor(model => model.NombreImagen, new { id = "NombreImagen", imageextension = "jpg", imagewidth = @Model.Ancho, imageheight = @Model.Alto, messageSize = "Las medidas no son correctas. Vuelve a intentar, por favor.", messageFormat = "El formato no es correcto. Vuelve a intentar, por favor." })
 
-                                    <div class="fondo_left">
-                                        <div class="fondo_image">
-                                            @Html.HiddenFor(model => model.IdContenido)
-                                            @Html.HiddenFor(model => model.Codigo)
-                                            @Html.HiddenFor(model => model.NombreImagen, new { id = "NombreImagen", imageextension = "jpg", imagewidth = @Model.Ancho, imageheight = @Model.Alto, messageSize = "Las medidas no son correctas. Vuelve a intentar, por favor.", messageFormat = "El formato no es correcto. Vuelve a intentar, por favor." })
-
-                                            <img id="preview" src="@Model.NombreImagenAnterior" alt="Imagen Previa" style="max-width:80px; max-height:100px;" />
-                                        </div>
-                                    </div>
-                                    <div class="fondo_right">
-                                        <div class="div-3" style="margin-top:-25px;">
-                                            <div class="input_validar">
-                                                <div id="file-uploader">
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="div-3">
-                                            <div class="input_search">
-                                                <input type="submit" value="Guardar" />
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-
-
-
+                        <img id="preview" src="@Model.NombreImagenAnterior" alt="Imagen Previa" style="max-width:80px; max-height:100px;" />
+                    </div>
+                </div>
+                <div class="fondo_right">
+                    <div class="div-3" style="margin-top:-25px;">
+                        <div class="input_validar">
+                            <div id="file-uploader">
                             </div>
 
-                        }
-                        <hr /><br />
-                        <div class="div-3">
-                            <div class="input_horizontal">
-                                <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="javaScript: NuevoDetalle('@Model.IdContenido');" />
-                            </div>
-                            <div class="titG">
-                                <div style="text-align: right;">Campaña:</div>
-                            </div>
-                            <div class="selectP2 borde_redondeado">
-                                @Html.DropDownList("Campania", new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Todos --", new { id = "ddlCampania" })
-                            </div>
-                        </div>
-
-
-                        <div class="clearfix">
-                            <div class="border-wrapper">
-                                <table id="tblHistoriaDet"></table>
-                                <div id="pagerHistoriaDet"></div>
-                            </div>
                         </div>
                     </div>
 
-
-                </div>
-                <div id="tab-videos" class="contenido_tab">
-
-                    <div class="contenedor_tab_pad">
-                        <div class="div-3">
-                            <div class="input_horizontal">
-                                <input type="button" name="btnNuevoVideo" id="btnNuevoVideo" value="Nuevo Video" onclick="NuevoVideo();" />
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="clearfix">
-                            <div class="border-wrapper">
-                                <table id="tblVideoDet"></table>
-                                <div id="pagerVideoDet"></div>
-                            </div>
+                    <div class="div-3">
+                        <div class="input_search">
+                            <input type="submit" value="Guardar" />
                         </div>
                     </div>
 
                 </div>
 
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+}
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h2><span>Historias</span></h2>
+            </div>
+            <div class="div-3">
+                <div class="input_horizontal">
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="javaScript: NuevoDetalle('@Model.IdContenido');" />
+                    @*<input type="submit" value="Cargar" />*@
+                </div>
+                <div class="titG">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Campaña:
+                </div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.DropDownList("Campania", new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Todos --", new { id = "ddlCampania" })
+                </div>
+            </div>
+
+          
+            <div class="container clearfix">
+                <div class="border-wrapper">
+                    <table id="tblHistoriaDet"></table>
+                    <div id="pagerHistoriaDet"></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <div id="DialogMantenimientoHistoriaDatos" style="display: none;">
     <div class="Content_modal" id="dialog-content-historia-datos"></div>
@@ -172,14 +134,6 @@
     <div class="Content_modal" id="dialog-content-imagen"></div>
 </div>
 
-<div id="DialogMantenimientoVideo" style="display: none;">
-    <div class="Content_modal" id="dialog-content-video"></div>
-</div>
-
-<div id="DialogMantenimientoVideoEliminar" style="display: none;">
-    <div class="Content_modal" id="dialog-content-video-eliminar"></div>
-</div>
-
 <script type="text/javascript">
         var urlListarCampanias = '@Url.Action("ObtenerCampaniasPorUsuario", "BaseAdm")';
         var rutaImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
@@ -190,7 +144,6 @@
         var urlDetalleS3 = '@ViewBag.UrlDetalleS3';
         var rutaImagenVacia = '@Url.Content("~/Content/Images/Question.png")';
         var rowNumList = @Model.CantidadContenido;
-        var UrlVideoS3 = '@ViewBag.UrlVideoS3';
 </script>
 
 <script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>

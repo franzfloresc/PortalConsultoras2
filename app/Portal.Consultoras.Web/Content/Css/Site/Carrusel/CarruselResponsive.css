@@ -49,11 +49,11 @@
     cursor: pointer;
 }
 
-    .img_producto img {
-        height: 156px;
-        width: auto;
-        margin-bottom: 15px;
-    }
+.img_producto img {
+    height: auto;
+    width: 100%;
+    margin-bottom: 15px;
+}
 
 .titulo_producto {
     font-size: 14px;

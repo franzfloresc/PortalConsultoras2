@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
@@ -167,12 +166,5 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
             OpcionCambioClave = row.ToInt32("OpcionCambioClave");
             IntentosRestanteSms = -1;
         }
-
-        [Required]
-        [StringLength(6, ErrorMessage = "La contraseña debe tener 6 o más caracteres combinado con letras y números")]
-        [RegularExpression("([a-zA-Z]{1,})([@$!%*#?&]{1,})([0-9]{1,})", ErrorMessage = "La contraseña debe tener 6 o más caracteres combinado con letras y números")]
-        public string Contrasenia { get; set; }
     }
-
-
 }

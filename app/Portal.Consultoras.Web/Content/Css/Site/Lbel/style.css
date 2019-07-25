@@ -2595,7 +2595,6 @@ a.subir_carousel, a.bajar_carousel {
         font-size: 12.5px;
         font-weight: bold;
     }
-
 /* POPUP INVITACIÓN FLEXIPAGO */
 .contenedor_popup_agregarUnidades, .contenedor_popup_ofertaFinal, .contenedor_popup_detalleCarousel, .contenedor_popup_misDatos, .contenedor_fondo_popup {
     position: fixed;
@@ -35690,31 +35689,28 @@ height:30px;
 
 /* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
 
-.btn_chat_messenger {
-    background-color: #FFF;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    padding: 0px;
-    position: fixed;
-    bottom: 18pt;
-    right: 18pt;
-    top: auto;
-    z-index: 1000;
-    padding: 13px 17px 13px 17px;
-    -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
-    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
-    box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
-    cursor: pointer;
+.fb_dialog_content {
+    position: relative!important;
 }
 
-    .btn_chat_messenger img{
-        width:100%;
-        height:auto;
-    }
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
+}
 
-.fb_dialog {
-    left: -200pt;
+.fb_dialog_content iframe {
+    display: none !important;
 }
 
 /* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */

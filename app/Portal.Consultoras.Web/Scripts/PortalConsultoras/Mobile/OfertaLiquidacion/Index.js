@@ -144,11 +144,12 @@ function EstructurarDataCarouselLiquidaciones(array) {
             item.TextoBotonTallaColor = "";
             item.TieneTallaColor = false;
         }
-
+        /* INI HD-4009 */
         item.UnidadMedida = item.UnidadMedida || "";
         item.ValPUM = (item.UnidadMedida == "" || item.PUM == "") ? false : true;
         item.PUM = NumberToFormat(item.PUM, { decimalCantidad: DecimalPrecision(item.PUM)});
         item.UnidadMedida = item.UnidadMedida.toLowerCase();
+        /* FIN HD-4009 */
         contadorLq++;
     });
 

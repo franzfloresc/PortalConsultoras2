@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Internal;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -147,22 +146,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoWeb = ObtenerPedidoWeb();
                 var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado();
                 var ultimosTresPedidos = ObtenerUltimosDetallesPedido(soloCantidad, pedidoWebDetalle);
-                var cantidadPedidosPendientes = 0;
-                if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
-                {
-                    var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
-                    if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
-                    {
-                        using (var svc = new UsuarioServiceClient())
-                        {
-                            var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                            if (cantPedidosPendientes > 0)
-                            {
-                                cantidadPedidosPendientes = cantPedidosPendientes;
-                            }
-                        }
-                    }
-                }
 
                 return Json(new ResumenCampaniaModel
                 {
@@ -175,7 +158,6 @@ namespace Portal.Consultoras.Web.Controllers
                     montoWebConDescuentoStr = Util.DecimalToStringFormat(pedidoWebDetalle.Sum(p => p.ImporteTotal) - pedidoWeb.DescuentoProl, userData.CodigoISO),
                     DescuentoProlStr = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO),
                     DescuentoProl = pedidoWeb.DescuentoProl,
-                    cantidadPedidosPendientes = cantidadPedidosPendientes
                 }, JsonRequestBehavior.AllowGet);
 
             }

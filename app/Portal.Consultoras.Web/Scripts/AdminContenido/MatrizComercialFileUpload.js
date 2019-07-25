@@ -14,6 +14,7 @@ var MatrizComercialFileUpload = function (config) {
 
     var _validarImagen = '1';
     var _nemotecnico = config.nemotecnico;
+    var _uploader = '';
 
     var _validarNemotecnico = function (fileName) {
         var sinExtension = fileName.substring(0, fileName.lastIndexOf('.'));
@@ -44,7 +45,8 @@ var MatrizComercialFileUpload = function (config) {
     };
 
     var _crearFileUpload = function (data) {
-        new qq.FileUploader({
+
+        _uploader = new qq.FileUploader({
             allowedExtensions: _config.allowedExtensions,
             element: document.getElementById(data.elementId),
             action: _config.actualizarMatrizComercialAction,

@@ -24,6 +24,9 @@ var PedidoRegistroModule = function () {
 
         var esMobile = isMobile();
         var txtMensaje = "";
+        //"La cantidad ingresada debe ser mayor que 0, verifique."
+        //"La cantidad ingresada debe ser un número mayor que cero, verifique"
+        //"La cantidad ingresada debe ser mayor que cero, verifique"
 
         if (!isInt(cantidad)) {
             txtMensaje = "Ingrese un valor numérico.";
@@ -35,7 +38,8 @@ var PedidoRegistroModule = function () {
         if (txtMensaje == "") {
             return false;
         }
-        
+
+        //alert_msg(txtMensaje)
         if (esMobile) {
             messageInfo(txtMensaje);
         }
@@ -58,8 +62,14 @@ var PedidoRegistroModule = function () {
             AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
             return false;
         }
-
-
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(data.message);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
         data.message = data.message || 'Error al realizar proceso, inténtelo más tarde.';
         messageInfoError(data.message);
         CerrarLoad();
@@ -568,7 +578,14 @@ var PedidoRegistroModule = function () {
         CerrarLoad();
         if (checkTimeout(data)) AbrirMensaje(data.message);
     };
-    
+
+    //var _registrarAnalytics = function (model, textoBusqueda) {
+    //    try {
+    //        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
+    //    } catch (e) {
+    //    }
+    //};
+
     var _limpiarRecomendados = function () {
         var seccionProductosRecomendados = $('.divProductosRecomendados');
         seccionProductosRecomendados.slideUp(200);
@@ -742,9 +759,9 @@ var PedidoRegistroModule = function () {
                     }
 
                     if (_mensajeRespuestaError(data)) {
-                        //if (!IsNullOrEmpty(data.message)) {
-                        //    AbrirMensaje(data.message);
-                        //} *** HD-4450
+                        if (!IsNullOrEmpty(data.message)) {
+                            AbrirMensaje(data.message);
+                        }
                         return false;
                     }
 
@@ -1101,10 +1118,15 @@ var PedidoRegistroModule = function () {
                     $("#btnAgregarProducto").removeAttr("disabled", "disabled");
                     $("#btnAgregarProducto").show();
                     var errorCliente = data.errorCliente || false;
-                    
 
-                    if (!errorCliente) AbrirMensaje(data.message, data.tituloMensaje);
-
+                    //INI HD-3693
+                    //if (!errorCliente) AbrirMensaje(data.message, data.tituloMensaje);
+                    if (!errorCliente) {
+                        var msjBloq = validarpopupBloqueada(data.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else AbrirMensaje(data.message, data.tituloMensaje);
+                    }
+                    //FIN HD-3693
                     else {
                         $.each(lstClientes, function (ind, cli) {
                             if (cli.ClienteID == $("#txtClienteId").val()) {
@@ -1122,8 +1144,16 @@ var PedidoRegistroModule = function () {
                 CloseLoading();
 
                 ActualizaGanancias(data);
-                
+
+                //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
+                    //try {
+                    //    var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                    //    $AgregadoTooltip.show();
+                    //    setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    //} catch (e) {
+                    //    console.error(e);
+                    //}
 
                     var mensaje = '';
                     if (data.EsReservado === true) {
@@ -1134,7 +1164,7 @@ var PedidoRegistroModule = function () {
 
                     AbrirMensaje25seg(mensaje);
                 }
-
+                //FIN HD-3908
                 var prevTotal = mtoLogroBarra || 0;
                 MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
@@ -1192,14 +1222,16 @@ var PedidoRegistroModule = function () {
 
                 var seccionProductosRecomendados = $('.divProductosRecomendados');
                 seccionProductosRecomendados.slideUp(200);
-                
+
+                //INI HD-3908
                 if (data.listCuvEliminar != null) {
                     $.each(data.listCuvEliminar, function (i, cuvElem) {
 
                         ActualizarLocalStoragePalancas(cuvElem, false);
                     })
                 }
-              
+
+                //divProductoInformacion                
                 var imagenProducto = null;
                 var objDataImg = $('#divProductoInformacion').find('div.producto_por_agregar_imagen').find('img');
                 if (objDataImg !== 'undefined' && objDataImg !== null) {
@@ -1208,7 +1240,7 @@ var PedidoRegistroModule = function () {
 
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
-
+                //FIN HD-3908
             },
             error: function (data, error) {
                 CloseLoading();
@@ -1279,8 +1311,15 @@ var PedidoRegistroModule = function () {
 
 
                 ActualizaGanancias(data);
-
+                //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
+                    //try {
+                    //    var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                    //    $AgregadoTooltip.show();
+                    //    setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    //} catch (e) {
+                    //    console.error(e);
+                    //}
 
                     var mensaje = '';
                     if (data.EsReservado === true) {
@@ -1291,12 +1330,15 @@ var PedidoRegistroModule = function () {
 
                     AbrirMensaje25seg(mensaje);
                 }
-
+                //FIN HD-3908
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias();
                 HideDialog("divVistaPrevia");
                 PedidoOnSuccess();
-                
+
+
+
+                //INI HD-3908
                 if (data.listCuvEliminar != null) {
                     $.each(data.listCuvEliminar, function (i, cuvElem) {
 
@@ -1305,6 +1347,7 @@ var PedidoRegistroModule = function () {
                 }
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
+                //FIN HD-3908
 
                 if (data.modificoBackOrder) showDialog("divBackOrderModificado");
                 CargarDetallePedido();
@@ -1407,9 +1450,14 @@ var PedidoRegistroModule = function () {
                 }
                 else {
                     var errorCliente = response.errorCliente || false;
-                        if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
-
-
+                    //INI HD-3693
+                    //if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
+                    if (!errorCliente) {
+                        var msjBloq = validarpopupBloqueada(response.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else AbrirMensaje(response.message, response.tituloMensaje);
+                    }
+                    //FIN HD-3693
                     else {
                         messageInfoError(response.message, null, function () {
                             showClienteDetalle(currentClienteCreate, function (cliente) {
@@ -1617,8 +1665,19 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             }
             else {
                 AbrirMensaje25seg(mensaje);
+                //CerrarLoad();
             }
-            
+            //Comentado segÃºn requerimiento TESLA-3
+
+            //var tooltip = $('[data-agregado="tooltip"]');
+            //if (typeof tooltip !== 'undefined') {
+            //    $('[data-agregado="mensaje1"]').html("Â¡Listo! ");
+            //    $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
+            //    tooltip.show();
+            //    setTimeout(function () { tooltip.hide(); }, 4000);
+            //}
+            //FIN COMENTARIO TESLA-3
+
             if ($(rowElement).find(".txtLPCli").val().length == 0) {
                 $(rowElement).find(".hdfLPCliDes").val($("#hdfNomConsultora").val());
                 $(rowElement).find(".txtLPCli").val($("#hdfNomConsultora").val());
@@ -1648,7 +1707,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             CargarDetallePedido();
             var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
-            ActualizaGanancias(data);
+            ActualizaGanancias(data);  //TESLA-28
             showPopupNivelSuperado(data.DataBarra, prevTotal);
 
             if (data.modificoBackOrder) {

@@ -19,7 +19,7 @@
             .success(function (data) {
                 if (checkTimeout(data) && data.success)
                     $(obj).removeClass("no_leido");
-                localStorage.setItem('KeyPseudoParam', new Date().getTime());
+                localStorage.setItem('KeyPseudoParam', new Date().getTime()); //SALUD-58
             });
     }
 
@@ -30,7 +30,7 @@
                 $('#divDetalleNotificacionCatalogo').html(data);
                 $('#divNotificacionCatalogo').show();
                 $('.content_left_pagos').hide();
-                localStorage.setItem('KeyPseudoParam', new Date().getTime());
+                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -43,7 +43,7 @@
                 $('#divDetalleNotificacionCatalogo').html(data);
                 $('#divNotificacionCatalogo').show();
                 $('.content_left_pagos').hide();                
-                localStorage.setItem('KeyPseudoParam', new Date().getTime());
+                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -63,7 +63,7 @@
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
                 
-                localStorage.setItem('KeyPseudoParam', new Date().getTime());
+                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -78,7 +78,7 @@
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
                
-                localStorage.setItem('KeyPseudoParam', new Date().getTime());
+                localStorage.setItem('KeyPseudoParam', new Date().getTime()); //SALUD-58
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -93,7 +93,7 @@
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
               
-                localStorage.setItem('KeyPseudoParam', new Date().getTime());
+                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58           
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -107,7 +107,7 @@
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();               
-                localStorage.setItem('KeyPseudoParam', new Date().getTime());
+                localStorage.setItem('KeyPseudoParam', new Date().getTime()); //SALUD-58
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -137,7 +137,7 @@
                         $('#sMensajeFacturacion').html(Mensaje);
                         break;
                 }                
-                localStorage.setItem('KeyPseudoParam', new Date().getTime());
+                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58
                 CargarCantidadNotificacionesSinLeer()
                 closeWaitingDialog();
             }

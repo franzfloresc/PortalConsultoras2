@@ -602,7 +602,3 @@ button {
 .overflow-y.auto{
   overflow-y: auto;
 }
-
-.btn_chat_messenger {
-    display: none !important;
-}

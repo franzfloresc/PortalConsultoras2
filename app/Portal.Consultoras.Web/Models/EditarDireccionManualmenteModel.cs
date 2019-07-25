@@ -25,7 +25,5 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoSeccion { get; set; }
 
         public string CodigoTerritorio { get; set; }
-
-        public int SolicitudPrePostulanteID { get; set; }
     }
 }

@@ -41,17 +41,9 @@
 
         var model = _estrategiaModel();
 
-        if (
-            model.MostrarFichaEnriquecida &&
-            model.MostarTabsFichaEnriquecidaSinDetalle
-        ) {
-            var componente1 = model.Hermanos[0];
-            componente1.Secciones = componente1.Secciones || [];
-            var valorx = !_config.fichaEnriquecidaView.renderFichaEnriquecida(componente1, false);
-            if (valorx) {
-                throw "fichaEnriquecidaView don't render ficha enriquecida.";
-            }
-        }
+        if (model.MostrarFichaEnriquecida &&
+            model.MostarTabsFichaEnriquecidaSinDetalle &&
+            !_config.fichaEnriquecidaView.renderFichaEnriquecida(model.Hermanos[0], false)) throw "fichaEnriquecidaView don't render ficha enriquecida.";
 
         return true;
     }

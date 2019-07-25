@@ -6,7 +6,10 @@ var ComponentesView = function () {
     var _elements = {
         estrategia: {
             btnAgregar: {
-                id: "#btnAgregalo"
+                id: "#btnAgregalo",
+                //clase: {
+                //    bloqueado: "btn_desactivado_general"
+                //}
             }
         },
         componente: {
@@ -34,8 +37,8 @@ var ComponentesView = function () {
         },
         tiposTonosModal: {
             id: "#popup_tonos",
-            header: {
-                id: "#contenedor-cabecera"
+            header : {
+                id : "#contenedor-cabecera"
             },
             btnCerrar: {
                 id: "#cerrar-tipos-tonos-modal"
@@ -91,22 +94,22 @@ var ComponentesView = function () {
                     return "[txt-cantidad-" + grupo + "-" + cuv + "]";
                 }
             },
-            agregarTipoTono: {
-                all: "[add-type-tone]"
+            agregarTipoTono:{
+                all : "[add-type-tone]"
             },
-            eliminarTipoTono: {
-                all: "[remove-type-tone]"
+            eliminarTipoTono:{
+                all : "[remove-type-tone]"
             },
-            bloquear: {
+            bloquear:{
                 all: "[block-group]",
-                claseHabilitado: "active",
-                claseInhabilitado: "btn_deshabilitado"
+                claseHabilitado : "active",
+                claseInhabilitado : "btn_deshabilitado"
             },
-            aplicarSeleccion: {
-                contenedor: "#contenedor-aplicar-seleccion",
-                id: "#btn-aplicar-seleccion",
-                claseHabilitado: "active",
-                claseInhabilitado: "btn_deshabilitado"
+            aplicarSeleccion : {
+                contenedor :"#contenedor-aplicar-seleccion",
+                id : "#btn-aplicar-seleccion",
+                claseHabilitado : "active",
+                claseInhabilitado : "btn_deshabilitado"
             }
         }
     };
@@ -176,7 +179,7 @@ var ComponentesView = function () {
 
     var _setSelectedQuantityText = function (text) {
         text = text || "";
-
+        
         $(_elements.tiposTonosModal.cantidadSeleccionados.id).html(text);
 
         return true;
@@ -216,7 +219,7 @@ var ComponentesView = function () {
         return true;
     };
 
-    var _updateModalHeight = function () {
+    var _updateModalHeight = function(){
         var hModal = $(window).outerHeight();
         var hHeader = $(_elements.tiposTonosModal.header.id).outerHeight();
         var hApplyChanges = $(_elements.tiposTonosModal.aplicarSeleccion.contenedor).outerHeight();
@@ -227,7 +230,7 @@ var ComponentesView = function () {
     var _showTypesAndTonesModal = function () {
         _showModal(_elements.tiposTonosModal.id);
         _updateModalHeight();
-
+       
 
         $(window).on("resize", function () {
             _updateModalHeight();
@@ -265,7 +268,7 @@ var ComponentesView = function () {
     };
 
     var _showSelectedTypesOrTones = function (componente) {
-        if (typeof componente === "undefined" || componente === null) return false;
+        if(typeof componente ==="undefined" || componente === null ) return false;
 
         if (componente.HermanosSeleccionados.length > 0) {
             $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick("unslick");
@@ -281,44 +284,45 @@ var ComponentesView = function () {
                 infinite: false
             });
         }
-        else {
+        else
+        {
             _cleanTiposTonosModal();
         }
 
         _updateModalHeight();
-
+        
         return true;
     };
 
-    var _blockTypesOrTones = function () {
+    var _blockTypesOrTones = function(){
         $(_elements.tiposTonosModal.bloquear.all).addClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
         return true;
     };
 
-    var _unblockTypesOrTones = function () {
+    var _unblockTypesOrTones = function(){
         $(_elements.tiposTonosModal.bloquear.all).removeClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
         return true;
     };
 
     var _unblockApplySelection = function (grupo) {
-        if (typeof grupo === "undefined" || grupo === null) return false;
+        if(typeof grupo ==="undefined" || grupo === null ) return false;
 
         $(_elements.tiposTonosModal.aplicarSeleccion.id)
             .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado)
             .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado);
-
+        //
         $(_elements.tiposTonosModal.aplicarSeleccion.id).data("grupo", grupo);
-
+        //
         return true;
     };
 
-    var _blockApplySelection = function () {
+    var _blockApplySelection = function(){
         $(_elements.tiposTonosModal.aplicarSeleccion.id)
             .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado)
             .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado);
-
+        //
         $(_elements.tiposTonosModal.aplicarSeleccion.id).data("grupo", "");
-
+        //
         return true;
     };
 
@@ -333,6 +337,8 @@ var ComponentesView = function () {
         $(id)
             .parents(_elements.componente.tono.opcionesSeleccionadas)
             .data(_elements.componente.tono.opcionSeleccionada, componente.FactorCuadre);
+            //.parents("[data-opciones-seleccionadas]")
+            //.attr("data-opciones-seleccionadas", _componente.FactorCuadre);
 
         return id;
     };
@@ -341,7 +347,7 @@ var ComponentesView = function () {
         $(_elements.componente.tono.div).find(_elements.componente.tono.cuv2).removeClass(_elements.componente.tono.bordeSeleccionado);
 
         $.each(componente.resumenAplicadosVisualizar, function (i, objeto) {
-            if (objeto.cantidadAplicada)
+            if(objeto.cantidadAplicada)
                 $(_elements.componente.tono.div)
                     .find(_elements.componente.tono.cuv.replace("{0}", objeto.Cuv))
                     .addClass(_elements.componente.tono.bordeSeleccionado);
@@ -350,22 +356,22 @@ var ComponentesView = function () {
         return true;
     };
 
-    var _cleanTiposTonosModal = function () {
+    var _cleanTiposTonosModal = function(){
         $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick("unslick");
         $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).html("");
         $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).hide();
     };
 
-    var _cleanContainer = function () {
+    var _cleanContainer = function(){
         $(_elements.componente.id).empty();
     };
 
-    var _verifyButtonAceptar = function (codigoVariante) {
+    var _verifyButtonAceptar = function(codigoVariante){
         if (codigoVariante.in(ConstantesModule.CodigoVariedad.CompuestaVariable, ConstantesModule.CodigoVariedad.IndividualVariable)) {
             var activa = true;
-
+            
             $(_elements.componente.tono.opcionesSeleccionadas).each(function () {
-                if (parseInt($(this).data(_elements.componente.tono.opcionSeleccionada)) === 0 && parseInt($(this).data(_elements.componente.tono.dataDigitable)) === 1)
+                if (parseInt($(this).data(_elements.componente.tono.opcionSeleccionada)) === 0 && parseInt($(this).data(_elements.componente.tono.dataDigitable)) === 1) 
                     activa = false;
             });
 
@@ -373,6 +379,40 @@ var ComponentesView = function () {
                 $(_elements.estrategia.btnAgregar.id).removeClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
         }
     };
+
+    // var _showMessageTypeAndTonesSpent  = function (estrategia) {
+    //     var hijos = 0;
+    //     var cta = 0;
+
+    //     if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.ComuestaFija) {
+    //         $.each(estrategia.Hermanos, function (i, obj) {
+    //             hijos++;
+    //             if (!obj.TieneStock) cta++;
+    //         });
+    //     }
+    //     else {
+    //         $.each(estrategia.Hermanos, function (i, obj) {
+    //             if (obj.Hermanos !== 'undefined' && obj.Hermanos.length > 0) {
+    //                 $.each(obj.Hermanos, function (j, k) {
+    //                     hijos++;
+    //                     if (!k.TieneStock) cta++;
+    //                 });
+    //             }
+    //             else {
+    //                 hijos++;
+    //                 if (!obj.TieneStock) cta++;
+    //             }
+    //         });
+    //     }
+
+    //     if (!estrategia.esEditable) {
+    //         if (hijos > 0 && cta > 0) {
+    //             if (cta < hijos) $('.xmsg-tonos-agotados').show();
+    //         }
+    //     }
+
+    //     return true;
+    // };
 
     return {
         setPresenter: _setPresenter,
@@ -388,12 +428,13 @@ var ComponentesView = function () {
         showSelectedTypesOrTones: _showSelectedTypesOrTones,
         blockTypesOrTones: _blockTypesOrTones,
         unblockTypesOrTones: _unblockTypesOrTones,
-        unblockApplySelection: _unblockApplySelection,
+        unblockApplySelection : _unblockApplySelection,
         blockApplySelection: _blockApplySelection,
         renderResumen: _renderResumen,
         showBorderItemSelected: _showBorderItemSelected,
         cleanTiposTonosModal: _cleanTiposTonosModal,
         cleanContainer: _cleanContainer,
         verifyButtonAceptar: _verifyButtonAceptar
+        // showMessageTypeAndTonesSpent: _showMessageTypeAndTonesSpent
     };
 };

@@ -38,7 +38,6 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ContenidoAppDetaList");
             Context.Database.AddInParameter(command, "@IdContenido", DbType.Int32, p.IdContenido);
-            Context.Database.AddInParameter(command, "@Codigo", DbType.AnsiString, p.Codigo);
             return Context.ExecuteReader(command);
         }
 
@@ -77,22 +76,6 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ContenidoAppDetaActList");
             return Context.ExecuteReader(command);
-
-        }
-
-        public int ContenidoAppDetaVideo(BEContenidoAppDeta p)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ContenidoAppDetaVideo");
-            Context.Database.AddInParameter(command, "@Proc", DbType.Int32, p.Proc);
-            Context.Database.AddInParameter(command, "@IdContenidoDeta", DbType.Int32, p.IdContenidoDeta);
-            Context.Database.AddInParameter(command, "@IdContenido", DbType.Int32, p.IdContenido);
-            Context.Database.AddInParameter(command, "@RutaContenido", DbType.AnsiString, p.RutaContenido);
-            Context.Database.AddInParameter(command, "@tipo", DbType.AnsiString, p.Tipo);
-            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, p.Campania);
-            Context.Database.AddOutParameter(command, "@respuesta", DbType.Int32, 1000);
-
-            Context.ExecuteNonQuery(command);
-            return Convert.ToInt32(command.Parameters["@respuesta"].Value);
 
         }
     }

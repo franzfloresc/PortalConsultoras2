@@ -483,11 +483,6 @@ a{
         background-color:#f5f5f5;
     }
 
-    .grupo_form_cambio_datos--confirmacionPendiente,
-    .grupo_form_cambio_datos--confirmado{
-        flex-wrap:wrap!important;
-    }
-
         .grupo_form_cambio_datos--confirmacionPendiente label {
             background-color: transparent !important;
         }
@@ -761,19 +756,6 @@ a{
     margin-bottom:33px;
 }
 
-.notificaciones__whatsapp__checkbox .permiso_cuenta_opcion {
-    margin-bottom: 0;
-    margin-top: 16px;
-}
-
-.notificaciones__whatsapp__checkbox .permiso_cuenta_opcion_label {
-    position: relative;
-    top: 2px !important;
-    width: 18px;
-    min-height: 0;
-    height: 18px;
-}
-
 .permisos_cuenta_titulo,
 .terminos_y_condiciones_wrapper ~ .datos_obligatorios{
     color:#808080;
@@ -790,10 +772,6 @@ a{
 
 .terminos_y_condiciones_wrapper ~ .datos_obligatorios{
     font-size:13px;
-}
-
-.permisos_cuenta_opciones {
-    position: relative;
 }
 
 .grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
@@ -820,20 +798,15 @@ a{
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    background-image: none;
+    background-image: url(/Content/Images/icono_check_mi_perfil.svg);
     background-repeat: no-repeat;
     background-position: center;
 }
 
-    .permiso_cuenta_opcion_label:before {
-        display: none !important;
-    }
-
 .checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
-.permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label {
-    background-color: #b9007e !important;
-    border: 1px solid #b9007e;
-    background-image: url(/Content/Images/icono_check_mi_perfil.svg);
+.permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label{
+    background-color:#b9007e;
+    border:1px solid #b9007e;
 }
 
 .grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion,
@@ -1670,23 +1643,3 @@ a{
     }
 
 /* FIN - CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */
-
-/* HD-4520 */
-
-.infoActualDetalle {
-    margin-bottom: 24px;
-}
-
-    .infoActualDetalle span {
-        color: #000;
-    }
-
-        .infoActualDetalle span:first-child {
-            font-size: 14px;
-        }
-
-        .infoActualDetalle span:last-child {
-            font-size: 15px;
-        }
-
-/* FIN - HD-4520 */

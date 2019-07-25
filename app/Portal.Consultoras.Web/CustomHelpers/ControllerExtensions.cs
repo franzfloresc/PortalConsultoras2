@@ -68,6 +68,5 @@ namespace Portal.Consultoras.Web.CustomHelpers
             var getUniqueSession = GetUniqueSession(controller, name);
             return getUniqueSession == null ? newInstance ? new T() : default(T) : (T)getUniqueSession;
         }
-      
     }
 }

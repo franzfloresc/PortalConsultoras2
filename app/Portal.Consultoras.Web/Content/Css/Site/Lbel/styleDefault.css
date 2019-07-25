@@ -398,7 +398,7 @@ input[type="checkbox"].switch__control,
 
     .tag_sb--standard {
         background-color: #000;
-        color: #FFF;
+    color: #FFF;
     }
 
 /* FIN - TAGS */
@@ -691,9 +691,9 @@ input[type="checkbox"].switch__control,
 
 @media screen and (max-width:991px) and (orientation:landscape) {
 
-        .mt-53 {
-            margin-top: 53px !important;
-        }
+    .mt-53 {
+        margin-top: 53px !important;
+    }
 
 }
 
@@ -976,76 +976,3 @@ input[type="checkbox"].switch__control,
 }
 
 /* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
-
-/*  POPUP GENÉRICO */
-
-.ui-dialog,
-.general_dialog {
-    border-radius: 4px;
-}
-
-.general_dialog {
-    min-width: 404.78px !important;
-}
-
-.alert_dialog_icono {
-    width: 46px;
-    height: auto;
-}
-
-.alert_dialog_title,
-.terminos_title_2.alert_dialog_title {
-    text-transform: initial;
-    font-size: 20px !important;
-    margin-top: 11px !important;
-}
-
-.alert_dialog_message {
-    font-size: 14px !important;
-    line-height: 19px;
-    margin-top: 19px !important;
-    margin-bottom: 0;
-}
-
-.general_dialog + .ui-dialog-buttonpane .ui-state-default span,
-.ui-dialog .ui-dialog-buttonpane .ui-state-default span,
-.btn__sb--entendido {
-    font-family: 'Lato', sans-serif;
-    font-size: 14px !important;
-    min-width: 200px;
-    height: 40px !important;
-    line-height: 18px !important;
-    background-color: #B9007E !important;
-    border: 1px solid #B9007E !important;
-    border-radius: 4px !important;
-    letter-spacing: normal;
-    text-transform: initial !important;
-    position:relative;
-}
-
-.close_button_dialog {
-    right: 16px !important;
-}
-
-    .close_button_dialog .popup__somos__belcorp__icono__cerrar img {
-        width: 100%;
-        height: auto;
-    }
-
-@media screen and (max-width:991px) {
-
-    .general_dialog{
-        min-width:0!important;
-    }
-
-        .btn__sb--entendido {
-            top: 0;
-            bottom: 0;
-            line-height: 40px !important;
-            margin-top: 24px;
-            margin-bottom: 13px;
-        }
-
-}
-
-/* FIN - POPUP GENÉRICO */

@@ -16,7 +16,6 @@
   <xs:complexType name="BEBanner">
     <xs:sequence>
       <xs:element minOccurs="0" name="Archivo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ArchivoMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="BannerID" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
       <xs:element minOccurs="0" name="CantCuvPedido" type="xs:int" />
@@ -36,7 +35,6 @@
       <xs:element minOccurs="0" name="Titulo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TituloComentario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="URL" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="URLMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UdpSoloBanner" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
@@ -425,7 +423,6 @@
       <xs:element minOccurs="0" name="AceptaTerminosCondiciones" type="xs:boolean" />
       <xs:element minOccurs="0" name="AceptacionConsultoraDA" type="xs:int" />
       <xs:element minOccurs="0" name="AceptoContrato" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ActivaNotificacionesWhatsapp" type="xs:boolean" />
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActualizarClave" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="AniosPermanencia" type="xs:int" />
@@ -569,7 +566,6 @@
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreGerenteZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NotificacionesWhatsapp" type="xs:boolean" />
       <xs:element minOccurs="0" name="NovedadBuscador" type="xs:int" />
       <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
       <xs:element minOccurs="0" name="NuevoPROL" type="xs:boolean" />
@@ -580,7 +576,6 @@
       <xs:element minOccurs="0" name="OfertaFinalGanaMas" type="xs:int" />
       <xs:element minOccurs="0" name="OptBloqueoProductoDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="PROLSinStock" type="xs:boolean" />
-      <xs:element minOccurs="0" name="PagoContado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PasePedidoWeb" type="xs:int" />
@@ -854,7 +849,6 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Campania" type="xs:int" />
-          <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoDetalle" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DetaAccionDescripcion" nillable="true" type="xs:string" />
@@ -905,15 +899,17 @@
   </xs:complexType>
   <xs:element name="ArrayOfBEContenidoAppDetaAct" nillable="true" type="tns:ArrayOfBEContenidoAppDetaAct" />
   <xs:complexType name="BEContenidoAppDetaAct">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IdContenidoAct" type="xs:int" />
-      <xs:element minOccurs="0" name="Orden" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="Parent" type="xs:int" />
-    </xs:sequence>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntidad">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IdContenidoAct" type="xs:int" />
+          <xs:element minOccurs="0" name="Parent" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
   <xs:element name="BEContenidoAppDetaAct" nillable="true" type="tns:BEContenidoAppDetaAct" />
   <xs:complexType name="ArrayOfBEComunicado">

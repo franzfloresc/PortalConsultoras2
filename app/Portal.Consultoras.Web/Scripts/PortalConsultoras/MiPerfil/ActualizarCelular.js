@@ -39,24 +39,13 @@
             return localData.IsConfirmar;
         }
 
-        /*HD-4520*/
-        function getReenvioCelular() {
-            return $('#reenvioCelular');
-        }
-
-        function getcodigoSmsCaducidad() {
-            return $('.codigo_sms_caducidad');
-        }
-
         return {
             getInputCelular: getInputCelular,
             getIconValidacionSms: getIconValidacionSms,
             getErrorText: getErrorText,
             getCelularNuevoText: getCelularNuevoText,
             getInputsCodeSms: getInputsCodeSms,
-            getIsConfirmar: getIsConfirmar,
-            getReenvioCelular: getReenvioCelular,
-            getcodigoSmsCaducidad: getcodigoSmsCaducidad
+            getIsConfirmar: getIsConfirmar
         };
     })();
     me.Services = (function () {
@@ -96,20 +85,13 @@
 
         function inicializarEventos() {
             var body = $('body');
-            
-            /*HD-4520*/
-             $(".infoActual").css("display", "none");
-            if (actualizaCelularData.celular.length > 0) {
-                $(".infoActual").css("display", "block");
-                document.getElementById("numeroActual").innerHTML = actualizaCelularData.celular;
-            }
-
+            //INI HD-3897
             body.on('click', '#btn_continuar', me.Eventos.Continuar);
             if (localData.IsConfirmar == 1) {
                 $('#NuevoCelular').val(localData.CelularActual);
                 $('#NuevoCelular').addClass('campo_con_datos');
             }
-
+            //FIN HD-3897
             body.on('click', '.enlace_cambiar_numero_celular', me.Eventos.BackEdiNumber);
             body.on('click', '.enlace_reenviar_instrucciones', me.Eventos.SendSmsCode);
             body.on('keyup', '.campo_ingreso_codigo_sms', me.Eventos.ChangeCodeSms);
@@ -118,15 +100,17 @@
             body.on('cut copy paste', '#NuevoCelular', function (e) { e.preventDefault(); });
             body.on('click', '#hrefTerminosMD', me.Eventos.EnlaceTerminosCondiciones);
 
+            //INI HD-3897
             $('.form_actualizar_celular input').on('keyup change', function () { activaGuardar(); return $(this).val() });
             $('#NuevoCelular').on('focusout', function () { mensajeError(); });
             $('#btnVolver').on('click', function () {
                 window.location.href = localData.UrlPaginaPrevia;
 
             });
-            
+            //FIN HD-3897
         };
 
+        //INI HD-3897
         function activaGuardar() {
             var btn = $("#btn_continuar");
             var obj = $.trim(IfNull($('#NuevoCelular').val(), ''));
@@ -160,7 +144,8 @@
             else obj.addClass("grupo_form_cambio_datos--validacionErronea");
 
         }
-        
+        //FIN HD-3897
+
         function getLengthPais(iso) {
             var paises = {
                 'PE': 9,
@@ -311,7 +296,6 @@
         }
 
         function resetSmsCode() {
-            
             me.Funciones.SetSmsCode('');
             me.Elements.getIconValidacionSms().hide();
         }
@@ -341,27 +325,13 @@
                     clearInterval(interval);
                     counterElement.text("00:00");
                     resetSmsCode();
-                    HiddenEnviarCelular();//HD-4520
                 }
             }, cantMsInterval);
         }
 
-        function counter()
-        {
+        function counter() {
             counterElement.text('03:00');
             stepCounter(3 * 60000);
-        }
-
-
-        /*HD-4520*/
-        function HiddenEnviarCelular() {
-            me.Elements.getReenvioCelular().css("display", "block");
-            me.Elements.getcodigoSmsCaducidad().css("display", "none"); 
-        }
-
-        function InicializaEnviarCelular() {
-            me.Elements.getReenvioCelular().css("display", "none");
-            me.Elements.getcodigoSmsCaducidad().css("display", "block");
         }
 
         function showError(text) {
@@ -378,6 +348,7 @@
                 CerrarLoad();
                 if (!r.Success) {
                     me.Funciones.MarkSmsCodeStatus(false);
+
                     return;
                 }
 
@@ -439,9 +410,7 @@
             HandleError: handleError,
             SetSmsCode: setSmsCode,
             ResetSmsCode: resetSmsCode,
-            activaCheck: activaCheck,
-            HiddenEnviarCelular: HiddenEnviarCelular,
-            InicializaEnviarCelular: InicializaEnviarCelular
+            activaCheck: activaCheck
         };
 
     })();
@@ -464,6 +433,7 @@
             localData.CelularNuevo = nuevoCelular;
             me.Funciones.ResetSmsCode();
             AbrirLoad();
+            //INI HD-3897
             var successEnviarSmsCode = function (r) {
                 $('#celularNuevo').text(nuevoCelular);
                 CerrarLoad();
@@ -483,9 +453,10 @@
                     CerrarLoad();
                     me.Funciones.HandleError(er);
                 });
-            
-        }
 
+            //FIN HD-3897
+        }
+        //INI HD-3897
         function confirmar() {
             me.Funciones.ResetSmsCode();
             AbrirLoad();
@@ -514,7 +485,7 @@
                 });
 
         }
-
+        //FIN HD-3897
         function enlaceTerminosCondiciones() {
             var enlace = $('#hdn_enlaceTerminosCondiciones').val();
             $('#hrefTerminosMD').attr('href', enlace);
@@ -526,7 +497,6 @@
 
         function sendSmsCode() {
             me.Funciones.ResetSmsCode();
-            me.Funciones.InicializaEnviarCelular();
             AbrirLoad();
             me.Services.enviarSmsCode(localData.CelularNuevo)
                 .then(function (r) {
@@ -546,7 +516,6 @@
         }
 
         function changeCodeSms(e) {
-            
             var input = $(this);
             if (input.val()) {
                 input.parent().next().find('.campo_ingreso_codigo_sms').focus();
@@ -562,7 +531,6 @@
             }
 
             me.Funciones.VerifySmsCode(code);
-            HiddenEnviarCelular();
         }
 
         function onlyNumberCodeSms(e) {
@@ -596,12 +564,11 @@
 window.actualizarCelularModule = actualizarCelularModule;
 
 $(document).ready(function () {
-    
     actualizarCelularModule.Funciones.SetIsoPais(IsoPais);
     actualizarCelularModule.Inicializar();
-
+    //INI HD-3897
     if (actualizarCelularModule.Elements.getIsConfirmar() == 1) {
         actualizarCelularModule.Eventos.Confirmar();
     }
-
+    //FIN HD-3897
 });

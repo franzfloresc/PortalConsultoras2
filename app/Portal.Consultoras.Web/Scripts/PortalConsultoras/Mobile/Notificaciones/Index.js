@@ -15,7 +15,7 @@
     }
     if (Visualizado == "False") {
         $.post(urlActualizarEstadoNotificacion + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function () {
-            localStorage.setItem('KeyPseudoParam', new Date().getTime());
+            localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58 30-01-2019
         });
     }
     if (TipoOrigen == 6) location.href = urlDetallePedidoRechazado + "?ProcesoId=" + ProcesoId;

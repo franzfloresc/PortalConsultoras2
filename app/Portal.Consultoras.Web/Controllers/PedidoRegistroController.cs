@@ -245,8 +245,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
                 #endregion
-                
-                //var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
+
+
+                var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
 
                 #region VirtualCoach
                 if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
@@ -314,7 +315,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var esCaminoBrillante = false;
                 #region Camino Brillante
-                if (UtilOrigenPedidoWeb.EsCaminoBrillante(model.OrigenPedidoWeb))
+                if (_caminoBrillanteProvider.IsOrigenPedidoCaminoBrillante(model.OrigenPedidoWeb))
                 {
                     model.CuvTonos = Util.Trim(model.CUV);
                     esCaminoBrillante = true;
@@ -373,7 +374,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
-				var esReservado =
+                if (pedidoDetalleResult.CodigoRespuesta == Constantes.PedidoValidacion.Code.ERROR_CONSULTORA_BLOQUEADA)
+                    pedidoDetalleResult.MensajeRespuesta = Constantes.TipoPopupAlert.Bloqueado + pedidoDetalleResult.MensajeRespuesta;
+
+                var esReservado =
                     pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR)
                     || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR);
 
@@ -393,33 +397,6 @@ namespace Portal.Consultoras.Web.Controllers
                     var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP : null;
 
                     ObtenerPedidoWeb();
-                    //HD-4513
-                    #region Consultora Pago Contado
-                    var dataBarra = GetDataBarra();
-                    var estadoPedido = EsPedidoReservado().ToInt();
-                    ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado() && IsMobile();
-                    if (ViewBag.PagoContado)
-                    {
-                        var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
-                        {
-                            PaisID = userData.PaisID,
-                            ConsultoraID = userData.ConsultoraID,
-                            CodigoConsultora = userData.CodigoConsultora,
-                            CampaniaID = userData.CampaniaID,
-                            STPTotalPagar = Convert.ToDouble(dataBarra.TotalPedido - dataBarra.MontoDescuento),
-                            olstBEPedidoWebDetalle = pedidoWebDetalle.ToArray()
-
-                        };
-
-
-                        var resultPagoContado = UpdConfPagoContado(PagoContadoPrm);
-                        dataBarra.STPDescuento = Util.DoubleToStringFormat(resultPagoContado.STPDescuento, userData.CodigoISO);
-                        dataBarra.STPFlete = Util.DoubleToStringFormat(resultPagoContado.STPGastTransporte, userData.CodigoISO);
-                        dataBarra.STPPagoTotal = Util.DoubleToStringFormat(resultPagoContado.STPPagoTotal, userData.CodigoISO);
-                        dataBarra.STPDeuda = Util.DoubleToStringFormat(resultPagoContado.STPDeuda, userData.CodigoISO);
-                    }
-
-                    #endregion
                     return Json(new
                     {
                         success = true,
@@ -427,7 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
                         tituloMensaje = pedidoDetalleResult.TituloMensaje,
                         mensajeAviso = pedidoDetalleResult.MensajeAviso,
                         errorInsertarProducto = "0",
-                        DataBarra = dataBarra,
+                        DataBarra = GetDataBarra(),
                         data = pedidoDetalleResult.PedidoWebDetalle,
                         cantidadTotalProductos = CantidadTotalProductos,
                         total = Total,
@@ -587,7 +564,6 @@ namespace Portal.Consultoras.Web.Controllers
                 txtBuildCliente.Append(PedidoWebTotalClienteFormato(model.ClienteID_, pedidoWebDetalle));
 
                 ObtenerPedidoWeb();
-                var dataBarra = GetDataBarra();
 
                 return Json(new
                 {
@@ -601,7 +577,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = "",
                     tipo = "U",
                     modificoBackOrder = pedidoDetalleResult.ModificoBackOrder,
-                    DataBarra = dataBarra,
+                    DataBarra = GetDataBarra(),
                     cantidadTotalProductos = CantidadTotalProductos,
                     mensajeCondicional,
                     EsReservado = esReservado,

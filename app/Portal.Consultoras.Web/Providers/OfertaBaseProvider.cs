@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
     public class OfertaBaseProvider
     {
         private static readonly HttpClient httpClient = new HttpClient();
-        private const string contentType = "application/json";
+
         private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
 
         static OfertaBaseProvider()
@@ -387,20 +387,6 @@ namespace Portal.Consultoras.Web.Providers
             var msPersonalizacionConfi = GetConfigMicroserviciosPersonalizacion();
             bool tipoEstrategiaHabilitado = msPersonalizacionConfi.EstrategiaDisponibleParaFicha.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
-        }
-
-        public async Task<T> PostAsyncMicroservicioSearch<T>(string url, object data) where T : class, new()
-        {
-            var dataJson = JsonConvert.SerializeObject(data);
-            var stringContent = new StringContent(dataJson, Encoding.UTF8, contentType);
-            var httpResponse = await httpClient.PostAsync(url, stringContent);
-
-            if (httpResponse == null || !httpResponse.IsSuccessStatusCode) return new T();
-
-            var httpContent = await httpResponse.Content.ReadAsStringAsync();
-            var dataObject = JsonConvert.DeserializeObject<T>(httpContent);
-
-            return dataObject;
         }
 
     }

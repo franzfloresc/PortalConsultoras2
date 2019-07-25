@@ -51,7 +51,6 @@
       <xs:element minOccurs="0" name="Registros" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegistrosTotal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="rows" nillable="true" type="tns:ArrayOfGestionPostulanteGridRow" />
-      <xs:element minOccurs="0" name="rowspre" nillable="true" type="tns:ArrayOfGestionPrePostulanteGridRow" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="paginacionGrid" nillable="true" type="tns:paginacionGrid" />
@@ -99,8 +98,6 @@
       <xs:element minOccurs="0" name="ImagenPagare" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenReciboOtraMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenReciboPagoAval" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MyProperty" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
@@ -113,7 +110,6 @@
       <xs:element minOccurs="0" name="RFC" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegimenContable" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SeccionOrigen" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ShowAprobar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ShowConsultarUbicacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ShowContrasenia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ShowDocs" nillable="true" type="xs:string" />
@@ -139,36 +135,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GestionPostulanteGridRow" nillable="true" type="tns:GestionPostulanteGridRow" />
-  <xs:complexType name="ArrayOfGestionPrePostulanteGridRow">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="GestionPrePostulanteGridRow" nillable="true" type="tns:GestionPrePostulanteGridRow" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfGestionPrePostulanteGridRow" nillable="true" type="tns:ArrayOfGestionPrePostulanteGridRow" />
-  <xs:complexType name="GestionPrePostulanteGridRow">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CampanaRegistro" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoSeccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTerritorio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EstadoPostulante" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IconUbicacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NroRegistros" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ShowConsultarUbicacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SolicitudPrePostulanteID" type="xs:int" />
-      <xs:element minOccurs="0" name="TelefonoCelular" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UrlContent" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UrlContentImage" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="GestionPrePostulanteGridRow" nillable="true" type="tns:GestionPrePostulanteGridRow" />
   <xs:complexType name="ReporteConsolidadoModelSAC">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
@@ -236,43 +202,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ZonaValidacionTelefonicaModelSAC" nillable="true" type="tns:ZonaValidacionTelefonicaModelSAC" />
-  <xs:complexType name="DistanciaLimiteZonaSeccionModelSAC">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Distancia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ZonaSeccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="page" type="xs:int" />
-      <xs:element minOccurs="0" name="rows" type="xs:int" />
-      <xs:element minOccurs="0" name="sidx" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="sord" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="DistanciaLimiteZonaSeccionModelSAC" nillable="true" type="tns:DistanciaLimiteZonaSeccionModelSAC" />
-  <xs:complexType name="GestionaPrePostulanteModelSAC">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DocumentoIdentidad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EstadoPostulante" type="xs:int" />
-      <xs:element minOccurs="0" name="FechaDesde" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaHasta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FlagValTel" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagValidacionCrediticia" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagValidacionTelefonica" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagValidacionUbicacion" type="xs:int" />
-      <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FuenteIngresoListAvailable" nillable="true" type="tns:ArrayOfFuenteIngresoModelSAC" />
-      <xs:element minOccurs="0" name="MostrarPaso1y2SE" type="xs:int" />
-      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PTradicional" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="PrefijoISOPais" type="xs:int" />
-      <xs:element minOccurs="0" name="page" type="xs:int" />
-      <xs:element minOccurs="0" name="rows" type="xs:int" />
-      <xs:element minOccurs="0" name="sidx" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="sord" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="GestionaPrePostulanteModelSAC" nillable="true" type="tns:GestionaPrePostulanteModelSAC" />
 </xs:schema>

@@ -37,6 +37,14 @@ var rdAnalyticsModule = (function () {
     },
 
     _origenWeb = {
+        //home: "1101", // solo para RedireccionarContenedorComprar
+        //homeLan: "1103", // solo para RedireccionarContenedorComprar
+        //catalogo: "1401", // solo para RedireccionarContenedorComprar
+        //pedido: "1201", // solo para RedireccionarContenedorComprar
+        //homeMobile: "2101", // solo para RedireccionarContenedorComprar
+        //homeLanMobile: "2103", // solo para RedireccionarContenedorComprar
+        //catalogoMobile: "2401", // solo para RedireccionarContenedorComprar
+        //pedidoMobile: "2201", // solo para RedireccionarContenedorComprar
         rdLan: "1070001", // anterior "1721",
         rdOfertas: "1070001", // anterior "1711",
         rdDetalle: "1080202", // anterior "1731",
@@ -177,7 +185,24 @@ var rdAnalyticsModule = (function () {
             "label":  label
         });
     };
-    
+
+    //var _promotionClickPush = function (name, position, creative) {
+    //    dataLayer.push({
+    //        "event": _event.promotionClick,
+    //        "ecommerce": {
+    //            "promoView": {
+    //                "promotions": [
+    //                    {
+    //                        "id": "1",
+    //                        "name": name.trim(),
+    //                        "position": position,
+    //                        "creative": creative
+    //                    }]
+    //            }
+    //        }
+    //    });
+    //}
+
     var _promotionViewPush = function (name, position, creative) {
         dataLayer.push({
             "event": _event.promotionView,
@@ -208,6 +233,30 @@ var rdAnalyticsModule = (function () {
         try {
             var origenWebString = origenWeb.toString();
             switch (origenWebString) {
+                //case _origenWeb.home:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                //    break;
+                //case _origenWeb.catalogo:
+                //    _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
+                //    break;
+                //case _origenWeb.pedido:
+                //    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                //    break;
+                //case _origenWeb.homeLan:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
+                //    break;
+                //case _origenWeb.homeLanMobile:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
+                //    break;
+                //case _origenWeb.homeMobile:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                //    break;
+                //case _origenWeb.catalogoMobile:
+                //    _virtualEventPush(_seccionWeb.catalogoMobile, _text.epm, _action.clickBanner);
+                //    break;
+                //case _origenWeb.pedidoMobile:
+                //    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                //    break;
                  
                 case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalMobileCatalogoSeccion:
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
@@ -332,6 +381,11 @@ var rdAnalyticsModule = (function () {
         }
     }
 
+    //function SuscripcionExistosa() {
+    //    _virtualEventPush(_category.ganaMas, _action.suscripcionExitosa, _text.notAvailable);
+    //}
+
+
     function MostrarPopup() {
         _promotionViewPush(_text.roInscribirme, _text.popup, _text.banner);
     }
@@ -362,6 +416,10 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_category.ganaMas, _action.popupSuscripcion, _text.guardarDatos);
     }
 
+    //function IrCancelarSuscripcion() {
+    //    _virtualEventPush(_text.ro, _action.clickCancelar, _text.banner);
+    //}
+
     function CancelarSuscripcion() {
         _virtualEventPush(_text.epm, _action.clickEnBoton, _action.cancelarInscripcion);
     }
@@ -389,14 +447,21 @@ var rdAnalyticsModule = (function () {
     return {
         CancelarSuscripcionEncuesta: CancelarSuscripcionEncuesta,
         CancelarSuscripcion: CancelarSuscripcion,
+        //IrCancelarSuscripcion: IrCancelarSuscripcion,
         CerrarPopUp: CerrarPopUp,
+        //SuscripcionExistosa: SuscripcionExistosa,
         Inscripcion: Inscripcion,
         MostrarPopup: MostrarPopup,
         CompartirProducto: CompartirProducto,
+        //VerDetalleLan: VerDetalleLan,
+        //VerDetalleBloqueada: VerDetalleBloqueada,
         AgregarProductoDeshabilitado: AgregarProductoDeshabilitado,
+        //VerDetalleComprar: VerDetalleComprar,
+        //AgregarProducto: AgregarProducto,
         FiltrarProducto: FiltrarProducto,
         Tabs: Tabs,
         Access: Access,
+        //ContendorSection: ContendorSection,
         IrEnterate: IrEnterate,
         GuardarDatos: GuardarDatos,
         ClickArrowLan: ClickArrowLan,

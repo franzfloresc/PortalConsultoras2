@@ -229,17 +229,17 @@ jQuery(document).ready(function ($) {
             speed: 800,
             easing: 'easeOutQuint'
         }
-			
-        //oldiOS = false,
-	    //oldAndroid = false;
+			,
+			oldiOS = false,
+			oldAndroid = false;
 
         // Detect if older iOS device, which doesn't support fixed position
-        //if (/(iPhone|iPod|iPad)\sOS\s[0-4][_\d]+/i.test(navigator.userAgent))
-        //    oldiOS = true;
+        if (/(iPhone|iPod|iPad)\sOS\s[0-4][_\d]+/i.test(navigator.userAgent))
+            oldiOS = true;
 
         // Detect if older Android device, which doesn't support fixed position
-        //if (/Android\s+([0-2][\.\d]+)/i.test(navigator.userAgent))
-        //    oldAndroid = true;
+        if (/Android\s+([0-2][\.\d]+)/i.test(navigator.userAgent))
+            oldAndroid = true;
 
         $('body').append('<a href="#" id="' + extend.button.substring(1) + '" title="' + extend.text + '">' + extend.text + '</a>');
 

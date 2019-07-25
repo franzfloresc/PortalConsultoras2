@@ -13,6 +13,5 @@ namespace Portal.Consultoras.Web.Models
         public string montoWebConDescuentoStr { get; set; }
         public string DescuentoProlStr { get; set; }
         public decimal DescuentoProl { get; set; }
-        public int cantidadPedidosPendientes { get; set; }
     }
 }

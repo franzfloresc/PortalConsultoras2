@@ -206,12 +206,6 @@
   <wsdl:message name="IZonificacionService_GetSegmentoInternoBanner_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSegmentoInternoBannerResponse" />
   </wsdl:message>
-  <wsdl:message name="IZonificacionService_GetContenidoAppDetaAct_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetContenidoAppDetaAct" />
-  </wsdl:message>
-  <wsdl:message name="IZonificacionService_GetContenidoAppDetaAct_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetContenidoAppDetaActResponse" />
-  </wsdl:message>
   <wsdl:message name="IZonificacionService_GetZonasByRegion_InputMessage">
     <wsdl:part name="parameters" element="tns:GetZonasByRegion" />
   </wsdl:message>
@@ -340,10 +334,6 @@
     <wsdl:operation name="GetSegmentoInternoBanner">
       <wsdl:input wsaw:Action="http://tempuri.org/IZonificacionService/GetSegmentoInternoBanner" message="tns:IZonificacionService_GetSegmentoInternoBanner_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IZonificacionService/GetSegmentoInternoBannerResponse" message="tns:IZonificacionService_GetSegmentoInternoBanner_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetContenidoAppDetaAct">
-      <wsdl:input wsaw:Action="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct" message="tns:IZonificacionService_GetContenidoAppDetaAct_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IZonificacionService/GetContenidoAppDetaActResponse" message="tns:IZonificacionService_GetContenidoAppDetaAct_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetZonasByRegion">
       <wsdl:input wsaw:Action="http://tempuri.org/IZonificacionService/GetZonasByRegion" message="tns:IZonificacionService_GetZonasByRegion_InputMessage" />
@@ -610,15 +600,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetSegmentoInternoBanner">
       <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetSegmentoInternoBanner" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContenidoAppDetaAct">
-      <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -902,15 +883,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetSegmentoInternoBanner">
       <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetSegmentoInternoBanner" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContenidoAppDetaAct">
-      <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

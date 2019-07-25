@@ -1,4 +1,5 @@
-﻿if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
+﻿
+if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 var AnalyticsPortalModule = (function () {
 
@@ -50,7 +51,7 @@ var AnalyticsPortalModule = (function () {
         SR: "SR",
         ODD: "ODD",
         GND: "GND",
-        //MG: "MG",
+        MG: "MG",
         Ficha: "FICHA",
         DP: "DP"
     };
@@ -211,11 +212,7 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "13", "TextoList": "Catalogo Digital Pendiente de Aprobar Producto" },
             { "Codigo": "14", "TextoList": "App Maquillador Pendiente de Aprobar Producto" },
             { "Codigo": "15", "TextoList": "Carrusel Upselling" },
-            { "Codigo": "16", "TextoList": "Ficha Upselling" },
-            { "Codigo": "18", "TextoList": "Carrusel CrossSelling" },
-            { "Codigo": "19", "TextoList": "Ficha CrossSelling" },
-            { "Codigo": "20", "TextoList": "Carrusel Sugeridos" },
-            { "Codigo": "21", "TextoList": "Ficha Sugeridos" }
+            { "Codigo": "16", "TextoList": "Ficha Upselling" }
         ]
     }
 
@@ -398,37 +395,27 @@ var AnalyticsPortalModule = (function () {
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura) || "";
 
         var pagina = "";
-        var palanca = ''
         var seccion = "";
-
         if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas
             || origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Ficha) {
             pagina = _getTextoSeccionSegunOrigen(origenEstructura);
         }
         else {
             pagina = _getTextoPaginaSegunOrigen(origenEstructura);
-
-            //if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel) {
-            //    seccion = _getTextoSeccionSegunOrigen(origenEstructura);
-            //}
+            if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel) {
+                seccion = _getTextoSeccionSegunOrigen(origenEstructura);
+            }
         }
+        pagina = pagina || "";
+        seccion = seccion || "";
 
+        var palanca = ''
         if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaUpselling
             && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling
-            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaCrossSelling
-            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling
-            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaSugeridos
-            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselSugeridos
         ) {
             palanca = _getTextoPalancaSegunOrigen(origenEstructura);
         }
-        else {
-            seccion = _getTextoSeccionSegunOrigen(origenEstructura);
-        }
-
-        pagina = pagina || "";
         palanca = palanca || "";
-        seccion = seccion || "";
 
         var separador = " - ";
         var texto = contendor;
@@ -675,83 +662,38 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    //var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
-    //    try {
-
-    //        var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
-
-    //        var textoPagina = _getTextoPaginaSegunOrigen(origenEstructura);
-
-    //        if (textoPagina === "Landing Buscador") {
-    //            var model = {
-    //                'DescripcionCompleta': estrategia.DescripcionCompleta,
-    //                'CUV': estrategia.CUV2,
-    //                'Precio': estrategia.Precio2,
-    //                'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
-    //                'MarcaId': estrategia.MarcaID,
-    //                'Cantidad': estrategia.Cantidad,
-    //                'Palanca': estrategia.Palanca
-    //            };
-    //            var valorBuscar = localStorage.getItem('valorBuscador');
-    //            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
-    //            return;
-    //        }
-
-    //        var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
-
-    //        var marco = false;
-    //        var marcarTipoTono = origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle;
-    //        if (marcarTipoTono) {
-    //            marco = marcarAddToCartListaTipoTono(estrategia, parametroList);
-    //        }
-    //        else {
-    //            marco = marcarAddToCart(estrategia, parametroList);
-    //        }
-
-    //    } catch (e) {
-
-    //    }
-    //}
-
     var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
         try {
 
             var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
 
-            if (origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Buscador
-                || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingBuscador) {
-                if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Ficha
-                    && !(origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoLbel
-                        || origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoEsika
-                        || origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoCyzone)) {
-                    var model = {
-                        'DescripcionCompleta': estrategia.DescripcionCompleta,
-                        'CUV': estrategia.CUV2,
-                        'Precio': estrategia.Precio2,
-                        'DescripcionMarca': estrategia.CUV2,
-                        'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
-                        'MarcaId': estrategia.MarcaID,
-                        'Cantidad': estrategia.Cantidad,
-                        'Palanca': estrategia.Palanca
-                    };
-                    var valorBuscar = localStorage.getItem('valorBuscador');
-                    marcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
-                    return;
-                }
+            var textoPagina = _getTextoPaginaSegunOrigen(origenEstructura);
+
+            if (textoPagina === "Landing Buscador") {
+                var model = {
+                    'DescripcionCompleta': estrategia.DescripcionCompleta,
+                    'CUV': estrategia.CUV2,
+                    'Precio': estrategia.Precio2,
+                    'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
+                    'MarcaId': estrategia.MarcaID,
+                    'Cantidad': estrategia.Cantidad,
+                    'Palanca': estrategia.Palanca
+                };
+                var valorBuscar = localStorage.getItem('valorBuscador');
+                AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+                return;
             }
 
-            var marco = false;
             var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
+
+            var marco = false;
             var marcarTipoTono = origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle;
             if (marcarTipoTono) {
                 marco = marcarAddToCartListaTipoTono(estrategia, parametroList);
             }
             else {
                 marco = marcarAddToCart(estrategia, parametroList);
-                //marco = marcaAnadirCarrito(codigoOrigenPedido, estrategia);
             }
-
-            return marco;
 
         } catch (e) {
 
@@ -779,9 +721,7 @@ var AnalyticsPortalModule = (function () {
         $.each(lista, function (index, item) {
             if (index < cantidadMostrar) {
                 var paramList = parametroList;
-                if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling ||
-                    origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling ||
-                    origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselSugeridos) {
+                if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
                     var origenEstructuraNueva = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origenMapper, item.CodigoEstrategia);
                     paramList = _getParametroListSegunOrigen(origenEstructuraNueva);
                 }
@@ -1100,7 +1040,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación clic visualizar detalle producto.");
 
             var products = [];
-
+            
             var product = {
                 "id": item.CUV2,
                 "name": item.DescripcionCompleta,
@@ -2512,32 +2452,33 @@ var AnalyticsPortalModule = (function () {
         _virtualEventPush(_getDirection(direction));
     }
 
-    //function clickOnBreadcrumb(url, codigoPalanca, titulo) {
-    //    try {
-    //        if (codigoPalanca === _codigoSeccion.MG)
-    //            dataLayer.push({
-    //                "event": _evento.virtualEvent,
-    //                "category": _texto.fichaProducto,
-    //                "action": 'Breadcrumb - Clic en Botón',
-    //                "label": titulo || "",
-    //                'eventCallback': function () {
-    //                    document.location = url;
-    //                }
-    //            });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
+    function clickOnBreadcrumb(url, codigoPalanca, titulo) {
 
-    //function clickTabGanadoras(codigo) {
-    //    if (codigo === _codigoSeccion.MG)
-    //        dataLayer.push({
-    //            "event": _evento.virtualEvent,
-    //            "category": fnObtenerContenedor(),
-    //            "action": 'Clic tab',
-    //            "label": 'Las Más Ganadoras'
-    //        });
-    //}
+        try {
+            if (codigoPalanca === _codigoSeccion.MG)
+                dataLayer.push({
+                    "event": _evento.virtualEvent,
+                    "category": _texto.fichaProducto,
+                    "action": 'Breadcrumb - Clic en Botón',
+                    "label": titulo || "",
+                    'eventCallback': function () {
+                        document.location = url;
+                    }
+                });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    function clickTabGanadoras(codigo) {
+        if (codigo === _codigoSeccion.MG)
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": fnObtenerContenedor(),
+                "action": 'Clic tab',
+                "label": 'Las Más Ganadoras'
+            });
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Ganadoras
@@ -2744,7 +2685,6 @@ var AnalyticsPortalModule = (function () {
 
     return {
 
-        TextoOrigenEstructura: _origenPedidoWebEstructura,
         GetTextoSegunOrigen: _getParametroListSegunOrigen,
 
         // Ini - Analytics Virtual Event Ficha
@@ -2829,6 +2769,7 @@ var AnalyticsPortalModule = (function () {
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
         MarcaClicBanner: marcaClicBanner,
         MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
+        //MarcaAnadirCarrito: marcaAnadirCarrito,// no se utiliza como publico
         MarcaManagerFiltros: marcaManagerFiltros,
         MarcaCompartirRedesSociales: marcaCompartirRedesSociales,
         MarcaVisualizarDetalleProducto: marcaVisualizarDetalleProducto,
@@ -2842,9 +2783,9 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Ganadoras
         MarcarClickMasOfertasPromotionClickMG: marcarClickMasOfertasPromotionClickMG,
         ClickArrowMG: clickArrowMG,
-        //ClickOnBreadcrumb: clickOnBreadcrumb,
+        ClickOnBreadcrumb: clickOnBreadcrumb,
         //ClickAddCartFicha: clickAddCartFicha,// no se utiliza
-        //ClickTabGanadoras: clickTabGanadoras,
+        ClickTabGanadoras: clickTabGanadoras,
         // Fin - Analytics Ganadoras
 
         // Ini - Analytics PedidoPendientes

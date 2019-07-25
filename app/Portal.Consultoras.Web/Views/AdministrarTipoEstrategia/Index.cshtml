@@ -857,7 +857,7 @@
                             <div id="fpUpload01">
                                 <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
-                            new qq.FileUploader({
+                            var uploader = new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg'],
                                 element: document.getElementById('fpUpload01'),
                                 action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
@@ -906,7 +906,7 @@
                             <div id="fpUpload02">
                                 <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
-                            new qq.FileUploader({
+                            var uploader = new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg'],
                                 element: document.getElementById('fpUpload02'),
                                 action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',

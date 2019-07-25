@@ -52,43 +52,6 @@
 
     var _renderEstrategia = function (estrategia) {
         SetHandlebars(_elements.imagenEstrategia.templateId, estrategia, _elements.imagenEstrategia.id);
-
-
-        $('.slider-for').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-            asNavFor: '.slider-nav',
-            
-            infinite: false,
-            dots: false,
-            fade: true,
-            cssEase: 'linear',
-            responsive: [
-
-                {
-                    breakpoint: 992,
-                    settings: {
-                        dots: true,
-                        fade: false
-                    }
-                }
-            ]     
-        })                 
-        
-        $('.slider-nav').slick({
-            slidesToShow: 10,
-            slidesToScroll: 1,
-            
-            asNavFor: '.slider-for',
-            dots: false,
-            infinite: false,
-            arrows: false,
-            centerMode: true,
-            focusOnSelect: true,
-            vertical: true
-        });
-
         SetHandlebars(_elements.estrategia.templateId, estrategia, _elements.estrategia.id);
         return true;
     };

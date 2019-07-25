@@ -4,7 +4,9 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using System.ServiceModel.Channels;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceUnete;
 using System.Threading.Tasks;
 using System.Linq;
 
@@ -12,6 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MiPerfilController : BaseMobileController
     {
+        protected MiPerfilProvider _miperfil;
         private readonly ZonificacionProvider _zonificacionProvider;
 
         public MiPerfilController()
@@ -21,9 +24,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public async Task<ActionResult> Index()
         {
+            BEUsuario beusuario;
+
             var model = new MisDatosModel();
 
-            var beusuario = await _miPerfilProvider.GetUsuario(userData.PaisID, userData.CodigoUsuario);
+            _miperfil = new MiPerfilProvider();
+
+            using (var sv = new UsuarioServiceClient())
+            {
+                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+            }
 
             if (beusuario == null)
             {
@@ -37,9 +47,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public async Task<ActionResult> IndexExterno(int IdOrigen = 0)
         {
+            BEUsuario beusuario;
+
             var model = new MisDatosModel();
 
-            var beusuario = await _miPerfilProvider.GetUsuario(userData.PaisID, userData.CodigoUsuario);
+            _miperfil = new MiPerfilProvider();
+
+            using (var sv = new UsuarioServiceClient())
+            {
+                beusuario = await sv.SelectAsync(userData.PaisID, userData.CodigoUsuario);
+            }
+
             if (beusuario == null)
             {
                 return View("Index", model);
@@ -95,8 +113,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.IsConfirmarCel = 0;
             ViewBag.Celular = userData.Celular;
 
-            int numero;
-            bool valida;
+            var numero = 0;
+            var valida = false;
             Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             ViewBag.IniciaNumeroCelular = valida ? numero : -1;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
@@ -209,14 +227,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
-                model.UsuarioOpciones = _miPerfilProvider.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
+                model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
                 model.TieneDireccionEntrega = userData.TieneDireccionEntrega;
                 model.TienePermisosCuenta = model.UsuarioOpciones.Count > 0;
                 model.CodigoConsultoraAsociada = userData.CodigoConsultora;
             }
             catch (System.Exception ex)
             {
-                Common.LogManager.SaveLog(ex, userData.CodigoUsuario, userData.CodigoISO);
+                Portal.Consultoras.Common.LogManager.SaveLog(ex, userData.CodigoUsuario, userData.CodigoISO);
                 model = new MisDatosModel();
             }
 

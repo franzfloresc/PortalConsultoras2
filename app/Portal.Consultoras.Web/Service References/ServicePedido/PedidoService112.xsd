@@ -1,33 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfstring">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfBECDRWeb">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRWeb" nillable="true" type="tns:BECDRWeb" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
-  <xs:complexType name="ArrayOfKeyValueOfstringstring">
-    <xs:annotation>
-      <xs:appinfo>
-        <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
-      </xs:appinfo>
-    </xs:annotation>
+  <xs:element name="ArrayOfBECDRWeb" nillable="true" type="tns:ArrayOfBECDRWeb" />
+  <xs:complexType name="BECDRWeb">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringstring">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="Key" nillable="true" type="xs:string" />
-            <xs:element name="Value" nillable="true" type="xs:string" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element minOccurs="0" name="CDRWebDetalle" nillable="true" type="tns:ArrayOfBECDRWebDetalle" />
+      <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CantidadAprobados" type="xs:int" />
+      <xs:element minOccurs="0" name="CantidadDetalle" type="xs:int" />
+      <xs:element minOccurs="0" name="CantidadRechazados" type="xs:int" />
+      <xs:element minOccurs="0" name="ConsultoraCodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="ConsultoraSaldo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="EsMovilFin" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsMovilOrigen" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaAtencion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaCulminado" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FleteDespacho" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Importe" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MensajeDespacho" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoNumero" type="xs:int" />
+      <xs:element minOccurs="0" name="RegionID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoConsultora" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoDespacho" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfKeyValueOfstringstring" nillable="true" type="tns:ArrayOfKeyValueOfstringstring" />
-  <xs:complexType name="ArrayOfint">
+  <xs:element name="BECDRWeb" nillable="true" type="tns:BECDRWeb" />
+  <xs:complexType name="ArrayOfBECDRWebDetalle">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="int" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRWebDetalle" nillable="true" type="tns:BECDRWebDetalle" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfint" nillable="true" type="tns:ArrayOfint" />
+  <xs:element name="ArrayOfBECDRWebDetalle" nillable="true" type="tns:ArrayOfBECDRWebDetalle" />
+  <xs:complexType name="BECDRWebDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CDRWebDetalleID" type="xs:int" />
+      <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVReemplazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidad2" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoReclamo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Eliminado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FormatoPrecio1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FormatoPrecio2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GrupoID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Precio2" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Solicitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SolucionSolicitada" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoMotivoRechazo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BECDRWebDetalle" nillable="true" type="tns:BECDRWebDetalle" />
 </xs:schema>

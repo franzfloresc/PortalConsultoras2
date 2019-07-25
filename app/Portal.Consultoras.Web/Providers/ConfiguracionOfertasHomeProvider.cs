@@ -162,11 +162,27 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "Estrategia/OPTObtenerProductos";
 
                             modeloOrigenPedido.Palanca = ConsOrigenPedidoWeb.Palanca.OfertasParaTi;
+                            //seccion.OrigenPedido =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            //seccion.OrigenPedidoPopup =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.Lanzamiento:
                             seccion.UrlObtenerProductos = "Estrategia/LANObtenerProductos";
                             modeloOrigenPedido.Palanca = ConsOrigenPedidoWeb.Palanca.Lanzamientos;
+                            //seccion.OrigenPedido =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosCarrusel
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarrusel;
+                            //seccion.OrigenPedidoPopup =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosFicha
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosFicha;
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
@@ -178,6 +194,9 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
 
                             modeloOrigenPedido.Palanca = ConsOrigenPedidoWeb.Palanca.OfertasParaTi;
+
+                            //seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            //seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             seccion.VerMas = SessionManager.GetRevistaDigital().TieneLanding;
 
                             break;
@@ -194,6 +213,10 @@ namespace Portal.Consultoras.Web.Providers
                                 continue;
 
                             modeloOrigenPedido.Palanca = ConsOrigenPedidoWeb.Palanca.OfertaDelDia;
+                            //seccion.OrigenPedido =
+                            //    isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarrusel;
+                            //seccion.OrigenPedidoPopup =
+                            //    isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaFicha;
 
                             SessionManager.OfertaDelDia.Estrategia.ConfiguracionContenedor = seccion;
 
@@ -206,6 +229,10 @@ namespace Portal.Consultoras.Web.Providers
                                                        : "HerramientasVenta/Comprar");
 
                             modeloOrigenPedido.Palanca = ConsOrigenPedidoWeb.Palanca.HerramientasVenta;
+                            //seccion.OrigenPedido =
+                            //    isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
+                            //seccion.OrigenPedidoPopup =
+                            //    isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
                             break;
                         case Constantes.ConfiguracionPais.MasGanadoras:
                             if (!revistaDigital.EsActiva)
@@ -217,6 +244,14 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras";
 
                             modeloOrigenPedido.Palanca = ConsOrigenPedidoWeb.Palanca.Ganadoras;
+                            //seccion.OrigenPedido =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel;
+                            //seccion.OrigenPedidoPopup =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasFicha
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
                             seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;
                             break;
                         case Constantes.ConfiguracionPais.ArmaTuPack:
@@ -230,7 +265,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "Estrategia/ATPObtenerProductos";
                             seccion.UrlLandig = "ArmaTuPack/Detalle";
                             modeloOrigenPedido.Palanca = ConsOrigenPedidoWeb.Palanca.ArmaTuPack;
-
+                            //seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileArmaTuPackFicha : Constantes.OrigenPedidoWeb.DesktopArmaTuPackFicha;
                             seccion.VerMas = false;
                             seccion.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion;
                             break;
@@ -419,7 +454,7 @@ namespace Portal.Consultoras.Web.Providers
                 VerMas = true,
 
                 BotonColor = BotonColorCss(entConf.BotonColor, entConf.BotonColorTexto),
-
+                //BotonColorTexto = entConf.BotonColorTexto,
                 BotonTexto1 = entConf.BotonTexto1,
                 BotonTexto2 = entConf.BotonTexto2
             };

@@ -3,8 +3,6 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -151,9 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.ArchivoPDF,
                                    string.Empty,
                                    a.Url,
-                                   a.ArchivoPDF,
-                                   a.Zona,
-                                   a.Segmento
+                                   a.ArchivoPDF
                                 }
                            }
                 };
@@ -380,59 +376,5 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ObtenerSegmento(int PaisId)
-        {
-            IEnumerable<BESegmentoBanner> lst;
-
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                if (PaisId == Constantes.PaisID.Venezuela)
-                {
-                    lst = sv.GetSegmentoBanner(PaisId);
-                }
-                else
-                {
-                    lst = sv.GetSegmentoInternoBanner(PaisId);
-                }
-            }
-
-            return Json(new
-            {
-                listasegmento = lst
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult CargarArbolRegionesZonas(int? pais)
-        {
-            if (pais.GetValueOrDefault() == 0)
-                return Json(null, JsonRequestBehavior.AllowGet);
-
-            IList<BEZonificacionJerarquia> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.GetZonificacionJerarquia(pais.GetValueOrDefault());
-            }
-            JsTreeModel[] tree = lst.Distinct<BEZonificacionJerarquia>(new BEZonificacionJerarquiaComparer()).Select(
-                                    r => new JsTreeModel
-                                    {
-                                        data = r.RegionNombre,
-                                        attr = new JsTreeAttribute
-                                        {
-                                            id = r.RegionId * 1000,
-                                            selected = false
-                                        },
-                                        children = lst.Where(i => i.RegionId == r.RegionId).Select(
-                                                        z => new JsTreeModel
-                                                        {
-                                                            data = z.ZonaNombre,
-                                                            attr = new JsTreeAttribute
-                                                            {
-                                                                id = z.ZonaId,
-                                                                selected = false
-                                                            }
-                                                        }).ToArray()
-                                    }).ToArray();
-            return Json(tree, JsonRequestBehavior.AllowGet);
-        }
     }
 }

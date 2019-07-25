@@ -16,7 +16,9 @@
 
         var padre = obj.parents("[data-item]");
         var article = $(padre).find("[data-compartir-campos]").eq(0);
-        
+
+        //var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
+
         CompartirRedesSocialesInsertar(article, tipoRedes);
     }
 
@@ -126,7 +128,33 @@
 
         return "whatsapp://send?text=" + texto;
     }
-    
+
+    //var CompartirRedesSocialesAnalytics = function (tipoRedes, ruta, nombre) {
+
+    //    try {
+    //        if (typeof origenPedidoWebEstrategia !== "undefined" && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+    //            rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
+    //        } else {
+
+    //            if (tipoRedes === "FB") {
+    //                dataLayer.push({
+    //                    'event': 'socialEvent',
+    //                    'network': 'Facebook',
+    //                    'action': 'Share',
+    //                    'target': ruta
+    //                });
+    //            } else if (tipoRedes == "WA") {
+    //                dataLayer.push({
+    //                    'event': 'socialEvent',
+    //                    'network': 'Whatsapp',
+    //                    'action': 'Compartir',
+    //                    'target': ruta
+    //                });
+    //            }
+    //        }
+    //    } catch (e) { console.log(e) }
+    //}
+
     // catalogo compartir por Facebook
     var CompartirFacebook = function (catalogo, campaniaCatalogo, btn) {
         dataLayer.push({
@@ -160,6 +188,7 @@
         });
 
         $("#comentarios").val(valContenidoCorreoDefecto);
+        // remover todos los tag
         $('#tagCorreo').removeTagAll();
         // asignar el check al catalogo correspondiente mediante tipoCatalogo
         campaniaEmail = campania;
@@ -211,6 +240,7 @@
         });
 
         $("#comentarios").val(tipoCatalogo == 'Todo' ? valContenidoCorreoPilotoDefecto : valContenidoCorreoDefecto);
+        // remover todos los tag
         $('#tagCorreo').removeTagAll();
         // asignar el check al catalogo correspondiente mediante tipoCatalogo
         campaniaEmail = campania;

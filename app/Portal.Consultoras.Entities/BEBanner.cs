@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -63,7 +62,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int TipoAccion { get; set; }
 
-        [DataMember] 
+        [DataMember]
         public string CuvPedido { get; set; }
 
         [DataMember]
@@ -71,14 +70,6 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public BEBannerSegmentoZona[] PaisesSegZona { get; set; }
-
-        [DataMember]
-        [Column("ArchivoMobile")]
-        public string ArchivoMobile { get; set; }
-
-        [DataMember]
-        [Column("URLMobile")]
-        public string URLMobile { get; set; }
 
 
         public BEBanner()
@@ -107,9 +98,6 @@ namespace Portal.Consultoras.Entities
             CuvPedido = row.ToString("CuvPedido");
             CantCuvPedido = row.ToInt32("CantCuvPedido");
             PaisesSegZona = new BEBannerSegmentoZona[0];
-            ArchivoMobile = row.ToString("ArchivoMobile");
-            URLMobile = row.ToString("URLMobile");
-
         }
     }
 }

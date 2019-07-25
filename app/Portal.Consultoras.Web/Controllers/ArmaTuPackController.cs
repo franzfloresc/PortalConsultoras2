@@ -52,7 +52,10 @@ namespace Portal.Consultoras.Web.Controllers
             var OfertaATP = listModel.FirstOrDefault();
 
             var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaDisenoModel>(OfertaATP);
-            
+
+            #region Obtiene variables portal
+            var listaVariable = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo);
+            #endregion
             #region Asignacion de propiedades de diseño
             var listaSeccion = _confiOfertasHomeProvider
                 .ObtenerConfiguracionSeccion(revistaDigital, esMobile)
@@ -64,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.ColorFondo = listaSeccion.ColorFondo;
                 modelo.SubTitulo = listaSeccion.SubTitulo
                     .Replace("#Cantidad", modelo.CantidadPack.ToString())
-                    .Replace("#PrecioTotal", userData.Simbolo + " " + modelo.PrecioVenta);
+                    .Replace("#PrecioTotal", listaVariable.SimboloMoneda + " " + modelo.PrecioVenta);
                 modelo.ColorTexto = listaSeccion.ColorTexto;
             }
             #endregion

@@ -93,16 +93,16 @@ strong {
         clear: both
     }
 
-
 .box-beneficios li {
     width: 32%;
     display: block;
     float: left;
     margin: 20px 1%;
     margin-left: 0;
-    min-height: 78px;
-    margin-bottom: 0;
+    min-height: 60px;
+    margin-bottom: 0px
 }
+
     .box-beneficios li img {
         display: block;
         float: left;
@@ -3119,8 +3119,7 @@ div .ficha__producto__precio__normal {
     }
 
     .ficha__producto__descrip__nom {
-        min-height: 47px !important;
-        word-break: break-word;
+        min-height: 47px !important
     }
 
     .ficha__producto__precio {

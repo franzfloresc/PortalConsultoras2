@@ -47,8 +47,6 @@ namespace Portal.Consultoras.Entities.Producto
         [DataMember]
         public bool MaterialGanancia { get; set; }
         [DataMember]
-        public string CodigoTipoOferta { get; set; }
-        [DataMember]
         public List<BEBuscadorResponseOrigen> OrigenesPedidoWeb { get; set; }
     }
 

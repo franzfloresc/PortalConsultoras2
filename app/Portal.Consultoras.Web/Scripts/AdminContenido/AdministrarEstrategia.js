@@ -698,7 +698,7 @@
     };
 
     var _uploadFileLanzamineto = function (divId) {
-         new qq.FileUploader({
+        var uploader = new qq.FileUploader({
             allowedExtensions: ["jpg", "png", "jpeg"],
             element: document.getElementById(divId),
             action: _config.urlImageLanzamientoUpload,
@@ -2102,7 +2102,7 @@
         var elementoDivVerImagen = $(elementoPadre).find(".divPopupImagenPersonalizacion")[0];
         var elementoHiddenValor = $(elementoPadre).find(".hdValor")[0];
         $.ajaxSetup({ cache: false });
-        new qq.FileUploader({
+        var uploader = new qq.FileUploader({
             allowedExtensions: ["jpg", "png", "jpeg", "gif"],
             element: elementoAgregarImagen,
             action: _config.urlImageMatrizUpload,
