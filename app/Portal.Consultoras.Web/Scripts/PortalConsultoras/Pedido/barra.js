@@ -1328,6 +1328,86 @@ function superoTippingPoint(barra, prevLogro) {
     return false;
 }
 
+function showPopupEscalaSiguiente(dataBarra, prevLogro) {
+
+    if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;
+
+    var incentivo = 487;
+    var total = mtoLogroBarra;
+    var len = dataBarra.ListaEscalaDescuento.length;
+    var montoMaximo1 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
+    var escala0 = dataBarra.ListaEscalaDescuento[0];
+
+    if (total >= incentivo && total <= montoMaximo1) {
+        var content = escala0.PorDescuento + '% Dscto.' + '</br> </br> </br>' +' + INCENTIVO';
+        showPopupEscala(content);
+        tpElectivos.tempPrevLogro = -1;
+        return true;
+
+    }
+
+    var indice = incentivo > 0 ? 1 : 0;
+
+    for (var i = indice; i < len; i++) {
+        var escala = dataBarra.ListaEscalaDescuento[i];
+        if (total >= escala.MontoDesde && total < escala.MontoHasta) {
+            if (escala.MontoDesde > prevLogro) {
+
+                if (incentivo > 0 && total >= incentivo) {
+                    var content = escala.PorDescuento + '% Dscto.' + '</br> </br> </br>' + '+ INCENTIVO';
+                    showPopupEscala(content);
+                    tpElectivos.tempPrevLogro = -1;
+
+                    return true;
+                } else {
+
+                    var content = escala.PorDescuento + '% Dscto.';
+                    showPopupEscala(content);
+                    tpElectivos.tempPrevLogro = -1;
+
+                    return true;
+
+                }
+                
+            }
+        }
+    }
+
+    return false;
+}
+
+function showPopupEscala(content) {
+    var idPopup = '#popupEscalaDescuento';
+    $(idPopup + ' .porcentaje').html(content);
+
+    $(idPopup).show();
+    setContainerLluvia(idPopup);
+   // mostrarLluvia();
+
+    setTimeout(function () {
+        $(idPopup).fadeOut(2000);
+    }, 3000);
+}
+
+function checkPopupEscala() {
+    if (tpElectivos.tempPrevLogro < 0) return;
+
+    if (!TieneMontoMaximo()) {
+        var prevLogro = tpElectivos.tempPrevLogro;
+        setTimeout(function () {
+            showPopupEscalaSiguiente(dataBarra, prevLogro);
+        }, 200);
+    }
+
+    tpElectivos.tempPrevLogro = -1;
+}
+
+function setContainerLluvia(containerId) {
+    if (typeof lluviaContainerId !== 'undefined') {
+        lluviaContainerId = containerId;
+    }
+}
+
 function showPopupNivelSuperado(barra, prevLogro) {
     if (!barra) {
         return;
@@ -1342,7 +1422,6 @@ function showPopupNivelSuperado(barra, prevLogro) {
             agregarPremioDefault();
         }
         showPopupPremio();
-
         return;
     }
     
@@ -1391,60 +1470,7 @@ function agregarPedidoDefaultExt() {
     });
 }
 
-function showPopupEscalaSiguiente(dataBarra, prevLogro) {
-    if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;
 
-    var total = mtoLogroBarra;
-    var len = dataBarra.ListaEscalaDescuento.length;
-
-    for (var i = 0; i < len; i++) {
-        var escala = dataBarra.ListaEscalaDescuento[i];
-        if (total >= escala.MontoDesde && total < escala.MontoHasta) {
-            if (escala.MontoDesde > prevLogro) {
-
-                var content = escala.PorDescuento + '% Dscto.';
-                showPopupEscala(content);
-                tpElectivos.tempPrevLogro = -1;
-
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-function showPopupEscala(content) {
-    var idPopup = '#popupEscalaDescuento';
-    $(idPopup + ' .porcentaje').html(content);
-
-    $(idPopup).show();
-    setContainerLluvia(idPopup);
-    mostrarLluvia();
-
-    setTimeout(function () {
-        $(idPopup).fadeOut(2000);
-    }, 3000);
-}
-
-function checkPopupEscala() {
-    if (tpElectivos.tempPrevLogro < 0) return;
-
-    if (!TieneMontoMaximo()) {
-        var prevLogro = tpElectivos.tempPrevLogro;
-        setTimeout(function () {
-            showPopupEscalaSiguiente(dataBarra, prevLogro);
-        }, 200);
-    }
-
-    tpElectivos.tempPrevLogro = -1;
-}
-
-function setContainerLluvia(containerId) {
-    if (typeof lluviaContainerId !== 'undefined') {
-        lluviaContainerId = containerId;
-    }
-}
 
 function CalculoLlenadoBarra() {
     var TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
