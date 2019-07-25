@@ -61,6 +61,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
     public class BEBeneficioCaminoBrillante
     {
         [DataMember]
+        [Column("Registro")]
+        public int Registro { get; set; }
+
+        [DataMember]
         [Column("CodigoNivel")]
         public string CodigoNivel { get; set; }
 
@@ -77,8 +81,16 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public string Descripcion { get; set; }
 
         [DataMember]
+        [Column("Orden")]
+        public int Orden { get; set; }
+
+        [DataMember]
         [Column("Icono")]
         public string Icono { get; set; }
+
+        [DataMember]
+        [Column("Estado")]
+        public bool Estado { get; set; }
     }
 
 }

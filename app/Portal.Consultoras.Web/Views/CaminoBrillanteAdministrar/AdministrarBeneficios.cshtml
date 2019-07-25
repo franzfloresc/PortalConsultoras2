@@ -1,19 +1,324 @@
-﻿
+﻿@model Portal.Consultoras.Web.Models.CaminoBrillante.AdministrarCaminoBrillanteModel
 @{
     ViewBag.Title = "Administrar Beneficios Camino Brillante";
 }
+<script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        IniDialog();
+        fnGrilla();
+
+        $.ajaxSetup({ cache: false });
+
+        $("#btnNuevo").click(function () {
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+            if ($("#ddlNivel").val() == "") {
+                alert("Debe seleccionar un Nivel, verifique.");
+                return false;
+            }
+            $.ajaxSetup({ cache: false });            
+            $("#divtxtnivel").hide();
+            $("#divddlnivel").show();
+            
+            $("#txtPaisModal").val($("#ddlPais option:selected").html());
+            var _ddlNivel = $("#ddlNivel").val();
+            $("#ddlNivelModal").val(_ddlNivel);
+            $("#hdCodigoNivel").val($("#ddlNivelModal").val());
+            $('#chkActivoModal').attr("checked", true);
+
+            /*** Limpiando ***/
+            limpiar();
+
+            //fnGrillaOfertas('0');
+            showDialog("DialogAdministracionTipoEstrategia");
+        });
+
+        $("#btnBuscar").click(function () {
+
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+
+            if ($("#ddlNivel").val() == "") {
+                alert("Debe seleccionar un nivel, verifique.");
+                return false;
+            }
+            $("#hdTipoConsulta").val("1");
+            fnGrilla();
+        });
+
+        $("#ddlNivelModal").click(function () {
+            limpiar();
+            $("#hdCodigoNivel").val($("#ddlNivelModal").val());
+            $("#hdCodigoBeneficio").val("");
+        });  
+
+        $(".select_imagen").click(function () {
+            $('#hdcodigoicono').val($(this).attr('data-codigo'));
+            var img = $(this).find("img").attr('src');
+            $('#img01').attr('src', img);
+            img = img.replace(/^.*[\\\/]/, '');
+        });
+    });
+
+    function limpiar() {
+        $("#txtNombreBeneficioModal").val("");
+        $("#txtDescripcionModal").val("");
+        $("#txtordenModal").val("");
+        $('#chkActivoModal').attr("checked", false);
+    }
+
+    function fnGrilla() {
+        
+        jQuery("#list").jqGrid({
+            url: baseUrl + "CaminoBrillanteAdministrar/Consultar",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                paisID: function () { return jQuery.trim($("#ddlPais").val()); },
+                CodigoNivel: function () { return jQuery.trim($("#ddlNivel").val());},
+                Consulta: function () { return jQuery.trim($("#hdTipoConsulta").val()) }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Codigo Beneficio', 'Nro', 'Nombre Beneficio', 'Descripción', 'Orden', 'Activo', 'Icono', 'Opcion'],
+            colModel: [
+                { name: 'CodigoBeneficio', index: 'CodigoBeneficio', editable: true, resizable: false, hidden: true },
+                { name: 'Registro', index: 'Registro', width: 20, editable: true, resizable: false },
+                { name: 'NombreBeneficio', index: 'NombreBeneficio', width: 230, editable: true, resizable: false},
+                { name: 'Descripcion', index: 'Descripcion', width: 160, editable: true, resizable: false},
+                { name: 'Orden', index: 'Orden', width: 35, editable: true, align: 'center', formatter: true },
+                { name: 'FlagActivo', index: 'FlagActivo', width: 40, editable: true, resizable: false, align: 'center' },
+                { name: 'UrlIcono', index: 'UrlIcono', width: 70, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
+                { name: 'Opcion', index: 'Opcion', width: 70, editable: true, resizable: false, sortable: true, align: 'center', formatter: ShowActions }, 
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Mensaje',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 930,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function IniDialog() {
+        $('#DialogAdministracionTipoEstrategia').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 805,
+            draggable: true,
+            title: "Registro de Beneficios",
+            buttons:
+            {
+                "Guardar": function () {
+
+                    var codigoNivel = $("#hdCodigoNivel").val();
+                    var codigoBeneficio = $("#hdCodigoBeneficio").val();
+                    codigoBeneficio == undefined ? "" : codigoBeneficio;
+                    var nombreBeneficio = $("#txtNombreBeneficioModal").val();
+                    var descripcionBeneficio = $("#txtDescripcionModal").val();
+                    var orden = $("#txtordenModal").val();
+                    var flagActivo = ($("#chkActivoModal").attr("checked")) ? true : false;
+                    var codigoIcono = $("#hdcodigoicono").val();
+
+                    if ($.trim(nombreBeneficio) == "") {
+                        alert("No ingresó Nombre de Beneficio.");
+                        return false;
+                    }
+                    
+                    var model = {
+                        CodigoNivel: codigoNivel,
+                        CodigoBeneficio: codigoBeneficio,
+                        NombreBeneficio: nombreBeneficio,
+                        Descripcion: descripcionBeneficio,
+                        Icono: codigoIcono,
+                        Estado: flagActivo,
+                        Orden: orden
+                    };
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: baseUrl + 'CaminoBrillanteAdministrar/RegistrarBeneficio',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(model),
+                        async: true,
+                        success: function (data) {
+                            if (checkTimeout(data)) {
+                                if (data.success == true) {
+                                    alert(data.message);
+                                    HideDialog("DialogAdministracionTipoEstrategia");
+                                    $("#hdTipoConsulta").val("1");
+                                    jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                                }
+                                else {
+                                    alert(data.message);
+                                }
+                            }
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data)) {
+                                alert(data.message);
+                                HideDialog("DialogAdministracionTipoEstrategia");
+                            }
+                        }
+                    });
+
+                },
+                "Cancelar": function () {
+                    HideDialog("DialogAdministracionTipoEstrategia");
+                }
+            }
+        });
+    }
+
+    function ShowImage(cellvalue, options, rowObject) {
+        var image = "";
+        if (cellvalue != "") {
+            image = '<img src="' + cellvalue + '" alt="" width="100px" height="25px" title="" border="0" />';
+        } else {
+            image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
+        }
+        return image;
+    }
+
+    function ShowActions(cellvalue, options, rowObject) {
+        var cellValueInt = parseInt(cellvalue);
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('"
+            + rowObject[0]
+            + "','" + rowObject[1]
+            + "','" + rowObject[2]
+            + "','" + rowObject[3]
+            + "','" + rowObject[4]
+            + "','" + rowObject[5]
+            + "','" + rowObject[6]
+            + "','" + rowObject[7]
+            + "');\" >"
+            + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+
+        Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "','" + rowObject[5] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
+        return Des;
+    }
+
+    $.jgrid.extend({
+        Editar: function (CodigoBeneficio, nro, nombreBeneficio, descripcion, orden, flagActivo, urlIcono, opcion) {            
+            if (CodigoBeneficio) {  
+                debugger
+                $("#divddlnivel").hide();
+                $("#divtxtnivel").show();
+                $("#txtPaisModal").val($("#ddlPais option:selected").html());                
+                $("#txtNivelModal").val($("#ddlNivel option:selected").html());
+                $("#txtNivelModal").attr('readonly', true);
+                $("#txtNombreBeneficioModal").val(nombreBeneficio);
+                $("#txtDescripcionModal").val(descripcion);
+                $("#txtordenModal").val(orden);
+                $('#chkActivoModal').attr("checked", (flagActivo.toLowerCase() == "si" ? true : false));
+
+
+                $("#hdCodigoNivel").val($("#ddlNivel").val());
+                $("#hdCodigoBeneficio").val(CodigoBeneficio);
+                var img = $($("#list").jqGrid('getCell', CodigoBeneficio, 'UrlIcono')).attr('src');
+                
+                $('#img01').attr('src', img);
+                img = img.replace(/^.*[\\\/]/, '');
+
+                showDialog("DialogAdministracionTipoEstrategia");
+            } else {
+                alert("No selecciono el Cliente");
+            }
+            return false;
+        },
+        Eliminar: function (codigoBeneficio, Activo) {
+
+            if (Activo.toLowerCase() === 'no') {
+                alert('El beneficio ya se encuentra desactivado.');
+                return false;
+            }                
+            debugger
+            var elimina = confirm('¿Está seguro que desea desactivar el beneficio seleccionado?');
+            if (!elimina)
+                return false;
+
+            var codigoNivel = $("#ddlNivel").val();
+            waitingDialog({});
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'CaminoBrillanteAdministrar/DesactivarBeneficio',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ CodigoNivel: codigoNivel, CodigoBeneficio: codigoBeneficio }),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        }
+                        else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                    }
+                }
+            });
+
+            return false;
+        }
+    });
+</script>
 
 <input type="hidden" id="hdTipoConsulta" value="0" />
 <div class="wrap_cab">
     <div class="filtros2">
         <div class="elements">
             <div class="div-2">
-                <h1><span>Administrar Tipo de Estrategia</span></h1>
+                <h1><span>Administrar Beneficios Camino Brillante</span></h1>
             </div>
             <div class="div-3">
                 <div class="titA">País:</div>
                 <div class="selectA borde_redondeado">
-                    @*@Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })*@
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+
+                <div class="titA">Nivel:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CodigoNivel, new SelectList(Model.listaNiveles, "CodigoNivel", "DescripcionNivel"), "-- Seleccionar --", new { id = "ddlNivel" })
                 </div>
 
                 <div class="input_horizontal">
@@ -33,219 +338,69 @@
     </div>
 </div>
 <div id="DialogAdministracionTipoEstrategia" style="display: none;">
-    <input type="hidden" id="hdPais" value="" />
-    <input type="hidden" id="hdofertas" value="" />
-    <input type="hidden" id="hdofertaid" value="0" />
-    <input type="hidden" id="hdTipoEstrategiaID" value="0" />
+    <input type="hidden" id="hdCodigoNivel" value="" />
+    <input type="hidden" id="hdCodigoBeneficio" value="" />
     <div class="Content_modal">
         <div class="div-3">
             <div class="titB">País:</div>
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtPaisModal" readonly="readonly" />
             </div>
+
+            <div class="titB">Nivel:</div>
+            <div id="divtxtnivel" class="selectP2 borde_redondeado" style="display:none;">
+                <input type="text" id="txtNivelModal" />
+            </div>
+            <div id="divddlnivel" class="selectA borde_redondeado">
+                @Html.DropDownListFor(model => model.CodigoNivel, new SelectList(Model.listaNiveles, "CodigoNivel", "DescripcionNivel"), "-- Seleccionar --", new { id = "ddlNivelModal" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Nombre Beneficio:</div>
+            <div class="selectP2 borde_redondeado" style="width:535px">
+                <input type="text" id="txtNombreBeneficioModal" style="width:100%" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Descripción Beneficio:</div>
+            <div class="selectP2 borde_redondeado" style="width:535px">
+                <input type="text" id="txtDescripcionModal" style="width:100%" />
+            </div>
+        </div>
+        <div class="div-3">
             <div class="titB">Orden:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtOrden" />
+                <input type="text" id="txtordenModal" />
             </div>
         </div>
         <div class="div-3">
-            <div class="titB">Código:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txCodigoOriginalModal" />
-            </div>
             <div class="titB">Activo:</div>
             <div class="selectCheck borde_redondeado">
-                <input type="checkbox" id="chkActivo" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titB">Descripción:</div>
-            <div class="selectP2 borde_redondeado" style="width:535px">
-                <input type="text" id="txtDescripcionOriginalModal" style="width:100%" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titB">Tipo:</div>
-            <div class="selectE borde_redondeado">
-                <div class="titB">Nueva:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkNueva" />
-                </div>
-                <div class="titF">Recomendación por CUV:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkRecoProduc" />
-                </div>
-                <div class="titF" style="width:180px">Recomendación por perfil:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkRecoPerfil" />
-                </div>
-            </div>
-        </div>
-        <div class="div-3 divCodigoPrograma">
-            <div class="titB">Código Programa:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCodigoPrograma" />
-            </div>
-        </div>
-
-        <div class="div-3">
-            <div class="titB">Validar Tamaño :</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" id="chkValImg" />
-            </div>
-            <div class="titB">Tamaño (Kb):</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="number" id="txtPesoMaximoImagen" />
-            </div>
-
-        </div>
-
-
-        <div class="div-3">
-            <div class="titA"></div>
-            <div class="titG">
-                <div class="input_search">
-                    <input type="button" name="btnNuevaOferta" id="btnNuevaOferta" value="Ofertas" style="float:right;" />
-                </div>
+                <input type="checkbox" id="chkActivoModal" />
             </div>
         </div>
         <div>
             <div class="float-left">
                 <div class="div-3">
-                    <div class="titB">Mostrar imagen:</div>
-                    <div class="selectCheck borde_redondeado">
-                        <input type="checkbox" id="chkMostrarImg" />
-                    </div>
-                </div>
-                <div class="div-3">
-                    <div class="titB">Imagen:</div>
+                    <div class="titB">Icono:</div>
                     <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
-                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01">
+                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' style="height: 150px;" id="img01">
                     </div>
-
-                    <div class="titB" style="display: none;">Oferta:</div>
-                    <div class="container clearfix" style="display: none;">
-                        <div class="selectA borde_redondeado">
-                        </div>
-                    </div>
-                </div>
-                <div class="div-3">
-                    <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
-                    <div class="titG" style="width: 180px;">
-                        <div class="input_search">
-                            <input type="hidden" id="imagenProducto01" />
-                            <input type="hidden" id="imagenProductoAnterior01" />
-                            <div id="fpUpload01">
-                                @*<script type="text/javascript">
-                            $.ajaxSetup({ cache: false });
-                            new qq.FileUploader({
-                                allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                element: document.getElementById('fpUpload01'),
-                                action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
-                                onComplete: function (id, fileName, responseJSON) {
-                                    if (checkTimeout(responseJSON)) {
-                                        $(".qq-upload-list").css("display", "none");
-                                        if (responseJSON.success) {
-                                            $("#imagenProducto01").val(responseJSON.name);
-                                            $('#img01').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
-                                        }
-                                        else {
-                                            alert(responseJSON.message);
-                                        }
-                                    }
-                                },
-                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                            });
-                                </script>*@
+                    @{
+                        foreach (var item in Model.listaIconos)
+                        {
+                            <div data-codigo="@item.CodigoIcono" class="selectP2 borde_redondeado aligncenter select_imagen" style="height: 36px; width: 32px;">
+                                <img src='@item.UrlIcono'>
                             </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="float-left">
-                <div class="div-3 divOfertaIndependiente">
-                    <div class="titB">Imagen Independiente:</div>
-                    <div class="selectCheck borde_redondeado">
-                        <input type="checkbox" id="chkMostrarImgIndependiente" />
-                    </div>
-                </div>
-                <div class="div-3 divOfertaIndependiente" style="display:none;">
-                    <div class="titB">Imagen indep.:</div>
-                    <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
-                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgOfertaIndependiente">
-                    </div>
-                </div>
-                <div class="div-3 divOfertaIndependiente" style="display:none;">
-                    <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
-                    <div class="titG" style="width: 180px;">
-                        <div class="input_search">
-                            <input type="hidden" id="hdImagenOfertaIndependiente" />
-                            <input type="hidden" id="hdImagenOfertaIndependienteAnterior" />
-                            <div id="fpUpload02">
-                                @*<script type="text/javascript">
-                            $.ajaxSetup({ cache: false });
-                            new qq.FileUploader({
-                                allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                element: document.getElementById('fpUpload02'),
-                                action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
-                                onComplete: function (id, fileName, responseJSON) {
-                                    if (checkTimeout(responseJSON)) {
-                                        $(".qq-upload-list").css("display", "none");
-                                        if (responseJSON.success) {
-                                            $("#hdImagenOfertaIndependiente").val(responseJSON.name);
-                                            $('#imgOfertaIndependiente').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
-                                        }
-                                        else {
-                                            alert(responseJSON.message);
-                                        }
-                                    }
-                                },
-                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                            });
-                                </script>*@
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="DialogAdministracionNuevaOferta" style="display: none;">
-    <div class="Content_modal">
-        <div class="div-3" style="display: none">
-            <div class="titB">País:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPaisOferta" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titB">Código:</div>
-            <div class="selectP2 borde_redondeado" style="width:50px">
-                <input type="text" id="txtCodigoOferta" style="width:50px" />
-            </div>
-            <div class="titB">Descripción:</div>
-            <div class="selectP2 borde_redondeado" style="width:230px">
-                <input type="text" id="txtDescripcionOferta" style="width:230px" />
-            </div>
-            <div class="input_search">
-                <input type="button" name="btnAgregarOferta" id="btnAgregarOferta" value="Agregar" style="float:right" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="container clearfix">
-                <div class="selectA borde_redondeado" style="width:630px">
-                    <table id="listaOfertas"></table>
-                    <div id="pagerOferta"></div>
+                        }
+                    }
+                    <input type="hidden" id="hdcodigoicono" value="" />
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div id="loadingScreen"></div>
+
+
 

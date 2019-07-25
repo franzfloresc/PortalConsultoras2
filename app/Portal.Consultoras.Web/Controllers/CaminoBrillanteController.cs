@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Logros(string opcion)
         {
             if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return _RedirectToAction("Index", "Bienvenida");
-            if (string.IsNullOrEmpty(opcion)) return _RedirectToAction("Index", "Bienvenida");
+            if (string.IsNullOrEmpty(opcion)) opcion = Constantes.CaminoBrillante.Logros.CRECIMIENTO; //return _RedirectToAction("Index", "Bienvenida");
 
             var opcionUpper = opcion.ToUpper();
             if (opcionUpper != Constantes.CaminoBrillante.Logros.CRECIMIENTO && opcionUpper != Constantes.CaminoBrillante.Logros.COMPROMISO)

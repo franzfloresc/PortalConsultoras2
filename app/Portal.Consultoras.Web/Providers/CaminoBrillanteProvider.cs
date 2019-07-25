@@ -9,7 +9,6 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServiceSAC;
 using AutoMapper.Internal;
 
 namespace Portal.Consultoras.Web.Providers
@@ -96,7 +95,6 @@ namespace Portal.Consultoras.Web.Providers
                 return new List<NivelCaminoBrillanteModel>();
             }
         }
-
         #endregion
 
         #region Consultora
@@ -805,6 +803,30 @@ namespace Portal.Consultoras.Web.Providers
                 if (lst != null) sessionManager.SetConfiguracionCaminoBrillante(lst);
             }
             return lst;
+        }
+        #endregion
+
+        #region Mantenedor Beneficios
+        /// <summary>
+        /// Obtiene solamente el listado de niveles para administrador de contenidos.
+        /// </summary>
+        public List<NivelCaminoBrillanteModel> GetListaNiveles()
+        {
+            using (var svc = new UsuarioServiceClient())
+            {
+                return Mapper.Map<List<NivelCaminoBrillanteModel>>(svc.GetNiveles(usuarioModel.PaisID).ToList());
+            }
+        }
+
+        /// <summary>
+        /// Obtiene solamente el listado de Beneficos para administrador de contenidos.
+        /// </summary>
+        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
+        {
+            using (var svc = new UsuarioServiceClient())
+            {
+                return Mapper.Map<List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>>(svc.GetBeneficiosCaminoBrillante(paisID, codigoNivel).ToList());
+            }
         }
         #endregion
     }

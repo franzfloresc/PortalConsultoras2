@@ -119,8 +119,11 @@
       <xs:element minOccurs="0" name="CodigoBeneficio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Icono" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreBeneficio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="Registro" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEBeneficioCaminoBrillante" nillable="true" type="tns:BEBeneficioCaminoBrillante" />
