@@ -1130,6 +1130,9 @@ namespace Portal.Consultoras.Web
                 "~/Content/CaminoBrillante/css/estilos.css",
                 "~/Scripts/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css"));
 
+            bundles.Add(new StyleIgnoreMinifyBundle("~/Bundle/Js/CaminoBrillante/Chart").Include(
+                               "~/Scripts/chartjs.js"));
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
                 "~/Scripts/General.js",
                 "~/Scripts/owl.carousel.js",
