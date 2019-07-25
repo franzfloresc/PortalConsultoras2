@@ -3602,6 +3602,7 @@
             $("#btnDescripcionMasivo").hide();
             $("#btnActualizarTonos").hide();
             $("#btnCargaBloqueoCuv").hide();
+            $('#btnNuevo').hide();
 
             if (aux2.in(_codigoTipoEstrategia.OfertaParaTi,
                 _codigoTipoEstrategia.OfertaDelDia,
@@ -3619,8 +3620,9 @@
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
-                $("#btnNuevo").show();
+                //$("#btnNuevo").show();
 
+                if (aux2 == _codigoTipoEstrategia.HerramientasVenta) $('#btnNuevo').show();
                 if (aux2 !== _codigoTipoEstrategia.HerramientasVenta) $("#btnActualizarTonos").show();
                 if (aux2 === _codigoTipoEstrategia.GuiaDeNegocioDigitalizada) $("#btnCargaBloqueoCuv").show();
                 if (aux2 === _codigoTipoEstrategia.ShowRoom) {
