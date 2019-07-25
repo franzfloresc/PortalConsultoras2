@@ -1974,6 +1974,16 @@
 
 @section scripts{
     <script type="text/javascript">
+         var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-r.svg")',
+        ];
+        var noIniciarLluvia = true;
+
         var urlObtenerDataEncuesta = '@Url.Action("ObtenerDataEncuesta", "Bienvenida", new { area = "" })';
         var urlGrabarEncuesta = '@Url.Action("GrabarEncuesta", "Bienvenida", new { area = "" })';
         var lanzarEncuesta = true;
@@ -2097,9 +2107,10 @@
         var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
         var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
-        var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';      
+        var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Bienvenida")
 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
     <script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script>
 }

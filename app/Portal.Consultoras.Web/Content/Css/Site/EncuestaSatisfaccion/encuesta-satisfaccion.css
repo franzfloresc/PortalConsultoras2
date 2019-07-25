@@ -83,18 +83,16 @@ input.field__checkbox__sb{
     width: 100%;
     max-width: 550px;
     height: 145px;
-    padding: 16px 32px;
+    padding: 16px 28px;
     border-radius: 4px;
     -moz-transition: height 0.2s ease;
     -o-transition: height 0.2s ease;
     -webkit-transition: height 0.2s ease;
     transition: height 0.2s ease;
-    overflow:hidden;
 }
 
     .seccion__encuesta__satisfaccion.seccion__encuesta__satisfaccion__expandir {
-        height: 593px;
-        overflow:auto;
+        height: 526px;
     }
 
     .seccion__encuesta__satisfaccion > div,
@@ -271,8 +269,9 @@ input.field__checkbox__sb{
                     transition: opacity 0.2s ease;
                 }
 
-                    .encuesta__satisfaccion__disabled:hover{
-                        opacity:1;
+                    .encuesta__satisfaccion__disabled:hover,
+                    .encuesta__satisfaccion__disabled:hover .encuesta__satisfaccion__estado__descrip {
+                        opacity: 1;
                     }
 
                 .encuesta__satisfaccion__estado__imagen{
@@ -292,7 +291,16 @@ input.field__checkbox__sb{
                 .encuesta__satisfaccion__estado__descrip{
                     font-size:12px;
                     color:#000;
+                    position:relative;
                 }
+
+                    .encuesta__satisfaccion__estado--bueno .encuesta__satisfaccion__estado__descrip{
+                        top:-1px;
+                    }
+
+                    .encuesta__satisfaccion__estado--excelente .encuesta__satisfaccion__estado__descrip {
+                        left: -6px;
+                    }
 
     .seccion__encuesta__satisfaccion__motivosCalificacion{
         display:none;
@@ -465,6 +473,7 @@ input.field__checkbox__sb{
         .seccion__encuesta__satisfaccion--mostrar {
             opacity: 0;
             top:-60px;
+            overflow: hidden;
         }
 
             .bg__popup__encuestaSatisfaccion__desktop--mostrar .seccion__encuesta__satisfaccion--mostrar{
@@ -587,7 +596,7 @@ input.field__checkbox__sb{
         left: 0;
         z-index: 4001;
         max-width:100%;
-        height: 166px;
+        height: 150px;
         border-radius:0;
         -moz-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
         -webkit-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
@@ -603,6 +612,10 @@ input.field__checkbox__sb{
             animation-play-state:running;
             animation-fill-mode: forwards;
         }
+
+            .seccion__encuesta__satisfaccion--mostrar.seccion__encuesta__satisfaccion__expandir {
+                overflow: auto;
+            }
 
         .seccion__encuesta__satisfaccion--ocultar{
             animation-name: ocultarEncuestaSatisfaccionMobile;
@@ -746,13 +759,13 @@ input.field__checkbox__sb{
 
 }
 
-@media screen and (max-height:570px){
+@media screen and (max-width:991px) and (max-height:570px){
 
     .btn__sb--confirmar{
         position:relative;
         top:0;
         margin-top:32px;
-        margin-bottom:16px;
+        margin-bottom:11px;
         flex:0 0 100%;
         max-width:100%;
     }
