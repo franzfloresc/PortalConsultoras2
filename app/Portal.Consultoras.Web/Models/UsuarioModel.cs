@@ -197,6 +197,7 @@ namespace Portal.Consultoras.Web.Models
         public bool HabilitarRestriccionHoraria { get; set; }
 
         public string AnoCampaniaIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; }
         public string PrimerNombre { get; set; }
         public string PrimerApellido { get; set; }
 

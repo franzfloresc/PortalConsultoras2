@@ -1484,6 +1484,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.Direccion = usuario.Direccion;
                     usuarioModel.IPUsuario = GetIpCliente();
                     usuarioModel.AnoCampaniaIngreso = usuario.AnoCampaniaIngreso;
+                    usuarioModel.FechaIngreso = usuario.FechaIngreso;
                     usuarioModel.PrimerNombre = usuario.PrimerNombre;
                     usuarioModel.PrimerApellido = usuario.PrimerApellido;
 
