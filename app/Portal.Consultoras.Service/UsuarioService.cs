@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.CDR;
+using Portal.Consultoras.BizLogic.Configuracion;
 using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Common;
@@ -623,6 +624,12 @@ namespace Portal.Consultoras.Service
             return blUsuario.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
         }
 
+        public bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            var blUsuario = new BLUsuario();
+            return blUsuario.CambiarContraseniaAleatoria(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        }
+
         ///<summary>
         ///Verifica si existe el usuario con/sin el ingreso de la clave  
         ///</summary>
@@ -728,6 +735,11 @@ namespace Portal.Consultoras.Service
         public BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo)
         {
             return new BLUsuario().ActualizarEmail(usuario, correoNuevo);
+        }
+
+        public BERespuestaServicio ActualizarEmailSinEnvioCorreo(BEUsuario usuario, string correoNuevo)
+        {
+            return new BLUsuario().ActualizarEmailSinEnvioCorreo(usuario, correoNuevo);
         }
 
         public BERespuestaServicio RegistrarEnvioSms(
@@ -1035,5 +1047,50 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ListarValidacionDatos(beValidacionDatos);
         }
+
+        #region Cambiar_conraseña_por_defecto
+        public List<BEConfiguracionPaisFFVVDatos> GetConfiguracionPaisFFVV(BEConfiguracionPaisFFVVDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisFFVV();
+            return bl.GetList(entidad);
+        }
+
+        public List<BEParametroUnete> GetListZonasUnete(BEParametroUnete entidad)
+        {
+            var bl = new BLConfiguracionPaisFFVV();
+            return bl.GetListZonasUnete(entidad);
+        }
+
+        public BEUsuarioDatos GetActualizarContraseniaDefault(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetActualizarContraseniaDefault(paisID, codigoUsuario);
+        }
+
+        public bool ProcesaEnvioEmailCambiaContrasenia(int paisID, BEUsuarioDatos oUsu)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ProcesaEnvioEmailCambiaContrasenia(paisID, oUsu);
+        }
+
+        public bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, BEUsuarioDatos oUsu)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ProcesaEnvioEmailCambiaContrasenia2(paisID, oUsu);
+        }
+
+        public bool ProcesaEnviarMailActualizaContraseniaFinalizado(int paisID, BEUsuarioDatos oUsu, bool esOk)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ProcesaEnviarMailActualizaContraseniaFinalizado(paisID, oUsu, esOk);
+        }
+
+        public bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ContraseniaRepetida(paisID, codigoUsuario, contrasenia);
+        }
+        #endregion
+
     }
 }
