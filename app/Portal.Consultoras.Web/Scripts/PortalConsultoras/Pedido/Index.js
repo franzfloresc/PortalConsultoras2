@@ -530,14 +530,16 @@ function PreValidarProl() {
 }
 
 function IniciarValidarProl() {//Nombre de método enlazado al _PopupPedidosPendientes.cshtml
-    if (gTipoUsuario == 2) { //Postulante
-        var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
-        $("#dialog_MensajePostulante #tituloContenido").text("IMPORTANTE");
-        $("#dialog_MensajePostulante #mensajePostulante").text(mesg);
-        $("#dialog_MensajePostulante").show();
-        if (indicadorGPRSB == 1) ConfirmarModificar();
-    }
-    else EjecutarPROL();
+    $('#PopupPedidosPendientes').fadeOut(250, function () {
+        if (gTipoUsuario == 2) { //Postulante
+            var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
+            $("#dialog_MensajePostulante #tituloContenido").text("IMPORTANTE");
+            $("#dialog_MensajePostulante #mensajePostulante").text(mesg);
+            $("#dialog_MensajePostulante").show();
+            if (indicadorGPRSB == 1) ConfirmarModificar();
+        }
+        else EjecutarPROL();
+    });
 }
 
 function CargarDetallePedido(page, rows, asyncrono) {
