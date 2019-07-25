@@ -459,6 +459,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp);
+
+        [OperationContract]
+        List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
         #endregion
 
         [OperationContract]

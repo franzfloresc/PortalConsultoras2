@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities.CaminoBrillante;
+using System;
 using System.Data;
 using System.Data.Common;
 
@@ -67,12 +68,24 @@ namespace Portal.Consultoras.Data.CaminoBrillante
 
 
         #region Exigencia Monto Incentivos
-        public IDataReader InsIncentivosMontoExigencia(int periodoId, int campaniaId, long consultoraId)
+        public void InsIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleCaminoBrillante");
-            Context.Database.AddInParameter(command, "@Periodo", DbType.Int32, periodoId);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, entidad.CodigoCampania);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+            Context.Database.AddInParameter(command, "@Monto", DbType.String, entidad.Monto);
+            Context.Database.AddInParameter(command, "@AlcansoIncentivo", DbType.String, entidad.AlcansoIncentivo);
+            Context.Database.AddInParameter(command, "@Estado", DbType.String, entidad.Estado);
+            Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader GetIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetIncentivosMontoExigencia");
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, entidad.CodigoCampania);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
             return Context.ExecuteReader(command);
         }
         #endregion

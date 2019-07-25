@@ -49,6 +49,11 @@ namespace Portal.Consultoras.Web.Controllers
             return null;
         }
 
+        public JsonResult GuardarMontoExigencia(AdministrarMontoExigenciaModel model)
+        {
+            return null;
+        }
+
         //public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)
         //{
         //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);

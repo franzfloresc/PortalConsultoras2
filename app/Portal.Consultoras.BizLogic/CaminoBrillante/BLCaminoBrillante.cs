@@ -1449,5 +1449,16 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
+
+        #region Exigencia Monto Incentivos
+        public List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            return new DACaminoBrillante(paisId).GetIncentivosMontoExigencia(entidad).MapToCollection<BEIncentivosMontoExigencia>(closeReaderFinishing: true);
+        }
+        public void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            new DACaminoBrillante(paisId).InsIncentivosMontoExigencia(entidad);
+        }
+        #endregion
     }
 }

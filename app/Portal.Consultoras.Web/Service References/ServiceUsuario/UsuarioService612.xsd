@@ -138,4 +138,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConfiguracionCaminoBrillante" nillable="true" type="tns:BEConfiguracionCaminoBrillante" />
+  <xs:complexType name="BEIncentivosMontoExigencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AlcansoIncentivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Monto" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEIncentivosMontoExigencia" nillable="true" type="tns:BEIncentivosMontoExigencia" />
+  <xs:complexType name="ArrayOfBEIncentivosMontoExigencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivosMontoExigencia" nillable="true" type="tns:BEIncentivosMontoExigencia" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEIncentivosMontoExigencia" nillable="true" type="tns:ArrayOfBEIncentivosMontoExigencia" />
 </xs:schema>
