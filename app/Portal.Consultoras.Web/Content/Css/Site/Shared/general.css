@@ -409,9 +409,17 @@ input[type="checkbox"].switch__control,
     padding-right: 8px;
 }
 
-    .tag__sb--standard {
-        background-color: #000;
+    .tag__sb--standard,
+    .tag__sb--multimarca{
         color: #FFF;
+    }
+
+    .tag__sb--standard{
+        background-color: #000;
+    }
+
+    .tag__sb--multimarca{
+        background-color:#B9007E;
     }
 
 /* FIN - TAGS */
