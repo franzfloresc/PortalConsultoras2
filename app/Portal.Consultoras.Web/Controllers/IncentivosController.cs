@@ -15,11 +15,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEIncentivo> lst;
+                List<BEIncentivo> lstTemp;
+
                 int paisId = userData.PaisID;
                 int campaniaId = userData.CampaniaID;
                 string iso = userData.CodigoISO;
                 bool isDigital = IndicadorConsultoraDigital();
+
 
                 if (paisId == Constantes.PaisID.Peru && isDigital)
                 {
@@ -47,8 +49,22 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        lst = sv.SelectIncentivos(paisId, campaniaId).ToList();
+                        lstTemp = sv.SelectIncentivos(paisId, campaniaId).ToList();
                     }
+
+                    int segmentoId;
+                    if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                    {
+                        segmentoId = userData.SegmentoID;
+                    }
+                    else
+                    {
+                        segmentoId = userData.SegmentoInternoID ?? userData.SegmentoID;
+                    }
+                    string segmentoServicio = segmentoId.ToString();
+
+                    lstTemp = lstTemp.Where(p => p.Zona == string.Empty || p.Zona.Contains(userData.ZonaID.ToString())).ToList();
+                    List<BEIncentivo> lst = lstTemp.Where(p => p.Segmento == "-1" || p.Segmento.Contains(segmentoServicio)).ToList();
 
                     if (lst != null && lst.Count > 0)
                     {

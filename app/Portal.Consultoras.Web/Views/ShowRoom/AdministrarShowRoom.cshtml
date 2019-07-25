@@ -497,7 +497,7 @@
                     <div id="fpPopupImagenProducto">
                         <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
-                            var uploader = new qq.FileUploader({
+                            new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
                                 element: document.getElementById('fpPopupImagenProducto'),
                                 action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
@@ -529,7 +529,7 @@
                     <div id="fpPopupImagenMini">
                         <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
-                            var uploader = new qq.FileUploader({
+                            new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
                                 element: document.getElementById('fpPopupImagenMini'),
                                 action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
@@ -644,7 +644,7 @@
                     <div id="fpPopupImagenProductoDetalle">
                         <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
-                            var uploader = new qq.FileUploader({
+                            new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
                                 element: document.getElementById('fpPopupImagenProductoDetalle'),
                                 action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
@@ -3236,7 +3236,7 @@
             var elementoDivVerImagen = $(elementoPadre).find('.divPopupImagenPersonalizacion')[0];
             var elementoHiddenValor = $(elementoPadre).find('.hdValor')[0];
         $.ajaxSetup({ cache: false });
-        var uploader = new qq.FileUploader({
+        new qq.FileUploader({
             allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
             element: elementoAgregarImagen,
             action: urlImageMatrizUpload,

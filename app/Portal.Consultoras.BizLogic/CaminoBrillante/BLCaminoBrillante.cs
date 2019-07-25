@@ -163,7 +163,38 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 }).OrderByDescending(e => e.Campania).ToList()),
                 Niveles = CalcularCuantoFalta(niveles, periodo, nivelConsultora, nivelesConsultora),
                 ResumenLogros = GetResumenLogros(entidad.PaisID, logros),
-                Logros = logros
+                Logros = logros,
+                Configuracion = GetConfiguracionConsultoraCaminoBrillante()
+            };
+        }
+
+        private List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante() {
+            return new List<BEConfiguracionCaminoBrillante>() {
+                new BEConfiguracionCaminoBrillante(){
+                    Codigo = "CB_CON_ONBOARDING_ANIM",
+                    Descripcion = "Flag de Onboarding",
+                    Valor = "1",
+                },
+                new BEConfiguracionCaminoBrillante(){
+                    Codigo = "CB_CON_GANANCIA_ANIM",
+                    Descripcion = "Flag de Ganancias",
+                    Valor = "1",
+                },
+                new BEConfiguracionCaminoBrillante(){
+                    Codigo = "CB_CON_CAMB_NIVEL_ANIM",
+                    Descripcion = "Flag de Ganancias",
+                    Valor = "1",
+                },
+                new BEConfiguracionCaminoBrillante(){
+                    Codigo = "CB_CON_CAMB_NIVEL_VAL",
+                    Descripcion = "Flag de Ganancias",
+                    Valor = "+1",
+                },
+                new BEConfiguracionCaminoBrillante(){
+                    Codigo = "CB_MONTO_INCENTIVO",
+                    Descripcion = "Monto Incentivo",
+                    Valor = "1234",
+                },
             };
         }
 

@@ -47,6 +47,18 @@ namespace Portal.Consultoras.Web.Providers
 
             return lst;
         }
+        /*HD-4144*/
+        public List<BEContenidoAppDetaAct> GetContenidoAppDetaAct(int paisId,int parent)
+        {
+            List<BEContenidoAppDetaAct> lst;
+            using (var zs = new ZonificacionServiceClient())
+            {
+                lst = zs.GetContenidoAppDetaAct(paisId,parent).ToList();
+            }
+
+            return lst;
+        }
+
 
         public IEnumerable<PaisModel> GetPaises(int paisId, int rolId)
         {

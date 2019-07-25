@@ -1,13 +1,9 @@
 ﻿var masVendidosModule = (function () {
     "use strict";
 
-
-
     var setting = {
         baseUrl: ''
     };
-
- 
 
     var _bindEvents = function () {
         $(document).ready(function () {
