@@ -162,7 +162,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     PuntajeAcumulado = e.PuntajeAcumulado
                 }).OrderByDescending(e => e.Campania).ToList()),
                 Niveles = CalcularCuantoFalta(niveles, periodo, nivelConsultora, nivelesConsultora),
-                ResumenLogros = GetResumenLogros(entidad.PaisID, logros, nivelesConsultora, version),
+                ResumenLogros = GetResumenLogros(entidad.PaisID, logros, nivelesConsultora, periodo, version),
                 Logros = logros
             };
         }
@@ -371,7 +371,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }; 
         }
 
-        private BELogroCaminoBrillante GetResumenLogros(int paisId, List<BELogroCaminoBrillante> logros, List<NivelConsultoraCaminoBrillante> nivelesConsultora, int version)
+        private BELogroCaminoBrillante GetResumenLogros(int paisId, List<BELogroCaminoBrillante> logros, List<NivelConsultoraCaminoBrillante> nivelesConsultora, BEPeriodoCaminoBrillante periodo,int version)
         {
             var funcCopyMedalla = version == 1 ? GetFunCopyMedalla() : GetFunCopyMedalla_II();
             var funcUltimaMedalla = version == 1 ? GetFunUltimaMedalla(logros) : GetFunUltimaMedalla_II(logros);
@@ -379,8 +379,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             var medallaEscala = funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.ESCALA, true),
                                                 Constantes.CaminoBrillante.Logros.Indicadores.Titulos[Constantes.CaminoBrillante.Logros.Indicadores.ESCALA], 0);
-            var medallaContancia = funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.CONSTANCIA, false),
-                                                Constantes.CaminoBrillante.Logros.Indicadores.Titulos[Constantes.CaminoBrillante.Logros.Indicadores.CONSTANCIA], 1);
+            var medallaContancia = version == 1 ? funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.CONSTANCIA, false),
+                                                Constantes.CaminoBrillante.Logros.Indicadores.Titulos[Constantes.CaminoBrillante.Logros.Indicadores.CONSTANCIA], 1) 
+                                                : GetMedallaConstancia(logros, periodo);
             var medallaIncremento = funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO_PEDIDO, true),
                                                 Constantes.CaminoBrillante.Logros.Indicadores.Titulos[Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO_PEDIDO], 2);
 
@@ -401,6 +402,25 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return funcResumenLogros();
         }
 
+        private BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante GetMedallaConstancia(List<BELogroCaminoBrillante> logros, BEPeriodoCaminoBrillante periodo)
+        {
+            var logro = logros.FirstOrDefault(e => e.Id == Constantes.CaminoBrillante.Logros.CONSTANCIA_DETALLADA);
+            var medalla = new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante() {
+                Tipo = "TXT",
+                Titulo = "Constancia del Periodo",
+                Valor = "-"
+            };
+            if (logro != null) {
+                var indicadorCampania = logro.Indicadores.FirstOrDefault(e => e.Codigo == periodo.Periodo.ToString());
+                var count = 0;
+                if (indicadorCampania != null) {
+                    count = indicadorCampania.Medallas.Where(e => e.Estado).Count();
+                }
+                medalla.Valor = string.Format("{0} de {1}", count, periodo.NroCampana);
+            }
+            return medalla;
+        }
+        
         private Func<BELogroCaminoBrillante> GetFuncResumenLogros_I(BETablaLogicaDatos tablaLogicaDatos_Resumen, BETablaLogicaDatos tablaLogicaDatos_Crecimiento, BETablaLogicaDatos tablaLogicaDatos_Compromiso,
             BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante medallaEscala, BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante medallaContancia, BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante medallaIncremento,
             Func<List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>> funcResumenCompromiso )
