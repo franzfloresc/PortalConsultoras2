@@ -36,6 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.listaPaises = DropDowListPaises();
                 model.listaCampania = new List<CampaniaModel>();
+                model.listaZonas = new List<ZonaModel>();
             }
             catch (FaultException ex)
             {
@@ -44,31 +45,31 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-            IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
-            string habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(PaisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.BusquedaNemotecnicoOfertaLiquidacion);
+        //public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
+        //    string habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(PaisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.BusquedaNemotecnicoOfertaLiquidacion);
 
-            return Json(new
-            {
-                lista = lst,
-                lstConfig = lstConfig,
-                habilitarNemotecnico = habilitarNemotecnico == "1"
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //        lstConfig = lstConfig,
+        //        habilitarNemotecnico = habilitarNemotecnico == "1"
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
-        private IEnumerable<ConfiguracionOfertaModel> DropDowListConfiguracion(int paisId)
-        {
-            List<BEConfiguracionOferta> lst;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lstConfiguracion = sv.GetTipoOfertasAdministracion(paisId, Constantes.ConfiguracionOferta.Liquidacion).ToList();
-                lst = lstConfiguracion;
-            }
+        //private IEnumerable<ConfiguracionOfertaModel> DropDowListConfiguracion(int paisId)
+        //{
+        //    List<BEConfiguracionOferta> lst;
+        //    using (PedidoServiceClient sv = new PedidoServiceClient())
+        //    {
+        //        lstConfiguracion = sv.GetTipoOfertasAdministracion(paisId, Constantes.ConfiguracionOferta.Liquidacion).ToList();
+        //        lst = lstConfiguracion;
+        //    }
 
-            return Mapper.Map<IList<BEConfiguracionOferta>, IEnumerable<ConfiguracionOfertaModel>>(lst);
-        }
+        //    return Mapper.Map<IList<BEConfiguracionOferta>, IEnumerable<ConfiguracionOfertaModel>>(lst);
+        //}
         #endregion
     }
 }

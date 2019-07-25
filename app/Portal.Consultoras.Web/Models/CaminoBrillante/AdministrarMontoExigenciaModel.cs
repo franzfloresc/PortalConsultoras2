@@ -11,5 +11,9 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public IEnumerable<PaisModel> listaPaises { set; get; }
         public int CampaniaID { get; set; }
         public IEnumerable<CampaniaModel> listaCampania { set; get; }
+        public string RegionID { get; set; }
+        public IEnumerable<RegionModel> listaRegion { set; get; }
+        public string ZonaID { get; set; }
+        public IEnumerable<ZonaModel> listaZonas { set; get; }
     }
 }

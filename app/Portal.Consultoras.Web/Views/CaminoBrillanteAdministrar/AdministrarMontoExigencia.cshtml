@@ -39,49 +39,49 @@
             return false;
         });
 
-        //$("#btnBuscar").click(function () {
-        //    if ($("#ddlPais").val() == "") {
-        //        alert("Debe seleccionar un País, verifique");
-        //        return false;
-        //    } else if ($("#txtCodigos").val() == "" && $("#txtDocumento").val() == "") {
-        //        var msg = "";
-        //        if ($("#SeleccionaId").val() == "1") msg = "Código de consultora, verifique";
-        //        else if ($("#SeleccionaId").val() == "2") msg = "Código de documento inválidos, verifique";
+        $("#btnBuscar").click(function () {
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar un País, verifique");
+                return false;
+            } else if ($("#txtCodigos").val() == "" && $("#txtDocumento").val() == "") {
+                var msg = "";
+                if ($("#SeleccionaId").val() == "1") msg = "Código de consultora, verifique";
+                else if ($("#SeleccionaId").val() == "2") msg = "Código de documento inválidos, verifique";
 
-        //        alert(msg);
-        //        return false;
-        //    } else {
-        //        // Establece los efectos para cada uno de los Tabs
-        //        $("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
-        //        $(".contenido_tab").hide(); //Ocultar capas
-        //        $("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
-        //        $(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
+                alert(msg);
+                return false;
+            } else {
+                // Establece los efectos para cada uno de los Tabs
+                $("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
+                $(".contenido_tab").hide(); //Ocultar capas
+                $("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
+                $(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
 
-        //        $("#gvwEstadoCuentaDetalle").jqGrid("clearGridData", true);
-        //        $("#listPedidoFacturado").jqGrid("clearGridData", true);
-        //        $("#fecha-vencimiento").html('');
-        //        $("#monto-pagar").html('');
-        //        DatoConsultora();
-        //    }
+                $("#gvwEstadoCuentaDetalle").jqGrid("clearGridData", true);
+                $("#listPedidoFacturado").jqGrid("clearGridData", true);
+                $("#fecha-vencimiento").html('');
+                $("#monto-pagar").html('');
+                DatoConsultora();
+            }
 
-        //    var CodigoConsultora = $("#txtCodigos").val() == "" ? $("#txtDCCodigoConsultoraVisible").text() : $("#txtCodigos").val();
-        //    $.ajax({
-        //        dataType: "json",
-        //        url: baseUrl + "ConsultaDatoConsultora/GetCampaniasRVDigitalWeb",
-        //        data: "CodigoConsultora=" + CodigoConsultora,
-        //        success: function (resultado) {
-        //            $("#ddlCampaniaPaquete").empty();
-        //            $("#ddlCampaniaPaquete").append('<option value= "">-- Seleccionar --</option>');
+            var CodigoConsultora = $("#txtCodigos").val() == "" ? $("#txtDCCodigoConsultoraVisible").text() : $("#txtCodigos").val();
+            $.ajax({
+                dataType: "json",
+                url: baseUrl + "ConsultaDatoConsultora/GetCampaniasRVDigitalWeb",
+                data: "CodigoConsultora=" + CodigoConsultora,
+                success: function (resultado) {
+                    $("#ddlCampaniaPaquete").empty();
+                    $("#ddlCampaniaPaquete").append('<option value= "">-- Seleccionar --</option>');
 
-        //            for (var i in resultado) {
-        //                var campania = resultado[i];
-        //                if (typeof (campania.CampaniaID) != 'undefined')
-        //                $("#ddlCampaniaPaquete").append('<option value=' + campania.CampaniaID + '>' + campania.Codigo + '</option>');
-        //            }
-        //        }
-        //    });
+                    for (var i in resultado) {
+                        var campania = resultado[i];
+                        if (typeof (campania.CampaniaID) != 'undefined')
+                        $("#ddlCampaniaPaquete").append('<option value=' + campania.CampaniaID + '>' + campania.Codigo + '</option>');
+                    }
+                }
+            });
 
-        //});
+        });
 
         $("#SeleccionaId").change(function () {
             if ($(this).val() == "1") {
@@ -99,58 +99,84 @@
         });
 
         //inicializar valores
-        ControlesPaqueteDocumentario();
+        //ControlesPaqueteDocumentario();
 
         $('#ddlPais').change(function () {
+            debugger
             var Id = $(this).val();
             if (Id != "") {
                 waitingDialog({});
-                $.getJSON(baseUrl + 'CaminoBrillanteAdministrar/ObtenerCampaniasYConfiguracionPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
-                    if (checkTimeout(data)) {
-                        LimpiarDependencias(Id);
+                $.ajaxSetup({ cache: false });
+                $.ajax({
+                    type: 'GET',
+                    url: baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPais',
+                    data: "PaisID=" + (Id == "" ? 0 : Id),
+                    cache: false,
+                    dataType: 'Json',
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            //LimpiarDependencias(Id);
+                            var ddlCampania = $('#ddlCampania');
+                            var ddlRegion = $('#ddlRegion')
+                            var ddlZona = $('#ddlZona');
 
-                        var ddlCampania = $('#ddlCampania');
-                        var ddlConfiguracionOferta = $("#ddlConfiguracionOferta");
-
-                        if (data.habilitarNemotecnico) {
-                            $("#matriz-busqueda-nemotecnico").show();
-                        } else {
-                            $("#matriz-busqueda-nemotecnico").hide();
-                        }
-
-                        ofertaLiquidacionObj.actualizarParNemotecnico(data.habilitarNemotecnico);
-
-                        ddlCampania.empty();
-                        ddlConfiguracionOferta.empty();
-                        if (data.lista.length > 0) {
-                            ddlCampania.append($('<option/>', {
-                                value: "",
-                                text: "-- Seleccionar --"
-                            }));
-                            if (Id != "") {
-                                for (var item in data.lista) {
-                                    ddlCampania.append($('<option/>', {
-                                        value: data.lista[item].CampaniaID,
-                                        text: data.lista[item].Codigo
-                                    }));
+                            //var ddlCampaniaRZ = $('#ddlCampaniaRegistroZona');
+                            //var ddlZonaRZ = $('#ddlZonaRegistroZona');
+                            ddlCampania.empty();
+                            //ddlCampaniaRZ.empty();
+                            if (data.lstCampania.length > 0) {
+                                ddlCampania.append($('<option/>', {
+                                    value: "",
+                                    text: "-- Seleccionar --"
+                                }));
+                                //ddlCampaniaRZ.append($('<option/>', {
+                                //    value: "",
+                                //    text: "-- Seleccionar --"
+                                //}));
+                                if (Id != "") {
+                                    for (var item in data.lstCampania) {
+                                        ddlCampania.append($('<option/>', {
+                                            value: data.lstCampania[item].CampaniaID,
+                                            text: data.lstCampania[item].Codigo
+                                        }));
+                                        //ddlCampaniaRZ.append($('<option/>', {
+                                        //    value: data.lstCampania[item].CampaniaID,
+                                        //    text: data.lstCampania[item].Codigo
+                                        //}));
+                                    }
                                 }
                             }
-                        }
-                        if (data.lstConfig.length > 0) {
-                            ddlConfiguracionOferta.append($('<option/>', {
-                                value: "0",
-                                text: "-- Todos --"
-                            }));
-                            if (Id != "") {
-                                for (var item in data.lstConfig) {
-                                    ddlConfiguracionOferta.append($('<option/>', {
-                                        value: data.lstConfig[item].CodigoOferta,
-                                        text: data.lstConfig[item].Descripcion
-                                    }));
+                            if (data.lstZona.length > 0) {
+                                for (var item in data.lstZona) {
+                                    if (data.lstZona.hasOwnProperty(item)) {
+                                        ddlZona.append($('<option/>', {
+                                            value: data.lstZona[item].ZonaID,
+                                            text: data.lstZona[item].Codigo
+                                        }));
+                                        //ddlZonaRZ.append($('<option/>', {
+                                        //    value: data.lstZona[item].ZonaID,
+                                        //    text: data.lstZona[item].Codigo
+                                        //}));
+                                    }
                                 }
                             }
+                            if (data.lstRegion) {
+                                for (var item in data.lstRegion) {
+                                    if (data.lstRegion.hasOwnProperty(item)) {
+                                        ddlRegion.append($('<option/>', {
+                                            value: data.lstRegion[item].ZonaID,
+                                            text: data.lstRegion[item].Codigo
+                                        }));
+                                    }
+                                }
+                            }
+                            closeWaitingDialog();
                         }
-                        closeWaitingDialog();
+                    },
+                    error: function (x, xh, xhr) {
+                        if (checkTimeout(x)) {
+                            closeWaitingDialog();
+                        }
                     }
                 });
             } else LimpiarDependencias(Id);
@@ -178,20 +204,37 @@
             <div class="div-3">
                 <div id="lblSelecciona" class="titG">Región:</div>
                 <div id="divCodConsultora" class="selectP2 borde_redondeado">
-                    <input type="text" id="txtCodigos" placeholder="Código consultora" />
+                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaZonas, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
                 </div>
-                @*<div id="divDNI" class="selectP2 borde_redondeado" hidden>
-                <input type="text" id="txtDocumento" placeholder="DNI" />
-                </div>*@
-                        @*<div class="input_search">
-                    <input type="submit" name="" id="btnBuscar" value="Buscar" />
-                </div>*@
                 <div id="lblSelecciona" class="titG">Zona:</div>
                 <div id="divCodConsultora" class="selectP2 borde_redondeado">
-                    <input type="text" id="txtCodigos" placeholder="Código consultora" />
+                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })
                 </div>
             </div>
-
+            <div class="div-3">
+                <div class="input_search" style="float:right; margin-right:227px">
+                    <input type="submit" name="" id="btnBuscar" value="Buscar" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div id="lblSelecciona" class="titG" style="width:420px;"><b>Ingresa el monto de exigencia para la campaña seleccionada:</b></div>
+                <div class="selectP2 borde_redondeado" style="float:right; margin-right:227px">
+                    <input id="txtMontoExigencia" type="text" maxlength="6" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="width:420px;"><b>Selecciona el texto que se debe mostrar en esta campaña:</b></div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="float: none;width: auto;padding: 0;"><input type="radio" value="" name="rbttextoincentivo"/>¡Felicidades! Accediste al #% de descuento y alcansaste el incentivo</div>
+                @*<div id="divCodConsultora" class="selectP2 borde_redondeado">
+                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaZonas, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
+                </div>*@
+                <div class="titG" style="float: none;width: auto;padding: 0;"><input type="radio" value="" name="rbttextoincentivo"/>¡Felicidades! Accediste al #% de descuento y falta poco para que alcanses el incentivo</div>
+                @*<div id="divCodConsultora" class="selectP2 borde_redondeado">
+                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })
+                </div>*@
+            </div>
         </div>
     </div>
 </div>
