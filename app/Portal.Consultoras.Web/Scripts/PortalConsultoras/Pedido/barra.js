@@ -1483,10 +1483,20 @@ function CalculoLlenadoBarra() {
                     AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
             }
             else {
+                if (ConfiguradoRegalo == true) {
+
                 if (montoActual < montoMinimo) {
                     AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
                 } else
                     AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+            }
+                else {
+                    if (montoActual < montoMinimo) {
+                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
+                    } else
+                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+
+                }
             }
 
         }
