@@ -194,7 +194,7 @@
         });
 
         $.ajaxSetup({ cache: false });
-        uploader = new qq.FileUploader({
+        new qq.FileUploader({
             allowedExtensions: ['jpg', 'png', 'jpeg'],
             element: document.getElementById('flUpload'),
             action: '@Url.Action("ImageMatrizUpload", "NavidadConsultora")',
