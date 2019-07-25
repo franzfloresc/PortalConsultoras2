@@ -496,18 +496,11 @@ namespace Portal.Consultoras.Web.Providers
                         if (!listProgNuevas.Any()) continue;
 
                         break;
-
                     case Constantes.ConfiguracionPais.MasGanadoras:
-                        if (!revistaDigital.EsActiva)
-                        {
-                            continue;
-                        }
-
                         config.UrlMenu = config.EsAncla
                             ? config.UrlMenu
                             : sessionManager.MasGanadoras.GetModel().TieneLanding ? "MasGanadoras" : "#";
                         break;
-
                     case Constantes.ConfiguracionPais.ArmaTuPack:
 
                         var sessionAtp = sessionManager.GetArmaTuPack();
