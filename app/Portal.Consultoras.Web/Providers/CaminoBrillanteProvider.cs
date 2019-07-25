@@ -838,5 +838,114 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
         #endregion
+
+        #region Configuracion Consultora
+
+        /// <summary>
+        /// Obtiene Monto de Incentivo Configurado para la consultora
+        /// </summary>
+        public bool GetMontoIncentivo(out double montoIncentivo) {
+            montoIncentivo = 0;
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return false;
+
+                var config = oConsultora.Configuracion.Where(e => e.Codigo == "CB_MONTO_INCENTIVO").FirstOrDefault() ?? new BEConfiguracionCaminoBrillante();                
+                return double.TryParse(config.Valor, out montoIncentivo);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Flag Animacion Onboarding
+        /// </summary>
+        public bool TieneOnboardingAnim()
+        {
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return false;
+
+                var config = oConsultora.Configuracion.Where(e => e.Codigo == "CB_CON_ONBOARDING_ANIM").FirstOrDefault() ?? new BEConfiguracionCaminoBrillante();
+                return config.Valor == "1";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Flag Animacion Ganancias
+        /// </summary>
+        public bool TieneGananciaAnim()
+        {
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return false;
+
+                var config = oConsultora.Configuracion.Where(e => e.Codigo == "CB_CON_GANANCIA_ANIM").FirstOrDefault() ?? new BEConfiguracionCaminoBrillante();
+                return config.Valor == "1";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Flag Animación Cambio Nivel
+        /// </summary>
+        public bool TieneCambioNivelAnim()
+        {
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return false;
+
+                var config = oConsultora.Configuracion.Where(e => e.Codigo == "CB_CON_CAMB_NIVEL_ANIM").FirstOrDefault() ?? new BEConfiguracionCaminoBrillante();
+                return config.Valor == "1" && CambioNivelConsultora().HasValue;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Value Cambio de Nivel Consultora
+        /// </summary>
+        public int? CambioNivelConsultora()
+        {
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return null;
+
+                var config = oConsultora.Configuracion.Where(e => e.Codigo == "CB_CON_CAMB_NIVEL_VAL").FirstOrDefault() ?? new BEConfiguracionCaminoBrillante();
+                var valor = 0;
+                if (int.TryParse(config.Valor, out valor)) {
+                    return valor;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -335,6 +335,7 @@
       <xs:element minOccurs="0" name="OfertaFinalGanaMas" type="xs:int" />
       <xs:element minOccurs="0" name="OptBloqueoProductoDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="PROLSinStock" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PagoContado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PasePedidoWeb" type="xs:int" />
@@ -950,6 +951,53 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEMisPedidosDetalle" nillable="true" type="tns:BEMisPedidosDetalle" />
+  <xs:complexType name="BEConfiguracionPaisFFVVDatos">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntidad">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DesarrolloNivelCumplimientoHabilitado" type="xs:int" />
+          <xs:element minOccurs="0" name="DiasCobranza" type="xs:int" />
+          <xs:element minOccurs="0" name="EdicionFichaConsultoraHabilitado" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagConfZonasUnete" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagDigitoVerificador" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagGanaMas" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagGeo" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagHanna" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagPC" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagPDV" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagRDD" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="MaximoNumeroDigitosTelefonoTrabajoConsultora" type="xs:int" />
+          <xs:element minOccurs="0" name="MinimoNumeroDigitosTelefonoTrabajoConsultora" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BEConfiguracionPaisFFVVDatos" nillable="true" type="tns:BEConfiguracionPaisFFVVDatos" />
+  <xs:complexType name="ArrayOfBEConfiguracionPaisFFVVDatos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionPaisFFVVDatos" nillable="true" type="tns:BEConfiguracionPaisFFVVDatos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConfiguracionPaisFFVVDatos" nillable="true" type="tns:ArrayOfBEConfiguracionPaisFFVVDatos" />
+  <xs:complexType name="BEParametroUnete">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntidad">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BEParametroUnete" nillable="true" type="tns:BEParametroUnete" />
+  <xs:complexType name="ArrayOfBEParametroUnete">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEParametroUnete" nillable="true" type="tns:BEParametroUnete" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEParametroUnete" nillable="true" type="tns:ArrayOfBEParametroUnete" />
   <xs:complexType name="BEConsultoraDatos">
     <xs:sequence>
       <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />

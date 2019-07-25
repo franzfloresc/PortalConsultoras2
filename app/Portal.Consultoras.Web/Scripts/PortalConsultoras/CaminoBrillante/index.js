@@ -448,9 +448,7 @@ function ArmarMisGanancias(data) {
             title: {
                 display: true
             },
-            responsive: true,
-            showAllTooltips: true,
-
+            responsive: true 
         }
     });
 

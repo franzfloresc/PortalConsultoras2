@@ -95,6 +95,12 @@
   <wsdl:message name="IUsuarioService_CambiarClaveUsuario_OutputMessage">
     <wsdl:part name="parameters" element="tns:CambiarClaveUsuarioResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_CambiarContraseniaAleatoria_InputMessage">
+    <wsdl:part name="parameters" element="tns:CambiarContraseniaAleatoria" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_CambiarContraseniaAleatoria_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CambiarContraseniaAleatoriaResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ExisteUsuario_InputMessage">
     <wsdl:part name="parameters" element="tns:ExisteUsuario" />
   </wsdl:message>
@@ -172,6 +178,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarEmailSinEnvioCorreo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEmailSinEnvioCorreo" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarEmailSinEnvioCorreo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEmailSinEnvioCorreoResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarEmailWS_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEmailWS" />
@@ -472,6 +484,48 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetSolicitudesPedidoPendiente_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSolicitudesPedidoPendienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisFFVV_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisFFVV" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisFFVV_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisFFVVResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetListZonasUnete_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListZonasUnete" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetListZonasUnete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListZonasUneteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetActualizarContraseniaDefault_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActualizarContraseniaDefault" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetActualizarContraseniaDefault_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActualizarContraseniaDefaultResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContrasenia" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContraseniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContrasenia2" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContrasenia2Response" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnviarMailActualizaContraseniaFinalizado" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnviarMailActualizaContraseniaFinalizadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ContraseniaRepetida_InputMessage">
+    <wsdl:part name="parameters" element="tns:ContraseniaRepetida" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ContraseniaRepetida_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ContraseniaRepetidaResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
@@ -1020,6 +1074,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" message="tns:IUsuarioService_CambiarClaveUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse" message="tns:IUsuarioService_CambiarClaveUsuario_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="CambiarContraseniaAleatoria">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria" message="tns:IUsuarioService_CambiarContraseniaAleatoria_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoriaResponse" message="tns:IUsuarioService_CambiarContraseniaAleatoria_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ExisteUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ExisteUsuario" message="tns:IUsuarioService_ExisteUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ExisteUsuarioResponse" message="tns:IUsuarioService_ExisteUsuario_OutputMessage" />
@@ -1071,6 +1129,10 @@
     <wsdl:operation name="ActualizarEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmail" message="tns:IUsuarioService_ActualizarEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailResponse" message="tns:IUsuarioService_ActualizarEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailSinEnvioCorreo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo" message="tns:IUsuarioService_ActualizarEmailSinEnvioCorreo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreoResponse" message="tns:IUsuarioService_ActualizarEmailSinEnvioCorreo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmailWS">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailWS" message="tns:IUsuarioService_ActualizarEmailWS_InputMessage" />
@@ -1271,6 +1333,34 @@
     <wsdl:operation name="GetSolicitudesPedidoPendiente">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendiente" message="tns:IUsuarioService_GetSolicitudesPedidoPendiente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendienteResponse" message="tns:IUsuarioService_GetSolicitudesPedidoPendiente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisFFVV">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV" message="tns:IUsuarioService_GetConfiguracionPaisFFVV_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVVResponse" message="tns:IUsuarioService_GetConfiguracionPaisFFVV_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListZonasUnete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetListZonasUnete" message="tns:IUsuarioService_GetListZonasUnete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetListZonasUneteResponse" message="tns:IUsuarioService_GetListZonasUnete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActualizarContraseniaDefault">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefault" message="tns:IUsuarioService_GetActualizarContraseniaDefault_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefaultResponse" message="tns:IUsuarioService_GetActualizarContraseniaDefault_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContraseniaResponse" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2Response" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnviarMailActualizaContraseniaFinalizado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizado" message="tns:IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizadoResponse" message="tns:IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ContraseniaRepetida">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ContraseniaRepetida" message="tns:IUsuarioService_ContraseniaRepetida_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ContraseniaRepetidaResponse" message="tns:IUsuarioService_ContraseniaRepetida_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -1696,6 +1786,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CambiarContraseniaAleatoria">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ExisteUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ExisteUsuario" style="document" />
       <wsdl:input>
@@ -1806,6 +1905,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailSinEnvioCorreo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2256,6 +2364,69 @@
     </wsdl:operation>
     <wsdl:operation name="GetSolicitudesPedidoPendiente">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisFFVV">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListZonasUnete">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetListZonasUnete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActualizarContraseniaDefault">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefault" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia2">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnviarMailActualizaContraseniaFinalizado">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContraseniaRepetida">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ContraseniaRepetida" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3113,6 +3284,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CambiarContraseniaAleatoria">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ExisteUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ExisteUsuario" style="document" />
       <wsdl:input>
@@ -3223,6 +3403,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailSinEnvioCorreo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3673,6 +3862,69 @@
     </wsdl:operation>
     <wsdl:operation name="GetSolicitudesPedidoPendiente">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisFFVV">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListZonasUnete">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetListZonasUnete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActualizarContraseniaDefault">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefault" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia2">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnviarMailActualizaContraseniaFinalizado">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContraseniaRepetida">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ContraseniaRepetida" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

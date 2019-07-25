@@ -836,7 +836,8 @@
             DescripcionComercial: $('#txtDescripcionProductoComercial').val(),
             ImagenProducto: imagen,
             PaisID: paisID,
-            MostrarAgotado: $('#chkMostrarAgotado').length ? $('#chkMostrarAgotado').attr('checked') ? 1 : 0 : 0,
+            ImagenAppCatalogo : $("#chkImagenProductoAppCatalogo").prop("checked"),
+			MostrarAgotado: $('#chkMostrarAgotado').length ? $('#chkMostrarAgotado').attr('checked') ? 1 : 0 : 0,
             //INI HD-4289
             ConfiguracionZona: GetZonas($("#arbolRegionZonaModal"))
             //FIN HD-4289

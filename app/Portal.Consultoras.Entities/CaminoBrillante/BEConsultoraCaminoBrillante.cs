@@ -20,6 +20,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// Obtiene el Logros de Camino Brillante
         /// </summary>
         public List<BELogroCaminoBrillante> Logros { get; set; }
+        /// <summary>
+        /// Consultora Configuración de Camino Brillante
+        /// </summary>
+        public List<BEConfiguracionCaminoBrillante> Configuracion { get; set; }
 
         public class BENivelConsultoraCaminoBrillante
         {
