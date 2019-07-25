@@ -249,6 +249,16 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 e.PuntajeAcumulado = nivelActualConsutora.PuntajeAcumulado.HasValue ? nivelActualConsutora.PuntajeAcumulado : e.PuntajeAcumulado;
             });
 
+            /* Mensaje para Topacio */
+            if (periodo != null)
+            {
+                niveles.Where(e => e.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Topacio || e.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante).Update(e =>
+                {
+                    var Camp = (periodo.CampanaFinal % 100).ToString();
+                    e.Mensaje = string.Format("Recuerda pasar pedido hasta C{0}", Camp.Length == 1 ? "0" + Camp : Camp);
+                });
+            }
+
             return niveles;
         }
 
