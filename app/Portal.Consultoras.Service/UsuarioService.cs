@@ -995,6 +995,26 @@ namespace Portal.Consultoras.Service
         {
             return _caminoBrillanteBusinessLogic.GetCaminoBrillanteConfiguracion(paisID, esApp);
         }
+
+        public List<BENivelCaminoBrillante> GetNiveles(int paisID)
+        {
+            return _caminoBrillanteBusinessLogic.GetNiveles(paisID);
+        }
+
+        public List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel)
+        {
+            return _caminoBrillanteBusinessLogic.GetBeneficiosCaminoBrillante(paisID, codigoNivel);
+        }
+
+        public void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad)
+        {
+            _caminoBrillanteBusinessLogic.InsBeneficioCaminoBrillante(paisId, entidad);
+        }
+
+        public void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio)
+        {
+            _caminoBrillanteBusinessLogic.DelBeneficioCaminoBrillante(paisId, CodigoNivel, CodigoBeneficio);
+        }
         #endregion
 
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
