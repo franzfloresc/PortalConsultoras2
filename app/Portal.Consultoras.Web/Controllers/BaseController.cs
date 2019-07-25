@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -21,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using BEConsultora = Portal.Consultoras.Web.ServicePedido.BEConsultora;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -240,6 +242,26 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+        /*HD-4288 - Switch Consultora 100% */
+        public virtual int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID, paisID);
+
+        }
+
+        public virtual int DeshacerRecepcionPedido(int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.DeshacerRecepcionPedido(pedidoID, paisID);
+
+        }
+
+        public virtual BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.VerificarConsultoraDigital(codigoConsultora, pedidoID, paisID);
+
+        }
+        /*HD-4288 - Switch Consultora 100% - FIN */
+
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
             return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(noSession);
@@ -252,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
         {
-            if (session && SessionManager.GetMontosProl() != null) return SessionManager.GetMontosProl();
+            if (session && SessionManager.GetMontosProl() != null && SessionManager.GetMontosProl()[0].MontoTotalDescuento != null) return SessionManager.GetMontosProl();
 
             var montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
@@ -271,7 +293,14 @@ namespace Portal.Consultoras.Web.Controllers
                     montosProl = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigoZona, cuvs, cantidades, userData.CodigosConcursos).ToList();
                 }
             }
-
+            else {
+                montosProl[0].AhorroCatalogo = "0";
+                montosProl[0].AhorroRevista = "0";
+                montosProl[0].MontoEscala = "0";
+                montosProl[0].MontoTotalDescuento = "0";
+                montosProl[0].observacion = "";
+                montosProl[0].ListaConcursoIncentivos = null;
+            }
             SessionManager.SetMontosProl(montosProl);
 
             return montosProl;
@@ -384,9 +413,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     mensaje = result.Mensaje;
-
-                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-
                     return result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 }
             }
@@ -1203,7 +1229,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneRDC = revistaDigital.TieneRDC;
             ViewBag.TieneHV = herramientasVenta.TieneHV;
             ViewBag.revistaDigital = getRevistaDigitalShortModel();
-            ViewBag.variableBase = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo);
+            ViewBag.variableBase = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo, SessionManager.GetConfigMicroserviciosPersonalizacion());
 
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI) ||
                 (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
@@ -1275,6 +1301,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
 
+            _menuProvider.UrlGenerator = Url;
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
             var menuWeb = BuildMenu(userData, revistaDigital);
             var descLiqWeb = "";
@@ -1536,5 +1563,74 @@ namespace Portal.Consultoras.Web.Controllers
 
             return r;
         }
+
+        /*HD-4513*/
+
+        #region Pago Contado
+        public bool GetPagoContado()
+        {
+            bool band = true;
+
+            if (!userData.DiaPROL) band = false;
+
+
+            return userData.PagoContado && band;
+        }
+        public BEPedidoWeb UpdConfPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            BEPedidoWeb obj = new BEPedidoWeb();
+
+            bePedidoWeb.STPPagoContado =  GetPagoContado();
+            obj.STPPagoContado = bePedidoWeb.STPPagoContado;
+
+            if (!bePedidoWeb.STPPagoContado)
+                return obj;
+
+            //Consultar servicio
+            try
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    obj = sv.UpdPedidoTotalPagoContado(bePedidoWeb);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return obj;
+
+        }
+
+        public BEPedidoWeb GetConfPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            BEPedidoWeb obj = new BEPedidoWeb();
+
+            bePedidoWeb.STPPagoContado = GetPagoContado();
+            obj.STPPagoContado = bePedidoWeb.STPPagoContado;
+
+            if (!bePedidoWeb.STPPagoContado)
+                return obj;
+
+            //Consultar servicio
+            try
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    obj = sv.GetPedidoTotalPagoContado(bePedidoWeb);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return obj;
+
+        }
+
+
+        #endregion
     }
 }

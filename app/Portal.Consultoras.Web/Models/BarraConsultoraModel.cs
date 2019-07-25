@@ -39,5 +39,12 @@ namespace Portal.Consultoras.Web.Models
         public IList<BEMensajeMetaConsultora> ListaMensajeMeta { get; set; }
 
         public BarraTippingPoint TippingPointBarra  { get; set; }
+
+        /*HD-4513*/
+        public string STPDescuento { get; set; }
+        public string STPFlete { get; set; }
+        public string STPPagoTotal { get; set; }
+        public string STPDeuda { get; set; }
+
     }
 }
