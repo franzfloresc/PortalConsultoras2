@@ -844,7 +844,9 @@ function PreValidarProl() {
 }
 
 function IniciarValidarProl() {//Nombre de método enlazado al _PopupPedidosPendientes.cshtml
-  EjecutarPROL();
+    $('#PopupPedidosPendientes').fadeOut(250, function () {
+        EjecutarPROL();
+    });
 }
 
 function EjecutarPROL(cuvOfertaProl) {
