@@ -549,6 +549,7 @@ namespace Portal.Consultoras.Common
             public const string UrlImagenFAVLanding = "UrlImagenFAVLanding";
             public const string UrlPagoLineaChile = "UrlPagoLineaChile";
             public const string BaseDirectory = @"Uploads\Files"; /*HD-4327*/
+            public const string FechaDefault = "1/01/0001 00:00:00"; /*HD-4327*/
             public const string UrlPoliticasCDR = "UrlPoliticasCDR";
             public const string UrlLogDynamo = "UrlLogDynamo";
             public const string rutaImagenNotFoundAppCatalogo = "rutaImagenNotFoundAppCatalogo";
