@@ -85,8 +85,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
-
-                        //rslt = result ? 2 : 1;
                     }
                     else
                     {

@@ -1155,7 +1155,7 @@ namespace Portal.Consultoras.Data
                     oSqlBulkCopyDetalle.ColumnMappings.Add("CodigoVenta", "CUV");
                     oSqlBulkCopyDetalle.ColumnMappings.Add("Cantidad", "Cantidad");
                     oSqlBulkCopyDetalle.ColumnMappings.Add("LogCodigoUsuarioProceso", "CodigoUsuarioProceso");
-
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("OrigenPedidoWeb", "OrigenPedidoWeb");
                     oSqlBulkCopyDetalle.WriteToServer(dtPedidosDetalle);
                     oSqlBulkCopyDetalle.Close();
                 }
