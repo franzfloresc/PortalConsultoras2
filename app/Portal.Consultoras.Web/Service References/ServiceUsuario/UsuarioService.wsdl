@@ -449,6 +449,18 @@
   <wsdl:message name="IUsuarioService_DelBeneficioCaminoBrillante_OutputMessage">
     <wsdl:part name="parameters" element="tns:DelBeneficioCaminoBrillanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetIncentivosMontoExigencia_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIncentivosMontoExigencia" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetIncentivosMontoExigencia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIncentivosMontoExigenciaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsIncentivosMontoExigencia_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsIncentivosMontoExigencia" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsIncentivosMontoExigencia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsIncentivosMontoExigenciaResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarValidacionDatos_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarValidacionDatos" />
   </wsdl:message>
@@ -1315,6 +1327,14 @@
     <wsdl:operation name="DelBeneficioCaminoBrillante">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante" message="tns:IUsuarioService_DelBeneficioCaminoBrillante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillanteResponse" message="tns:IUsuarioService_DelBeneficioCaminoBrillante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIncentivosMontoExigencia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigencia" message="tns:IUsuarioService_GetIncentivosMontoExigencia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigenciaResponse" message="tns:IUsuarioService_GetIncentivosMontoExigencia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsIncentivosMontoExigencia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia" message="tns:IUsuarioService_InsIncentivosMontoExigencia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigenciaResponse" message="tns:IUsuarioService_InsIncentivosMontoExigencia_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ActualizarValidacionDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos" message="tns:IUsuarioService_ActualizarValidacionDatos_InputMessage" />
@@ -2320,6 +2340,24 @@
     </wsdl:operation>
     <wsdl:operation name="DelBeneficioCaminoBrillante">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIncentivosMontoExigencia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsIncentivosMontoExigencia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3827,6 +3865,24 @@
     </wsdl:operation>
     <wsdl:operation name="DelBeneficioCaminoBrillante">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIncentivosMontoExigencia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsIncentivosMontoExigencia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

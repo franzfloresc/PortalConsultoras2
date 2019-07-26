@@ -9864,6 +9864,8 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(int[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BERevistaDigitalSuscripcion))]
@@ -12200,6 +12202,132 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.ValorField, value) != true)) {
                     this.ValorField = value;
                     this.RaisePropertyChanged("Valor");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEIncentivosMontoExigencia", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
+        "te")]
+    [System.SerializableAttribute()]
+    public partial class BEIncentivosMontoExigencia : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AlcansoIncentivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoRegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MontoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AlcansoIncentivo {
+            get {
+                return this.AlcansoIncentivoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AlcansoIncentivoField, value) != true)) {
+                    this.AlcansoIncentivoField = value;
+                    this.RaisePropertyChanged("AlcansoIncentivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoCampania {
+            get {
+                return this.CodigoCampaniaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoCampaniaField, value) != true)) {
+                    this.CodigoCampaniaField = value;
+                    this.RaisePropertyChanged("CodigoCampania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoRegion {
+            get {
+                return this.CodigoRegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoRegionField, value) != true)) {
+                    this.CodigoRegionField = value;
+                    this.RaisePropertyChanged("CodigoRegion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoZona {
+            get {
+                return this.CodigoZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoZonaField, value) != true)) {
+                    this.CodigoZonaField = value;
+                    this.RaisePropertyChanged("CodigoZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Monto {
+            get {
+                return this.MontoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MontoField, value) != true)) {
+                    this.MontoField = value;
+                    this.RaisePropertyChanged("Monto");
                 }
             }
         }
@@ -18603,6 +18731,18 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillanteResponse")]
         System.Threading.Tasks.Task DelBeneficioCaminoBrillanteAsync(int paisId, string CodigoNivel, string CodigoBeneficio);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigencia", ReplyAction="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigenciaResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia[] GetIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigencia", ReplyAction="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigenciaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia[]> GetIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia", ReplyAction="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigenciaResponse")]
+        void InsIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia", ReplyAction="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigenciaResponse")]
+        System.Threading.Tasks.Task InsIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
         int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
         
@@ -19785,6 +19925,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task DelBeneficioCaminoBrillanteAsync(int paisId, string CodigoNivel, string CodigoBeneficio) {
             return base.Channel.DelBeneficioCaminoBrillanteAsync(paisId, CodigoNivel, CodigoBeneficio);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia[] GetIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
+            return base.Channel.GetIncentivosMontoExigencia(paisId, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia[]> GetIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
+            return base.Channel.GetIncentivosMontoExigenciaAsync(paisId, entidad);
+        }
+        
+        public void InsIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
+            base.Channel.InsIncentivosMontoExigencia(paisId, entidad);
+        }
+        
+        public System.Threading.Tasks.Task InsIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
+            return base.Channel.InsIncentivosMontoExigenciaAsync(paisId, entidad);
         }
         
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2) {
