@@ -940,11 +940,13 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
         if (res.hasOwnProperty("MostrarMensajeExito")) { // si es periodo de venta
             if (res.MostrarMensajeExito) {
                 var idPedidoGuardado = "#PopupPedidoGuardado";
-                $(idPedidoGuardado).fadeIn(250);
-                mostrarLluvia();
+                $(idPedidoGuardado).fadeIn(250, function () {
+                    setContainerLluvia(idPedidoGuardado);
+                    mostrarLluvia();
+                });
                 setTimeout(function () {
-                    $(idPedidoGuardado).fadeOut(250);
                     ocultarLluvia();
+                    $(idPedidoGuardado).fadeOut(250);
                 }, 2750);
                 return false;
             }
@@ -972,9 +974,10 @@ function EjecutarAccionesReservaExitosa(response) {
         var idPedidoGuardado = "#PopupPedidoGuardado", msgReservado = "#msgPedidoReservado", msgGuardado = "#msgPedidoGuardado";
         $(msgGuardado).hide();
         $(msgReservado).show();
-        setContainerLluvia(idPedidoGuardado);
-        mostrarLluvia();
-        $(idPedidoGuardado).fadeIn(250);
+        $(idPedidoGuardado).fadeIn(250, function () {
+            setContainerLluvia(idPedidoGuardado);
+            mostrarLluvia();
+        });
         setTimeout(function () {
             ocultarLluvia();
             $(idPedidoGuardado).fadeOut(250);

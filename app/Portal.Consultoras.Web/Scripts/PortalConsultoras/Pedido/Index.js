@@ -2089,8 +2089,10 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
         if (res.hasOwnProperty("MostrarMensajeExito")) {
             if (res.MostrarMensajeExito) {
                 var idPedidoGuardado = "#PopupPedidoGuardado";
-                $(idPedidoGuardado).fadeIn(250);
-                mostrarLluvia();
+                $(idPedidoGuardado).fadeIn(250, function () {
+                    setContainerLluvia(idPedidoGuardado);
+                    mostrarLluvia();
+                });
                 setTimeout(function () {
                     ocultarLluvia();
                     $(idPedidoGuardado).fadeOut(250);
@@ -2120,8 +2122,10 @@ function EjecutarAccionesReservaExitosa(response) {
         var idPedidoGuardado = "#PopupPedidoGuardado", msgReservado = "#msgPedidoReservado", msgGuardado = "#msgPedidoGuardado";
         $(msgGuardado).hide();
         $(msgReservado).show();
-        mostrarLluvia();
-        $(idPedidoGuardado).fadeIn(250);
+        $(idPedidoGuardado).fadeIn(250, function () {
+            setContainerLluvia(idPedidoGuardado);
+            mostrarLluvia();
+        });
         setTimeout(function () {
             ocultarLluvia();
             $(idPedidoGuardado).fadeOut(250);
