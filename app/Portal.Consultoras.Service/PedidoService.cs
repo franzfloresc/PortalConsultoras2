@@ -1765,6 +1765,8 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
         }
 
+    
+
         public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID)
         {
             return BLPedidoWeb.ObtenerUltimaDescargaExitosa(PaisID);
@@ -2425,6 +2427,7 @@ namespace Portal.Consultoras.Service
             }
         }
 
+       
         public BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
         {
             return blEstrategia.GetEstrategiaPremiosTippingPoint(paisID, codigoPrograma, anioCampana, codigoNivel);
@@ -2488,10 +2491,64 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetCuvSuscripcionSE(bEPedidoWeb);
         }
 
-        public bool InsertKitSE(BEUsuario usuario)
+ 			public bool InsertKitSE(BEUsuario usuario)
         {
             return _pedidoBusinessLogic.InsertKitSE(usuario);
         }
+
+        //FIN HD-4200
+
+
+        #region HD-4327
+
+        public BEDescargaArchivoSinMarcar DescargaPedidosSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
+        {
+            try
+            {
+                return BLPedidoWeb.DescargaPedidosSinMarcar(paisID, campaniaid, nroLote, codigoUsuario);
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw new FaultException("Error desconocido.");
+            }
+        }
+
+        public string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, DateTime fechaFacturacion)
+        {
+            try
+            {
+                return BLPedidoWeb.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, nroLote, fechaFacturacion);
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new FaultException("Error desconocido.");
+            }
+        }
+
+        public BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int paisID, int campaniaID)
+        {
+            return BLPedidoWeb.ObtenerUltimaDescargaPedidoSinMarcar(paisID, campaniaID);
+        }
+
+        public BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID)
+        {
+            return BLPedidoWeb.ObtenerUltimaDescargaSinMarcar(paisID);
+        }
+
+        public int ObtenerultimaLlamadaPedidodescargavalidador(int paisID)
+        {
+            return BLPedidoWeb.ObtenerultimaLlamadaPedidodescargavalidador(paisID);
+        }
+        #endregion
 
         #region HD-4288 - Switch Consultora 100%
         public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)

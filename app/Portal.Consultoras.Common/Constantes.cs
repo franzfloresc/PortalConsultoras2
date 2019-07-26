@@ -5,6 +5,47 @@ namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
+
+        /*HD-4327*/
+        public static class TipoProceso
+        {
+            public const int Regular = 1;
+            public const int DemandaAnticipada = 2;
+            public const int DemandaAnticipadaPRD = 3;
+            public const int FIC = 4;
+            public const int GenerarLideres = 5;
+        }
+
+        public static class MensajeProcesoDescargaregular
+        {
+            public const string Terminado = "El proceso terminó satisfactoriamente";
+            public const string Error = "El proceso tuvo complicaciones";
+            public const string respuestaexito = "a";
+            public const string respuestanoCarga = "b";
+            public const string respuestanoCargaSinDatos = "c";
+            public const string MensajeRetorno = "Se está ejecutando un proceso desde otro punto para otra campaña, espere unos minutos y vuelva a intentarlo.";
+            public const string ExitoDescargaWebDD = " El proceso de descarga de pedidos ha finalizado satisfactoriamente";
+            public const string NingunaDescargaWebDD = " El proceso de descarga de pedidos no se realizó por falta de datos";
+            public const string nombreArchivoCabWeb = "PWC";
+            public const string nombreArchivoCabDD = "PDC";
+            public const string nombreArchivoDetWeb = "PWD";
+            public const string nombreArchivoDetDD = "PDD";
+            public const string origenWeb = "W";
+            public const string origeDD = "D";
+        }
+
+        public static class EstadoValorProcesoDescargaregular
+        {
+            public const int Terminado = 1;
+            public const int Error = 2;
+            public const int EnProceso = 0;
+        }
+
+        /*FIN*/
+
+
+
+
         public static class TipoSeccion
         {
             public const string Video = "01";
@@ -507,6 +548,8 @@ namespace Portal.Consultoras.Common
             public const string UrlImagenFAVHome = "UrlImagenFAVHome";
             public const string UrlImagenFAVLanding = "UrlImagenFAVLanding";
             public const string UrlPagoLineaChile = "UrlPagoLineaChile";
+            public const string BaseDirectory = @"Uploads\Files"; /*HD-4327*/
+            public const string FechaDefault = "1/01/0001 00:00:00"; /*HD-4327*/
             public const string UrlPoliticasCDR = "UrlPoliticasCDR";
             public const string UrlLogDynamo = "UrlLogDynamo";
             public const string rutaImagenNotFoundAppCatalogo = "rutaImagenNotFoundAppCatalogo";
@@ -1189,6 +1232,8 @@ namespace Portal.Consultoras.Common
             public const string mensajeBackOrderDestokp = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
             public const string mensajeBackOrderMobile = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
         }
+
+
 
         public static class EstadoCDRWeb
         {
