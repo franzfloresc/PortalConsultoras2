@@ -96,7 +96,7 @@
     .layout__container--fechasFacturacion{
         margin-top:40px;
         min-width:0;
-        max-width:648px;
+        max-width:748px;
     }
 
         .seccion__campania__actual{
@@ -134,6 +134,11 @@
                 .datos__campania > div{
                     margin-bottom:0;
                 }
+
+                    .datos__campania > div:first-child {
+                        flex: 0 0 350px;
+                        max-width: 350px;
+                    }
 
                     .num__campania{
                         margin-right:27px;

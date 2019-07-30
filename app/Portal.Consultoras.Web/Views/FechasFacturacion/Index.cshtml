@@ -7,13 +7,6 @@
     ViewBag.Title = "Fechas de Facturación";
 }
 
-
-
-
-
-
-
-
 <link href="@Url.Content("~/Content/Css/Site/FechasFacturacion/fechas-facturacion.css")" rel="stylesheet" />
 
 <!-- TITULO DE VISTA FECHAS DE FACTURACIÓN -->
@@ -32,8 +25,8 @@
 </section>
 <div class="row flex-row mx-auto pestana__lbel"></div>
 <!-- FIN - TITULO DE VISTA FECHAS DE FACTURACIÓN -->
-<!-- CONTENIDO VISTA -->
 
+<!-- CONTENIDO VISTA -->
 <main class="d-flex flex-row flex-wrap justify-content-center center-block layout__container layout__container--fechasFacturacion">
     <section class="d-flex flex-row flex-wrap border-radius-4 seccion__campania__actual" id="FechaActual">
         @if (Model.ListFechaFacturacionActual != null && Model.ListFechaFacturacionActual.Length > 0)
@@ -178,7 +171,6 @@
 
     </section>
 </main>
-
 <!-- FIN - CONTENIDO VISTA -->
 
 @section scripts{
