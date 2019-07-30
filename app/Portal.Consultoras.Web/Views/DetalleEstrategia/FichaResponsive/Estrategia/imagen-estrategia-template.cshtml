@@ -8,7 +8,7 @@
     </div>
     {{#iff this.FotosCarrusel.length '==' 0 }}
     <div class="contenedor_imagen">
-        <div>
+        <div class="contenedor_carrusel">
             {{#iff TipoPersonalizacion '==' 'CAT'}}
             <img src="{{FotoProducto01}}" data-imagen-producto="{{FotoProducto01}}" />
             {{/iff}}
@@ -26,7 +26,7 @@
     </div>
     {{else}}
     <div class="row no-gutters">
-        <div class="col-3 d-none d-sm-none d-md-none d-lg-block">
+        <div class="col-2 d-none d-sm-none d-md-none d-lg-block"  style="margin-top: 20px;">
             <div class="contenedor_imagen_thumbnail slider-nav">
                 <div class="contenedor_carrusel">
                     {{#iff TipoPersonalizacion '==' 'CAT'}}

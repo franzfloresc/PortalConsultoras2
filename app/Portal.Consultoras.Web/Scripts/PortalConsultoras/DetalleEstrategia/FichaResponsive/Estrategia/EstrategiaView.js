@@ -59,7 +59,6 @@
             slidesToScroll: 1,
             arrows: false,
             asNavFor: '.slider-nav',
-            
             infinite: false,
             dots: false,
             fade: true,
@@ -77,16 +76,15 @@
         })                 
         
         $('.slider-nav').slick({
-            slidesToShow: 10,
+            slidesToShow: 5,
             slidesToScroll: 1,
-            
             asNavFor: '.slider-for',
             dots: false,
             infinite: false,
-            arrows: false,
-            centerMode: true,
             focusOnSelect: true,
-            vertical: true
+            vertical: true,
+            prevArrow: '<div class="arrow prev arrow_vertical"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
+            nextArrow: '<div class="arrow next arrow_vertical"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
         });
 
         SetHandlebars(_elements.estrategia.templateId, estrategia, _elements.estrategia.id);
