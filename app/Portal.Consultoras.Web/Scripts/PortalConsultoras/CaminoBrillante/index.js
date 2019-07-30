@@ -3,12 +3,12 @@ var scrollLogros = true
 
 $(document).ready(function () {
     Carusel();
-    if ($("#template-kit").length > 0) {
+    if (TineCarrusel == "1" && $("#template-kit").length > 0) {
         Handlebars.registerPartial("kit_template", $("#template-kit").html());
         Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+        CargarCarrusel();
     }
-    if (TineCarrusel == "1") CargarCarrusel();
-
+    
     if (TieneGanancias == "1") CargarGanancias();
     var nivelactual = $("#hfNivelActual").val();
 
@@ -456,10 +456,13 @@ function ArmarMisGanancias(data) {
         }
     });
 
-    var item = data.MisGanancias[indexSeleccion];
-    $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
-    $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
-    $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
+    if (indexSeleccion > -1) {
+        var item = data.MisGanancias[indexSeleccion];
+        //var iteminicial = data.MisGanancias[0];
+        $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
+        $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
+        $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
+    }
 
     $("#titulo-ganancia").text(data.Titulo);
     $("#titulo-subtitulo").text(data.SubTitulo);
@@ -479,6 +482,8 @@ function ArmarMisGanancias(data) {
 
 function ArmarCarrusel(data) {
     if (data.Items.length == 0) return;
+
+
     var htmlDiv = SetHandlebars("#template-carrusel", data);
     $('#carrusel').append(htmlDiv);
     $('#carrusel').show();
