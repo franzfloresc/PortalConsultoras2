@@ -1,12 +1,17 @@
-﻿
+﻿@using Portal.Consultoras.Web.Models.CaminoBrillante
+@using Portal.Consultoras.Common
 @{
     //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var data = ViewBag.Informacion;
     var categoria = ViewBag.Vista;
+    data = new { Titulo = "Logros" };
+    //data.Titulo = "Logros";
+
 }
 
 @section css{
+
     <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
     <style>
         div.content_responsive {
@@ -23,7 +28,7 @@
                 <a id="is-desktop" href="@Url.Action("Index", "Bienvenida")" title="Home">Home</a>
             </li>
             <li class="layout__view__breadcrumb">
-                <a href="@Url.Action("Index","CaminoBrillante")" class="d-block" title="CaminoBrillante">Camino Brillante</a>
+                <a href="@Url.Action("Index", "CaminoBrillante")" class="d-block" title="CaminoBrillante">Camino Brillante</a>
             </li>
             <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
                 <span class="d-block">@ViewBag.Vista</span>
@@ -35,102 +40,109 @@
 <br />
 <div class="container" id="logros"></div>
 <br />
+<div class="clear" ></div>
 
 <script id="template-logros" type="text/x-handlebars-template">
-    <h2 class="title">{{Titulo}}</h2>
-    {{#IsNullOrEmpty Descripcion '!='}}
-    {{/IsNullOrEmpty}}
-    {{#each Indicadores}}
-    <div class="box-camb">
-        <input type="hidden" id="txttitulo" value="{{Titulo}}" />
-        <p class="text-bold">{{Titulo}}</p>
+    {{#each this}}
+    {{#if_eq Id 'RESUMEN'}}
+    <div class="top-boxlogros">
+        <div class="foto_perfil_home"><img id="imgFotoUsuario" src="@ViewBag.FotoPerfil"></div>
+        {{#each Indicadores}}
+        <span class="top-anios"><img src="~/Content/CaminoBrillante/imgs/corazon.png">{{Titulo}}</span>
+        <p class="frase-logros">{{Descripcion}}</p>
+        <ul class="bar-logros">{{#each Medallas }}<li><span>{{Titulo}}</span><p>{{Valor}}</p></li>{{/each}}</ul>
+        {{/each}}
+    </div>
+    {{else if_eq Id 'CONSTANCIA_DETALLADA'}}
+    <div class="box-camb mo-2">
         <div class="cambio-crec">
-            {{#each Medallas }}
-            <div class="itm">
-                {{#if_eq Tipo 'PIE'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
+            <section class="regular  slider">
+                {{#each Indicadores}}
+                <div class="right-m">
+                    <p id="indicador-title" class="text-bold _hide">{{Titulo}}</p>
+                    {{#each Medallas }}
+                    <div class="itm">
+                        <div class="bord circle-porcent imgpizz">
+                            <img src="{{UrlMedalla}}" />
+                        </div>
+                        <span class="como-log inactivo">{{Valor}}</span>
+                    </div>
+                    {{/each}}
                 </div>
-                {{else if_eq Tipo 'CIRC'}}
-                <div class="circle-porcent {{#if Estado}}crec-activo{{else}}crec-inactivo{{/if}}">
-                    <span>{{Valor}}</span>
-                </div>
-                {{else if_eq Tipo 'NIV'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
-                </div>
-                {{else if_eq Tipo 'PED'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
-                </div>
-                {{else if_eq Tipo 'TIME'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
-                </div>
-                {{/if_eq}}
-
-                {{#if_eq Tipo 'NIV'}}
-                {{else}}
-                <a href="#" class="inactivo">{{Titulo}}</a>
-                {{/if_eq}}
-
-                {{#if Estado}}
-                <span class="como-log inactivo">{{Subtitulo}}</span>
-                {{else}}
-                <span data-toggle="modal" class=" como-log {{#IsNullOrEmpty ModalTitulo}}{{#IsNullOrEmpty ModalDescripcion}}inactivo{{/IsNullOrEmpty}}{{/IsNullOrEmpty}}"
-                      {{#IsNullOrEmpty ModalTitulo '!='}} {{#IsNullOrEmpty ModalDescripcion '!='}}
-                      data-target="#medalla-{{../Codigo}}-{{@Html.Raw("@index")}}"
-                      onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
-                      {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
-                {{#IsNullOrEmpty ModalTitulo '!='}}
-                {{#IsNullOrEmpty ModalDescripcion '!='}}
-                <div class="modal fade" id="medalla-{{../Codigo}}-{{@Html.Raw("@index")}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}')">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <div class="modal-body pad-center">
-                                <div class="indicador-nivel">
-                                    {{#if_eq Tipo 'PIE'}}
-                                    <div class="circle-porcent imgpizz crec-activo">
-                                        <img src="{{UrlMedallaFull}}" />
-                                    </div>
-                                    {{else if_eq Tipo 'CIRC'}}
-                                    <div class="circle-porcent crec-activo">
-                                        <span>{{Valor}}</span>
-                                    </div>
-                                    {{else if_eq Tipo 'NIV'}}
-                                    <div class="circle-porcent imgpizz crec-activo">
-                                        <img src='{{UrlMedallaFull}}'>
-                                    </div>
-                                    {{else if_eq Tipo 'PED'}}
-                                    <div class="circle-porcent imgpizz crec-activo">
-                                        <img src="{{UrlMedallaFull}}" />
-                                    </div>
-                                    {{else if_eq Tipo 'TIME'}}
-                                    <div class="circle-porcent imgpizz crec-activo">
-                                        <img src="{{UrlMedallaFull}}" />
-                                    </div>
-                                    {{/if_eq}}
-                                    <div class="left-mod">
-                                        <h2>{{ModalTitulo}}</h2>
-                                        <p>{{{ModalDescripcion}}}</p>
+                {{/each}}
+            </section>
+        </div>
+    </div>
+    {{else}}
+    <div>
+        {{#each Indicadores}}
+        <div class="box-camb mo-1">
+            <p class="text-bold">{{Titulo}}</p>
+            <div class="cambio-crec">
+                {{#each Medallas }}
+                <div class="itm">
+                    {{#if_eq Tipo 'CIRC'}}
+                    <div class="bord circle-porcent {{#if Estado}}crec-activo{{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
+                    {{/if_eq}}
+                    {{#if Estado}}
+                    <span class="como-log inactivo">{{Subtitulo}}</span>
+                    {{else}}
+                    <span data-toggle="modal" class=" como-log {{#IsNullOrEmpty ModalTitulo}}{{#IsNullOrEmpty ModalDescripcion}}inactivo{{/IsNullOrEmpty}}{{/IsNullOrEmpty}}"
+                          {{#IsNullOrEmpty ModalTitulo '!='}} {{#IsNullOrEmpty ModalDescripcion '!='}}
+                          data-target="#medalla-{{../Codigo}}-{{@Html.Raw("@index")}}"
+                          onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
+                          {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
+                    {{#IsNullOrEmpty ModalTitulo '!='}}
+                    {{#IsNullOrEmpty ModalDescripcion '!='}}
+                    <div class="modal fade" id="medalla-{{../Codigo}}-{{@Html.Raw("@index")}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}')">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div class="modal-body pad-center">
+                                    <div class="indicador-nivel">
+                                        {{#if_eq Tipo 'PIE'}}
+                                        <div class="circle-porcent imgpizz crec-activo">
+                                            <img src="{{UrlMedallaFull}}" />
+                                        </div>
+                                        {{else if_eq Tipo 'CIRC'}}
+                                        <div class="circle-porcent crec-activo">
+                                            <span>{{Valor}}</span>
+                                        </div>
+                                        {{else if_eq Tipo 'NIV'}}
+                                        <div class="circle-porcent imgpizz crec-activo">
+                                            <img src='{{UrlMedallaFull}}'>
+                                        </div>
+                                        {{else if_eq Tipo 'PED'}}
+                                        <div class="circle-porcent imgpizz crec-activo">
+                                            <img src="{{UrlMedallaFull}}" />
+                                        </div>
+                                        {{else if_eq Tipo 'TIME'}}
+                                        <div class="circle-porcent imgpizz crec-activo">
+                                            <img src="{{UrlMedallaFull}}" />
+                                        </div>
+                                        {{/if_eq}}
+                                        <div class="left-mod">
+                                            <h2>{{ModalTitulo}}</h2>
+                                            <p>{{{ModalDescripcion}}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {{/IsNullOrEmpty}}
+                    {{/IsNullOrEmpty}}
+                    {{/if}}
                 </div>
-                {{/IsNullOrEmpty}}
-                {{/IsNullOrEmpty}}
-                {{/if}}
+                {{/each}}
             </div>
-            {{/each}}
         </div>
+        {{/each}}
     </div>
+    {{/if_eq}}
     {{/each}}
-    <div class="clear"></div>
 </script>
 
 @section scripts{
@@ -138,6 +150,34 @@
         var urlGetLogros = '@Url.Action("GetLogros", "CaminoBrillante")';
         var categoriaLogro = "@categoria";
     </script>
+
+    <script>
+
+        function onRenderedTemplate() {
+            $(".regular").slick({
+                dots: false,
+                infinite: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                prevArrow: '<a style="display: block;left: 0;margin-left: -3%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                nextArrow: '<a style="display: block;right: 0;margin-right: 2%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            prevArrow: '<a style="display: block;left: 0;margin-left: -4%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                            nextArrow: '<a style="display: block;right: 0;margin-right: 0%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                        }
+                    }
+                ]
+            });
+        }
+
+    </script>
+
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
+
 }
