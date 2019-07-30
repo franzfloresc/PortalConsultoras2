@@ -124,10 +124,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var data = new
                     {
-                        objPedidosCabWeb_ = FormateaPedidoCabWeb(objBEDescargaArchivoSinMarcar, Constantes.MensajeProcesoDescargaregular.nombreArchivoCabWeb, Constantes.MensajeProcesoDescargaregular.origenWeb, campaniaid),
-                        objPedidosDetWeb_ = FormateaPedidoDet(objBEDescargaArchivoSinMarcar.dtPedidosDetWeb,  objBEDescargaArchivoSinMarcar, Constantes.MensajeProcesoDescargaregular.nombreArchivoDetWeb, Constantes.MensajeProcesoDescargaregular.origenWeb, campaniaid),
-                        objPedidosCabDD_ = FormateaPedidoCabDD(objBEDescargaArchivoSinMarcar, Constantes.MensajeProcesoDescargaregular.nombreArchivoCabDD, Constantes.MensajeProcesoDescargaregular.origeDD, campaniaid),
-                        objPedidosDetDD_ = FormateaPedidoDet(objBEDescargaArchivoSinMarcar.dtPedidosDetDD, objBEDescargaArchivoSinMarcar, Constantes.MensajeProcesoDescargaregular.nombreArchivoDetDD, Constantes.MensajeProcesoDescargaregular.origeDD, campaniaid),
+                        objPedidosCab_ = FormateaPedidoCabWeb(objBEDescargaArchivoSinMarcar, Constantes.MensajeProcesoDescargaregular.nombreArchivoCabWeb,  campaniaid),
+                        objPedidosDet_ = FormateaPedido( objBEDescargaArchivoSinMarcar, Constantes.MensajeProcesoDescargaregular.nombreArchivoDetWeb, campaniaid),
                         msnRespuesta_ = objBEDescargaArchivoSinMarcar.msnRespuesta
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -175,88 +173,95 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
        
-        private string FormateaPedidoCabWeb(BEDescargaArchivoSinMarcar  objBEDescargaArchivoSinMarcar, string nombreArchivo, string origen, int campaniaid)
+        private string FormateaPedidoCabWeb(BEDescargaArchivoSinMarcar  objBEDescargaArchivoSinMarcar, string nombreArchivo, int campaniaid)
         {
             string headerFile = string.Empty;
-            if (objBEDescargaArchivoSinMarcar.dtPedidosCabWeb.Rows.Count > 0)
+            string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constantes.ConfiguracionManager.BaseDirectory);
+            if (!Directory.Exists(path))
             {
-                Guid fileGuid = Guid.NewGuid();
-                string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constantes.ConfiguracionManager.BaseDirectory);
-                headerFile = FormatFileSinMarcar(objBEDescargaArchivoSinMarcar.codigoPais, string.Concat(nombreArchivo, ".txt"), campaniaid, fileGuid);
-                if (!Directory.Exists(path))
-                {
-                  Directory.CreateDirectory(headerFile);
-                }
+                Directory.CreateDirectory(headerFile);
+            }
 
-                using (var streamWriter = new StreamWriter(headerFile))
+            using (var srv = new PedidoServiceClient())
+            {
+                headerFile = srv.GetRutaPedidoDescargaSinMarcar(campaniaid, userData.PaisID, Constantes.ConfiguracionManager.Cabecera, path);
+            }
+
+            using (var streamWriter = new StreamWriter(headerFile))
+            {
+                bool vacio = true;
+                if (objBEDescargaArchivoSinMarcar.dtPedidosCabWeb.Rows.Count > 0 && objBEDescargaArchivoSinMarcar.dtPedidosDetWeb.Rows.Count > 0)
                 {
+                    vacio = false;
                     foreach (DataRow row in objBEDescargaArchivoSinMarcar.dtPedidosCabWeb.Rows)
                     {
-                        streamWriter.WriteLine(HeaderLineSinMarcar(objBEDescargaArchivoSinMarcar.headerTemplate, row, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.fechaFacturacion, objBEDescargaArchivoSinMarcar.lote.ToString(), origen));
+                        streamWriter.WriteLine(HeaderLineSinMarcar(objBEDescargaArchivoSinMarcar.headerTemplate, row, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.fechaFacturacion, objBEDescargaArchivoSinMarcar.lote.ToString(), "W"));
                     }
                 }
-            }
-            return headerFile;
-        }
 
-        private string FormatFileSinMarcar(string codigoPais, string fileName, int campanaId, Guid fileGuid)
-        {
-            return System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Uploads\Files\")
-                + Path.GetFileNameWithoutExtension(fileName) + "-"
-                + codigoPais + "-" + campanaId.ToString() + "-"
-                + fileGuid.ToString() + Path.GetExtension(fileName);
-        }
-
-        private string FormateaPedidoCabDD(BEDescargaArchivoSinMarcar objBEDescargaArchivoSinMarcar, string nombreArchivo,string origen, int campaniaid)
-        {
-            string headerFile = string.Empty;
-                
-            if (objBEDescargaArchivoSinMarcar.dtPedidosCabDD.Rows.Count > 0)
-            {
-                Guid fileGuid = Guid.NewGuid();
-                string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Uploads\Files");
-                headerFile = FormatFileSinMarcar(objBEDescargaArchivoSinMarcar.codigoPais, string.Concat(nombreArchivo, ".txt"), campaniaid, fileGuid);
-                if (!Directory.Exists(path))
+                if (objBEDescargaArchivoSinMarcar.dtPedidosCabDD.Rows.Count > 0 && objBEDescargaArchivoSinMarcar.dtPedidosDetDD.Rows.Count > 0)
                 {
-                    Directory.CreateDirectory(headerFile);
-                }
-
-                using (var streamWriter = new StreamWriter(headerFile))
-                {
+                    vacio = false;
                     foreach (DataRow row in objBEDescargaArchivoSinMarcar.dtPedidosCabDD.Rows)
                     {
-                        streamWriter.WriteLine(HeaderLineSinMarcar(objBEDescargaArchivoSinMarcar.headerTemplate, row, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.fechaFacturacion, objBEDescargaArchivoSinMarcar.lote.ToString(), origen));
+                        streamWriter.WriteLine(HeaderLineSinMarcar(objBEDescargaArchivoSinMarcar.headerTemplate, row, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.fechaProceso, objBEDescargaArchivoSinMarcar.fechaFacturacion, objBEDescargaArchivoSinMarcar.lote.ToString(), "D"));
                     }
+                }
+                if (vacio)
+                {
+                    streamWriter.Write(string.Empty);
+                    headerFile = string.Empty;
                 }
             }
             return headerFile;
         }
 
-        private string FormateaPedidoDet(DataTable table,BEDescargaArchivoSinMarcar objBEDescargaArchivoSinMarcar, string nombreArchivo, string origen, int campaniaid)
+
+        private string FormateaPedido(BEDescargaArchivoSinMarcar objBEDescargaArchivoSinMarcar, string nombreArchivo,int campaniaid)
         {
             string headerFile = string.Empty;
+            string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constantes.ConfiguracionManager.BaseDirectory);
 
-            if (table.Rows.Count > 0)
+            if (!Directory.Exists(path))
             {
-
-                Guid fileGuid = Guid.NewGuid();
-                string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Uploads\Files");
-                headerFile = FormatFileSinMarcar(objBEDescargaArchivoSinMarcar.codigoPais, string.Concat(nombreArchivo, ".txt"), campaniaid, fileGuid);
-                if (!Directory.Exists(path))
-                {
-                   Directory.CreateDirectory(headerFile);
-                }
-
+                Directory.CreateDirectory(headerFile);
+            }
+            using (var srv = new PedidoServiceClient())
+            {
+                headerFile = srv.GetRutaPedidoDescargaSinMarcar(campaniaid, userData.PaisID, Constantes.ConfiguracionManager.Detalle, path);
+            }
+                
                 using (var streamWriter = new StreamWriter(headerFile))
                 {
-                    foreach (DataRow row in table.Rows)
+                    bool vacio = true;
+                    if (objBEDescargaArchivoSinMarcar.dtPedidosDetWeb.Rows.Count > 0)
                     {
-                        streamWriter.WriteLine(DetailLineSinMarcar(objBEDescargaArchivoSinMarcar.detailTemplate, row, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.lote.ToString()));
+                        vacio = false;
+                        foreach (DataRow row in objBEDescargaArchivoSinMarcar.dtPedidosDetWeb.Rows)
+                        {
+                            streamWriter.WriteLine(DetailLineSinMarcar(objBEDescargaArchivoSinMarcar.detailTemplate, row, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.lote.ToString()));
+                        }
                     }
+                    if (objBEDescargaArchivoSinMarcar.dtPedidosDetDD.Rows.Count > 0)
+                    {
+                        vacio = false;
+                        foreach (DataRow row in objBEDescargaArchivoSinMarcar.dtPedidosDetDD.Rows)
+                        {
+                            streamWriter.WriteLine(DetailLineSinMarcar(objBEDescargaArchivoSinMarcar.detailTemplate, row, objBEDescargaArchivoSinMarcar.codigoPais, objBEDescargaArchivoSinMarcar.lote.ToString()));
+                        }
+                    }
+
+                if (vacio)
+                {
+                    streamWriter.Write(string.Empty);
+                    headerFile = string.Empty;
                 }
+
             }
+            
 
             return headerFile;
+
         }
 
         [HttpPost]

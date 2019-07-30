@@ -48541,6 +48541,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaSinMarcar", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaSinMarcarResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaSinMarcarAsync(int paisID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetRutaPedidoDescargaSinMarcar", ReplyAction="http://tempuri.org/IPedidoService/GetRutaPedidoDescargaSinMarcarResponse")]
+        string GetRutaPedidoDescargaSinMarcar(int campaniaid, int paisID, string tipo, string path);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetRutaPedidoDescargaSinMarcar", ReplyAction="http://tempuri.org/IPedidoService/GetRutaPedidoDescargaSinMarcarResponse")]
+        System.Threading.Tasks.Task<string> GetRutaPedidoDescargaSinMarcarAsync(int campaniaid, int paisID, string tipo, string path);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertKitSE", ReplyAction="http://tempuri.org/IPedidoService/InsertKitSEResponse")]
         bool InsertKitSE(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
@@ -51251,6 +51257,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaSinMarcarAsync(int paisID) {
             return base.Channel.ObtenerUltimaDescargaSinMarcarAsync(paisID);
+        }
+        
+        public string GetRutaPedidoDescargaSinMarcar(int campaniaid, int paisID, string tipo, string path) {
+            return base.Channel.GetRutaPedidoDescargaSinMarcar(campaniaid, paisID, tipo, path);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetRutaPedidoDescargaSinMarcarAsync(int campaniaid, int paisID, string tipo, string path) {
+            return base.Channel.GetRutaPedidoDescargaSinMarcarAsync(campaniaid, paisID, tipo, path);
         }
         
         public bool InsertKitSE(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {

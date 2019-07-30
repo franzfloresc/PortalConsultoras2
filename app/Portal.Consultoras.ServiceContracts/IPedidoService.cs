@@ -1377,6 +1377,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID);
+
+        [OperationContract]
+        string GetRutaPedidoDescargaSinMarcar(int campaniaid, int paisID, string tipo, string path);
+
         
         #endregion
 

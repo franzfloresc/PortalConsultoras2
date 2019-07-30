@@ -616,6 +616,12 @@ namespace Portal.Consultoras.BizLogic
             return s;
         }
 
+
+
+
+
+
+
         public string[] DescargaPedidosDD(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario)
         {
             int nroLote = 0;
@@ -2519,6 +2525,28 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public string GetRutaPedidoDescargaSinMarcar(int campaniaid, int paisID, string tipo, string path)
+        {
+            int tipoCronograma = Constantes.TipoProceso.Regular;
+            string codigoPais = null,  ruta=string.Empty;
+            FtpConfigurationElement ftpElement;
+
+            codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
+
+            Guid fileGuid = Guid.NewGuid();
+            string key = codigoPais + "-" + (tipoCronograma == 1 ? "DR" : true ? "DA-PRD" : "DA");
+            String keyActDat = codigoPais + "-" + "ACDAT";
+            var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
+            ftpElement = ftpSection.FtpConfigurations[key];
+            var ftpElementActDAt = ftpSection.FtpConfigurations[keyActDat];
+
+            if (tipo==Constantes.ConfiguracionManager.Cabecera)
+                ruta = FormatFileSinMarcar(Constantes.ConfiguracionManager.BaseDirectory,   codigoPais, ftpElement.Header, campaniaid, fileGuid, path);
+            if (tipo == Constantes.ConfiguracionManager.Detalle)
+                ruta = FormatFileSinMarcar(Constantes.ConfiguracionManager.BaseDirectory,codigoPais, ftpElement.Detail, campaniaid, fileGuid, path);
+            return ruta;
+        }
+
         public BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID)
         {
             var objBEPedidoDescarga = new BEPedidoDescarga();
@@ -2720,7 +2748,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (validador == 0)
                 {
-
+                    fechaFacturacion = DateTime.Now;
                     try
                     {
                         daPedidoWeb.InsPedidoDescargaSinMarcar(campanaId, Constantes.EstadoValorProcesoDescargaregular.EnProceso, tipoCronograma, usuario, out nuevoNroLote);
@@ -2922,12 +2950,12 @@ namespace Portal.Consultoras.BizLogic
             return line;
         }
 
-        private string FormatFileSinMarcar(string codigoPais, string valor, string fileName, int campanaId, Guid fileGuid)
+        private string FormatFileSinMarcar(string ruta, string codigoPais,  string fileName, int campanaId, Guid fileGuid, string path)
         {
-            return ConfigurationManager.AppSettings["OrderDownloadPath"] + valor
-                + Path.GetFileNameWithoutExtension(fileName) + "-"
-                + codigoPais + "-" + campanaId.ToString() + "-"
-                + fileGuid.ToString() + Path.GetExtension(fileName);
+            return System.IO.Path.Combine(path)
+                         + Path.GetFileNameWithoutExtension(fileName) + "-"
+                         + codigoPais + "-" + campanaId.ToString() + "-"
+                         + fileGuid.ToString() + Path.GetExtension(fileName);
         }
 
         private string HeaderLineSinMacarDD(TemplateField[] template, DataRow row, string codigoPais, string fechaProceso, string lote, string origen)
