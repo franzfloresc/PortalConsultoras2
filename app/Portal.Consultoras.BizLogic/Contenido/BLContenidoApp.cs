@@ -95,6 +95,11 @@ namespace Portal.Consultoras.BizLogic.Contenido
 
             if (tuVozOnline != null)
             {
+                var blUsuario = new BLUsuario();
+                var objUsuario = blUsuario.Select(itmFilter.PaisID, itmFilter.CodigoConsultora);
+                itmFilter.EMailActivo = objUsuario.EMailActivo;
+                itmFilter.DocumentoIdentidad = objUsuario.NumeroDocumento;
+
                 var config = _tuVozOnlineBusinessLogic.GetPanelConfig(itmFilter.PaisID);
                 tuVozOnline.DetalleContenido.ForEach(x => {
                     x.RutaContenido = _tuVozOnlineBusinessLogic.GetUrl(config, itmFilter);
