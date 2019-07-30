@@ -3283,9 +3283,10 @@ div .ficha__producto__precio__normal {
         margin-left: 2%;
         font-size: 12px;
     }
-    /*.ficha__producto__descrip__nom {
+    .ficha__producto__descrip__nom {
         min-height: 47px !important;
         word-break: break-word;
+    }
 
     .ficha__producto__precio {
         min-height: inherit
