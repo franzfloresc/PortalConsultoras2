@@ -18,7 +18,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -40,8 +40,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -120,7 +120,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -142,8 +142,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -222,7 +222,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -244,8 +244,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -324,7 +324,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -346,8 +346,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -426,7 +426,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -448,8 +448,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -528,7 +528,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -550,8 +550,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -630,7 +630,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -652,8 +652,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -732,7 +732,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -754,8 +754,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -834,7 +834,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -856,8 +856,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -936,7 +936,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -958,8 +958,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -1038,7 +1038,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -1060,8 +1060,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
@@ -1140,7 +1140,7 @@ CREATE proc [dbo].[ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR] --'CR',1,'2014-04
 	@intSEQIDZonaGrupo int, -- 1 = Normal, 2 = DA
 	@CampanaId int,
 	@intNroLote int,
-    @FechaFacturacion date
+    @FechaFacturacion date=null
 as
 set nocount on;
 
@@ -1162,8 +1162,8 @@ BEGIN
 	where	p.IndicadorActivo = 1 
 	        and p.ImporteTotal <> 0 and 
 			--p.IndicadorEnviado = 0 
-			cr.FechaInicioFacturacion <= @FechaFacturacion and
-			cr.FechaInicioReFacturacion >= @FechaFacturacion and
+			
+			
 			ca.codigo =@CampanaId and
 			c.zonaid not in (select Zonaid 
 							 from cronograma
