@@ -13,7 +13,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -130,8 +130,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -148,8 +148,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -170,9 +170,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -279,7 +279,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -396,8 +396,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -414,8 +414,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -436,9 +436,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -547,7 +547,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -664,8 +664,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -682,8 +682,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -704,9 +704,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -815,7 +815,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -932,8 +932,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -950,8 +950,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -972,9 +972,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -1083,7 +1083,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -1200,8 +1200,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -1218,8 +1218,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -1240,9 +1240,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -1351,7 +1351,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -1468,8 +1468,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -1486,8 +1486,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -1508,9 +1508,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -1619,7 +1619,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -1736,8 +1736,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -1754,8 +1754,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -1776,9 +1776,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -1887,7 +1887,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -2004,8 +2004,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -2022,8 +2022,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -2044,9 +2044,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -2155,7 +2155,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -2272,8 +2272,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -2290,8 +2290,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -2312,9 +2312,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -2423,7 +2423,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -2540,8 +2540,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -2558,8 +2558,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -2580,9 +2580,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -2691,7 +2691,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -2808,8 +2808,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -2826,8 +2826,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -2848,9 +2848,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
@@ -2959,7 +2959,7 @@ CREATE PROCEDURE [dbo].[Getpedidowebbyfechafacturacion_sinmarcar_sb2] --'2015-10
  /*declare*/ @CAMPANAID        INT,--=201909  
  /*declare*/ @TIPOCRONOGRAMA   INT,--=1  
  /*declare*/ @NROLOTE          INT,--=38  
- /*declare*/ @FECHAFACTURACION DATE-- ='2019-06-17'
+ /*declare*/ @FECHAFACTURACION DATE=null-- ='2019-06-17'
 with recompile
 as
 /*
@@ -3076,8 +3076,8 @@ BEGIN
        inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId
        inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId
        left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId
-       where cr.FechaInicioFacturacion <= @FechaFacturacion and
-          cr.FechaInicioFacturacion + 20 >= @FechaFacturacion and CA.CODIGO = @CAMPANAID and
+       where 
+           CA.CODIGO = @CAMPANAID and
           IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1
  
        IF @EsquemaDAConsultora = 0
@@ -3094,8 +3094,8 @@ BEGIN
          join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania
              and c.RegionID = cr.RegionID
              and c.ZonaID = cr.ZonaID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion and P.CAMPANIAID = @CAMPANAID
+         where 
+          P.CAMPANIAID = @CAMPANAID
        END
        ELSE
        BEGIN
@@ -3116,9 +3116,9 @@ BEGIN
              select distinct CampaniaID, ConsultoraID, TipoConfiguracion
              from ConfiguracionConsultoraDA where isnull(TipoConfiguracion,0) = 0
          ) da on p.CampaniaId = da.CampaniaID and p.ConsultoraId = da.ConsultoraID
-         where cr.FechaInicioFacturacion <= @FechaFacturacion
-          and cr.FechaFinFacturacion >= @FechaFacturacion
-          and isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
+         where 
+         
+          isnull(da.TipoConfiguracion,0) = 0 and P.CAMPANIAID = @CAMPANAID
        END
        end
   
