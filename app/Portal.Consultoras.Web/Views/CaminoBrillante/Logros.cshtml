@@ -73,9 +73,10 @@
             </section>
         </div>
     </div>
-    {{else}}
+    {{else if_eq Id 'CRECIMIENTO' }}
     <div>
         {{#each Indicadores}}
+        <div class="clear"></div>
         <div class="box-camb mo-1">
             <p class="text-bold">{{Titulo}}</p>
             <div class="cambio-crec">
@@ -138,6 +139,72 @@
                 </div>
                 {{/each}}
             </div>
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    <div class="container box-incremento mo-3 deskshow">
+        {{#each Indicadores}}
+        <p class="cambio-crec text-bold">{{Titulo}}</p>
+        <div class="cambio-crec">
+            {{#each Medallas }}
+            <div class="itm">
+                {{#if_eq Tipo 'CIRC'}}
+                <div class="bord circle-porcent {{#if Estado}}crec-activo{{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
+                {{/if_eq}}
+                {{#if Estado}}
+                <span class="como-log inactivo">{{Subtitulo}}</span>
+                {{else}}
+                <span data-toggle="modal" class=" como-log {{#IsNullOrEmpty ModalTitulo}}{{#IsNullOrEmpty ModalDescripcion}}inactivo{{/IsNullOrEmpty}}{{/IsNullOrEmpty}}"
+                      {{#IsNullOrEmpty ModalTitulo '!='}} {{#IsNullOrEmpty ModalDescripcion '!='}}
+                      data-target="#medalla-{{../Codigo}}-{{@Html.Raw("@index")}}"
+                      onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
+                      {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
+                {{#IsNullOrEmpty ModalTitulo '!='}}
+                {{#IsNullOrEmpty ModalDescripcion '!='}}
+                <div class="modal fade" id="medalla-{{../Codigo}}-{{@Html.Raw("@index")}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}')">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="modal-body pad-center">
+                                <div class="indicador-nivel">
+                                    {{#if_eq Tipo 'PIE'}}
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src="{{UrlMedallaFull}}" />
+                                    </div>
+                                    {{else if_eq Tipo 'CIRC'}}
+                                    <div class="circle-porcent crec-activo">
+                                        <span>{{Valor}}</span>
+                                    </div>
+                                    {{else if_eq Tipo 'NIV'}}
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src='{{UrlMedallaFull}}'>
+                                    </div>
+                                    {{else if_eq Tipo 'PED'}}
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src="{{UrlMedallaFull}}" />
+                                    </div>
+                                    {{else if_eq Tipo 'TIME'}}
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src="{{UrlMedallaFull}}" />
+                                    </div>
+                                    {{/if_eq}}
+                                    <div class="left-mod">
+                                        <h2>{{ModalTitulo}}</h2>
+                                        <p>{{{ModalDescripcion}}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/IsNullOrEmpty}}
+                {{/IsNullOrEmpty}}
+                {{/if}}
+            </div>
+            {{/each}}
         </div>
         {{/each}}
     </div>
