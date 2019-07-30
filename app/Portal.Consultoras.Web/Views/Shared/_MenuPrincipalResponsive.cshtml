@@ -45,6 +45,7 @@
     var subMenuMiNegocioConEnlaceMisEventos = (ViewBag.CodigoISODL == "PE") ? " submenu__lista--miNegocioConEnlaceMisEventos" : "";
 
     var esDigital = ViewBag.esConsultoraDigital == null ? false : ViewBag.esConsultoraDigital;
+    var campaniaCodigo = ViewBag.CampaniaCodigo;
 }
 
 <!-- MENÚ PRINCIPAL MOBILE -->
@@ -97,7 +98,14 @@
                             else
                             {
                                 @item.Descripcion
-                                <span class="d-block tag__sb tag__sb--multimarca tag__sb--nuevoEnlaceMenu">Nuevo</span>
+                                foreach (var tag in item.Extras.Tags)
+                                {
+                                    if (tag.Tag == "Nuevo" && tag.End >= campaniaCodigo)
+                                    {
+                                <span class="d-block tag__sb tag__sb--multimarca tag__sb--nuevoEnlaceMenu">tag.Tag</span>
+                                    }
+                                }
+
                             }
                         </a>
                     </li>
@@ -143,7 +151,15 @@
                                             }
                                         }
                                     }
-                                    <span class="d-block tag__sb tag__sb--multimarca tag__sb--nuevoEnlaceMenu">Nuevo</span>
+                                    @foreach (var tag in subItem.Extras.Tags)
+                                    {
+                                        if (tag.Tag == "Nuevo" && tag.End >= campaniaCodigo)
+                                        {
+                                            <span class="d-block tag__sb tag__sb--multimarca tag__sb--nuevoEnlaceMenu">@tag.Tag</span>
+                                            break;
+                                        }
+
+                                    }
                                 </a>
                             </li>
                         }
@@ -174,7 +190,6 @@
     </a>
 </nav>
 <!-- FIN - MENÚ PRINCIPAL MOBILE -->
-
 <!-- MENÚ PRINCIPAL DESKTOP -->
 
 <nav class="header__menu header__menu--lateralIzquierdo mostrarEnDesktop">
@@ -367,7 +382,7 @@
                 <li class="menu__item" data-title="@menuPadre.Descripcion">
                     @if (menuPadre.UrlItem == "")
                     {
-                        <a href="javascript:;" class="menu__link d-block" 
+                        <a href="javascript:;" class="menu__link d-block"
                            target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                             @menuPadre.Descripcion
                         </a>
