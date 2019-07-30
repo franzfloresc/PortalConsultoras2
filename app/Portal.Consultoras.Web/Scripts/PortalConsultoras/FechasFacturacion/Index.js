@@ -1,5 +1,4 @@
 ﻿var FechasFacturacionView = (function () {
-
     var _elementos = {
         tab: ".nav__tab__sb__link--fechasFacturacion",
         claseTabActivo: "nav__tab__sb__link--active",
@@ -9,6 +8,7 @@
     var _funciones = {
         InicializarEventos: function () {
             $(document).on("click", _elementos.tab, _eventos.mostrarContenidoTabCorrespondiente);
+            _eventos.ocultarSinotieneDatos;
         }
     };
 
@@ -22,8 +22,22 @@
             setTimeout(function () {
                 $(idTab).fadeIn(100);
             }, 150);
+        },
+
+        ocultarSinotieneDatos: function () {
+
+            if (tieneAnteriores == 0) {
+                $('#li-tab-anterior').hide();
+            }
+            if (tieneProximas == 0) {
+                $('#li-tab-proximo').hide();
+            }
         }
     };
+
+
+
+
 
     function Inicializar() {
         _funciones.InicializarEventos();

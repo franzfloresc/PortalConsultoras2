@@ -5,6 +5,8 @@
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     ViewBag.Title = "Fechas de Facturación";
+    var tieneAnteriores = (Model.ListFechaFacturacionAnterior != null ? (Model.ListFechaFacturacionAnterior.Length > 0 ? 1 : 0) : 0);
+    var tieneProximas = (Model.ListFechaFacturacionProxima != null ? (Model.ListFechaFacturacionProxima.Length > 0 ? 1 : 0) : 0);
 }
 
 <link href="@Url.Content("~/Content/Css/Site/FechasFacturacion/fechas-facturacion.css")" rel="stylesheet" />
@@ -91,79 +93,95 @@
         <!-- TABS NAVEGACIÓN -->
         <nav class="tabs__wrapper__sb tabs__wrapper__sb--fechasFacturacion">
             <ul class="nav__tabs__sb">
-                <li class="nav__tab__sb">
-                    <a href="#Anteriores" title="Anteriores" class="text-bold nav__tab__sb__link nav__tab__sb__link--fechasFacturacion nav__tab__sb__link--active">Anteriores</a>
-                </li>
-                <li class="nav__tab__sb">
-                    <a href="#Proximas" title="Próximas" class="text-bold nav__tab__sb__link nav__tab__sb__link--fechasFacturacion">Próximas</a>
-                </li>
+                @if (tieneAnteriores == 1)
+                {
+                    <li id="li-tab-anterior" class="nav__tab__sb">
+                        <a href="#Anteriores" title="Anteriores" class="text-bold nav__tab__sb__link nav__tab__sb__link--fechasFacturacion nav__tab__sb__link--active">Anteriores</a>
+                    </li>
+                }
+                @if (tieneProximas == 1)
+                {
+                    <li id="li-tab-proximo" class="nav__tab__sb">
+                        <a href="#Proximas" title="Próximas" class="text-bold nav__tab__sb__link nav__tab__sb__link--fechasFacturacion @(tieneAnteriores == 0?"nav__tab__sb__link--active":"" )">Próximas</a>
+                    </li>
+                }
+
             </ul>
         </nav>
         <!-- FIN - TABS NAVEGACIÓN -->
         <!-- TABS CONTENIDO -->
         <section class="tabs__content__sb__wrapper tabs__content__sb__wrapper--fechasFacturacion">
-            <div id="Anteriores" class="tab__content__sb">
+            <div id="Anteriores" class="tab__content__sb" style="@(tieneAnteriores == 0?"display:none;":"")">
                 <ul class="card__sb__container card__sb__container--fechasFacturacion">
-                    @foreach (var item in Model.ListFechaFacturacionAnterior)
+                    @if (Model.ListFechaFacturacionAnterior != null && Model.ListFechaFacturacionAnterior.Length > 0)
                     {
-                        <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
-                            <div class="d-inline-block text-center num__campania">
-                                <span class="d-block">Anteriormente</span>
-                                <span class="d-block text-bold">@(item.CampaniaPartida)</span>
-                            </div>
-                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
-                                <div class="d-block flex-grow-1">
-                                    <span class="d-block text-bold">
-                                        Facturación:
-                                    </span>
-                                    <span class="d-block">
-                                      @(item.Facturacion)
-                                    </span>
+                        foreach (var item in Model.ListFechaFacturacionAnterior)
+                        {
+                            <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
+                                <div class="d-inline-block text-center num__campania">
+                                    <span class="d-block">Anteriormente</span>
+                                    <span class="d-block text-bold">@(item.CampaniaPartida)</span>
                                 </div>
-                                <div class="d-block flex-grow-1">
-                                    <span class="d-block text-bold">
-                                        Fecha de pago pedido <span>@(item.CampaniaPartida)</span>:
-                                    </span>
-                                    <span class="d-block">
-                                        @(item.FechaLimitePago)
-                                    </span>
+                                <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                                    <div class="d-block flex-grow-1">
+                                        <span class="d-block text-bold">
+                                            Facturación:
+                                        </span>
+                                        <span class="d-block">
+                                            @(item.Facturacion)
+                                        </span>
+                                    </div>
+                                    <div class="d-block flex-grow-1">
+                                        <span class="d-block text-bold">
+                                            Fecha de pago pedido <span>@(item.CampaniaPartida)</span>:
+                                        </span>
+                                        <span class="d-block">
+                                            @(item.FechaLimitePago)
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        }
                     }
+
 
                 </ul>
             </div>
-            <div id="Proximas" class="tab__content__sb" style="display:none;">
+            <div id="Proximas" class="tab__content__sb" style="@(tieneAnteriores == 0?"display:block;":"display:none;")">
                 <ul class="card__sb__container card__sb__container--fechasFacturacion">
-                    @foreach (var item in Model.ListFechaFacturacionProxima)
+                    @if (Model.ListFechaFacturacionProxima != null && Model.ListFechaFacturacionProxima.Length > 0)
                     {
-                        <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
-                            <div class="d-inline-block text-center num__campania">
-                                <span class="d-block">Próximamente</span>
-                                <span class="d-block text-bold"> @(item.CampaniaPartida)</span>
-                            </div>
-                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
-                                <div class="d-block flex-grow-1">
-                                    <span class="d-block text-bold">
-                                        Facturación:
-                                    </span>
-                                    <span class="d-block">
-                                        @(item.Facturacion)
-                                    </span>
+                        foreach (var item in Model.ListFechaFacturacionProxima)
+                        {
+                            <li class="border-radius-4 d-flex flex-nowrap card__sb card__sb--fechaFacturacion">
+                                <div class="d-inline-block text-center num__campania">
+                                    <span class="d-block">Próximamente</span>
+                                    <span class="d-block text-bold"> @(item.CampaniaPartida)</span>
                                 </div>
-                                <div class="d-block flex-grow-1">
-                                    <span class="d-block text-bold">
-                                        Fecha de pago pedido <span> @(item.CampaniaPartida)</span>:
-                                    </span>
-                                    <span class="d-block">
-                                        @(item.FechaLimitePago)
-                                    </span>
+                                <div class="d-flex flex-row flex-wrap justify-content-between align-items-center flex-grow-1 datos__campania">
+                                    <div class="d-block flex-grow-1">
+                                        <span class="d-block text-bold">
+                                            Facturación:
+                                        </span>
+                                        <span class="d-block">
+                                            @(item.Facturacion)
+                                        </span>
+                                    </div>
+                                    <div class="d-block flex-grow-1">
+                                        <span class="d-block text-bold">
+                                            Fecha de pago pedido <span> @(item.CampaniaPartida)</span>:
+                                        </span>
+                                        <span class="d-block">
+                                            @(item.FechaLimitePago)
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        }
                     }
-                   
+
+
+
                 </ul>
             </div>
         </section>
@@ -175,35 +193,40 @@
 
 @section scripts{
 
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FechasFacturacion/Index.js")"></script>
+
     <script type="text/javascript">
-        $(document).ready(function () {
-            CargarFechasFacturacion();
-        });
+        var tieneAnteriores = @(Model.ListFechaFacturacionAnterior != null ? (Model.ListFechaFacturacionAnterior.Length > 0 ? 1 : 0) : 0 );
+        var tieneProximas = @(Model.ListFechaFacturacionProxima != null ? (Model.ListFechaFacturacionProxima.Length > 0 ? 1 : 0) : 0 );
+
+        //$(document).ready(function () {
+        //    CargarFechasFacturacion();
+        //});
 
 
-        function CargarFechasFacturacion() {
+        //function CargarFechasFacturacion() {
 
-            $.ajax({
-                url: baseUrl + 'FechasFacturacion/GetFechasFacturacion',
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    debugger;
-                    GenerarFechas(data);
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        CerrarLoad();
-                        deferredObject.reject();
-                    }
-                }
-            });
-        }
+        //    $.ajax({
+        //        url: baseUrl + 'FechasFacturacion/GetFechasFacturacion',
+        //        type: 'GET',
+        //        dataType: 'json',
+        //        success: function (data) {
+        //            debugger;
+        //            GenerarFechas(data);
+        //        },
+        //        error: function (data, error) {
+        //            if (checkTimeout(data)) {
+        //                CerrarLoad();
+        //                deferredObject.reject();
+        //            }
+        //        }
+        //    });
+        //}
 
 
-        function GenerarFechas(data) {
+        //function GenerarFechas(data) {
 
-        }
+        //}
     </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FechasFacturacion/Index.js")"></script>
+
 }
