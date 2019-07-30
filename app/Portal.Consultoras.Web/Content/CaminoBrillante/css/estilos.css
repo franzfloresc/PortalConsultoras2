@@ -3336,14 +3336,16 @@ div .ficha__producto__precio__normal {
     }
 
     .cent-mant .etiq-mant, .cent-mant .etiq-falta {
-        width: 92%;
+        width: 100%;
         float: none;
         margin: 0 auto;
         margin-bottom: 8px;
-        margin-left: 5%;
-        font-size: 13px;
+        /* margin-left: 3%; */
+        font-size: 12px;
     }
-
+    .etiq-falta strong {
+        font-size: 12px;
+    }
 
     .bar-logros {
         padding-bottom: 8px;
