@@ -1349,7 +1349,7 @@ div.opOrdenar {
     }
 
     .valor-final span {
-        font-size: 15px;
+      
         color: #464646;
         display: block;
         text-align: left;
@@ -1360,6 +1360,7 @@ div.opOrdenar {
         .valor-final span em {
             font-style: normal;
             color: #464646;
+            font-size:13px;
         }
 
 .flagimg {
@@ -2240,7 +2241,7 @@ div .ficha__producto__precio__normal {
 .top-boxlogros {
     display: block;
     margin: 30px auto;
-    margin-bottom: 60px;
+    margin-bottom: 10px;
 }
 
 .tabs {
@@ -2579,7 +2580,7 @@ div .ficha__producto__precio__normal {
     .bar-logros span, .bar-logros p {
         display: block;
         text-align: center;
-        font-size: 18px;
+        font-size: 14px;
         line-height: 19px;
     }
 
@@ -3271,10 +3272,10 @@ div .ficha__producto__precio__normal {
         text-indent: 19px
     }
 
-    /*.ficha__producto__descrip__nom {
+    .ficha__producto__descrip__nom {
         min-height: 47px !important;
         word-break: break-word;
-
+}
     .ficha__producto__precio {
         min-height: inherit
     }
@@ -3340,7 +3341,7 @@ div .ficha__producto__precio__normal {
         margin: 0 auto;
         margin-bottom: 8px;
         margin-left: 5%;
-        font-size: 14px;
+        font-size: 13px;
     }
 
 
@@ -3570,12 +3571,13 @@ div .ficha__producto__precio__normal {
     }
 
     .valor-final {
-        right: -3px;
-        top: -16px;
+        right: -2px;
+        top: -12px;
+        width: 74px;
     }
 
         .valor-final p {
-            font-size: 13px;
+            font-size: 12px;
             text-align: left;
         }
 
@@ -3583,11 +3585,14 @@ div .ficha__producto__precio__normal {
             font-size: 11px;
             text-align: left;
         }
+            .valor-final span em {
+                font-size: 11px;
+            }
 
-    .etiq-falta {
-        font-size: 14px;
-        margin-left: 10%;
-    }
+            .etiq-falta {
+                font-size: 14px;
+                margin-left: 10%;
+            }
 
     .etiq-mant {
         margin-left: 10%;
@@ -3606,6 +3611,12 @@ div .ficha__producto__precio__normal {
         line-height: 14px;
         min-height: 48px !important;
         margin-bottom: 0;
+    }
+    .bord:before {
+        width: 42px;
+        height: 42px;
+        top: -1px;
+        left: -1px;
     }
 }
 
@@ -3641,8 +3652,8 @@ div .ficha__producto__precio__normal {
     }
 
     .valor-final {
-        right: -20px;
-        width: 78px;
+        right: -13px;
+        width: 70px;
     }
 }
 
