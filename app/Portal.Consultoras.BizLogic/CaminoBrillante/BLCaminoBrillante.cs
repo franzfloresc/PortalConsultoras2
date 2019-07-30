@@ -285,22 +285,25 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     var indicador = new BELogroCaminoBrillante.BEIndicadorCaminoBrillante()
                     {
                         Codigo = e.Periodo.ToString(),
-                        Titulo = string.Format("Constancia del perido: "+ e.Periodo + " C{0} a C{1}", funCampania(e.CampanaInicial), funCampania(e.CampanaFinal)),
+                        Titulo = string.Format("Constancia del perido: C{0} a C{1}", funCampania(e.CampanaInicial), funCampania(e.CampanaFinal)),
+                        //Titulo = string.Format("Constancia del perido: "+ e.Periodo + " C{0} a C{1}", funCampania(e.CampanaInicial), funCampania(e.CampanaFinal)),
                         Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>()
                     };
+
+                    var r = new Random();
 
                     /* Agregamos las Medallas */
                     (funGetCampaniasPeriodo(e) ?? new List<string>()).ForEach(m =>
                     {
                         indicador.Medallas.Add(new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
                         {
-                            Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC,
+                            Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED,
                             Titulo = string.Format(configMedalla.Valor ?? string.Empty, (e.CampanaInicial % 100), (e.CampanaFinal % 100)),
                             Subtitulo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                             ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
                             ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty,
                             Valor = string.Format("C{0}", m),
-                            Estado = true
+                            Estado = r.Next()%2 == 0
 
                         });
                     });
