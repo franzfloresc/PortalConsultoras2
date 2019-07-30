@@ -42,6 +42,10 @@
             templateId: "#agregar-estrategia-template",
             id: "#dvContenedorAgregar",
             contenedor: "#ContenedorAgregado"
+        },
+        galeria: {
+            templateId: "#galeria-template",
+            id: "#contenedor-galeria"
         }
     };
 
@@ -52,7 +56,7 @@
 
     var _renderEstrategia = function (estrategia) {
         SetHandlebars(_elements.imagenEstrategia.templateId, estrategia, _elements.imagenEstrategia.id);
-
+        _renderGaleria(estrategia, false);
 
         $('.slider-for').slick({
             slidesToShow: 1,
@@ -72,9 +76,9 @@
                         fade: false
                     }
                 }
-            ]     
-        })                 
-        
+            ]
+        });
+
         $('.slider-nav').slick({
             slidesToShow: 5,
             slidesToScroll: 1,
@@ -249,6 +253,13 @@
         _setValueAttrElementHtml(_elements.htmlAttrView.origenPedidoWebAgregar, estrategia.OrigenAgregar);
         _setValueAttrElementHtml(_elements.htmlAttrView.origenPedidoEditar, estrategia.CodigoUbigeoPortal);
         _setValueAttrElementHtml(_elements.htmlAttrView.codigovariante, estrategia.CodigoVariante);
+    };
+
+    var _renderGaleria = function (objeto, esFichaEnriquecida) {
+        objeto.EsFichaEnriquecida = esFichaEnriquecida;
+
+        SetHandlebars(_elements.galeria.templateId, objeto, _elements.galeria.id);
+        return true;
     };
 
     return {
