@@ -72,6 +72,7 @@ namespace Portal.Consultoras.Web.Models
             this.CodigoClasificacion = string.Empty;
             this.CodigoSubClasificacion = string.Empty;
             this.DescripcionSubclasificacion = string.Empty;
+            this.TieneActualizacionDatos = false;
         }
 
         public string Celular { get; set; }
@@ -351,6 +352,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoPrograma { get; set; }
         public int ConsecutivoNueva { get; set; }
         public bool TieneDireccionEntrega { get; set; }
+        public bool TieneActualizacionDatos { get; set; }
 
         public DateTime FechaHoy
         {
@@ -417,5 +419,8 @@ namespace Portal.Consultoras.Web.Models
 
         public bool PuedeConfirmarAllEmail { get; set; }
         public bool PuedeConfirmarAllSms { get; set; }
+
+        /*HD-4513*/
+        public bool PagoContado { get; set; }
     }
 }

@@ -156,6 +156,31 @@
             showDialog('DialogImagenContainer');
         });
 
+
+        $("#ddlDispositivo").change(function (val) {
+
+            if (parseInt(val.currentTarget.value) == 0) {
+                /*Web*/
+                $("#DatosImagenBannerWeb")[0].style['display'] = 'block';
+                $("#DatosImagenBannerMobile")[0].style['display'] = 'none';
+                $("#DatosAccionesWeb")[0].style['display'] = 'block';
+                $("#DatosAccionesMobile")[0].style['display'] = 'none';
+            }
+            else {
+                /*Mobile*/
+                $("#DatosImagenBannerWeb")[0].style['display'] = 'none';
+                $("#DatosImagenBannerMobile")[0].style['display'] = 'block';
+                $("#DatosAccionesWeb")[0].style['display'] = 'none';
+                if ($('#txtCUV').val().length > 0)
+                    $("#DatosAccionesMobile")[0].style['display'] = 'none';
+                else
+                    $("#DatosAccionesMobile")[0].style['display'] = 'block';
+            }
+        })   
+
+
+
+
         $("#ddlPaisesBanPrinpl_SB2").change(function () {
             var value = this.value;
             if (value !== "") {
@@ -453,7 +478,9 @@
     }
 
     function ValidarCUVMarquesina() {
+      
         if ($("#hdBannerId").val() == 0) {
+            
             $('#txtCUV').val("");
             alert('Debe Asignar primero un pais');
         }
@@ -1170,6 +1197,7 @@
 
         $('#frmCargarBanner').ajaxForm({
             beforeSubmit: function () {
+                
                 var GrupoBannerId = $('#hdGrupoBannerIdBanner').val();
                 var TiempoRotacion = $("#list").jqGrid('getCell', GrupoBannerId, 'TiempoRotacion');
                 var fileValue = $('#imagenProducto01').val();
@@ -1186,7 +1214,7 @@
                     message = message + '- Debe ingresar el Título del Banner. </br>'
 
                 if (flgBnOperacionAct == flgBnOperacion.cargar && fileValue.length == 0)
-                    message = message + '- Debe seleccionar la imagen que se cargará. </br>'
+                    message = message + '- Debe seleccionar la imagen que se cargará para web. </br>'
 
                 //validar la extension del archivo
                 get_ext = fileValue.split('.');
@@ -1259,7 +1287,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['GrupoBannerID', 'TiempoRotacion', 'Nombre', 'Grupo Banner', 'Dimensiones', 'Ancho', 'Alto'],
+            colNames: ['GrupoBannerID', 'TiempoRotacion', 'Nombre', 'Grupo Banner', 'Dimensiones', 'Ancho', 'Alto','ArchivoMobile','URLMobile'],
             colModel: [
                 { name: 'GrupoBannerID', index: 'GrupoBannerID', width: 100, editable: true, resizable: false, hidden: true },
                 { name: 'TiempoRotacion', index: 'TiempoRotacion', width: 100, editable: true, resizable: false, hidden: true },
@@ -1268,6 +1296,8 @@
                 { name: 'Dimension', index: 'Dimension', width: 150, editable: true, resizable: false, align: 'right' },
                 { name: 'Ancho', index: 'Ancho', width: 0, editable: false, resizable: false, align: 'center', hidden: true },
                 { name: 'Alto', index: 'Alto', width: 0, editable: false, resizable: false, align: 'center', hidden: true },
+                { name: 'ArchivoMobile', index: 'ArchivoMobile', width: 0, editable: false, resizable: false, align: 'center', hidden: true },
+                { name: 'URLMobile', index: 'URLMobile', width: 150, editable: true, resizable: false,  hidden: true },
             ],
             jsonReader:
                 {
@@ -1304,7 +1334,7 @@
             gridComplete: function () { },
             subGrid: true,
             subGridRowExpanded: function (subgrid_id, row_id) {
-
+                
                 if (row_id == "2" || row_id == "3" || row_id == "4" || row_id == "5" || row_id == "11" || row_id == "12" || row_id == "13" || row_id == "14" || row_id == "15" || row_id == "16" || row_id == "17" || row_id == "18" || row_id == "19" || row_id == "20" || row_id == "21" || row_id == "22" || row_id == "23" || row_id == "26") {
                     //|| row_id == "151" || row_id == "152" || row_id == "153") {
                     var subgridheaderColumn3 = subgridheaderColumn2;
@@ -1406,6 +1436,19 @@
         }
 
         return cells[27] === 'true' || cells[28] === 'true';
+            }
+    function cargarDatosMobileGenerales() {
+        $('#ddlDispositivo').val("0");
+        $("#DatosImagenBannerWeb")[0].style['display'] = 'block';
+        $("#DatosImagenBannerMobile")[0].style['display'] = 'none';
+            $("#DatosAccionesWeb")[0].style['display'] = 'block';
+            $("#DatosAccionesMobile")[0].style['display'] = 'none';
+            $('#lblArchivoCargadoMobile').text('Ingresar Imagen mobile');
+            $('#imagenProducto02').val("");
+            var ImagenMuestraMobile = $("#ContenedorImagenMobile");
+            var DivlblArchivoCargadoMobile = $("#DivlblArchivoCargadoMobile");
+            ImagenMuestraMobile[0].style['display'] = "none";  /*HD-4144*/
+            DivlblArchivoCargadoMobile[0].style['display'] = 'block';  /*HD-4144*/
     }
 
     function formatearArchivo(val, options, rowObject) {
@@ -1492,7 +1535,7 @@
     }
 
     function fnAgregarNuevoObjBanner(subgrid, BannerId, PaisId) {
-
+        
         var img01 = subgrid.jqGrid('getCell', BannerId, 'ArchivoRutaCompleto').replace(/^.*[\\\/]/, '');
         if (img01.lastIndexOf("?") >= 0) {
             img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -1513,7 +1556,9 @@
             PaginaNueva: subgrid.jqGrid('getCell', BannerId, 'PaginaNueva'),
             TipoAccion: subgrid.jqGrid('getCell', BannerId, 'TipoAccion'),
             CuvPedido: subgrid.jqGrid('getCell', BannerId, 'CuvPedido'),
-            CantCuvPedido: subgrid.jqGrid('getCell', BannerId, 'CantCuvPedido')
+            CantCuvPedido: subgrid.jqGrid('getCell', BannerId, 'CantCuvPedido'),
+            ArchivoMobile: subgrid.jqGrid('getCell', BannerId, 'ArchivoMobile'),
+            URLMobile: subgrid.jqGrid('getCell', BannerId, 'URLMobile'),
         }
     }
 
@@ -1539,6 +1584,7 @@
         },
 
         CargaBanner: function (id) {
+            
             var nombreGrupo = $("#list").jqGrid('getCell', id, 'Nombre');
             var BannerId = 0; //Ya que es nuevo
             var dimension = $("#list").jqGrid('getCell', id, 'Dimension');
@@ -1548,6 +1594,16 @@
             var ImagenMuestra = $("#ContenedorImagen");
             var DivlblArchivoCargado = $("#DivlblArchivoCargado");
             var contenedorArchivoCargado2 = $('#contenedorArchivoCargado2');
+            
+            /*HD-4144 - Inicializamos los campos usados para mobile*/
+            $("#divOpcionesDispositivo")[0].style['display'] = "none";
+            if (id == 150) {  
+            $("#divOpcionesDispositivo")[0].style['display'] = "block";
+            $('#ddlUrlMobile').val("0");
+            $('#img02').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")' + "");
+            cargarDatosMobileGenerales();
+            /*HD-4144 - FIN*/
+            }
 
             //Variable global Operacion indica si actualiza grilla o subgrilla
             flgBnOperacionAct = flgBnOperacion.cargar;
@@ -1555,7 +1611,7 @@
             //Limpiar controles
             $('#txtTitulo').val('');
             $('#txtUrl').val('');
-            $('#lblArchivoCargado').text('Ingresar Imagen');
+            $('#lblArchivoCargado').text('Ingresar Imagen web');
 
             $('#img01').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")' + "");
             $('#imagenProducto01').val("");
@@ -1612,7 +1668,7 @@
             return false;
         },
         EditBanner: function (bannerId, obj) {
-
+            
             var subgrid = $(obj).closest('table');
             var Titulo = subgrid.jqGrid('getCell', bannerId, 'Titulo');
             var GrupoBannerId = subgrid.jqGrid('getCell', bannerId, 'GrupoBannerID');
@@ -1629,6 +1685,19 @@
             var PaginaNueva = subgrid.jqGrid('getCell', bannerId, 'PaginaNueva');
             var TituloComentario = subgrid.jqGrid('getCell', bannerId, 'TituloComentario');
             var TextoComentario = subgrid.jqGrid('getCell', bannerId, 'TextoComentario');
+            /*HD-4144 - Inicializamos los campos usados para mobile*/
+            $("#divOpcionesDispositivo")[0].style['display'] = "none";
+            if (GrupoBannerId == 150) {
+                $("#divOpcionesDispositivo")[0].style['display'] = "block";
+                var UrlMobile = subgrid.jqGrid('getCell', bannerId, 'URLMobile');
+                var ArchivoMobile = subgrid.jqGrid('getCell', bannerId, 'ArchivoMobile');
+                $("#ddlUrlMobile").val(UrlMobile == "" ? "0" : UrlMobile);
+                var ArchivoRutaCompletoMobile = subgrid.jqGrid('getCell', bannerId, 'ArchivoRutaCompletoMobile');
+                $('#img02').attr('src', ArchivoRutaCompletoMobile);
+                var ArchivoMobile = subgrid.jqGrid('getCell', bannerId, 'ArchivoMobile');
+                cargarDatosMobileGenerales();   
+            }
+             /*HD-4144 - Fin*/
 
             var TipoAccion = subgrid.jqGrid('getCell', bannerId, 'TipoAccion');
             var TextoCUVpedido = subgrid.jqGrid('getCell', bannerId, 'CuvPedido');
@@ -1729,6 +1798,16 @@
             FormatearImagenes('#lblArchivoCargado');
             FormatearImagenes('#lblArchivoCargado2');
             FormatearImagenes('#hdArchivoRutaCompleto');
+            if (GrupoBannerId == 150) {
+                /*HD-4144*/
+                $('#lblArchivoCargadoMobile').text(ArchivoMobile.length > 0 ? ArchivoMobile : 'Ingresar Imagen mobile');
+                FormatearImagenes('#lblArchivoCargado');
+                $('#hdArchivoRutaCompletoMobile').val(ArchivoRutaCompletoMobile);
+                FormatearImagenes('#lblArchivoCargadoMobile');
+                FormatearImagenes('#lblArchivoCargadoMobile2');
+                FormatearImagenes('#hdArchivoRutaCompletoMobile');
+                /*HD-4144*/
+            }
             $('#txtTituloComentario').val(TituloComentario);
             $('#txtTextoComentario').val(TextoComentario);
             $('#divMensaje li').remove(); //Limpiar mensajes de error
@@ -2130,35 +2209,48 @@
         @Html.HiddenFor(model => model.Orden, new { id = "hdOrden", value = "0" })
         @Html.HiddenFor(model => model.FlagGrupoConsultora, new { id = "hdFlagConsultora", value = "false" })
         @Html.HiddenFor(model => model.Archivo, new { id = "hdArchivoRutaCompleto" })
+        @Html.HiddenFor(model => model.ArchivoMobile, new { id = "hdArchivoRutaCompletoMobile" })
         @Html.HiddenFor(model => model.Ancho, new { id = "hdAncho" })
         @Html.HiddenFor(model => model.Alto, new { id = "hdAlto" })
         @Html.HiddenFor(model => model.ImagenActualizar, new { id = "imagenProducto01" })
+        @Html.HiddenFor(model => model.ImagenActualizarMobile, new { id = "imagenProducto02" }) /*HD-4144*/
         @Html.HiddenFor(model => model.Accion, new { id = "hdnAccion" })
         <div class="Content_modal">
+            <div class="div-3" id="divOpcionesDispositivo">
+                <div class="titG">Configurar para:</div>
+                <div class="selectH3 borde_redondeado">
+                    <select id="ddlDispositivo" name="Dispositivo">
+                        <option selected value="0">Web</option>
+                        <option value="1">App</option>
+                    </select>
+                </div>
+            </div>
             <div class="div-3">
                 <div class="titG">Título de banner:</div>
                 <div class="selectP borde_redondeado" style="width: 335px;">
                     @Html.TextBoxFor(model => model.Titulo, new { @class = "input_search_form", maxlength = 150, id = "txtTitulo" })
                 </div>
             </div>
-            <div class="div-3">
-                <div class="titG">Nombre de archivo:</div>
-                <div class="selectP borde_redondeado" align="center" style="height: 100px; width: 335px;" id="ContenedorImagen">
-                    <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01" width="85" height="100">
+            <div id="DatosImagenBannerWeb" style="display:block">
+                <div class="div-3">
+                    <div class="titG">Nombre de archivo:</div>
+                    <div class="selectP borde_redondeado" align="center" style="height: 100px; width: 335px;" id="ContenedorImagen">
+                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01" width="85" height="100">
+                    </div>
+                    <div class="selectA borde_redondeado" id="DivlblArchivoCargado" style="width: 335px;"><span id="lblArchivoCargado"></span></div>
                 </div>
-                <div class="selectA borde_redondeado" id="DivlblArchivoCargado" style="width: 335px;"><span id="lblArchivoCargado"></span></div>
-            </div>
-            <div class="div-3">
-                <div class="titG"></div>
-                <div class="input_search">
-                    <div id="flUpload">
-                        <script type="text/javascript">
+                <div class="div-3">
+                    <div class="titG"></div>
+                    <div class="input_search">
+                        <div id="flUpload">
+                            <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
-                            var uploader = new qq.FileUploader({
+                            new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg','gif'],
                                 element: document.getElementById('flUpload'),
                                 action: '@Url.Action("ImageMatrizUpload", "Banner")',
                                 onComplete: function (id, fileName, responseJSON) {
+
                                     if (checkTimeout(responseJSON)) {
                                         $(".qq-upload-list")[0].style['display'] = "none";
                                         $(".qq-upload-list").css("display", "none");
@@ -2176,13 +2268,59 @@
                                 onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); $(".qq-upload-list")[0].style['display'] = "none"; },
                                 onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); $(".qq-upload-list")[0].style['display'] = "none"; }
                             });
-                        </script>
+                            </script>
+                        </div>
                     </div>
                 </div>
+                <div class="div-3" id="contenedorArchivoCargado2" style="height: 25px; padding: 0px; margin: 0px;">
+                    <div class="titAuto" style="height: 22px; padding: 0px;"><span id="lblArchivoCargado2"></span></div>
+                </div>
             </div>
-            <div class="div-3" id="contenedorArchivoCargado2" style="height: 25px; padding: 0px; margin: 0px;">
-                <div class="titAuto" style="height: 22px; padding: 0px;"><span id="lblArchivoCargado2"></span></div>
+            <div id="DatosImagenBannerMobile" style="display:none">
+                <div class="div-3">
+                    <div class="titG">Nombre de archivo:</div>
+                    <div class="selectP borde_redondeado" align="center" style="height: 100px; width: 335px;display:none;" id="ContenedorImagenMobile">
+                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img02" width="85" height="100">
+                    </div>
+                    <div class="selectA borde_redondeado" id="DivlblArchivoCargadoMobile" style="width: 335px;display:block;"><span id="lblArchivoCargadoMobile" name="ArchivoMobile"></span></div>
+                </div>
+                <div class="div-3">
+                    <div class="titG"></div>
+                    <div class="input_search">
+                        <div id="flUploadMobile">
+                            <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('flUploadMobile'),
+                                action: '@Url.Action("ImageMatrizUpload", "Banner")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list")[0].style['display'] = "none";
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            $("#imagenProducto02").val(responseJSON.name);
+                                            $("#lblArchivoCargadoMobile").text(responseJSON.name);
+                                            $('#img02').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); $(".qq-upload-list")[0].style['display'] = "none"; },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); $(".qq-upload-list")[0].style['display'] = "none"; },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); $(".qq-upload-list")[0].style['display'] = "none"; }
+                            });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3" id="contenedorArchivoCargadoMobile" style="height: 25px; padding: 0px; margin: 0px;">
+                    <div class="titAuto" style="height: 22px; padding: 0px;"><span id="lblArchivoCargadoMobile2"></span></div>
+                </div>
             </div>
+
             <div class="div-3" id="TipoContenido" style="display: none;">
                 <div class="titG">Pagina Nueva</div>
                 <div class="selectH2 borde_redondeado">
@@ -2207,46 +2345,53 @@
                     </div>
                 </div>
             </div>
-            <div class="div-3">
-                <div class="titG">Acci&oacute;n:</div>
-                <div class="selectH3 borde_redondeado">
-
-                    @Html.DropDownListFor(model => model.TipoAccion, new SelectList(Model.DropDownListTipoAccion, "TipoAccion", "TipoAccionNombre"), new { id = "ddlTipoAccion" })
+            <div id="DatosAccionesWeb" style="display:block">
+                <div class="div-3">
+                    <div class="titG">Acci&oacute;n:</div>
+                    <div class="selectH3 borde_redondeado">
+                        @Html.DropDownListFor(model => model.TipoAccion, new SelectList(Model.DropDownListTipoAccion, "TipoAccion", "TipoAccionNombre"), new { id = "ddlTipoAccion" })
+                    </div>
+                </div>
+                <div id="div_Url">
+                    <div class="div-3">
+                        <div class="titG" id="lblUrl">Url destino Web:</div>
+                        <div class="selectP borde_redondeado" style="width: 335px;">
+                            @Html.TextBoxFor(model => model.URL, new { @class = "input_search_form", maxlength = 300, id = "txtUrl" })
+                        </div>
+                    </div>
+                    <div class="div-3" id="DivbtnValidarUrl">
+                        <div class="titG"></div>
+                        <div class="input_modifica">
+                            <input type="button" id="btnValidarUrl" value="Validar Url Destino" />
+                        </div>
+                    </div>
+                </div>
+                <div id="div_cuv" style="display: none;">
+                    <div class="div-3">
+                        <div class="titG">CUV:</div>
+                        <div class="selectP borde_redondeado" style="width: 100px;">
+                            @Html.TextBoxFor(model => model.CUV, new { @class = "input_search_form2", maxlength = 5, id = "txtCUV", onblur = "ValidarCUVMarquesina()" })
+                        </div>
+                    </div>
+                    <div class="div-3">
+                        <div class="titG">Cantidad a añadir:</div>
+                        <div class="selectP borde_redondeado" style="width: 100px;">
+                            @Html.TextBoxFor(model => model.cantidadPedido, new { @class = "input_search_form2", maxlength = 2, id = "txtCantidad" })
+                        </div>
+                    </div>
+                </div>
+                <div>NOTA: El archivo de imagen debe tener las siguientes <span id="lblDimension"></span></div>
+            </div>
+            <div id="DatosAccionesMobile" style="display:none">
+                <div id="div_UrlMobile">
+                    <div class="div-3">
+                        <div class="titG">Url destino:</div>
+                        <div class="selectH3 borde_redondeado">
+                            @Html.DropDownListFor(model => model.URLMobile, new SelectList(Model.DropDownListContenidoAppDetaAct, "Codigo", "Descripcion"), new { id = "ddlUrlMobile" })
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div id="div_Url">
-                <div class="div-3">
-
-
-                    <div class="titG" id="lblUrl">Url destino:</div>
-                    <div class="selectP borde_redondeado" style="width: 335px;">
-                        @Html.TextBoxFor(model => model.URL, new { @class = "input_search_form", maxlength = 300, id = "txtUrl" })
-                    </div>
-                </div>
-                <div class="div-3" id="DivbtnValidarUrl">
-                    <div class="titG"></div>
-                    <div class="input_modifica">
-                        <input type="button" id="btnValidarUrl" value="Validar Url Destino" />
-                    </div>
-                </div>
-            </div>
-
-            <div id="div_cuv" style="display: none;">
-                <div class="div-3">
-                    <div class="titG">CUV:</div>
-                    <div class="selectP borde_redondeado" style="width: 100px;">
-                        @Html.TextBoxFor(model => model.CUV, new { @class = "input_search_form2", maxlength = 5, id = "txtCUV", onblur = "ValidarCUVMarquesina()" })
-                    </div>
-                </div>
-                <div class="div-3">
-                    <div class="titG">Cantidad a añadir:</div>
-                    <div class="selectP borde_redondeado" style="width: 100px;">
-                        @Html.TextBoxFor(model => model.cantidadPedido, new { @class = "input_search_form2", maxlength = 2, id = "txtCantidad" })
-                    </div>
-                </div>
-            </div>
-            <div>NOTA: El archivo de imagen debe tener las siguientes <span id="lblDimension"></span></div>
         </div>
         @Html.ValidationSummary(null, new { @class = "validation-error-server", @id = "divMensaje" })
     }

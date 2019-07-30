@@ -1,14 +1,19 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
+
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
+    [UniqueSession("UniqueRouteFichaResponsive", UniqueRoute.IdentifierKey, "/g/")]
+    [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class DetalleEstrategiaController : BaseViewController
     {
         public DetalleEstrategiaController() : base()

@@ -323,6 +323,7 @@
     <Compile Include="Models\ChatActivation.cs" />
     <Compile Include="Models\CaminoBrillante\CarruselCaminoBrillante.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
+    <Compile Include="Models\ConfirmarPosicionModelPrePostulante.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
     <Compile Include="Models\DistanciaLimiteZonaSeccionModel.cs" />
@@ -1554,6 +1555,7 @@
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
     <Content Include="Content\Css\Site\Pedido\PopupRecepcionPedido.css" />
+    <Content Include="Content\Css\Site\Login2\popup-actualizacion-contrasenia.css" />
     <Content Include="Content\Css\Site\Pedido\GananciaEstimada.css" />
     <Content Include="Content\Css\Site\Pedido\ProductosSugeridos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-reserva-pedido.css" />
@@ -1561,6 +1563,7 @@
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Css\Site\TuVozOnline\TuVozOnline.css" />
     <Content Include="Content\Css\Site\styleBase.css" />
+    <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-pedidos-pendientes.css" />
     <Content Include="Content\Images\alerta-icono.png" />
     <Content Include="Content\Images\add-to-cart-disable.png" />
     <Content Include="Content\Images\add-to-cart-white.png" />
@@ -3729,6 +3732,7 @@
     <Content Include="Content\Images\MontoMinimoBannerVE.jpg" />
     <Content Include="Content\Images\MontoMinimoBannerVEC4.jpg" />
     <Content Include="Content\Images\more.png" />
+    <Content Include="Content\Images\mostrar-password.svg" />
     <Content Include="Content\Images\mujer-seccion-revista-bienvenida.png" />
     <Content Include="Content\Images\multi_facil.png" />
     <Content Include="Content\Images\nav-arrow.png" />
@@ -3745,6 +3749,7 @@
     <Content Include="Content\Images\no_image.gif" />
     <Content Include="Content\Images\nuevo-producto.png" />
     <Content Include="Content\Images\nuevo_tuclientes.svg" />
+    <Content Include="Content\Images\ocultar-password.svg" />
     <Content Include="Content\Images\oferta-sin-imagen-sin-fondo.svg" />
     <Content Include="Content\Images\oferta-sin-imagen.svg" />
     <Content Include="Content\Images\oferta-ultimo-minuto.png" />
@@ -4334,6 +4339,7 @@
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
     <Content Include="Scripts\knockout.extensions.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
+    <Content Include="Scripts\PortalConsultoras\Login\ActualizarContrasenia.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Banner.js" />
@@ -4797,6 +4803,12 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
+    <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
+    <None Include="Service References\ServiceUnete\configuration.svcinfo" />
+    <None Include="Service References\ServiceUnete\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Views\Shared\VistaParcialResponisve\_MenuContenedorResponsive.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
@@ -5245,9 +5257,6 @@
     <None Include="Service References\ServiceUnete\PortalService10.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService11.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -5488,12 +5497,6 @@
     <None Include="Service References\HojaInscripcionBelcorpPais\configuration91.svcinfo" />
     <None Include="Service References\HojaInscripcionBelcorpPais\configuration.svcinfo" />
     <None Include="Service References\HojaInscripcionBelcorpPais\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
-    <None Include="Service References\ServiceUnete\configuration.svcinfo" />
-    <None Include="Service References\ServiceUnete\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -5966,15 +5969,18 @@
     <Content Include="Views\TuVozOnline\Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
-    <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <Content Include="Views\CaminoBrillante\Partial\template_kit.cshtml" />
     <Content Include="Views\CaminoBrillante\Partial\template_demostrador.cshtml" />
+    <Content Include="Views\AdministrarHistorias\Partials\MantenimientoVideo.cshtml" />
+    <Content Include="Views\AdministrarHistorias\Partials\MantenimientoVideoEliminar.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
     <Content Include="Views\Unete\DistanciaLimiteZonaSeccion.cshtml" />
     <Content Include="Views\Pedido\_PopupRecepcionPedido.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\imagen-estrategia-template.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupPedidosPendientes.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupPedidoGuardado.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\estrategia-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\compartir-estrategia-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\tabs-ficha-enriquecida-template.cshtml" />
@@ -5987,7 +5993,12 @@
     <Content Include="Views\DetalleEstrategia\template-producto-carrusel-responsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\popup-ficha-enriquecida-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
+    <Content Include="Views\Unete\_ConsultarUbicacionPrePostulante.cshtml" />
+    <Content Include="Views\Unete\_ConfirmarPosicionPrePostulante.cshtml" />
     <Content Include="Views\Unete\_PosibleFraudeUbicaciones.cshtml" />
+    <Content Include="Views\Login\_PopupActualizacionContrasenia.cshtml" />
+    <Content Include="Views\Login\ActualizarContrasenia.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
