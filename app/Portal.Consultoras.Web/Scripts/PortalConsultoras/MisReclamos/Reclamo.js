@@ -1552,7 +1552,7 @@ function PreValidacionIrFinalizar() {
         }
     }
 
-    return { result: true, id: id, };
+    return { result: true, id: id };
 }
 
 function EliminarDetalle(el) {
