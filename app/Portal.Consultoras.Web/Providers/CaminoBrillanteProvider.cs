@@ -227,6 +227,29 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         /// <summary>
+        /// Obtiene Logros Unificado Consultora
+        /// </summary>
+        public List<LogroCaminoBrillanteModel> GetLogroUnificadoCaminoBrillante()
+        {
+            try
+            {
+                var consultoraCaminoBrillante = GetConsultoraNivelCaminoBrillante();
+                if (consultoraCaminoBrillante == null) return null;
+
+                var result = new List<LogroCaminoBrillanteModel>();
+                result.Add(Mapper.Map<LogroCaminoBrillanteModel>(consultoraCaminoBrillante.ResumenLogros));
+                result.AddRange(Mapper.Map<List<LogroCaminoBrillanteModel>>(consultoraCaminoBrillante.Logros.ToList()));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Obtiene el Flag si tiene ofertas especiales
         /// </summary>
         public bool TieneOfertasEspeciales()
@@ -244,7 +267,7 @@ namespace Portal.Consultoras.Web.Providers
                     var beUsuario = Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel);
                     beUsuario.Zona = usuarioModel.CodigoZona;
                     beUsuario.Region = usuarioModel.CodigorRegion;
-                    resumen = svc.GetConsultoraNivelCaminoBrillante(beUsuario);
+                    resumen = svc.GetConsultoraNivelCaminoBrillante(beUsuario, Constantes.CaminoBrillante.Version.VER_02);
                 }
                 sessionManager.SetConsultoraCaminoBrillante(resumen);
             }
