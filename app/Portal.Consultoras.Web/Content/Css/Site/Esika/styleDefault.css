@@ -289,6 +289,10 @@ input[type="text"].text__field__sb,
     border: 0;
     font-size: 14px;
     position: relative;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
     .btn__sb__primary,
