@@ -138,7 +138,7 @@
                     <input type="hidden" id="hdfValorFlagNueva" />
                     <input type="hidden" id="hdLimiteVenta" />
                     <input type="hidden" id="hdCodigoConsultora" value="@ViewBag.CodigoConsultora" />
-                           @*INI HD-3908 *@
+                    @*INI HD-3908 *@
                     <input type="hidden" id="hdfCodigoPalanca" />
                     <input type="hidden" id="hdfCampaniaID" />
                     @*FIN HD-3908 *@
@@ -224,7 +224,7 @@
                                 <span>@Model.Simbolo <span data-pedidocondescuento="">&nbsp;@Model.MontoConDsctoStr</span></span>
                             </span>
                         </div>
-                         @*HD-4513*@
+                        @*HD-4513*@
                         @if (ViewBag.PagoContado)
                         {
                             <div class="ganancia-info pb-2">
@@ -573,6 +573,7 @@
 @{ Html.RenderPartial("_PopupEleccionRegalo");}
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
+@{ Html.RenderPartial("_PopupIncentivo");}
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupReservaPedido.cshtml");}
 

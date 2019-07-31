@@ -23,12 +23,15 @@ var objects = new Array(),
     winOffset = 0,
     winHeightSR, winWidthSR, togvis, moz = (document.getElementById && !document.all) ? 1 : 0;
 
+
+
 function mostrarLluvia() {
     fallingObjects = new Array();
     objects = new Array();
 
     closeImagenRain = 0;
     if (listaIconoLluvia != null) {
+        var par = 0;
         $.each(listaIconoLluvia, function (index, value) {
             newObject(value, heightIcon, widthIcon);
         });
@@ -46,7 +49,7 @@ function mostrarLluvia() {
     }
 
     winSize();
-    for (var i = 0; i < numObjects; i++) {
+    for (i = 0; i < numObjects; i++) {
         fallObject(i, parseInt(Math.random() * fallingObjects.length), 1);
     }
 
