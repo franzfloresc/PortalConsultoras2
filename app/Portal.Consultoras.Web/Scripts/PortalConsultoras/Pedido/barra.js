@@ -7,6 +7,28 @@ var ConfiguradoRegalo = false;
 var avance = 0;
 var EstadoPedido = EstadoPedido || 0;
 var esPedidoReservado = (EstadoPedido === 1);
+var incentivoMostrado = false;
+var mostrarIncentivo = false;
+var montoIncentivo = 0;
+
+switch (IsoPais) {
+    case 'BO':
+        montoIncentivo = 500;
+        break;
+
+    case 'CR':
+        montoIncentivo = 55000;
+        break;
+
+    case 'CL':
+        montoIncentivo = 45500;
+        break;
+
+    case 'CO':
+        montoIncentivo = 195500;
+        break;
+
+}
 
 var tpElectivos = {
     premioSelected: null,
@@ -1312,6 +1334,8 @@ function selectPremioDivByCuv(cuv) {
 
 function superoTippingPoint(barra, prevLogro) {
     var tippingPoint = barra.TippingPoint || 0;
+    var montoMaximo1 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
+    var montoMaximo2 = dataBarra.ListaEscalaDescuento[2].MontoDesde;
 
     if (tippingPoint > 0) {
         if (!barra.TippingPointBarra.Active) {
@@ -1319,8 +1343,21 @@ function superoTippingPoint(barra, prevLogro) {
         }
 
         var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
-        if (superaRegalo) {
 
+        var tieneIncentivo = montoIncentivo > 0 ? true : false;
+
+        if (tieneIncentivo && tippingPoint <= mtoLogroBarra) {
+
+            // se mantiene entre la 1er y 2da escala de descuento
+            if ((mtoLogroBarra >= montoIncentivo && mtoLogroBarra <= montoMaximo1) || (mtoLogroBarra >= montoIncentivo && mtoLogroBarra <= montoMaximo2)) {
+                var content = '¡Felicidades, estás concursando por el incentivo!';
+                showPopupIncentivo(content);
+                incentivoMostrado = true;
+            }
+
+        }
+
+        if (superaRegalo) {
             return true;
         }
     }
@@ -1328,88 +1365,67 @@ function superoTippingPoint(barra, prevLogro) {
     return false;
 }
 
-function showPopupNivelSuperado(barra, prevLogro) {
-    if (!barra) {
-        return;
-    }
-    tpElectivos.tempPrevLogro = prevLogro;
-    var superoTp = superoTippingPoint(barra, prevLogro);
+function showPopupIncentivo(content) {
+    var idPopup = '#popupIncentivo';
+    $(idPopup + ' .titulo_popup_treinta_y_cinco_descuento').html(content);
 
-    if (superoTp) {
-
-        checkPremioSelected(true);
-        if (!tpElectivos.premioSelected) {
-            agregarPremioDefault();
-        }
-        showPopupPremio();
-
-        return;
-    }
-    
-    if (!TieneMontoMaximo()) {
-        showPopupEscalaSiguiente(barra, prevLogro);
-    }
-    else {
-        if (mtoLogroBarra < dataBarra.MontoMaximo) {
-            showPopupEscalaSiguiente(barra, prevLogro);
-        }
-    }
-}
-
-function showPopupPremio() {
-    var idPopup = '#popupPremio';
-    var dvPremio = $(idPopup);
-    var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
-    dvPremio.find('.title-premio-elect').html('¡Felicidades!<br />' + (!tpElectivos.hasPremios ? 'LLEGASTE A TU REGALO' : 'TIENES UN REGALO'));
-    dvPremio.find('.sub-premio-elect').css('display', !tpElectivos.hasPremios ? 'none' : 'block');
-    btn.css('display', !tpElectivos.hasPremios ? 'none' : 'block');
-    btn.html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO' : '¡Escoger ahora!');
-    AbrirPopup(idPopup);
+    $(idPopup).show();
     setContainerLluvia(idPopup);
     mostrarLluvia();
-}
 
-function addPremioDefaultSuperado(barra, prevLogro) {
-    var superoTp = superoTippingPoint(barra, prevLogro);
-
-    if (superoTp) {
-        agregarPedidoDefaultExt();
-    }
-}
-
-function agregarPedidoDefaultExt() {
-    AbrirLoad();
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + "PedidoRegistro/AgergarPremioDefault",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        cache: false
-    }).always(function () {
-        CerrarLoad();
-    });
+    setTimeout(function () {
+        $(idPopup).fadeOut(2000);
+    }, 3000);
 }
 
 function showPopupEscalaSiguiente(dataBarra, prevLogro) {
-    if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;
 
+    if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;
+    var escala = 0;
+    var indice = 0;
     var total = mtoLogroBarra;
     var len = dataBarra.ListaEscalaDescuento.length;
+    var montoMaximo1 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
+    var montoMaximo2 = dataBarra.ListaEscalaDescuento[2].MontoDesde;
+    var tippingPoint = dataBarra.TippingPoint || 0;
 
-    for (var i = 0; i < len; i++) {
-        var escala = dataBarra.ListaEscalaDescuento[i];
-        if (total >= escala.MontoDesde && total < escala.MontoHasta) {
-            if (escala.MontoDesde > prevLogro) {
+    var tieneIncentivo = montoIncentivo > 0 ? true : false;
 
-                var content = escala.PorDescuento + '% Dscto.';
-                showPopupEscala(content);
-                tpElectivos.tempPrevLogro = -1;
+    if (tieneIncentivo && !incentivoMostrado && tippingPoint <=0 ) {
 
-                return true;
-            }
+        if (montoIncentivo <= montoMaximo1) {
+            indice = 1;
+            escala = dataBarra.ListaEscalaDescuento[0];
+        } else {
+            indice = 2;
+            escala = dataBarra.ListaEscalaDescuento[1];
         }
-    }
+        
+        // se mantiene entre la 1er y 2da escala de descuento
+        if ( (total >= montoIncentivo && total <= montoMaximo1) || (total >= montoIncentivo  && total <= montoMaximo2)) {
+
+            var content = 'Llegaste al' + '&nbsp'  + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
+
+            showPopupIncentivo(content);
+            tpElectivos.tempPrevLogro = -1;
+            incentivoMostrado = true;
+            return true;
+        }
+
+    } 
+        // comportamiento sin incentivo 
+        for (var i = indice; i < len; i++) {
+            var escala = dataBarra.ListaEscalaDescuento[i];
+            if (total >= escala.MontoDesde && total < escala.MontoHasta) {
+                if (escala.MontoDesde > prevLogro) {
+
+                        var content = escala.PorDescuento + '% Dscto.';
+                        showPopupEscala(content);
+                        tpElectivos.tempPrevLogro = -1;
+                        return true;
+                    }
+                }
+        }
 
     return false;
 }
@@ -1445,6 +1461,74 @@ function setContainerLluvia(containerId) {
         lluviaContainerId = containerId;
     }
 }
+
+function showPopupNivelSuperado(barra, prevLogro) {
+    if (!barra) {
+        return;
+    }
+    tpElectivos.tempPrevLogro = prevLogro;
+    var superoTp = superoTippingPoint(barra, prevLogro);
+
+    if (superoTp) {
+
+        checkPremioSelected(true);
+        if (!tpElectivos.premioSelected) {
+            agregarPremioDefault();
+        }
+        
+            showPopupPremio();
+        
+        return;
+    }
+    
+    if (!TieneMontoMaximo()) {
+        showPopupEscalaSiguiente(barra, prevLogro);
+    }
+    else {
+        if (mtoLogroBarra < dataBarra.MontoMaximo) {
+            showPopupEscalaSiguiente(barra, prevLogro);
+        }
+    }
+}
+
+function showPopupPremio() {
+
+    var idPopup = '#popupPremio';
+    var dvPremio = $(idPopup);
+    var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
+    dvPremio.find('.title-premio-elect').html('¡Felicidades!<br />' + (!tpElectivos.hasPremios ? 'LLEGASTE A TU REGALO' : 'TIENES UN REGALO'));
+    dvPremio.find('.sub-premio-elect').css('display', !tpElectivos.hasPremios ? 'none' : 'block');
+    btn.css('display', !tpElectivos.hasPremios ? 'none' : 'block');
+    btn.html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO' : '¡Escoger ahora!');
+    AbrirPopup(idPopup);
+    setContainerLluvia(idPopup);
+    mostrarLluvia();
+
+}
+
+function addPremioDefaultSuperado(barra, prevLogro) {
+    var superoTp = superoTippingPoint(barra, prevLogro);
+
+    if (superoTp) {
+        agregarPedidoDefaultExt();
+    }
+}
+
+function agregarPedidoDefaultExt() {
+    AbrirLoad();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + "PedidoRegistro/AgergarPremioDefault",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        cache: false
+    }).always(function () {
+        CerrarLoad();
+    });
+}
+
+
 
 function CalculoLlenadoBarra() {
     var TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
