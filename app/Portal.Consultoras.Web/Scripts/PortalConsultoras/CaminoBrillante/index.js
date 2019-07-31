@@ -147,14 +147,6 @@ function TagClickSeleccionNivel(nivelConsultora) {
     });
 }
 
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Nivel y beneficios',
-        'action': 'Ver Pop-up del nivel',
-        'label': 'Nivel: ' + nivelConsultora
-    });
-}
-
 function MostrarSecciones(nivelSeleccionado) {
     var nivelActual = $("#hfNivelActual").val();
     if (nivelSeleccionado == nivelActual) {
@@ -167,6 +159,8 @@ function MostrarSecciones(nivelSeleccionado) {
         $('.tab-content').removeClass('current');
         $(".urlImagenActiva").hide();
     }
+}
+
 function TagClickBotonVerOfertas() {
     dataLayer.push({
         'event': 'virtualEvent',
@@ -511,4 +505,4 @@ function MostrarBeneficios(tab_id, codigoNivel, urlImagenActiva) {
     $("#carrusel").hide();
     $(".bglogros").hide();
     $("#cont-logros").hide();
-    
+}
