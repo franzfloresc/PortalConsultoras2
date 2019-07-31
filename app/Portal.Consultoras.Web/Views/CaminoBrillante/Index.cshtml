@@ -7,7 +7,7 @@
     ViewBag.origenPedido = origenPedido;
     var nivelSiguiente = ViewBag.NivelSiguiente;
     var decorador = "";
-    ViewBag.TieneCarrusel = ((ViewBag.TieneCarrusel == "1") && ViewBag.TieneOfertasEspeciales)? ViewBag.TieneCarrusel :  "0" ;
+    ViewBag.TieneCarrusel = ((ViewBag.TieneCarrusel == "1") && ViewBag.TieneOfertasEspeciales) ? ViewBag.TieneCarrusel : "0";
 }
 
 @section css{
@@ -48,7 +48,7 @@
                 {
                     if (ViewBag.EsMobile)
                     {
-                        decorador = nivel.EsPasado ? "onclick =\"MostrarSecciones();\" data-toggle=\"collapse\" data-target=\"#tab-" + nivel.CodigoNivel + "_Bnf\"" : "onclick =\"MostrarBeneficios('" + nivel.DescripcionNivel + "','" + nivel.CodigoNivel + "','" + nivel.UrlImagenNivelFull + "');\" data-toggle=\"tab-content\" data-target=\"#tab-" + nivel.DescripcionNivel + "_Bnf\"";
+                        decorador = nivel.EsPasado ? "onclick =\"MostrarSecciones('" + nivel.CodigoNivel + "');\" data-toggle=\"collapse\" data-target=\"#tab-" + nivel.CodigoNivel + "_Bnf\"" : "onclick =\"MostrarBeneficios('" + nivel.DescripcionNivel + "','" + nivel.CodigoNivel + "','" + nivel.UrlImagenNivelFull + "');\" data-toggle=\"tab-content\" data-target=\"#tab-" + nivel.DescripcionNivel + "_Bnf\"";
                     }
                     else
                     {
@@ -82,6 +82,12 @@
             var montoMaximoBarra = showMoneda ? Math.Max(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), (decimal)(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) * (decimal)1.10)) : nivelEvaluacion.Puntaje;
             var montoAlcanzadoBarra = showMoneda ? nivelEvaluacion.MontoAlcanzado : nivelEvaluacion.PuntajeAcumulado;
 
+            if (ViewBag.GranBrillante != null)
+            {
+                montoMaximoBarra = Convert.ToDecimal(ViewBag.GranBrillante.MontoMinimo);
+                montoMinimoBarra = ViewBag.NivelActual.Puntaje;
+            }
+
             if (nivelEvaluacion != null)
             {
                 <div id="progress-b">
@@ -107,18 +113,33 @@
                                 {
                                     <span class="tope tp-@ViewBag.NivelActual.CodigoNivel"></span>
                                 }
+                                else if (ViewBag.GranBrillante != null)
+                                {
+                                    <span class="tope tp-@ViewBag.NivelActual.CodigoNivel"></span>
+                                }
                             </div>
                             <div class="valor-final">
-                                <p> @((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
-                                <span>
-                                    @if (showMoneda)
-                                    {<em>@ViewBag.SimboloMoneda</em>
-                                    @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                @if (ViewBag.GranBrillante != null)
+                                {
+                                    <p style="font-size: 15px;">@ViewBag.GranBrillante.DescripcionNivel</p>
                                 }
                                 else
                                 {
-                                    @montoMaximoBarra @Html.Raw("pts")
+                                    <p>@((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
                                 }
+                                <span>
+                                    @if (showMoneda)
+                                    {
+                                        if (ViewBag.NivelActual.CodigoNivel != "5")
+                                        {
+                                            <em>@ViewBag.SimboloMoneda</em>
+                                            @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @Util.EnteroFormat(Convert.ToDecimal(@montoMaximoBarra), @ViewBag.CodigoISODL) @Html.Raw(" pts")
+                                    }
                                 </span>
                             </div>
                         </div>
@@ -138,8 +159,11 @@
                             }
                             else
                             {
-                                <span><strong>Acumulaste @montoAlcanzadoBarra pts</strong></span>
-                                <span>Recuerda pasar pedido hasta C02</span>
+                                <span><strong>Acumulaste @Util.EnteroFormat(Convert.ToDecimal(@montoAlcanzadoBarra), @ViewBag.CodigoISODL) pts</strong></span>
+                                if (ViewBag.NivelActual.Mensaje != null)
+                                {
+                                    <span>@ViewBag.NivelActual.Mensaje</span>
+                                }
                             }
                         </div>
                     </div>
@@ -382,18 +406,27 @@
 
         <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal" style="@mostrarBotonOfertas">Ver ofertas</a>
     }
-</div>
-<div class="container bglogros">
-    <div class="banner-logros">
-        <img src="~/Content/CaminoBrillante/imgs/mobile-logros.svg" class="img-log" />
-        <div class="right-banner">
-            <h2>Tus logros</h2>
-            <p>Todo tu esfuerzo tiene grandes resultados.</p>
-            <a href="@Url.Action("Logros", "CaminoBrillante")">Ver logros</a>
-        </div>
-    </div>
+
+
+
+
 </div>
 
+
+
+@if (ViewBag.ResumenLogros != null)
+{
+    <div class="container bglogros">
+        <div class="banner-logros">
+            <img src="~/Content/CaminoBrillante/imgs/mobile-logros.svg" class="img-log" />
+            <div class="right-banner">
+                <h2>Tus logros</h2>
+                <p>Todo tu esfuerzo tiene grandes resultados.</p>
+                <a href="@Url.Action("Logros", "CaminoBrillante")">Ver logros</a>
+            </div>
+        </div>
+    </div>
+}
 
 <div class="container">
 

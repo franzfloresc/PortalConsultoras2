@@ -847,6 +847,21 @@ namespace Portal.Consultoras.Web.Providers
             }
             return lst;
         }
+
+        public NivelCaminoBrillanteModel GetNivelGranBrillante()
+        {
+            var configuracion = GetCaminoBrillanteConfiguracion() ?? new List<BEConfiguracionCaminoBrillante>();
+            var config = configuracion.Where(e => e.Codigo == "sb_granBrillante").FirstOrDefault();
+            if (config != null)
+            {
+                return new NivelCaminoBrillanteModel()
+                {
+                    DescripcionNivel = config.Descripcion,
+                    MontoMinimo = config.Valor
+                };
+            }
+            return null;
+        }
         #endregion
 
         #region Mantenedor Beneficios
