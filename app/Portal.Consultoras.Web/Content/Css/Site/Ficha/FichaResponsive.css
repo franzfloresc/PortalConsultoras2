@@ -477,6 +477,20 @@ ul.breadcumbs li a {
 }
 
 @media (max-width: 960px) {
+
+    body {
+        height: 100%;
+    }
+
+    #seccion_Contenedor_Ficha {
+        height: 100%;
+        position: absolute;
+    }
+
+    .seccion_ficha
+    .seccion_ficha_sintop {
+        height: 100%;
+    }
     .content_responsive {
         margin-bottom: 54px;
     }
