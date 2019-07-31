@@ -83,6 +83,22 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 }
             }
             public int Orden { get; set; }
+            public bool Estado { get; set; }
+            public string FlagActivo
+            {
+                get
+                {
+                    if (Estado)
+                        return "SI";
+                    else
+                        return "NO";
+                }
+            }
+        }
+
+        public class IconoBeneficioCaminoBrillante {
+            public string CodigoIcono { get; set; }
+            public string UrlIcono { get; set; }
         }
     }
 }

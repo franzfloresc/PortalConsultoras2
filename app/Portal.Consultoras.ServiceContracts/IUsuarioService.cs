@@ -468,6 +468,15 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad);
+
+        [OperationContract]        
+        void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);        
+        
+        [OperationContract]
+        List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
         #endregion
 
         [OperationContract]

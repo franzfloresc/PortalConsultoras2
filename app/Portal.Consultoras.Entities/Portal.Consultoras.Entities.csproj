@@ -94,6 +94,7 @@
     <Compile Include="CaminoBrillante\BEConfiguracionCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEConsultoraCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEDesmostradoresCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEIncentivosMontoExigencia.cs" />
     <Compile Include="CaminoBrillante\BEOfertaCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEOrdenFiltrosCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEKitsHistoricoConsultora.cs" />
