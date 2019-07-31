@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Logros(string opcion)
         {
             if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return _RedirectToAction("Index", "Bienvenida");
-            if (string.IsNullOrEmpty(opcion)) return _RedirectToAction("Index", "Bienvenida");
+            if (string.IsNullOrEmpty(opcion)) opcion = Constantes.CaminoBrillante.Logros.CRECIMIENTO; //return _RedirectToAction("Index", "Bienvenida");
 
             var opcionUpper = opcion.ToUpper();
             if (opcionUpper != Constantes.CaminoBrillante.Logros.CRECIMIENTO && opcionUpper != Constantes.CaminoBrillante.Logros.COMPROMISO)
@@ -73,7 +73,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             var esCrecimiento = opcionUpper == Constantes.CaminoBrillante.Logros.CRECIMIENTO;
             ViewBag.Informacion = esCrecimiento ? informacion.Logros[0] : informacion.Logros[1];
+            ViewBag.Informacion = null;
             ViewBag.Vista = esCrecimiento ? "Crecimiento" : "Compromiso";
+
+            /*
+            ViewBag.LogrosResumen = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
+            ViewBag.LogrosResumen = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
+            ViewBag.LogrosResumen = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
+            */
 
             return View();
         }
@@ -146,13 +153,15 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult GetLogros(string category)
         {
-            if ( string.IsNullOrEmpty(category) || !_caminoBrillanteProvider.ValidacionCaminoBrillante())
+            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante())
             {
                 return Json(new { }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { data = _caminoBrillanteProvider.GetLogroCaminoBrillante(category.ToUpper()) }, JsonRequestBehavior.AllowGet);
+            //return Json(new { data = _caminoBrillanteProvider.GetLogroCaminoBrillante(category.ToUpper()) }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = _caminoBrillanteProvider.GetLogroUnificadoCaminoBrillante() }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
