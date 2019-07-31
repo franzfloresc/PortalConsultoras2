@@ -459,6 +459,24 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp);
+
+        [OperationContract]
+        List<BENivelCaminoBrillante> GetNiveles(int paisID);
+
+        [OperationContract]
+        List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
+
+        [OperationContract]
+        void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad);
+
+        [OperationContract]        
+        void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);        
+        
+        [OperationContract]
+        List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
         #endregion
 
         [OperationContract]
@@ -472,7 +490,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ValidaEstadoPopup(int PaisID);
-
 
         [OperationContract]
         List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario);

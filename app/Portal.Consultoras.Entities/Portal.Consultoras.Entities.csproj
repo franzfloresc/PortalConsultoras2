@@ -64,7 +64,6 @@
     <Compile Include="BEConfiguracionPaisFFVVDatos.cs" />
     <Compile Include="BEContenidoAppDetaAct.cs" />
     <Compile Include="BEContenidoAppHistoria.cs" />
-    <Compile Include="BEBeneficiosCaminoBrillante.cs" />
     <Compile Include="BEContenidoAppDetalle.cs" />
     <Compile Include="BEContenidoAppDeta.cs" />
     <Compile Include="BEContenidoAppList.cs" />
@@ -95,6 +94,7 @@
     <Compile Include="CaminoBrillante\BEConfiguracionCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEConsultoraCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEDesmostradoresCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEIncentivosMontoExigencia.cs" />
     <Compile Include="CaminoBrillante\BEOfertaCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEOrdenFiltrosCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEKitsHistoricoConsultora.cs" />

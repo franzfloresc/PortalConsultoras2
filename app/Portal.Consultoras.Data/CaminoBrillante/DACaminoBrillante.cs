@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities.CaminoBrillante;
+using System;
 using System.Data;
 using System.Data.Common;
 
@@ -11,9 +12,10 @@ namespace Portal.Consultoras.Data.CaminoBrillante
 
         }
 
-        public IDataReader GetBeneficiosCaminoBrillante()
+        public IDataReader GetBeneficiosCaminoBrillante(string codigoNivel)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetBeneficioCaminoBrillante");
+            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, codigoNivel);
             return Context.ExecuteReader(command);
         }
 
@@ -62,5 +64,52 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
             return Context.ExecuteReader(command);
         }
+
+        public void InsBeneficioCaminoBrillante(BEBeneficioCaminoBrillante entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsBeneficioCaminoBrillante");
+            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
+            Context.Database.AddInParameter(command, "@CodigoBeneficio", DbType.String, entidad.CodigoBeneficio);
+            Context.Database.AddInParameter(command, "@NombreBeneficio", DbType.AnsiString, entidad.NombreBeneficio);
+            Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entidad.Descripcion);
+            Context.Database.AddInParameter(command, "@UrlIcono", DbType.String, entidad.Icono);
+            Context.Database.AddInParameter(command, "@Orden", DbType.Int32, entidad.Orden);
+            Context.Database.AddInParameter(command, "@Estado", DbType.Boolean, entidad.Estado);
+            Context.ExecuteScalar(command);
+        }
+
+        public void DelBeneficioCaminoBrillante(string CodigoNivel, string CodigoBeneficio)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelBeneficioCaminoBrillante");
+            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.AnsiString, CodigoNivel);
+            Context.Database.AddInParameter(command, "@CodigoBeneficio", DbType.AnsiString, CodigoBeneficio);
+            Context.ExecuteScalar(command);
+        }
+
+
+
+
+        #region Exigencia Monto Incentivos
+        public void InsIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsIncentivosMontoExigencia");
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, entidad.CodigoCampania);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+            Context.Database.AddInParameter(command, "@Monto", DbType.String, entidad.Monto);
+            Context.Database.AddInParameter(command, "@AlcansoIncentivo", DbType.String, entidad.AlcansoIncentivo);
+            Context.Database.AddInParameter(command, "@Estado", DbType.String, entidad.Estado);
+            Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader GetIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetIncentivosMontoExigencia");
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, entidad.CodigoCampania);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+            return Context.ExecuteReader(command);
+        }
+        #endregion
     }
 }
