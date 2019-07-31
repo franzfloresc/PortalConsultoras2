@@ -2577,6 +2577,11 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoWebBusinessLogic.GetPedidoTotalPagoContado(bEPedidoWeb);
         }
+
+        public string GetRutaPedidoDescargaSinMarcar(int campaniaid, int paisID, string tipo, string path)
+        {
+            return BLPedidoWeb.GetRutaPedidoDescargaSinMarcar(campaniaid, paisID, tipo, path);
+        }
         #endregion
     }
 }

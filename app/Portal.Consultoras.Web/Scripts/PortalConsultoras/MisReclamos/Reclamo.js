@@ -294,8 +294,9 @@ $(document).ready(function () {
     });
 });
 
-function callAjax(pUrl, pSendData, callbackSuccessful, callbackError) {
+function callAjax(pUrl, pSendData, callbackSuccessful, callbackError, isAsync) {
     var sendData = typeof pSendData === "undefined" ? {} : pSendData;
+    isAsync = typeof isAsync === "undefined" ? true : false;
     $.ajax({
         type: "POST",
         url: pUrl,
@@ -307,7 +308,7 @@ function callAjax(pUrl, pSendData, callbackSuccessful, callbackError) {
         },
         data: JSON.stringify(sendData),
         contentType: "application/json; charset=utf-8",
-        async: true,
+        async: isAsync,
         dataType: "json",
         success: function (result) {
             if (callbackSuccessful && typeof callbackSuccessful === "function") {
@@ -754,7 +755,7 @@ function ObtenerValorCDRWebDatos(codigoSsic) {
             return false;
         var cdrWebDatos = data.cdrWebdatos;
         $("#hdCdrWebDatos_Ssic").val(cdrWebDatos.Valor);
-    });
+    }, null, false);
 }
 
 function CargarPropuesta(codigoSsic) {
@@ -1551,7 +1552,7 @@ function PreValidacionIrFinalizar() {
         }
     }
 
-    return { result: true, id: id, };
+    return { result: true, id: id };
 }
 
 function EliminarDetalle(el) {

@@ -17,7 +17,6 @@
 
     $(document).ready(function(){
         fnGrilla();
-        IniFecha();
         $("#btnDescargar").data('click', false);
         $("#btnDescargar").click(function () {
             RealizarDescarga($(this)); 
@@ -30,14 +29,7 @@
         });
     });
 
-    function IniFecha() {
-        $("#txtFechaFacturacion").datepicker({
-            showOn: "button",
-            buttonImage: rutaImagenCalendar,
-            buttonImageOnly: true,
-            dateFormat: 'dd/mm/yy'
-        }).mask('99/99/9999');
-    }
+
 
     function cargarLista() {
         $.ajax({
@@ -70,9 +62,7 @@
         if ($("#ddlPais").val() == "") {
             vMessage += "Debe seleccionar un País";
         }
-        if (jQuery.trim($("#txtFechaFacturacion").val()) == "") {
-            vMessage += "Debe ingresar la Fecha de Facturación.\n";
-        }
+      
 
         if ($("#ddlCampania").val() == "") {
             vMessage += "Debe seleccionar una Campaña";
@@ -99,8 +89,7 @@
             var JsonData = {
                 PaisID: $("#ddlPais").val(),
                 CampanaId: $("#ddlCampania").val(),
-                NroLote: NRO_LOTE,
-                FechaFacturacion: $("#txtFechaFacturacion").val(),
+                NroLote: NRO_LOTE
             };
 
                 $.ajax({
@@ -238,10 +227,8 @@
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     if (data.msnRespuesta_ == "a") {
-                        if (data.objPedidosCabWeb_.length > 0) DescargaArchivos(data.objPedidosCabWeb_);
-                        if (data.objPedidosDetWeb_.length > 0) DescargaArchivos(data.objPedidosDetWeb_);
-                        if (data.objPedidosCabDD_.length > 0) DescargaArchivos(data.objPedidosCabDD_);
-                        if (data.objPedidosDetDD_.length > 0) DescargaArchivos(data.objPedidosDetDD_);
+                        if (data.objPedidosCab_.length > 0) DescargaArchivos(data.objPedidosCab_);
+                        if (data.objPedidosDet_.length > 0) DescargaArchivos(data.objPedidosDet_);
                     }
                     if (data.msnRespuesta_ == "b") {
                         alert("Se está ejecutando un proceso desde otro punto para otra campaña, espere unos minutos y vuelva a intentarlo.");
@@ -329,13 +316,6 @@
                         @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaCampania, "CampaniaID", "Codigo"), new { id = "ddlCampania" })
                     </div>
                 </div>
-                <div class="celda">
-                    <span>Fecha Facturación:</span>
-                    <div class="calendar borde_redondeado">
-                        <input type="text" id="txtFechaFacturacion" />
-                    </div>
-                </div>
-
 
                 <div class="celda">
                     <span></span>
