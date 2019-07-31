@@ -11657,6 +11657,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 private string DescripcionNivelField;
                 
                 [System.Runtime.Serialization.OptionalFieldAttribute()]
+                private bool DestacarField;
+                
+                [System.Runtime.Serialization.OptionalFieldAttribute()]
                 private bool EstadoField;
                 
                 [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11704,6 +11707,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                         if ((object.ReferenceEquals(this.DescripcionNivelField, value) != true)) {
                             this.DescripcionNivelField = value;
                             this.RaisePropertyChanged("DescripcionNivel");
+                        }
+                    }
+                }
+                
+                [System.Runtime.Serialization.DataMemberAttribute()]
+                public bool Destacar {
+                    get {
+                        return this.DestacarField;
+                    }
+                    set {
+                        if ((this.DestacarField.Equals(value) != true)) {
+                            this.DestacarField = value;
+                            this.RaisePropertyChanged("Destacar");
                         }
                     }
                 }

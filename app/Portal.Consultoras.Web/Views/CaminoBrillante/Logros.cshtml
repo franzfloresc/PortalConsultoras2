@@ -143,16 +143,18 @@
                 <div class="right-m">
                     <p id="indicador-title" class="text-bold _hide">{{Titulo}}</p>
                     <span class="como-log inactivo">Ultimo Obtenido</span>
+                    {{#if MedallaDestacada}}
                     <div class="bigitem">
                         <div class="itm">
-
                             <div class="bord circle-porcent crec-activo">
-                                <span>C02</span>
+                                <span>{{MedallaDestacada.Valor}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="right-m">
+                    {{/if}}
+                    <div class="{{#if MedallaDestacada}}right-m{{/if}}">
                         {{#each Medallas }}
+                        {{#unless Destacar}}
                         <div class="itm">
                             <div class="circle-porcent imgpizz">
                                 <img src="{{UrlMedalla}}" />
@@ -167,6 +169,7 @@
                                   {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
                             {{/if}}
                         </div>
+                        {{/unless}}
                         {{/each}}
                     </div>
                 </div>
@@ -260,16 +263,19 @@
         <div class="clear"></div>
         <div class="box-camb mo-1">
             <p class="text-bold">{{Titulo}}</p>
-            <span class="como-log inactivo">Ultimo Obtenido</span>
+            <span class="como-log inactivo">Ultimo Obtenido</span>            
+            {{#if MedallaDestacada}}
             <div class="bigitem">
                 <div class="itm">
                     <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
+                        <span>{{MedallaDestacada.Valor}}</span>
                     </div>
                 </div>
             </div>
-            <div class="cambio-crec right-m">
+            {{/if}}
+            <div class="cambio-crec {{#if MedallaDestacada}}right-m{{/if}}">
                 {{#each Medallas }}
+                {{#unless Destacar}}
                 <div class="itm">
                     {{#if_eq Tipo 'CIRC'}}
                     <div class=" circle-porcent {{#if Estado}}crec-activo {{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
@@ -284,6 +290,7 @@
                           {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
                     {{/if}}
                 </div>
+                {{/unless}}
                 {{/each}}
             </div>
         </div>
@@ -293,7 +300,7 @@
     <!-- Popups -->
     <div>
         {{#each Indicadores}}
-        {{#each Medallas }}        
+        {{#each Medallas }}
         {{#if Estado}}
         {{else}}
         {{#IsNullOrEmpty ModalTitulo '!='}}
@@ -371,16 +378,18 @@
         {{#each Indicadores}}
         <p class="cambio-crec text-bold">{{Titulo}}</p>
         <span class="como-log inactivo">Ultimo Obtenido</span>
+        {{#if MedallaDestacada}}
         <div class="bigitem">
             <div class="itm">
-
                 <div class="bord circle-porcent crec-activo">
-                    <span>C02</span>
+                    <span>{{MedallaDestacada.Valor}}</span>
                 </div>
             </div>
         </div>
-        <div class="cambio-crec right-m">
+        {{/if}}
+        <div class="cambio-crec {{#if MedallaDestacada}}right-m{{/if}}">
             {{#each Medallas }}
+            {{#unless Destacar}}
             <div class="itm">
                 {{#if_eq Tipo 'CIRC'}}
                 <div class=" circle-porcent {{#if Estado}} crec-activo{{else}} bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
@@ -395,6 +404,7 @@
                       {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
                 {{/if}}
             </div>
+            {{/unless}}
             {{/each}}
         </div>
         {{/each}}
