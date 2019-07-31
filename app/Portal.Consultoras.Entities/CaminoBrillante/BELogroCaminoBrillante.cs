@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
                 public string Subtitulo { get; set; }
                 public string Valor { get; set; }
                 public bool Estado { get; set; }
+                public bool Resaltado { get; set; }
                 public string ModalTitulo { get; set; }
                 public string ModalDescripcion { get; set; }
                 public decimal MontoSuperior { get; set; }

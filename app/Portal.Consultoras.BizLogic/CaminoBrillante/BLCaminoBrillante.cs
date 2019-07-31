@@ -327,7 +327,16 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 var result = new List<string>();
                 /* Check si Paso en el Periodo */
-
+                var perTxt = periodo.Periodo.ToString();
+                var nivelHistorico = nivelesHistoricosConsultora.FirstOrDefault(e => e.Periodo1 == perTxt || e.Periodo2 == perTxt || e.Periodo3 == perTxt || e.Periodo4 == perTxt || e.Periodo5 == perTxt);
+                if (nivelHistorico != null) {
+                    var constancia = nivelHistorico.Periodo1 == perTxt ? nivelHistorico.Constancia1 :
+                                     nivelHistorico.Periodo2 == perTxt ? nivelHistorico.Constancia2 :
+                                     nivelHistorico.Periodo3 == perTxt ? nivelHistorico.Constancia3 :
+                                     nivelHistorico.Periodo4 == perTxt ? nivelHistorico.Constancia4 :
+                                     nivelHistorico.Periodo5 == perTxt ? nivelHistorico.Constancia5 : 0;
+                    result.AddRange(campaniasInPeriodo.Take(constancia));
+                }
                 return result;
             };
 
@@ -338,7 +347,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     var indicador = new BELogroCaminoBrillante.BEIndicadorCaminoBrillante()
                     {
                         Codigo = p.Periodo.ToString(),
-                        Titulo = string.Format("Constancia del perido: C{0} a C{1}", funCampania(p.CampanaInicial), funCampania(p.CampanaFinal)),
+                        Titulo = string.Format("Constancia del periodo: C{0} a C{1}", funCampania(p.CampanaInicial), funCampania(p.CampanaFinal)),
                         Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>()
                     };
 
@@ -348,15 +357,18 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     /* Agregamos las Medallas */
                     campaniasInPeriodo.ForEach(m =>
                     {
+                        var estado = campaniasPedidoINPeriodo.Contains(m);
+                        var subTitulo = periodoActual.Periodo != p.Periodo || estado ? string.Format("C{0}", m) :  Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;                        
+
                         indicador.Medallas.Add(new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
                         {
                             Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED,
                             Titulo = string.Format(configMedalla.Valor ?? string.Empty, (p.CampanaInicial % 100), (p.CampanaFinal % 100)),
-                            Subtitulo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
+                            Subtitulo = subTitulo,
                             ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
                             ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty,
                             Valor = string.Format("C{0}", m),
-                            Estado = campaniasPedidoINPeriodo.Contains(m)
+                            Estado = estado
                         });
                     });
                     indicadores.Add(indicador);
