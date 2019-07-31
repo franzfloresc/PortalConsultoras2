@@ -786,7 +786,10 @@ var PedidoRegistroModule = function () {
                         mensaje = _mensajeAgregarPedido.normal;
                     }
 
-                    AbrirMensaje25seg(mensaje, imagenProducto);
+                    if (data.flagCantidaPedido == 0) 
+                        AbrirMensaje25seg(mensaje, imagenProducto);
+                    else
+                        alert_msg(data.mensajeCantidad);
 
                     var modelCarrito = {
                         'DescripcionCompleta': modelFinal.DescripcionProd,
