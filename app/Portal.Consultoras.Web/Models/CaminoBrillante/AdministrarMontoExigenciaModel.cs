@@ -13,7 +13,6 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string CodigoZona { get; set; }
         public string Monto { get; set; }
         public string AlcansoIncentivo { get; set; }
-        public bool Estado { get; set; }
 
         public int PaisID { set; get; }
         public IEnumerable<PaisModel> listaPaises { set; get; }
