@@ -1488,8 +1488,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     else pedido.TippingPoint = tippingPoint.MontoVentaExigido;
 
                     var lstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
-                    if (lstEstrategia.Any() && lstDetalle.Any()) lstDetalle.ForEach(p => p.EsPremioElectivo = lstEstrategia.Any(c => c.CUV2 == p.CUV));
-                    
+                    if (lstEstrategia.Any() && lstDetalle.Any())
+                    {
+                        pedido.PrecioRegalo = !lstEstrategia.Any(x => (x.Precio2 == 0 ? x.PrecioUnitario : x.Precio2) == 0);
+                        lstDetalle.ForEach(p => p.EsPremioElectivo = lstEstrategia.Any(c => c.CUV2 == p.CUV));
+                    }
+
                 }
 
                 //Duo Perfecto
@@ -1500,7 +1504,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         detalle.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, detalle.CUV);
                     });
                 }
-                
+
                 //Web set y detalle
                 lstDetalle.Where(filtro => filtro.SetID > 0).Update(detalle =>
                 {
