@@ -48516,10 +48516,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDescargaArchivoSinMarcar> DescargaPedidosSinMarcarAsync(int paisID, int campaniaid, int nroLote, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DescargaPedidosWebSinMarcar", ReplyAction="http://tempuri.org/IPedidoService/DescargaPedidosWebSinMarcarResponse")]
-        string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, System.DateTime fechaFacturacion);
+        string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DescargaPedidosWebSinMarcar", ReplyAction="http://tempuri.org/IPedidoService/DescargaPedidosWebSinMarcarResponse")]
-        System.Threading.Tasks.Task<string> DescargaPedidosWebSinMarcarAsync(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, System.DateTime fechaFacturacion);
+        System.Threading.Tasks.Task<string> DescargaPedidosWebSinMarcarAsync(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcar", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcarResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int paisID, int campaniaID);
@@ -51227,12 +51227,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.DescargaPedidosSinMarcarAsync(paisID, campaniaid, nroLote, codigoUsuario);
         }
         
-        public string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, System.DateTime fechaFacturacion) {
-            return base.Channel.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, nroLote, fechaFacturacion);
+        public string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote) {
+            return base.Channel.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, nroLote);
         }
         
-        public System.Threading.Tasks.Task<string> DescargaPedidosWebSinMarcarAsync(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, System.DateTime fechaFacturacion) {
-            return base.Channel.DescargaPedidosWebSinMarcarAsync(paisID, campanaId, tipoCronograma, usuario, nroLote, fechaFacturacion);
+        public System.Threading.Tasks.Task<string> DescargaPedidosWebSinMarcarAsync(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote) {
+            return base.Channel.DescargaPedidosWebSinMarcarAsync(paisID, campanaId, tipoCronograma, usuario, nroLote);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int paisID, int campaniaID) {

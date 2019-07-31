@@ -2517,11 +2517,11 @@ namespace Portal.Consultoras.Service
             }
         }
 
-        public string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, DateTime fechaFacturacion)
+        public string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote)
         {
             try
             {
-                return BLPedidoWeb.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, nroLote, fechaFacturacion);
+                return BLPedidoWeb.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, nroLote);
             }
             catch (BizLogicException ex)
             {
