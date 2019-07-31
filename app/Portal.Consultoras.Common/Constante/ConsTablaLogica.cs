@@ -575,10 +575,11 @@ namespace Portal.Consultoras.Common
             public const string Cod01 = "01";
         }
 
-        public static class NroSolicitudePedido
+        public static class ConfigCdr
         {
             public const int TablaLogicaId = 161;
-            public const string Cod01 = "01";
+            public const string NroSolicitudPorPedido = "01";
+            public const string TruequeUnoMuchos = "02";
         }
 
         public static class ResizeImagenesAppGana
@@ -632,6 +633,7 @@ namespace Portal.Consultoras.Common
             public const short Id = 172;
             public const string PanelId = "PANEL_ID";
             public const string PanelKey = "PANEL_KEY";
+            public const string PanelUrl = "PANEL_URL";
         }
 
         public static class PagoContado

@@ -54,6 +54,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// Puntaje Acumulado
         /// </summary>
         public int? PuntajeAcumulado { get; set; }
+        /// <summary>
+        /// Mensaje Nivel
+        /// </summary>
+        public string Mensaje { get; set; }
 
     }
 

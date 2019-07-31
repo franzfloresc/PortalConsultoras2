@@ -87,7 +87,6 @@ $(document).ready(function () {
     $("#ddlPais").change(function () {
         imgISO = $("#ddlPais").val();
         analytics.invocarAnalyticsByCodigoIso(imgISO);
-        $("#RecuadroComunidad").hide();
         if (imgISO == "MX") {
             $("#AvisoASP").show();
         } else {

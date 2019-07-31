@@ -260,22 +260,6 @@ $(document).ready(function () {
             return false;
         }
     });
-    $("#btnValidarPROL").on("click", function (e) {
-
-        if (gTipoUsuario == 2) { //Postulante
-            var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
-            $("#dialog_MensajePostulante #tituloContenido").text("IMPORTANTE");
-            $("#dialog_MensajePostulante #mensajePostulante").text(mesg);
-            $("#dialog_MensajePostulante").show();
-
-            if (indicadorGPRSB == 1) ConfirmarModificar();
-        }
-        else EjecutarPROL();
-
-        e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
-    });
-
-
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var rowElement = $(this).closest(".contenido_ingresoPedido");
         var cant = $(rowElement).find(".txtLPCant").val();
@@ -435,7 +419,7 @@ $(document).ready(function () {
         if (cuv.substring(0, 3) == '999') {
             sessionStorage.setItem('cuvPack', cuv);
         }
-        
+
         ProcesarActualizacionMostrarContenedorCupon();
         ProductoRecomendadoModule.OcultarProductosRecomendados();
         $("#btnAgregar").removeAttr("disabled");
@@ -470,7 +454,7 @@ $(document).ready(function () {
 
     CrearDialogs();
     MostrarBarra();
-    
+
     ValidarSuscripcionSE(function () { CargarDetallePedido(); }, 0);
 
     CargarCarouselEstrategias();
@@ -520,23 +504,43 @@ $(document).ready(function () {
         HideDialog("observaciones_alerta");
         return false;
     });
-    //
-    //doWhatYouNeed();
 
     $(window).bind("load", function () { //se ejecuta al finalizar la carga de la página
-        if (typeof cantPedidosPendientes !== "undefined" && typeof esDiaProl !== "undefined") {
-            if (cantPedidosPendientes > 0 && esDiaProl) {
+        if (typeof cantPedidosPendientes !== "undefined") {
+            if (cantPedidosPendientes > 0) {
                 $("#spnCantidadPendientes").text(cantPedidosPendientes);
-                $("#accionIgnorar").hide();
                 setTimeout(function () {
                     $("#PopupPedidosPendientes").fadeIn(250);
-                }, 200);
+                }, 250);
             }
         }
     });
 });
 
-//paco
+function PreValidarProl() {
+    var cantidadPendiente = typeof cantPedidosPendientes == "undefined" || cantPedidosPendientes == "" ? 0 : parseInt(cantPedidosPendientes);
+    if (cantidadPendiente > 0) {
+        $("#accionVerDespues").hide();
+        $("#accionIgnorar").html(!esDiaProl ? "Quiero verlo despu&eacute;s,<br /> Guardar de todos modos" : "Prefiero ignorarlo");
+        $("#accionIgnorar").show();
+        $("#PopupPedidosPendientes").fadeIn(250);
+        return false;
+    } else 
+        IniciarValidarProl();
+}
+
+function IniciarValidarProl() {//Nombre de método enlazado al _PopupPedidosPendientes.cshtml
+    $('#PopupPedidosPendientes').fadeOut(250, function () {
+        if (gTipoUsuario == 2) { //Postulante
+            var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
+            $("#dialog_MensajePostulante #tituloContenido").text("IMPORTANTE");
+            $("#dialog_MensajePostulante #mensajePostulante").text(mesg);
+            $("#dialog_MensajePostulante").show();
+            if (indicadorGPRSB == 1) ConfirmarModificar();
+        }
+        else EjecutarPROL();
+    });
+}
 
 function CargarDetallePedido(page, rows, asyncrono) {
     $(".pMontoCliente").css("display", "none");
@@ -1992,7 +1996,6 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
         else {
             $('#divMensajeObservacionesPROL').data('prop-NotExito', data.ObservacionRestrictiva);
             data.MostrarMensajeExito = true;
-            $("#spnCantidadPendientes").text(data.CantPedidosPendientes);
         }
     }
 
@@ -2082,22 +2085,18 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
     if (cumpleOferta) return;
     var res = response.data;
     if (!res.Reserva) {
+        //Mostrar Mensaje de pedido guardado con éxito
         if (res.hasOwnProperty("MostrarMensajeExito")) {
-            console.info(res.MostrarMensajeExito);
             if (res.MostrarMensajeExito) {
-                var idPedidoGuardado = "#PopupPedidoGuardado", idPedidoPendiente = "#PopupPedidosPendientes", accionIgnorar = "#accionIgnorar";
-                $(accionIgnorar).hide();
-                $(idPedidoGuardado).fadeIn(250);
-                //setContainerLluvia(idPedidoGuardado);
-                //mostrarLluvia();
+                var idPedidoGuardado = "#PopupPedidoGuardado";
+                $(idPedidoGuardado).fadeIn(250, function () {
+                    setContainerLluvia(idPedidoGuardado);
+                    mostrarLluvia();
+                });
                 setTimeout(function () {
-                    var cantidad = res.hasOwnProperty("CantPedidosPendientes") ? res.CantPedidosPendientes : 0;
-                    $(idPedidoGuardado).fadeOut(500);
-                    if (cantidad > 0) {
-                        $(idPedidoPendiente).delay(300);
-                        $(idPedidoPendiente).fadeIn(500);
-                    }
-                }, 3750);
+                    ocultarLluvia();
+                    $(idPedidoGuardado).fadeOut(250);
+                }, 2750);
                 return false;
             }
         } else {
@@ -2113,32 +2112,31 @@ function CerrarPopUpGrabadoConExito() {
 }
 
 function EjecutarAccionesReservaExitosa(response) {
-    if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();    
+    if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
 
     if (!response.data.IsEmailConfirmado) {
-       
-        configActualizarCorreo.UrlPedidoValidado = (!ultimoDiaFacturacion) ? configActualizarCorreo.UrlPedido: configActualizarCorreo.UrlPedidoValidado;
+        configActualizarCorreo.UrlPedidoValidado = (!ultimoDiaFacturacion) ? configActualizarCorreo.UrlPedido : configActualizarCorreo.UrlPedidoValidado;
         new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
-
-    }else {
+    } else {
         var idPedidoGuardado = "#PopupPedidoGuardado", msgReservado = "#msgPedidoReservado", msgGuardado = "#msgPedidoGuardado";
         $(msgGuardado).hide();
         $(msgReservado).show();
-        setContainerLluvia(idPedidoGuardado);
-        mostrarLluvia();
-        $(idPedidoGuardado).fadeIn(250);
-
+        $(idPedidoGuardado).fadeIn(250, function () {
+            setContainerLluvia(idPedidoGuardado);
+            mostrarLluvia();
+        });
+        setTimeout(function () {
+            ocultarLluvia();
+            $(idPedidoGuardado).fadeOut(250);
+        }, 2750);
         if (ultimoDiaFacturacion) {
-	        RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
+            RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
         } else {
-	        location.reload();
+            location.reload();
         }
     }
- 
-
 }
-
 
 function EliminarPedido() {
     AbrirSplash();
@@ -2178,7 +2176,7 @@ function EliminarPedido() {
             }
 
             if (data.success != true) {
-                
+
                 messageInfoError(data.message);
                 CerrarSplash();
 
@@ -3057,7 +3055,7 @@ function PedidosPendientesPorAprobar() {
 
 /* Switch Consultora 100% */
 function doWhatYouNeed() {
-    var object = { codigoConsultora: userData.codigoConsultora}
+    var object = { codigoConsultora: userData.codigoConsultora }
 
     $.ajax({
         type: "POST",
@@ -3067,11 +3065,11 @@ function doWhatYouNeed() {
         dataType: "json",
         cache: false,
         success: function (data) {
-            
+
             if (checkTimeout(data)) {
                 if (data != null) {
                     if (data.IndicadorConsultoraDigital) {
-                        if (document.getElementById("bPedidoPaginarRegistrosTotal") != undefined && document.getElementById("bPedidoPaginarRegistrosTotal").innerHTML > 0 ) {
+                        if (document.getElementById("bPedidoPaginarRegistrosTotal") != undefined && document.getElementById("bPedidoPaginarRegistrosTotal").innerHTML > 0) {
                             if (data.IndicadorRecepcion) {
                                 $("div.contenedor_info_recepcion_pedido").css("display", "flex");
                                 $(".info_recepcion_pedido").css("display", "block");
@@ -3150,13 +3148,13 @@ function LimpiarCamposRecepcionPoput() {
     document.getElementsByClassName("form__group__fields--numeroDocumento")[0].children[2].textContent = "";
     $("#txtNombreYApellido").val("");
     $("#txtNumeroDocumento").val("");
-    $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");  
-        
+    $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");
+
     object = {};
 }
 
 $(".popup__somos__belcorp__icono__cerrar--popupRecepcionPedido").click(function () {
-    ActualizarCheck(); 
+    ActualizarCheck();
 })
 
 $(".btn__sb--cambiarPersona").click(function () {
@@ -3164,7 +3162,7 @@ $(".btn__sb--cambiarPersona").click(function () {
     $("#txtNumeroDocumento").addClass('text__field__sb--withContent');
     $("#txtNombreYApellido").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[0].textContent);
     $("#txtNumeroDocumento").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[1].textContent);
-    $(".btn__sb__primary--multimarca").removeClass("btn__sb--disabled");  
+    $(".btn__sb__primary--multimarca").removeClass("btn__sb--disabled");
 });
 
 

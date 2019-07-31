@@ -133,12 +133,6 @@ function closeMant() {
     document.getElementById("divMant").style.display = "none";
 }
 
-function RedirectComunidadVirtual() {
-    analytics.invocarEventoPixel("ComunidadVirtual");
-
-    window.open('http://comunidad.somosbelcorp.com', '_self');
-    return false;
-}
 function RedirectBelcorpResponde() {
     _gaq.push(['_trackEvent', 'Link', 'Belcorp-Responde']);
     dataLayer.push({

@@ -83,6 +83,11 @@ namespace Portal.Consultoras.Data
             get { return (string)this["ocwpedde"]; }
         }
 
+ 
+
+
+
+
         [ConfigurationProperty("ocwpedcli", IsRequired = false)]
         public string OrderClienteTemplate
         {
