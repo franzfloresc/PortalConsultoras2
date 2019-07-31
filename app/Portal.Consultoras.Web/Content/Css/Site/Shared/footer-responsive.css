@@ -35,10 +35,15 @@
     margin-bottom:0;
 }
 
-.footer__items__list--primerListado .footer__item{
-    padding-top:15px;
-    margin-bottom:50px;
-}
+    .footer__items__list--primerListado {
+        -webkit-justify-content: space-evenly;
+        justify-content: space-evenly;
+    }
+
+    .footer__items__list--primerListado .footer__item{
+        padding-top:15px;
+        margin-bottom:50px;
+    }
 
 .footer__link{
     cursor:pointer;
