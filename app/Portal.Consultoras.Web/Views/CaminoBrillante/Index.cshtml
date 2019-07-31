@@ -137,7 +137,10 @@
                                     }
                                     else
                                     {
-                                        @Util.EnteroFormat(Convert.ToDecimal(@montoMaximoBarra), @ViewBag.CodigoISODL) @Html.Raw(" pts")
+                                        if (ViewBag.GranBrillante == null)
+                                        {
+                                            @Util.EnteroFormat(Convert.ToDecimal(@montoMaximoBarra), @ViewBag.CodigoISODL) @Html.Raw(" pts")
+                                        }
                                     }
                                 </span>
                             </div>
