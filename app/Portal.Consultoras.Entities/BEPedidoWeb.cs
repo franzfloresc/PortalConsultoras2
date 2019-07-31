@@ -162,6 +162,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string STPDeudaLog { get; set; }
 
+        [DataMember]
+        public bool PrecioRegalo { get; set; }
 
 
 
