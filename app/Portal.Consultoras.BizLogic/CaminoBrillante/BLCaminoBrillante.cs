@@ -280,7 +280,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var periodos = GetPeriodos(entidad.PaisID);
 
             var configMedalla = (GetGetConfiguracionMedallaCaminoBrillanteCache(paisId) ?? new List<BEConfiguracionMedallaCaminoBrillante>())
-                                .FirstOrDefault(e => e.Logro == Constantes.CaminoBrillante.Logros.CRECIMIENTO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.CONSTANCIA);
+                                .FirstOrDefault(e => e.Logro == Constantes.CaminoBrillante.Logros.CRECIMIENTO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.CONSTANCIA_DETALLADA);
             if (configMedalla == null || periodos == null) return null;
 
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteIndicadores) ?? new List<BETablaLogicaDatos>())
@@ -358,7 +358,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     campaniasInPeriodo.ForEach(m =>
                     {
                         var estado = campaniasPedidoINPeriodo.Contains(m);
-                        var subTitulo = periodoActual.Periodo != p.Periodo || estado ? string.Format("C{0}", m) :  Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
+                        var subTitulo = periodoActual.Periodo != p.Periodo || estado ? string.Format("C{0}", m) :  "Obtener";
 
                         indicador.Medallas.Add(new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
                         {
@@ -366,7 +366,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                             Titulo = string.Format(configMedalla.Valor ?? string.Empty, (p.CampanaInicial % 100), (p.CampanaFinal % 100)),
                             Subtitulo = subTitulo,
                             ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
-                            ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty,
+                            ModalDescripcion = configMedalla.ComoLograrlo_Estado ? string.Format(configMedalla.ComoLograrlo_Descripcion, string.Format("C{0}", m)) : string.Empty,
                             Valor = string.Format("C{0}", m),
                             Estado = estado
                         });
@@ -749,6 +749,24 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var _incrementoPedido = GetConsultoraLogrosCrecimiento_IncrementoPedido(paisId, nivelConsutora);
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteLogros) ?? new List<BETablaLogicaDatos>())
                                     .FirstOrDefault(e => e.Codigo == Constantes.CaminoBrillante.Logros.CRECIMIENTO) ?? new BETablaLogicaDatos();
+
+            if (_incrementoPedido != null)
+            {
+                if(_cambioEscalaDescuento.Medallas != null)
+                {
+                    _cambioEscalaDescuento.Medallas.Where(e => e.Estado).ForEach(e => e.Subtitulo = "");
+                    _cambioEscalaDescuento.Medallas.Where(e => !e.Estado).ForEach(e => e.Subtitulo = "Obtener");
+
+                }
+            }
+            if (_incrementoPedido != null)
+            {
+                if(_incrementoPedido.Medallas != null)
+                {
+                    _incrementoPedido.Medallas.Where(e => e.Estado).ForEach(e => e.Subtitulo = "");
+                    _incrementoPedido.Medallas.Where(e => !e.Estado).ForEach(e => e.Subtitulo = "Obtener");
+                }
+            }
 
             return new BELogroCaminoBrillante()
             {
