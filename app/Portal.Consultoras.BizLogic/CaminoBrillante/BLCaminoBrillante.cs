@@ -193,7 +193,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 new BEConfiguracionCaminoBrillante(){
                     Codigo = "CB_MONTO_INCENTIVO",
                     Descripcion = "Monto Incentivo",
-                    Valor = "1234",
+                    Valor = "500",
                 },
             };
         }
