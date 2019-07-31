@@ -376,7 +376,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             });
 
             var orden = 0;
-            indicadores.OrderByDescending(e => e.Codigo).ForEach(e => e.Orden = orden);
+            indicadores.OrderByDescending(e => e.Codigo).ForEach(e => e.Orden = orden++);
 
             return new BELogroCaminoBrillante()
             {
