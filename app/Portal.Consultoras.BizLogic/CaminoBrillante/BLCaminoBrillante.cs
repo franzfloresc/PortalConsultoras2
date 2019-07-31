@@ -164,11 +164,80 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 Niveles = CalcularCuantoFalta(niveles, periodo, nivelConsultora, nivelesConsultora),
                 ResumenLogros = GetResumenLogros(entidad.PaisID, logros, nivelesConsultora, periodo, version),
                 Logros = logros,
-                Configuracion = GetConfiguracionConsultoraCaminoBrillante()
+                Configuracion = GetConfiguracionConsultoraCaminoBrillante(entidad, periodo, nivelConsultora)
             };
         }
 
-        private List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante() {
+        private List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(BEUsuario entidad, BEPeriodoCaminoBrillante periodo, NivelConsultoraCaminoBrillante nivelConsultora) {
+
+            var periodoActual = (periodo != null ? periodo.Periodo : 0);
+            var nivelActual = 0;
+            if (nivelConsultora != null) int.TryParse(nivelConsultora.NivelActual, out nivelActual);
+            
+            var consultoraMeta = (new DACaminoBrillante(entidad.PaisID).GetConsultoraCaminoBrillante(entidad.ConsultoraID, periodoActual, entidad.CampaniaID, nivelActual).MapToCollection<BEConsultoraCaminoBrillanteMeta>(closeReaderFinishing: true) ?? new List<BEConsultoraCaminoBrillanteMeta>()).FirstOrDefault();
+            var configs = new List<BEConfiguracionCaminoBrillante>();
+
+            if (consultoraMeta != null)
+            {
+                if (consultoraMeta.FlagOnboardingAnim.HasValue) {
+                    if (consultoraMeta.FlagOnboardingAnim.Value)
+                    {
+                        configs.Add(new BEConfiguracionCaminoBrillante()
+                        {
+                            Codigo = "CB_CON_ONBOARDING_ANIM",
+                            Descripcion = "Flag de Onboarding",
+                            Valor = "1",
+                        });
+                    }
+                }
+
+
+                if (consultoraMeta.FlagGananciaAnim.HasValue)
+                {
+                    if (consultoraMeta.FlagGananciaAnim.Value)
+                    {
+                        configs.Add(new BEConfiguracionCaminoBrillante()
+                        {
+                            Codigo = "CB_CON_GANANCIA_ANIM",
+                            Descripcion = "Flag de Ganancias",
+                            Valor = "1",
+                        });
+                    }
+                }
+
+
+                if (consultoraMeta.FlagCambioNivelAnim.HasValue)
+                {
+                    if (consultoraMeta.FlagCambioNivelAnim.Value)
+                    {
+                        configs.Add(new BEConfiguracionCaminoBrillante()
+                        {
+                            Codigo = "CB_CON_CAMB_NIVEL_ANIM",
+                            Descripcion = "Flag de Ganancias",
+                            Valor = "1",
+                        });
+                    }
+                }
+
+
+                configs.Add(new BEConfiguracionCaminoBrillante()
+                {
+                    Codigo = "CB_CON_CAMB_NIVEL_VAL",
+                    Descripcion = "Flag de Ganancias",
+                    Valor = "+1",
+                });
+
+                configs.Add(new BEConfiguracionCaminoBrillante()
+                {
+                    Codigo = "CB_MONTO_INCENTIVO",
+                    Descripcion = "Monto Incentivo",
+                    Valor = "500",
+                });
+
+            }
+
+
+            /*
             return new List<BEConfiguracionCaminoBrillante>() {
                 new BEConfiguracionCaminoBrillante(){
                     Codigo = "CB_CON_ONBOARDING_ANIM",
@@ -193,9 +262,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 new BEConfiguracionCaminoBrillante(){
                     Codigo = "CB_MONTO_INCENTIVO",
                     Descripcion = "Monto Incentivo",
-                    Valor = "1234",
+                    Valor = "500",
                 },
             };
+            */
+
+            return configs;
         }
 
         private List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> CalcularMisGanancias(List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> nivelesHistoricosConsultora)
@@ -251,6 +323,16 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 e.PuntajeAcumulado = nivelActualConsutora.PuntajeAcumulado.HasValue ? nivelActualConsutora.PuntajeAcumulado : e.PuntajeAcumulado;
             });
+
+            /* Mensaje para Topacio */
+            if (periodo != null)
+            {
+                niveles.Where(e => e.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Topacio || e.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante).Update(e =>
+                {
+                    var Camp = (periodo.CampanaFinal % 100).ToString();
+                    e.Mensaje = string.Format("Recuerda pasar pedido hasta C{0}", Camp.Length == 1 ? "0" + Camp : Camp);
+                });                
+            }
 
             return niveles;
         }
@@ -347,7 +429,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     var indicador = new BELogroCaminoBrillante.BEIndicadorCaminoBrillante()
                     {
                         Codigo = p.Periodo.ToString(),
-                        Titulo = string.Format("Constancia del periodo: C{0} a C{1}", funCampania(p.CampanaInicial), funCampania(p.CampanaFinal)),
+                        Titulo = string.Format("C{0} a C{1}", funCampania(p.CampanaInicial), funCampania(p.CampanaFinal)),
                         Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>()
                     };
 
@@ -381,7 +463,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return new BELogroCaminoBrillante()
             {
                 Id = Constantes.CaminoBrillante.Logros.CONSTANCIA_DETALLADA,
-                Titulo = "Constancia",
+                Titulo = "Constancia del periodo:",
                 Indicadores = indicadores.OrderBy(e => e.Orden).ToList()
             };
         }

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.CaminoBrillante
 {
@@ -77,6 +79,39 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
             /// </summary>
             public bool? FlagSeleccionMisGanancias { get; set; }
         }
+
+    }
+
+    [DataContract]
+    public class BEConsultoraCaminoBrillanteMeta {
+
+        [DataMember]
+        [Column("ConsultoraID")]
+        public long ConsultoraId { get; set; }
+        [DataMember]
+        [Column("PeriodoCB")]
+        public int? PeriodoCB { get; set; }
+        [DataMember]
+        [Column("Campania")]
+        public int? Campania { get; set; }
+        [DataMember]
+        [Column("NivelCB")]
+        public int? NivelCB { get; set; }
+        [DataMember]
+        [Column("CambioNivelCB")]
+        public int? CambioNivelCB { get; set; }
+        [DataMember]
+        [Column("FlagOnboardingAnim")]
+        public bool? FlagOnboardingAnim { get; set; }
+        [DataMember]
+        [Column("FlagOnboardingAnimRepeat")]
+        public bool? FlagOnboardingAnimRepeat { get; set; }
+        [DataMember]
+        [Column("FlagGananciaAnim")]
+        public bool? FlagGananciaAnim { get; set; }
+        [DataMember]
+        [Column("FlagCambioNivelAnim")]
+        public bool? FlagCambioNivelAnim { get; set; }
 
     }
 }
