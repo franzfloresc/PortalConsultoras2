@@ -651,11 +651,6 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
-                if (params.EsDuoPerfecto !== 'undefined' && params.EsDuoPerfecto === false) {
-                    AbrirMensaje25seg(mensaje, imagenProducto);
-                }
-
-
                 if (popup) {
                     CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
                     $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
@@ -690,6 +685,13 @@ var EstrategiaAgregarModule = (function () {
                 if (funcionResponsive != undefined) {
                     funcionResponsive();
                 }
+
+
+                if (params.EsDuoPerfecto !== 'undefined' && params.EsDuoPerfecto === false) {
+                    AbrirMensaje25seg(mensaje, imagenProducto);
+                }
+
+
 
                 return false;
             })
