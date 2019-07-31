@@ -125,7 +125,7 @@ strong {
     text-align: left;
     font-weight: 700;
     line-height: 17px;
-    margin-bottom: 20px
+    margin-bottom: 25px
 }
 
 .text-down {
@@ -1657,14 +1657,15 @@ button.close {
     cursor: pointer;
     text-align: center;
     display: block;
-    color: #000;
+    color: #545454;
     text-decoration: underline;
     font-size:13px;
+
 }
 
     .cambio-crec .como-log.inactivo {
         text-decoration: none;
-        color: #1b1b1b;
+        color: #545454;
         cursor: auto
     }
 
@@ -1718,7 +1719,7 @@ button.close {
 }
 
 .box-camb {
-    margin: 20px auto
+    margin: 35px auto
 }
 
 .como-log {
@@ -3331,11 +3332,15 @@ div .ficha__producto__precio__normal {
         width: 90px;
         margin: 0 auto;
         margin-bottom: 15px;
-    }
 
-    .mb-title {
-        display: none;
     }
+    .bar-logros span {
+        font-size: 13px;
+        width: 70px;
+    }
+        .mb-title {
+            display: none;
+        }
 
     .cent-mant .etiq-mant, .cent-mant .etiq-falta {
         width: 100%;
@@ -3351,6 +3356,7 @@ div .ficha__producto__precio__normal {
 
     .bar-logros {
         padding-bottom: 8px;
+        margin-top: 20px;
     }
 
     .carousel-inner .itm {
@@ -3450,7 +3456,9 @@ div .ficha__producto__precio__normal {
     .box-incremento .cambio-crec {
         display: block;
     }
-
+    .top-boxlogros {
+        margin-bottom: 0;
+    }
 }
 
 
@@ -3634,7 +3642,7 @@ div .ficha__producto__precio__normal {
         text-align:left;
         font-weight:bold;
     }
-    .right-m .itm span {
+    .right-m .itm > span {
         text-align: center;
         font-size: 10px;
         margin-top: 0px !important;
