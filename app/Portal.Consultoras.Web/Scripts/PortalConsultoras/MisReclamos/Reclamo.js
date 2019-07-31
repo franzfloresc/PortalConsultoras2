@@ -301,8 +301,9 @@ $(document).ready(function () {
     });
 });
 
-function callAjax(pUrl, pSendData, callbackSuccessful, callbackError) {
+function callAjax(pUrl, pSendData, callbackSuccessful, callbackError, async) {
     var sendData = typeof pSendData === "undefined" ? {} : pSendData;
+    async = typeof async === "undefined" ? true : false;
     $.ajax({
         type: "POST",
         url: pUrl,
@@ -314,7 +315,7 @@ function callAjax(pUrl, pSendData, callbackSuccessful, callbackError) {
         },
         data: JSON.stringify(sendData),
         contentType: "application/json; charset=utf-8",
-        async: true,
+        async: async,
         dataType: "json",
         success: function (result) {
             if (callbackSuccessful && typeof callbackSuccessful === "function") {
@@ -822,14 +823,13 @@ function ObtenerValorCDRWebDatos(codigoSsic) {
     };
 
     var url = baseUrl + 'MisReclamos/BuscarCdrWebDatos';
-
     callAjax(url, sendData, function (data) {
         if (!checkTimeout(data))
             return false;
 
         var cdrWebDatos = data.cdrWebdatos;
         $("#hdCdrWebDatos_Ssic").val(cdrWebDatos.Valor);
-    });
+    }, null, false);
 
 }
 

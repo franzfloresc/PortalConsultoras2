@@ -1,6 +1,7 @@
 ﻿var scrollBeneficios = true
 var scrollLogros = true
 
+
 $(document).ready(function () {
     Carusel();
     if (TineCarrusel == "1" && $("#template-kit").length > 0) {
@@ -12,23 +13,16 @@ $(document).ready(function () {
     if (TieneGanancias == "1") CargarGanancias();
     var nivelactual = $("#hfNivelActual").val();
 
-    //Barra monto Acumulado
-    if (TieneMontoAcumulado == '1') {
-        var progreso = $("#bar-progreso");
-        if (progreso.length > 0) {
-            var maxBar = $(progreso).data("max");
-            var curBar = $(progreso).data("cur");
-            var perc = (curBar / maxBar) * 100;
-            $('.new-bar').width(perc + '%');
-            var minBar = $(progreso).data("min");
-            var percTope = (minBar / maxBar) * 100;
-            $('.progress-barnew .tope').css("left", percTope + '%');            
-        }
+    var progreso = $("#bar-progreso");
+    if (progreso.length > 0) {
+        var maxBar = $(progreso).data("max");
+        var curBar = $(progreso).data("cur");
+        var perc = (curBar / maxBar) * 100;
+        $('.new-bar').width(perc + '%');
+    }
         if (nivelactual == '5') {
             $(".bord-bot").addClass("centtopacio");
         }
-    }
-    //fin
 
     
     for (var i = 1; i <= nivelactual; i++)
@@ -46,6 +40,7 @@ $(document).ready(function () {
 
     $('#loadingScreen').hide();
 });
+
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
 
@@ -143,31 +138,15 @@ function TagVerTodos(MisLogros) {
     });
 }
 
-function TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva ) {
-   
+function TagClickSeleccionNivel(nivelConsultora) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
         'action': 'Seleccionar nivel',
         'label': 'Nivel: ' + nivelConsultora
     });
-
-    for (var i = 1; i <= 6; i++) {
-
-        if ($("#" + i).hasClass('urlImagenActiva')) {
-            $("#" + i).hide();
-        }
-    }
-
-    $("#" + codigoNivel).addClass("urlImagenActiva");
-    $("#" + codigoNivel).show();
-    $("#" + codigoNivel).attr('src', urlImagenActiva);
-
 }
- 
-function TagMostrarPopupNivel(nivelConsultora, codigoNivel, urlImagenActiva) {
 
-    TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva);
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
@@ -188,9 +167,6 @@ function MostrarSecciones(nivelSeleccionado) {
         $('.tab-content').removeClass('current');
         $(".urlImagenActiva").hide();
     }
-
-}
-
 function TagClickBotonVerOfertas() {
     dataLayer.push({
         'event': 'virtualEvent',
@@ -360,6 +336,7 @@ function ArmarMisGanancias(data) {
                     backgroundColors[indexSeleccion] = colorBar;
                     // Reset old state
                     dataset = myBar.data.datasets[datasetIndex];
+
                     dataset.backgroundColor = backgroundColors.slice();
                     dataset.hoverBackgroundColor = dataset.backgroundColor;
 
@@ -379,6 +356,7 @@ function ArmarMisGanancias(data) {
                 cornerRadius: 0,
                 backgroundColor: 'transparent',
                 color: 'rgb(0, 0, 0)',
+                backgroundColor: '#fff',
                 titleFontColor: 'rgb(0, 0, 0)',
                 bodyFontColor: 'rgb(0, 0, 0)',
                 fontSize: 9, 
@@ -534,8 +512,3 @@ function MostrarBeneficios(tab_id, codigoNivel, urlImagenActiva) {
     $(".bglogros").hide();
     $("#cont-logros").hide();
     
-    $('.tab-content').removeClass('current');
-    $("#" + tab_id).addClass('current');
-
-    TagMostrarPopupNivel(tab_id, codigoNivel, urlImagenActiva);
-}

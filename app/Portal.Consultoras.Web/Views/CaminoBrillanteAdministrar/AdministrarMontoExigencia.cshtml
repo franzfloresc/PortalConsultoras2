@@ -1,0 +1,504 @@
+﻿@model Portal.Consultoras.Web.Models.CaminoBrillante.AdministrarMontoExigenciaModel
+@{
+    ViewBag.Title = "AdministrarMontoExigencia";
+}
+<script>
+    jQuery(document).ready(function () {
+
+        fnGrilla();
+
+        // Establece los efectos para cada uno de los Tabs
+        $(".contenido_tab").hide(); //Ocultar capas
+        $("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
+        $(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
+
+        // Sucesos al hacer click en una pestaña
+        $("ul.tabs li").click(function () {
+            $("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
+            $(this).addClass("activa"); //Añadir clase "activa" a la pestaña seleccionada
+            $(".contenido_tab").hide(); //Ocultar todo el contenido de la pestaña
+            var activatab = $(this).find("a").attr("href"); //Leer el valor de href para identificar la pestaña activa
+            $(activatab).fadeIn(); //Visibilidad con efecto fade del contenido activo
+
+            if (activatab == "#tab-estadoCuenta")//evento por pestaña seleccionada
+            {
+                GridEstadoCuentaDetalle();
+            }
+            if (activatab == "#tab-estadoConsultora")//evento por pestaña seleccionada
+            {
+                EstadoConsultoraForm();
+            }
+            if (activatab == "#tab-seguimientoPedido") {
+                Seguimiento();
+            }
+
+            if (activatab == "#tab-paqueteDocumentario") {
+                validarExiteInformacion();
+            }
+
+            if (activatab == "#tab-pedidoFacturado") {
+                fnGrillaPedidoFacturado();
+            }
+            return false;
+        });
+
+        $("#btnBuscar").click(function () {
+
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+
+            if ($("#ddlCampania").val() == "") {
+                alert("Debe seleccionar una Campaña, verifique.");
+                return false;
+            }
+
+            fnGrilla();
+
+
+            //if ($("#ddlPais").val() == "") {
+            //    alert("Debe seleccionar un País, verifique");
+            //    return false;
+            //} else if ($("#txtCodigos").val() == "" && $("#txtDocumento").val() == "") {
+            //    var msg = "";
+            //    if ($("#SeleccionaId").val() == "1") msg = "Código de consultora, verifique";
+            //    else if ($("#SeleccionaId").val() == "2") msg = "Código de documento inválidos, verifique";
+
+            //    alert(msg);
+            //    return false;
+            //} else {
+            //    // Establece los efectos para cada uno de los Tabs
+            //    $("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
+            //    $(".contenido_tab").hide(); //Ocultar capas
+            //    $("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
+            //    $(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
+
+            //    $("#gvwEstadoCuentaDetalle").jqGrid("clearGridData", true);
+            //    $("#listPedidoFacturado").jqGrid("clearGridData", true);3
+            //    $("#fecha-vencimiento").html('');
+            //    $("#monto-pagar").html('');
+            //    DatoConsultora();
+            //}
+
+            //var CodigoConsultora = $("#txtCodigos").val() == "" ? $("#txtDCCodigoConsultoraVisible").text() : $("#txtCodigos").val();
+            //$.ajax({
+            //    dataType: "json",
+            //    url: baseUrl + "ConsultaDatoConsultora/GetCampaniasRVDigitalWeb",
+            //    data: "CodigoConsultora=" + CodigoConsultora,
+            //    success: function (resultado) {
+            //        $("#ddlCampaniaPaquete").empty();
+            //        $("#ddlCampaniaPaquete").append('<option value= "">-- Seleccionar --</option>');
+
+            //        for (var i in resultado) {
+            //            var campania = resultado[i];
+            //            if (typeof (campania.CampaniaID) != 'undefined')
+            //            $("#ddlCampaniaPaquete").append('<option value=' + campania.CampaniaID + '>' + campania.Codigo + '</option>');
+            //        }
+            //    }
+            //});
+        });
+
+        $('#btnGuardar').click(function () {
+            fnRegistrar();
+        });
+
+        $("#SeleccionaId").change(function () {
+            if ($(this).val() == "1") {
+                $("#lblSelecciona").text("Cod. Consultora:");
+                $("#divCodConsultora").show();
+                $("#txtDocumento").val("");
+                $("#divDNI").hide();
+            }
+            else {
+                $("#lblSelecciona").text("Doc. de Identidad:");
+                $("#divDNI").show();
+                $("#txtCodigos").val("");
+                $("#divCodConsultora").hide();
+            }
+        });
+
+        //inicializar valores
+        //ControlesPaqueteDocumentario();
+
+        $('#ddlPais').change(function () {
+            var Id = $(this).val();
+            if (Id != "") {
+                waitingDialog({});
+                $.ajaxSetup({ cache: false });
+                $.ajax({
+                    type: 'GET',
+                    url: baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPais',
+                    data: "PaisID=" + (Id == "" ? 0 : Id),
+                    cache: false,
+                    dataType: 'Json',
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            //LimpiarDependencias(Id);
+                            var ddlCampania = $('#ddlCampania');
+                            var ddlRegion = $('#ddlRegion')
+                            var ddlZona = $('#ddlZona');
+
+                            //var ddlCampaniaRZ = $('#ddlCampaniaRegistroZona');
+                            //var ddlZonaRZ = $('#ddlZonaRegistroZona');
+                            ddlCampania.empty();
+                            //ddlCampaniaRZ.empty();
+                            if (data.lstCampania.length > 0) {
+                                ddlCampania.append($('<option/>', {
+                                    value: "",
+                                    text: "-- Seleccion --"
+                                }));
+                                //ddlCampaniaRZ.append($('<option/>', {
+                                //    value: "",
+                                //    text: "-- Seleccionar --"
+                                //}));
+                                if (Id != "") {
+                                    for (var item in data.lstCampania) {
+                                        ddlCampania.append($('<option/>', {
+                                            value: data.lstCampania[item].CampaniaID,
+                                            text: data.lstCampania[item].Codigo
+                                        }));
+                                        //ddlCampaniaRZ.append($('<option/>', {
+                                        //    value: data.lstCampania[item].CampaniaID,
+                                        //    text: data.lstCampania[item].Codigo
+                                        //}));
+                                    }
+                                }
+                            }
+                            ddlZona.empty();
+                            ddlZona.append($('<option/>', {
+                                value: "",
+                                text: "Todos"
+                            }));
+                            if (data.lstZona.length > 0) {
+                                for (var item in data.lstZona) {
+                                    if (data.lstZona.hasOwnProperty(item)) {
+                                        ddlZona.append($('<option/>', {
+                                            value: data.lstZona[item].Codigo,
+                                            text: data.lstZona[item].Codigo
+                                        }));
+                                        //ddlZonaRZ.append($('<option/>', {
+                                        //    value: data.lstZona[item].ZonaID,
+                                        //    text: data.lstZona[item].Codigo
+                                        //}));
+                                    }
+                                }
+                            }
+                            ddlRegion.empty();
+                            ddlRegion.append($('<option/>', {
+                                value: "",
+                                text: "Todos"
+                            }));
+                            if (data.lstRegion) {
+                                for (var item in data.lstRegion) {
+                                    if (data.lstRegion.hasOwnProperty(item)) {
+                                        ddlRegion.append($('<option/>', {
+                                            value: data.lstRegion[item].Codigo,
+                                            text: data.lstRegion[item].Codigo
+                                        }));
+                                    }
+                                }
+                            }
+                            closeWaitingDialog();
+                        }
+                    },
+                    error: function (x, xh, xhr) {
+                        if (checkTimeout(x)) {
+                            closeWaitingDialog();
+                        }
+                    }
+                });
+            } else LimpiarDependencias(Id);
+        });
+        
+
+    });
+
+    function fnGrilla() {
+        jQuery("#list").jqGrid({
+            url: baseUrl + "CaminoBrillanteAdministrar/ConsultarMontoExigencia",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CodigoCampania: function () { return jQuery.trim($("#ddlCampania").val()); },
+                CodigoRegion: function () { return jQuery.trim($("#ddlRegion").val()); },
+                CodigoZona: function () { return jQuery.trim($("#ddlZona").val()); },
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['MontoID','Campaña', 'Región', 'Zona', 'Monto Exigido', 'Opcion'],
+            colModel: [
+                { name: 'MontoID', index: 'MontoID', width: 100, editable: false, align: 'left', hidden: true},
+                { name: 'CodigoCampania', index: 'CodigoCampania', width: 100, editable: false, align: 'left'},
+                { name: 'CodigoRegion', index: 'CodigoRegion', width: 90, editable: true, resizable: false },
+                { name: 'CodigoZona', index: 'CodigoZona', width: 80, editable: true, resizable: false },
+                { name: 'Monto', index: 'Monto', width: 80, editable: true, resizable: false, /*formatter: 'currency', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" }*/ },
+                //{ name: 'Porcentaje', index: 'Porcentaje', width: 80, editable: true, resizable: false, formatter: 'number', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" } },
+                { name: 'Activo', index: 'Activo', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            width: '930',
+            height: 'auto',
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+        function ShowActions(cellvalue, options, rowObject) {
+            var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Factor' title='Editar Factor' border='0' /></a>";
+            var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Cliente' title='Eliminar Cliente' border='0' /></a>";
+            return Edit + Del;
+        };
+    }
+
+    function fnRegistrar() {
+        var valorPais = $('#ddlPais').val();
+        if (valorPais === "") {
+            alert("Debe seleccionar el País, verifique.");
+            return false;
+        }            
+
+        var valorCampania = $('#ddlCampania').val();
+        if (valorCampania === "") {
+            alert("Debe seleccionar una campaña, verifique.");
+            return false;
+        }
+
+        var valorRegion = $('#ddlRegion').val();
+        if (valorRegion === "") {
+            alert("Debe seleccionar una Región, verifique.");
+            return false;
+        }
+
+        var valorZona = $('#ddlZona').val();
+        if (valorZona === "") {
+            alert("Debe seleccionar una Zona, verifique.");
+            return false;
+        }
+
+        var valorMonto = $('#txtMontoExigencia').val();
+        if (valorMonto === '' || valorMonto == '0') {
+            alert("Debe ingresar un monto de exigencia, verifique.");
+            return false
+        }           
+
+        if (!$("input[name=rbttextoincentivo]").is(":checked")) {
+            alert("Debe Seleccionar el texto que se mostrara en esta campaña, verifique.");
+            return false;
+        }
+        var valorRegion = $('#ddlRegion').val();
+        var valorZona = $('#ddlZona').val(); 
+        var valorTexto = "";
+
+        $("input[name=rbttextoincentivo]").each(function (index) {
+            if ($(this).is(':checked')) {
+                valorTexto = $(this).attr("data-tiporbt");
+            }
+        });
+
+        var item = {
+            CodigoCampania: valorCampania,
+            CodigoRegion: valorRegion,
+            CodigoZona: valorZona,
+            Monto: valorMonto,
+            AlcansoIncentivo: valorTexto
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'CaminoBrillanteAdministrar/GuardarMontoExigencia',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        var item = data.items;
+                        alert(data.message);
+                        //HideDialog("DialogFactores");
+                        limpiar();
+                        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    alert(data.message);
+                    //HideDialog("DialogFactores");
+                }
+            }
+        });
+    }
+
+    function limpiar() {
+        $("#ddlCampania").val("");
+        $("#ddlRegion").val("");
+        $("#ddlZona").val("");
+        $("#txtMontoExigencia").val("");
+    }
+</script>
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Monto de Exigencia para Incentivos</h1>
+            </div>
+            <div class="div-3">
+                <div class="titG">País:</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titG">Campaña:</div>
+                <div class="selectP2 borde_redondeado">
+                    @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })*@
+                    <select id="ddlCampania" name="CampaniaID">
+                        <option value="">-- Seleccionar --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="div-3">
+                <div id="lblSeleccionaRegion" class="titG">Región:</div>
+                <div class="selectP2 borde_redondeado">
+                    @*@Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaRegion, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })*@
+                    <select id="ddlRegion" name="RegionID">
+                        <option value="">-- Seleccionar --</option>
+                    </select>
+                </div>
+                <div id="lblSeleccionaZona" class="titG">Zona:</div>
+                <div class="selectP2 borde_redondeado">
+                    @*@Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })*@
+                    <select id="ddlZona" name="ZonaID">
+                        <option value="">-- Seleccionar --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="input_search" style="float:right; margin-right:227px">
+                    <input type="submit" name="" id="btnBuscar" value="Buscar" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div id="lblSelecciona" class="titG" style="width:420px;"><b>Ingresa el monto de exigencia para la campaña seleccionada:</b></div>
+                <div class="selectP2 borde_redondeado" style="float:right; margin-right:227px">
+                    <input id="txtMontoExigencia" type="text" maxlength="6" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="width:420px;"><b>Selecciona el texto que se debe mostrar en esta campaña:</b></div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="float: none;width: auto;padding: 0;"><input type="radio" name="rbttextoincentivo" data-tiporbt="1"/>¡Felicidades! Accediste al #% de descuento y alcansaste el incentivo</div>
+                @*<div id="divCodConsultora" class="selectP2 borde_redondeado">
+                @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaZonas, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
+            </div>*@
+                <div class="titG" style="float: none;width: auto;padding: 0;"><input type="radio" name="rbttextoincentivo" data-tiporbt="2"/>¡Felicidades! Accediste al #% de descuento y falta poco para que alcanses el incentivo</div>
+                @*<div id="divCodConsultora" class="selectP2 borde_redondeado">
+                @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })
+            </div>*@
+            </div>
+            <div class="div-3">
+                <div class="titAuto" style="float: right; margin-right: 219px;">
+                    <div class="input_search">
+                        <input type="button" name="btnGuardar" id="btnGuardar" value="Guardar"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+        @*<div class="div-3">
+            <div class="titAuto">
+                <div class="input_search">
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="return AbrirModal();" />
+                </div>
+            </div>
+        </div>*@
+
+
+        @*<div class="border-wrapper">
+            <ul class="tabs">
+                <li><a href="#tab-datoConsultora">Datos de Consultora</a></li>
+                <li><a href="#tab-estadoConsultora">Estado de Consultora</a></li>
+                <li><a href="#tab-estadoCuenta">Estado de Cuenta</a></li>
+                <li><a href="#tab-pedidoFacturado">Pedido Facturado</a></li>
+                <li><a href="#tab-seguimientoPedido">Seguimiento Pedido</a></li>
+                <li><a href="#tab-paqueteDocumentario">Paquete Documentario</a></li>
+            </ul>
+            <div class="contenedor_tab">
+                <div class="contenedor_datos">
+                    <div class="div-3">
+                        <input type="hidden" id="txtDCConsultoraID" />
+                        <input type="hidden" id="txtDCCodigoConsultora" />
+                        <div class="titK">Codigo Consultora:</div>
+                        <div class="div-text-mediano" id="txtDCCodigoConsultoraVisible"></div>
+                        <div class="titK">Nombre de Consultora:</div>
+                        <div class="div-text-grande" id="txtDCNombreConsultora"></div>
+                    </div>
+                    <div class="div-3">
+                        <div class="titK">Region:</div>
+                        <div class="div-text-pequeno" id="txtDCRegion"></div>
+                        <div class="titK">Zona:</div>
+                        <div class="div-text-pequeno" id="txtDCZona"></div>
+                        <div class="titK">Seccion:</div>
+                        <div class="div-text-pequeno" id="txtDCSeccion"></div>
+                    </div>
+                </div>
+
+                <div id="tab-datoConsultora" class="contenido_tab">
+                    @Html.Partial("_DatoConsultora")
+                </div>
+                <div id="tab-estadoConsultora" class="contenido_tab">
+                    @Html.Partial("_EstadoConsultora")
+                </div>
+                <div id="tab-estadoCuenta" class="contenido_tab">
+                    @Html.Partial("_EstadoCuenta")
+                </div>
+                <div id="tab-pedidoFacturado" class="contenido_tab">
+                    @Html.Partial("_PedidoFacturado")
+                </div>
+                <div id="tab-seguimientoPedido" class="contenido_tab">
+                   @Html.Partial("_SeguimientoPedido")
+                </div>
+                <div id="tab-paqueteDocumentario" class="contenido_tab">
+                    @Html.Partial("_PaqueteDocumentario")
+                </div>
+            </div>
+        </div>*@
+    </div>
+</div>

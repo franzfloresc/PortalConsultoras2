@@ -1010,6 +1010,23 @@ namespace Portal.Consultoras.Service
         {
             _caminoBrillanteBusinessLogic.InsBeneficioCaminoBrillante(paisId, entidad);
         }
+
+        public void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio)
+        {
+            _caminoBrillanteBusinessLogic.DelBeneficioCaminoBrillante(paisId, CodigoNivel, CodigoBeneficio);
+        }
+        
+        #region Exigencia Monto Incentivos
+        public List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            return _caminoBrillanteBusinessLogic.GetIncentivosMontoExigencia(paisId, entidad);
+        }
+        public void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            _caminoBrillanteBusinessLogic.InsIncentivosMontoExigencia(paisId, entidad);
+        }
+        #endregion
+        
         #endregion
 
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)

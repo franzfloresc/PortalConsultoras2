@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceUsuario;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -168,10 +169,32 @@ namespace Portal.Consultoras.Web.Controllers
             return _caminoBrillanteProvider.GetListaNiveles();
         }
 
-        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
+        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(string codigoNivel)
         {
-            return _caminoBrillanteProvider.GetListaBeneficiosByNivel(paisID, codigoNivel);
+            return _caminoBrillanteProvider.GetListaBeneficiosByNivel(codigoNivel);
         }
+
+        public List<AdministrarMontoExigenciaModel> GetIncentivosMontoExigencia(AdministrarMontoExigenciaModel model)
+        {
+            return _caminoBrillanteProvider.GetIncentivosMontoExigencia(model);
+        }
+
+        public List<NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante> DropDowListIconosBeneficios()
+        {
+            int cantidad = Constantes.CaminoBrillante.Beneficios.Iconos.Count();
+            var lstIconos = new List<NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante>();
+            for (int i = 1; i <= cantidad; i++)
+            {
+                string index = i < 10 ? "0" + i.ToString() : i.ToString();
+                lstIconos.Add(new NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante
+                {
+                    CodigoIcono = index,
+                    UrlIcono = Constantes.CaminoBrillante.Beneficios.Iconos[index],
+                });
+            }
+            return lstIconos;
+        }
+
         #endregion
 
     }
