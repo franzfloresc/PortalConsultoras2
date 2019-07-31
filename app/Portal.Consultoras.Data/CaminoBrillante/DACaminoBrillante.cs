@@ -96,6 +96,15 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetMontoExigenciaCaminoBrillante(string CodigoCampania, string CodigoRegion, string CodigoZona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMontoExigenciaCaminoBrillante");
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.AnsiString, CodigoCampania);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, CodigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, CodigoZona);
+            return Context.ExecuteReader(command);
+        }
+
 
         #region Exigencia Monto Incentivos
         public void InsIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)

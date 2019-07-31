@@ -175,6 +175,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (nivelConsultora != null) int.TryParse(nivelConsultora.NivelActual, out nivelActual);
             
             var consultoraMeta = (new DACaminoBrillante(entidad.PaisID).GetConsultoraCaminoBrillante(entidad.ConsultoraID, periodoActual, entidad.CampaniaID, nivelActual).MapToCollection<BEConsultoraCaminoBrillanteMeta>(closeReaderFinishing: true) ?? new List<BEConsultoraCaminoBrillanteMeta>()).FirstOrDefault();
+            var montoExigencia = (new DACaminoBrillante(entidad.PaisID).GetMontoExigenciaCaminoBrillante(entidad.CampaniaID.ToString(), entidad.CodigorRegion, entidad.Zona).MapToCollection<BEIncentivosMontoExigencia> (closeReaderFinishing: true) ?? new List<BEIncentivosMontoExigencia>()).FirstOrDefault();
+
             var configs = new List<BEConfiguracionCaminoBrillante>();
 
             if (consultoraMeta != null)
@@ -226,16 +228,24 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Descripcion = "Flag de Ganancias",
                     Valor = "+1",
                 });
+                
+            }
 
+            if(montoExigencia != null)
+            {
                 configs.Add(new BEConfiguracionCaminoBrillante()
                 {
                     Codigo = "CB_MONTO_INCENTIVO",
                     Descripcion = "Monto Incentivo",
-                    Valor = "500",
+                    Valor = montoExigencia.Monto,
                 });
-
+                configs.Add(new BEConfiguracionCaminoBrillante()
+                {
+                    Codigo = "CB_MONTO_INCENTIVO_MSG",
+                    Descripcion = "Msg Monto Incentivo",
+                    Valor = montoExigencia.AlcansoIncentivo,
+                });
             }
-
 
             /*
             return new List<BEConfiguracionCaminoBrillante>() {
