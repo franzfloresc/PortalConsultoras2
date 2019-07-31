@@ -1980,7 +1980,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         public void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {
             new DACaminoBrillante(paisId).InsIncentivosMontoExigencia(entidad);
-        }       
+        }        
+        public void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            new DACaminoBrillante(paisId).DelIncentivosMontoExigencia(entidad);
+        }
         #endregion
 
     }
