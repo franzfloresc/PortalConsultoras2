@@ -371,7 +371,7 @@ var PedidoRegistroModule = function () {
                 } else {
                     mensaje = _mensajeAgregarPedido.normal;
                 }
-
+                ;
                 AbrirMensaje25seg(mensaje, imagenProducto);
 
                 modelLiquidacionOfertas = undefined;
@@ -466,7 +466,7 @@ var PedidoRegistroModule = function () {
                 } else {
                     mensaje = _mensajeAgregarPedido.normal;
                 }
-
+                ;
                 AbrirMensaje25seg(mensaje, imagenProducto);
 
                 setTimeout(function () {
@@ -548,8 +548,13 @@ var PedidoRegistroModule = function () {
                 } else {
                     mensaje = _mensajeAgregarPedido.normal;
                 }
+                ;
 
-                AbrirMensaje25seg(mensaje, imagenProducto);
+                if (data.flagCantidaPedido == 0) {
+                    AbrirMensaje25seg(mensaje, imagenProducto);
+                } else {
+                    alert_msg(data.mensajeCantidad);
+                }
 
             },
             error: function (data, error) {
@@ -781,7 +786,7 @@ var PedidoRegistroModule = function () {
                     } else {
                         mensaje = _mensajeAgregarPedido.normal;
                     }
-
+                    ;
                     AbrirMensaje25seg(mensaje, imagenProducto);
 
                     var modelCarrito = {
@@ -1134,7 +1139,7 @@ var PedidoRegistroModule = function () {
                     } else {
                         mensaje = _mensajeAgregarPedido.normal;
                     }
-
+                    ;
                     AbrirMensaje25seg(mensaje);
                 }
 
@@ -1295,7 +1300,7 @@ var PedidoRegistroModule = function () {
                     } else {
                         mensaje = _mensajeAgregarPedido.normal;
                     }
-
+                    ;
                     AbrirMensaje25seg(mensaje);
                 }
 
@@ -1409,7 +1414,7 @@ var PedidoRegistroModule = function () {
                     } else {
                         mensaje = _mensajeAgregarPedido.normal;
                     }
-                    /*HD-4635*/
+                    /*HD-4635 20193107*/
                     if (response.flagCantidaPedido==0)
                         AbrirMensaje25seg(mensaje);
                     else
