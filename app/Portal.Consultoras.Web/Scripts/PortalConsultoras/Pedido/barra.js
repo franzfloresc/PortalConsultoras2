@@ -7,6 +7,28 @@ var ConfiguradoRegalo = false;
 var avance = 0;
 var EstadoPedido = EstadoPedido || 0;
 var esPedidoReservado = (EstadoPedido === 1);
+var incentivoMostrado = false;
+var mostrarIncentivo = false;
+var montoIncentivo = 0;
+
+switch (IsoPais) {
+    case 'BO':
+        montoIncentivo = 500;
+        break;
+
+    case 'CR':
+        montoIncentivo = 55000;
+        break;
+
+    case 'CL':
+        montoIncentivo = 45500;
+        break;
+
+    case 'CO':
+        montoIncentivo = 195500;
+        break;
+
+}
 
 var tpElectivos = {
     premioSelected: null,
@@ -1312,6 +1334,8 @@ function selectPremioDivByCuv(cuv) {
 
 function superoTippingPoint(barra, prevLogro) {
     var tippingPoint = barra.TippingPoint || 0;
+    var montoMaximo1 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
+    var montoMaximo2 = dataBarra.ListaEscalaDescuento[2].MontoDesde;
 
     if (tippingPoint > 0) {
         if (!barra.TippingPointBarra.Active) {
@@ -1319,8 +1343,21 @@ function superoTippingPoint(barra, prevLogro) {
         }
 
         var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
-        if (superaRegalo) {
 
+        var tieneIncentivo = montoIncentivo > 0 ? true : false;
+
+        if (tieneIncentivo && tippingPoint <= mtoLogroBarra) {
+
+            // se mantiene entre la 1er y 2da escala de descuento
+            if ((mtoLogroBarra >= montoIncentivo && mtoLogroBarra <= montoMaximo1) || (mtoLogroBarra >= montoIncentivo && mtoLogroBarra <= montoMaximo2)) {
+                var content = '¡Felicidades, estás concursando por el incentivo!';
+                showPopupIncentivo(content);
+                incentivoMostrado = true;
+            }
+
+        }
+
+        if (superaRegalo) {
             return true;
         }
     }
@@ -1328,50 +1365,67 @@ function superoTippingPoint(barra, prevLogro) {
     return false;
 }
 
+function showPopupIncentivo(content) {
+    var idPopup = '#popupIncentivo';
+    $(idPopup + ' .titulo_popup_treinta_y_cinco_descuento').html(content);
+
+    $(idPopup).show();
+    setContainerLluvia(idPopup);
+    mostrarLluvia();
+
+    setTimeout(function () {
+        $(idPopup).fadeOut(2000);
+    }, 3000);
+}
+
 function showPopupEscalaSiguiente(dataBarra, prevLogro) {
 
     if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;
-
-    var incentivo = 487;
+    var escala = 0;
+    var indice = 0;
     var total = mtoLogroBarra;
     var len = dataBarra.ListaEscalaDescuento.length;
     var montoMaximo1 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
-    var escala0 = dataBarra.ListaEscalaDescuento[0];
+    var montoMaximo2 = dataBarra.ListaEscalaDescuento[2].MontoDesde;
+    var tippingPoint = dataBarra.TippingPoint || 0;
 
-    if (total >= incentivo && total <= montoMaximo1) {
-        var content = escala0.PorDescuento + '% Dscto.' + '</br> </br> </br>' +' + INCENTIVO';
-        showPopupEscala(content);
-        tpElectivos.tempPrevLogro = -1;
-        return true;
+    var tieneIncentivo = montoIncentivo > 0 ? true : false;
 
-    }
+    if (tieneIncentivo && !incentivoMostrado && tippingPoint <=0 ) {
 
-    var indice = incentivo > 0 ? 1 : 0;
-
-    for (var i = indice; i < len; i++) {
-        var escala = dataBarra.ListaEscalaDescuento[i];
-        if (total >= escala.MontoDesde && total < escala.MontoHasta) {
-            if (escala.MontoDesde > prevLogro) {
-
-                if (incentivo > 0 && total >= incentivo) {
-                    var content = escala.PorDescuento + '% Dscto.' + '</br> </br> </br>' + '+ INCENTIVO';
-                    showPopupEscala(content);
-                    tpElectivos.tempPrevLogro = -1;
-
-                    return true;
-                } else {
-
-                    var content = escala.PorDescuento + '% Dscto.';
-                    showPopupEscala(content);
-                    tpElectivos.tempPrevLogro = -1;
-
-                    return true;
-
-                }
-                
-            }
+        if (montoIncentivo <= montoMaximo1) {
+            indice = 1;
+            escala = dataBarra.ListaEscalaDescuento[0];
+        } else {
+            indice = 2;
+            escala = dataBarra.ListaEscalaDescuento[1];
         }
-    }
+        
+        // se mantiene entre la 1er y 2da escala de descuento
+        if ( (total >= montoIncentivo && total <= montoMaximo1) || (total >= montoIncentivo  && total <= montoMaximo2)) {
+
+            var content = 'Llegaste al' + '&nbsp'  + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
+
+            showPopupIncentivo(content);
+            tpElectivos.tempPrevLogro = -1;
+            incentivoMostrado = true;
+            return true;
+        }
+
+    } 
+        // comportamiento sin incentivo 
+        for (var i = indice; i < len; i++) {
+            var escala = dataBarra.ListaEscalaDescuento[i];
+            if (total >= escala.MontoDesde && total < escala.MontoHasta) {
+                if (escala.MontoDesde > prevLogro) {
+
+                        var content = escala.PorDescuento + '% Dscto.';
+                        showPopupEscala(content);
+                        tpElectivos.tempPrevLogro = -1;
+                        return true;
+                    }
+                }
+        }
 
     return false;
 }
@@ -1421,7 +1475,9 @@ function showPopupNivelSuperado(barra, prevLogro) {
         if (!tpElectivos.premioSelected) {
             agregarPremioDefault();
         }
-        showPopupPremio();
+        
+            showPopupPremio();
+        
         return;
     }
     
@@ -1436,6 +1492,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
 }
 
 function showPopupPremio() {
+
     var idPopup = '#popupPremio';
     var dvPremio = $(idPopup);
     var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
@@ -1446,6 +1503,7 @@ function showPopupPremio() {
     AbrirPopup(idPopup);
     setContainerLluvia(idPopup);
     mostrarLluvia();
+
 }
 
 function addPremioDefaultSuperado(barra, prevLogro) {
