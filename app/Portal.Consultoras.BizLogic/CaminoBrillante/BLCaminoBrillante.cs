@@ -237,7 +237,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 {
                     Codigo = "CB_MONTO_INCENTIVO",
                     Descripcion = "Monto Incentivo",
-                    Valor = montoExigencia.Monto,
+                    Valor = montoExigencia.Monto.ToString(),
                 });
                 configs.Add(new BEConfiguracionCaminoBrillante()
                 {
