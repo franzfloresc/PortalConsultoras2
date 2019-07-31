@@ -101,12 +101,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         rslt = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
-
                     }
-                    else
-                    {
-                        if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
-                            rslt = "La contraseña anterior ingresada es inválida";
+                    else if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
+                    {                        
+                        rslt = "La contraseña anterior ingresada es inválida";
                     }
                 }
 

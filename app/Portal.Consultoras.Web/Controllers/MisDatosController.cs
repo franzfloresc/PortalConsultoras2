@@ -83,13 +83,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                        rslt = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
                     }
-                    else
-                    {
-                        if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
-                            rslt = "La contraseña anterior ingresada es inválida";
+                    else if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
+                    {                        
+                        rslt = "La contraseña anterior ingresada es inválida";
                     }
                 }
 
