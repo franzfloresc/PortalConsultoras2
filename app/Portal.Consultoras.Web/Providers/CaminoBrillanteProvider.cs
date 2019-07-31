@@ -238,7 +238,27 @@ namespace Portal.Consultoras.Web.Providers
 
                 var result = new List<LogroCaminoBrillanteModel>();
                 result.Add(Mapper.Map<LogroCaminoBrillanteModel>(consultoraCaminoBrillante.ResumenLogros));
-                result.AddRange(Mapper.Map<List<LogroCaminoBrillanteModel>>(consultoraCaminoBrillante.Logros.ToList()));
+                var logros = Mapper.Map<List<LogroCaminoBrillanteModel>>(consultoraCaminoBrillante.Logros.ToList());
+                var crecimiento = logros.FirstOrDefault(e => e.Id == Constantes.CaminoBrillante.Logros.CRECIMIENTO);
+                if (crecimiento != null) {
+                    if (crecimiento.Indicadores != null) {
+                        if (crecimiento.Indicadores.Count == 2)
+                        {
+                            logros.Remove(crecimiento);
+                            logros.Insert(0, new LogroCaminoBrillanteModel() {
+                                Id = crecimiento.Id,
+                                Descripcion = crecimiento.Descripcion,
+                                Titulo = crecimiento.Titulo,
+                                Indicadores = new List<LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>() { crecimiento.Indicadores[0] }
+                            });
+                            logros.Add(new LogroCaminoBrillanteModel()
+                            {   
+                                Indicadores = new List<LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>() { crecimiento.Indicadores[1] }
+                            });
+                        }
+                    }                    
+                }
+                result.AddRange(logros);
 
                 return result;
             }

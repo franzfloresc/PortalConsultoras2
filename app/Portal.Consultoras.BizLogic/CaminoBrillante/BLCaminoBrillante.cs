@@ -309,7 +309,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             periodosValidos = periodosValidos.Distinct().ToList();
             periodosValidos = periodosValidos.Where(e => e != null).ToList();
 
-
             /* Agregamos los Periodos = Indicadores */
             var indicadores = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante>();
             var campanias = new List<string> { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18" };
@@ -334,36 +333,54 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 return null;
             };
 
-            periodos.ForEach(e =>
+            Func<BEPeriodoCaminoBrillante, List<string>, List<string>> funGetEstadoCampaniasInPeriodo = (periodo, campaniasInPeriodo) =>
             {
-                if (periodosValidos.Contains(e.Periodo.ToString()))
+                var result = new List<string>();
+                /* Check si Paso en el Periodo */
+                var perTxt = periodo.Periodo.ToString();
+                var nivelHistorico = nivelesHistoricosConsultora.FirstOrDefault(e => e.Periodo1 == perTxt || e.Periodo2 == perTxt || e.Periodo3 == perTxt || e.Periodo4 == perTxt || e.Periodo5 == perTxt);
+                if (nivelHistorico != null) {
+                    var constancia = nivelHistorico.Periodo1 == perTxt ? nivelHistorico.Constancia1 :
+                                     nivelHistorico.Periodo2 == perTxt ? nivelHistorico.Constancia2 :
+                                     nivelHistorico.Periodo3 == perTxt ? nivelHistorico.Constancia3 :
+                                     nivelHistorico.Periodo4 == perTxt ? nivelHistorico.Constancia4 :
+                                     nivelHistorico.Periodo5 == perTxt ? nivelHistorico.Constancia5 : 0;
+                    result.AddRange(campaniasInPeriodo.Take(constancia));
+                }
+                return result;
+            };
+
+            periodos.ForEach(p =>
+            {
+                if (periodosValidos.Contains(p.Periodo.ToString()))
                 {
                     var indicador = new BELogroCaminoBrillante.BEIndicadorCaminoBrillante()
                     {
-                        Codigo = e.Periodo.ToString(),
-                        Titulo = string.Format("Constancia del perido: C{0} a C{1}", funCampania(e.CampanaInicial), funCampania(e.CampanaFinal)),
-                        //Titulo = string.Format("Constancia del perido: "+ e.Periodo + " C{0} a C{1}", funCampania(e.CampanaInicial), funCampania(e.CampanaFinal)),
+                        Codigo = p.Periodo.ToString(),
+                        Titulo = string.Format("Constancia del periodo: C{0} a C{1}", funCampania(p.CampanaInicial), funCampania(p.CampanaFinal)),
                         Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>()
                     };
 
-                    var r = new Random();
+                    var campaniasInPeriodo = (funGetCampaniasPeriodo(p) ?? new List<string>());
+                    var campaniasPedidoINPeriodo = (funGetEstadoCampaniasInPeriodo(p, campaniasInPeriodo) ?? new List<string>());
 
                     /* Agregamos las Medallas */
-                    (funGetCampaniasPeriodo(e) ?? new List<string>()).ForEach(m =>
+                    campaniasInPeriodo.ForEach(m =>
                     {
+                        var estado = campaniasPedidoINPeriodo.Contains(m);
+                        var subTitulo = periodoActual.Periodo != p.Periodo || estado ? string.Format("C{0}", m) :  Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
+
                         indicador.Medallas.Add(new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
                         {
                             Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED,
-                            Titulo = string.Format(configMedalla.Valor ?? string.Empty, (e.CampanaInicial % 100), (e.CampanaFinal % 100)),
-                            Subtitulo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
+                            Titulo = string.Format(configMedalla.Valor ?? string.Empty, (p.CampanaInicial % 100), (p.CampanaFinal % 100)),
+                            Subtitulo = subTitulo,
                             ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
                             ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty,
                             Valor = string.Format("C{0}", m),
-                            Estado = r.Next() % 2 == 0
-
+                            Estado = estado
                         });
                     });
-
                     indicadores.Add(indicador);
                 }
             });
@@ -375,7 +392,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 Id = Constantes.CaminoBrillante.Logros.CONSTANCIA_DETALLADA,
                 Titulo = "Constancia",
-                Indicadores = indicadores
+                Indicadores = indicadores.OrderBy(e => e.Orden).ToList()
             };
         }
 
@@ -422,10 +439,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         private BELogroCaminoBrillante GetResumenLogros_II(int paisId, List<BELogroCaminoBrillante> logros, List<NivelConsultoraCaminoBrillante> nivelesConsultora, BEPeriodoCaminoBrillante periodo)
         {
             var funcCopyMedalla = GetFunCopyMedalla_II();
-            var funcUltimaMedalla = GetFunUltimaMedalla_II(logros);
+            var funcUltimaMedalla = GetFunUltimaMedalla_II(logros, true);
             var medallaEscala = funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.ESCALA, true),
                                                 Constantes.CaminoBrillante.Logros.Indicadores.Titulos[Constantes.CaminoBrillante.Logros.Indicadores.ESCALA], 0);
-            var medallaContancia = GetMedallaConstancia(logros, periodo);
+            var medallaContancia = GetMedallaConstancia(logros, periodo, true);
             var medallaIncremento = funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO_PEDIDO, true),
                                                 Constantes.CaminoBrillante.Logros.Indicadores.Titulos[Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO_PEDIDO], 2);
 
@@ -441,7 +458,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return funcResumenLogros();
         }
 
-        private BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante GetMedallaConstancia(List<BELogroCaminoBrillante> logros, BEPeriodoCaminoBrillante periodo)
+        private BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante GetMedallaConstancia(List<BELogroCaminoBrillante> logros, BEPeriodoCaminoBrillante periodo, bool destacar)
         {
             var logro = logros.FirstOrDefault(e => e.Id == Constantes.CaminoBrillante.Logros.CONSTANCIA_DETALLADA);
             var medalla = new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
@@ -457,6 +474,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 if (indicadorCampania != null)
                 {
                     count = indicadorCampania.Medallas.Where(e => e.Estado).Count();
+                }
+                if (count > 0 && destacar)
+                {
+                    var destacada = indicadorCampania.Medallas.OrderByDescending(e => e.Valor).FirstOrDefault();
+                    destacada.Destacar = true;
                 }
                 medalla.Valor = string.Format("{0} de {1}", count, periodo.NroCampana);
             }
@@ -602,14 +624,16 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return funcUltimaMedalla;
         }
 
-        private Func<string, string, bool, BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante> GetFunUltimaMedalla_II(List<BELogroCaminoBrillante> logros)
+        private Func<string, string, bool, BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante> GetFunUltimaMedalla_II(List<BELogroCaminoBrillante> logros, bool destacar)
         {
             var _funcUltimaMedalla = GetFunUltimaMedalla_I(logros);
             var _funcCopyMedalla = GetFunCopyMedalla_I();
 
             Func<string, string, bool, BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante> funcUltimaMedalla = (logro, indicador, estado) =>
             {
-                var _logro = _funcCopyMedalla(_funcUltimaMedalla(logro, indicador, estado), string.Empty, 0);
+                var _ultimaMedalla = _funcUltimaMedalla(logro, indicador, estado);
+                if (_ultimaMedalla != null && destacar) _ultimaMedalla.Destacar = true;                
+                var _logro = _funcCopyMedalla(_ultimaMedalla, string.Empty, 0);
                 if (_logro != null)
                 {
                     switch (indicador)
