@@ -82,9 +82,10 @@
                 {{#each Indicadores}}
                 <div class="right-m">
                     <p id="indicador-title" class="text-bold _hide">{{Titulo}}</p>
+                    <span class="como-log inactivo">Ultimo Obtenido</span>
                     <div class="bigitem">
                         <div class="itm">
-                            <span class="como-log inactivo">Ultimo Obtenido</span>
+
                             <div class="bord circle-porcent crec-activo">
                                 <span>C02</span>
                             </div>
@@ -116,7 +117,7 @@
                 {{#each Medallas }}
                 <div class="itm">
                     {{#if_eq Tipo 'CIRC'}}
-                    <div class="bord circle-porcent {{#if Estado}}crec-activo{{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
+                    <div class=" circle-porcent {{#if Estado}}crec-activo  {{else}} bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
                     {{/if_eq}}
                     {{#if Estado}}
                     <span class="como-log inactivo">{{Subtitulo}}</span>
@@ -181,9 +182,10 @@
         <div class="clear"></div>
         <div class="box-camb mo-1">
             <p class="text-bold">{{Titulo}}</p>
+            <span class="como-log inactivo">Ultimo Obtenido</span>
             <div class="bigitem">
                 <div class="itm">
-                    <span class="como-log inactivo">Ultimo Obtenido</span>
+
                     <div class="bord circle-porcent crec-activo">
                         <span>C02</span>
                     </div>
@@ -193,7 +195,7 @@
                 {{#each Medallas }}
                 <div class="itm">
                     {{#if_eq Tipo 'CIRC'}}
-                    <div class="bord circle-porcent {{#if Estado}}crec-activo{{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
+                    <div class=" circle-porcent {{#if Estado}}crec-activo {{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
                     {{/if_eq}}
                     {{#if Estado}}
                     <span class="como-log inactivo">{{Subtitulo}}</span>
@@ -261,7 +263,7 @@
             {{#each Medallas }}
             <div class="itm">
                 {{#if_eq Tipo 'CIRC'}}
-                <div class="bord circle-porcent {{#if Estado}}crec-activo{{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
+                <div class=" circle-porcent {{#if Estado}}crec-activo {{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
                 {{/if_eq}}
                 {{#if Estado}}
                 <span class="como-log inactivo">{{Subtitulo}}</span>
@@ -323,9 +325,10 @@
     <div class="container box-incremento mo-3 movshow">
         {{#each Indicadores}}
         <p class="cambio-crec text-bold">{{Titulo}}</p>
+        <span class="como-log inactivo">Ultimo Obtenido</span>
         <div class="bigitem">
             <div class="itm">
-                <span class="como-log inactivo">Ultimo Obtenido</span>
+
                 <div class="bord circle-porcent crec-activo">
                     <span>C02</span>
                 </div>
@@ -335,7 +338,7 @@
             {{#each Medallas }}
             <div class="itm">
                 {{#if_eq Tipo 'CIRC'}}
-                <div class="bord circle-porcent {{#if Estado}}crec-activo{{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
+                <div class=" circle-porcent {{#if Estado}} crec-activo{{else}} bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
                 {{/if_eq}}
                 {{#if Estado}}
                 <span class="como-log inactivo">{{Subtitulo}}</span>
