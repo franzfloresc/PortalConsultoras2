@@ -505,4 +505,8 @@ function MostrarBeneficios(tab_id, codigoNivel, urlImagenActiva) {
     $("#carrusel").hide();
     $(".bglogros").hide();
     $("#cont-logros").hide();
+    $('.tab-content').removeClass('current');
+    $("#" + tab_id).addClass('current');
+
+    TagMostrarPopupNivel(tab_id, codigoNivel, urlImagenActiva);
 }
