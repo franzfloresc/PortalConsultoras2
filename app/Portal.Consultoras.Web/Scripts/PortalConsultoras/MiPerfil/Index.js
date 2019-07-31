@@ -769,25 +769,16 @@ function CambiarContrasenia() {
                 if (checkTimeout(data)) {
                     CerrarLoad();
                     if (data.success == true) {
-                        if (data.message == "0") {
-                            $("#txtContraseniaAnterior").val('');
-                            $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val('');
-                            AbrirMensaje("La contraseña anterior ingresada es inválida");
-                        } else if (data.message == "1") {
-                            $("#txtContraseniaAnterior").val('');
-                            $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val('');
-                            AbrirMensaje("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");
-                        } else if (data.message == "2") {
-                            $("#txtContraseniaAnterior").val('');
-                            $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val('');
-
+                        $("#txtContraseniaAnterior").val('');
+                        $("#txtNuevaContrasenia01").val('');
+                        $("#txtNuevaContrasenia02").val('');
+                        if (data.message == "") {
                             $("#contentPass").fadeOut(200);
                             $("#contentPassChange").delay(200);
                             $("#contentPassChange").fadeIn(200);
                         }
+                        else AbrirMensaje(data.message);
+
                         return false;
                     }
                 }
