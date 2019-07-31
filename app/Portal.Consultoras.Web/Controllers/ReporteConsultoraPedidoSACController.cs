@@ -277,7 +277,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string file = string.Empty;
                 using (var pedidoService = new PedidoServiceClient())
                 {
-                    file = pedidoService.DescargaPedidosWebSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID, userData.NombreConsultora, model.NroLote, model.FechaFacturacion);
+                    file = pedidoService.DescargaPedidosWebSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID, userData.NombreConsultora, model.NroLote);
                 }
 
                 return Json(new

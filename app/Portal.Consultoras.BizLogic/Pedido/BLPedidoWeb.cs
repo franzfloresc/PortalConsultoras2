@@ -2729,8 +2729,9 @@ namespace Portal.Consultoras.BizLogic
                 throw ex;
             }
         }
-        public string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, DateTime fechaFacturacion)
+        public string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote)
         {
+            DateTime fechaFacturacion = DateTime.Now;
             string mensaje = string.Empty, valor = string.Empty;
             int nuevoNroLote = 0;
             DAPedidoWeb daPedidoWeb = null;
@@ -2748,7 +2749,6 @@ namespace Portal.Consultoras.BizLogic
 
                 if (validador == 0)
                 {
-                    fechaFacturacion = DateTime.Now;
                     try
                     {
                         daPedidoWeb.InsPedidoDescargaSinMarcar(campanaId, Constantes.EstadoValorProcesoDescargaregular.EnProceso, tipoCronograma, usuario, out nuevoNroLote);
@@ -2952,9 +2952,10 @@ namespace Portal.Consultoras.BizLogic
 
         private string FormatFileSinMarcar(string ruta, string codigoPais,  string fileName, int campanaId, Guid fileGuid, string path)
         {
+            DateTime fechaFacturacion = DateTime.Now;
             return System.IO.Path.Combine(path)
                          + Path.GetFileNameWithoutExtension(fileName) + "-"
-                         + codigoPais + "-" + campanaId.ToString() + "-"
+                         + codigoPais + "-" + fechaFacturacion.ToString("yyyyMMdd") + "-"
                          + fileGuid.ToString() + Path.GetExtension(fileName);
         }
 
