@@ -13,17 +13,23 @@ $(document).ready(function () {
     if (TieneGanancias == "1") CargarGanancias();
     var nivelactual = $("#hfNivelActual").val();
 
-    var progreso = $("#bar-progreso");
-    if (progreso.length > 0) {
-        var maxBar = $(progreso).data("max");
-        var curBar = $(progreso).data("cur");
-        var perc = (curBar / maxBar) * 100;
-        $('.new-bar').width(perc + '%');
-    }
+    //Barra monto Acumulado
+    if (TieneMontoAcumulado == '1') {
+
+        var progreso = $("#bar-progreso");
+        if (progreso.length > 0) {
+            var maxBar = $(progreso).data("max");
+            var curBar = $(progreso).data("cur");
+            var perc = (curBar / maxBar) * 100;
+            $('.new-bar').width(perc + '%');
+            var minBar = $(progreso).data("min");
+            var percTope = (minBar / maxBar) * 100;
+            $('.progress-barnew .tope').css("left", percTope + '%');         
+        }
         if (nivelactual == '5') {
             $(".bord-bot").addClass("centtopacio");
         }
-
+    }
     
     for (var i = 1; i <= nivelactual; i++)
         $(".pt" + i).addClass("activo");
@@ -138,11 +144,36 @@ function TagVerTodos(MisLogros) {
     });
 }
 
-function TagClickSeleccionNivel(nivelConsultora) {
+
+function TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva) {
+
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
         'action': 'Seleccionar nivel',
+        'label': 'Nivel: ' + nivelConsultora
+    });
+
+    for (var i = 1; i <= 6; i++) {
+
+        if ($("#" + i).hasClass('urlImagenActiva')) {
+            $("#" + i).hide();
+        }
+    }
+
+    $("#" + codigoNivel).addClass("urlImagenActiva");
+    $("#" + codigoNivel).show();
+    $("#" + codigoNivel).attr('src', urlImagenActiva);
+
+}
+
+function TagMostrarPopupNivel(nivelConsultora, codigoNivel, urlImagenActiva) {
+
+    TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva);
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Nivel y beneficios',
+        'action': 'Ver Pop-up del nivel',
         'label': 'Nivel: ' + nivelConsultora
     });
 }
@@ -424,7 +455,8 @@ function ArmarMisGanancias(data) {
             title: {
                 display: true
             },
-            responsive: true 
+            responsive: true,
+            showAllTooltips: true
         }
     });
 
