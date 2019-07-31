@@ -614,10 +614,7 @@
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-
-        var imagen = $("#imgSeleccionada").attr('src');
-        var ultimoSlash = imagen.lastIndexOf("/");
-        //var nombreImagen = imagen.substring(ultimoSlash + 1);
+        
         var params = {
             paisID: data.paisID,
             estragiaId: data.EstrategiaID,
@@ -701,7 +698,7 @@
     };
 
     var _uploadFileLanzamineto = function (divId) {
-        var uploader = new qq.FileUploader({
+         new qq.FileUploader({
             allowedExtensions: ["jpg", "png", "jpeg"],
             element: document.getElementById(divId),
             action: _config.urlImageLanzamientoUpload,
@@ -2105,7 +2102,7 @@
         var elementoDivVerImagen = $(elementoPadre).find(".divPopupImagenPersonalizacion")[0];
         var elementoHiddenValor = $(elementoPadre).find(".hdValor")[0];
         $.ajaxSetup({ cache: false });
-        var uploader = new qq.FileUploader({
+        new qq.FileUploader({
             allowedExtensions: ["jpg", "png", "jpeg", "gif"],
             element: elementoAgregarImagen,
             action: _config.urlImageMatrizUpload,

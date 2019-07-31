@@ -305,6 +305,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID);
 
+        [OperationContract]
+        int ContenidoAppDetaVideo(int paisID, BEContenidoAppDeta p);
+
         #region Gestor de Poputs
         [OperationContract]
         List<BEComunicado> GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID);

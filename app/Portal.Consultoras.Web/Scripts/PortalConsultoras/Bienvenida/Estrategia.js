@@ -232,37 +232,37 @@ function EstructurarDataCarousel(array) {
     return isList ? lista : lista[0];
 }
 
-function EstrategiaVerDetalle(id, origen) {
-    if ($.trim(origen) == "") {
-        origen = $("#divListadoEstrategia").attr("data-OrigenPedidoWeb") || origenPedidoWebEstrategia || 0;
-    }
-    origen = $.trim(origen) || 0;
-    var url = getMobilePrefixUrl() + "/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
-    try {
-        if (typeof GuardarProductoTemporal == "function" && typeof GetProductoStorage == "function") {
-            var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
-            var cuv = $("[data-item=" + id + "]").attr("data-item-cuv");
-            var obj = {};
-            if (typeof cuv == "undefined" || typeof campania == "undefined") {
-                obj = JSON.parse($("[data-item=" + id + "]").attr("data-estrategia"));
-            }
-            if (obj.length == 0) {
-                obj = GetProductoStorage(cuv, campania);
-            }
+//function EstrategiaVerDetalle(id, origen) {
+//    if ($.trim(origen) == "") {
+//        origen = $("#divListadoEstrategia").attr("data-OrigenPedidoWeb") || origenPedidoWebEstrategia || 0;
+//    }
+//    origen = $.trim(origen) || 0;
+//    var url = getMobilePrefixUrl() + "/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
+//    try {
+//        if (typeof GuardarProductoTemporal == "function" && typeof GetProductoStorage == "function") {
+//            var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
+//            var cuv = $("[data-item=" + id + "]").attr("data-item-cuv");
+//            var obj = {};
+//            if (typeof cuv == "undefined" || typeof campania == "undefined") {
+//                obj = JSON.parse($("[data-item=" + id + "]").attr("data-estrategia"));
+//            }
+//            if (obj.length == 0) {
+//                obj = GetProductoStorage(cuv, campania);
+//            }
 
-            obj.CUV2 = $.trim(obj.CUV2);
-            if (obj.CUV2 != "") {
-                if (GuardarProductoTemporal(obj)){
-                    window.location = url;
-                    return true;
-                }
-            }
-        }
-    } catch (e) {
-        console.log(e);
-    }
-    window.location = url;
-}
+//            obj.CUV2 = $.trim(obj.CUV2);
+//            if (obj.CUV2 != "") {
+//                if (GuardarProductoTemporal(obj)){
+//                    window.location = url;
+//                    return true;
+//                }
+//            }
+//        }
+//    } catch (e) {
+//        console.log(e);
+//    }
+//    window.location = url;
+//}
 
 function HidePopupEstrategiasEspeciales() {
 }
@@ -345,33 +345,33 @@ function _validarDivTituloMasVendidos() {
     }
 }
 
-function GuardarProductoTemporal(obj) {
+//function GuardarProductoTemporal(obj) {
 
-    $.ajaxSetup({
-        cache: false
-    });
+//    $.ajaxSetup({
+//        cache: false
+//    });
 
-    AbrirLoad();
+//    AbrirLoad();
 
-    var varReturn = false;
+//    var varReturn = false;
 
-    obj.TipoAccionAgregar = obj.TipoAccionAgregarBack || obj.TipoAccionAgregar;
+//    obj.TipoAccionAgregar = obj.TipoAccionAgregarBack || obj.TipoAccionAgregar;
 
-    jQuery.ajax({
-        type: "POST",
-        url: urlOfertaDetalleProductoTem,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(obj),
-        async: false,
-        success: function (response) {
-            varReturn = response.success;
-        },
-        error: function (response, error) {
-            CerrarLoad();
-            localStorage.setItem(lsListaRD, "");
-        }
-    });
+//    jQuery.ajax({
+//        type: "POST",
+//        url: urlOfertaDetalleProductoTem,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        data: JSON.stringify(obj),
+//        async: false,
+//        success: function (response) {
+//            varReturn = response.success;
+//        },
+//        error: function (response, error) {
+//            CerrarLoad();
+//            localStorage.setItem(lsListaRD, "");
+//        }
+//    });
 
-    return varReturn;
-}
+//    return varReturn;
+//}

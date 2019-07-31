@@ -43,7 +43,6 @@ var menuModule = (function () {
     var urlIni;
     var navbarHeight;
     var seccionFixedMenuHeigt;
-    var scr = false;
 
     var _var = {
         Mobile: false,
@@ -51,11 +50,6 @@ var menuModule = (function () {
             return $(document).outerWidth(true) <= 990;
         }
     }
-
-    //var paddingTab = {
-    //    Mobile: 3,
-    //    Desktop: 1.5
-    //}
 
     function _getHeight(element) {
         return $(element).outerHeight(true);
@@ -207,10 +201,6 @@ var menuModule = (function () {
                 setTimeout(function () {
                     _updateParentAttribute(codigo);
                 }, 1000);
-            }
-
-            if (typeof AnalyticsPortalModule !== "undefined") {
-                AnalyticsPortalModule.ClickTabGanadoras(codigo);
             }
 
             url = $.trim(url);

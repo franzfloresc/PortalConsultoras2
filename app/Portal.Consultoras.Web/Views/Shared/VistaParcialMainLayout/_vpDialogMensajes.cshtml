@@ -5,18 +5,27 @@
     </div>
 </div>
 
-<div id="alertDialogMensajes" style="display: none;">
+@*<div id="alertDialogMensajes" style="display: none;">
     <div style="max-width:600px; min-width: 300px;">
         <div class="terminos_title_2">MENSAJE</div>
         <div class="linea_superior margin_10"></div>
         <div class="pop_pedido_mensaje" style="max-height: 200px;"></div>
     </div>
+</div>*@
+
+<div id="alertDialogMensajes" style="display:none;">
+    <div class="d-block center-block alert_dialog_icono">
+        <img src="@Url.Content("~/Content/Images/alerta-icono.png")" alt="Aviso" />
+    </div>
+    <div class="d-block terminos_title_2 alert_dialog_title">Aviso</div>
+    <p class="d-block pop_pedido_mensaje alert_dialog_message">
+    </p>
 </div>
 
 <div id="alertDialogMensajes25seg" style="display: none;">
     <div class="snackbar-align">
         <div class="pop_image">
-            <img src="#" alt="Imagen" id="pop_src" class="img-fluid"  />
+            <img src="" alt="Imagen" id="pop_src" class="img-fluid"  />
         </div>
         <div class="pop_pedido_mensaje" ></div>
     </div>

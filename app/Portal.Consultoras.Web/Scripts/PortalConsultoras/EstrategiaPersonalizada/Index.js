@@ -10,7 +10,6 @@ var listaLAN = listaLAN || "LANLista";
 
 var CONS_TIPO_PRESENTACION = {
     CarruselSimple: 1,
-    //CarruselPrevisuales: 2,
     SimpleCentrado: 3,
     Banners: 4,
     ShowRoom: 5,
@@ -31,7 +30,7 @@ var CONS_CODIGO_SECCION = {
     HV: "HV",
     MG: 'MG',
     ATP: 'ATP',
-    DP: 'DP' //HD-3473 EINCA 
+    DP: 'DP'
 };
 
 var listaSeccion = {};
@@ -126,7 +125,7 @@ function SeccionCargarProductos(objConsulta) {
         $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
-    //HD-3473 EINCA 
+
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.DP) {
         AnalyticsPortalModule.MarcaPromotionViewBanner('Contenedor - Inicio');
     }
@@ -141,10 +140,10 @@ function SeccionCargarProductos(objConsulta) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
 
-            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(_constantesPalanca.RevistaDigital) > -1
-            if (!tipoEstrategiaHabilitado) {
+            if (!GetTipoEstrategiaHabilitado(_constantesPalanca.RevistaDigital)) {
                 guardaEnLS = false;
             }
+            
             OfertaCargarProductos({
                 VarListaStorage: "RDLista",
                 UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,
@@ -159,10 +158,11 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.HV) {
         if (!varContenedor.CargoHv) {
             varContenedor.CargoHv = true;
-            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(_constantesPalanca.HerramientasVenta) > -1
-            if (!tipoEstrategiaHabilitado) {
+
+            if (!GetTipoEstrategiaHabilitado(_constantesPalanca.HerramientasVenta)) {
                 guardaEnLS = false;
             }
+
             OfertaCargarProductos({
                 VarListaStorage: "HVLista",
                 UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,
@@ -190,10 +190,11 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN) {
         if (!varContenedor.CargoLan) {
             varContenedor.CargoLan = true;
-            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(_constantesPalanca.Lanzamiento) > -1
-            if (!tipoEstrategiaHabilitado) {
+
+            if (!GetTipoEstrategiaHabilitado(_constantesPalanca.Lanzamiento)) {
                 guardaEnLS = false;
             }
+
             OfertaCargarProductos({
                 VarListaStorage: listaLAN,
                 UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,
@@ -249,6 +250,11 @@ function SeccionCargarProductos(objConsulta) {
         error: function (error, x) {
         }
     });
+}
+
+function GetTipoEstrategiaHabilitado(tipoEstrategia) {
+    var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(tipoEstrategia) > -1;
+    return tipoEstrategiaHabilitado;
 }
 
 function SeccionMostrarProductos(data) {
@@ -353,7 +359,6 @@ function SeccionMostrarProductos(data) {
                 .replace('#PrecioTotal', variablesPortal.SimboloMoneda + " " + data.lista[0].PrecioVenta);
 
             pSubtitulo.html(subTitulo);
-            //btnRedirect.attr('data-cuv', data.lista[0].CUV2);
 
             if (data.estaEnPedido) {
                 btnRedirect.attr('data-popup', true);
@@ -364,9 +369,8 @@ function SeccionMostrarProductos(data) {
                 btnRedirect.html(btnRedirect.data('crea'));
             }
             $('#' + data.Seccion.Codigo).find('.seccion-content-contenedor').fadeIn();
-            //Analytics ATP
+
             if (!(typeof AnalyticsPortalModule === 'undefined'))
-            //data.estaEnPedido = false is new and true is modified
             {
                 var codigoubigeoportal = $('#' + data.Seccion.Codigo).attr('data-codigoubigeoportal');
                 AnalyticsPortalModule.MarcaPromotionViewArmaTuPack(codigoubigeoportal, data.lista[0], data.estaEnPedido);
@@ -600,7 +604,6 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
         nextArrow: '<a class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         CarruselAyuda.MarcarAnalyticsContenedor(2, null, seccionName, slick, currentSlide, nextSlide);
-
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
         CarruselAyuda.MarcarAnalyticsContenedor(3, event, seccionName, slick, currentSlide);
     });

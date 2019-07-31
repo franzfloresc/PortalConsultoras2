@@ -256,6 +256,8 @@ namespace Portal.Consultoras.Entities
             CodigoClasificacion = row.ToString("CodigoClasificacion");
             CodigoSubClasificacion = row.ToString("CodigoSubClasificacion");
             DescripcionSubClasificacion = row.ToString("DescripcionSubClasificacion");
+            /*HD-4513*/
+            if (DataRecord.HasColumn(row, "PagoContado")) PagoContado = DbConvert.ToBoolean(row["PagoContado"]);
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -956,6 +958,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string AutorizaPedido { get; set; }
 
+        /*HD-4513*/
+        [DataMember]
+        [Column("PagoContado")]
+        public bool PagoContado { get; set; }
+
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
             ConsultoraID = row.ToInt64("ConsultoraID");
@@ -970,6 +977,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
 
             AutorizaPedido = row.ToString("AutorizaPedido");
+            /*HD-4513*/
+            if (DataRecord.HasColumn(row, "PagoContado")) PagoContado= DbConvert.ToBoolean(row["PagoContado"]);
 
         }
 
@@ -993,5 +1002,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool PuedeConfirmarAllSms { get; set; }
 
+        [DataMember]
+        public bool NotificacionesWhatsapp { get; set; }
+
+        [DataMember]
+        public bool ActivaNotificacionesWhatsapp { get; set; }
     }
 }

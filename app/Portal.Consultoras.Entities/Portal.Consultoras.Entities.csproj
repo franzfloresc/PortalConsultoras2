@@ -61,6 +61,7 @@
     <Compile Include="AsesoraOnline\BEAsesoraOnline.cs" />
     <Compile Include="Auditoria.cs" />
     <Compile Include="BEBuscadorYFiltros.cs" />
+    <Compile Include="BEConfiguracionPaisFFVVDatos.cs" />
     <Compile Include="BEContenidoAppDetaAct.cs" />
     <Compile Include="BEContenidoAppHistoria.cs" />
     <Compile Include="BEBeneficiosCaminoBrillante.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="BEContenidoAppDeta.cs" />
     <Compile Include="BEContenidoAppList.cs" />
     <Compile Include="BEContenidoApp.cs" />
+    <Compile Include="BEParametroUnete.cs" />
     <Compile Include="BeReporteContrato.cs" />
     <Compile Include="BEContrato.cs" />
     <Compile Include="BEReporteRevisionIncidencias.cs" />
@@ -90,8 +92,10 @@
     <Compile Include="BEPremiosProgramaNuevas.cs" />
     <Compile Include="BuscadorYFiltros\BEBuscadorYFiltrosConfiguracion.cs" />
     <Compile Include="BuscadorYFiltros\BEFiltroBuscador.cs" />
+    <Compile Include="CaminoBrillante\BEConfiguracionCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEConsultoraCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEDesmostradoresCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEOfertaCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEOrdenFiltrosCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEKitsHistoricoConsultora.cs" />
     <Compile Include="CaminoBrillante\BELogroCaminoBrillante.cs" />
@@ -100,6 +104,7 @@
     <Compile Include="CaminoBrillante\BEKitCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEPeriodoCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEProductoCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BECarruselCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEValidacionCaminoBrillante.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />
     <Compile Include="BEMiCertificado.cs" />

@@ -58,18 +58,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-
-        public ActionResult Consultar(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
+        [HttpPost]
+        public ActionResult Consultar(string sidx, string sord, int page, int rows, string obj)
         {
+            AdministrarProductoSugeridoModel objProdSug = Newtonsoft.Json.JsonConvert.DeserializeObject<AdministrarProductoSugeridoModel>(obj);
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-
+            var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(objProdSug);
             List<BEProductoSugerido> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido).ToList();
+                lst = sv.GetPaginateProductoSugerido(objProdSug.PaisID, entidad).ToList();
             }
 
             BEGrid grid = new BEGrid
@@ -100,6 +101,11 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 a.ProductoSugeridoID.ToString(),
                                 a.CampaniaID.ToString(),
+                                //INI HD-4289
+                                a.ConfiguracionZona,
+                                a.ConfiguracionZona.Replace(",",", "),
+                                a.ConfiguracionZona.Substring(0,Math.Min(a.ConfiguracionZona.Length,19)).Replace(",",", "),
+                                //FIN HD-4289
                                 a.CUV,
                                 a.CUVSugerido,
                                 a.Orden.ToString(),
@@ -191,6 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var imagenAppCatalogo = model.ImagenAppCatalogo;
                 var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
 
                 entidad.Estado = 1;
@@ -203,9 +210,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string rutaImagen = entidad.ImagenProducto.Clone().ToString();
 
-                var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
-
-                _renderImgProvider.ImagenesResizeProceso(entidad.ImagenProducto, userData.CodigoISO, rutaImagen.ToLower().Contains(valorAppCatalogo));
+                _renderImgProvider.ImagenesResizeProceso(entidad.ImagenProducto, userData.CodigoISO, imagenAppCatalogo,campaniaID: model.CampaniaID.ToString());
 
                 #endregion
 
@@ -323,5 +328,40 @@ namespace Portal.Consultoras.Web.Controllers
             return arrayProducto[0].Imagen;
         }
 
+        //INI HD-4289
+        public JsonResult CargarArbolRegionesZonas(int? pais)
+        {
+            if (pais.GetValueOrDefault() == 0)
+                return Json(null, JsonRequestBehavior.AllowGet);
+
+            IList<BEZonificacionJerarquia> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.GetZonificacionJerarquia(pais.GetValueOrDefault());
+            }
+            JsTreeModel3[] tree = lst.Distinct<BEZonificacionJerarquia>(new BEZonificacionJerarquiaComparer()).Select(
+                                    r => new JsTreeModel3
+                                    {
+                                        data = r.RegionNombre,
+                                        attr = new JsTreeAttribute3
+                                        {
+                                            id = r.RegionCodigo,
+                                            selected = false
+                                        },
+                                        children = lst.Where(i => i.RegionId == r.RegionId).Select(
+                                                        z => new JsTreeModel3
+                                                        {
+                                                            data = z.ZonaNombre,
+                                                            attr = new JsTreeAttribute3
+                                                            {
+                                                                id = z.ZonaCodigo,
+                                                                selected = false
+                                                            }
+                                                        }).ToArray()
+                                    }).ToArray();
+            return Json(tree, JsonRequestBehavior.AllowGet);
+        }
+
+        //FIN HD-4289
     }
 }

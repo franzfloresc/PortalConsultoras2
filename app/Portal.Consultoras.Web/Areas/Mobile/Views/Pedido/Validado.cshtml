@@ -7,7 +7,13 @@
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/Pedido/GananciaEstimada.css")" rel="stylesheet">
 
+}
+@{ 
+    var siPagoAlContado = ViewBag.PagoContado ? "modificarPosicionSiPagoAlContado" : "";
+}
 <div class="titulo_mobile">MI PEDIDO RESERVADO</div>
 <div class="pestana_esika"></div>
 <div class="pestana_lbel"></div>
@@ -17,6 +23,20 @@
         <div class="left_reservado">
             <div class="agregados_reservado">Unidades:</div>
             <div class="monto_reservado_mobile">Total:</div>
+            @*HD-4513*@
+            @if (ViewBag.PagoContado)
+            {
+            <div class="monto_reservado_mobile">Total a Pagar:</div>
+            }
+            @{
+                string colorEstilo = null;
+                if (!System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+                {
+                    colorEstilo = "lbel";
+                }
+
+            }
+
             @{
                 string cabezaEscala = null, pieEscala = null;
                 string lbl1Ganancia = null, lbl2Ganancia = null;
@@ -82,6 +102,11 @@
         <div class="right_reservado">
             <div class="agregados_reservado">@Model.CantidadProductos</div>
             <div class="monto_reservado_mobile">@Model.Simbolo @Model.DescripcionTotal</div>
+            @*HD-4513*@
+            @if (ViewBag.PagoContado)
+            {
+            <div class="monto_reservado_mobile">@Model.Simbolo @Model.STPPagoTotal</div>
+            }
             <div class="ganancia_reservado">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
         </div>
         <hr class="clear" />
@@ -98,7 +123,7 @@
                     <div class="left_reservado" style="width:235px;">
                         <div class="datos_Reservado">
                             <span> @item.CUV </span>
-                            <span>@(item.SetIdentifierNumber > 0?"# " + item.SetIdentifierNumber.ToString() : "")   @item.DescripcionProd</span>
+                            <span>@(item.SetIdentifierNumber > 0 ? "# " + item.SetIdentifierNumber.ToString() : "")   @item.DescripcionProd</span>
                         </div>
                         <div class="texto_reservado">Cliente: @item.Nombre</div>
                     </div>
@@ -146,7 +171,161 @@
                 </div>
             }
 
-            <div class="left_reservado">
+        <div class="contenedor-ganancias">
+            <!-- <GananciaEstimada>-->
+            <div class="ganancia-estimada PedidoValidado @siPagoAlContado">
+                <div class="panel-toggle">
+                    <div class="toggle-header">
+                        <div class="toggle-switch closed">
+                            <div class="toggle-icon">
+                            </div>
+                        </div>
+                        <div class="toggle-info @colorEstilo">
+                            <span class="ganancia-titulo accent-color ">
+                                @(cabezaEscala) :
+                            </span>
+                            <span id="div-ganancia-total" class="ganancia-total accent-color">
+                                @Model.Simbolo @Model.DescripcionGanaciaEstimada
+                            </span>
+                        </div>
+                    </div>
+                    <div class="toggle-content">
+                        <div class="toggle-info">
+                            <span class="ganancia-titulo first-color">
+                                Catálogo
+                            </span>
+                            <span class="ganancia-total first-color">
+                                @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">&nbsp;@Model.FormatoMontoAhorroCatalogo</span>
+                            </span>
+                        </div>
+                        <div class="toggle-info">
+                            <span class="ganancia-titulo first-color">
+                                Guía de negocio
+                            </span>
+                            <span class="ganancia-total first-color">
+                                @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">&nbsp;@Model.FormatoGananciaRevista</span>
+                            </span>
+                        </div>
+                        <div class="toggle-info">
+                            <span class="ganancia-titulo first-color">
+                                @ViewBag.LabelGananciaWeb
+                            </span>
+                            <span class="ganancia-total first-color">
+                                @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">&nbsp;@Model.FormatoGananciaWeb</span>
+                            </span>
+                        </div>
+                        <div class="toggle-info">
+                            <span class="ganancia-titulo first-color">
+                                Otros
+                            </span>
+                            <span class="ganancia-total first-color">
+                                @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">&nbsp;@Model.FormatoGananciaOtros</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </GananciaEstimada-->
+            <!-- <GananciaTotal>-->
+            <div class="ganancia-total">
+                <div class="ganancia-content">
+                    <div class="ganancia-info">
+                        <span class="ganancia-titulo titulo-up first-color">
+                            Has agregado:
+                        </span>
+                        <span class="ganancia-total first-color">
+                            <span class="par-2">@Model.CantidadProductos</span> Unidad(es)
+                        </span>
+
+                    </div>
+                    <div class="ganancia-info">
+                        <span class="ganancia-titulo first-color">
+                            Total sin descuento.
+                        </span>
+                        <span class="ganancia-total first-color">
+                            @Model.Simbolo @Model.DescripcionSubTotal
+                        </span>
+                    </div>
+                    <div class="ganancia-info separator">
+                        <span class="ganancia-titulo first-color">
+                            (-) Dscto. Ofertas Por Niveles
+                        </span>
+                        <span class="ganancia-total first-color">
+                            @Model.Simbolo @Model.DescripcionDescuento
+                        </span>
+                    </div>
+                    <div class="ganancia-info pb-2">
+                        <span class="ganancia-titulo titulo-up titulo-700">
+                            MONTO TOTAL :
+                        </span>
+                        <span class="ganancia-total first-color">
+                            <span>@Model.Simbolo @Model.DescripcionTotal</span>
+
+                        </span>
+                    </div>
+                      @*HD-4513*@
+                    @if (ViewBag.PagoContado){
+                        <div class="ganancia-info first-color">
+                            <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
+                            <span class="ganancia-total first-color" >
+                                    @Model.Simbolo @Model.STPDescuento
+                            </span>
+                        </div>
+                        <div class="ganancia-info first-color">
+                            <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
+                            <span class="ganancia-total first-color" >
+                                @Model.Simbolo @Model.STPFlete
+                            </span>
+                        </div>  
+                        <div class="ganancia-info first-color">
+                            <span class="info_mis_descuentos">(+) Saldo Campaña Anterior:</span>
+                            <span class="ganancia-total first-color" >
+                                @Model.Simbolo @Model.STPDeuda
+                            </span>
+                        </div>  
+                        <div class="ganancia-info total_a_pagar_wrapper pb-2">
+                            <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
+                            <span class="ganancia-total first-color" >
+                                @Model.Simbolo @Model.STPPagoTotal
+                            </span>
+                        </div>
+                    }
+                    @*@if (!Model.IsShowGananciaConsultora)
+                {
+                    <div class="ganancia-info">
+                        <span class="ganancia-titulo accent-color">
+                            <div class="info_validado">
+                                <img src="/Content/Images/Esika/info-copy.png" />
+                                <div class="tooltip_validado_importe">
+                                    <div class="left_reservado">
+                                        <div class="datos_Reservado">
+                                            <span>Subtotal: </span>
+                                            <span>Descuento ofertas por niveles:</span>
+                                        </div>
+                                    </div>
+                                    <div class="right_reservado">
+                                        <div class="datos_Reservado">
+                                            <span data-pedidototal="">{{SimboloMoneda}} {{FormatoTotal}}</span>
+                                            <span data-montodescuento="">{{SimboloMoneda}} {{#iff FormatoMontoDescuento '>' 0}}-{{/iff}}{{FormatoMontoDescuento}}</span>
+                                            <span data-montodescuento="">{{SimboloMoneda}} {{FormatoMontoDescuento}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @(cabezaEscala) :
+                        </span>
+                        <span class="ganancia-total accent-color">
+                            <span class="mi_ganancia">{{SimboloMoneda}} <span data-ganancia="">{{FormatoMontoGanancia}}</span></span>
+                        </span>
+                    </div>
+                }*@
+                </div>
+            </div>
+            <!-- </GananciaTotal> -->
+        </div>
+
+            @*<div class="left_reservado">
                 <div class="importe_final">
                     <div class="info_validado">
                         <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
@@ -175,7 +354,7 @@
                 <div class="importe_final" style="font-size:15px"><b>@Model.Simbolo @Model.DescripcionTotal</b></div>
                 <div class="ganancia_Pedidovalidado" style="font-size:15px">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
             </div>
-            <hr class="clear" />
+            <hr class="clear" />*@
         </div>
 
         <a class="btn_ver_pedido_reservado" data-toggle="collapse" data-parent="#accordion" href="#PedidoReservado">Ver mi pedido</a>
@@ -242,7 +421,6 @@
         </div>
     </div>
 </div>
-
 @section Scripts{
     <script type="text/javascript">
         var modificacionPedidoProl = '@Model.ModificacionPedidoProl';
@@ -251,4 +429,7 @@
         var urlIngresarPedido = '@Url.Action("Detalle", "Pedido", new {area = "Mobile"})';
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Validado.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TogglePanel.js")"></script>
+    
+
 }

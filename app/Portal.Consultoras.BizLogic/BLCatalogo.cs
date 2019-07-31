@@ -1,8 +1,10 @@
-﻿using Portal.Consultoras.Common;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Common.Settings;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,10 +17,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Portal.Consultoras.Common.Exceptions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -583,9 +581,9 @@ namespace Portal.Consultoras.BizLogic
                 Json = ObtenerObjetoIssue(url, codigoIso);
                 if (string.IsNullOrEmpty(Json)) return result;
 
-                accion = "JsonConvert.DeserializeObject<dynamic>(Json)";
+                accion += " | JsonConvert.DeserializeObject<dynamic>(Json)";
                 var oIssuu = JsonConvert.DeserializeObject<dynamic>(Json);
-                accion =  "(JArray)oIssuu.rsp._content.result._content";
+                accion += " | (JArray)oIssuu.rsp._content.result._content";
                 result =  (JArray)oIssuu.rsp._content.result._content;
 
                 CacheManager<JArray>.AddDataElement(paisId, ECacheItem.ApiIssuuData, CodigoIssue, result , new TimeSpan(7,0,0,0));
@@ -602,6 +600,60 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(new ClientInformationException(build.ToString()), "userTracking", codigoIso);
             }
             return result;
+        }
+
+        public string GetUrlThumbnail(string codigoIso, string documento)
+        {
+            string _thumbnail = string.Empty;
+            string _url = string.Empty;
+            string _accion = string.Empty;
+            try
+            {
+                var paisID = Util.GetPaisID(codigoIso);
+                var _issue = CacheManager<string>.GetDataElement(paisID, ECacheItem.UrlThumbnail, documento);
+                if (_issue != null)
+                    return _issue;
+
+
+                string _templateUrl = @"https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}";
+                _url = string.Format(_templateUrl, documento);
+                string resultApi = CallApiIssuu(_url, codigoIso);
+
+                if (string.IsNullOrEmpty(resultApi))
+                    return _thumbnail;
+
+                _accion += " | new JavaScriptSerializer().Deserialize<object>(resultApi)";
+                dynamic item = new JavaScriptSerializer().Deserialize<object>(resultApi);
+                _accion += " | item['thumbnail_url']";
+                _thumbnail = item["thumbnail_url"];
+
+                CacheManager<string>.AddDataElement(paisID, ECacheItem.UrlThumbnail, documento, _thumbnail, new TimeSpan(7, 0, 0, 0));
+            }
+            catch
+            {
+                StringBuilder build = new StringBuilder();
+                build.AppendLine("Tracking => GetUrlThumbnail");
+                build.AppendLine(string.Format("Url:{0}", _url));
+                build.AppendLine(string.Format("Accion:{0}", _accion));
+                LogManager.SaveLog(new ClientInformationException(build.ToString()), "userTracking", codigoIso);
+            }
+
+            return _thumbnail;
+        }
+        private string CallApiIssuu(string url, string codigoIso)
+        {
+            try
+            {
+                var response = httpClient.GetAsync(url).Result;
+                response.EnsureSuccessStatusCode();
+
+                return response.Content.ReadAsStringAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, url, codigoIso);
+                return string.Empty;
+            }
         }
     }
 }

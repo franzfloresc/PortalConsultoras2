@@ -15,6 +15,7 @@
 /// <reference path="../../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
+var componentesAnalyticsPresenter = null;
 registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
 registerEvent.call(opcionesEvents, "onComponentSelected");
 
@@ -45,6 +46,13 @@ var ComponentesModule = (function () {
             template: "#resumen-opciones-template"
         },
         tonosSelectOpt: ".tono_select_opt"
+    };
+
+    var _const = {
+        tipoShowMedioPanel: {
+            Elige: 1,
+            Cambio: 2
+        }
     };
 
     var ListarComponentes = function (estrategia) {
@@ -105,8 +113,7 @@ var ComponentesModule = (function () {
             $(_elements.divElegirOpciones.id).modal("show");
         } else {
             $("body").addClass(_elements.body.modalActivadoClass);
-
-            console.log('_mostrarModalElegirOpciones - DivPopupFichaResumida overflow hidden');
+            
             $("#DivPopupFichaResumida").css("overflow", "hidden");
             $(_elements.divElegirOpciones.modalFondo.id)
                 .css("opacity", _elements.divElegirOpciones.modalFondo.opacity)
@@ -141,22 +148,27 @@ var ComponentesModule = (function () {
             }
         });
 
+
         if (componente.resumenAplicados) {
             if (componente.resumenAplicados.length > 0) {
-                if (componente.FactorCuadre === 1) {
-                    AnalyticsPortalModule.MarcarCambiarOpcion(_estrategia);
-                } else {
-                    AnalyticsPortalModule.MarcarCambiarOpcionVariasOpciones(_estrategia);
-                }
 
-                return false;
+                _applySelectedAnalytics(componente, _const.tipoShowMedioPanel.Cambio);
+                return true;
             }
         }
-        if (componente.FactorCuadre === 1) {
-            AnalyticsPortalModule.MarcarPopupEligeUnaOpcion(_estrategia);
-        } else {
-            AnalyticsPortalModule.MarcarPopupEligeXOpciones(_estrategia);
+        _applySelectedAnalytics(componente, _const.tipoShowMedioPanel.Elige);
+    };
+    
+    var _applySelectedAnalytics = function (componente, tipo) {
+        componente = componente || {};
+        tipo = tipo || '';
+
+        if (!componentesAnalyticsPresenter) {
+            componentesAnalyticsPresenter = ComponentesAnalyticsPresenter({
+                analyticsPortal: AnalyticsPortalModule
+            });
         }
+        componentesAnalyticsPresenter.showTypesAndTonesModalAnalytics(componente, tipo);
     };
 
     var SeleccionarComponenteDinamico = function (cuv) {
@@ -212,7 +224,6 @@ var ComponentesModule = (function () {
 
                 var callFromSeleccionarPaletaOpcion = true;
                 ResumenOpcionesModule.AplicarOpciones(callFromSeleccionarPaletaOpcion);
-                //AnalyticsPortalModule.MarcarImagenProducto(_estrategia, componente.resumenAplicados);
 
                 return false;
             }

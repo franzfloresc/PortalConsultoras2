@@ -78,15 +78,18 @@
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
 
     <div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
+        <div class="content_mensajeAlerta general_dialog">
             <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
                 <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
             </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-            <div id="mensajeInformacion" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar"><b>OK</b></a>
+            @*<hr class="clear">*@
+            @*<div class="icono_alerta exclamacion_icono_mobile"></div>*@
+            <div class="d-block center-block alert_dialog_icono">
+                <img src="@Url.Content("~/Content/Images/alerta-icono.png")" alt="Aviso" />
+            </div>
+            <div class="titulo_compartir text-bold alert_dialog_title">Aviso</div>
+            <div id="mensajeInformacion" class="mensaje_alerta alert_dialog_message"></div>
+            <a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar d-block center-block border-radius-4 text-bold btn__sb btn__sb__primary btn__sb__primary--multimarca btn__sb--entendido">Entendido</a>
         </div>
     </div>
 
@@ -116,15 +119,18 @@
         </div>
     </div>
     <div id="popupInformacionSB2Error" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
+        <div class="content_mensajeAlerta general_dialog">
             <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Error').hide();">
                 <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
             </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
-            <div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
+            @*<hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>*@
+            <div class="d-block center-block alert_dialog_icono">
+                <img src="@Url.Content("~/Content/Images/alerta-icono.png")" alt="Aviso" />
+            </div>
+            <div class="titulo_compartir text-bold alert_dialog_title">Aviso</div>
+            <div id="mensajeInformacionSB2_Error" class="mensaje_alerta alert_dialog_message"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile d-block center-block border-radius-4 text-bold btn__sb btn__sb__primary btn__sb__primary--multimarca btn__sb--entendido">Entendido</a>
         </div>
     </div>
     <div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">

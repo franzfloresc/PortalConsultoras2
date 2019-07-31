@@ -1,0 +1,39 @@
+﻿@*MC - HD-4277 - POPUP PEDIDOS PENDIENTES POR APROBAR*@
+
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/popup-pedidos-pendientes.css")" rel="stylesheet" />
+
+@{
+    var isMobile = (bool)ViewData["isMobile"];
+    var toFrom = (isMobile) ? "mobile" : "";
+}
+
+<div class="popup__wrapper bg__popups__default" id="PopupPedidosPendientes" style="display:none;">
+    <div class="popup__somos__belcorp popup__somos__belcorp--pedidosPendientes">
+        <div class="popup__somos__belcorp__cabecera">
+            <a onclick="javascript:$('#PopupPedidosPendientes').fadeOut(100);" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--pedidosPendientes" style="display:none!important;">
+                <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+            </a>
+        </div>
+        <div class="popup__somos__belcorp__contenido text-center">
+            <div class="popup__somos__belcorp__icono popup__somos__belcorp__icono--pedidosPendientes center-block">
+                <img src="@Url.Content("~/Content/Images/alerta-icono.png")" alt="Tienes pedidos pendientes" />
+            </div>
+            <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--pedidosPendientes">
+                Tienes <span id="spnCantidadPendientes" name="cantidad"></span> pedidos por aprobar
+            </h2>
+            <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--pedidosPendientes">
+                Recuerda que perderás los pedidos si no los apruebas.
+            </p>
+            <a class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--verPedidosPorAprobar"
+                href="@Url.Action("Pendientes","ConsultoraOnline",new { area = toFrom })">
+                Ver pedidos por aprobar
+            </a>
+            <a class="d-inline-block center-block text-center text-bold enlace__sb enlace__sb--verDespues" title="Prefiero ignorarlo"
+               onclick="javascript:$('#PopupPedidosPendientes').fadeOut(100);">
+                <span id="accionVerDespues" onclick="javascript:$('#PopupPedidosPendientes').fadeOut(100);">Quiero verlo despu&eacute;s</span>
+                <span id="accionIgnorar" style="display:none;" onclick="javascript: IniciarValidarProl();"></span>
+            </a>
+        </div>
+    </div>
+</div>
+@*FIN - MC - HD-4277 - POPUP PEDIDOS PENDIENTES POR APROBAR*@

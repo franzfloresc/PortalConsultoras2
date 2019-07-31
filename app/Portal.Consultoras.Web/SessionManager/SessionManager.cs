@@ -635,6 +635,21 @@ namespace Portal.Consultoras.Web.SessionManager
                 return 0;
         }
 
+        public void SetMiAcademiaPdf(int value)
+        {
+            HttpContext.Current.Session["FlagAcademiaPdf"] = value;
+        }
+
+        public int GetMiAcademiaPdf()
+        {
+            if (HttpContext.Current.Session["FlagAcademiaPdf"] != null)
+
+                return (int)HttpContext.Current.Session["FlagAcademiaPdf"];
+            else
+                return 0;
+        }
+
+
         public void SetMiAcademiaParametro(string value)
         {
             HttpContext.Current.Session["SapParametros"] = value;
@@ -659,17 +674,6 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
         }
-
-        void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;
-        }
-
-        EstrategiaPersonalizadaProductoModel ISessionManager.GetProductoTemporal()
-        {
-            return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
-        }
-
 
         public void SetPedidoValidado(bool validado)
         {
@@ -1406,6 +1410,15 @@ namespace Portal.Consultoras.Web.SessionManager
         public BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante()
         {
             return (BEOrdenFiltroConfiguracion)HttpContext.Current.Session[Constantes.ConstSession.FiltrosCaminoBrillante];
+        }
+
+        public void SetConfiguracionCaminoBrillante(List<BEConfiguracionCaminoBrillante> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionCaminoBrillante] = val;
+        }
+        public List<BEConfiguracionCaminoBrillante> GetConfiguracionCaminoBrillante()
+        {
+            return (List<BEConfiguracionCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionCaminoBrillante];
         }
         #endregion
 
