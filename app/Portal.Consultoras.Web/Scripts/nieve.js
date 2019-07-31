@@ -95,7 +95,7 @@ function fallObject(num, vari, nu) {
 }
 
 function fall() {
-    for (var i = 0; i < numObjects; i++) {
+    for (i = 0; i < numObjects; i++) {
         var fallingObject = document.getElementById('fO' + i);
         if (!fallingObject) continue;
 
