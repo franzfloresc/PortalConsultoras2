@@ -4067,7 +4067,7 @@ namespace Portal.Consultoras.BizLogic
                                 {
                                     string _mensajeError = TemplateCustomError("RegistrarPerfil", "Servicio->ProcesoMAEActualizaFlagImpBoletasWebServiceImpl.actualizaFlagImpBoletas", result.mensaje);
                                     LogManager.SaveLog(new ClientInformationException(_mensajeError), string.Empty, usuario.PaisID);
-                                    return resultado = mesajeErrorGenerico;
+                                    return resultado;
                                 }
                             }
                         }
@@ -4161,7 +4161,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 if (conTransaccion) LogManager.SaveLog(ex, direccionEntrega.ConsultoraID, direccionEntrega.PaisID);
-                throw  ex;
+                throw;
             }
             finally
             {
