@@ -373,8 +373,10 @@ namespace Portal.Consultoras.Web.Providers
 
         public void CargarEventoConsultora(UsuarioModel model)
         {
+            string _codigoConsultora = model.GetCodigoConsultora();
+            if(string.IsNullOrWhiteSpace(_codigoConsultora))
+                return;
             var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
-
             try
             {
                 if (!configEstrategiaSR.CargoEntidadEventoConsultora)
