@@ -231,10 +231,10 @@
         {{/each}}
     </div>
     <!-- Desktop -->
-    <div class="deskshow">
+    <div >
         {{#each Indicadores}}
-        <div class="clear"></div>
-        <div class="box-camb mo-1">
+       
+        <div class="box-camb mo-1 deskshow">
             <p class="text-bold">{{Titulo}}</p>
             <div class="cambio-crec">
                 {{#each Medallas }}
@@ -258,12 +258,12 @@
         {{/each}}
     </div>
     <!-- Mobile -->
-    <div class="movshow">
+    <div>
         {{#each Indicadores}}
-        <div class="clear"></div>
-        <div class="box-camb mo-1">
+
+        <div class="box-camb mo-1 movshow">
             <p class="text-bold">{{Titulo}}</p>
-            <span class="como-log inactivo">Ultimo Obtenido</span>            
+            <span class="como-log inactivo">Ultimo Obtenido</span>
             {{#if MedallaDestacada}}
             <div class="bigitem">
                 <div class="itm">
@@ -350,67 +350,68 @@
         {{/each}}
     </div>
     <!-- Desktop -->
-    <div class="container box-incremento mo-3 deskshow">
-        {{#each Indicadores}}
-        <p class="cambio-crec text-bold">{{Titulo}}</p>
-        <div class="cambio-crec">
-            {{#each Medallas }}
-            <div class="itm">
-                {{#if_eq Tipo 'CIRC'}}
-                <div class=" circle-porcent {{#if Estado}}crec-activo {{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
-                {{/if_eq}}
-                {{#if Estado}}
-                <span class="como-log inactivo">{{Subtitulo}}</span>
-                {{else}}
-                <span data-toggle="modal" class=" como-log {{#IsNullOrEmpty ModalTitulo}}{{#IsNullOrEmpty ModalDescripcion}}inactivo{{/IsNullOrEmpty}}{{/IsNullOrEmpty}}"
-                      {{#IsNullOrEmpty ModalTitulo '!='}} {{#IsNullOrEmpty ModalDescripcion '!='}}
-                      data-target="#medalla-{{../Codigo}}-{{@Html.Raw("@index")}}"
-                      onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
-                      {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
-                {{/if}}
+    <div class="clear"></div>
+        <div class="container box-incremento mo-3 deskshow">
+            {{#each Indicadores}}
+            <p class="cambio-crec text-bold">{{Titulo}}</p>
+            <div class="cambio-crec">
+                {{#each Medallas }}
+                <div class="itm">
+                    {{#if_eq Tipo 'CIRC'}}
+                    <div class=" circle-porcent {{#if Estado}}crec-activo {{else}}bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
+                    {{/if_eq}}
+                    {{#if Estado}}
+                    <span class="como-log inactivo">{{Subtitulo}}</span>
+                    {{else}}
+                    <span data-toggle="modal" class=" como-log {{#IsNullOrEmpty ModalTitulo}}{{#IsNullOrEmpty ModalDescripcion}}inactivo{{/IsNullOrEmpty}}{{/IsNullOrEmpty}}"
+                          {{#IsNullOrEmpty ModalTitulo '!='}} {{#IsNullOrEmpty ModalDescripcion '!='}}
+                          data-target="#medalla-{{../Codigo}}-{{@Html.Raw("@index")}}"
+                          onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
+                          {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
+                    {{/if}}
+                </div>
+                {{/each}}
             </div>
             {{/each}}
         </div>
-        {{/each}}
-    </div>
-    <!-- Mobile -->
-    <div class="container box-incremento mo-3 movshow">
-        {{#each Indicadores}}
-        <p class="cambio-crec text-bold">{{Titulo}}</p>
-        <span class="como-log inactivo">Ultimo Obtenido</span>
-        {{#if MedallaDestacada}}
-        <div class="bigitem">
-            <div class="itm">
-                <div class="bord circle-porcent crec-activo">
-                    <span>{{MedallaDestacada.Valor}}</span>
+        <!-- Mobile -->
+        <div class="container box-incremento mo-3 movshow">
+            {{#each Indicadores}}
+            <p class="cambio-crec text-bold">{{Titulo}}</p>
+            <span class="como-log inactivo">Ultimo Obtenido</span>
+            {{#if MedallaDestacada}}
+            <div class="bigitem">
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>{{MedallaDestacada.Valor}}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        {{/if}}
-        <div class="cambio-crec {{#if MedallaDestacada}}right-m{{/if}}">
-            {{#each Medallas }}
-            {{#unless Destacar}}
-            <div class="itm">
-                {{#if_eq Tipo 'CIRC'}}
-                <div class=" circle-porcent {{#if Estado}} crec-activo{{else}} bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
-                {{/if_eq}}
-                {{#if Estado}}
-                <span class="como-log inactivo">{{Subtitulo}}</span>
-                {{else}}
-                <span data-toggle="modal" class=" como-log {{#IsNullOrEmpty ModalTitulo}}{{#IsNullOrEmpty ModalDescripcion}}inactivo{{/IsNullOrEmpty}}{{/IsNullOrEmpty}}"
-                      {{#IsNullOrEmpty ModalTitulo '!='}} {{#IsNullOrEmpty ModalDescripcion '!='}}
-                      data-target="#medalla-{{../Codigo}}-{{@Html.Raw("@index")}}"
-                      onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
-                      {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
-                {{/if}}
+            {{/if}}
+            <div class="cambio-crec {{#if MedallaDestacada}}right-m{{/if}}">
+                {{#each Medallas }}
+                {{#unless Destacar}}
+                <div class="itm">
+                    {{#if_eq Tipo 'CIRC'}}
+                    <div class=" circle-porcent {{#if Estado}} crec-activo{{else}} bord crec-inactivo{{/if}}"><span>{{Valor}}</span></div>
+                    {{/if_eq}}
+                    {{#if Estado}}
+                    <span class="como-log inactivo">{{Subtitulo}}</span>
+                    {{else}}
+                    <span data-toggle="modal" class=" como-log {{#IsNullOrEmpty ModalTitulo}}{{#IsNullOrEmpty ModalDescripcion}}inactivo{{/IsNullOrEmpty}}{{/IsNullOrEmpty}}"
+                          {{#IsNullOrEmpty ModalTitulo '!='}} {{#IsNullOrEmpty ModalDescripcion '!='}}
+                          data-target="#medalla-{{../Codigo}}-{{@Html.Raw("@index")}}"
+                          onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
+                          {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
+                    {{/if}}
+                </div>
+                {{/unless}}
+                {{/each}}
             </div>
-            {{/unless}}
             {{/each}}
         </div>
+        {{/if_eq}}
         {{/each}}
-    </div>
-    {{/if_eq}}
-    {{/each}}
 </script>
 
 @section scripts{
