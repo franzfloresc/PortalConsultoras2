@@ -90,9 +90,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return CacheManager<List<BENivelCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteNiveles, () => GetNivelesProvider(paisId));
         }
 
-        private List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisId)
+        public List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisId, string codigoNivel = "")
         {
-            return new DACaminoBrillante(paisId).GetBeneficiosCaminoBrillante().MapToCollection<BEBeneficioCaminoBrillante>(closeReaderFinishing: true);
+            return new DACaminoBrillante(paisId).GetBeneficiosCaminoBrillante(codigoNivel).MapToCollection<BEBeneficioCaminoBrillante>(closeReaderFinishing: true);
         }
 
         #endregion
@@ -1853,6 +1853,27 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
         */
 
+        #endregion
+
+        #region Administrador Contenido
+        public void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad)
+        {
+            new DACaminoBrillante(paisId).InsBeneficioCaminoBrillante(entidad);
+        }
+
+        public void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio)
+        {
+            new DACaminoBrillante(paisId).DelBeneficioCaminoBrillante(CodigoNivel, CodigoBeneficio);
+        } 
+        
+        public List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            return new DACaminoBrillante(paisId).GetIncentivosMontoExigencia(entidad).MapToCollection<BEIncentivosMontoExigencia>(closeReaderFinishing: true);
+        }
+        public void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            new DACaminoBrillante(paisId).InsIncentivosMontoExigencia(entidad);
+        }       
         #endregion
 
     }

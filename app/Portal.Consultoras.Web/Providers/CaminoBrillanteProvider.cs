@@ -95,7 +95,6 @@ namespace Portal.Consultoras.Web.Providers
                 return new List<NivelCaminoBrillanteModel>();
             }
         }
-
         #endregion
 
         #region Consultora
@@ -847,6 +846,42 @@ namespace Portal.Consultoras.Web.Providers
                 if (lst != null) sessionManager.SetConfiguracionCaminoBrillante(lst);
             }
             return lst;
+        }
+        #endregion
+
+        #region Mantenedor Beneficios
+        /// <summary>
+        /// Obtiene solamente el listado de niveles para administrador de contenidos.
+        /// </summary>
+        public List<NivelCaminoBrillanteModel> GetListaNiveles()
+        {
+            using (var svc = new UsuarioServiceClient())
+            {
+                return Mapper.Map<List<NivelCaminoBrillanteModel>>(svc.GetNiveles(usuarioModel.PaisID).ToList());
+            }
+        }
+
+        /// <summary>
+        /// Obtiene solamente el listado de Beneficos para administrador de contenidos.
+        /// </summary>
+        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(string codigoNivel)
+        {
+            using (var svc = new UsuarioServiceClient())
+            {
+                return Mapper.Map<List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>>(svc.GetBeneficiosCaminoBrillante(usuarioModel.PaisID, codigoNivel).ToList());
+            }
+        }
+
+        public List<AdministrarMontoExigenciaModel> GetIncentivosMontoExigencia(AdministrarMontoExigenciaModel model)
+        {
+            model.CodigoRegion = !string.IsNullOrEmpty(model.CodigoRegion) ? model.CodigoRegion : "";
+            model.CodigoZona = !string.IsNullOrEmpty(model.CodigoZona) ? model.CodigoZona : "";
+            var entidad = Mapper.Map<BEIncentivosMontoExigencia>(model) ?? new BEIncentivosMontoExigencia();
+            using (var svc = new UsuarioServiceClient())
+            {
+                var lst = svc.GetIncentivosMontoExigencia(usuarioModel.PaisID, entidad).ToList();
+                return Mapper.Map<List<AdministrarMontoExigenciaModel>>(lst);
+            }
         }
         #endregion
 
