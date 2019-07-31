@@ -43,47 +43,64 @@
         });
 
         $("#btnBuscar").click(function () {
+
             if ($("#ddlPais").val() == "") {
-                alert("Debe seleccionar un País, verifique");
+                alert("Debe seleccionar el País, verifique.");
                 return false;
-            } else if ($("#txtCodigos").val() == "" && $("#txtDocumento").val() == "") {
-                var msg = "";
-                if ($("#SeleccionaId").val() == "1") msg = "Código de consultora, verifique";
-                else if ($("#SeleccionaId").val() == "2") msg = "Código de documento inválidos, verifique";
-
-                alert(msg);
-                return false;
-            } else {
-                // Establece los efectos para cada uno de los Tabs
-                $("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
-                $(".contenido_tab").hide(); //Ocultar capas
-                $("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
-                $(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
-
-                $("#gvwEstadoCuentaDetalle").jqGrid("clearGridData", true);
-                $("#listPedidoFacturado").jqGrid("clearGridData", true);
-                $("#fecha-vencimiento").html('');
-                $("#monto-pagar").html('');
-                DatoConsultora();
             }
 
-            var CodigoConsultora = $("#txtCodigos").val() == "" ? $("#txtDCCodigoConsultoraVisible").text() : $("#txtCodigos").val();
-            $.ajax({
-                dataType: "json",
-                url: baseUrl + "ConsultaDatoConsultora/GetCampaniasRVDigitalWeb",
-                data: "CodigoConsultora=" + CodigoConsultora,
-                success: function (resultado) {
-                    $("#ddlCampaniaPaquete").empty();
-                    $("#ddlCampaniaPaquete").append('<option value= "">-- Seleccionar --</option>');
+            if ($("#ddlCampania").val() == "") {
+                alert("Debe seleccionar una Campaña, verifique.");
+                return false;
+            }
 
-                    for (var i in resultado) {
-                        var campania = resultado[i];
-                        if (typeof (campania.CampaniaID) != 'undefined')
-                        $("#ddlCampaniaPaquete").append('<option value=' + campania.CampaniaID + '>' + campania.Codigo + '</option>');
-                    }
-                }
-            });
+            fnGrilla();
 
+
+            //if ($("#ddlPais").val() == "") {
+            //    alert("Debe seleccionar un País, verifique");
+            //    return false;
+            //} else if ($("#txtCodigos").val() == "" && $("#txtDocumento").val() == "") {
+            //    var msg = "";
+            //    if ($("#SeleccionaId").val() == "1") msg = "Código de consultora, verifique";
+            //    else if ($("#SeleccionaId").val() == "2") msg = "Código de documento inválidos, verifique";
+
+            //    alert(msg);
+            //    return false;
+            //} else {
+            //    // Establece los efectos para cada uno de los Tabs
+            //    $("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
+            //    $(".contenido_tab").hide(); //Ocultar capas
+            //    $("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
+            //    $(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
+
+            //    $("#gvwEstadoCuentaDetalle").jqGrid("clearGridData", true);
+            //    $("#listPedidoFacturado").jqGrid("clearGridData", true);3
+            //    $("#fecha-vencimiento").html('');
+            //    $("#monto-pagar").html('');
+            //    DatoConsultora();
+            //}
+
+            //var CodigoConsultora = $("#txtCodigos").val() == "" ? $("#txtDCCodigoConsultoraVisible").text() : $("#txtCodigos").val();
+            //$.ajax({
+            //    dataType: "json",
+            //    url: baseUrl + "ConsultaDatoConsultora/GetCampaniasRVDigitalWeb",
+            //    data: "CodigoConsultora=" + CodigoConsultora,
+            //    success: function (resultado) {
+            //        $("#ddlCampaniaPaquete").empty();
+            //        $("#ddlCampaniaPaquete").append('<option value= "">-- Seleccionar --</option>');
+
+            //        for (var i in resultado) {
+            //            var campania = resultado[i];
+            //            if (typeof (campania.CampaniaID) != 'undefined')
+            //            $("#ddlCampaniaPaquete").append('<option value=' + campania.CampaniaID + '>' + campania.Codigo + '</option>');
+            //        }
+            //    }
+            //});
+        });
+
+        $('#btnGuardar').click(function () {
+            fnRegistrar();
         });
 
         $("#SeleccionaId").change(function () {
@@ -105,7 +122,6 @@
         //ControlesPaqueteDocumentario();
 
         $('#ddlPais').change(function () {
-            debugger
             var Id = $(this).val();
             if (Id != "") {
                 waitingDialog({});
@@ -130,7 +146,7 @@
                             if (data.lstCampania.length > 0) {
                                 ddlCampania.append($('<option/>', {
                                     value: "",
-                                    text: "-- Seleccionar --"
+                                    text: "-- Seleccion --"
                                 }));
                                 //ddlCampaniaRZ.append($('<option/>', {
                                 //    value: "",
@@ -149,11 +165,16 @@
                                     }
                                 }
                             }
+                            ddlZona.empty();
+                            ddlZona.append($('<option/>', {
+                                value: "",
+                                text: "Todos"
+                            }));
                             if (data.lstZona.length > 0) {
                                 for (var item in data.lstZona) {
                                     if (data.lstZona.hasOwnProperty(item)) {
                                         ddlZona.append($('<option/>', {
-                                            value: data.lstZona[item].ZonaID,
+                                            value: data.lstZona[item].Codigo,
                                             text: data.lstZona[item].Codigo
                                         }));
                                         //ddlZonaRZ.append($('<option/>', {
@@ -163,11 +184,16 @@
                                     }
                                 }
                             }
+                            ddlRegion.empty();
+                            ddlRegion.append($('<option/>', {
+                                value: "",
+                                text: "Todos"
+                            }));
                             if (data.lstRegion) {
                                 for (var item in data.lstRegion) {
                                     if (data.lstRegion.hasOwnProperty(item)) {
                                         ddlRegion.append($('<option/>', {
-                                            value: data.lstRegion[item].ZonaID,
+                                            value: data.lstRegion[item].Codigo,
                                             text: data.lstRegion[item].Codigo
                                         }));
                                     }
@@ -184,25 +210,29 @@
                 });
             } else LimpiarDependencias(Id);
         });
+        
+
     });
 
-        function fnGrilla() {
+    function fnGrilla() {
         jQuery("#list").jqGrid({
             url: baseUrl + "CaminoBrillanteAdministrar/ConsultarMontoExigencia",
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                vBusqueda: function () { return jQuery.trim($("#ddlPais").val()); }
+                CodigoCampania: function () { return jQuery.trim($("#ddlCampania").val()); },
+                CodigoRegion: function () { return jQuery.trim($("#ddlRegion").val()); },
+                CodigoZona: function () { return jQuery.trim($("#ddlZona").val()); },
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Campaña', 'Región', 'Zona', 'Monto Exigido', 'Opcion'],
+            colNames: ['MontoID','Campaña', 'Región', 'Zona', 'Monto Exigido', 'Opcion'],
             colModel: [
-                { name: 'FactorGananciaID', index: 'FactorGananciaID', width: 100, editable: false, align: 'left'},
-                { name: 'PaisID', index: 'PaisID', width: 100, editable: false, align: 'left'},
-                { name: 'Pais', index: 'Pais', width: 90, editable: true, resizable: false },
-                { name: 'RangoMinimo', index: 'RangoMinimo', width: 80, editable: true, resizable: false, formatter: 'currency', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" } },
-                //{ name: 'RangoMaximo', index: 'RangoMaximo', width: 80, editable: true, resizable: false, formatter: 'currency', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" } },
+                { name: 'MontoID', index: 'MontoID', width: 100, editable: false, align: 'left', hidden: true},
+                { name: 'CodigoCampania', index: 'CodigoCampania', width: 100, editable: false, align: 'left'},
+                { name: 'CodigoRegion', index: 'CodigoRegion', width: 90, editable: true, resizable: false },
+                { name: 'CodigoZona', index: 'CodigoZona', width: 80, editable: true, resizable: false },
+                { name: 'Monto', index: 'Monto', width: 80, editable: true, resizable: false, /*formatter: 'currency', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" }*/ },
                 //{ name: 'Porcentaje', index: 'Porcentaje', width: 80, editable: true, resizable: false, formatter: 'number', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" } },
                 { name: 'Activo', index: 'Activo', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
@@ -245,6 +275,95 @@
         };
     }
 
+    function fnRegistrar() {
+        var valorPais = $('#ddlPais').val();
+        if (valorPais === "") {
+            alert("Debe seleccionar el País, verifique.");
+            return false;
+        }            
+
+        var valorCampania = $('#ddlCampania').val();
+        if (valorCampania === "") {
+            alert("Debe seleccionar una campaña, verifique.");
+            return false;
+        }
+
+        var valorRegion = $('#ddlRegion').val();
+        if (valorRegion === "") {
+            alert("Debe seleccionar una Región, verifique.");
+            return false;
+        }
+
+        var valorZona = $('#ddlZona').val();
+        if (valorZona === "") {
+            alert("Debe seleccionar una Zona, verifique.");
+            return false;
+        }
+
+        var valorMonto = $('#txtMontoExigencia').val();
+        if (valorMonto === '' || valorMonto == '0') {
+            alert("Debe ingresar un monto de exigencia, verifique.");
+            return false
+        }           
+
+        if (!$("input[name=rbttextoincentivo]").is(":checked")) {
+            alert("Debe Seleccionar el texto que se mostrara en esta campaña, verifique.");
+            return false;
+        }
+        var valorRegion = $('#ddlRegion').val();
+        var valorZona = $('#ddlZona').val(); 
+        var valorTexto = "";
+
+        $("input[name=rbttextoincentivo]").each(function (index) {
+            if ($(this).is(':checked')) {
+                valorTexto = $(this).attr("data-tiporbt");
+            }
+        });
+
+        var item = {
+            CodigoCampania: valorCampania,
+            CodigoRegion: valorRegion,
+            CodigoZona: valorZona,
+            Monto: valorMonto,
+            AlcansoIncentivo: valorTexto
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'CaminoBrillanteAdministrar/GuardarMontoExigencia',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        var item = data.items;
+                        alert(data.message);
+                        //HideDialog("DialogFactores");
+                        limpiar();
+                        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    alert(data.message);
+                    //HideDialog("DialogFactores");
+                }
+            }
+        });
+    }
+
+    function limpiar() {
+        $("#ddlCampania").val("");
+        $("#ddlRegion").val("");
+        $("#ddlZona").val("");
+        $("#txtMontoExigencia").val("");
+    }
 </script>
 
 <div class="wrap_cab">
@@ -260,17 +379,26 @@
                 </div>
                 <div class="titG">Campaña:</div>
                 <div class="selectP2 borde_redondeado">
-                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                    @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })*@
+                    <select id="ddlCampania" name="CampaniaID">
+                        <option value="">-- Seleccionar --</option>
+                    </select>
                 </div>
             </div>
             <div class="div-3">
-                <div id="lblSelecciona" class="titG">Región:</div>
-                <div id="divCodConsultora" class="selectP2 borde_redondeado">
-                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaZonas, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
+                <div id="lblSeleccionaRegion" class="titG">Región:</div>
+                <div class="selectP2 borde_redondeado">
+                    @*@Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaRegion, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })*@
+                    <select id="ddlRegion" name="RegionID">
+                        <option value="">-- Seleccionar --</option>
+                    </select>
                 </div>
-                <div id="lblSelecciona" class="titG">Zona:</div>
-                <div id="divCodConsultora" class="selectP2 borde_redondeado">
-                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })
+                <div id="lblSeleccionaZona" class="titG">Zona:</div>
+                <div class="selectP2 borde_redondeado">
+                    @*@Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })*@
+                    <select id="ddlZona" name="ZonaID">
+                        <option value="">-- Seleccionar --</option>
+                    </select>
                 </div>
             </div>
             <div class="div-3">
@@ -288,14 +416,21 @@
                 <div class="titG" style="width:420px;"><b>Selecciona el texto que se debe mostrar en esta campaña:</b></div>
             </div>
             <div class="div-3">
-                <div class="titG" style="float: none;width: auto;padding: 0;"><input type="radio" value="" name="rbttextoincentivo"/>¡Felicidades! Accediste al #% de descuento y alcansaste el incentivo</div>
+                <div class="titG" style="float: none;width: auto;padding: 0;"><input type="radio" name="rbttextoincentivo" data-tiporbt="1"/>¡Felicidades! Accediste al #% de descuento y alcansaste el incentivo</div>
                 @*<div id="divCodConsultora" class="selectP2 borde_redondeado">
-                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaZonas, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
-                </div>*@
-                <div class="titG" style="float: none;width: auto;padding: 0;"><input type="radio" value="" name="rbttextoincentivo"/>¡Felicidades! Accediste al #% de descuento y falta poco para que alcanses el incentivo</div>
+                @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaZonas, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
+            </div>*@
+                <div class="titG" style="float: none;width: auto;padding: 0;"><input type="radio" name="rbttextoincentivo" data-tiporbt="2"/>¡Felicidades! Accediste al #% de descuento y falta poco para que alcanses el incentivo</div>
                 @*<div id="divCodConsultora" class="selectP2 borde_redondeado">
-                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })
-                </div>*@
+                @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })
+            </div>*@
+            </div>
+            <div class="div-3">
+                <div class="titAuto" style="float: right; margin-right: 219px;">
+                    <div class="input_search">
+                        <input type="button" name="btnGuardar" id="btnGuardar" value="Guardar"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -307,13 +442,13 @@
             <table id="list"></table>
             <div id="pager"></div>
         </div>
-        <div class="div-3">
+        @*<div class="div-3">
             <div class="titAuto">
                 <div class="input_search">
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="return AbrirModal();" />
                 </div>
             </div>
-        </div>
+        </div>*@
 
 
         @*<div class="border-wrapper">

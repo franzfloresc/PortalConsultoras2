@@ -741,6 +741,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEOfertaCaminoBrillante, DemostradorCaminoBrillanteModel>();
             Mapper.CreateMap<BEOfertaCaminoBrillante, OfertaCaminoBrillanteModel>();
             Mapper.CreateMap<BECarruselCaminoBrillante, CarruselCaminoBrillanteModel>();
+            Mapper.CreateMap<BEIncentivosMontoExigencia, AdministrarMontoExigenciaModel>();
             #endregion
 
             #region Historial

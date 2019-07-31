@@ -12244,6 +12244,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MontoField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MontoIDField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -12328,6 +12331,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MontoField, value) != true)) {
                     this.MontoField = value;
                     this.RaisePropertyChanged("Monto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MontoID {
+            get {
+                return this.MontoIDField;
+            }
+            set {
+                if ((this.MontoIDField.Equals(value) != true)) {
+                    this.MontoIDField = value;
+                    this.RaisePropertyChanged("MontoID");
                 }
             }
         }

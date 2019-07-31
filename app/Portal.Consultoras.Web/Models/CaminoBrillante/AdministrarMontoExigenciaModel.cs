@@ -7,6 +7,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
     public class AdministrarMontoExigenciaModel
     {
+        public int MontoID { get; set; }
         public string CodigoCampania { get; set; }
         public string CodigoRegion { get; set; }
         public string CodigoZona { get; set; }

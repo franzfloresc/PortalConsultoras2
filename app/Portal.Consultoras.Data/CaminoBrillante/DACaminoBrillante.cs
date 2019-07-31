@@ -92,7 +92,7 @@ namespace Portal.Consultoras.Data.CaminoBrillante
         #region Exigencia Monto Incentivos
         public void InsIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleCaminoBrillante");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsIncentivosMontoExigencia");
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, entidad.CodigoCampania);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);

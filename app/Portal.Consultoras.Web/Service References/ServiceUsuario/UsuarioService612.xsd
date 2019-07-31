@@ -149,6 +149,7 @@
       <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Monto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEIncentivosMontoExigencia" nillable="true" type="tns:BEIncentivosMontoExigencia" />

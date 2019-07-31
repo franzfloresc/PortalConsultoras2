@@ -821,11 +821,23 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Obtiene solamente el listado de Beneficos para administrador de contenidos.
         /// </summary>
-        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
+        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(string codigoNivel)
         {
             using (var svc = new UsuarioServiceClient())
             {
-                return Mapper.Map<List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>>(svc.GetBeneficiosCaminoBrillante(paisID, codigoNivel).ToList());
+                return Mapper.Map<List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>>(svc.GetBeneficiosCaminoBrillante(usuarioModel.PaisID, codigoNivel).ToList());
+            }
+        }
+
+        public List<AdministrarMontoExigenciaModel> GetIncentivosMontoExigencia(AdministrarMontoExigenciaModel model)
+        {
+            model.CodigoRegion = !string.IsNullOrEmpty(model.CodigoRegion) ? model.CodigoRegion : "";
+            model.CodigoZona = !string.IsNullOrEmpty(model.CodigoZona) ? model.CodigoZona : "";
+            var entidad = Mapper.Map<BEIncentivosMontoExigencia>(model) ?? new BEIncentivosMontoExigencia();
+            using (var svc = new UsuarioServiceClient())
+            {
+                var lst = svc.GetIncentivosMontoExigencia(usuarioModel.PaisID, entidad).ToList();
+                return Mapper.Map<List<AdministrarMontoExigenciaModel>>(lst);
             }
         }
         #endregion

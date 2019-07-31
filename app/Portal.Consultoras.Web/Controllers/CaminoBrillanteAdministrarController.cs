@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var lst = Consulta == "1" ? GetListaBeneficiosByNivel(paisID, CodigoNivel) : new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
+                var lst = Consulta == "1" ? GetListaBeneficiosByNivel(CodigoNivel) : new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
                 lst = lst ?? new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
 
                 BEGrid grid = new BEGrid
@@ -45,33 +45,6 @@ namespace Portal.Consultoras.Web.Controllers
                     SortOrder = sord
                 };
                 IEnumerable<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> items = lst;
-
-                #region Sort Section
-                //if (sord == "asc")
-                //{
-                //    switch (sidx)
-                //    {
-                //        case "TipoEstrategiaID":
-                //            items = lst.OrderBy(x => x.TipoEstrategiaID);
-                //            break;
-                //        case "DescripcionEstrategia":
-                //            items = lst.OrderBy(x => x.DescripcionEstrategia);
-                //            break;
-                //    }
-                //}
-                //else
-                //{
-                //    switch (sidx)
-                //    {
-                //        case "TipoEstrategiaID":
-                //            items = lst.OrderByDescending(x => x.TipoEstrategiaID);
-                //            break;
-                //        case "DescripcionEstrategia":
-                //            items = lst.OrderByDescending(x => x.DescripcionEstrategia);
-                //            break;
-                //    }
-                //}
-                #endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
@@ -169,8 +142,9 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.listaPaises = DropDowListPaises();
-                model.listaCampania = new List<CampaniaModel>();
-                model.listaZonas = new List<ZonaModel>();
+                //model.listaCampania = new List<CampaniaModel>();
+                //model.listaRegion = new List<RegionModel>();
+                //model.listaZonas = new List<ZonaModel>();
             }
             catch (FaultException ex)
             {
@@ -178,14 +152,77 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View(model);
         }
-        public JsonResult ConsultarMontoExigencia()
+        public ActionResult ConsultarMontoExigencia(string sidx, string sord, int page, int rows, AdministrarMontoExigenciaModel model)
         {
-            return null;
+            if (ModelState.IsValid)
+            {
+                if (string.IsNullOrEmpty(model.CodigoCampania)) return Json(null, JsonRequestBehavior.AllowGet);
+                var lst = GetIncentivosMontoExigencia(model) ?? new List<AdministrarMontoExigenciaModel>();
+                
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
+                IEnumerable<AdministrarMontoExigenciaModel> items = lst;
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
+
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.MontoID,
+                               cell = new string[]
+                               {
+                                   a.MontoID.ToString(),
+                                   a.CodigoCampania,
+                                   a.CodigoRegion,
+                                   a.CodigoZona,
+                                   a.Monto,
+                                }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("AdministrarMontoExigencia", "CaminoBrillanteAdministrar");
         }
 
         public JsonResult GuardarMontoExigencia(AdministrarMontoExigenciaModel model)
         {
-            return null;
+            try
+            {
+                var entidad = Mapper.Map<BEIncentivosMontoExigencia>(model) ?? new BEIncentivosMontoExigencia();
+
+                using (var sv = new UsuarioServiceClient())
+                {
+                    sv.InsIncentivosMontoExigencia(userData.PaisID, entidad);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se guardo con éxito el monto de exigencia.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
         }
 
         //public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)

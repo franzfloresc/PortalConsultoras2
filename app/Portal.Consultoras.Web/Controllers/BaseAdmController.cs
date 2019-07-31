@@ -169,9 +169,14 @@ namespace Portal.Consultoras.Web.Controllers
             return _caminoBrillanteProvider.GetListaNiveles();
         }
 
-        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
+        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(string codigoNivel)
         {
-            return _caminoBrillanteProvider.GetListaBeneficiosByNivel(paisID, codigoNivel);
+            return _caminoBrillanteProvider.GetListaBeneficiosByNivel(codigoNivel);
+        }
+
+        public List<AdministrarMontoExigenciaModel> GetIncentivosMontoExigencia(AdministrarMontoExigenciaModel model)
+        {
+            return _caminoBrillanteProvider.GetIncentivosMontoExigencia(model);
         }
 
         public List<NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante> DropDowListIconosBeneficios()

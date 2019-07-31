@@ -233,8 +233,7 @@
 
     $.jgrid.extend({
         Editar: function (CodigoBeneficio, nro, nombreBeneficio, descripcion, orden, flagActivo, urlIcono, opcion) {            
-            if (CodigoBeneficio) {  
-                debugger
+            if (CodigoBeneficio) {                  
                 $("#divddlnivel").hide();
                 $("#divtxtnivel").show();
                 $("#txtPaisModal").val($("#ddlPais option:selected").html());                
@@ -265,7 +264,7 @@
                 alert('El beneficio ya se encuentra desactivado.');
                 return false;
             }                
-            debugger
+            
             var elimina = confirm('¿Está seguro que desea desactivar el beneficio seleccionado?');
             if (!elimina)
                 return false;
