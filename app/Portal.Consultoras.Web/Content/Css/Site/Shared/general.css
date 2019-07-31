@@ -1507,8 +1507,10 @@ input[type="checkbox"].switch__control,
 }
 
     .error__view__icon {
-        flex: 0 0 60px;
-        max-width: 60px;
+        flex: 0 0 80px;
+        max-width: 80px;
+        height:80px;
+        margin-bottom:16px;
     }
 
         .error__view__icon img{
@@ -1516,7 +1518,8 @@ input[type="checkbox"].switch__control,
         }
 
     .error__view__title{
-        font-size:16px;
+        font-size:20px;
+        margin-bottom:8px;
     }
 
     .error__view__message{
