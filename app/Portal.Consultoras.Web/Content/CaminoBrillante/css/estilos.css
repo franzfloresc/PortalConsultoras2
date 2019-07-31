@@ -871,7 +871,7 @@ div .owl-carousel .owl-stage-outer {
 .cambio-crec {
     width: 100%;
     display: block;
-    margin-top: 20px
+    margin-top: 0;
 }
 
 /*.itm {
@@ -1349,7 +1349,7 @@ div.opOrdenar {
     }
 
     .valor-final span {
-        font-size: 15px;
+      
         color: #464646;
         display: block;
         text-align: left;
@@ -1360,6 +1360,7 @@ div.opOrdenar {
         .valor-final span em {
             font-style: normal;
             color: #464646;
+            font-size:13px;
         }
 
 .flagimg {
@@ -1657,7 +1658,8 @@ button.close {
     text-align: center;
     display: block;
     color: #000;
-    text-decoration: underline
+    text-decoration: underline;
+    font-size:13px;
 }
 
     .cambio-crec .como-log.inactivo {
@@ -1702,7 +1704,7 @@ button.close {
         color: #fff;
     }
 
-    .cambio-crec .circle-porcent span, .indicador-nivel .circle-porcent span, .owl-carousel .owl-item .circle-porcent span {
+    .cambio-crec .circle-porcent span, .indicador-nivel .circle-porcent span, .owl-carousel .owl-item .circle-porcent span, .bigitem .circle-porcent span {
         font-size: 19px;
         text-align: center;
         line-height: 50px;
@@ -2240,7 +2242,7 @@ div .ficha__producto__precio__normal {
 .top-boxlogros {
     display: block;
     margin: 30px auto;
-    margin-bottom: 60px;
+    margin-bottom: 25px;
 }
 
 .tabs {
@@ -2545,6 +2547,7 @@ div .ficha__producto__precio__normal {
 
 .frase-logros {
     font-style: italic;
+    font-size: 14px;
 }
 
 .bar-logros {
@@ -2579,7 +2582,7 @@ div .ficha__producto__precio__normal {
     .bar-logros span, .bar-logros p {
         display: block;
         text-align: center;
-        font-size: 18px;
+        font-size: 14px;
         line-height: 19px;
     }
 
@@ -3195,7 +3198,7 @@ div .ficha__producto__precio__normal {
     }
 
     .cambio-crec .como-log {
-        margin-top: 4px !important;
+        margin-top: 8px !important;
         line-height: 13px;
     }
 
@@ -3271,10 +3274,10 @@ div .ficha__producto__precio__normal {
         text-indent: 19px
     }
 
-    /*.ficha__producto__descrip__nom {
+    .ficha__producto__descrip__nom {
         min-height: 47px !important;
         word-break: break-word;
-
+}
     .ficha__producto__precio {
         min-height: inherit
     }
@@ -3335,14 +3338,16 @@ div .ficha__producto__precio__normal {
     }
 
     .cent-mant .etiq-mant, .cent-mant .etiq-falta {
-        width: 92%;
+        width: 100%;
         float: none;
         margin: 0 auto;
         margin-bottom: 8px;
-        margin-left: 5%;
-        font-size: 14px;
+        /* margin-left: 3%; */
+        font-size: 12px;
     }
-
+    .etiq-falta strong {
+        font-size: 12px;
+    }
 
     .bar-logros {
         padding-bottom: 8px;
@@ -3400,6 +3405,7 @@ div .ficha__producto__precio__normal {
         width: 68%;
         display: block;
         float: right;
+        margin-top:0;
     }
 
     .bigitem .circle-porcent {
@@ -3418,7 +3424,7 @@ div .ficha__producto__precio__normal {
         margin-bottom: 15px;
     }
 
-    .bigitem .circle-porcent span {
+    div .bigitem .circle-porcent span {
         font-size: 22px;
         line-height: 72px;
     }
@@ -3444,6 +3450,7 @@ div .ficha__producto__precio__normal {
     .box-incremento .cambio-crec {
         display: block;
     }
+
 }
 
 
@@ -3570,12 +3577,13 @@ div .ficha__producto__precio__normal {
     }
 
     .valor-final {
-        right: -3px;
-        top: -16px;
+        right: -2px;
+        top: -12px;
+        width: 74px;
     }
 
         .valor-final p {
-            font-size: 13px;
+            font-size: 12px;
             text-align: left;
         }
 
@@ -3583,11 +3591,14 @@ div .ficha__producto__precio__normal {
             font-size: 11px;
             text-align: left;
         }
+            .valor-final span em {
+                font-size: 11px;
+            }
 
-    .etiq-falta {
-        font-size: 14px;
-        margin-left: 10%;
-    }
+            .etiq-falta {
+                font-size: 14px;
+                margin-left: 10%;
+            }
 
     .etiq-mant {
         margin-left: 10%;
@@ -3607,6 +3618,34 @@ div .ficha__producto__precio__normal {
         min-height: 48px !important;
         margin-bottom: 0;
     }
+    .bord:before {
+        width: 42px;
+        height: 42px;
+        top: -1px;
+        left: -1px;
+    }
+    .box-camb .text-bold, .mo-3 .text-bold {
+        margin-bottom: 0px;
+    }
+    .box-camb .como-log, .mo-3 .como-log {
+        margin-bottom: 15px;
+        display: block;
+        font-size: 12px;
+        text-align:left;
+        font-weight:bold;
+    }
+    .right-m .itm span {
+        text-align: center;
+        font-size: 10px;
+        margin-top: 0px !important;
+    }
+    .right-m .itm {
+        margin-bottom:0;
+    }
+    .mo-2 .slick-arrow {
+        right: -6px !important;
+    }
+    
 }
 
 @media screen and (max-width:330px) {
@@ -3641,8 +3680,8 @@ div .ficha__producto__precio__normal {
     }
 
     .valor-final {
-        right: -20px;
-        width: 78px;
+        right: -13px;
+        width: 70px;
     }
 }
 
