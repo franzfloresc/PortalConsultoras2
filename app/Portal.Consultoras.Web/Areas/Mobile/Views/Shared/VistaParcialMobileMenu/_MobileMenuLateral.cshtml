@@ -8,6 +8,7 @@
     var tipoUsuario = ViewBag.TipoUsuario;
 
     var esDigital = ViewBag.esConsultoraDigital == null ? false : ViewBag.esConsultoraDigital;
+    var campaniaCodigo = ViewBag.CampaniaCodigo;
 }
 
 <div class="menu">
@@ -30,7 +31,7 @@
 
     <div class="botones" id="ulNavPrincipal-0" data-menu-count="@(itemsMenu.Count())">
         <a role="menu" region="Menú Lateral" parent="Ingresa tu Pedido" title="Ingresa tu Pedido"
-           class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido">INGRESA <b>TU PEDIDO</b></a>
+           class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido">INGRESA<b>TU PEDIDO</b></a>
 
         @foreach (var item in itemsMenu)
         {
@@ -55,7 +56,14 @@
                         else
                         {
                             @item.Descripcion
-                            <span class="d-block tag_sb tag_sb--multimarca tag_sb--nuevoEnlaceMenu">Nuevo</span>
+                            foreach (var tag in item.Extras.Tags)
+                            {
+                                if (tag.Tag == "Nuevo" && tag.End >= campaniaCodigo)
+                                {
+                                    <span class="d-block tag_sb tag_sb--multimarca tag_sb--nuevoEnlaceMenu">tag.Tag</span>
+                                }
+                            }
+
                         }
                     </a>
                 }
@@ -93,7 +101,15 @@
                                     }
                                 }
                             }
-                            <span class="d-block tag_sb tag_sb--multimarca tag_sb--nuevoEnlaceMenu">Nuevo</span>
+                            @foreach (var tag in subItem.Extras.Tags)
+                            {
+                                if (tag.Tag == "Nuevo" && tag.End >= campaniaCodigo)
+                                {
+                                    <span class="d-block tag_sb tag_sb--multimarca tag_sb--nuevoEnlaceMenu">@tag.Tag</span>
+                                    break;
+                                }
+
+                            }
                         </a>
                     }
                 </div>
