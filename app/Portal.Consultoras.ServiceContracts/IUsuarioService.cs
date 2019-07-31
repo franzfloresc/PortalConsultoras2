@@ -477,6 +477,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
         #endregion
 
         [OperationContract]

@@ -86,9 +86,6 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.ExecuteScalar(command);
         }
 
-
-
-
         #region Exigencia Monto Incentivos
         public void InsIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)
         {
@@ -96,9 +93,8 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, entidad.CodigoCampania);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
-            Context.Database.AddInParameter(command, "@Monto", DbType.String, entidad.Monto);
+            Context.Database.AddInParameter(command, "@Monto", DbType.Decimal, entidad.Monto);
             Context.Database.AddInParameter(command, "@AlcansoIncentivo", DbType.String, entidad.AlcansoIncentivo);
-            Context.Database.AddInParameter(command, "@Estado", DbType.String, entidad.Estado);
             Context.ExecuteNonQuery(command);
         }
 
@@ -109,6 +105,15 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
             return Context.ExecuteReader(command);
+        }
+
+        public void DelIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelIncentivosMontoExigencia");
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, entidad.CodigoCampania);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+            Context.ExecuteNonQuery(command);
         }
         #endregion
     }

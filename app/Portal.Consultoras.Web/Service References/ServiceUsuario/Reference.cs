@@ -11680,9 +11680,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 private int OrdenField;
                 
                 [System.Runtime.Serialization.OptionalFieldAttribute()]
-                private bool ResaltadoField;
-                
-                [System.Runtime.Serialization.OptionalFieldAttribute()]
                 private string SubtituloField;
                 
                 [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11803,19 +11800,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                         if ((this.OrdenField.Equals(value) != true)) {
                             this.OrdenField = value;
                             this.RaisePropertyChanged("Orden");
-                        }
-                    }
-                }
-                
-                [System.Runtime.Serialization.DataMemberAttribute()]
-                public bool Resaltado {
-                    get {
-                        return this.ResaltadoField;
-                    }
-                    set {
-                        if ((this.ResaltadoField.Equals(value) != true)) {
-                            this.ResaltadoField = value;
-                            this.RaisePropertyChanged("Resaltado");
                         }
                     }
                 }
@@ -12287,10 +12271,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string CodigoZonaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EstadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MontoField;
+        private decimal MontoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MontoIDField;
@@ -12358,25 +12339,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Estado {
-            get {
-                return this.EstadoField;
-            }
-            set {
-                if ((this.EstadoField.Equals(value) != true)) {
-                    this.EstadoField = value;
-                    this.RaisePropertyChanged("Estado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Monto {
+        public decimal Monto {
             get {
                 return this.MontoField;
             }
             set {
-                if ((object.ReferenceEquals(this.MontoField, value) != true)) {
+                if ((this.MontoField.Equals(value) != true)) {
                     this.MontoField = value;
                     this.RaisePropertyChanged("Monto");
                 }
@@ -18807,6 +18775,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia", ReplyAction="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigenciaResponse")]
         System.Threading.Tasks.Task InsIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/DelIncentivosMontoExigencia", ReplyAction="http://tempuri.org/IUsuarioService/DelIncentivosMontoExigenciaResponse")]
+        void DelIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/DelIncentivosMontoExigencia", ReplyAction="http://tempuri.org/IUsuarioService/DelIncentivosMontoExigenciaResponse")]
+        System.Threading.Tasks.Task DelIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
         int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
         
@@ -20005,6 +19979,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task InsIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
             return base.Channel.InsIncentivosMontoExigenciaAsync(paisId, entidad);
+        }
+        
+        public void DelIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
+            base.Channel.DelIncentivosMontoExigencia(paisId, entidad);
+        }
+        
+        public System.Threading.Tasks.Task DelIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
+            return base.Channel.DelIncentivosMontoExigenciaAsync(paisId, entidad);
         }
         
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2) {
