@@ -294,9 +294,9 @@ $(document).ready(function () {
     });
 });
 
-function callAjax(pUrl, pSendData, callbackSuccessful, callbackError, async) {
+function callAjax(pUrl, pSendData, callbackSuccessful, callbackError, isAsync) {
     var sendData = typeof pSendData === "undefined" ? {} : pSendData;
-    async = typeof async === "undefined" ? true : false;
+    isAsync = typeof isAsync === "undefined" ? true : false;
     $.ajax({
         type: "POST",
         url: pUrl,
@@ -308,7 +308,7 @@ function callAjax(pUrl, pSendData, callbackSuccessful, callbackError, async) {
         },
         data: JSON.stringify(sendData),
         contentType: "application/json; charset=utf-8",
-        async: async,
+        async: isAsync,
         dataType: "json",
         success: function (result) {
             if (callbackSuccessful && typeof callbackSuccessful === "function") {
@@ -775,7 +775,6 @@ function CargarPropuesta(codigoSsic) {
         if (data.success == false) {
             return false;
         }
-        console.log(data.texto);
         $("#MensajeTenerEncuenta").fadeIn(100);
         $('#spnMensajeTenerCuenta').html(data.texto);
     });
