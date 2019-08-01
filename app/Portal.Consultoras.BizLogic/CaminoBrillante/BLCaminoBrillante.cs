@@ -396,7 +396,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var campanias = new List<string> { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18" };
             Func<int, string> funCampania = (campania) =>
             {
-                var res = (campania % 10);
+                var res = (campania % 100);
                 return res >= 10 ? res.ToString() : "0" + res.ToString();
             };
             Func<BEPeriodoCaminoBrillante, List<string>> funGetCampaniasPeriodo = (periodo) =>
@@ -445,6 +445,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                     var campaniasInPeriodo = (funGetCampaniasPeriodo(p) ?? new List<string>());
                     var campaniasPedidoINPeriodo = (funGetEstadoCampaniasInPeriodo(p, campaniasInPeriodo) ?? new List<string>());
+                    var idx = 0;
 
                     /* Agregamos las Medallas */
                     campaniasInPeriodo.ForEach(m =>
@@ -460,7 +461,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                             ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
                             ModalDescripcion = configMedalla.ComoLograrlo_Estado ? string.Format(configMedalla.ComoLograrlo_Descripcion, string.Format("C{0}", m)) : string.Empty,
                             Valor = string.Format("C{0}", m),
-                            Estado = estado
+                            Estado = estado,
+                            Orden = ++idx
                         });
                     });
                     indicadores.Add(indicador);
@@ -559,7 +561,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 }
                 if (count > 0 && destacar)
                 {
-                    var destacada = indicadorCampania.Medallas.OrderByDescending(e => e.Valor).FirstOrDefault();
+                    var destacada = indicadorCampania.Medallas.Where(e => e.Estado).OrderByDescending(e => e.Orden).FirstOrDefault();
                     destacada.Destacar = true;
                 }
                 medalla.Valor = string.Format("{0} de {1}", count, periodo.NroCampana);
