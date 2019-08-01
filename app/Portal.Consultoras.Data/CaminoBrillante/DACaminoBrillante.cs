@@ -130,9 +130,6 @@ namespace Portal.Consultoras.Data.CaminoBrillante
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelIncentivosMontoExigencia");
             Context.Database.AddInParameter(command, "@MontoID", DbType.Int32, entidad.MontoID);
-            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, entidad.CodigoCampania);
-            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
-            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
             Context.ExecuteNonQuery(command);
         }
         #endregion
