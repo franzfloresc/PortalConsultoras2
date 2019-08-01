@@ -859,6 +859,7 @@ namespace Portal.Consultoras.Web.Providers
         #region Configuracion
         public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion()
         {
+            /*
             var lst = sessionManager.GetConfiguracionCaminoBrillante();
             if (lst == null || lst.Count == 0)
             {
@@ -868,6 +869,19 @@ namespace Portal.Consultoras.Web.Providers
                 if (lst != null) sessionManager.SetConfiguracionCaminoBrillante(lst);
             }
             return lst;
+            */
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return new List<BEConfiguracionCaminoBrillante>();
+
+                return oConsultora.Configuracion.ToList();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return new List<BEConfiguracionCaminoBrillante>();
+            }
         }
 
         public NivelCaminoBrillanteModel GetNivelGranBrillante()
