@@ -64,13 +64,13 @@
   <xs:complexType name="BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante">
     <xs:sequence>
       <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Destacar" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
       <xs:element minOccurs="0" name="ModalDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ModalTitulo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoAcumulado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoSuperior" type="xs:decimal" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
-      <xs:element minOccurs="0" name="Resaltado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Subtitulo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Titulo" nillable="true" type="xs:string" />
@@ -149,8 +149,7 @@
       <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Monto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Monto" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>

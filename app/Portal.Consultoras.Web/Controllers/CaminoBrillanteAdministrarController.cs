@@ -142,9 +142,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.listaPaises = DropDowListPaises();
-                //model.listaCampania = new List<CampaniaModel>();
-                //model.listaRegion = new List<RegionModel>();
-                //model.listaZonas = new List<ZonaModel>();
             }
             catch (FaultException ex)
             {
@@ -152,6 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View(model);
         }
+
         public ActionResult ConsultarMontoExigencia(string sidx, string sord, int page, int rows, AdministrarMontoExigenciaModel model)
         {
             if (ModelState.IsValid)
@@ -180,10 +178,11 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               id = a.MontoID,
+                               id = "div" + a.MontoID,
                                cell = new string[]
                                {
                                    a.MontoID.ToString(),
+                                   a.AlcansoIncentivo,
                                    a.CodigoCampania,
                                    a.CodigoRegion,
                                    a.CodigoZona,
@@ -225,31 +224,34 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)
-        //{
-        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-        //    IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
-        //    string habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(PaisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.BusquedaNemotecnicoOfertaLiquidacion);
+        public JsonResult EliminarMontoExigencia(AdministrarMontoExigenciaModel model)
+        {
+            try
+            {
+                var entidad = Mapper.Map<BEIncentivosMontoExigencia>(model) ?? new BEIncentivosMontoExigencia();
 
-        //    return Json(new
-        //    {
-        //        lista = lst,
-        //        lstConfig = lstConfig,
-        //        habilitarNemotecnico = habilitarNemotecnico == "1"
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
+                using (var sv = new UsuarioServiceClient())
+                {
+                    sv.DelIncentivosMontoExigencia(userData.PaisID, entidad);
+                }
 
-        //private IEnumerable<ConfiguracionOfertaModel> DropDowListConfiguracion(int paisId)
-        //{
-        //    List<BEConfiguracionOferta> lst;
-        //    using (PedidoServiceClient sv = new PedidoServiceClient())
-        //    {
-        //        lstConfiguracion = sv.GetTipoOfertasAdministracion(paisId, Constantes.ConfiguracionOferta.Liquidacion).ToList();
-        //        lst = lstConfiguracion;
-        //    }
-
-        //    return Mapper.Map<IList<BEConfiguracionOferta>, IEnumerable<ConfiguracionOfertaModel>>(lst);
-        //}
+                return Json(new
+                {
+                    success = true,
+                    message = "Se guardo con éxito el monto de exigencia.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
         #endregion
     }
 }

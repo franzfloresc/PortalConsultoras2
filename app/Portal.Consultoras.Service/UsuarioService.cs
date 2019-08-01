@@ -1025,8 +1025,12 @@ namespace Portal.Consultoras.Service
         {
             _caminoBrillanteBusinessLogic.InsIncentivosMontoExigencia(paisId, entidad);
         }
+        public void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            _caminoBrillanteBusinessLogic.DelIncentivosMontoExigencia(paisId, entidad);
+        }
         #endregion
-        
+
         #endregion
 
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)

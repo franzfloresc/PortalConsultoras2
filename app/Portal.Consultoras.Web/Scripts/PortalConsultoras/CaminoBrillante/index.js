@@ -20,11 +20,11 @@ $(document).ready(function () {
         if (progreso.length > 0) {
             var maxBar = $(progreso).data("max");
             var curBar = $(progreso).data("cur");
-            var perc = (curBar / maxBar) * 100;
+            var perc = Math.min((curBar / maxBar) * 100, 100);
             $('.new-bar').width(perc + '%');
             var minBar = $(progreso).data("min");
-            var percTope = (minBar / maxBar) * 100;
-            $('.progress-barnew .tope').css("left", percTope + '%');         
+            var percTope = Math.min((minBar / maxBar) * 100, 100);
+            $('.progress-barnew .tope').css("left", percTope + '%');
         }
         if (nivelactual == '5') {
             $(".bord-bot").addClass("centtopacio");

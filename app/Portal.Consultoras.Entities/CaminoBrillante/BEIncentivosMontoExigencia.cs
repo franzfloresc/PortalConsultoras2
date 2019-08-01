@@ -25,12 +25,9 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public string CodigoZona { get; set; }
         [DataMember]
         [Column("Monto")]
-        public string Monto { get; set; }
+        public decimal Monto { get; set; }
         [DataMember]
         [Column("AlcansoIncentivo")]
         public string AlcansoIncentivo { get; set; }
-        [DataMember]
-        [Column("Estado")]
-        public bool Estado { get; set; }
     }
 }
