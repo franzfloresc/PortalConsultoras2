@@ -9,8 +9,7 @@ var EstadoPedido = EstadoPedido || 0;
 var esPedidoReservado = (EstadoPedido === 1);
 var incentivoMostrado = false;
 var mostrarIncentivo = false;
-var montoIncentivo = montoIncentivo;
-
+//var montoIncentivo = montoIncentivo;
 
 //// BORRAR SOLO ES PARA PRUEBAS 
 //switch (IsoPais) {
