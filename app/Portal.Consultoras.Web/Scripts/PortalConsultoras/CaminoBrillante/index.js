@@ -77,6 +77,13 @@ $(document).ready(function () {
         //    alert("No chekeado");
         //}
     });
+    //$("#Modalunbord").modal({ backdrop: false });
+    //$("#Modalunbordseguir").modal({ backdrop: false });
+
+    $("#Modalunbord, #Modalunbordseguir").modal({
+        show: false,
+        backdrop: 'static'
+    });
 });
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
