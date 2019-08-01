@@ -114,6 +114,7 @@
       <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EnterateMas" type="xs:int" />
       <xs:element minOccurs="0" name="EnterateMasParam" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoAcumulado" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoFaltante" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMaximo" nillable="true" type="xs:string" />

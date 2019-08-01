@@ -476,7 +476,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
 
         [OperationContract]
-        void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+        string InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
 
         [OperationContract]
         void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);

@@ -984,6 +984,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="puntosAlcanzados" type="xs:decimal" />
         <xs:element minOccurs="0" name="esApp" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -1076,7 +1077,9 @@
   </xs:element>
   <xs:element name="InsIncentivosMontoExigenciaResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsIncentivosMontoExigenciaResult" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DelIncentivosMontoExigencia">
