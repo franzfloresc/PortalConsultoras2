@@ -370,7 +370,6 @@ function ArmarMisGanancias(data) {
                     dataset.backgroundColor[index] = colorBarSelected;
                     dataset.hoverBackgroundColor[index] = colorBarSelected;
                 }
-
                 myBar.update();
             },
             tooltips: {
