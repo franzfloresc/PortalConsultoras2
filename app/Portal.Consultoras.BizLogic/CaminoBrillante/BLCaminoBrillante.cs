@@ -462,7 +462,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                             ModalDescripcion = configMedalla.ComoLograrlo_Estado ? string.Format(configMedalla.ComoLograrlo_Descripcion, string.Format("C{0}", m)) : string.Empty,
                             Valor = string.Format("C{0}", m),
                             Estado = estado,
-                            Orden = ++idx
+                            Orden = idx++
                         });
                     });
                     indicadores.Add(indicador);
