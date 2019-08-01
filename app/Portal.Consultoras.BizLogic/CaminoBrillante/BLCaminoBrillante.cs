@@ -2007,12 +2007,20 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         } 
         
         public List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
-        {
+        {            
             return new DACaminoBrillante(paisId).GetIncentivosMontoExigencia(entidad).MapToCollection<BEIncentivosMontoExigencia>(closeReaderFinishing: true);
         }
-        public void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        public string InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {
-            new DACaminoBrillante(paisId).InsIncentivosMontoExigencia(entidad);
+            var lstEscala = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisId, Int32.Parse(entidad.CodigoCampania), entidad.CodigoRegion, entidad.CodigoZona);
+            decimal escala1 = lstEscala[0].MontoHasta;
+
+            if (entidad.Monto > escala1) 
+            {
+                new DACaminoBrillante(paisId).InsIncentivosMontoExigencia(entidad);
+                return "";
+            }
+            return string.Format("El Monto de exigencia ingresaso debe ser mayor a: {0}", escala1.ToString()); 
         }        
         public void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {

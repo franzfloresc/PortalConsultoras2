@@ -1021,9 +1021,9 @@ namespace Portal.Consultoras.Service
         {
             return _caminoBrillanteBusinessLogic.GetIncentivosMontoExigencia(paisId, entidad);
         }
-        public void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        public string InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {
-            _caminoBrillanteBusinessLogic.InsIncentivosMontoExigencia(paisId, entidad);
+            return _caminoBrillanteBusinessLogic.InsIncentivosMontoExigencia(paisId, entidad);
         }
         public void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {

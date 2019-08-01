@@ -198,20 +198,21 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                model.CodigoCampania = !string.IsNullOrEmpty(model.CodigoCampania) ? model.CodigoCampania : "";
+                model.CodigoCampania = !string.IsNullOrEmpty(model.CodigoCampania) ? model.CodigoCampania : "0";
                 model.CodigoRegion = !string.IsNullOrEmpty(model.CodigoRegion) ? model.CodigoRegion : "";
                 model.CodigoZona = !string.IsNullOrEmpty(model.CodigoZona) ? model.CodigoZona : "";
                 var entidad = Mapper.Map<BEIncentivosMontoExigencia>(model) ?? new BEIncentivosMontoExigencia();
+                string mensaje = "";
 
                 using (var sv = new UsuarioServiceClient())
                 {
-                    sv.InsIncentivosMontoExigencia(userData.PaisID, entidad);
+                    mensaje = sv.InsIncentivosMontoExigencia(userData.PaisID, entidad);
                 }
 
                 return Json(new
                 {
                     success = true,
-                    message = "Se guardo con éxito el monto de exigencia.",
+                    message = mensaje == "" ? "Se guardo con éxito el monto de exigencia." : mensaje,
                     extra = ""
                 });
             }

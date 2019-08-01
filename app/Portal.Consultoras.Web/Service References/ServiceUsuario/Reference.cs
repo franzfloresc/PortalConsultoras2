@@ -18786,10 +18786,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia[]> GetIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia", ReplyAction="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigenciaResponse")]
-        void InsIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
+        string InsIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia", ReplyAction="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigenciaResponse")]
-        System.Threading.Tasks.Task InsIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
+        System.Threading.Tasks.Task<string> InsIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/DelIncentivosMontoExigencia", ReplyAction="http://tempuri.org/IUsuarioService/DelIncentivosMontoExigenciaResponse")]
         void DelIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad);
@@ -19989,11 +19989,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetIncentivosMontoExigenciaAsync(paisId, entidad);
         }
         
-        public void InsIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
-            base.Channel.InsIncentivosMontoExigencia(paisId, entidad);
+        public string InsIncentivosMontoExigencia(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
+            return base.Channel.InsIncentivosMontoExigencia(paisId, entidad);
         }
         
-        public System.Threading.Tasks.Task InsIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
+        public System.Threading.Tasks.Task<string> InsIncentivosMontoExigenciaAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEIncentivosMontoExigencia entidad) {
             return base.Channel.InsIncentivosMontoExigenciaAsync(paisId, entidad);
         }
         

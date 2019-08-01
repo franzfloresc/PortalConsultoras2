@@ -24,7 +24,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
         void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad);
         List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
-        void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+        string InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
         void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);
         void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
     }
