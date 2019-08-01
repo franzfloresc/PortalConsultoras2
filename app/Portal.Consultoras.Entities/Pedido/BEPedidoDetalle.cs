@@ -81,7 +81,8 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public bool Reservado { get; set; }
 
-        
+        [DataMember]
+        public bool EsPromocion { get; set; }
         public object Clone()
         {
             return this.MemberwiseClone();

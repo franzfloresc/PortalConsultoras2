@@ -462,311 +462,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return (valorFlag == "1");
         }
 
-        #region Promociones
-
-        private List<string> GetCodigosPromocion()
-        {
-            var lista = new List<string>
-            {
-                Constantes.CodigoTipoOferta.Promocion1,
-                Constantes.CodigoTipoOferta.Promocion2,
-                Constantes.CodigoTipoOferta.Promocion3,
-                Constantes.CodigoTipoOferta.Promocion4,
-                Constantes.CodigoTipoOferta.Promocion5,
-                Constantes.CodigoTipoOferta.Promocion6
-            };
-            return lista;
-        }
-
-        private List<Condicion> ObtenerCondicionesAgregadas(List<BEPedidoWebDetalle> lstDetalleAgrupado, BEUsuario usuario)
-        {
-
-            var codigosPromocion = GetCodigosPromocion();
-
-            lstDetalleAgrupado.ForEach(x =>
-            {
-                x.CodigoTipoOferta = x.CodigoTipoOferta.Trim();
-            });
-
-            var promocionesAgregadas = lstDetalleAgrupado.Where(x => codigosPromocion.Contains(x.CodigoTipoOferta)).ToList() ?? new List<BEPedidoWebDetalle>();
-
-            var condicionesporPromocionesAgregadas = CondicionesporPromocionesAgregadas(promocionesAgregadas, usuario);
-            //foreach (var item in promocionesAgregadas)
-            //{
-            //    var promocion = new BEPedidoWebPromocion
-            //    {
-            //        CampaniaID = usuario.CampaniaID,
-            //        CuvPromocion = item.CUV
-            //    };
-
-            //    var condicionesporpromocion = _bLPedidoWebPromocion.GetCondicionesByPromocion(promocion, usuario.PaisID);
-
-            //    if (condicionesporpromocion == null || !condicionesporpromocion.Any()) continue;
-
-            //    condicionesporPromocionesAgregadas = condicionesporPromocionesAgregadas.Concat(condicionesporpromocion).ToList();
-            //}
-
-            var condicionesAgregadas = lstDetalleAgrupado
-                .Where(x => condicionesporPromocionesAgregadas.Select(y => y.CuvCondicion).Distinct().ToList().Contains(x.CUV))
-                .Select(x => new Condicion
-                {
-                    CuvCondicion = x.CUV,
-                    Cantidad = x.Cantidad
-                }).ToList();
-
-            var condiciones = condicionesporPromocionesAgregadas.GroupBy(
-                                p => p.CuvCondicion,
-                                p => p.CuvPromocion,
-                                (key, g) => new Condicion { CuvCondicion = key, Promociones = g.ToList() }).ToList();
-
-            condicionesAgregadas = (from ca in condicionesAgregadas
-                                    join c in condiciones on ca.CuvCondicion equals c.CuvCondicion
-                                    select new Condicion
-                                    {
-                                        CuvCondicion = ca.CuvCondicion,
-                                        Promociones = c.Promociones,
-                                        Cantidad = ca.Cantidad
-                                    }).ToList();
-
-            var promociones = condicionesporPromocionesAgregadas.GroupBy(
-                                p => p.CuvPromocion,
-                                p => p.CuvCondicion,
-                                (key, g) => new Promocion { CuvPromocion = key, Condiciones = g.ToList() }).ToList();
-
-            promociones = (from p in promociones
-                           join d in promocionesAgregadas on p.CuvPromocion equals d.CUV
-                           select new Promocion
-                           {
-                               CuvPromocion = p.CuvPromocion,
-                               Condiciones = p.Condiciones,
-                               Cantidad = d.Cantidad
-                           }).ToList();
-
-
-            condicionesAgregadas = CondicionesAgregadasActualizarCantidad(promociones, condicionesAgregadas);
-
-            //foreach (var promocion in promociones)
-            //{
-            //    var CondicionesAgregadasParaEstaPromocion = condicionesAgregadas.Where(x => promocion.Condiciones.Contains(x.CuvCondicion)).Where(x => !x.EstaAsignada)
-            //        .Select(x => new Condicion
-            //        {
-            //            Cantidad = x.Cantidad - x.CantidadAsignada,
-            //            CuvCondicion = x.CuvCondicion,
-            //            EstaAsignada = x.EstaAsignada
-            //        }).ToList();
-
-            //    var CantidadPromocion = promocion.Cantidad;
-
-            //    foreach (var condicion in CondicionesAgregadasParaEstaPromocion)
-            //    {
-            //        if (CantidadPromocion > 0)
-            //        {
-            //            if (promocion.Cantidad < condicion.Cantidad)
-            //            {
-            //                condicionesAgregadas.Where(x => x.CuvCondicion == condicion.CuvCondicion).Update(x => { x.CantidadAsignada = x.CantidadAsignada + promocion.Cantidad; });
-            //                CantidadPromocion = 0;
-            //            }
-            //            else if (promocion.Cantidad == condicion.Cantidad)
-            //            {
-            //                condicionesAgregadas.Where(x => x.CuvCondicion == condicion.CuvCondicion).Update(x => { x.CantidadAsignada = x.CantidadAsignada + condicion.Cantidad; x.EstaAsignada = true; });
-            //                CantidadPromocion = 0;
-            //            }
-            //            else if (promocion.Cantidad > condicion.Cantidad)
-            //            {
-            //                condicionesAgregadas.Where(x => x.CuvCondicion == condicion.CuvCondicion).Update(x => { x.CantidadAsignada = x.CantidadAsignada + condicion.Cantidad; x.EstaAsignada = true; });
-            //                CantidadPromocion = CantidadPromocion - condicion.Cantidad;
-            //            }
-            //        }                    
-            //    }
-            //}
-
-            return condicionesAgregadas.ToList();
-        }
-
-        private List<BEPedidoWebPromocion> CondicionesporPromocionesAgregadas(List<BEPedidoWebDetalle> promocionesAgregadas, BEUsuario usuario)
-        {
-            var condicionesPromocionesAgregadas = new List<BEPedidoWebPromocion>();
-            promocionesAgregadas = promocionesAgregadas ?? new List<BEPedidoWebDetalle>();
-            foreach (var item in promocionesAgregadas)
-            {
-                var promocion = new BEPedidoWebPromocion
-                {
-                    CampaniaID = usuario.CampaniaID,
-                    CuvPromocion = item.CUV
-                };
-
-                var condicionesporpromocion = _bLPedidoWebPromocion.GetCondicionesByPromocion(promocion, usuario.PaisID);
-
-                if (condicionesporpromocion == null || !condicionesporpromocion.Any()) continue;
-
-                condicionesPromocionesAgregadas = condicionesPromocionesAgregadas.Concat(condicionesporpromocion).ToList();
-            }
-            return condicionesPromocionesAgregadas;
-        }
-
-        private List<Condicion> CondicionesAgregadasActualizarCantidad(List<Promocion> promociones, List<Condicion> condicionesAgregadas)
-        {
-            promociones = promociones ?? new List<Promocion>();
-            condicionesAgregadas = condicionesAgregadas ?? new List<Condicion>();
-
-            foreach (var promocion in promociones)
-            {
-                var CondicionesAgregadasParaEstaPromocion = condicionesAgregadas.Where(x => promocion.Condiciones.Contains(x.CuvCondicion)).Where(x => !x.EstaAsignada)
-                    .Select(x => new Condicion
-                    {
-                        Cantidad = x.Cantidad - x.CantidadAsignada,
-                        CuvCondicion = x.CuvCondicion,
-                        EstaAsignada = x.EstaAsignada
-                    }).ToList();
-
-                var CantidadPromocion = promocion.Cantidad;
-
-                foreach (var condicion in CondicionesAgregadasParaEstaPromocion)
-                {
-                    if (CantidadPromocion <= 0)
-                    {
-                        continue;
-                    }
-
-                    if (CantidadPromocion < condicion.Cantidad)
-                    {
-                        condicionesAgregadas.Where(x => x.CuvCondicion == condicion.CuvCondicion).Update(x => { x.CantidadAsignada = x.CantidadAsignada + CantidadPromocion; });
-                        CantidadPromocion = 0;
-                    }
-                    else if (CantidadPromocion == condicion.Cantidad)
-                    {
-                        condicionesAgregadas.Where(x => x.CuvCondicion == condicion.CuvCondicion).Update(x => { x.CantidadAsignada = x.CantidadAsignada + condicion.Cantidad; x.EstaAsignada = true; });
-                        CantidadPromocion = 0;
-                    }
-                    else if (CantidadPromocion > condicion.Cantidad)
-                    {
-                        condicionesAgregadas.Where(x => x.CuvCondicion == condicion.CuvCondicion).Update(x => { x.CantidadAsignada = x.CantidadAsignada + condicion.Cantidad; x.EstaAsignada = true; });
-                        CantidadPromocion = CantidadPromocion - condicion.Cantidad;
-                    }
-
-                }
-            }
-
-            return condicionesAgregadas;
-        }
-
-        private BEPedidoDetalleResult GuardarPedidoWebPromocion(BEPedidoDetalle pedidoDetalle)
-        {
-            if (pedidoDetalle.PedidoWebPromociones != null)
-            {
-                var lstPedidoWebPromociones = pedidoDetalle.PedidoWebPromociones;
-                var usuario = pedidoDetalle.Usuario;
-
-                lstPedidoWebPromociones.ForEach(x => x.CampaniaID = usuario.CampaniaID);
-
-                var promocionnueva = new BEPedidoWebPromocion();
-                promocionnueva.CuvPromocion = lstPedidoWebPromociones[0].CuvPromocion;
-                promocionnueva.CampaniaID = usuario.CampaniaID;
-                var promociones = _bLPedidoWebPromocion.GetCondicionesByPromocion(promocionnueva, usuario.PaisID);
-                var seguardolascondiciones = true;
-                if (promociones == null || !promociones.Any())
-                {
-                    seguardolascondiciones = _bLPedidoWebPromocion.InsertPedidoWebPromocion(lstPedidoWebPromociones, usuario.PaisID);
-                }
-
-                if (seguardolascondiciones)
-                {
-                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-                }
-                else
-                {
-                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GUARDAR_CONDICION_REGLAS, "Ocurrió un error al guardar la promoción.");
-                }
-            }
-
-            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-        }
-
-        private BEPedidoDetalleResult ValidarPromocionesEnAgregar(List<BEPedidoWebDetalle> lstDetalleAgrupado, BEPedidoDetalle pedidoDetalle, BEUsuario usuario, bool modificar = false)
-        {
-            if (pedidoDetalle.PedidoWebPromociones == null && !modificar)
-            {
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-            }
-
-            if (!modificar)
-            {
-                var guardarPedidoWebPromocion = GuardarPedidoWebPromocion(pedidoDetalle);
-                if (!guardarPedidoWebPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
-                {
-                    return guardarPedidoWebPromocion;
-                }
-            }
-
-            var promocionnueva = new BEPedidoWebPromocion();
-            promocionnueva.CuvPromocion = modificar ? pedidoDetalle.Producto.CUV : pedidoDetalle.PedidoWebPromociones[0].CuvPromocion;
-            promocionnueva.CampaniaID = usuario.CampaniaID;
-            var lstPedidoWebPromociones = _bLPedidoWebPromocion.GetCondicionesByPromocion(promocionnueva, usuario.PaisID);
-
-            if(lstPedidoWebPromociones==null || !lstPedidoWebPromociones.Any())
-            {
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-            }
-
-            var CondicionesSolicitadas = lstDetalleAgrupado.Where(x => lstPedidoWebPromociones.Select(y => y.CuvCondicion).Distinct().ToList().Contains(x.CUV)).Select(x => new Condicion
-            {
-                CuvCondicion = x.CUV,
-                Cantidad = x.Cantidad
-            }).ToList();
-
-            var CondicionesAgregadas = ObtenerCondicionesAgregadas(lstDetalleAgrupado, usuario);
-
-            var CondicionesNoContempladas = CondicionesSolicitadas.Where(x => !CondicionesAgregadas.Select(y => y.CuvCondicion).Contains(x.CuvCondicion)).ToList();
-
-            CondicionesAgregadas = CondicionesAgregadas.Concat(CondicionesNoContempladas).ToList();
-
-            var CantidadCondicionesDisponibles = CondicionesAgregadas.Where(x => CondicionesSolicitadas.Select(y => y.CuvCondicion).Contains(x.CuvCondicion)).Where(x => !x.EstaAsignada).Sum(x => x.Cantidad - x.CantidadAsignada);
-
-            if (pedidoDetalle.Cantidad > CantidadCondicionesDisponibles)
-            {
-                int CantidadFaltante = pedidoDetalle.Cantidad - CantidadCondicionesDisponibles;
-                var texto = (CantidadFaltante == 1) ? "condicional" : "condicionales";
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_AGREGAR_PROMOCION, String.Format("Te falta(n) {0} producto(s) {1} para poder llevarte la cantidad de promociones que deseas", CantidadFaltante, texto));
-            }
-
-            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-        }
-
-        private BEPedidoDetalleResult ValidarPromocionesEnModificar(List<BEPedidoWebDetalle> lstDetalleAgrupado, BEUsuario usuario, int cantidadmodificada, string cuvmodificado)
-        {
-            var CondicionesAgregadas = ObtenerCondicionesAgregadas(lstDetalleAgrupado, usuario);
-
-            if (!CondicionesAgregadas.Exists(x => x.CuvCondicion == cuvmodificado))
-            {
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-            }
-            else
-            {
-                var Condicion = CondicionesAgregadas.First(x => x.CuvCondicion == cuvmodificado);
-                var Cantidaddisponible = (Condicion.Cantidad - Condicion.CantidadAsignada);
-
-                if (cantidadmodificada > Cantidaddisponible)
-                {
-                    var promocionesVinculadas = lstDetalleAgrupado.Where(x => Condicion.Promociones.Contains(x.CUV));
-                    var cuvspromocion = String.Join(",", promocionesVinculadas.Select(p => p.CUV));
-                    var cantidafaltante = (cantidadmodificada - Cantidaddisponible);
-                    var texto = cantidafaltante == 1 ? "promoción" : "promociones";
-
-                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_MODIFICAR_CONDICION, String.Format("Debes eliminar {0} {1} (3) para completar esta acción", cantidafaltante, texto, cuvspromocion));
-                }
-            }
-
-            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-        }
-
-        #endregion
-
         private BEPedidoDetalleResult PedidoAgregarProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
             pedidoDetalle = PedidoAgregar_ObtenerEstrategia(pedidoDetalle);
             var usuario = pedidoDetalle.Usuario;
 
             var estrategia = PedidoAgregar_FiltrarEstrategiaPedido(pedidoDetalle, usuario.PaisID);
+            pedidoDetalle.Estrategia = estrategia;
 
             if (string.IsNullOrEmpty(estrategia.CUV2))
             {
@@ -784,7 +486,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var tipoEstrategia = _tipoEstrategiaBusinessLogic.GetTipoEstrategiaById(usuario.PaisID, estrategia.TipoEstrategiaID);
 
             #region Promotion
-            var validarPromocion = ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalle, usuario);
+            var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalle, usuario);
             if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
             {
                 return validarPromocion;
@@ -1132,7 +834,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (pedidoDetalle.StockNuevo < 0)
                 {
                     var CantidadModificada = pedidoDetalle.StockNuevo * -1;
-                    var validarPromocion = ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, CantidadModificada, pedidoDetalle.Producto.CUV);
+                    var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, CantidadModificada, pedidoDetalle.Producto.CUV);
                     if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
                     {
                         return validarPromocion;
@@ -1148,7 +850,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         },
                         Cantidad = pedidoDetalle.StockNuevo
                     };
-                    var validarPromocion = ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalleClone, usuario, true);
+                    var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalleClone, usuario, true);
                     if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
                     {
                         return validarPromocion;
@@ -1484,7 +1186,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             #region Promotion
             int pedidoId;
             var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
-            var validarPromocion = ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV);
+            var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV);
             if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
             {
                 return validarPromocion;

@@ -59,5 +59,7 @@
 
         public string PedidoWebPromociones { get; set; }
 
+        public bool EsPromocion { get; set; }
+
     }
 }

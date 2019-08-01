@@ -484,7 +484,7 @@ ul.breadcumbs li a {
 
     #seccion_Contenedor_Ficha {
         height: 100%;
-        position: absolute;
+        /*position: absolute;*/
     }
 
     .seccion_ficha
