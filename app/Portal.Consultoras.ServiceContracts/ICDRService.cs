@@ -29,6 +29,9 @@ namespace Portal.Consultoras.ServiceContracts
         int InsCDRWebDetalle(int PaisID, BECDRWebDetalle entity);
 
         [OperationContract]
+        int UpdCDRWebDetalle(int PaisID, BECDRWebDetalle entity);
+
+        [OperationContract]
         int DelCDRWebDetalle(int PaisID, BECDRWebDetalle entity);
 
         [OperationContract(Name = "DelCDRWebDetalleList")]

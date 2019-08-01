@@ -319,7 +319,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
             ViewBag.NumeroCampania = userData.NombreCorto.Substring(4);
-            ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad.ToInt();
             ViewBag.AnalyticsCampania = userData.CampaniaID;
             ViewBag.AnalyticsSegmento = string.IsNullOrEmpty(userData.Segmento) ? "(not available)" : userData.Segmento.Trim();
             ViewBag.AnalyticsEdad = Util.Edad(userData.FechaNacimiento);

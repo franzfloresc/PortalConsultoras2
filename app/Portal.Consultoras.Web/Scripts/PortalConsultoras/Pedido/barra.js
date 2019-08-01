@@ -2629,7 +2629,7 @@ function ReordenarMontosBarra() {
 
     var monto = 0;
     if (IsoPais == 'CO') {
-        monto = 150000;
+        monto = 1000;
         barraFix = FixPorcentajes(barra);
     }
     else if (IsoPais == 'CR')

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Portal.Consultoras.Common;
 using System.Linq;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Service;
 using Portal.Consultoras.Web.ServiceCliente;
 using System.Threading.Tasks;
 using System.ServiceModel;

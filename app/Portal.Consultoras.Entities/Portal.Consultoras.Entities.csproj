@@ -69,6 +69,7 @@
     <Compile Include="BEContenidoAppDeta.cs" />
     <Compile Include="BEContenidoAppList.cs" />
     <Compile Include="BEContenidoApp.cs" />
+    <Compile Include="BEDescargaArchivoSinMarcar.cs" />
     <Compile Include="BEParametroUnete.cs" />
     <Compile Include="BeReporteContrato.cs" />
     <Compile Include="BEContrato.cs" />
@@ -88,8 +89,10 @@
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
     <Compile Include="BEParametrosLider.cs" />
+    <Compile Include="BETvoPanelConfig.cs" />
     <Compile Include="BEValidacionDatos.cs" />
     <Compile Include="BEPremiosProgramaNuevas.cs" />
+    <Compile Include="BETemplateSinMarcar.cs" />
     <Compile Include="BuscadorYFiltros\BEBuscadorYFiltrosConfiguracion.cs" />
     <Compile Include="BuscadorYFiltros\BEFiltroBuscador.cs" />
     <Compile Include="CaminoBrillante\BEConfiguracionCaminoBrillante.cs" />

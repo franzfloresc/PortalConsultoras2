@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult CambiarContrasenia(string OldPassword, string NewPassword)
         {
-            int rslt = 0;
+            string rslt = string.Empty;
             try
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -83,22 +83,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                        rslt = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
-
-                        rslt = result ? 2 : 1;
                     }
-                    else
-                    {
-                        if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
-                            rslt = 0;
+                    else if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
+                    {                        
+                        rslt = "La contraseña anterior ingresada es inválida";
                     }
                 }
 
                 return Json(new
                 {
                     success = true,
-                    message = rslt
+                    message = string.IsNullOrEmpty(rslt) ? Constantes.MensajesError.CambioSatisfactorioContrasenia : rslt
                 });
             }
             catch (FaultException ex)

@@ -456,11 +456,6 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td colspan=\"2\" style=\"height:6px;\"></td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
-                    mailBody += "<td style=\"text-align:center; width:48%; border-right:1px solid #000;\">";
-                    mailBody += "<a href=\"http://comunidad.somosbelcorp.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">¿Tienes dudas?</span>";
-                    mailBody += "</a>";
-                    mailBody += "</td>";
                     mailBody += "<td style=\"text-align:center; width:48%;\">";
                     mailBody += "<a href=\"http://belcorpresponde.somosbelcorp.com\" style=\"width:100%; display:block;\">";
                     mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">Cont&aacute;ctanos</span>";
@@ -700,11 +695,6 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td colspan=\"2\" style=\"height:6px;\"></td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
-                    mailBody += "<td style=\"text-align:center; width:48%; border-right:1px solid #000;\">";
-                    mailBody += "<a href=\"http://comunidad.somosbelcorp.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">¿Tienes dudas?</span>";
-                    mailBody += "</a>";
-                    mailBody += "</td>";
                     mailBody += "<td style=\"text-align:center; width:48%;\">";
                     mailBody += "<a href=\"http://belcorpresponde.somosbelcorp.com\" style=\"width:100%; display:block;\">";
                     mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">Cont&aacute;ctanos</span>";

@@ -3,9 +3,12 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
+using System.Xml;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -67,28 +70,30 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     return sessionManager.GetCDRWebDetalle();
                 }
-
                 model = model ?? new MisReclamosModel();
-
                 List<ServiceCDR.BECDRWebDetalle> lista;
                 var entidad = new ServiceCDR.BECDRWebDetalle { CDRWebID = model.CDRWebID };
                 using (var sv = new CDRServiceClient())
                 {
                     lista = sv.GetCDRWebDetalle(paisId, entidad, model.PedidoID).ToList();
                 }
-
                 if (lista.Any())
                 {
-                    lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion);
-                    lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion);
-                    lista.Update(p => p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso));
-                    lista.Update(p => p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso));
+                    lista.Update(p =>
+                    {
+                        p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Solucion, paisId).Descripcion;
+                        p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion;
+                        p.Observacion = ObtenerObservacion(p.Observacion, p.MotivoRechazo, paisId, codigoIso);
+                        p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso);
+                        p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso);
+                        p.DetalleReemplazo = string.IsNullOrEmpty(p.XMLReemplazo) ? null : XMLToList(p.XMLReemplazo, codigoIso, paisId).ToArray();
+                    });
                     sessionManager.SetCDRWebDetalle(lista);
                 }
                 else
-                {
                     sessionManager.SetCDRWebDetalle(null);
-                }
+
+
 
                 return lista;
             }
@@ -98,6 +103,61 @@ namespace Portal.Consultoras.Web.Providers
                 sessionManager.SetCDRWebDetalle(null);
                 return new List<ServiceCDR.BECDRWebDetalle>();
             }
+        }
+
+        public string ObtenerObservacion(string defaultObservacion, string motivoRechazo, int paisID, string paisIso)
+        {
+            var obs = defaultObservacion;
+            try
+            {
+                if (string.IsNullOrEmpty(motivoRechazo))
+                {
+                    return obs;
+                }
+                obs = ObtenerDescripcion(motivoRechazo, Constantes.TipoMensajeCDR.Motivo, paisID).Descripcion;
+                return string.IsNullOrEmpty(obs) ? defaultObservacion : obs;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", paisIso);
+                return defaultObservacion;
+            }
+        }
+        public List<ServiceCDR.BECDRProductoComplementario> XMLToList(string xml, string codigoIso, int paisId)
+        {
+            var lista = new List<ServiceCDR.BECDRProductoComplementario>();
+            if (string.IsNullOrEmpty(xml))
+                return lista;
+            try
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.LoadXml(xml);
+                XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/reemplazos/reemplazo");
+                foreach (XmlNode xmlNode in xmlNodeList)
+                {
+                    BECDRProductoComplementario obj = new BECDRProductoComplementario();
+                    var cantidad = xmlNode["cantidad"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText);
+                    var precio  = xmlNode["precio"].InnerText == "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
+                    var estado = xmlNode["estado"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
+
+                    obj.CUV = xmlNode["cuv"].InnerText;
+                    obj.Descripcion = xmlNode["descripcion"].InnerText;
+                    obj.Cantidad = cantidad;
+                    obj.Precio = precio;
+                    obj.Simbolo = xmlNode["simbolo"].InnerText;
+                    obj.Estado = estado;
+                    obj.PrecioFormato = Util.DecimalToStringFormat(precio * cantidad, codigoIso);
+                    obj.CodigoMotivoRechazo = xmlNode["codigorechazo"].InnerText;
+                    obj.Observacion = ObtenerObservacion(xmlNode["obs"].InnerText, xmlNode["codigorechazo"].InnerText, paisId, codigoIso);
+                    lista.Add(obj);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoIso);
+                return lista;
+            }
+            return lista;
         }
 
         public List<BECDRMotivoReclamo> CargarMotivo(MisReclamosModel model, DateTime date, int paisId, int campaniaId, long consultoraId)
@@ -530,16 +590,36 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     return sessionManager.GetNroPedidosCDRConfig();
                 }
-
-                result = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisID, ConsTablaLogica.NroSolicitudePedido.TablaLogicaId, ConsTablaLogica.NroSolicitudePedido.Cod01);
-
+                result = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisID, ConsTablaLogica.ConfigCdr.TablaLogicaId, ConsTablaLogica.ConfigCdr.NroSolicitudPorPedido);
+                sessionManager.SetNroPedidosCDRConfig(result);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, codigoISO);
             }
-            sessionManager.SetNroPedidosCDRConfig(result);
+           
             return result;
+        }
+
+        public bool GetTruequeUnoPorMuchos(int paisID, string codigoConsultora, string codigoISO)
+        {
+            int result = 0;
+            try
+            {
+                if (sessionManager.GetTruequeUnoPorMuchos() != null)
+                {
+                    return (bool)sessionManager.GetTruequeUnoPorMuchos();
+                }
+
+                result = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisID, ConsTablaLogica.ConfigCdr.TablaLogicaId, ConsTablaLogica.ConfigCdr.TruequeUnoMuchos);
+                sessionManager.SetTruequeUnoPorMuchos(result == 1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, codigoISO);
+                result = 0;
+            }
+            return result == 1;
         }
 
         private class PedidosEstadoCDRWeb

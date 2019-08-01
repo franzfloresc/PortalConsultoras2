@@ -138,6 +138,7 @@ namespace Portal.Consultoras.Entities
             Direccion = row.ToString("Direccion");
             TelefonoTrabajo = row.ToString("TelefonoTrabajo");
             AnoCampaniaIngreso = row.ToString("AnoCampanaIngreso");
+            FechaIngreso = row.ToDateTime("FechaIngreso");
             PrimerNombre = row.ToString("PrimerNombre");
             PrimerApellido = row.ToString("PrimerApellido");
             IndicadorFlexiPago = row.ToInt32("IndicadorFlexiPago");
@@ -525,6 +526,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("AnoCampanaIngreso")]
         public string AnoCampaniaIngreso { get; set; }
+
+        [DataMember]
+        public DateTime FechaIngreso { get; set; }
 
         [DataMember]
         [Column("PrimerNombre")]
