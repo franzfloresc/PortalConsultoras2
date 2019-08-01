@@ -98,7 +98,7 @@ namespace Portal.Consultoras.BizLogic.Contenido
                 var blUsuario = new BLUsuario();
                 var objUsuario = blUsuario.Select(itmFilter.PaisID, itmFilter.CodigoConsultora);
                 itmFilter.EMailActivo = objUsuario.EMailActivo;
-                itmFilter.DocumentoIdentidad = objUsuario.NumeroDocumento;
+                itmFilter.DocumentoIdentidad = itmFilter.NumeroDocumento;
                 itmFilter.Segmento = objUsuario.Segmento;
                 itmFilter.EsConsultoraOficina = objUsuario.EsConsultoraOficina;
                 itmFilter.AnoCampaniaIngreso = objUsuario.AnoCampaniaIngreso;
