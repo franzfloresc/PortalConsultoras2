@@ -1391,7 +1391,7 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
 
     var tieneIncentivo = montoIncentivo > 0 ? true : false;
 
-    if (tieneIncentivo && !incentivoMostrado && tippingPoint <=0 ) {
+    if (tieneIncentivo && tippingPoint <=0 ) {
 
         if (montoIncentivo <= montoMaximo1) {
             indice = 1;

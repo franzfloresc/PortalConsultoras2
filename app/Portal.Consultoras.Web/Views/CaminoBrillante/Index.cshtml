@@ -106,6 +106,14 @@
                                                 </span>
                                             </div>
                                         }
+                                        else
+                                        {
+                                            <div class="box-mostrarvalor">
+                                                <span class="tip-valor">
+                                                    @Util.DecimalToStringFormat(Convert.ToDecimal(@montoAlcanzadoBarra), @ViewBag.CodigoISODL) pts
+                                                </span>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                                 <img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" />
@@ -127,20 +135,23 @@
                                 {
                                     <p>@((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
                                 }
-                                <span>
-                                    @if (showMoneda)
-                                    {
-                                        if (ViewBag.NivelActual.CodigoNivel != "5")
+                                    <span>
+                                        @if (showMoneda)
                                         {
-                                            <em>@ViewBag.SimboloMoneda</em>
-                                            @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                            if (ViewBag.NivelActual.CodigoNivel != "5")
+                                            {
+                                                <em>@ViewBag.SimboloMoneda</em>
+                                                @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        @Util.EnteroFormat(Convert.ToDecimal(@montoMaximoBarra), @ViewBag.CodigoISODL) @Html.Raw(" pts")
-                                    }
-                                </span>
+                                        else
+                                        {
+                                            if (ViewBag.GranBrillante == null)
+                                            {
+                                                @Util.EnteroFormat(Convert.ToDecimal(@montoMaximoBarra), @ViewBag.CodigoISODL) @Html.Raw(" pts")
+                                            }
+                                        }
+                                    </span>
                             </div>
                         </div>
                     </div>
@@ -159,7 +170,7 @@
                             }
                             else
                             {
-                                <span><strong>Acumulaste @Util.EnteroFormat(Convert.ToDecimal(@montoAlcanzadoBarra), @ViewBag.CodigoISODL) pts</strong></span>
+                                <span style="display:none" ><strong>Acumulaste @Util.EnteroFormat(Convert.ToDecimal(@montoAlcanzadoBarra), @ViewBag.CodigoISODL) pts</strong></span>
                                 if (ViewBag.NivelActual.Mensaje != null)
                                 {
                                     <span>@ViewBag.NivelActual.Mensaje</span>
@@ -436,8 +447,19 @@
             <h2 class="title">Mis ganancias</h2>
             <div class="box-right-ganancias">
                 <p id="titulo-ganancia" class="text-bold"></p>
-                <canvas id="canvas"></canvas>
+
+
+
+                @if (ViewBag.EsMobile)
+                {
+                    <canvas id="canvas" height="320"></canvas>
+                }
+                else
+                {
+                    <canvas id="canvas" height="150"></canvas>
+                }
                 <span id="titulo-subtitulo" class="text-bold"></span>
+
             </div>
             <div class="box-left-ganancias">
                 <div class="box-montos">

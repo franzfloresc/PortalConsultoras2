@@ -270,6 +270,7 @@ function ArmarMisGanancias(data) {
     var indexSeleccion = -1;
     var colorBar = "#ffdaf3"; var colorBarSelected = "#4f0036";
     var sizeMinBar = 6;
+    
     var x = 0;
 
     for (x = 0; x < data.MisGanancias.length; x++) {
@@ -351,6 +352,7 @@ function ArmarMisGanancias(data) {
             ]
         },
         options: {
+
             showAllTooltips: true,
             onClick: function (evt, elements) {
                 var datasetIndex;
@@ -368,23 +370,22 @@ function ArmarMisGanancias(data) {
                     dataset.backgroundColor[index] = colorBarSelected;
                     dataset.hoverBackgroundColor[index] = colorBarSelected;
                 }
-
                 myBar.update();
             },
             tooltips: {
                 mode: 'line',
                 displayColors: false,
-                titleFontSize: 9,
+                titleFontSize: 7,
+                bodyFontSize: 10,
                 titleFontFamily: 'Helvetica',
                 titleFontStyle: 'normal',
                 titleMarginBottom: 1,
                 cornerRadius: 0,
-                backgroundColor: 'transparent',
                 color: 'rgb(0, 0, 0)',
-                backgroundColor: '#fff',
+                backgroundColor: 'rgba(255, 255, 255)',
                 titleFontColor: 'rgb(0, 0, 0)',
                 bodyFontColor: 'rgb(0, 0, 0)',
-                fontSize: 9, 
+                fontSize: 7, 
                 xPadding: 2,
                 yPadding: 1,
                 yAlign: 'bottom',
@@ -415,7 +416,7 @@ function ArmarMisGanancias(data) {
                         padding: 0,
 
                         fontColor: "#000",
-                        fontSize: 14
+                        fontSize: 12
                     },
 
                     gridLines: {
@@ -428,11 +429,11 @@ function ArmarMisGanancias(data) {
                     }
                 }],
                 xAxes: [{
-
+                    categoryPercentage: 1.1,
                     ticks: {
 
                         fontColor: "#000",
-                        fontSize: 14
+                        fontSize: 12
                     },
                     barPercentage: 0.6,
                     gridLines: {

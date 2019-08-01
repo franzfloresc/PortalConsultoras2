@@ -991,9 +991,9 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetConsultoraNivel(entidad, origen);
         }
 
-        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp)
+        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp)
         {
-            return _caminoBrillanteBusinessLogic.GetCaminoBrillanteConfiguracion(paisID, esApp);
+            return _caminoBrillanteBusinessLogic.GetCaminoBrillanteConfiguracion(paisID, puntosAlcanzados, esApp);
         }
 
         public List<BENivelCaminoBrillante> GetNiveles(int paisID)
@@ -1025,8 +1025,12 @@ namespace Portal.Consultoras.Service
         {
             _caminoBrillanteBusinessLogic.InsIncentivosMontoExigencia(paisId, entidad);
         }
+        public void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            _caminoBrillanteBusinessLogic.DelIncentivosMontoExigencia(paisId, entidad);
+        }
         #endregion
-        
+
         #endregion
 
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)

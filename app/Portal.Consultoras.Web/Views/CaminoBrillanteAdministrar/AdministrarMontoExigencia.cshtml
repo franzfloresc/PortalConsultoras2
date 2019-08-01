@@ -49,10 +49,10 @@
                 return false;
             }
 
-            if ($("#ddlCampania").val() == "") {
-                alert("Debe seleccionar una Campaña, verifique.");
-                return false;
-            }
+            //if ($("#ddlCampania").val() == "") {
+            //    alert("Debe seleccionar una Campaña, verifique.");
+            //    return false;
+            //}
 
             fnGrilla();
 
@@ -226,14 +226,14 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['MontoID','Campaña', 'Región', 'Zona', 'Monto Exigido', 'Opcion'],
+            colNames: ['MontoID', 'Texto', 'Campaña', 'Región', 'Zona', 'Monto Exigido', 'Opcion'],
             colModel: [
-                { name: 'MontoID', index: 'MontoID', width: 100, editable: false, align: 'left', hidden: true},
+                { name: 'MontoID', index: 'MontoID', width: 0, editable: false, align: 'left', hidden: true },
+                { name: 'AlcansoIncentivo', index: 'AlcansoIncentivo', width: 0, editable: false, align: 'left', hidden: true },
                 { name: 'CodigoCampania', index: 'CodigoCampania', width: 100, editable: false, align: 'left'},
                 { name: 'CodigoRegion', index: 'CodigoRegion', width: 90, editable: true, resizable: false },
                 { name: 'CodigoZona', index: 'CodigoZona', width: 80, editable: true, resizable: false },
-                { name: 'Monto', index: 'Monto', width: 80, editable: true, resizable: false, /*formatter: 'currency', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" }*/ },
-                //{ name: 'Porcentaje', index: 'Porcentaje', width: 80, editable: true, resizable: false, formatter: 'number', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 0, prefix: "" } },
+                { name: 'Monto', index: 'Monto', width: 80, editable: true, resizable: false },
                 { name: 'Activo', index: 'Activo', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
             jsonReader:
@@ -267,13 +267,77 @@
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-
-        function ShowActions(cellvalue, options, rowObject) {
-            var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Factor' title='Editar Factor' border='0' /></a>";
-            var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Cliente' title='Eliminar Cliente' border='0' /></a>";
-            return Edit + Del;
-        };
     }
+
+    function ShowActions(cellvalue, options, rowObject) {
+        var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('div" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[2] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Factor' title='Editar Factor' border='0' /></a>";
+        var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "','" + rowObject[2] + "','" + rowObject[3] + "','" + rowObject[4] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Cliente' title='Eliminar Cliente' border='0' /></a>";
+        return Edit + Del;
+    }
+
+    $.jgrid.extend({
+        Editar: function (Id, TextoIncentivo, CodCampania, CodRegion, CodZona, Monto) {
+            if (Id) {
+                $("#ddlCampania").val(CodCampania);
+                $("#ddlRegion").val(CodRegion);
+                $("#ddlZona").val(CodZona);
+                $("#txtMontoExigencia").val(Monto);
+                switch (TextoIncentivo) {
+                    case "1":
+                        $("#rbtAlcansoIncentivo").attr('checked', true);
+                        break;
+                    case "2":
+                        $("#rbtFaltaPoco").attr('checked', true);
+                        break;
+                    default:
+                        $("#rbtAltaPocansoIncentivo").attr('checked', false);
+                        $("#rbtFalco").attr('checked', false);
+                }
+            } else {
+                alert("No selecciono el Factor");
+            }
+        },
+        Eliminar: function (Id, CodCampania, CodRegion, CodZona) {
+            var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
+            if (!elimina)
+                return false;
+
+            var item = {
+                CodigoCampania: CodCampania,
+                CodigoRegion: CodRegion,
+                CodigoZona: CodZona
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'CaminoBrillanteAdministrar/EliminarMontoExigencia',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ item }),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        limpiar();
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        }
+                        else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        }
+    });
 
     function fnRegistrar() {
         var valorPais = $('#ddlPais').val();
@@ -281,40 +345,24 @@
             alert("Debe seleccionar el País, verifique.");
             return false;
         }            
-
+        debugger
         var valorCampania = $('#ddlCampania').val();
-        if (valorCampania === "") {
-            alert("Debe seleccionar una campaña, verifique.");
-            return false;
-        }
-
         var valorRegion = $('#ddlRegion').val();
-        if (valorRegion === "") {
-            alert("Debe seleccionar una Región, verifique.");
-            return false;
-        }
-
         var valorZona = $('#ddlZona').val();
-        if (valorZona === "") {
-            alert("Debe seleccionar una Zona, verifique.");
-            return false;
-        }
-
         var valorMonto = $('#txtMontoExigencia').val();
         if (valorMonto === '' || valorMonto == '0') {
             alert("Debe ingresar un monto de exigencia, verifique.");
-            return false
+            return false;
         }           
 
-        if (!$("input[name=rbttextoincentivo]").is(":checked")) {
+        if (!$("input[name=rbtTexto]").is(":checked")) {
             alert("Debe Seleccionar el texto que se mostrara en esta campaña, verifique.");
             return false;
         }
         var valorRegion = $('#ddlRegion').val();
         var valorZona = $('#ddlZona').val(); 
         var valorTexto = "";
-
-        $("input[name=rbttextoincentivo]").each(function (index) {
+        $("input[name=rbtTexto]").each(function (index) {
             if ($(this).is(':checked')) {
                 valorTexto = $(this).attr("data-tiporbt");
             }
@@ -340,9 +388,8 @@
                     if (data.success == true) {
                         var item = data.items;
                         alert(data.message);
-                        //HideDialog("DialogFactores");
-                        limpiar();
                         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        limpiar();
                     }
                     else {
                         alert(data.message);
@@ -379,7 +426,6 @@
                 </div>
                 <div class="titG">Campaña:</div>
                 <div class="selectP2 borde_redondeado">
-                    @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })*@
                     <select id="ddlCampania" name="CampaniaID">
                         <option value="">-- Seleccionar --</option>
                     </select>
@@ -388,14 +434,12 @@
             <div class="div-3">
                 <div id="lblSeleccionaRegion" class="titG">Región:</div>
                 <div class="selectP2 borde_redondeado">
-                    @*@Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaRegion, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })*@
                     <select id="ddlRegion" name="RegionID">
                         <option value="">-- Seleccionar --</option>
                     </select>
                 </div>
                 <div id="lblSeleccionaZona" class="titG">Zona:</div>
                 <div class="selectP2 borde_redondeado">
-                    @*@Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })*@
                     <select id="ddlZona" name="ZonaID">
                         <option value="">-- Seleccionar --</option>
                     </select>
@@ -416,11 +460,11 @@
                 <div class="titG" style="width:420px;"><b>Selecciona el texto que se debe mostrar en esta campaña:</b></div>
             </div>
             <div class="div-3">
-                <div class="titG" style="float: none;width: auto;padding: 0;"><input type="radio" name="rbttextoincentivo" data-tiporbt="1"/>¡Felicidades! Accediste al #% de descuento y alcansaste el incentivo</div>
+                <div class="titG" style="float: none;width: auto;padding: 0;"><input id="rbtAlcansoIncentivo" type="radio" name="rbtTexto" data-tiporbt="1"/>¡Felicidades! Accediste al #% de descuento y alcansaste el incentivo</div>
                 @*<div id="divCodConsultora" class="selectP2 borde_redondeado">
                 @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaZonas, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
             </div>*@
-                <div class="titG" style="float: none;width: auto;padding: 0;"><input type="radio" name="rbttextoincentivo" data-tiporbt="2"/>¡Felicidades! Accediste al #% de descuento y falta poco para que alcanses el incentivo</div>
+                <div class="titG" style="float: none;width: auto;padding: 0;"><input id="rbtFaltaPoco" type="radio" name="rbtTexto" data-tiporbt="2"/>¡Felicidades! Accediste al #% de descuento y falta poco para que alcanses el incentivo</div>
                 @*<div id="divCodConsultora" class="selectP2 borde_redondeado">
                 @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZona" })
             </div>*@
@@ -442,63 +486,5 @@
             <table id="list"></table>
             <div id="pager"></div>
         </div>
-        @*<div class="div-3">
-            <div class="titAuto">
-                <div class="input_search">
-                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="return AbrirModal();" />
-                </div>
-            </div>
-        </div>*@
-
-
-        @*<div class="border-wrapper">
-            <ul class="tabs">
-                <li><a href="#tab-datoConsultora">Datos de Consultora</a></li>
-                <li><a href="#tab-estadoConsultora">Estado de Consultora</a></li>
-                <li><a href="#tab-estadoCuenta">Estado de Cuenta</a></li>
-                <li><a href="#tab-pedidoFacturado">Pedido Facturado</a></li>
-                <li><a href="#tab-seguimientoPedido">Seguimiento Pedido</a></li>
-                <li><a href="#tab-paqueteDocumentario">Paquete Documentario</a></li>
-            </ul>
-            <div class="contenedor_tab">
-                <div class="contenedor_datos">
-                    <div class="div-3">
-                        <input type="hidden" id="txtDCConsultoraID" />
-                        <input type="hidden" id="txtDCCodigoConsultora" />
-                        <div class="titK">Codigo Consultora:</div>
-                        <div class="div-text-mediano" id="txtDCCodigoConsultoraVisible"></div>
-                        <div class="titK">Nombre de Consultora:</div>
-                        <div class="div-text-grande" id="txtDCNombreConsultora"></div>
-                    </div>
-                    <div class="div-3">
-                        <div class="titK">Region:</div>
-                        <div class="div-text-pequeno" id="txtDCRegion"></div>
-                        <div class="titK">Zona:</div>
-                        <div class="div-text-pequeno" id="txtDCZona"></div>
-                        <div class="titK">Seccion:</div>
-                        <div class="div-text-pequeno" id="txtDCSeccion"></div>
-                    </div>
-                </div>
-
-                <div id="tab-datoConsultora" class="contenido_tab">
-                    @Html.Partial("_DatoConsultora")
-                </div>
-                <div id="tab-estadoConsultora" class="contenido_tab">
-                    @Html.Partial("_EstadoConsultora")
-                </div>
-                <div id="tab-estadoCuenta" class="contenido_tab">
-                    @Html.Partial("_EstadoCuenta")
-                </div>
-                <div id="tab-pedidoFacturado" class="contenido_tab">
-                    @Html.Partial("_PedidoFacturado")
-                </div>
-                <div id="tab-seguimientoPedido" class="contenido_tab">
-                   @Html.Partial("_SeguimientoPedido")
-                </div>
-                <div id="tab-paqueteDocumentario" class="contenido_tab">
-                    @Html.Partial("_PaqueteDocumentario")
-                </div>
-            </div>
-        </div>*@
     </div>
 </div>

@@ -175,6 +175,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (nivelConsultora != null) int.TryParse(nivelConsultora.NivelActual, out nivelActual);
             
             var consultoraMeta = (new DACaminoBrillante(entidad.PaisID).GetConsultoraCaminoBrillante(entidad.ConsultoraID, periodoActual, entidad.CampaniaID, nivelActual).MapToCollection<BEConsultoraCaminoBrillanteMeta>(closeReaderFinishing: true) ?? new List<BEConsultoraCaminoBrillanteMeta>()).FirstOrDefault();
+            var montoExigencia = (new DACaminoBrillante(entidad.PaisID).GetMontoExigenciaCaminoBrillante(entidad.CampaniaID.ToString(), entidad.CodigorRegion, entidad.Zona).MapToCollection<BEIncentivosMontoExigencia> (closeReaderFinishing: true) ?? new List<BEIncentivosMontoExigencia>()).FirstOrDefault();
+
             var configs = new List<BEConfiguracionCaminoBrillante>();
 
             if (consultoraMeta != null)
@@ -226,16 +228,24 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Descripcion = "Flag de Ganancias",
                     Valor = "+1",
                 });
+                
+            }
 
+            if(montoExigencia != null)
+            {
                 configs.Add(new BEConfiguracionCaminoBrillante()
                 {
                     Codigo = "CB_MONTO_INCENTIVO",
                     Descripcion = "Monto Incentivo",
-                    Valor = "500",
+                    Valor = montoExigencia.Monto.ToString(),
                 });
-
+                configs.Add(new BEConfiguracionCaminoBrillante()
+                {
+                    Codigo = "CB_MONTO_INCENTIVO_MSG",
+                    Descripcion = "Msg Monto Incentivo",
+                    Valor = montoExigencia.AlcansoIncentivo,
+                });
             }
-
 
             /*
             return new List<BEConfiguracionCaminoBrillante>() {
@@ -1935,7 +1945,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Configuracion
 
-        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp)
+        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp)
         {
             //var oTablaLogica = GetCaminoBrillanteConfiguracionCache(paisID);
             var oTablaLogica = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteConfigurar) ?? new List<BETablaLogicaDatos>();
@@ -1945,12 +1955,27 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             /* Cargar Configuración de Gran Brillante */
             //oTablaLogica.AddRange(_tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteGranBrillante) ?? new List<BETablaLogicaDatos>());
 
-            return oTablaLogica.Select(x => new BEConfiguracionCaminoBrillante()
+
+
+            var result =  oTablaLogica.Select(x => new BEConfiguracionCaminoBrillante()
             {
                 Codigo = x.Codigo,
                 Descripcion = x.Descripcion,
                 Valor = x.Valor
             }).ToList();
+
+            var nivelBrillante = (GetNivelesCache(paisID) ?? new List<BENivelCaminoBrillante>()).FirstOrDefault(e => e.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante);
+            if (nivelBrillante != null) {
+                var limite = (int)((float)nivelBrillante.Puntaje * 1.3f);
+                var limiteFix = (int)((double)puntosAlcanzados * 1.3);
+                result.Where(e => e.Codigo == "sb_granBrillante" || e.Codigo == "app_granBrillante")
+                        .ForEach(e => {
+                            e.Valor = Math.Max(limite, limiteFix).ToString();
+                        });
+
+            }
+
+            return result;
         }
 
         /*
@@ -1980,7 +2005,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         public void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {
             new DACaminoBrillante(paisId).InsIncentivosMontoExigencia(entidad);
-        }       
+        }        
+        public void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            new DACaminoBrillante(paisId).DelIncentivosMontoExigencia(entidad);
+        }
         #endregion
 
     }

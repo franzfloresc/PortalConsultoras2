@@ -458,7 +458,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad, int origen);
 
         [OperationContract]
-        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp);
+        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp);
 
         [OperationContract]
         List<BENivelCaminoBrillante> GetNiveles(int paisID);
@@ -477,6 +477,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
         #endregion
 
         [OperationContract]
