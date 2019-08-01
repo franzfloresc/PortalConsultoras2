@@ -554,11 +554,11 @@ div .owl-carousel .owl-stage-outer {
     }
 }
 
-@keyframes newprog {
+/*@keyframes newprog {
     0% {
         width: 0%;
     }
-}
+}*/
 
 .Progress:after {
     position: absolute;
@@ -1261,9 +1261,14 @@ div.opOrdenar {
     height: 100%;
     border-radius: 15px;
     border-color: #4a90e2;
+    width: 0;
     animation-name: newprog;
     animation-iteration-count: 1;
     animation-duration: 4s;
+
+    -webkit-animation-name: newprog;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-duration: 4s;
 }
 
 .progress-barnew:after {
