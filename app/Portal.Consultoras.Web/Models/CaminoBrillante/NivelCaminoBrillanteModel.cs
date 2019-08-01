@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,6 +18,8 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public List<BeneficioCaminoBrillanteModel> Beneficios { get; set; }
         public bool EsPasado { get; set; }
         public bool EsActual { get; set; }
+        public string Mensaje { get; set; }
+
         public string UrlImagenNivel
         {
             get

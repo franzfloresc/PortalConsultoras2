@@ -86,6 +86,24 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.ExecuteScalar(command);
         }
 
+        public IDataReader GetConsultoraCaminoBrillante(long consultoraId, int periodoCB, int campania, int nivelCB)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraCaminoBrillante");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@PeriodoCB", DbType.Int32, periodoCB);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, campania);
+            Context.Database.AddInParameter(command, "@NivelCB", DbType.Int32, nivelCB);
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader GetMontoExigenciaCaminoBrillante(string CodigoCampania, string CodigoRegion, string CodigoZona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMontoExigenciaCaminoBrillante");
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.AnsiString, CodigoCampania);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, CodigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, CodigoZona);
+            return Context.ExecuteReader(command);
+        }
+
         #region Exigencia Monto Incentivos
         public void InsIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)
         {

@@ -11894,6 +11894,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string EnterateMasParamField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> MontoAcumuladoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11985,6 +11988,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.EnterateMasParamField, value) != true)) {
                     this.EnterateMasParamField = value;
                     this.RaisePropertyChanged("EnterateMasParam");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Mensaje {
+            get {
+                return this.MensajeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeField, value) != true)) {
+                    this.MensajeField = value;
+                    this.RaisePropertyChanged("Mensaje");
                 }
             }
         }
@@ -18734,10 +18750,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante> GetConsultoraNivelCaminoBrillanteAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, int origen);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion", ReplyAction="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracionResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[] GetCaminoBrillanteConfiguracion(int paisID, string esApp);
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[] GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion", ReplyAction="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracionResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[]> GetCaminoBrillanteConfiguracionAsync(int paisID, string esApp);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[]> GetCaminoBrillanteConfiguracionAsync(int paisID, decimal puntosAlcanzados, string esApp);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNiveles", ReplyAction="http://tempuri.org/IUsuarioService/GetNivelesResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[] GetNiveles(int paisID);
@@ -19925,12 +19941,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetConsultoraNivelCaminoBrillanteAsync(entidad, origen);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[] GetCaminoBrillanteConfiguracion(int paisID, string esApp) {
-            return base.Channel.GetCaminoBrillanteConfiguracion(paisID, esApp);
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[] GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp) {
+            return base.Channel.GetCaminoBrillanteConfiguracion(paisID, puntosAlcanzados, esApp);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[]> GetCaminoBrillanteConfiguracionAsync(int paisID, string esApp) {
-            return base.Channel.GetCaminoBrillanteConfiguracionAsync(paisID, esApp);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[]> GetCaminoBrillanteConfiguracionAsync(int paisID, decimal puntosAlcanzados, string esApp) {
+            return base.Channel.GetCaminoBrillanteConfiguracionAsync(paisID, puntosAlcanzados, esApp);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[] GetNiveles(int paisID) {

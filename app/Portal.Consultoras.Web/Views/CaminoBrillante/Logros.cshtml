@@ -111,9 +111,10 @@
     <div class="box-camb mo-2 deskshow">
         <div class="cambio-crec">
             <section class="regular  slider">
+                
                 {{#each Indicadores}}
                 <div class="right-m">
-                    <p id="indicador-title" class="text-bold _hide">{{Titulo}}</p>
+                    <p id="indicador-title" class="text-bold _hide">{{../Titulo}} {{Titulo}}</p>
                     {{#each Medallas }}
                     <div class="itm">
                         <div class="circle-porcent imgpizz">
@@ -141,16 +142,18 @@
             <section class="regular  slider">
                 {{#each Indicadores}}
                 <div class="right-m">
-                    <p id="indicador-title" class="text-bold _hide">{{Titulo}}</p>
-                    <span class="como-log inactivo">Ultimo Obtenido</span>
+                    <p id="indicador-title" class="text-bold _hide">{{../Titulo}}  {{Titulo}}</p>
                     {{#if MedallaDestacada}}
+                    <span class="como-log inactivo">Último Obtenido</span>
                     <div class="bigitem">
                         <div class="itm">
-                            <div class="bord circle-porcent crec-activo">
-                                <span>{{MedallaDestacada.Valor}}</span>
+                            <div class="circle-porcent imgpizz" style="padding:2px">
+                                <img style="max-width:inherit" src="{{MedallaDestacada.UrlMedalla}}" />
                             </div>
                         </div>
                     </div>
+                    {{else}}
+                    <br />
                     {{/if}}
                     <div class="{{#if MedallaDestacada}}right-m{{/if}}">
                         {{#each Medallas }}
@@ -231,10 +234,10 @@
         {{/each}}
     </div>
     <!-- Desktop -->
-    <div class="deskshow">
+    <div>
         {{#each Indicadores}}
-        <div class="clear"></div>
-        <div class="box-camb mo-1">
+
+        <div class="box-camb mo-1 deskshow">
             <p class="text-bold">{{Titulo}}</p>
             <div class="cambio-crec">
                 {{#each Medallas }}
@@ -258,13 +261,12 @@
         {{/each}}
     </div>
     <!-- Mobile -->
-    <div class="movshow">
+    <div>
         {{#each Indicadores}}
-        <div class="clear"></div>
-        <div class="box-camb mo-1">
+        <div class="box-camb mo-1 movshow">
             <p class="text-bold">{{Titulo}}</p>
-            <span class="como-log inactivo">Ultimo Obtenido</span>            
             {{#if MedallaDestacada}}
+            <span class="como-log inactivo">Último Obtenido</span>
             <div class="bigitem">
                 <div class="itm">
                     <div class="bord circle-porcent crec-activo">
@@ -272,6 +274,8 @@
                     </div>
                 </div>
             </div>
+            {{else}}
+            <br />
             {{/if}}
             <div class="cambio-crec {{#if MedallaDestacada}}right-m{{/if}}">
                 {{#each Medallas }}
@@ -377,8 +381,8 @@
     <div class="container box-incremento mo-3 movshow">
         {{#each Indicadores}}
         <p class="cambio-crec text-bold">{{Titulo}}</p>
-        <span class="como-log inactivo">Ultimo Obtenido</span>
         {{#if MedallaDestacada}}
+        <span class="como-log inactivo">Ultimo Obtenido</span>
         <div class="bigitem">
             <div class="itm">
                 <div class="bord circle-porcent crec-activo">
@@ -386,6 +390,8 @@
                 </div>
             </div>
         </div>
+        {{else}}
+        <br />
         {{/if}}
         <div class="cambio-crec {{#if MedallaDestacada}}right-m{{/if}}">
             {{#each Medallas }}
@@ -409,6 +415,7 @@
         </div>
         {{/each}}
     </div>
+    <div class="clear"></div>
     {{/if_eq}}
     {{/each}}
 </script>
@@ -424,6 +431,7 @@
                 infinite: false,
                 slidesToShow: 1,
                 slidesToScroll: 1,
+                initialSlide: 4, 
                 prevArrow: '<a style="display: block;left: 0;margin-left: -3%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
                 nextArrow: '<a style="display: block;right: 0;margin-right: 2%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
                 responsive: [
@@ -438,7 +446,15 @@
                     }
                 ]
             });
-        }
+    }
+
+        $(function () {
+            Handlebars.registerHelper('reverse', function (arr) {
+                arr.reverse();
+                console.log(arr);
+            });
+        });
+
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")

@@ -30,7 +30,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true);
                
-                ViewBag.NivelActual = _caminoBrillanteProvider.GetNivelActual();
+                var nivelActual = _caminoBrillanteProvider.GetNivelActual();
+
+                ViewBag.NivelActual = nivelActual;
+                if (nivelActual != null) {
+                    if (nivelActual.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante) {
+                        ViewBag.GranBrillante = _caminoBrillanteProvider.GetNivelGranBrillante();
+                    }
+                }
+
                 ViewBag.NivelSiguiente = _caminoBrillanteProvider.GetNivelSiguienteConsultora();
                 ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
                 ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciales();
