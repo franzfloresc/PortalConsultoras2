@@ -650,7 +650,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 if (aniosConsultora > 0)
                 {
-                    return string.Format(format, aniosConsultora) + (aniosConsultora == 1 ? " año" : " años");
+                    //return string.Format(format, aniosConsultora) + (aniosConsultora == 1 ? " año" : " años");
                 }
             }
             return string.Empty;

@@ -1396,20 +1396,29 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
         if (montoIncentivo <= montoMaximo1) {
             indice = 1;
             escala = dataBarra.ListaEscalaDescuento[0];
+
+            if (total >= montoIncentivo && total <= montoMaximo1) {
+                // se mantiene entre la 1er y 2da escala de descuento
+                var content = 'Llegaste al' + '&nbsp' + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
+                showPopupIncentivo(content);
+                tpElectivos.tempPrevLogro = -1;
+                incentivoMostrado = true;
+                return true;
+            }
+
         } else {
             indice = 2;
             escala = dataBarra.ListaEscalaDescuento[1];
-        }
-        
-        // se mantiene entre la 1er y 2da escala de descuento
-        if ( (total >= montoIncentivo && total <= montoMaximo1) || (total >= montoIncentivo  && total <= montoMaximo2)) {
 
-            var content = 'Llegaste al' + '&nbsp'  + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
+            // se mantiene entre la 2da y 3era escala de descuento
+            if (total >= montoMaximo1 && total >= montoIncentivo && total <= montoMaximo2) {
 
-            showPopupIncentivo(content);
-            tpElectivos.tempPrevLogro = -1;
-            incentivoMostrado = true;
-            return true;
+                var content = 'Llegaste al' + '&nbsp' + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
+                showPopupIncentivo(content);
+                tpElectivos.tempPrevLogro = -1;
+                incentivoMostrado = true;
+                return true;
+            }
         }
 
     } 
