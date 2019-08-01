@@ -26,12 +26,12 @@ $(document).ready(function () {
             var percTope = Math.min((minBar / maxBar) * 100, 100);
             $('.progress-barnew .tope').css("left", percTope + '%');
         }
-        if (nivelactual == '5') {
+        if (nivelactual == '1' || nivelactual == '5') {
             $(".bord-bot").addClass("centtopacio");
         }
     }
     
-    for (var i = 1; i <= nivelactual; i++)
+    for (   var i = 1; i <= nivelactual; i++)
         $(".pt" + i).addClass("activo");
 
     $(".pt" + nivelactual).addClass("brillante");
@@ -45,7 +45,35 @@ $(document).ready(function () {
     });
 
     $('#loadingScreen').hide();
+
+    $('.regulardoc').slick({
+        dots: true,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        fade: true,
+    });
+
+    $('.slick-next').click(function () {
+        $('.regulardoc').slick('slickPause');
+    });
+
+    $(".box-right-ganancias").append("<strong></strong>");
+    $('.box-right-ganancias strong').click(function () {
+        $(this).hide();
+    });
+    $(".btnemp").click(function () {
+        $("#Modalunbord").hide();
+    });
+
 });
+$(window).on("load", function () {
+    TagNivelBeneficios('Mi Nivel');
+    $('#Modalunbord').modal('show');
+
+});
+
+
 
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');

@@ -11,9 +11,11 @@ var incentivoMostrado = false;
 var mostrarIncentivo = false;
 var montoIncentivo = montoIncentivo;
 
+
+//// BORRAR SOLO ES PARA PRUEBAS 
 //switch (IsoPais) {
 //    case 'BO':
-//        montoIncentivo = 500;
+//        montoIncentivo = 650;
 //        break;
 
 //    case 'CR':
@@ -1344,7 +1346,7 @@ function superoTippingPoint(barra, prevLogro) {
 
         var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
 
-        var tieneIncentivo = montoIncentivo > 0 ? true : false;
+        var tieneIncentivo = montoIncentivo >= 0 ? true : false;
 
         if (tieneIncentivo && tippingPoint <= mtoLogroBarra) {
 
@@ -1393,31 +1395,30 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
 
     if (tieneIncentivo && tippingPoint <=0 ) {
 
+        // se mantiene entre la 1er y 2da escala de descuento
         if (montoIncentivo <= montoMaximo1) {
             indice = 1;
             escala = dataBarra.ListaEscalaDescuento[0];
-
             if (total >= montoIncentivo && total <= montoMaximo1) {
-                // se mantiene entre la 1er y 2da escala de descuento
-                var content = 'Llegaste al' + '&nbsp' + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
-                showPopupIncentivo(content);
-                tpElectivos.tempPrevLogro = -1;
-                incentivoMostrado = true;
-                return true;
+                if (montoIncentivo > prevLogro) {
+                    var content = 'Llegaste al' + '&nbsp' + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
+                    showPopupIncentivo(content);
+                    tpElectivos.tempPrevLogro = -1;
+                    return true;
+                }
             }
 
         } else {
+            // se mantiene entre la 2da y 3era escala de descuento
             indice = 2;
             escala = dataBarra.ListaEscalaDescuento[1];
-
-            // se mantiene entre la 2da y 3era escala de descuento
             if (total >= montoMaximo1 && total >= montoIncentivo && total <= montoMaximo2) {
-
-                var content = 'Llegaste al' + '&nbsp' + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
-                showPopupIncentivo(content);
-                tpElectivos.tempPrevLogro = -1;
-                incentivoMostrado = true;
-                return true;
+                if (montoIncentivo > prevLogro) {
+                    var content = 'Llegaste al' + '&nbsp' + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
+                    showPopupIncentivo(content);
+                    tpElectivos.tempPrevLogro = -1;
+                    return true;
+                }
             }
         }
 
@@ -1427,7 +1428,6 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
             var escala = dataBarra.ListaEscalaDescuento[i];
             if (total >= escala.MontoDesde && total < escala.MontoHasta) {
                 if (escala.MontoDesde > prevLogro) {
-
                         var content = escala.PorDescuento + '% Dscto.';
                         showPopupEscala(content);
                         tpElectivos.tempPrevLogro = -1;

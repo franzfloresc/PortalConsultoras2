@@ -21,6 +21,70 @@
 
 <link href="~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css" rel="stylesheet" />
 
+
+
+<div id="Modalunbord" class="modal " role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+
+            <section class="regulardoc slider slid-text">
+                <div>
+                    <img src="~/Content/CaminoBrillante/imgs/slid1.png" class="img-responsive" />
+                    <h5>Niveles y beneficios</h5>
+                    <p>Ahora estarás en un nivel con beneficios personalizados.</p>
+                    <button type="button" class="btnemp close" data-toggle="modal" data-target="#Modalunbordseguir" data-dismiss="modal">Empezar</button>
+                </div>
+                <div>
+                    <img src="~/Content/CaminoBrillante/imgs/slid2.png" class="img-responsive" />
+                    <h5>Monto acumulado</h5>
+                    <p>Podrás ver el monto acumulado en el periodo y cuanto te falta para subir de nivel.</p>
+                    <button type="button" class="btnemp close" data-toggle="modal" data-target="#Modalunbordseguir" data-dismiss="modal">Empezar</button>
+                </div>
+                <div>
+                    <img src="~/Content/CaminoBrillante/imgs/slid3.png" class="img-responsive" />
+                    <h5>Logros</h5>
+                    <p>Mira todo lo que has alcanzado durante este tiempo juntos.</p>
+                    <button type="button" class="btnemp close" data-toggle="modal" data-target="#Modalunbordseguir" data-dismiss="modal">Empezar</button>
+
+                </div>
+                @*<div class="last-slid">
+                        <span>¿Quieres seguir viendo lo nuevo de Camino Brillante?</span>
+                        <p>Cada vez que ingreses verás esta información.</p>
+                        <div class="box-volv">
+                            <input type="checkbox" value="" /> No volver a mostrar
+                        </div>
+                        <a href="#" class="btnemp">Aceptar</a>
+                    </div>*@
+            </section>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="Modalunbordseguir" class="modal " role="dialog">
+    <div class="modal-dialog modal-semb">
+        <div class="modal-content">
+            @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+
+            <div class="last-slid">
+                <span>¿Quieres seguir viendo lo nuevo de Camino Brillante?</span>
+                <p>Cada vez que ingreses verás esta información.</p>
+                <div class="box-volv">
+                    <input type="checkbox" value="" />
+                    <p>No volver a mostrar</p>
+                </div>
+                <a href="#" class="btnemp close" data-dismiss="modal">Aceptar</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
 <div id="overlayer"><div class="loadingScreen-mensaje"></div></div>
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
     <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
@@ -136,23 +200,23 @@
                                 {
                                     <p>@((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
                                 }
-                                    <span>
-                                        @if (showMoneda)
+                                <span>
+                                    @if (showMoneda)
+                                    {
+                                        if (ViewBag.NivelActual.CodigoNivel != "5")
                                         {
-                                            if (ViewBag.NivelActual.CodigoNivel != "5")
-                                            {
-                                                <em>@ViewBag.SimboloMoneda</em>
-                                                @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
-                                            }
+                                            <em>@ViewBag.SimboloMoneda</em>
+                                            @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
                                         }
-                                        else
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.GranBrillante == null)
                                         {
-                                            if (ViewBag.GranBrillante == null)
-                                            {
-                                                @Util.EnteroFormat(Convert.ToDecimal(@montoMaximoBarra), @ViewBag.CodigoISODL) @Html.Raw(" pts")
-                                            }
+                                            @Util.EnteroFormat(Convert.ToDecimal(@montoMaximoBarra), @ViewBag.CodigoISODL) @Html.Raw(" pts")
                                         }
-                                    </span>
+                                    }
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -171,7 +235,7 @@
                             }
                             else
                             {
-                                <span style="display:none" ><strong>Acumulaste @Util.EnteroFormat(Convert.ToDecimal(@montoAlcanzadoBarra), @ViewBag.CodigoISODL) pts</strong></span>
+                                <span style="display:none"><strong>Acumulaste @Util.EnteroFormat(Convert.ToDecimal(@montoAlcanzadoBarra), @ViewBag.CodigoISODL) pts</strong></span>
                                 if (ViewBag.NivelActual.Mensaje != null)
                                 {
                                     <span>@ViewBag.NivelActual.Mensaje</span>

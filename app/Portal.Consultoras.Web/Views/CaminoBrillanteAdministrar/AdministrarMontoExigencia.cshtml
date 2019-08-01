@@ -4,43 +4,42 @@
 }
 <script>
     jQuery(document).ready(function () {
-
         fnGrilla();
 
-        // Establece los efectos para cada uno de los Tabs
-        $(".contenido_tab").hide(); //Ocultar capas
-        $("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
-        $(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
+        //// Establece los efectos para cada uno de los Tabs
+        //$(".contenido_tab").hide(); //Ocultar capas
+        //$("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
+        //$(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
 
-        // Sucesos al hacer click en una pestaña
-        $("ul.tabs li").click(function () {
-            $("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
-            $(this).addClass("activa"); //Añadir clase "activa" a la pestaña seleccionada
-            $(".contenido_tab").hide(); //Ocultar todo el contenido de la pestaña
-            var activatab = $(this).find("a").attr("href"); //Leer el valor de href para identificar la pestaña activa
-            $(activatab).fadeIn(); //Visibilidad con efecto fade del contenido activo
+        //// Sucesos al hacer click en una pestaña
+        //$("ul.tabs li").click(function () {
+        //    $("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
+        //    $(this).addClass("activa"); //Añadir clase "activa" a la pestaña seleccionada
+        //    $(".contenido_tab").hide(); //Ocultar todo el contenido de la pestaña
+        //    var activatab = $(this).find("a").attr("href"); //Leer el valor de href para identificar la pestaña activa
+        //    $(activatab).fadeIn(); //Visibilidad con efecto fade del contenido activo
 
-            if (activatab == "#tab-estadoCuenta")//evento por pestaña seleccionada
-            {
-                GridEstadoCuentaDetalle();
-            }
-            if (activatab == "#tab-estadoConsultora")//evento por pestaña seleccionada
-            {
-                EstadoConsultoraForm();
-            }
-            if (activatab == "#tab-seguimientoPedido") {
-                Seguimiento();
-            }
+        //    if (activatab == "#tab-estadoCuenta")//evento por pestaña seleccionada
+        //    {
+        //        GridEstadoCuentaDetalle();
+        //    }
+        //    if (activatab == "#tab-estadoConsultora")//evento por pestaña seleccionada
+        //    {
+        //        EstadoConsultoraForm();
+        //    }
+        //    if (activatab == "#tab-seguimientoPedido") {
+        //        Seguimiento();
+        //    }
 
-            if (activatab == "#tab-paqueteDocumentario") {
-                validarExiteInformacion();
-            }
+        //    if (activatab == "#tab-paqueteDocumentario") {
+        //        validarExiteInformacion();
+        //    }
 
-            if (activatab == "#tab-pedidoFacturado") {
-                fnGrillaPedidoFacturado();
-            }
-            return false;
-        });
+        //    if (activatab == "#tab-pedidoFacturado") {
+        //        fnGrillaPedidoFacturado();
+        //    }
+        //    return false;
+        //});
 
         $("#btnBuscar").click(function () {
 
@@ -220,6 +219,7 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
+                PaisID: function () { return jQuery.trim($("#ddlPais").val()); },
                 CodigoCampania: function () { return jQuery.trim($("#ddlCampania").val()); },
                 CodigoRegion: function () { return jQuery.trim($("#ddlRegion").val()); },
                 CodigoZona: function () { return jQuery.trim($("#ddlZona").val()); },
@@ -270,14 +270,15 @@
     }
 
     function ShowActions(cellvalue, options, rowObject) {
-        var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('div" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[2] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Factor' title='Editar Factor' border='0' /></a>";
+        var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('div" + rowObject[0] + "','" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[2] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Factor' title='Editar Factor' border='0' /></a>";
         var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "','" + rowObject[2] + "','" + rowObject[3] + "','" + rowObject[4] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Cliente' title='Eliminar Cliente' border='0' /></a>";
         return Edit + Del;
     }
 
     $.jgrid.extend({
-        Editar: function (Id, TextoIncentivo, CodCampania, CodRegion, CodZona, Monto) {
-            if (Id) {
+        Editar: function (Id, MontoID, TextoIncentivo, CodCampania, CodRegion, CodZona, Monto) {
+            if (Id) {                
+                $("#hdMontoID").val(MontoID);
                 $("#ddlCampania").val(CodCampania);
                 $("#ddlRegion").val(CodRegion);
                 $("#ddlZona").val(CodZona);
@@ -297,12 +298,13 @@
                 alert("No selecciono el Factor");
             }
         },
-        Eliminar: function (Id, CodCampania, CodRegion, CodZona) {
+        Eliminar: function (montoID, CodCampania, CodRegion, CodZona) {
             var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
             if (!elimina)
                 return false;
-
-            var item = {
+            
+            var model = {
+                MontoID: parseInt(montoID),
                 CodigoCampania: CodCampania,
                 CodigoRegion: CodRegion,
                 CodigoZona: CodZona
@@ -314,7 +316,7 @@
                 url: baseUrl + 'CaminoBrillanteAdministrar/EliminarMontoExigencia',
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({ item }),
+                data: JSON.stringify({ model }),
                 async: true,
                 success: function (data) {
                     if (checkTimeout(data)) {
@@ -345,7 +347,7 @@
             alert("Debe seleccionar el País, verifique.");
             return false;
         }            
-        debugger
+        
         var valorCampania = $('#ddlCampania').val();
         var valorRegion = $('#ddlRegion').val();
         var valorZona = $('#ddlZona').val();
@@ -368,7 +370,8 @@
             }
         });
 
-        var item = {
+        var model = {
+            MontoID: parseInt($("#hdMontoID").val()),
             CodigoCampania: valorCampania,
             CodigoRegion: valorRegion,
             CodigoZona: valorZona,
@@ -381,7 +384,7 @@
             url: baseUrl + 'CaminoBrillanteAdministrar/GuardarMontoExigencia',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(item),
+            data: JSON.stringify(model),
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
@@ -481,6 +484,7 @@
 </div>
 
 <div class="wrap">
+    <input type="hidden" id="hdMontoID" value="0"/>
     <div class="container clearfix">
         <div class="border-wrapper">
             <table id="list"></table>
