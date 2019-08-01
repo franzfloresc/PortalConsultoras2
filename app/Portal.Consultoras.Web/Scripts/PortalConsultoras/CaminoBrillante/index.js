@@ -50,7 +50,7 @@ $(document).ready(function () {
         dots: true,
         infinite: true,
         autoplay: true,
-        autoplaySpeed: 2000,
+        autoplaySpeed: 4500,
         fade: true,
     });
 
@@ -58,14 +58,25 @@ $(document).ready(function () {
         $('.regulardoc').slick('slickPause');
     });
 
-    $(".box-right-ganancias").append("<strong></strong>");
+    $(".box-right-ganancias").append("<strong><i></i></strong>");
+
     $('.box-right-ganancias strong').click(function () {
         $(this).hide();
+        $('.box-right-ganancias strong i').hide();
+        //alert("Clikeado");
     });
+
     $(".btnemp").click(function () {
         $("#Modalunbord").hide();
     });
 
+    $("#volvermostrar").change(function () {
+        //if (this.checked) {
+        //    alert("Sí chekeado");
+        //} else {
+        //    alert("No chekeado");
+        //}
+    });
 });
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');

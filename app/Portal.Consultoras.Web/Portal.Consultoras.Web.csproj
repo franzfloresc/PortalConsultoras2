@@ -28,8 +28,7 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
     <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1475,6 +1474,11 @@
     <Content Include="Content\Banners\FolderContent.txt" />
     <Content Include="Content\CaminoBrillante\Content.css" />
     <Content Include="Content\CaminoBrillante\css\estilos.css" />
+    <Content Include="Content\CaminoBrillante\imgs\1.png" />
+    <Content Include="Content\CaminoBrillante\imgs\2.png" />
+    <Content Include="Content\CaminoBrillante\imgs\3.png" />
+    <Content Include="Content\CaminoBrillante\imgs\4.png" />
+    <Content Include="Content\CaminoBrillante\imgs\5.png" />
     <Content Include="Content\CaminoBrillante\imgs\activo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\add-to-cart.svg" />
     <Content Include="Content\CaminoBrillante\imgs\add_to_cart2.svg" />
@@ -1482,10 +1486,15 @@
     <Content Include="Content\CaminoBrillante\imgs\bg-modal.png" />
     <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\corazon.png" />
+    <Content Include="Content\CaminoBrillante\imgs\dedo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\down.svg" />
     <Content Include="Content\CaminoBrillante\imgs\flag.svg" />
     <Content Include="Content\CaminoBrillante\imgs\icon-s.svg" />
     <Content Include="Content\CaminoBrillante\imgs\mobile-logros.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\next.png" />
+    <Content Include="Content\CaminoBrillante\imgs\slid1.png" />
+    <Content Include="Content\CaminoBrillante\imgs\slid2.png" />
+    <Content Include="Content\CaminoBrillante\imgs\slid3.png" />
     <Content Include="Content\CaminoBrillante\imgs\up.svg" />
     <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Css\Button\style.css" />
