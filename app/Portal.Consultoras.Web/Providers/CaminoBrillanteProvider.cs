@@ -272,6 +272,28 @@ namespace Portal.Consultoras.Web.Providers
             return resumen;
         }
 
+        /// <summary>
+        /// Obtiene Puntaje Alcanzado
+        /// </summary>
+        public decimal GetPuntajeAlcanzado()
+        {
+            try
+            {
+                var nivelesCB = GetNivelesCaminoBrillante();
+                if (nivelesCB == null ) return 0;
+
+                var nivelBrillante = nivelesCB.Where(x => x.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante).FirstOrDefault();
+                if (nivelBrillante == null) return 0;
+
+                return nivelBrillante.PuntajeAcumulado.HasValue ? nivelBrillante.PuntajeAcumulado.Value :  0;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return 0;
+            }
+        }
+
         #endregion
 
         #region Kits
@@ -841,7 +863,7 @@ namespace Portal.Consultoras.Web.Providers
             if (lst == null || lst.Count == 0)
             {
                 using (var svc = new UsuarioServiceClient())
-                    lst = svc.GetCaminoBrillanteConfiguracion(usuarioModel.PaisID, "0").ToList();
+                    lst = svc.GetCaminoBrillanteConfiguracion(usuarioModel.PaisID, GetPuntajeAlcanzado(), "0").ToList();
 
                 if (lst != null) sessionManager.SetConfiguracionCaminoBrillante(lst);
             }
