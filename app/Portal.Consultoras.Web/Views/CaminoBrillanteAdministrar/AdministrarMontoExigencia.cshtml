@@ -228,7 +228,7 @@
             contentType: "application/json; charset=utf-8",
             colNames: ['MontoID', 'Texto', 'Campaña', 'Región', 'Zona', 'Monto Exigido', 'Opcion'],
             colModel: [
-                { name: 'MontoID', index: 'MontoID', width: 30, editable: false, align: 'left', hidden: false },
+                { name: 'MontoID', index: 'MontoID', width: 0, editable: false, align: 'left', hidden: true },
                 { name: 'AlcansoIncentivo', index: 'AlcansoIncentivo', width: 0, editable: false, align: 'left', hidden: true },
                 { name: 'CodigoCampania', index: 'CodigoCampania', width: 100, editable: false, align: 'left'},
                 { name: 'CodigoRegion', index: 'CodigoRegion', width: 90, editable: true, resizable: false },
@@ -277,8 +277,7 @@
 
     $.jgrid.extend({
         Editar: function (Id, MontoID, TextoIncentivo, CodCampania, CodRegion, CodZona, Monto) {
-            if (Id) {
-                debugger
+            if (Id) {                
                 $("#hdMontoID").val(MontoID);
                 $("#ddlCampania").val(CodCampania);
                 $("#ddlRegion").val(CodRegion);
@@ -303,8 +302,8 @@
             var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
             if (!elimina)
                 return false;
-            debugger
-            var item = {
+            
+            var model = {
                 MontoID: parseInt(montoID),
                 CodigoCampania: CodCampania,
                 CodigoRegion: CodRegion,
@@ -317,7 +316,7 @@
                 url: baseUrl + 'CaminoBrillanteAdministrar/EliminarMontoExigencia',
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({ item }),
+                data: JSON.stringify({ model }),
                 async: true,
                 success: function (data) {
                     if (checkTimeout(data)) {
@@ -348,7 +347,7 @@
             alert("Debe seleccionar el País, verifique.");
             return false;
         }            
-        debugger
+        
         var valorCampania = $('#ddlCampania').val();
         var valorRegion = $('#ddlRegion').val();
         var valorZona = $('#ddlZona').val();
@@ -371,7 +370,8 @@
             }
         });
 
-        var item = {
+        var model = {
+            MontoID: parseInt($("#hdMontoID").val()),
             CodigoCampania: valorCampania,
             CodigoRegion: valorRegion,
             CodigoZona: valorZona,
@@ -384,7 +384,7 @@
             url: baseUrl + 'CaminoBrillanteAdministrar/GuardarMontoExigencia',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(item),
+            data: JSON.stringify(model),
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
