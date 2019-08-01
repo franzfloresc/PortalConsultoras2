@@ -21,12 +21,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ReporteConsultoraPedidoSACController : BaseAdmController
+    public class ReporteConsultoraPedidoSacController : BaseAdmController
     {
         #region HD-4327
         public async Task<ActionResult> Index()
         {
-            var reporteConsultoraPedidoSACModels = new ReporteConsultoraPedidoSACModels();
+            var reporteConsultoraPedidoSACModels = new ReporteConsultoraPedidoSacModels();
             var usuario = userData ?? new UsuarioModel();
 
             try
@@ -128,8 +128,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var data = new
                     {
-                        objPedidosCab_ = FormateaPedidoCabWeb(objBEDescargaArchivoSinMarcar, Constantes.MensajeProcesoDescargaregular.nombreArchivoCabWeb,  campaniaid),
-                        objPedidosDet_ = FormateaPedido( objBEDescargaArchivoSinMarcar, Constantes.MensajeProcesoDescargaregular.nombreArchivoDetWeb, campaniaid),
+                        objPedidosCab_ = FormateaPedidoCabWeb(objBEDescargaArchivoSinMarcar,  campaniaid),
+                        objPedidosDet_ = FormateaPedido( objBEDescargaArchivoSinMarcar, campaniaid),
                         msnRespuesta_ = objBEDescargaArchivoSinMarcar.msnRespuesta
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -157,7 +157,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string sLine = string.Empty;
             ArrayList arrText = new ArrayList();
-            BEDescargaArchivoSinMarcar objBEDescargaArchivoSinMarcar;
 
             StreamReader objReader = new StreamReader(nameurl);
             sLine = objReader.ReadToEnd();
@@ -177,7 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
        
-        private string FormateaPedidoCabWeb(BEDescargaArchivoSinMarcar  objBEDescargaArchivoSinMarcar, string nombreArchivo, int campaniaid)
+        private string FormateaPedidoCabWeb(BEDescargaArchivoSinMarcar  objBEDescargaArchivoSinMarcar,  int campaniaid)
         {
             string headerFile = string.Empty;
             string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constantes.ConfiguracionManager.BaseDirectory);
@@ -221,7 +220,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        private string FormateaPedido(BEDescargaArchivoSinMarcar objBEDescargaArchivoSinMarcar, string nombreArchivo,int campaniaid)
+        private string FormateaPedido(BEDescargaArchivoSinMarcar objBEDescargaArchivoSinMarcar, int campaniaid)
         {
             string headerFile = string.Empty;
             string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constantes.ConfiguracionManager.BaseDirectory);
@@ -309,11 +308,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
-
-
-
-        private string HeaderLineSinMarcar(BETemplateSinMarcar[] template, DataRow row, string codigoPais, string fechaProceso, string fechaFactura, string lote,string origen)
+        private string HeaderLineSinMarcar(BETemplateSinMarcar[] template, DataRow row, string codigoPais, string fechaProceso, string fechaFactura, string lote, string origen)
         {
             string line = string.Empty;
             foreach (BETemplateSinMarcar field in template)
@@ -337,18 +332,27 @@ namespace Portal.Consultoras.Web.Controllers
                     case "LOTE": item = lote; break;
                     case "ORIGEN": item = origen; break;
                     case "VALIDADO": item = row["Validado"].ToString(); break;
-                    case "COMPARTAMOS": item = (DataRecord.HasColumn(row, "bitAsistenciaCompartamos") ? row["bitAsistenciaCompartamos"].ToString() : string.Empty); break;
-                    case "METODOENVIO": item = (DataRecord.HasColumn(row, "chrShippingMethod") ? row["chrShippingMethod"].ToString() : string.Empty); break;
-                    case "IPUSUARIO": item = (DataRecord.HasColumn(row, "IPUsuario") ? row["IPUsuario"].ToString() : string.Empty); break;
-                    case "TIPOCUPON": item = (DataRecord.HasColumn(row, "TipoCupon") ? row["TipoCupon"].ToString() : string.Empty); break;
-                    case "VALORCUPON": item = (DataRecord.HasColumn(row, "ValorCupon") ? row["ValorCupon"].ToString() : string.Empty); break;
-                    case "PEDIDOSAPID": item = (DataRecord.HasColumn(row, "PedidoSapId") ? row["PedidoSapId"].ToString() : string.Empty); break;
+                    case "COMPARTAMOS": item = GetHasColumn(row, "bitAsistenciaCompartamos"); break;
+                    case "METODOENVIO": item = GetHasColumn(row, "chrShippingMethod"); break;
+                    case "IPUSUARIO": item = GetHasColumn(row, "IPUsuario"); break;
+                    case "TIPOCUPON": item = GetHasColumn(row, "TipoCupon"); break;
+                    case "VALORCUPON": item = GetHasColumn(row, "ValorCupon"); break;
+                    case "PEDIDOSAPID": item = GetHasColumn(row, "PedidoSapId"); break;
                     default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);
             }
             return line;
         }
+
+
+        private string GetHasColumn(DataRow row, string columna)
+        {
+            return (DataRecord.HasColumn(row, columna) ? row[columna].ToString() : string.Empty);
+        }
+
+
+
 
         private string DetailLineSinMarcar(BETemplateSinMarcar[] template, DataRow row, string codigoPais, string lote)
         {

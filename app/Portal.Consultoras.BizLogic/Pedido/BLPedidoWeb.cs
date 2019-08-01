@@ -2814,7 +2814,7 @@ namespace Portal.Consultoras.BizLogic
                 if (nuevoNroLote > 0)
                 {
 
-                    try { daPedidoWeb.UpdPedidoWebIndicadorEnviadoSinMarcar(nuevoNroLote, false, Constantes.EstadoValorProcesoDescargaregular.Error, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
+                    try { daPedidoWeb.UpdPedidoWebIndicadorEnviadoSinMarcar(nuevoNroLote, Constantes.EstadoValorProcesoDescargaregular.Error, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
                     catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
                 }
 

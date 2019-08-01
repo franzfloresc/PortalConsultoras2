@@ -245,7 +245,7 @@
     <Compile Include="Controllers\CaminoBrillanteController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\ArmaTuPackController.cs" />
-    <Compile Include="Controllers\ReporteConsultoraPedidoSACController.cs" />
+    <Compile Include="Controllers\ReporteConsultoraPedidoSacController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\BundleExtention.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="Controllers\PremioNuevasController.cs" />
@@ -327,7 +327,7 @@
     <Compile Include="Models\ConfirmarPosicionModelPrePostulante.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
-    <Compile Include="Models\ReporteConsultoraPedidoSACModels.cs" />
+    <Compile Include="Models\ReporteConsultoraPedidoSacModels.cs" />
     <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
     <Compile Include="Models\DistanciaLimiteZonaSeccionModel.cs" />
     <Compile Include="Models\LogDetalleParametroUneteModel.cs" />
