@@ -5,19 +5,25 @@ using System.Text;
 
 namespace Portal.Consultoras.Common
 {
-    public static class NeoGridCipher
+    public class NeoGridCipher
     {
-        private static string NEOGRID_KEY = "SB2zJUVlmvGDErd0";
-        private static string NEOGRID_PRODUCTION_SERVER = "https://e-prod.factura-core.com/facturaportal/public/portal/";
+        private readonly string _baseUrl;
+        private readonly string _key;
+
+        public NeoGridCipher(string baseUrl, string key)
+        {
+            _baseUrl = baseUrl;
+            _key = key;
+        }
 
         /// <summary>
         /// Create the complete URL for NeoGrid production server.
         /// Timestamp generation is done automatically.
         /// </summary>
         /// <param name="customerCode">Customer identification number</param>
-        public static string CreateProductionURL(string customerCode)
+        public string CreateUrl(string customerCode)
         {
-            return NEOGRID_PRODUCTION_SERVER + Encrypt(NEOGRID_KEY, customerCode) + "/" + Encrypt(NEOGRID_KEY, CreateTimeStamp());
+            return _baseUrl + Encrypt(_key, customerCode) + "/" + Encrypt(_key, CreateTimeStamp());
         }
 
         public static string Encrypt(string seed, string cleartext)
@@ -40,16 +46,19 @@ namespace Portal.Consultoras.Common
 
             var ms = new MemoryStream();
             var cryptoStream = new CryptoStream(ms, rijndael.CreateEncryptor(raw, new byte[16]), CryptoStreamMode.Write);
-            cryptoStream.Write(clear, 0, clear.Length);
-            cryptoStream.FlushFinalBlock();
+            using (cryptoStream)
+            {
+                cryptoStream.Write(clear, 0, clear.Length);
+                cryptoStream.FlushFinalBlock();
 
-            return ms.ToArray();
+                return ms.ToArray();
+            }
         }
 
         private static string ToHex(byte[] bytes)
         {
             var sb = new StringBuilder(bytes.Length * 2);
-            foreach (byte b in bytes)
+            foreach (var b in bytes)
             {
                 sb.AppendFormat("{0:X2}", b);
             }
