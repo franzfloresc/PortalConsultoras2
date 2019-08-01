@@ -9,26 +9,26 @@ var EstadoPedido = EstadoPedido || 0;
 var esPedidoReservado = (EstadoPedido === 1);
 var incentivoMostrado = false;
 var mostrarIncentivo = false;
-var montoIncentivo = 0;
+var montoIncentivo = montoIncentivo;
 
-switch (IsoPais) {
-    case 'BO':
-        montoIncentivo = 500;
-        break;
+//switch (IsoPais) {
+//    case 'BO':
+//        montoIncentivo = 500;
+//        break;
 
-    case 'CR':
-        montoIncentivo = 55000;
-        break;
+//    case 'CR':
+//        montoIncentivo = 55000;
+//        break;
 
-    case 'CL':
-        montoIncentivo = 45500;
-        break;
+//    case 'CL':
+//        montoIncentivo = 45500;
+//        break;
 
-    case 'CO':
-        montoIncentivo = 195500;
-        break;
+//    case 'CO':
+//        montoIncentivo = 195500;
+//        break;
 
-}
+//}
 
 var tpElectivos = {
     premioSelected: null,
