@@ -2676,7 +2676,9 @@ div .ficha__producto__precio__normal {
         background-size: cover;
     }
 }
-
+.box-right-ganancias strong {
+    display:none;
+}
 
 
 
@@ -4090,5 +4092,40 @@ div .ficha__producto__precio__normal {
 
     .right-banner p {
         font-size: 16px;
+    }
+}
+@media screen and (max-width:380px) {
+    .box-right-ganancias strong {
+        display: block;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: 1;
+    }
+    .box-right-ganancias strong i {
+        background: url(../imgs/1.png) no-repeat center center;
+        display: block;
+        background-size: cover;
+        width: 160px;
+        height: 160px;
+        position: absolute;
+        top: 24%;
+        left: 24%;
+        animation: sprite 0.4s alternate infinite ease-in;
+        -webkit-animation: sprite 0.4s alternate infinite ease-in;
+    }
+
+    #Modalunbord .slick-next {
+        display: none;
+    }
+
+    #Modalunbord .slick-dots {
+        position: relative;
+    }
+
+    #Modalunbord .modal-dialog {
+        margin: 1rem;
     }
 }
