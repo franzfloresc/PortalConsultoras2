@@ -5,6 +5,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -26,6 +27,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -47,6 +49,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -68,6 +71,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -89,6 +93,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -110,6 +115,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -131,6 +137,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -152,6 +159,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -173,6 +181,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -194,6 +203,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -215,6 +225,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
@@ -236,6 +247,7 @@ INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númeri
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
+INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
 INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
