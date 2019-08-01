@@ -2441,25 +2441,11 @@ div .ficha__producto__precio__normal {
 .deskshow {
     display: block;
 }
-.centtopacio div .etiq-mant {
+.centtopacio div .etiq-mant, .centtopacio div .etiq-falta {
     text-align: center;
     margin: 0 auto;
     float: none;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @media only screen and (max-width: 900px) and (min-width: 521px) {

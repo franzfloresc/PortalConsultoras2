@@ -26,12 +26,12 @@ $(document).ready(function () {
             var percTope = Math.min((minBar / maxBar) * 100, 100);
             $('.progress-barnew .tope').css("left", percTope + '%');
         }
-        if (nivelactual == '5') {
+        if (nivelactual == '1' || nivelactual == '5') {
             $(".bord-bot").addClass("centtopacio");
         }
     }
     
-    for (var i = 1; i <= nivelactual; i++)
+    for (   var i = 1; i <= nivelactual; i++)
         $(".pt" + i).addClass("activo");
 
     $(".pt" + nivelactual).addClass("brillante");
