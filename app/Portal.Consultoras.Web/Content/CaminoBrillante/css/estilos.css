@@ -2500,6 +2500,7 @@ div .ficha__producto__precio__normal {
     top: inherit;
     right: inherit;
     float: none;
+    text-shadow:none;
 }
 
 #Modalunbord .modal-sm {
