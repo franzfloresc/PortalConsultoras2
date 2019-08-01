@@ -2446,7 +2446,7 @@ div .ficha__producto__precio__normal {
 .deskshow {
     display: block;
 }
-.centtopacio div .etiq-mant {
+.centtopacio div .etiq-mant, .centtopacio div .etiq-falta {
     text-align: center;
     margin: 0 auto;
     float: none;
@@ -2675,20 +2675,6 @@ div .ficha__producto__precio__normal {
         background-size: cover;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
