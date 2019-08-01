@@ -728,7 +728,9 @@ div .owl-carousel .owl-stage-outer {
     overflow-x: hidden;
     overflow-y: auto
 }
-
+#Modalunbord.modal {
+    padding-right: 0 !important;
+}
 .modal-dialog {
     position: relative;
     width: auto;
@@ -2446,16 +2448,241 @@ div .ficha__producto__precio__normal {
 .deskshow {
     display: block;
 }
-.centtopacio div .etiq-mant {
+.centtopacio div .etiq-mant, .centtopacio div .etiq-falta {
     text-align: center;
     margin: 0 auto;
     float: none;
 }
 
+/*SLIDE*/
+.slid-text .slick-slide h5, .slid-text .slick-slide p, .last-slid span {
+    text-align: center;
+    font-size: 21px;
+    display: block;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.slid-text .slick-slide img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.slid-text .slick-slide p {
+    font-size: 14px;
+    font-weight: normal;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.slid-text {
+    padding: 35px;
+    padding-top: 15px;
+}
+
+.modal .btnemp {
+    width: 100%;
+    display: block;
+    margin: 25px auto;
+    text-align: center;
+    font-size: 13px;
+    font-weight: normal;
+    text-decoration: none;
+    color: #fff !important;
+    border-radius: 5px;
+    border: 0;
+    padding: 12px 20px;
+    max-width: 175px;
+    text-decoration: none;
+    overflow: inherit;
+    background: #b9007e;
+    margin-bottom: 10px;
+    position: relative;
+    top: inherit;
+    right: inherit;
+    float: none;
+    text-shadow:none;
+}
+
+#Modalunbord .modal-sm {
+    max-width: 400px !important;
+}
+
+#Modalunbord .slick-dots {
+    position: absolute;
+    bottom: -22px;
+    width: 58px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    #Modalunbord .slick-dots li {
+        float: left;
+        margin: 0 4px;
+        height: 10px;
+        background: #b5b5b5;
+        width: 10px;
+        padding: 0;
+        display: block;
+        border-radius: 32px;
+        border: 0;
+        text-indent: 9999px;
+        overflow: hidden;
+    }
+
+        #Modalunbord .slick-dots li.slick-active, #Modalunbord .slick-dots li.slick-active button {
+            background: #b9007e;
+        }
+
+        #Modalunbord .slick-dots li button {
+            width: 100%;
+            text-indent: 9999px;
+            overflow: hidden;
+            background: #b5b5b5;
+        }
+
+#Modalunbord .slick-arrow {
+    width: 40px;
+    height: 40px;
+}
+
+#Modalunbord .slick-next {
+    text-indent: 999999px;
+    background: url(../imgs/next.png) no-repeat center center;
+    background-size: cover;
+    border: 0;
+    border-radius: 40px;
+    overflow: hidden;
+    top: 50%;
+    right: -60px;
+}
+
+#Modalunbord .slick-prev {
+    display: none !important;
+}
+
+.last-slid {
+    padding: 35px 30px;
+}
+
+    .last-slid span {
+        font-size: 17px;
+        max-width: 240px;
+        margin: 0 auto;
+        line-height: 20px;
+        margin-bottom: 15px;
+    }
+
+#Modalunbordseguir .last-slid p {
+    max-width: 280px;
+    font-size: 13px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.box-volv {
+    max-width: 160px;
+    margin: 25px auto;
+    display: block;
+}
+
+    .box-volv input {
+        width: 20px;
+        height: 20px;
+        display: block;
+        margin-right: 5px;
+        float: left;
+    }
+
+    .box-volv p {
+        display: block;
+        float: left;
+    }
+
+    .box-volv:after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+
+.modal .modal-semb {
+    max-width: 360px;
+    height: 263px;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+    margin-left: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.box-right-ganancias {
+    position: relative;
+}
+
+/*.box-right-ganancias strong {
+
+    display: block;
+    background: url('../imgs/dedo.svg') no-repeat center center;
+    background-size: cover;
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    animation: dedoimg 0.8s alternate infinite ease-in;
+    -webkit-animation: dedoimg 0.8s alternate infinite ease-in;
+}
+@keyframes dedoimg {
+    0% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+
+    100% {
+        transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+    }
+}*/
 
 
 
 
+@keyframes sprite {
+    0% {
+        background: url('../imgs/1.png') no-repeat center center;
+        background-size: cover;
+    }
+
+    25% {
+        background: url('../imgs/2.png') no-repeat center center;
+        background-size: cover;
+    }
+
+    50% {
+        background: url('../imgs/3.png') no-repeat center center;
+        background-size: cover;
+    }
+
+    75% {
+        background: url('../imgs/4.png') no-repeat center center;
+        background-size: cover;
+    }
+
+    100% {
+        background: url('../imgs/5.png') no-repeat center center;
+        background-size: cover;
+    }
+}
+.box-right-ganancias strong {
+    display:none;
+}
 
 
 
@@ -3869,5 +4096,39 @@ div .ficha__producto__precio__normal {
 
     .right-banner p {
         font-size: 16px;
+    }
+}
+@media screen and (max-width:380px) {
+    .box-right-ganancias strong {
+        display: block;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: 1;
+    }
+    .box-right-ganancias strong i {
+        background: url(../imgs/1.png) no-repeat center center;
+        display: block;
+        background-size: cover;
+        width: 160px;
+        height: 160px;
+        position: absolute;
+        top: 24%;
+        left: 24%;
+        animation: sprite 0.4s alternate infinite ease-in;
+        -webkit-animation: sprite 0.4s alternate infinite ease-in;
+    }
+    #Modalunbord .slick-next {
+        display: none;
+    }
+
+    #Modalunbord .slick-dots {
+        position: relative;
+    }
+
+    #Modalunbord .modal-dialog {
+        margin: 1rem;
     }
 }
