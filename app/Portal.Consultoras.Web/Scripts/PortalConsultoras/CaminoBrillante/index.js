@@ -45,7 +45,35 @@ $(document).ready(function () {
     });
 
     $('#loadingScreen').hide();
+
+    $('.regulardoc').slick({
+        dots: true,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        fade: true,
+    });
+
+    $('.slick-next').click(function () {
+        $('.regulardoc').slick('slickPause');
+    });
+
+    $(".box-right-ganancias").append("<strong></strong>");
+    $('.box-right-ganancias strong').click(function () {
+        $(this).hide();
+    });
+    $(".btnemp").click(function () {
+        $("#Modalunbord").hide();
+    });
+
 });
+$(window).on("load", function () {
+    TagNivelBeneficios('Mi Nivel');
+    $('#Modalunbord').modal('show');
+
+});
+
+
 
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
