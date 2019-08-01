@@ -728,7 +728,9 @@ div .owl-carousel .owl-stage-outer {
     overflow-x: hidden;
     overflow-y: auto
 }
-
+#Modalunbord.modal {
+    padding-right: 0 !important;
+}
 .modal-dialog {
     position: relative;
     width: auto;
@@ -2521,7 +2523,7 @@ div .ficha__producto__precio__normal {
         float: left;
         margin: 0 4px;
         height: 10px;
-        background: silver;
+        background: #b5b5b5;
         width: 10px;
         padding: 0;
         display: block;
@@ -2539,6 +2541,7 @@ div .ficha__producto__precio__normal {
             width: 100%;
             text-indent: 9999px;
             overflow: hidden;
+            background: #b5b5b5;
         }
 
 #Modalunbord .slick-arrow {
