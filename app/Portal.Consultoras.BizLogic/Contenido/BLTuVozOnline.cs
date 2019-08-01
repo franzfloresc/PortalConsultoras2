@@ -66,7 +66,7 @@ namespace Portal.Consultoras.BizLogic.Contenido
                 {"CampaniaActual", user.CampaniaID.ToString()},
                 {"Lider", user.esConsultoraLider ? "Si" : "No"},
                 {"AñoCampaniaIngreso", user.AnoCampaniaIngreso},
-                {"FechaIngreso", string.Empty},
+                {"FechaIngreso", user.FechaIngreso == default(DateTime) ? string.Empty : user.FechaIngreso.ToString("dd/MM/yyyy")},
                 {"DocumentoIdentidad", user.DocumentoIdentidad},
                 {"EsConsultoraNueva", user.EsConsultoraNueva ? "Si" : "No"},
                 {"EsConsultoraOficina", user.EsConsultoraOficina ? "Si" : "No"},
