@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Common
     public static class NeoGridCipher
     {
         private static String NEOGRID_KEY = "SB2zJUVlmvGDErd0";
-        private static String NEOGRID_PRODUCTION_SERVER = "https://factura.neogrid.com/facturaportal/public/portal/";
+        private static String NEOGRID_PRODUCTION_SERVER = "https://e-prod.factura-core.com/facturaportal/public/portal/";
         private static String NEOGRID_TEST_SERVER = "https://factura-teste.neogrid.com/facturaportal/public/portal/";
 
         /// <summary>
