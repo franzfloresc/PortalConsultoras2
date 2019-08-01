@@ -1945,7 +1945,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Configuracion
 
-        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp)
+        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp)
         {
             //var oTablaLogica = GetCaminoBrillanteConfiguracionCache(paisID);
             var oTablaLogica = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteConfigurar) ?? new List<BETablaLogicaDatos>();
@@ -1955,12 +1955,27 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             /* Cargar Configuración de Gran Brillante */
             //oTablaLogica.AddRange(_tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteGranBrillante) ?? new List<BETablaLogicaDatos>());
 
-            return oTablaLogica.Select(x => new BEConfiguracionCaminoBrillante()
+
+
+            var result =  oTablaLogica.Select(x => new BEConfiguracionCaminoBrillante()
             {
                 Codigo = x.Codigo,
                 Descripcion = x.Descripcion,
                 Valor = x.Valor
             }).ToList();
+
+            var nivelBrillante = (GetNivelesCache(paisID) ?? new List<BENivelCaminoBrillante>()).FirstOrDefault(e => e.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante);
+            if (nivelBrillante != null) {
+                var limite = (int)((float)nivelBrillante.Puntaje * 1.3f);
+                var limiteFix = (int)((double)puntosAlcanzados * 1.3);
+                result.Where(e => e.Codigo == "sb_granBrillante" || e.Codigo == "app_granBrillante")
+                        .ForEach(e => {
+                            e.Valor = Math.Max(limite, limiteFix).ToString();
+                        });
+
+            }
+
+            return result;
         }
 
         /*
