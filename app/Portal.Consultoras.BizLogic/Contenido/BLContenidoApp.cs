@@ -102,6 +102,7 @@ namespace Portal.Consultoras.BizLogic.Contenido
                 itmFilter.Segmento = objUsuario.Segmento;
                 itmFilter.EsConsultoraOficina = objUsuario.EsConsultoraOficina;
                 itmFilter.AnoCampaniaIngreso = objUsuario.AnoCampaniaIngreso;
+                itmFilter.FechaIngreso = objUsuario.FechaIngreso;
 
                 var config = _tuVozOnlineBusinessLogic.GetPanelConfig(itmFilter.PaisID);
                 tuVozOnline.DetalleContenido.ForEach(x => {
