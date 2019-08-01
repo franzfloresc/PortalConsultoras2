@@ -77,7 +77,6 @@ $(document).ready(function () {
             alert("No chekeado");
         }
     });
-
 });
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
