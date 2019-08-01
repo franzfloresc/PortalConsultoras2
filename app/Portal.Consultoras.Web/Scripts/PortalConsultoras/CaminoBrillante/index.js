@@ -66,6 +66,14 @@ $(document).ready(function () {
         $("#Modalunbord").hide();
     });
 
+    $("#volvermostrar").change(function () {
+        if (this.checked) {
+            alert("Sí chekeado");
+        } else {
+            alert("No chekeado");
+        }
+    });
+
 });
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
