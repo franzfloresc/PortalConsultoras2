@@ -155,6 +155,8 @@
     <Compile Include="Pedido\BEPedidoBarra.cs" />
     <Compile Include="Pedido\BEPedidoBuscar.cs" />
     <Compile Include="ProgramaNuevas\BEConsultoraProgramaNuevas.cs" />
+    <Compile Include="ProlApi\Promocion\PromocionRequest.cs" />
+    <Compile Include="ProlApi\Promocion\PromocionResponse.cs" />
     <Compile Include="ReservaProl\BEMensajeProl.cs" />
     <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
@@ -467,6 +469,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdministracionPoput\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

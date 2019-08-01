@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
