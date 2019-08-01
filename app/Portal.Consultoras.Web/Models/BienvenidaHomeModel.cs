@@ -134,9 +134,14 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneCaminoExito { get; set; }
         public string urlCaminoExito { get; set; }
         public string MensajeToolTipPerfil{ get; set; }
+        
+        #region Camino Brillante
         public bool TieneCaminoBrillante { get; set; }
         public string CaminoBrillanteMsg { get; set; }
-        public string UrlLogoCaminoBrillante { get; set; }        
+        public string UrlLogoCaminoBrillante { get; set; }
+        public decimal montoIncentivo { get; set; }
+        #endregion
+
 
         public BienvenidaHomeModel()
         {

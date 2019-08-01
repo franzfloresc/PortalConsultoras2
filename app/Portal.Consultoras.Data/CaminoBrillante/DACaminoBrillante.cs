@@ -108,6 +108,7 @@ namespace Portal.Consultoras.Data.CaminoBrillante
         public void InsIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsIncentivosMontoExigencia");
+            Context.Database.AddInParameter(command, "@MontoID", DbType.Int32, entidad.MontoID);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, entidad.CodigoCampania);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
@@ -128,6 +129,7 @@ namespace Portal.Consultoras.Data.CaminoBrillante
         public void DelIncentivosMontoExigencia(BEIncentivosMontoExigencia entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelIncentivosMontoExigencia");
+            Context.Database.AddInParameter(command, "@MontoID", DbType.Int32, entidad.MontoID);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, entidad.CodigoCampania);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);

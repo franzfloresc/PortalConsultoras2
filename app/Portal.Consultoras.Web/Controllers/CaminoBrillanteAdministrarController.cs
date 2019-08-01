@@ -154,7 +154,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (string.IsNullOrEmpty(model.CodigoCampania)) return Json(null, JsonRequestBehavior.AllowGet);
                 var lst = GetIncentivosMontoExigencia(model) ?? new List<AdministrarMontoExigenciaModel>();
                 
                 BEGrid grid = new BEGrid
@@ -199,6 +198,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                model.CodigoCampania = !string.IsNullOrEmpty(model.CodigoCampania) ? model.CodigoCampania : "";
+                model.CodigoRegion = !string.IsNullOrEmpty(model.CodigoRegion) ? model.CodigoRegion : "";
+                model.CodigoZona = !string.IsNullOrEmpty(model.CodigoZona) ? model.CodigoZona : "";
                 var entidad = Mapper.Map<BEIncentivosMontoExigencia>(model) ?? new BEIncentivosMontoExigencia();
 
                 using (var sv = new UsuarioServiceClient())
@@ -228,6 +230,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                model.CodigoCampania = !string.IsNullOrEmpty(model.CodigoCampania) ? model.CodigoCampania : "";
+                model.CodigoRegion = !string.IsNullOrEmpty(model.CodigoRegion) ? model.CodigoRegion : "";
+                model.CodigoZona = !string.IsNullOrEmpty(model.CodigoZona) ? model.CodigoZona : "";
                 var entidad = Mapper.Map<BEIncentivosMontoExigencia>(model) ?? new BEIncentivosMontoExigencia();
 
                 using (var sv = new UsuarioServiceClient())
@@ -238,7 +243,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se guardo con éxito el monto de exigencia.",
+                    message = "Se elimino con éxito el monto de exigencia.",
                     extra = ""
                 });
             }

@@ -277,6 +277,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             };
             */
 
+            configs.AddRange(GetCaminoBrillanteConfiguracion(entidad.PaisID, nivelConsultora.PuntajeAcumulado.HasValue ? nivelConsultora.PuntajeAcumulado.Value : 0 ,string.Empty));
+
             return configs;
         }
 
@@ -652,7 +654,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 if (aniosConsultora > 0)
                 {
-                    //return string.Format(format, aniosConsultora) + (aniosConsultora == 1 ? " año" : " años");
+                    return string.Format(format, aniosConsultora) + (aniosConsultora == 1 ? " año" : " años");
                 }
             }
             return string.Empty;
@@ -1952,8 +1954,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             //var oTablaLogica = GetCaminoBrillanteConfiguracionCache(paisID);
             var oTablaLogica = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteConfigurar) ?? new List<BETablaLogicaDatos>();
             if (oTablaLogica == null) return null;
+
+            /*
             if (esApp == "1") oTablaLogica = oTablaLogica.Where(a => a.Codigo.Contains(Constantes.CaminoBrillante.Configuracion.App)).ToList();
             else oTablaLogica = oTablaLogica.Where(a => a.Codigo.Contains(Constantes.CaminoBrillante.Configuracion.SomosBelcorp)).ToList();
+            */
+
             /* Cargar Configuración de Gran Brillante */
             //oTablaLogica.AddRange(_tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteGranBrillante) ?? new List<BETablaLogicaDatos>());
 
