@@ -2652,27 +2652,27 @@ div .ficha__producto__precio__normal {
 
 @keyframes sprite {
     0% {
-        background: url('../imgs/1.png') no-repeat center center;
+        background: url('/Content/CaminoBrillante/imgs/1.png') no-repeat center center;
         background-size: cover;
     }
 
     25% {
-        background: url('../imgs/2.png') no-repeat center center;
+        background: url('/Content/CaminoBrillante/imgs/2.png') no-repeat center center;
         background-size: cover;
     }
 
     50% {
-        background: url('../imgs/3.png') no-repeat center center;
+        background: url('/Content/CaminoBrillante/imgs/3.png') no-repeat center center;
         background-size: cover;
     }
 
     75% {
-        background: url('../imgs/4.png') no-repeat center center;
+        background: url('/Content/CaminoBrillante/imgs/4.png') no-repeat center center;
         background-size: cover;
     }
 
     100% {
-        background: url('../imgs/5.png') no-repeat center center;
+        background: url('/Content/CaminoBrillante/imgs/5.png') no-repeat center center;
         background-size: cover;
     }
 }
@@ -4104,18 +4104,18 @@ div .ficha__producto__precio__normal {
         position: absolute;
         z-index: 1;
     }
-    .box-right-ganancias strong i {
-        background: url(../imgs/1.png) no-repeat center center;
-        display: block;
-        background-size: cover;
-        width: 160px;
-        height: 160px;
-        position: absolute;
-        top: 24%;
-        left: 24%;
-        animation: sprite 0.4s alternate infinite ease-in;
-        -webkit-animation: sprite 0.4s alternate infinite ease-in;
-    }
+        .box-right-ganancias strong i {
+            background: url(/Content/CaminoBrillante/imgs/1.png) no-repeat center center;
+            display: block;
+            background-size: cover;
+            width: 160px;
+            height: 160px;
+            position: absolute;
+            top: 24%;
+            left: 24%;
+            animation: sprite 0.4s alternate infinite ease-in;
+            -webkit-animation: sprite 0.4s alternate infinite ease-in;
+        }
     #Modalunbord .slick-next {
         display: none;
     }
