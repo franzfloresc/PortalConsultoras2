@@ -1,4 +1,4 @@
-﻿USE BelcorpBolivia
+USE BelcorpBolivia
 GO
 IF EXISTS(SELECT * FROM sys.procedures where name =N'UpdLogCDRWebDetalle')
  BEGIN
@@ -25,7 +25,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -78,7 +78,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -131,7 +131,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -184,7 +184,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -237,7 +237,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -290,7 +290,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -343,7 +343,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -396,7 +396,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -449,7 +449,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -502,7 +502,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -555,7 +555,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
@@ -608,7 +608,7 @@ CREATE TYPE [interfaces].[LogCDRWebDetalleType] AS TABLE(
 )
 GO
 
-ALTER PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
+CREATE PROCEDURE [interfaces].[UpdLogCDRWebDetalle]
 	@LogCDRWebDetalleType interfaces.LogCDRWebDetalleType readonly
 AS
 BEGIN
