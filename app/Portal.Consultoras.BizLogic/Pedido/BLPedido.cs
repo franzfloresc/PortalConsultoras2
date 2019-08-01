@@ -1488,10 +1488,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     else pedido.TippingPoint = tippingPoint.MontoVentaExigido;
 
                     var lstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
-                    if (lstEstrategia.Any() && lstDetalle.Any())
+                    if (lstEstrategia.Any())
                     {
                         pedido.PrecioRegalo = !lstEstrategia.Any(x => (x.Precio2 == 0 ? x.PrecioUnitario : x.Precio2) == 0);
-                        lstDetalle.ForEach(p => p.EsPremioElectivo = lstEstrategia.Any(c => c.CUV2 == p.CUV));
+                        if (lstDetalle.Any())
+                            lstDetalle.ForEach(p => p.EsPremioElectivo = lstEstrategia.Any(c => c.CUV2 == p.CUV));
                     }
 
                 }
