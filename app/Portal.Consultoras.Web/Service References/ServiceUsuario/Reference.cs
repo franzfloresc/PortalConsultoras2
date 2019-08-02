@@ -18363,6 +18363,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceUsuario.IUsuarioService")]
     public interface IUsuarioService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ContraseniaRepetida", ReplyAction="http://tempuri.org/IUsuarioService/ContraseniaRepetidaResponse")]
+        bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ContraseniaRepetida", ReplyAction="http://tempuri.org/IUsuarioService/ContraseniaRepetidaResponse")]
+        System.Threading.Tasks.Task<bool> ContraseniaRepetidaAsync(int paisID, string codigoUsuario, string contrasenia);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionRespon" +
             "se")]
         void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId);
@@ -18749,6 +18755,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillanteResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante> GetConsultoraNivelCaminoBrillanteAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, int origen);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetConsultoraCaminoBrillanteAnim", ReplyAction="http://tempuri.org/IUsuarioService/SetConsultoraCaminoBrillanteAnimResponse")]
+        void SetConsultoraCaminoBrillanteAnim(Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, string key, string value, string repeat);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetConsultoraCaminoBrillanteAnim", ReplyAction="http://tempuri.org/IUsuarioService/SetConsultoraCaminoBrillanteAnimResponse")]
+        System.Threading.Tasks.Task SetConsultoraCaminoBrillanteAnimAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, string key, string value, string repeat);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion", ReplyAction="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracionResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[] GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp);
         
@@ -18878,12 +18890,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             "o", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizad" +
             "oResponse")]
         System.Threading.Tasks.Task<bool> ProcesaEnviarMailActualizaContraseniaFinalizadoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, bool esOk);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ContraseniaRepetida", ReplyAction="http://tempuri.org/IUsuarioService/ContraseniaRepetidaResponse")]
-        bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ContraseniaRepetida", ReplyAction="http://tempuri.org/IUsuarioService/ContraseniaRepetidaResponse")]
-        System.Threading.Tasks.Task<bool> ContraseniaRepetidaAsync(int paisID, string codigoUsuario, string contrasenia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
@@ -19437,6 +19443,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 base(binding, remoteAddress) {
         }
         
+        public bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia) {
+            return base.Channel.ContraseniaRepetida(paisID, codigoUsuario, contrasenia);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ContraseniaRepetidaAsync(int paisID, string codigoUsuario, string contrasenia) {
+            return base.Channel.ContraseniaRepetidaAsync(paisID, codigoUsuario, contrasenia);
+        }
+        
         public void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId) {
             base.Channel.UpdNotificacionSolicitudCdrVisualizacion(paisID, procesoId);
         }
@@ -19941,6 +19955,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetConsultoraNivelCaminoBrillanteAsync(entidad, origen);
         }
         
+        public void SetConsultoraCaminoBrillanteAnim(Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, string key, string value, string repeat) {
+            base.Channel.SetConsultoraCaminoBrillanteAnim(entidad, key, value, repeat);
+        }
+        
+        public System.Threading.Tasks.Task SetConsultoraCaminoBrillanteAnimAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, string key, string value, string repeat) {
+            return base.Channel.SetConsultoraCaminoBrillanteAnimAsync(entidad, key, value, repeat);
+        }
+        
         public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[] GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp) {
             return base.Channel.GetCaminoBrillanteConfiguracion(paisID, puntosAlcanzados, esApp);
         }
@@ -20107,14 +20129,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<bool> ProcesaEnviarMailActualizaContraseniaFinalizadoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, bool esOk) {
             return base.Channel.ProcesaEnviarMailActualizaContraseniaFinalizadoAsync(paisID, oUsu, esOk);
-        }
-        
-        public bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia) {
-            return base.Channel.ContraseniaRepetida(paisID, codigoUsuario, contrasenia);
-        }
-        
-        public System.Threading.Tasks.Task<bool> ContraseniaRepetidaAsync(int paisID, string codigoUsuario, string contrasenia) {
-            return base.Channel.ContraseniaRepetidaAsync(paisID, codigoUsuario, contrasenia);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

@@ -1951,19 +1951,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp)
         {
-            //var oTablaLogica = GetCaminoBrillanteConfiguracionCache(paisID);
             var oTablaLogica = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteConfigurar) ?? new List<BETablaLogicaDatos>();
             if (oTablaLogica == null) return null;
-
-            /*
-            if (esApp == "1") oTablaLogica = oTablaLogica.Where(a => a.Codigo.Contains(Constantes.CaminoBrillante.Configuracion.App)).ToList();
-            else oTablaLogica = oTablaLogica.Where(a => a.Codigo.Contains(Constantes.CaminoBrillante.Configuracion.SomosBelcorp)).ToList();
-            */
-
-            /* Cargar Configuración de Gran Brillante */
-            //oTablaLogica.AddRange(_tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteGranBrillante) ?? new List<BETablaLogicaDatos>());
-
-
 
             var result =  oTablaLogica.Select(x => new BEConfiguracionCaminoBrillante()
             {
@@ -1985,13 +1974,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             return result;
         }
-
-        /*
-        private List<BETablaLogicaDatos> GetCaminoBrillanteConfiguracionCache(int paisID)
-        {
-            return _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteConfigurar) ?? new List<BETablaLogicaDatos>();
-        }
-        */
 
         #endregion
 
@@ -2037,6 +2019,15 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             return CacheManager<decimal>.ValidateDataElement(paisId, ECacheItem.MontoMinimo, () => GetMontoMinimoPorPais(paisId));
         }
+        #endregion
+
+        #region Animacion
+
+        public void SetConsultoraAnim(BEUsuario entidad, string key, string value, string repeat)
+        {
+            new DACaminoBrillante(entidad.PaisID).UpdConsultoraCaminoBrillanteAnim(entidad.ConsultoraID, key, value, repeat);
+        }
+
         #endregion
 
     }
