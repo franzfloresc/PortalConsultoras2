@@ -430,7 +430,7 @@
         function onRenderedTemplate(iData) {
             var count = 0;
             try {
-                count = iData[2].Indicadores.length;
+                count = iData[2].Indicadores.length - 1;
             } catch (e) { };
             $(".regular").slick({
                 dots: false,
