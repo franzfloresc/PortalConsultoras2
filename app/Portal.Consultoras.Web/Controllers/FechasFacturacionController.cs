@@ -17,26 +17,5 @@ namespace Portal.Consultoras.Web.Controllers
             return View(objBEFechaFacturacion);
         }
 
-
-        public JsonResult GetFechasFacturacion()
-        {
-            BEFechaFacturacion objBEFechaFacturacion;
-            try
-            {
-                using (SACServiceClient sv = new SACServiceClient())
-                {
-                   objBEFechaFacturacion = sv.GetFechasFacturacionConsultora(userData.PaisID, userData.CodigoConsultora,  userData.CampaniaID, Constantes.CantidadFechasFacturacion.CantidadAnterior, Constantes.CantidadFechasFacturacion.CantidadProxima);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-
-            return Json(0, JsonRequestBehavior.AllowGet);
-        }
-
     }
 }

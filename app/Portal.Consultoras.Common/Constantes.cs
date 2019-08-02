@@ -11,12 +11,6 @@ namespace Portal.Consultoras.Common
             public const string Texto = "02";
         }
 
-        public static class CantidadFechasFacturacion
-        {
-            public const int CantidadAnterior = 6;
-            public const int CantidadProxima =  6;
-        }
-
         public static class TipoLink
         {
             public const int Ayuda = 301;
@@ -141,7 +135,8 @@ namespace Portal.Consultoras.Common
             public const string EstadosUnidos = "EU";
         }
 
-        public static class ConfiguracionOferta
+
+            public static class ConfiguracionOferta
         {
             public const int Web = 1701;
             public const int Liquidacion = 1702;

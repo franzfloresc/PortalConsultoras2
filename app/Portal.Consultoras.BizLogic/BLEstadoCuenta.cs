@@ -45,14 +45,14 @@ namespace Portal.Consultoras.BizLogic
             return daEstadoCuenta.GetDeudaActualConsultora(consultoraId);
         }
 
-        public BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima)
+        public BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual)
         {
             BEFechaFacturacion objBEFechaFacturacion = new BEFechaFacturacion();
             List<BEFechaFacturacion> fechaFacturacionActual = new List<BEFechaFacturacion>();
             List<BEFechaFacturacion> fechaFacturacionAnterior = new List<BEFechaFacturacion>();
             List<BEFechaFacturacion> fechaFacturacionproxima = new List<BEFechaFacturacion>();
             var daConsultora = new DAConsultora(paisID);
-            using (IDataReader reader = daConsultora.GetFechasFacturacionConsultora(consultora, campaniaActual, cantidadAnterior, cantidadProxima))
+            using (IDataReader reader = daConsultora.GetFechasFacturacionConsultora(consultora, campaniaActual))
             {
                 while (reader.Read())
                 {
@@ -80,5 +80,6 @@ namespace Portal.Consultoras.BizLogic
 
             return objBEFechaFacturacion;
         }
+
     }
 }

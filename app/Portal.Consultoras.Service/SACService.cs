@@ -1667,9 +1667,9 @@ namespace Portal.Consultoras.Service
         }
 
         #region HD-4639
-        public BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima)
+        public BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual)
         {
-            return BLEstadoCuenta.GetFechasFacturacionConsultora(paisID, consultora, campaniaActual, cantidadAnterior, cantidadProxima);
+            return BLEstadoCuenta.GetFechasFacturacionConsultora(paisID, consultora, campaniaActual);
         }
         #endregion
     }

@@ -192,41 +192,9 @@
 <!-- FIN - CONTENIDO VISTA -->
 
 @section scripts{
-
-
     <script type="text/javascript">
         var tieneAnteriores = @(Model.ListFechaFacturacionAnterior != null ? (Model.ListFechaFacturacionAnterior.Length > 0 ? 1 : 0) : 0 );
         var tieneProximas = @(Model.ListFechaFacturacionProxima != null ? (Model.ListFechaFacturacionProxima.Length > 0 ? 1 : 0) : 0 );
-
-        //$(document).ready(function () {
-        //    CargarFechasFacturacion();
-        //});
-
-
-        //function CargarFechasFacturacion() {
-
-        //    $.ajax({
-        //        url: baseUrl + 'FechasFacturacion/GetFechasFacturacion',
-        //        type: 'GET',
-        //        dataType: 'json',
-        //        success: function (data) {
-        //            debugger;
-        //            GenerarFechas(data);
-        //        },
-        //        error: function (data, error) {
-        //            if (checkTimeout(data)) {
-        //                CerrarLoad();
-        //                deferredObject.reject();
-        //            }
-        //        }
-        //    });
-        //}
-
-
-        //function GenerarFechas(data) {
-
-        //}
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FechasFacturacion/Index.js")"></script>
-
 }

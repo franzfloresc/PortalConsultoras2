@@ -117,11 +117,12 @@ namespace Portal.Consultoras.Web.Providers
 
         public async Task<BEFechaFacturacion> GetFechasFacturacionConsultora(UsuarioModel userData) {
             BEFechaFacturacion objBEFechaFacturacion = new BEFechaFacturacion();
+
             try
             {
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    objBEFechaFacturacion = await sv.GetFechasFacturacionConsultoraAsync(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID, Constantes.CantidadFechasFacturacion.CantidadAnterior, Constantes.CantidadFechasFacturacion.CantidadProxima);
+                    objBEFechaFacturacion = sv.GetFechasFacturacionConsultora(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
                 }
 
             }

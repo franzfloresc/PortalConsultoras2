@@ -26,6 +26,7 @@ namespace Portal.Consultoras.Entities
             FinFacturacion = row.ToString("FinFacturacion");
             Codigo = row.ToString("Codigo");
             CampaniaId = row.ToInt32("CampaniaId");
+            CantidadFechaFacturacion = row.ToInt32("CantidadFechaFacturacion");
         }
 
 
@@ -56,6 +57,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("CampaniaId")]
         public int CampaniaId { get; set; }
+
+        [DataMember]
+        [Column("CantidadFechaFacturacion")]
+        public int CantidadFechaFacturacion { get; set; }
+
 
         [DataMember]
         [Column("ListFechaFacturacionActual")]

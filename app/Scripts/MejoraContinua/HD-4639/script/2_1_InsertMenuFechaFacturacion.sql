@@ -4,7 +4,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -13,7 +13,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -22,7 +22,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -31,7 +31,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -40,7 +40,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -49,7 +49,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -58,7 +58,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -67,7 +67,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -76,7 +76,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -85,7 +85,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -94,7 +94,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO
@@ -103,7 +103,7 @@ GO
 if not exists (select * from MEnuMobile Where menumobileID = 1060 )
 	begin
 		insert into MenuMobile(menumobileID,descripcion,menupadreid,ordenitem,urlitem,urlImagen,paginanueva,posicion,version,EsSB2,Codigo,Extras)
-		values (1060,'Fechas de facturación',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
+		values (1060,'Fechas de campaña',1001,6,'FechasFacturacion/Index',null,0,'Menu','Mobile',1,null,'{"tags": [{"tag": "Nuevo","end": "201913"}]}')
 	end
 
 GO

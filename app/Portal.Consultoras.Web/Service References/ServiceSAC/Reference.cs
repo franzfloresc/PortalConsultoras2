@@ -8986,6 +8986,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string CampaniaPartidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadFechaFacturacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9041,6 +9044,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.CampaniaPartidaField, value) != true)) {
                     this.CampaniaPartidaField = value;
                     this.RaisePropertyChanged("CampaniaPartida");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadFechaFacturacion {
+            get {
+                return this.CantidadFechaFacturacionField;
+            }
+            set {
+                if ((this.CantidadFechaFacturacionField.Equals(value) != true)) {
+                    this.CantidadFechaFacturacionField = value;
+                    this.RaisePropertyChanged("CantidadFechaFacturacion");
                 }
             }
         }
@@ -17962,10 +17978,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBuscadorResponse[]> ObtenerBuscadorComplementoAsync(int paisID, string codigoUsuario, bool suscripcionActiva, Portal.Consultoras.Web.ServiceSAC.BEBuscadorResponse[] lst, bool isApp);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechasFacturacionConsultora", ReplyAction="http://tempuri.org/ISACService/GetFechasFacturacionConsultoraResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima);
+        Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechasFacturacionConsultora", ReplyAction="http://tempuri.org/ISACService/GetFechasFacturacionConsultoraResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion> GetFechasFacturacionConsultoraAsync(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion> GetFechasFacturacionConsultoraAsync(int paisID, string consultora, int campaniaActual);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectBelcorpNoticias", ReplyAction="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[] SelectBelcorpNoticias(int paisID, int campaniaID);
@@ -19547,12 +19563,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.ObtenerBuscadorComplementoAsync(paisID, codigoUsuario, suscripcionActiva, lst, isApp);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima) {
-            return base.Channel.GetFechasFacturacionConsultora(paisID, consultora, campaniaActual, cantidadAnterior, cantidadProxima);
+        public Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual) {
+            return base.Channel.GetFechasFacturacionConsultora(paisID, consultora, campaniaActual);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion> GetFechasFacturacionConsultoraAsync(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima) {
-            return base.Channel.GetFechasFacturacionConsultoraAsync(paisID, consultora, campaniaActual, cantidadAnterior, cantidadProxima);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFechaFacturacion> GetFechasFacturacionConsultoraAsync(int paisID, string consultora, int campaniaActual) {
+            return base.Channel.GetFechasFacturacionConsultoraAsync(paisID, consultora, campaniaActual);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[] SelectBelcorpNoticias(int paisID, int campaniaID) {
