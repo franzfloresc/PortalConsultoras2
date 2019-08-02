@@ -12,9 +12,11 @@ var tpElectivos = {
     premioSelected: null,
     premios: [],
     loadPremios: false,
+    loadedPremios: false,
     hasPremios: false,
     tempPrevLogro: -1,
-    pedidoDetails: []
+    pedidoDetails: [],
+    messages: {}
 };
 
 
@@ -686,9 +688,7 @@ function MostrarBarra(datax, destino) {
     }
 
     listaMensajeMeta = listaMensajeMeta || new Array();
-    var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
-    objMsg.Titulo = $.trim(objMsg.Titulo);
-    objMsg.Mensaje = $.trim(objMsg.Mensaje);
+    var objMsg = getMessageBarra(tipoMensaje);
     if (!belcorp.barra.settings.isMobile) objMsg.Mensaje += ' (*)';
 
     if (objMsg.Mensaje != "") {
@@ -700,7 +700,7 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
     var dvMsg = $("#divBarra #divBarraMensajeLogrado .barra_title");
-    dvMsg.html(muestraTP && mtoLogroBarra >= tp && hasPremioInDetails() ? '¡Alcanzaste tu regalo!' : '');
+    dvMsg.html(muestraTP && mtoLogroBarra >= tp && hasPremioInDetails() ? tpElectivos.messages.textAlcanzasteRegalo : '');
 
 
     if (tp > 0 && dataBarra.TippingPointBarra.Active) {
@@ -783,6 +783,23 @@ function MostrarBarra(datax, destino) {
     return true;
 }
 
+function getMessageBarra(tipoMensaje) {
+    if (tipoMensaje == 'Inicio') {
+        if (!tpElectivos.loadedPremios) {
+            tipoMensaje = '';
+        }
+        else if (isKitInicio(tpElectivos.premios)) {
+            tipoMensaje = 'KitInicio';
+        }
+    }
+
+    var msg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
+
+    msg.Titulo = $.trim(msg.Titulo);
+    msg.Mensaje = $.trim(msg.Mensaje);
+
+    return msg;
+}
 function calcMtoLogro(data, destino) {
     var barra = data.DataBarra;
     var me = data.MontoEscala;
@@ -1011,15 +1028,17 @@ function cargarPremiosElectivos() {
     getPremioElectivos()
         .then(function (response) {
             tpElectivos.premios = response.lista;
-            var premio = response.selected;
-            tpElectivos.premioSelected = premio;
+            tpElectivos.premioSelected = response.selected;
+            tpElectivos.messages = buildMessages(tpElectivos.premios);
             var premiosMostrar = getPremiosEstrategia(tpElectivos.premios);
+            tpElectivos.loadedPremios = true;
 
             if (isTippingPointSuperado()) {
                 agregarPremioDefault();
             }
 
             if (premiosMostrar.length === 0) {
+                MostrarBarra();
                 hidePencilInDetails();
 
                 return;
@@ -1046,8 +1065,9 @@ function cargarPremiosElectivos() {
                 }
             }
 
-            setPremio(premio);
+            setPremio(response.selected);
             tpElectivos.hasPremios = true;
+            MostrarBarra();
         });
 }
 
@@ -1137,6 +1157,7 @@ function isCuvSelectedInCarrusel(cuv) {
 }
 
 function loadCarruselPremiosEvents() {
+    $('.texto_regalo_elegido').text(tpElectivos.messages.textElegido);
     $('.btn_elegir_regalo').click(seleccionRegaloProgramaNuevas);
 }
 
@@ -1256,9 +1277,9 @@ function updateTitlePopupRegalos(premio) {
     msgRegaloDiv.fadeOut(200);
 
     if (premio) {
-        msgRegaloDiv.html('¡YA ELEGISTE TU REGALO!');
+        msgRegaloDiv.html(tpElectivos.messages.premioElegido);
     } else {
-        msgRegaloDiv.html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
+        msgRegaloDiv.html(tpElectivos.messages.puedesElegirPremio);
     }
 
     msgRegaloDiv.fadeIn(200);
@@ -1360,7 +1381,7 @@ function showPopupPremio() {
     var idPopup = '#popupPremio';
     var dvPremio = $(idPopup);
     var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
-    dvPremio.find('.title-premio-elect').html('¡Felicidades!<br />' + (!tpElectivos.hasPremios ? 'LLEGASTE A TU REGALO' : 'TIENES UN REGALO'));
+    dvPremio.find('.title-premio-elect').html('¡Felicidades!<br />' + (!tpElectivos.hasPremios ? tpElectivos.messages.textLlegasteRegalo : tpElectivos.messages.textTienesRegalo));
     dvPremio.find('.sub-premio-elect').css('display', !tpElectivos.hasPremios ? 'none' : 'block');
     btn.css('display', !tpElectivos.hasPremios ? 'none' : 'block');
     btn.html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO' : '¡Escoger ahora!');
@@ -2753,4 +2774,40 @@ function ReordenarMontosBarra() {
         }
 
     }
+}
+
+function buildMessages(premios) {
+    var textPremios = {
+        premioElegido: '¡YA ELEGISTE TU REGALO!',
+        puedesElegirPremio: '¡Puedes elegir tu regalo del Programa de Nuevas ahora!',
+        textElegido: 'REGALO ELEGIDO',
+        textTienesRegalo: 'TIENES UN REGALO',
+        textLlegasteRegalo: 'LLEGASTE A TU REGALO',
+        textAlcanzasteRegalo: '¡Alcanzaste tu regalo!'
+    };
+
+    var textKitInicio = {
+        premioElegido: '¡YA ELEGISTE TU PRODUCTO!',
+        puedesElegirPremio: '¡Puedes elegir tu producto del kit de inicio!',
+        textElegido: 'PRODUCTO ELEGIDO',
+        textTienesRegalo: 'TIENES UN PRODUCTO',
+        textLlegasteRegalo: 'LLEGASTE A TU PRODUCTO',
+        textAlcanzasteRegalo: '¡Alcanzaste tu producto del kit de inicio!'
+    };
+
+    return isKitInicio(premios) ? textKitInicio : textPremios;
+}
+
+function isKitInicio(premios) {
+    if (!premios) {
+        return false;
+    }
+
+    for (var i = 0; i < premios.length; i++) {
+        if (premios[i].Precio2 > 0) {
+            return true;
+        }
+    }
+
+    return false;
 }
