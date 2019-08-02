@@ -74,7 +74,7 @@
                                 for (var item in data.lstRegion) {
                                     if (data.lstRegion.hasOwnProperty(item)) {
                                         ddlRegion.append($('<option/>', {
-                                            value: data.lstRegion[item].Codigo,
+                                            value: data.lstRegion[item].RegionID,
                                             text: data.lstRegion[item].Codigo
                                         }));
                                     }
@@ -92,82 +92,48 @@
             } else LimpiarDependencias(Id);
         }); 
 
-        //$('#ddlRegion').change(function () {
-        //    waitingDialog({});
+        $('#ddlRegion').change(function () {
+            waitingDialog({});
 
-        //    var _paisID = parseInt($("#ddlPais").val());
-        //    var _regionID = parseInt($("#ddlRegion").val());
-        //    debugger
-        //    $.ajaxSetup({ cache: false });
-        //    $.ajax({
-        //        type: 'GET',
-        //        url: baseUrl + 'BaseAdm/GetZonasByRegion',
-        //        data: { PaisID: _paisID, RegionID: _regionID},
-        //        cache: false,
-        //        dataType: 'Json',
-        //        success: function (data) {
-        //            if (checkTimeout(data)) {
-
-
-        //                //var ddlCampania = $('#ddlCampania');
-        //                //var ddlRegion = $('#ddlRegion')
-        //                var ddlZona = $('#ddlZona');
-
-        //                //ddlCampania.empty();
-        //                //if (data.lstCampania.length > 0) {
-        //                //    ddlCampania.append($('<option/>', {
-        //                //        value: "",
-        //                //        text: "-- Seleccion --"
-        //                //    }));
-        //                //    if (Id != "") {
-        //                //        for (var item in data.lstCampania) {
-        //                //            ddlCampania.append($('<option/>', {
-        //                //                value: data.lstCampania[item].CampaniaID,
-        //                //                text: data.lstCampania[item].Codigo
-        //                //            }));
-        //                //        }
-        //                //    }
-        //                //}
-        //                ddlZona.empty();
-        //                ddlZona.append($('<option/>', {
-        //                    value: "",
-        //                    text: "Todos"
-        //                }));
-        //                if (data.lstZona.length > 0) {
-        //                    for (var item in data.lstZona) {
-        //                        if (data.lstZona.hasOwnProperty(item)) {
-        //                            ddlZona.append($('<option/>', {
-        //                                value: data.lstZona[item].ZonaID,
-        //                                text: data.lstZona[item].Codigo
-        //                            }));
-        //                        }
-        //                    }
-        //                }
-        //                //ddlRegion.empty();
-        //                //ddlRegion.append($('<option/>', {
-        //                //    value: "",
-        //                //    text: "Todos"
-        //                //}));
-        //                //if (data.lstRegion) {
-        //                //    for (var item in data.lstRegion) {
-        //                //        if (data.lstRegion.hasOwnProperty(item)) {
-        //                //            ddlRegion.append($('<option/>', {
-        //                //                value: data.lstRegion[item].Codigo,
-        //                //                text: data.lstRegion[item].Codigo
-        //                //            }));
-        //                //        }
-        //                //    }
-        //                //}
-        //                closeWaitingDialog();
-        //            }
-        //        },
-        //        error: function (x) {
-        //            if (checkTimeout(x)) {
-        //                closeWaitingDialog();
-        //            }
-        //        }
-        //    });
-        //});
+            var _paisID = parseInt($("#ddlPais").val());
+            var _regionID = parseInt($("#ddlRegion").val());
+            
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                type: 'GET',
+                url: baseUrl + 'BaseAdm/GetZonasByRegion',
+                data: "PaisID=" + (_paisID == "" ? 0 : _paisID) + "&RegionID=" + _regionID,
+                cache: false,
+                dataType: 'Json',
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        
+                        var ddlZona = $('#ddlZona');
+                        ddlZona.empty();
+                        ddlZona.append($('<option/>', {
+                            value: "",
+                            text: "Todos"
+                        }));
+                        if (data.listaZonas.length > 0) {
+                            for (var item in data.listaZonas) {
+                                if (data.listaZonas.hasOwnProperty(item)) {
+                                    ddlZona.append($('<option/>', {
+                                        value: data.listaZonas[item].Codigo,
+                                        text: data.listaZonas[item].Codigo
+                                    }));
+                                }
+                            }
+                        }
+                        closeWaitingDialog();
+                    }
+                },
+                error: function (x) {
+                    if (checkTimeout(x)) {
+                        closeWaitingDialog();
+                    }
+                }
+            });
+        });
     });
 
     function fnGrilla() {
