@@ -20,12 +20,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad);
         List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp);
         BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV);
-        //bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb);
         List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
         void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad);
         List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
         string InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
         void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);
         void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+        void SetConsultoraAnim(BEUsuario entidad, string key, string value, string repeat);
     }
 }

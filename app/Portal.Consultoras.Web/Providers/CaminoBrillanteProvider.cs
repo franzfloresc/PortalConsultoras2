@@ -1045,5 +1045,75 @@ namespace Portal.Consultoras.Web.Providers
 
         #endregion
 
+        #region Flags de Animaciones
+        
+        /// <summary>
+        /// Update Flags Animacion Consultora
+        /// </summary>
+        private void SetFlagsAnim(string key, string value, string repeat = null)
+        {
+            try
+            {
+                using (var svc = new UsuarioServiceClient())
+                {
+                    var beUsuario = Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel);
+                    beUsuario.Zona = usuarioModel.CodigoZona;
+                    beUsuario.Region = usuarioModel.CodigorRegion;
+                    svc.SetConsultoraCaminoBrillanteAnim(beUsuario, key, value, repeat);
+                }
+            }
+            catch (Exception ex) {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+            }
+        }
+
+        private void RemoveConfig(string key)
+        {
+            var resumen = sessionManager.GetConsultoraCaminoBrillante();
+            if (resumen != null)
+            {
+                if (resumen.Configuracion != null)
+                {
+                    var animConfig = resumen.Configuracion.FirstOrDefault(e => e.Codigo == key);
+                    if (animConfig != null)
+                    {
+                        var configs = resumen.Configuracion.ToList();
+                        configs.Remove(animConfig);
+                        resumen.Configuracion = configs.ToArray();
+                        sessionManager.SetConsultoraCaminoBrillante(resumen);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// on Showed Onboarding Anim
+        /// </summary>
+        private void OnShowedOnbordingAnimation(bool repeat)
+        {
+            SetFlagsAnim("CB_CON_ONBOARDING_ANIM", "1", repeat ? "1": null);
+            RemoveConfig("CB_CON_ONBOARDING_ANIM");
+        }
+
+        /// <summary>
+        /// on Showed Gesture Anim
+        /// </summary>
+        private void OnShowedGestureAnimation()
+        {
+            SetFlagsAnim("CB_CON_GANANCIA_ANIM", "1");
+            RemoveConfig("CB_CON_GANANCIA_ANIM");
+        }
+
+        /// <summary>
+        /// on Showed Gesture Anim
+        /// </summary>
+        private void OnShowedCambioNivelAnimation()
+        {
+            SetFlagsAnim("CB_CON_CAMB_NIVEL_ANIM", "1");
+            RemoveConfig("CB_CON_CAMB_NIVEL_ANIM");
+        }
+
+        #endregion
+
     }
 }
