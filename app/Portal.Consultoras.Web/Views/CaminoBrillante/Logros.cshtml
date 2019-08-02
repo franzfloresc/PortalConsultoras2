@@ -110,8 +110,7 @@
     <!-- Desktop -->
     <div class="box-camb mo-2 deskshow">
         <div class="cambio-crec">
-            <section class="regular  slider">
-                
+            <section class="regular  slider">                
                 {{#each Indicadores}}
                 <div class="right-m">
                     <p id="indicador-title" class="text-bold _hide">{{../Titulo}} {{Titulo}}</p>
@@ -149,7 +148,8 @@
                         <div class="itm">
                             <div class="circle-porcent imgpizz" style="padding:2px">
                                 <img style="max-width:inherit" src="{{MedallaDestacada.UrlMedalla}}" />
-                            </div>
+                                <p class="como-log inactivo" style="text-align:center" >{{MedallaDestacada.Subtitulo}}</p>
+                            </div>                            
                         </div>
                     </div>
                     {{else}}
@@ -425,13 +425,17 @@
         var urlGetLogros = '@Url.Action("GetLogros", "CaminoBrillante")';
         var categoriaLogro = "@categoria";
 
-        function onRenderedTemplate() {
+        function onRenderedTemplate(iData) {
+            var count = 0;
+            try {
+                count = iData[2].Indicadores.length;
+            } catch (e) { };
             $(".regular").slick({
                 dots: false,
                 infinite: false,
                 slidesToShow: 1,
                 slidesToScroll: 1,
-                initialSlide: 4, 
+                initialSlide: count, 
                 prevArrow: '<a style="display: block;left: 0;margin-left: -3%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
                 nextArrow: '<a style="display: block;right: 0;margin-right: 2%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
                 responsive: [
@@ -451,7 +455,6 @@
         $(function () {
             Handlebars.registerHelper('reverse', function (arr) {
                 arr.reverse();
-                console.log(arr);
             });
         });
 

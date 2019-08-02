@@ -718,7 +718,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             Func<string, string, bool, BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante> funcUltimaMedalla = (logro, indicador, estado) =>
             {
                 var _ultimaMedalla = _funcUltimaMedalla(logro, indicador, estado);
-                if (_ultimaMedalla != null && destacar) _ultimaMedalla.Destacar = true;                
+                if (_ultimaMedalla != null && destacar) _ultimaMedalla.Destacar = true && _ultimaMedalla.Estado;                
                 var _logro = _funcCopyMedalla(_ultimaMedalla, string.Empty, 0);
                 if (_logro != null)
                 {
