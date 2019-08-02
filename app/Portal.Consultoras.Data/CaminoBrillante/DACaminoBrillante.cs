@@ -145,10 +145,10 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.ExecuteNonQuery(command);
         }
 
-        public decimal GetMontoMinimoPorPais()
+        public string GetMontoMinimoPorPais()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMontoMinimoPorPais");
-            return Convert.ToDecimal(Context.ExecuteScalar(command));
+            return Convert.ToString(Context.ExecuteScalar(command));
         }
         #endregion
     }
