@@ -132,6 +132,12 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.Database.AddInParameter(command, "@MontoID", DbType.Int32, entidad.MontoID);
             Context.ExecuteNonQuery(command);
         }
+
+        public decimal GetMontoMinimoPorPais()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMontoMinimoPorPais");
+            return Convert.ToDecimal(Context.ExecuteScalar(command));
+        }
         #endregion
     }
 }
