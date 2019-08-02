@@ -247,36 +247,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 });
             }
 
-            /*
-            return new List<BEConfiguracionCaminoBrillante>() {
-                new BEConfiguracionCaminoBrillante(){
-                    Codigo = "CB_CON_ONBOARDING_ANIM",
-                    Descripcion = "Flag de Onboarding",
-                    Valor = "1",
-                },
-                new BEConfiguracionCaminoBrillante(){
-                    Codigo = "CB_CON_GANANCIA_ANIM",
-                    Descripcion = "Flag de Ganancias",
-                    Valor = "1",
-                },
-                new BEConfiguracionCaminoBrillante(){
-                    Codigo = "CB_CON_CAMB_NIVEL_ANIM",
-                    Descripcion = "Flag de Ganancias",
-                    Valor = "1",
-                },
-                new BEConfiguracionCaminoBrillante(){
-                    Codigo = "CB_CON_CAMB_NIVEL_VAL",
-                    Descripcion = "Flag de Ganancias",
-                    Valor = "+1",
-                },
-                new BEConfiguracionCaminoBrillante(){
-                    Codigo = "CB_MONTO_INCENTIVO",
-                    Descripcion = "Monto Incentivo",
-                    Valor = "500",
-                },
-            };
-            */
-
             configs.AddRange(GetCaminoBrillanteConfiguracion(entidad.PaisID, nivelConsultora.PuntajeAcumulado.HasValue ? nivelConsultora.PuntajeAcumulado.Value : 0 ,string.Empty));
 
             return configs;

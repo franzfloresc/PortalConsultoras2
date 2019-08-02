@@ -68,15 +68,14 @@
     <div class="modal-dialog modal-semb">
         <div class="modal-content">
             @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
-
             <div class="last-slid">
                 <span>¿Quieres seguir viendo lo nuevo de Camino Brillante?</span>
                 <p>Cada vez que ingreses verás esta información.</p>
                 <div class="box-volv">
-                    <input type="checkbox" value="" id="volvermostrar"/>
+                    <input type="checkbox" id="volvermostrar"/>
                     <p>No volver a mostrar</p>
                 </div>
-                <a href="#" class="btnemp close" data-dismiss="modal">Aceptar</a>
+                <a href="#" class="btnemp close" data-dismiss="modal" id="btnAceptarOnboardding" >Aceptar</a>
             </div>
         </div>
     </div>
@@ -553,12 +552,15 @@
         var urlGetMisGanancias = '@Url.Action("GetMisGanancias", "CaminoBrillante")';
         var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
         var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
+        var urlAnims = '@Url.Action("Anim", "CaminoBrillante")';
+
         var _origenPedidoWeb = '@Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido';
         var nroRegistrosDemostradores = 12;
         var nroRegistrosKits = 12;
         var TineCarrusel = '@ViewBag.TieneCarrusel';
         var TieneGanancias = '@ViewBag.TieneGanancias';
         var TieneMontoAcumulado = '@ViewBag.TieneMontoAcumulado';
+        var TieneOnboardingAnim = '@ViewBag.TieneOnboardingAnim';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")

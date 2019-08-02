@@ -67,19 +67,16 @@ $(document).ready(function () {
         //alert("Clikeado");
     });
 
-    $(".btnemp").click(function () {
-        $("#Modalunbord").hide();
+    $(".btnemp").click(function () { $("#Modalunbord").hide(); });    
+    $('#btnAceptarOnboardding').click(function () {
+        var esChecked = $("#volvermostrar").prop('checked') ? "1" : "0";
+        $.ajax({
+            type: 'POST',
+            url: urlAnims + '?key=Onbording&repeat=' + esChecked,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+        });
     });
-
-    $("#volvermostrar").change(function () {
-        //if (this.checked) {
-        //    alert("Sí chekeado");
-        //} else {
-        //    alert("No chekeado");
-        //}
-    });
-    //$("#Modalunbord").modal({ backdrop: false });
-    //$("#Modalunbordseguir").modal({ backdrop: false });
 
     $("#Modalunbord, #Modalunbordseguir").modal({
         show: false,
@@ -88,7 +85,9 @@ $(document).ready(function () {
 });
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
-    $('#Modalunbord').modal('show');
+    if (TieneOnboardingAnim === 'True') {
+        $('#Modalunbord').modal('show');
+    }
 });
 
 
