@@ -744,7 +744,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                             break;
                         case Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO_PEDIDO:
                             _logro.Tipo = "TXT";
-                            _logro.Titulo = "Incremento Máxima";
+                            _logro.Titulo = "Incremento Máximo";
                             break;
                     }
                     if (!_logro.Estado)
