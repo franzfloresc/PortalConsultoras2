@@ -61,7 +61,7 @@ namespace Portal.Consultoras.BizLogic
         CaminoBrillanteFiltros,
         ApiIssuuData,
         UrlThumbnail,
-        MontoMinimo,
+        MontoMinimoCaminoBrillante,
     }
 
     internal static class CacheManager<T>

@@ -95,6 +95,18 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.Database.AddInParameter(command, "@NivelCB", DbType.Int32, nivelCB);
             return Context.ExecuteReader(command);
         }
+
+        public int UpdConsultoraCaminoBrillanteAnim(long consultoraId, string KeyName, string valor, string repeat)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdConsultoraCaminoBrillanteAnim");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@KeyName", DbType.AnsiString, KeyName);
+            Context.Database.AddInParameter(command, "@Val", DbType.AnsiString, valor);
+            Context.Database.AddInParameter(command, "@Rep", DbType.AnsiString, repeat);
+            return Context.ExecuteNonQuery(command);
+        }
+
+
         public IDataReader GetMontoExigenciaCaminoBrillante(string CodigoCampania, string CodigoRegion, string CodigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMontoExigenciaCaminoBrillante");
@@ -133,10 +145,10 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.ExecuteNonQuery(command);
         }
 
-        public decimal GetMontoMinimoPorPais()
+        public string GetMontoMinimoPorPais()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMontoMinimoPorPais");
-            return Convert.ToDecimal(Context.ExecuteScalar(command));
+            return Convert.ToString(Context.ExecuteScalar(command));
         }
         #endregion
     }

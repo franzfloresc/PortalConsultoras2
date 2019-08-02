@@ -2551,7 +2551,7 @@ div .ficha__producto__precio__normal {
 
 #Modalunbord .slick-next {
     text-indent: 999999px;
-    background: url(../imgs/next.png) no-repeat center center;
+    background: url(/content/CaminoBrillante/imgs/next.png) no-repeat center center;
     background-size: cover;
     border: 0;
     border-radius: 40px;

@@ -458,6 +458,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad, int origen);
 
         [OperationContract]
+        void SetConsultoraCaminoBrillanteAnim(BEUsuario entidad, string key, string value, string repeat);
+
+        [OperationContract]
         List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp);
 
         [OperationContract]
