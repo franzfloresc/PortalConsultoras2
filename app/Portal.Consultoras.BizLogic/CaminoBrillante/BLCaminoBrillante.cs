@@ -2014,17 +2014,28 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             var lstEscala = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisId, Int32.Parse(entidad.CodigoCampania), entidad.CodigoRegion, entidad.CodigoZona);
             decimal escala1 = lstEscala[0].MontoHasta;
+            decimal montoMinimo = GetMontoMinimoPorPaisCache(paisId);
 
-            if (entidad.Monto > escala1) 
+            if (entidad.Monto > montoMinimo && entidad.Monto < escala1) 
             {
                 new DACaminoBrillante(paisId).InsIncentivosMontoExigencia(entidad);
                 return "";
             }
-            return string.Format("El Monto de exigencia ingresaso debe ser mayor a: {0}", escala1.ToString()); 
+            return string.Format("El Monto de exigencia debe estar entre el monto mínimo: {0} y primer monto de Escala: {1}", montoMinimo, escala1.ToString()); 
         }        
         public void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {
             new DACaminoBrillante(paisId).DelIncentivosMontoExigencia(entidad);
+        }
+
+        private decimal GetMontoMinimoPorPais(int paisId)
+        {
+            return new DACaminoBrillante(paisId).GetMontoMinimoPorPais();
+        }
+
+        private decimal GetMontoMinimoPorPaisCache(int paisId)
+        {
+            return CacheManager<decimal>.ValidateDataElement(paisId, ECacheItem.MontoMinimo, () => GetMontoMinimoPorPais(paisId));
         }
         #endregion
 
