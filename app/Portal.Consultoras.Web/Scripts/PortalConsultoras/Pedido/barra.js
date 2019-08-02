@@ -7,29 +7,8 @@ var ConfiguradoRegalo = false;
 var avance = 0;
 var EstadoPedido = EstadoPedido || 0;
 var esPedidoReservado = (EstadoPedido === 1);
-var incentivoMostrado = false;
-var mostrarIncentivo = false;
-//var montoIncentivo = montoIncentivo;
 
-//// BORRAR SOLO ES PARA PRUEBAS 
-//switch (IsoPais) {
-//    case 'BO':
-//        montoIncentivo = 650;
-//        break;
-
-//    case 'CR':
-//        montoIncentivo = 55000;
-//        break;
-
-//    case 'CL':
-//        montoIncentivo = 45500;
-//        break;
-
-//    case 'CO':
-//        montoIncentivo = 195500;
-//        break;
-
-//}
+var tieneIncentivo = montoIncentivo >= 1 ? true : false;
 
 var tpElectivos = {
     premioSelected: null,
@@ -1335,6 +1314,7 @@ function selectPremioDivByCuv(cuv) {
 
 function superoTippingPoint(barra, prevLogro) {
     var tippingPoint = barra.TippingPoint || 0;
+    var montoMinimo = dataBarra.ListaEscalaDescuento[0].MontoDesde;
     var montoMaximo1 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
     var montoMaximo2 = dataBarra.ListaEscalaDescuento[2].MontoDesde;
 
@@ -1345,20 +1325,16 @@ function superoTippingPoint(barra, prevLogro) {
 
         var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
 
-        var tieneIncentivo = montoIncentivo >= 1 ? true : false;
-
-        
-
         if (tieneIncentivo && tippingPoint <= mtoLogroBarra) {
             escala = dataBarra.ListaEscalaDescuento[0];
             // se mantiene entre la 1er y 2da escala de descuento
             if (montoIncentivo <= montoMaximo1) {
-                if (mtoLogroBarra >= montoIncentivo && mtoLogroBarra <= montoMaximo1) {
+                if (mtoLogroBarra >= montoIncentivo && mtoLogroBarra <= montoMaximo1 && prevLogro > montoMinimo ) {
                     if (montoIncentivo > prevLogro) {
                         var content = 'Llegaste al' + '&nbsp' + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
                         showPopupIncentivo(content);
                         tpElectivos.tempPrevLogro = -1;
-                        return true;
+                        return false;
                     }
                 }
 
@@ -1370,7 +1346,7 @@ function superoTippingPoint(barra, prevLogro) {
                         var content = 'Llegaste al' + '&nbsp' + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
                         showPopupIncentivo(content);
                         tpElectivos.tempPrevLogro = -1;
-                        return true;
+                        return false;
                     }
                 }
             }
@@ -1408,8 +1384,6 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
     var montoMaximo1 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
     var montoMaximo2 = dataBarra.ListaEscalaDescuento[2].MontoDesde;
     var tippingPoint = dataBarra.TippingPoint || 0;
-
-    var tieneIncentivo = montoIncentivo >= 1 ? true : false;
 
     if (tieneIncentivo && tippingPoint <=0 ) {
 
@@ -1471,8 +1445,9 @@ function showPopupEscala(content) {
 }
 
 function checkPopupEscala() {
+    var montoMaximo1 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
     if (tpElectivos.tempPrevLogro < 0) return;
-
+    if (tieneIncentivo && mtoLogroBarra <= montoMaximo1) return;
     if (!TieneMontoMaximo()) {
         var prevLogro = tpElectivos.tempPrevLogro;
         setTimeout(function () {
@@ -2719,6 +2694,7 @@ function InsertarPremio(model) {
 };
 
 function ClosePopupRegaloElectivo(valor) {
+    
     var valorCerrar = "icono_cerrar_popup_eleccion_regalo_programaNuevas";
     /*HD-3710 - 4_5_ Cerrar pop up elige tu regalo - Pop up regalos - Click Botón -- Web, Mobile */
     dataLayer.push({
@@ -2731,7 +2707,10 @@ function ClosePopupRegaloElectivo(valor) {
     if (typeof dataAgregarOF !== 'undefined') dataAgregarOF = null;
     CerrarPopup('#popupEleccionRegalo');
     $('#popupEleccionRegalo').scrollTop(0);
-    checkPopupEscala();
+
+    
+        checkPopupEscala();
+
 };
 
 function ReordenarMontosBarra() {
