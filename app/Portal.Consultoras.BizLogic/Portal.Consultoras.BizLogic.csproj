@@ -124,8 +124,10 @@
     <Compile Include="Configuracion\IConfiguracionPaisFFVVDatosBusinessLogic.cs" />
     <Compile Include="Contenido\BLBelcorpResponde.cs" />
     <Compile Include="Contenido\BLContenidoApp.cs" />
+    <Compile Include="Contenido\BLTuVozOnline.cs" />
     <Compile Include="Contenido\IBelcorpRespondeBusinessLogic.cs" />
     <Compile Include="Contenido\IContenidoAppResumenBusinessLogic.cs" />
+    <Compile Include="Contenido\ITuVozOnlineBusinessLogic.cs" />
     <Compile Include="Contrato\BLContratoAceptacion.cs" />
     <Compile Include="Contrato\IContratoAceptacionBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />

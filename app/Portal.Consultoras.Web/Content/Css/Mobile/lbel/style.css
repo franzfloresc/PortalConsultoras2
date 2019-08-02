@@ -8277,7 +8277,7 @@ a {
 .bloque_mensajesPedido {
     background: #F7EF8D;
     width: 100%;
-    height: 77px;
+    min-height: 77px;
     padding: 11px 11px;
     text-align: left;
     position: relative;

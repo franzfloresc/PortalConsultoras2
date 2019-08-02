@@ -14,7 +14,7 @@ namespace Portal.Consultoras.BizLogic
         string AceptarContratoColombia(BEUsuario usuario);
         bool ActiveEmail(int paisID, string codigoUsuario, string iso, string email);
         string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
-        bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen);
+        string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen);
         int CancelarSubscripcion(int PaisID, string Email);
         bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen);
         int ConfirmarSuscripcion(int PaisID, string Email);

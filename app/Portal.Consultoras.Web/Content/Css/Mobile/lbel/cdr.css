@@ -104,6 +104,10 @@
     box-sizing: border-box;
 }
 
+    .fijarTituloMobile ~ .pestana_lbel {
+        z-index: 999;
+    }
+
 .pt-50 {
     padding-top: 50px;
 }
@@ -254,6 +258,11 @@
     text-transform: uppercase;
     border-radius: 10.5px;
     letter-spacing: 0.5px;
+}
+
+.tag__sb--estadoSolicitud {
+    font-size: 12px;
+    min-width: 92px;
 }
 
 .estado_pendiente,
@@ -442,7 +451,8 @@
 
     .campo_orden_solicitudes_cdr_wrapper select,
     .formulario_inscripcion_cdr select,
-    .formulario_inscripcion_cdr input[type='text'] {
+    .formulario_inscripcion_cdr input[type='text'],
+    .formulario_inscripcion_cdr input[type='tel'] {
         display: block;
         margin: 0 auto;
         height: 45px;
@@ -462,17 +472,20 @@
     }
 
     .formulario_inscripcion_cdr select,
-    .formulario_inscripcion_cdr input[type='text']{
-        width:276px;
+    .formulario_inscripcion_cdr input[type='text'],
+    .formulario_inscripcion_cdr input[type='tel']{
+        width: 276px;
     }
 
         .campo_orden_solicitudes_cdr_wrapper select:focus,
         .formulario_inscripcion_cdr select:focus,
-        .formulario_inscripcion_cdr input[type='text']:focus {
+        .formulario_inscripcion_cdr input[type='text']:focus,
+        .formulario_inscripcion_cdr input[type='tel']:focus {
             border: 1px solid #000;
         }
 
-    .formulario_inscripcion_cdr input[type='text'] {
+    .formulario_inscripcion_cdr input[type='text'],
+    .formulario_inscripcion_cdr input[type='tel'] {
         color: #000;
         background-repeat: no-repeat;
         background-position: 96% center;
@@ -603,16 +616,18 @@
     .contenedor_campo_cantidad_productos .rango_cantidad_pedido {
         border-top: 1px solid #d1d1d4;
         border-bottom: 1px solid #d1d1d4;
+        padding-right: 15px!important;
+        order:0;
     }
+
+        .contenedor_campo_cantidad_productos .rango_cantidad_pedido_productoACambiar {
+            padding-right: 0 !important;
+        }
 
     .contenedor_campo_cantidad_productos .cantidad_menos_home {
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
         order: -1;
-    }
-
-    .contenedor_campo_cantidad_productos .rango_cantidad_pedido {
-        order: 0;
     }
 
     .contenedor_campo_cantidad_productos .cantidad_mas_home {
@@ -1083,6 +1098,87 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         left: -1.5px;
     }
 
+.lista_productos_a_cambiar,
+.lista_productos_a_cambiar_monto_total {
+    max-width: 312px;
+}
+
+.lista_productos_a_cambiar {
+    list-style-type: none;
+}
+
+    .producto_a_cambiar,
+    .producto_a_cambiar > div{
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .producto_a_cambiar{
+        -ms-flex-wrap:nowrap;
+        flex-wrap: nowrap;
+        border-bottom:1px solid #808080;
+        padding-top: 24px;
+        padding-bottom: 24px;
+        justify-content:space-between;
+    }
+
+        .producto_a_cambiar:first-child{
+            border-top:1px solid #808080;
+        }
+
+        .producto_a_cambiar > div {
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            align-content: space-between;
+            min-height: 115px;
+        }
+
+            .producto_a_cambiar > div:first-child{
+                justify-content:flex-start;
+            }
+
+            .producto_a_cambiar > div:last-child {
+                justify-content: flex-end;
+            }
+
+        .producto_a_cambiar_cuv_y_descripcion_wrapper,
+        .producto_a_cambiar_precio{
+            flex:0 0 100%;
+            max-width:100%;
+        }
+
+        .producto_a_cambiar_precio{
+            font-size:15px;
+        }
+
+        .producto_a_cambiar .contenedor_campo_cantidad_productos {
+            flex: 0 0 106px;
+            max-width: 106px;
+        }
+
+        .producto_a_cambiar .contenedor_campo_cantidad_productos,
+        .producto_a_cambiar .contenedor_campo_cantidad_productos div{
+            margin:0;
+        }
+
+    .btn_eliminar_trueque {
+        border: 0;
+        background-color: #FFF;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        right: -12px;
+    }
+
+    .lista_productos_a_cambiar_monto_total{
+        font-size: 16px;
+        margin-top: 16px;
+        margin-bottom: -14px;
+    }
+
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto {
     margin-bottom: 8px;
 }
@@ -1345,23 +1441,45 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
 .contenedor_info_cdr {
     width: 87%;
-    max-width: 243px;
+    max-width: 247px;
     text-align: left;
     font-size: 14px;
 }
 
-.icono_eliminar_solic_cdr {
-    display: block;
-    width: 17px;
-    height: 20px;
-    position: absolute;
-    top: 17px;
-    right: 5px;
-}
+    .contenedor_info_cdr--solicitudEnviada{
+        width:100%;
+        max-width:none;
+    }
 
-    .icono_eliminar_solic_cdr a {
+    .listado_producto_reclamo,
+    .listado_producto_reclamo > span,
+    .listado_producto_reclamo > div,
+    .listado_solicitada_reclamo > div{
+        margin-bottom:16px;
+    }
+
+        .listado_producto_reclamo--solicitudEnviada {
+            padding-top: 21px;
+        }
+
+    .icono_eliminar_solic_cdr {
         display: block;
-        text-decoration: none;
+        width: 22px;
+        height: 22px;
+        position: absolute;
+        top: 23px;
+        right: 8px;
+    }
+
+        .icono_eliminar_solic_cdr a {
+            display: block;
+            text-decoration: none;
+            cursor:pointer;
+        }
+
+    .monto_total_opcion_trueque{
+        font-size:16px;
+        margin-bottom:0;
     }
 
 .content_solicitud_cdr,
@@ -1608,9 +1726,25 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     font-size: 13px;
 }
 
+.btn__sb--continuarEnvioSolicitud,
+.btn__sb--cancelarEnvioSolicitud {
+    position: relative;
+    width: 70%;
+}
+
+.btn__sb--continuarEnvioSolicitud {
+    order: -1;
+    margin-bottom: 16px;
+}
+
 /* FIN VISTA PROCESO DE REGISTRO DE SOLICITUD CDR */
 
 /* INICIO VISTA SOLICITUD ENVIADA */
+
+.wrapper_resumen_mobile--solicitudEnviada {
+    padding-left: 0;
+    padding-right: 0;
+}
 
 .content_mensaje_solicitud_enviada, .icono_solicitud_enviada, .titulo_solicitud_enviada, .mensaje_solicitud_enviada {
     display: block;
@@ -1620,7 +1754,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
 .content_mensaje_solicitud_enviada {
     margin-top: 35px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 .icono_solicitud_enviada {
@@ -1672,6 +1806,26 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     box-shadow: 0 0 4px 0 rgba(155, 155, 155, .5);
 }
 
+    .detalle_solicitud_cdr--solicitudEnviada{
+        padding-left: 0;
+        padding-right: 0;
+        box-shadow: none;
+    }
+
+.listado_solicitud_reclamo--solicitudEnviada {
+    margin-bottom: 16px;
+}
+
+.titulo_solicitud_cdr--solicitudEnviada > div {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #808080;
+}
+
+    .titulo_solicitud_cdr--solicitudEnviada > div:last-child{
+        border-bottom:0;
+    } 
+
 .titulo_detalle_solicitud_cdr {
     width: 100%;
     text-align: center;
@@ -1683,6 +1837,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     text-align: center;
     margin-bottom: 13px;
 }
+
+    .info_detalle_cdr--solicitudEnviada{
+        margin-bottom:25px;
+    }
 
 .info_fecha_solicitud, .info_num_solicitud, .info_campania_solicitud {
     display: inline-block;
@@ -1702,17 +1860,38 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .detalle_solicitud_listado {
     padding-left: 6px;
     padding-right: 6px;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .detalle_tipo_solicitud_titulo {
-    padding: 15px 0 14px 0;
-    border-top: 1px solid #979797;
-    border-bottom: 1px solid #979797;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height:54px;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
     position: relative;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-    .detalle_tipo_solicitud_titulo > div {
+    .detalle_tipo_solicitud_icono{
+        width:32px;
+        height:auto;
+        margin-right:16px;
+    }
+
+        .detalle_tipo_solicitud_icono img{
+            width:100%;
+            height:auto;
+        }
+
+    .detalle_tipo_solicitud_titulo span:last-child{
+        font-size:14.5px;
+    }
+
+    /*.detalle_tipo_solicitud_titulo > div {
         display: inline-block;
         vertical-align: middle;
     }
@@ -1723,7 +1902,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
         .detalle_tipo_solicitud_titulo > div:last-child {
             width: 36%;
-        }
+        }*/
 
 .estado_solic_cdr {
     font-size: 13px;
@@ -1731,7 +1910,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .detalle_tipo_solicitud {
-    padding: 15px 0 21px 0;
+    padding: 21px 0;
 }
 
     .detalle_tipo_solicitud:last-child {
@@ -1739,17 +1918,64 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     }
 
 .detalle_producto_cdr,
-.detalle_cdr_solucion {
+.detalle_cdr_solucion,
+.detalle_cdr_solucion > div {
     position: relative;
 }
 
-.detalle_cdr_solucion_titulo,
+    .detalle_producto_cdr--flex{
+        display:flex;
+        flex-direction:column;
+        flex-wrap:nowrap;
+    }
+
+/*.detalle_producto_cdr,
+.detalle_cdr_solucion_titulo_trueque,
+.detalle_cod_producto_trueque {
+    margin-bottom: 16px;
+}*/
+
+.detalle_cdr_solucion_titulo_trueque {
+    margin-top: 16px;
+}
+
+.detalle_productos_solicitud_cdr {
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #808080;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+    .detalle_productos_solicitud_cdr:first-child {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .detalle_productos_solicitud_cdr:last-child {
+        border-bottom: 0;
+    }
+
+.detalle_productos_solicitud_cdr--otrosTipoDeSolicitud > div:first-child,
+.detalle_productos_solicitud_cdr--trueque > div:first-child {
+    width: 61%;
+    margin-right: 16px;
+}
+
+/*.detalle_cdr_solucion_titulo,
+.detalle_cod_producto,
+.detalle_nom_producto,
+.detalle_cantidad_producto,
+.detalle_cdr_monto_devolucion {
+    width: 68%;
+}*/
+
 .detalle_cod_producto,
 .detalle_nom_producto,
 .detalle_cantidad_producto,
 .detalle_cdr_monto_devolucion {
     margin-bottom: 2px;
-    width: 68%;
 }
 
 .detalle_precio_producto {
@@ -1758,17 +1984,129 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     right: 0;
 }
 
+    .detalle_precio_producto--relative{
+        position:relative;
+    }
+
+.total_precio_productos_trueque {
+    padding-top: 16px;
+}
+
+.acciones_detalle_productos_solicitud_cdr,
+.acciones_detalle_productos_solicitud_cdr > div:last-child,
+.control_cantidad_producto_cdr .cantidad_menos_home,
+.control_cantidad_producto_cdr .cantidad_mas_home,
+.control_cantidad_producto_cdr .rango_cantidad_pedido {
+    justify-content: center;
+    align-items: center;
+}
+
+.acciones_detalle_productos_solicitud_cdr {
+    margin-top: 16px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height:auto;
+    padding: 16px 12px;
+    background-color: #f7f7f7;
+    position:relative;
+}
+
+    .acciones_detalle_productos_solicitud_cdr:before {
+        display: block;
+        content: "";
+        bottom: 100%;
+        left: 20px;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(136, 183, 213, 0);
+        border-bottom-color: #f7f7f7;
+        border-width: 8px;
+        margin-left: 0;
+    }
+
+    .descripcion_acciones{
+        margin-bottom:16px;
+        align-items:baseline;
+    }
+
+        .descripcion_acciones span,
+        .enlace_eliminar_producto span {
+            font-size:13px;
+        }
+
+        .descripcion_acciones_icono_alerta{
+            width: 20px;
+            height: auto;
+            margin-right: 6px;
+        }
+
+            .descripcion_acciones_icono_alerta img,
+            .enlace_eliminar_producto_icono img {
+                width:100%;
+                height:auto;
+            }
+
+    .control_cantidad_producto_cdr {
+        width: 110px;
+        height:40px;
+        background-color:#FFF;
+        margin-right:24px;
+    }
+
+        .control_cantidad_producto_cdr .cantidad_menos_home,
+        .control_cantidad_producto_cdr .cantidad_mas_home,
+        .control_cantidad_producto_cdr .rango_cantidad_pedido{
+            height:100%;
+        }
+
+        .control_cantidad_producto_cdr .cantidad_menos_home {
+            order: -1;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .control_cantidad_producto_cdr .rango_cantidad_pedido{
+            font-size:14px;
+            color:#000;
+        }
+
+        .control_cantidad_producto_cdr .cantidad_mas_home {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .enlace_eliminar_producto {
+            min-width:130px;
+            height: 45px;
+            align-items: center;
+        }
+
+            .enlace_eliminar_producto_icono{
+                width:19px;
+                height:auto;
+                margin-right:8px;
+            }
+
+.btn__sb--continuarEnvio {
+    width: 92%;
+    position: relative;
+    bottom: 0;
+}
+
 .datos_solicitud_cdr_consulta, .datos_solicitud_cdr_titulo, .estado_productos_cdr {
     display: block;
     text-align: center;
 }
 
 .datos_solicitud_cdr_consulta {
-    background: #f7f7f7;
+    background-color: #f7f7f7;
     position: relative;
-    top: -26px;
-    padding: 32px 0 18px 0;
-    margin-bottom: 4px;
+    margin-top:-25px;
+    padding: 20px 0 20px 0;
 }
 
 .datos_solicitud_cdr_titulo {
