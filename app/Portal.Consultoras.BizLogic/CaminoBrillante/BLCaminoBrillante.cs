@@ -182,7 +182,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (consultoraMeta != null)
             {
                 if (consultoraMeta.FlagOnboardingAnim.HasValue) {
-                    if (consultoraMeta.FlagOnboardingAnim.Value)
+                    if (!consultoraMeta.FlagOnboardingAnim.Value)
                     {
                         configs.Add(new BEConfiguracionCaminoBrillante()
                         {
@@ -196,7 +196,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 if (consultoraMeta.FlagGananciaAnim.HasValue)
                 {
-                    if (consultoraMeta.FlagGananciaAnim.Value)
+                    if (!consultoraMeta.FlagGananciaAnim.Value)
                     {
                         configs.Add(new BEConfiguracionCaminoBrillante()
                         {
@@ -210,7 +210,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 if (consultoraMeta.FlagCambioNivelAnim.HasValue)
                 {
-                    if (consultoraMeta.FlagCambioNivelAnim.Value)
+                    if (!consultoraMeta.FlagCambioNivelAnim.Value)
                     {
                         configs.Add(new BEConfiguracionCaminoBrillante()
                         {
@@ -744,7 +744,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                             break;
                         case Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO_PEDIDO:
                             _logro.Tipo = "TXT";
-                            _logro.Titulo = "Incremento Máxima";
+                            _logro.Titulo = "Incremento Máximo";
                             break;
                     }
                     if (!_logro.Estado)
@@ -1951,19 +1951,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp)
         {
-            //var oTablaLogica = GetCaminoBrillanteConfiguracionCache(paisID);
             var oTablaLogica = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteConfigurar) ?? new List<BETablaLogicaDatos>();
             if (oTablaLogica == null) return null;
-
-            /*
-            if (esApp == "1") oTablaLogica = oTablaLogica.Where(a => a.Codigo.Contains(Constantes.CaminoBrillante.Configuracion.App)).ToList();
-            else oTablaLogica = oTablaLogica.Where(a => a.Codigo.Contains(Constantes.CaminoBrillante.Configuracion.SomosBelcorp)).ToList();
-            */
-
-            /* Cargar Configuración de Gran Brillante */
-            //oTablaLogica.AddRange(_tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteGranBrillante) ?? new List<BETablaLogicaDatos>());
-
-
 
             var result =  oTablaLogica.Select(x => new BEConfiguracionCaminoBrillante()
             {
@@ -1985,13 +1974,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             return result;
         }
-
-        /*
-        private List<BETablaLogicaDatos> GetCaminoBrillanteConfiguracionCache(int paisID)
-        {
-            return _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteConfigurar) ?? new List<BETablaLogicaDatos>();
-        }
-        */
 
         #endregion
 
@@ -2037,6 +2019,15 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             return CacheManager<string>.ValidateDataElement(paisId, ECacheItem.MontoMinimoCaminoBrillante, () => GetMontoMinimoPorPais(paisId));
         }        
+        #endregion
+
+        #region Animacion
+
+        public void SetConsultoraAnim(BEUsuario entidad, string key, string value, string repeat)
+        {
+            new DACaminoBrillante(entidad.PaisID).UpdConsultoraCaminoBrillanteAnim(entidad.ConsultoraID, key, value, repeat);
+        }
+
         #endregion
 
     }

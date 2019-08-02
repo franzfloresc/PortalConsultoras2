@@ -991,6 +991,10 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetConsultoraNivel(entidad, origen);
         }
 
+        public void SetConsultoraCaminoBrillanteAnim(BEUsuario entidad, string key, string value, string repeat) {
+            _caminoBrillanteBusinessLogic.SetConsultoraAnim(entidad, key, value, repeat);
+        }
+
         public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp)
         {
             return _caminoBrillanteBusinessLogic.GetCaminoBrillanteConfiguracion(paisID, puntosAlcanzados, esApp);
