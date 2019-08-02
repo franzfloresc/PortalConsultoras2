@@ -347,6 +347,19 @@ namespace Portal.Consultoras.BizLogic
             return zonas;
         }
 
+        #region Carga de ContenidoAppDetaAct HD-4144
+        public IList<BEContenidoAppDetaAct> GetContenidoAppDetaAct(int paisId,int parent)
+        {
+            IList<BEContenidoAppDetaAct> contenidoAppDetaAct = new List<BEContenidoAppDetaAct>();
+            var daZonificacion = new DAZonificacion(paisId);
+            using (IDataReader reader = daZonificacion.GetContenidoAppDetaAct(parent))
+                while (reader.Read())
+                    contenidoAppDetaAct.Add(new BEContenidoAppDetaAct(reader));
+            return contenidoAppDetaAct;
+        }
+        #endregion
+
+
 
         public IList<BERegion> GetRegionByPaisZonaActivas(int paisID)
         {

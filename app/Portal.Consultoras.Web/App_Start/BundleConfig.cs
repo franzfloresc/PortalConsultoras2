@@ -522,6 +522,16 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Login/VerificaAutenticidad.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Login-ActualizarContrasenia").Include(
+                "~/Scripts/jquery-1.11.2.js",
+                "~/Scripts/jquery-ui-1.9.2.custom.js",
+
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.unobtrusive.js",                
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Login/ActualizarContrasenia.js"
+            ));
+
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Content-Login").Include(
                "~/Content/Css/ui.jquery/jquery-ui.css",
                "~/Content/Css/Site/jquery.custom-scrollbar.css"
@@ -1123,10 +1133,12 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
                 "~/Scripts/General.js",
                 "~/Scripts/owl.carousel.js",
-                "~/Scripts/chartjs.js",
                 "~/Scripts/PortalConsultoras/CaminoBrillante/index.js",
                 "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"
                 ));
+
+            bundles.Add(new StyleIgnoreMinifyBundle("~/Bundle/Js/CaminoBrillante/Chart").Include(
+                                          "~/Scripts/chartjs.js"));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/logros").Include(
                 "~/Scripts/PortalConsultoras/CaminoBrillante/logros.js"));
