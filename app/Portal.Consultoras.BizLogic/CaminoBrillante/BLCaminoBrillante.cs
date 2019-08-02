@@ -193,6 +193,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     }
                 }
 
+                if (consultoraMeta.FlagOnboardingAnimRepeat.HasValue)
+                {
+                    if (consultoraMeta.FlagOnboardingAnimRepeat.Value)
+                    {
+                        configs.Add(new BEConfiguracionCaminoBrillante()
+                        {
+                            Codigo = "CB_CON_ONBOARDING_ANIM",
+                            Descripcion = "Flag de Onboarding",
+                            Valor = "1",
+                        });
+                    }
+                }
+
 
                 if (consultoraMeta.FlagGananciaAnim.HasValue)
                 {
