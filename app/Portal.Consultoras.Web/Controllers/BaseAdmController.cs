@@ -126,7 +126,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
         [HttpGet]
         public async Task<JsonResult> GetZonasByRegion(int PaisID ,int RegionID)
-
         {
             IEnumerable<ZonaModel> lstZonas;
             if (RegionID == -1)
@@ -135,18 +134,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-
                 lstZonas = await _zonificacionProvider.GetZonasByRegionAsync(PaisID, RegionID);
-
-            }
-
-            
-            
+            } 
             return Json(new
             {
-
-                listaZonas = lstZonas.OrderBy(p => p.Codigo),
-           
+                listaZonas = lstZonas.OrderBy(p => p.Codigo),           
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
