@@ -182,7 +182,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (consultoraMeta != null)
             {
                 if (consultoraMeta.FlagOnboardingAnim.HasValue) {
-                    if (consultoraMeta.FlagOnboardingAnim.Value)
+                    if (!consultoraMeta.FlagOnboardingAnim.Value)
                     {
                         configs.Add(new BEConfiguracionCaminoBrillante()
                         {
@@ -196,7 +196,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 if (consultoraMeta.FlagGananciaAnim.HasValue)
                 {
-                    if (consultoraMeta.FlagGananciaAnim.Value)
+                    if (!consultoraMeta.FlagGananciaAnim.Value)
                     {
                         configs.Add(new BEConfiguracionCaminoBrillante()
                         {
@@ -210,7 +210,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 if (consultoraMeta.FlagCambioNivelAnim.HasValue)
                 {
-                    if (consultoraMeta.FlagCambioNivelAnim.Value)
+                    if (!consultoraMeta.FlagCambioNivelAnim.Value)
                     {
                         configs.Add(new BEConfiguracionCaminoBrillante()
                         {
