@@ -1,8 +1,9 @@
 ﻿var scrollBeneficios = true
 var scrollLogros = true
-
+var tamañoFont = $("#fontGanancia").val()
 
 $(document).ready(function () {
+
     Carusel();
     if (TineCarrusel == "1" && $("#template-kit").length > 0) {
         Handlebars.registerPartial("kit_template", $("#template-kit").html());
@@ -88,14 +89,12 @@ $(document).ready(function () {
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
     $('#Modalunbord').modal('show');
-
 });
 
 
 
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
-
 });
 
 $(window).on("scroll", function () {
@@ -398,9 +397,9 @@ function ArmarMisGanancias(data) {
             ]
         },
         options: {
-
             showAllTooltips: true,
             onClick: function (evt, elements) {
+                
                 var datasetIndex;
                 var dataset;
                 if (elements.length) {
@@ -419,10 +418,13 @@ function ArmarMisGanancias(data) {
                 myBar.update();
             },
             tooltips: {
+                 
                 mode: 'line',
                 displayColors: false,
                 titleFontSize: 7,
-                bodyFontSize: 10,
+
+                bodyFontSize: tamañoFont,
+
                 titleFontFamily: 'Helvetica',
                 titleFontStyle: 'normal',
                 titleMarginBottom: 1,
@@ -532,8 +534,8 @@ function ArmarMisGanancias(data) {
 }
 
 function ArmarCarrusel(data) {
+    
     if (data.Items.length == 0) return;
-
 
     var htmlDiv = SetHandlebars("#template-carrusel", data);
     $('#carrusel').append(htmlDiv);
