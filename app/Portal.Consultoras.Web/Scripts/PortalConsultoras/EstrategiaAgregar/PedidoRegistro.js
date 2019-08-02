@@ -1081,6 +1081,7 @@ var PedidoRegistroModule = function () {
         };
 
         model.EsDuoPerfecto = EsDuoPerfecto;
+        model.EsPromocion = JSON.parse($("#hdEsPromocion").val());
 
         ShowLoading();
         jQuery.ajax({
@@ -1256,6 +1257,7 @@ var PedidoRegistroModule = function () {
         };
 
         param2.EsDuoPerfecto = EsDuoPerfecto;
+        param2.EsPromocion = JSON.parse($("#hdEsPromocion").val());
 
         AbrirSplash();
         jQuery.ajax({
@@ -1348,6 +1350,8 @@ var PedidoRegistroModule = function () {
             form.data.EstrategiaID = $("#hdfEstrategiaId").val();
             form.data.DescripcionProd = $("#DescripcionProd").val();
         }
+
+        form.data.EsPromocion = JSON.parse($("#hdEsPromocion").val());
 
         AbrirSplash();
         $.ajax({

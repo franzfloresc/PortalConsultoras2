@@ -4221,6 +4221,20 @@ namespace Portal.Consultoras.Common
                 Constantes.ODSCodigoCatalogo.CatalogoEsika,
             };
         }
+
+        public static List<string> GetCodigosPromocion()
+        {
+            var lista = new List<string>
+            {
+                Constantes.CodigoTipoOferta.Promocion1,
+                Constantes.CodigoTipoOferta.Promocion2,
+                Constantes.CodigoTipoOferta.Promocion3,
+                Constantes.CodigoTipoOferta.Promocion4,
+                Constantes.CodigoTipoOferta.Promocion5,
+                Constantes.CodigoTipoOferta.Promocion6
+            };
+            return lista;
+        }
     }
 
     public class SimpleCrypto
