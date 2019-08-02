@@ -166,7 +166,7 @@ namespace Portal.Consultoras.Web.Controllers
                             return Json(new
                             {
                                 success = false,
-                                message = "error al cambiar clave, inténtelo mas tarde.",
+                                message = result,
                                 extra = ""
                             });
                         }
