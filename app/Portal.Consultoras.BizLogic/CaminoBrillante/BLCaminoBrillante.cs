@@ -2013,30 +2013,30 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         public string InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {
             var lstEscala = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisId, Int32.Parse(entidad.CodigoCampania), entidad.CodigoRegion, entidad.CodigoZona);
-            decimal escala1 = lstEscala[0].MontoHasta;
-            decimal montoMinimo = GetMontoMinimoPorPaisCache(paisId);
+            decimal escala2 = lstEscala[1].MontoHasta; //hasta el 25%, segunda escala.
+            decimal montoMinimo = Convert.ToDecimal(GetMontoMinimoPorPaisCache(paisId));
 
-            if (entidad.Monto > montoMinimo && entidad.Monto < escala1) 
+            if (entidad.Monto > montoMinimo && entidad.Monto < escala2) 
             {
                 new DACaminoBrillante(paisId).InsIncentivosMontoExigencia(entidad);
                 return "";
             }
-            return string.Format("El Monto de exigencia debe estar entre el monto mínimo: {0} y primer monto de Escala: {1}", montoMinimo, escala1.ToString()); 
+            return string.Format("El Monto de exigencia debe estar entre el monto mínimo: {0} y primer monto de Escala: {1}", montoMinimo, escala2.ToString()); 
         }        
         public void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {
             new DACaminoBrillante(paisId).DelIncentivosMontoExigencia(entidad);
         }
 
-        private decimal GetMontoMinimoPorPais(int paisId)
+        private string GetMontoMinimoPorPais(int paisId)
         {
             return new DACaminoBrillante(paisId).GetMontoMinimoPorPais();
         }
 
-        private decimal GetMontoMinimoPorPaisCache(int paisId)
+        private string GetMontoMinimoPorPaisCache(int paisId)
         {
-            return CacheManager<decimal>.ValidateDataElement(paisId, ECacheItem.MontoMinimo, () => GetMontoMinimoPorPais(paisId));
-        }
+            return CacheManager<string>.ValidateDataElement(paisId, ECacheItem.MontoMinimoCaminoBrillante, () => GetMontoMinimoPorPais(paisId));
+        }        
         #endregion
 
     }

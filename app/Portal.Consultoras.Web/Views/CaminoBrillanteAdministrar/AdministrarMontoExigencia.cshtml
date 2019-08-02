@@ -83,7 +83,7 @@
                             closeWaitingDialog();
                         }
                     },
-                    error: function (x, xh, xhr) {
+                    error: function (x) {
                         if (checkTimeout(x)) {
                             closeWaitingDialog();
                         }
@@ -102,7 +102,7 @@
         //    $.ajax({
         //        type: 'GET',
         //        url: baseUrl + 'BaseAdm/GetZonasByRegion',
-        //        data: JSON.stringify({ PaisID: _paisID, RegionID: _regionID}),
+        //        data: { PaisID: _paisID, RegionID: _regionID},
         //        cache: false,
         //        dataType: 'Json',
         //        success: function (data) {
@@ -137,7 +137,7 @@
         //                    for (var item in data.lstZona) {
         //                        if (data.lstZona.hasOwnProperty(item)) {
         //                            ddlZona.append($('<option/>', {
-        //                                value: data.lstZona[item].Codigo,
+        //                                value: data.lstZona[item].ZonaID,
         //                                text: data.lstZona[item].Codigo
         //                            }));
         //                        }
@@ -161,7 +161,7 @@
         //                closeWaitingDialog();
         //            }
         //        },
-        //        error: function (x, xh, xhr) {
+        //        error: function (x) {
         //            if (checkTimeout(x)) {
         //                closeWaitingDialog();
         //            }
@@ -299,17 +299,17 @@
     });
 
     function fnRegistrar() {
-        var valorPais = $('#ddlPais').val();
-        if (valorPais === "") {
+        var _PaisID = $('#ddlPais').val();
+        if (_PaisID === "") {
             alert("Debe seleccionar el País, verifique.");
             return false;
         }            
         
-        var valorCampania = $('#ddlCampania').val();
-        var valorRegion = $('#ddlRegion').val();
-        var valorZona = $('#ddlZona').val();
-        var valorMonto = $('#txtMontoExigencia').val();
-        if (valorMonto === '' || valorMonto == '0') {
+        var _CodigoCampania = $('#ddlCampania').val();
+        var _CodigoRegion = $("#ddlRegion option:selected").html();
+        var _CodigoZona = $('#ddlZona').val();
+        var _MontoExigencia = $('#txtMontoExigencia').val();
+        if (_MontoExigencia === '' || _MontoExigencia == '0') {
             alert("Debe ingresar un monto de exigencia, verifique.");
             return false;
         }           
@@ -318,22 +318,21 @@
             alert("Debe Seleccionar el texto que se mostrara en esta campaña, verifique.");
             return false;
         }
-        var valorRegion = $('#ddlRegion').val();
-        var valorZona = $('#ddlZona').val(); 
-        var valorTexto = "";
+
+        var _TextoTieneIncentivo = "";
         $("input[name=rbtTexto]").each(function (index) {
             if ($(this).is(':checked')) {
-                valorTexto = $(this).attr("data-tiporbt");
+                _TextoTieneIncentivo = $(this).attr("data-tiporbt");
             }
         });
 
         var model = {
             MontoID: parseInt($("#hdMontoID").val()),
-            CodigoCampania: valorCampania,
-            CodigoRegion: valorRegion,
-            CodigoZona: valorZona,
-            Monto: valorMonto,
-            AlcansoIncentivo: valorTexto
+            CodigoCampania: _CodigoCampania,
+            CodigoRegion: _CodigoRegion,
+            CodigoZona: _CodigoZona,
+            Monto: _MontoExigencia,
+            AlcansoIncentivo: _TextoTieneIncentivo
         };
 
         jQuery.ajax({
