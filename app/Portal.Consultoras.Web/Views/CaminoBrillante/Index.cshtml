@@ -507,6 +507,7 @@
 
     @if (ViewBag.TieneGanancias == "1")
     {
+    
         <div id="boxganancias" class="desk-bar">
             <h2 class="title">Mis ganancias</h2>
             <div class="box-right-ganancias">
@@ -516,10 +517,12 @@
 
                 @if (ViewBag.EsMobile)
                 {
-                    <canvas id="canvas" height="320"></canvas>
+                    <input type="hidden" id="fontGanancia" value="11" />
+                    <canvas id="canvas" height="300"></canvas>
                 }
                 else
                 {
+                    <input type="hidden" id="fontGanancia" value="14" />
                     <canvas id="canvas" height="150"></canvas>
                 }
                 <span id="titulo-subtitulo" class="text-bold"></span>
