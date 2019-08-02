@@ -64,25 +64,46 @@ $(document).ready(function () {
     $('.box-right-ganancias strong').click(function () {
         $(this).hide();
         $('.box-right-ganancias strong i').hide();
-        //alert("Clikeado");
     });
+
+
 
     $(".btnemp").click(function () {
         $("#Modalunbord").hide();
     });
 
+    //$("#volvermostrar").change(function () {
+    //    if (this.checked) {
+    //        alert("Sí chekeado");
+    //    } else {
+    //        alert("No chekeado");
+    //    }
+    //});
+
+
+    // check unbording
     $("#volvermostrar").change(function () {
-        //if (this.checked) {
-        //    alert("Sí chekeado");
-        //} else {
-        //    alert("No chekeado");
-        //}
+        if (this.checked) {
+            clickcheck();
+        } 
     });
-    //$("#Modalunbord").modal({ backdrop: false });
-    //$("#Modalunbordseguir").modal({ backdrop: false });
+    function clickcheck(te, ta ) {
+        alert("Sí chekeado");
+    }
+
+    // aceptar unbording
+    $("#unb-acept").click(function () {
+            clickacept();
+    });
+    function clickacept(ti, to) {
+        alert("ACEPTADO");
+    }
+
+
 
     $("#Modalunbord, #Modalunbordseguir").modal({
         show: false,
+        keyboard: false,
         backdrop: 'static'
     });
 });
