@@ -52,6 +52,7 @@ namespace Portal.Consultoras.Data.Encuesta
             Context.Database.AddInParameter(command, "CreatedBy", DbType.String, entity.CreatedBy);
             Context.Database.AddInParameter(command, "CreateHost", DbType.String, entity.CreateHost);
             Context.Database.AddInParameter(command, "XMLDetalle", DbType.Xml, entity.XMLMotivo);
+            Context.Database.AddInParameter(command, "EncuestaCalificacionId", DbType.Int32, entity.EncuestaCalificacionId);
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
             Context.ExecuteNonQuery(command);
