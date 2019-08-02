@@ -181,6 +181,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             if (consultoraMeta != null)
             {
+                var isAdded = false;
                 if (consultoraMeta.FlagOnboardingAnim.HasValue) {
                     if (!consultoraMeta.FlagOnboardingAnim.Value)
                     {
@@ -190,10 +191,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                             Descripcion = "Flag de Onboarding",
                             Valor = "1",
                         });
+                        isAdded = true;
                     }
                 }
 
-                if (consultoraMeta.FlagOnboardingAnimRepeat.HasValue)
+                if (consultoraMeta.FlagOnboardingAnimRepeat.HasValue && !isAdded)
                 {
                     if (consultoraMeta.FlagOnboardingAnimRepeat.Value)
                     {
