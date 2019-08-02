@@ -66,6 +66,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Extras" nillable="true" type="tns:BEMenuExtras" />
       <xs:element minOccurs="0" name="MenuMobileID" type="xs:int" />
       <xs:element minOccurs="0" name="MenuPadreID" type="xs:int" />
       <xs:element minOccurs="0" name="OrdenItem" type="xs:int" />
@@ -77,6 +78,25 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEMenuMobile" nillable="true" type="tns:BEMenuMobile" />
+  <xs:complexType name="BEMenuExtras">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Tags" nillable="true" type="tns:ArrayOfBEMenuTag" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEMenuExtras" nillable="true" type="tns:BEMenuExtras" />
+  <xs:complexType name="ArrayOfBEMenuTag">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMenuTag" nillable="true" type="tns:BEMenuTag" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEMenuTag" nillable="true" type="tns:ArrayOfBEMenuTag" />
+  <xs:complexType name="BEMenuTag">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="End" type="xs:int" />
+      <xs:element minOccurs="0" name="Tag" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEMenuTag" nillable="true" type="tns:BEMenuTag" />
   <xs:complexType name="BEMenuApp">
     <xs:sequence>
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />

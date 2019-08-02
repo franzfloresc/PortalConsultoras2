@@ -96,7 +96,7 @@
     .layout__container--fechasFacturacion{
         margin-top:40px;
         min-width:0;
-        max-width:648px;
+        max-width:748px;
     }
 
         .seccion__campania__actual{
@@ -114,7 +114,13 @@
         .tabs__wrapper__sb--fechasFacturacion{
             padding-left:16px;
             padding-right:16px;
+            justify-content:flex-end;
         }
+
+            .tabs__wrapper__sb--fechasFacturacion .nav__tabs__sb{
+                flex:0 0 300px;
+                max-width:300px;
+            }
 
         .tabs__content__sb__wrapper--fechasFacturacion{
             min-height:332px;
@@ -128,6 +134,11 @@
                 .datos__campania > div{
                     margin-bottom:0;
                 }
+
+                    .datos__campania > div:first-child {
+                        flex: 0 0 350px;
+                        max-width: 350px;
+                    }
 
                     .num__campania{
                         margin-right:27px;

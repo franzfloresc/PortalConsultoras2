@@ -294,8 +294,11 @@ div#caja-back-header {
 }
 
 .menu_mobile_belcorp {
-    display: block;
-    font-family: 'Lato';
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
     color: black;
     font-size: 14px;
     padding-top: 12px;
@@ -334,7 +337,10 @@ div#caja-back-header {
 }
 
 .menu_subHeader {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
     margin-bottom: 15px;
     padding-left: 43px;
     font-family: 'Lato';
@@ -347,4 +353,12 @@ div#caja-back-header {
     width: 100%;
     position: relative;
     height: 37px;
+}
+
+.menu_mobile_belcorp .tag_sb--nuevoEnlaceMenu,
+.menu_subHeader .tag_sb--nuevoEnlaceMenu{
+    font-size: 12px;
+    margin-left: 8px;
+    margin-bottom: 0;
+    text-decoration: none;
 }
