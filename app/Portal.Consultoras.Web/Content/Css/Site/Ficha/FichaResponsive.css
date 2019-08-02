@@ -600,6 +600,7 @@ ul.breadcumbs li a {
     }
     /* Modal Promocion Carrusel */
     .promociones-modal.popup_lateral,
+    .promociones-modal.popup_lateral.popup_active,
     .modal-promociones--bottom {
         width: 100%;
     }
