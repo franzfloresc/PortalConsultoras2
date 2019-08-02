@@ -1345,15 +1345,34 @@ function superoTippingPoint(barra, prevLogro) {
 
         var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
 
-        var tieneIncentivo = montoIncentivo >= 0 ? true : false;
+        var tieneIncentivo = montoIncentivo >= 1 ? true : false;
+
+        
 
         if (tieneIncentivo && tippingPoint <= mtoLogroBarra) {
-
+            escala = dataBarra.ListaEscalaDescuento[0];
             // se mantiene entre la 1er y 2da escala de descuento
-            if ((mtoLogroBarra >= montoIncentivo && mtoLogroBarra <= montoMaximo1) || (mtoLogroBarra >= montoIncentivo && mtoLogroBarra <= montoMaximo2)) {
-                var content = '¡Felicidades, estás concursando por el incentivo!';
-                showPopupIncentivo(content);
-                incentivoMostrado = true;
+            if (montoIncentivo <= montoMaximo1) {
+                if (mtoLogroBarra >= montoIncentivo && mtoLogroBarra <= montoMaximo1) {
+                    if (montoIncentivo > prevLogro) {
+                        var content = 'Llegaste al' + '&nbsp' + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
+                        showPopupIncentivo(content);
+                        tpElectivos.tempPrevLogro = -1;
+                        return true;
+                    }
+                }
+
+            } else {
+                escala = dataBarra.ListaEscalaDescuento[1];
+                // se mantiene entre la 2da y 3era escala de descuento
+                if (mtoLogroBarra >= montoMaximo1 && mtoLogroBarra >= montoIncentivo && mtoLogroBarra <= montoMaximo2) {
+                    if (montoIncentivo > prevLogro) {
+                        var content = 'Llegaste al' + '&nbsp' + escala.PorDescuento + '% Dscto.' + '</br>' + 'Y concursas por el incentivo.' + '</br>' + '¡Felicidades!';
+                        showPopupIncentivo(content);
+                        tpElectivos.tempPrevLogro = -1;
+                        return true;
+                    }
+                }
             }
 
         }
@@ -1390,7 +1409,7 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
     var montoMaximo2 = dataBarra.ListaEscalaDescuento[2].MontoDesde;
     var tippingPoint = dataBarra.TippingPoint || 0;
 
-    var tieneIncentivo = montoIncentivo > 0 ? true : false;
+    var tieneIncentivo = montoIncentivo >= 1 ? true : false;
 
     if (tieneIncentivo && tippingPoint <=0 ) {
 
