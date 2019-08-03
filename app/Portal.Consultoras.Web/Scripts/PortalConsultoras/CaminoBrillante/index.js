@@ -69,7 +69,7 @@ $(document).ready(function () {
 
     $(".btnemp").click(function () { $("#Modalunbord").hide(); });    
     $('#btnAceptarOnboardding').click(function () {
-        var esChecked = $("#volvermostrar").prop('checked') ? "1" : "0";
+        var esChecked = $("#volvermostrar").prop('checked') ? "0" : "1";
         $.ajax({
             type: 'POST',
             url: urlAnims + '?key=Onbording&repeat=' + esChecked,
