@@ -438,6 +438,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     campaniasInPeriodo.ForEach(m =>
                     {
                         var estado = campaniasPedidoINPeriodo.Contains(m);
+                        var isInPeriodoActual = periodoActual.Periodo != p.Periodo;
                         var subTitulo = periodoActual.Periodo != p.Periodo || estado ? string.Format("C{0}", m) :  "Obtener";
 
                         indicador.Medallas.Add(new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
@@ -445,8 +446,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                             Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED,
                             Titulo = string.Format(configMedalla.Valor ?? string.Empty, (p.CampanaInicial % 100), (p.CampanaFinal % 100)),
                             Subtitulo = subTitulo,
-                            ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
-                            ModalDescripcion = configMedalla.ComoLograrlo_Estado ? string.Format(configMedalla.ComoLograrlo_Descripcion, string.Format("C{0}", m)) : string.Empty,
+                            ModalTitulo = configMedalla.ComoLograrlo_Estado && !isInPeriodoActual ? configMedalla.ComoLograrlo_Titulo : string.Empty,
+                            ModalDescripcion = configMedalla.ComoLograrlo_Estado  && !isInPeriodoActual ? string.Format(configMedalla.ComoLograrlo_Descripcion, string.Format("C{0}", m)) : string.Empty,
                             Valor = string.Format("C{0}", m),
                             Estado = estado,
                             Orden = idx++
