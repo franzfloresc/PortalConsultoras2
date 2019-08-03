@@ -110,7 +110,8 @@
     <!-- Desktop -->
     <div class="box-camb mo-2 deskshow">
         <div class="cambio-crec">
-            <section class="regular  slider">                
+            <section class="regular  slider">
+                {{reverse Indicadores}}
                 {{#each Indicadores}}
                 <div class="right-m">
                     <p id="indicador-title" class="text-bold _hide">{{../Titulo}} {{Titulo}}</p>
@@ -139,6 +140,7 @@
     <div class="box-camb mo-2 movshow">
         <div class="cambio-crec">
             <section class="regular  slider">
+                {{reverse Indicadores}}
                 {{#each Indicadores}}
                 <div class="right-m">
                     <p id="indicador-title" class="text-bold _hide">{{../Titulo}}  {{Titulo}}</p>
@@ -148,8 +150,8 @@
                         <div class="itm">
                             <div class="circle-porcent imgpizz" style="padding:2px">
                                 <img style="max-width:inherit" src="{{MedallaDestacada.UrlMedalla}}" />
-                                <p class="como-log inactivo" style="text-align:center" >{{MedallaDestacada.Subtitulo}}</p>
-                            </div>                            
+                                <p class="como-log inactivo" style="text-align:center">{{MedallaDestacada.Subtitulo}}</p>
+                            </div>
                         </div>
                     </div>
                     {{else}}
@@ -428,7 +430,7 @@
         function onRenderedTemplate(iData) {
             var count = 0;
             try {
-                count = iData[2].Indicadores.length;
+                count = iData[2].Indicadores.length - 1;
             } catch (e) { };
             $(".regular").slick({
                 dots: false,
