@@ -197,6 +197,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CodigoCampania = !string.IsNullOrEmpty(model.CodigoCampania) ? model.CodigoCampania : "0";
                 model.CodigoRegion = !string.IsNullOrEmpty(model.CodigoRegion) ? model.CodigoRegion : "";
                 model.CodigoZona = !string.IsNullOrEmpty(model.CodigoZona) ? model.CodigoZona : "";
+
+                model.CodigoRegion = model.CodigoRegion == "Todos" ? "" : model.CodigoRegion;
+                model.CodigoZona = model.CodigoZona == "Todos" ? "" : model.CodigoZona;
+
                 var entidad = Mapper.Map<BEIncentivosMontoExigencia>(model) ?? new BEIncentivosMontoExigencia();
                 string mensaje = "";
 
