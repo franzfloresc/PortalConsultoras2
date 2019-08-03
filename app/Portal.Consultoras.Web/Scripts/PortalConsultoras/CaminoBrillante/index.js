@@ -59,12 +59,20 @@ $(document).ready(function () {
         $('.regulardoc').slick('slickPause');
     });
 
-    $(".box-right-ganancias").append("<strong><i></i></strong>");
+    if (TieneGananciaAnim == 'True') {
+        $(".box-right-ganancias").append("<strong><i></i></strong>");
+    }
 
     $('.box-right-ganancias strong').click(function () {
         $(this).hide();
         $('.box-right-ganancias strong i').hide();
         //alert("Clikeado");
+        $.ajax({
+            type: 'POST',
+            url: urlAnims + '?key=Gesture&repeat=0',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+        });
     });
 
     $(".btnemp").click(function () { $("#Modalunbord").hide(); });    

@@ -503,17 +503,12 @@
 }
 
 <div class="container">
-
     @if (ViewBag.TieneGanancias == "1")
-    {
-    
+    {    
         <div id="boxganancias" class="desk-bar">
             <h2 class="title">Mis ganancias</h2>
             <div class="box-right-ganancias">
                 <p id="titulo-ganancia" class="text-bold"></p>
-
-
-
                 @if (ViewBag.EsMobile)
                 {
                     <input type="hidden" id="fontGanancia" value="11" />
@@ -525,7 +520,6 @@
                     <canvas id="canvas" height="150"></canvas>
                 }
                 <span id="titulo-subtitulo" class="text-bold"></span>
-
             </div>
             <div class="box-left-ganancias">
                 <div class="box-montos">
@@ -543,8 +537,8 @@
             <div class="clear"></div>
         </div>
     }
-
 </div>
+
 @section scripts
 {
     <script>
@@ -561,6 +555,7 @@
         var TieneGanancias = '@ViewBag.TieneGanancias';
         var TieneMontoAcumulado = '@ViewBag.TieneMontoAcumulado';
         var TieneOnboardingAnim = '@ViewBag.TieneOnboardingAnim';
+        var TieneGananciaAnim = '@ViewBag.TieneGananciaAnim';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
@@ -573,5 +568,4 @@
             return "True" === "@ViewBag.EsMobile";
         }
     </script>
-
 }
