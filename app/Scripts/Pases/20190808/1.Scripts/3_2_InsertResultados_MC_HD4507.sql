@@ -1,9 +1,7 @@
-﻿GO
-USE BelcorpPeru
+﻿USE [BelcorpBolivia];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -41,15 +39,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpMexico
+USE [BelcorpChile];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -87,15 +81,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpColombia
+USE [BelcorpColombia];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -133,15 +123,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpSalvador
+USE [BelcorpCostaRica];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -179,15 +165,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpPuertoRico
+USE [BelcorpDominicana];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -225,15 +207,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpPanama
+USE [BelcorpEcuador];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -271,15 +249,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpGuatemala
+USE [BelcorpGuatemala];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -317,15 +291,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpEcuador
+USE [BelcorpMexico];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -363,15 +333,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpDominicana
+USE [BelcorpPanama];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -409,15 +375,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpCostaRica
+USE [BelcorpPeru];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -455,15 +417,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpChile
+USE [BelcorpPuertoRico];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -501,15 +459,11 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
-
-
 GO
-USE BelcorpBolivia
+USE [BelcorpSalvador];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertResultados]
@@ -547,5 +501,4 @@ BEGIN
 		,@CanalID);
 		SET @new_identity = SCOPE_IDENTITY();
 END
-
 GO

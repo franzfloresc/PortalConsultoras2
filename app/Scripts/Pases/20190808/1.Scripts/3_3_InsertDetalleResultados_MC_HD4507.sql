@@ -1,9 +1,7 @@
-﻿GO
-USE BelcorpPeru
+﻿USE [BelcorpBolivia];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -24,13 +22,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpMexico
+USE [BelcorpChile];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -51,13 +47,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpColombia
+USE [BelcorpColombia];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -78,13 +72,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpSalvador
+USE [BelcorpCostaRica];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -105,13 +97,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpPuertoRico
+USE [BelcorpDominicana];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -132,13 +122,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpPanama
+USE [BelcorpEcuador];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -159,13 +147,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpGuatemala
+USE [BelcorpGuatemala];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -186,13 +172,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpEcuador
+USE [BelcorpMexico];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -213,13 +197,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpDominicana
+USE [BelcorpPanama];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -240,13 +222,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpCostaRica
+USE [BelcorpPeru];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -267,13 +247,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpChile
+USE [BelcorpPuertoRico];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -294,13 +272,11 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO
-USE BelcorpBolivia
+USE [BelcorpSalvador];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[InsertDetalleResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[InsertDetalleResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[InsertDetalleResultados]
@@ -321,5 +297,4 @@ BEGIN
 		,@CalificacionID
 		,@Cualitativo);
 END
-
 GO

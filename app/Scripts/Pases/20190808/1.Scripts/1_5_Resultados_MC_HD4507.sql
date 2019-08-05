@@ -1,17 +1,18 @@
-﻿GO
-USE BelcorpPeru
+﻿USE [BelcorpBolivia];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -25,24 +26,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpMexico
+USE [BelcorpChile];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -56,24 +58,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpColombia
+USE [BelcorpColombia];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -87,24 +90,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpSalvador
+USE [BelcorpCostaRica];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -118,24 +122,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpPuertoRico
+USE [BelcorpDominicana];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -149,24 +154,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpPanama
+USE [BelcorpEcuador];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -180,24 +186,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpGuatemala
+USE [BelcorpGuatemala];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -211,24 +218,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpEcuador
+USE [BelcorpMexico];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -242,24 +250,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpDominicana
+USE [BelcorpPanama];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -273,24 +282,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpCostaRica
+USE [BelcorpPeru];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -304,24 +314,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpChile
+USE [BelcorpPuertoRico];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -335,24 +346,25 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
-USE BelcorpBolivia
+USE [BelcorpSalvador];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_ResultadosID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT PK_ResultadosID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_Resultados_CanalID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.Resultados  
+	DROP CONSTRAINT FK_Resultados_CanalID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'Resultados'))
-DROP TABLE [chatbot].[Resultados]
+	DROP TABLE [chatbot].[Resultados]
 GO
 create table chatbot.Resultados (
 	ResultadosID int not null identity(1,1),
@@ -366,8 +378,7 @@ create table chatbot.Resultados (
 	Pais varchar(2) not null,
 	ConversacionID varchar(50) not null,
 	CanalID int not null
-	PRIMARY KEY (ResultadosID),
-	FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
+	CONSTRAINT PK_ResultadosID PRIMARY KEY (ResultadosID),
+	CONSTRAINT FK_Resultados_CanalID FOREIGN KEY (CanalID) REFERENCES chatbot.Canal(CanalID)
 );
-
 GO
