@@ -8,10 +8,7 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
     [TestClass]
     public class TuVozOnlineProviderTests
     {
-        private readonly TuVozOnlineProvider _provider = new TuVozOnlineProvider
-        {
-            BasePath = "https://www.questionpro.com/a/panelsso"
-        };
+        private readonly TuVozOnlineProvider _provider = new TuVozOnlineProvider();
 
         [TestMethod]
         public void GetUrlTest()
@@ -24,7 +21,7 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
                 CodigoISO = "PE"
             };
 
-            var url = _provider.GetUrl(user, "36882", "A12bZ091");
+            var url = _provider.CreateUrl(user).Result;
 
             var uri = new Uri(url);
 

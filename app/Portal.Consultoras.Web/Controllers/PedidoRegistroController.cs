@@ -390,6 +390,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetMisPedidosDetallePorCampania(null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
+
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                     var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                     var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
@@ -400,6 +401,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = true,
                         message = pedidoDetalleResult.MensajeRespuesta,
+                        flagCantidaPedido = pedidoDetalleResult.flagCantidadMayor,
+                        mensajeCantidad= pedidoDetalleResult.mensajeCantidadMayor,
                         tituloMensaje = pedidoDetalleResult.TituloMensaje,
                         mensajeAviso = pedidoDetalleResult.MensajeAviso,
                         errorInsertarProducto = "0",
@@ -411,7 +414,8 @@ namespace Portal.Consultoras.Web.Controllers
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
                         mensajeCondicional,
                         EsReservado = esReservado,
-                        PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
+                        PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb
+                        )
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -420,6 +424,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = false,
                         message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
+                        flagCantidaPedido = 0,
+                        mensajeCantidadMayor=string.Empty,
                         tituloMensaje = pedidoDetalleResult.TituloMensaje,
                         mensajeAviso = pedidoDetalleResult.MensajeAviso,
                         errorInsertarProducto = "1",

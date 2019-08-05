@@ -592,8 +592,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CuvProducto))
                 .ForMember(t => t.TipoOfertaSisId, f => f.MapFrom(c => c.TipoOfertaSisId));
 
-            Mapper.CreateMap<ServicePedido.BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>();
-
+            Mapper.CreateMap<ServicePedido.BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>();           
             Mapper.CreateMap<ServicePedido.BEShowRoomNivel, ShowRoomNivelModel>()
                 .ForMember(t => t.NivelId, f => f.MapFrom(c => c.NivelId))
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
@@ -757,6 +756,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ServiceZonificacion.BEContenidoAppDetaAct, AdministrarHistorialDetaActModel>();
             #endregion
 
+            Mapper.CreateMap<ServiceCDR.BECDRProductoComplementario, ProductoComplementarioModel>();
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Entities;
 using System.Data;
-using System.Data.Common;
 
 namespace Portal.Consultoras.Data
 {

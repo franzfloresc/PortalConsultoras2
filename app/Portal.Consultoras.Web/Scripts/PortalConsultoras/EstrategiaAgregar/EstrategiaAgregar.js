@@ -422,7 +422,7 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (data.success === false) {
-             
+
                     if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
                     else abrirMensajeEstrategia(data.message, _config.esFicha);
 
@@ -439,7 +439,6 @@ var EstrategiaAgregarModule = (function () {
                 analyticsAgregar(event, origenPedidoWebEstrategia, estrategia);
 
                 $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
-
 
                 if (divAgregado != null) {
                     if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
@@ -652,6 +651,8 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
+
+
                 if (popup) {
                     CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
                     $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
@@ -687,12 +688,13 @@ var EstrategiaAgregarModule = (function () {
                     funcionResponsive();
                 }
 
-
-                if (params.EsDuoPerfecto !== 'undefined' && params.EsDuoPerfecto === false) {
-                    AbrirMensaje25seg(mensaje, imagenProducto);
+                if (data.flagCantidaPedido == 0) {
+                    if (params.EsDuoPerfecto !== 'undefined' && params.EsDuoPerfecto === false) {
+                        AbrirMensaje25seg(mensaje, imagenProducto);
+                    }
+                } else {
+                    alert_msg(data.mensajeCantidad);
                 }
-
-
 
                 return false;
             })
@@ -702,6 +704,8 @@ var EstrategiaAgregarModule = (function () {
 
         return false;
     };
+
+
 
     var analyticsAgregar = function (event, origenPedidoWebEstrategia, estrategia) {
         try {

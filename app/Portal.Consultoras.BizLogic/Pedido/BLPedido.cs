@@ -584,6 +584,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
 
+            /*HD-4635*/
+            int flagCantidadMayor = 0;
+            string mensajeCantidadMayor = string.Empty;
+            foreach (var item in lstDetalle)
+            {
+                if (item.CUV == cuvSet)
+                    if ((item.Cantidad + pedidoDetalle.Cantidad) > 99)
+                    {
+                        pedidoDetalle.Cantidad = 99 - item.Cantidad;
+                        flagCantidadMayor = 1;
+                        mensajeCantidadMayor = string.Format(Constantes.ConfiguracionManager.MensajeCantiad, 99);
+                    }
+            }
+
             #region UnidadesPermitidas
 
             estrategia.Cantidad = pedidoDetalle.Cantidad;
@@ -796,6 +810,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             response.ListaMensajeCondicional.AddRange(ListaMensajeCondicional);
             response.CUV = cuvSet;
             response.PedidoWeb = pedidoWeb;
+            response.mensajeCantidadMayor = mensajeCantidadMayor;/*HD-4635*/
+            response.flagCantidadMayor = flagCantidadMayor;/*HD-4635*/
             SetMontosTotalesProl(response, listObjMontosProl);
             return response;
         }
@@ -1068,14 +1084,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var lstDetalle = new List<BEPedidoWebDetalle>();
 
                 //Eliminar Detalle
-                var responseCode = Constantes.PedidoValidacion.Code.SUCCESS;
-                var respuesta = new BEPedidoDetalleResult();
+                BEPedidoDetalleResult respuesta;
                 BEPedidoWeb pedidoWeb = null;
                 if (pedidoDetalle.Producto == null)
                 {
-                    responseCode = await DeleteAll(usuario, pedidoDetalle);
+                    var responseCode = await DeleteAll(usuario, pedidoDetalle);
                     List<BEMensajeProl> listaMensajeCondicional;
                     UpdateProlCrud(usuario, lstDetalle, out listaMensajeCondicional, out pedidoWeb);
+                    respuesta = PedidoDetalleRespuesta(responseCode);
+                    respuesta.PedidoWeb = pedidoWeb ?? respuesta.PedidoWeb;
+
+                    return respuesta;
                 }
                 else
                 {
@@ -1100,10 +1119,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 PedidoAgregar_DesReservarPedido(lstDetalle, pedidoDetalle.Producto, usuario);
-                var request = PedidoDetalleRespuesta(responseCode);
-                request.PedidoWeb = pedidoWeb ?? respuesta.PedidoWeb;
 
-                return request;
+                return respuesta;
             }
             catch (Exception ex)
             {

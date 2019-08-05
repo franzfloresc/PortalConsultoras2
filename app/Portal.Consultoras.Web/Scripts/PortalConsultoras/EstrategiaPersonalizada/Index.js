@@ -399,11 +399,6 @@ function SeccionMostrarProductos(data) {
         || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
         || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
         || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
-        if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
-            || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
-            || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
-            CarruselCiclico = false;
-        }
 
         if (data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
@@ -461,6 +456,7 @@ function SeccionMostrarProductos(data) {
     if (data.Seccion.TemplateProducto == "#producto-landing-template") {
         EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
     }
+    CarruselCiclico = data.Seccion.TipoPresentacion != CONS_TIPO_PRESENTACION.carruselIndividualesv2;
 
     CarruselCiclico = data.Seccion.TipoPresentacion != CONS_TIPO_PRESENTACION.carruselIndividualesv2;
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {

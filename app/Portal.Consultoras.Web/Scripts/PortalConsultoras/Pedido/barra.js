@@ -321,24 +321,24 @@ function MostrarBarra(datax, destino) {
         htmlTippintPoint = htmlTippintPoint
             .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
             .replace('{barra_tooltip}',
-                dataTP.ActiveTooltip ?
-                    '<div class="tooltip_regalo_meta_tippingPoint">'
-                    + '<div class="tooltip_producto_regalo_img">'
-                    + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
-                    + '</div>'
-                    + '{barra_tooltip_descripcion}'
-                    + '</div>' :
-                    ''
+            dataTP.ActiveTooltip ?
+                '<div class="tooltip_regalo_meta_tippingPoint">'
+                + '<div class="tooltip_producto_regalo_img">'
+                + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                + '</div>'
+                + '{barra_tooltip_descripcion}'
+                + '</div>' :
+                ''
             )
             .replace('{barra_monto}',
-                dataTP.ActiveMonto ?
-                    '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
-                    ''
+            dataTP.ActiveMonto ?
+                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
+                ''
             )
             .replace('{barra_tooltip_descripcion}',
-                dataTP.ActiveMonto ?
-                    '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
-                    '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+            dataTP.ActiveMonto ?
+                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
             );
     }
 
@@ -1353,7 +1353,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
 
         return;
     }
-    
+
     if (!TieneMontoMaximo()) {
         showPopupEscalaSiguiente(barra, prevLogro);
     }
@@ -1485,11 +1485,11 @@ function CalculoLlenadoBarra() {
             else {
                 if (ConfiguradoRegalo == true) {
 
-                if (montoActual < montoMinimo) {
-                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
-                } else
-                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
-            }
+                    if (montoActual < montoMinimo) {
+                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
+                    } else
+                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+                }
                 else {
                     if (montoActual < montoMinimo) {
                         AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
@@ -2388,7 +2388,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                         } else {
                             if (limite >= 6 && montoMaximo1 == 195000) {
-                               // document.getElementById('divBarraEspacioLimite').style.width = '16%';
+                                // document.getElementById('divBarraEspacioLimite').style.width = '16%';
                                 document.getElementById('barra_0').style.left = '20%';
                                 document.getElementById('punto_0').style.left = '9%';
                                 document.getElementById('punto_1').style.left = '20%';
@@ -2647,7 +2647,7 @@ function ReordenarMontosBarra() {
 
     var monto = 0;
     if (IsoPais == 'CO') {
-        monto = 150000;
+        monto = 1000;
         barraFix = FixPorcentajes(barra);
     }
     else if (IsoPais == 'CR')

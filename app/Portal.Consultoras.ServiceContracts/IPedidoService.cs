@@ -950,6 +950,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID);
 
+
+
         [OperationContract]
         void DeshacerUltimaDescargaPedido(int PaisID);
         [OperationContract]
@@ -1305,6 +1307,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
 
+
+
         [OperationContract]
         bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
 
@@ -1356,6 +1360,29 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
 
+        #region HD-4327
+      
+        [OperationContract]
+        BEDescargaArchivoSinMarcar DescargaPedidosSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario);
+
+
+        [OperationContract]
+        string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote);
+
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int paisID, int campaniaID);
+
+        [OperationContract]
+        int ObtenerultimaLlamadaPedidodescargavalidador(int paisID);
+
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID);
+
+        [OperationContract]
+        string GetRutaPedidoDescargaSinMarcar(int campaniaid, int paisID, string tipo, string path);
+
+        
+        #endregion
 
         [OperationContract]
         bool InsertKitSE(BEUsuario usuario);
