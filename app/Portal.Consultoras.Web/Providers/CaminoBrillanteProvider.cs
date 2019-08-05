@@ -1089,7 +1089,7 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// on Showed Onboarding Anim
         /// </summary>
-        private void OnShowedOnbordingAnimation(bool repeat)
+        public void OnShowedOnbordingAnimation(bool repeat)
         {
             SetFlagsAnim("CB_CON_ONBOARDING_ANIM", "1", repeat ? "1": null);
             RemoveConfig("CB_CON_ONBOARDING_ANIM");
@@ -1098,7 +1098,7 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// on Showed Gesture Anim
         /// </summary>
-        private void OnShowedGestureAnimation()
+        public void OnShowedGestureAnimation()
         {
             SetFlagsAnim("CB_CON_GANANCIA_ANIM", "1");
             RemoveConfig("CB_CON_GANANCIA_ANIM");
@@ -1107,7 +1107,7 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// on Showed Gesture Anim
         /// </summary>
-        private void OnShowedCambioNivelAnimation()
+        public void OnShowedCambioNivelAnimation()
         {
             SetFlagsAnim("CB_CON_CAMB_NIVEL_ANIM", "1");
             RemoveConfig("CB_CON_CAMB_NIVEL_ANIM");

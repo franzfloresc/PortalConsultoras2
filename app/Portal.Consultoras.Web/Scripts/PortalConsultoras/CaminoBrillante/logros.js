@@ -16,7 +16,7 @@ function cargarLogros(/*category*/) {
             if (checkTimeout(data)) {
                 var htmlDiv = SetHandlebars("#template-logros", data.data);
                 $('#logros').append(htmlDiv);                
-                onRenderedTemplate();
+                onRenderedTemplate(data.data);
                 $('#logros').show();
              }
         },

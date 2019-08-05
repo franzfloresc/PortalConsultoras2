@@ -59,36 +59,38 @@ $(document).ready(function () {
         $('.regulardoc').slick('slickPause');
     });
 
-    $(".box-right-ganancias").append("<strong><i></i></strong>");
+    if (TieneGananciaAnim == 'True') {
+        $(".box-right-ganancias").append("<strong><i></i></strong>");
+    }
 
     $('.box-right-ganancias strong').click(function () {
         $(this).hide();
         $('.box-right-ganancias strong i').hide();
+        $.ajax({
+            type: 'POST',
+            url: urlAnims + '?key=Gesture&repeat=0',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+        });
+
+
     });
 
-
-
-    $(".btnemp").click(function () {
-        $("#Modalunbord").hide();
-    });
-
-    //$("#volvermostrar").change(function () {
-    //    if (this.checked) {
-    //        alert("Sí chekeado");
-    //    } else {
-    //        alert("No chekeado");
-    //    }
-    //});
-
-
+    $(".btnemp").click(function () { $("#Modalunbord").hide(); });    
+    $('#btnAceptarOnboardding').click(function () {
+        var esChecked = $("#volvermostrar").prop('checked') ? "0" : "1";
+        $.ajax({
+            type: 'POST',
+            url: urlAnims + '?key=Onbording&repeat=' + esChecked,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+        });
     // check unbording
     $("#volvermostrar").change(function () {
         if (this.checked) {
             clickcheck();
         } 
     });
-    function clickcheck(te, ta ) {
-        alert("Sí chekeado");
     }
 
     // aceptar unbording
@@ -109,7 +111,9 @@ $(document).ready(function () {
 });
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
-    $('#Modalunbord').modal('show');
+    if (TieneOnboardingAnim === 'True') {
+        $('#Modalunbord').modal('show');
+    }
 });
 
 

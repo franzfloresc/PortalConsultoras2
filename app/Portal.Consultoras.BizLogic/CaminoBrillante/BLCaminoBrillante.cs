@@ -181,8 +181,23 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             if (consultoraMeta != null)
             {
+                var isAdded = false;
                 if (consultoraMeta.FlagOnboardingAnim.HasValue) {
                     if (!consultoraMeta.FlagOnboardingAnim.Value)
+                    {
+                        configs.Add(new BEConfiguracionCaminoBrillante()
+                        {
+                            Codigo = "CB_CON_ONBOARDING_ANIM",
+                            Descripcion = "Flag de Onboarding",
+                            Valor = "1",
+                        });
+                        isAdded = true;
+                    }
+                }
+
+                if (consultoraMeta.FlagOnboardingAnimRepeat.HasValue && !isAdded)
+                {
+                    if (consultoraMeta.FlagOnboardingAnimRepeat.Value)
                     {
                         configs.Add(new BEConfiguracionCaminoBrillante()
                         {
@@ -246,36 +261,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Valor = montoExigencia.AlcansoIncentivo,
                 });
             }
-
-            /*
-            return new List<BEConfiguracionCaminoBrillante>() {
-                new BEConfiguracionCaminoBrillante(){
-                    Codigo = "CB_CON_ONBOARDING_ANIM",
-                    Descripcion = "Flag de Onboarding",
-                    Valor = "1",
-                },
-                new BEConfiguracionCaminoBrillante(){
-                    Codigo = "CB_CON_GANANCIA_ANIM",
-                    Descripcion = "Flag de Ganancias",
-                    Valor = "1",
-                },
-                new BEConfiguracionCaminoBrillante(){
-                    Codigo = "CB_CON_CAMB_NIVEL_ANIM",
-                    Descripcion = "Flag de Ganancias",
-                    Valor = "1",
-                },
-                new BEConfiguracionCaminoBrillante(){
-                    Codigo = "CB_CON_CAMB_NIVEL_VAL",
-                    Descripcion = "Flag de Ganancias",
-                    Valor = "+1",
-                },
-                new BEConfiguracionCaminoBrillante(){
-                    Codigo = "CB_MONTO_INCENTIVO",
-                    Descripcion = "Monto Incentivo",
-                    Valor = "500",
-                },
-            };
-            */
 
             configs.AddRange(GetCaminoBrillanteConfiguracion(entidad.PaisID, nivelConsultora.PuntajeAcumulado.HasValue ? nivelConsultora.PuntajeAcumulado.Value : 0 ,string.Empty));
 
@@ -453,6 +438,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     campaniasInPeriodo.ForEach(m =>
                     {
                         var estado = campaniasPedidoINPeriodo.Contains(m);
+                        var isInPeriodoActual = periodoActual.Periodo != p.Periodo;
                         var subTitulo = periodoActual.Periodo != p.Periodo || estado ? string.Format("C{0}", m) :  "Obtener";
 
                         indicador.Medallas.Add(new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
@@ -460,8 +446,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                             Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED,
                             Titulo = string.Format(configMedalla.Valor ?? string.Empty, (p.CampanaInicial % 100), (p.CampanaFinal % 100)),
                             Subtitulo = subTitulo,
-                            ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
-                            ModalDescripcion = configMedalla.ComoLograrlo_Estado ? string.Format(configMedalla.ComoLograrlo_Descripcion, string.Format("C{0}", m)) : string.Empty,
+                            ModalTitulo = configMedalla.ComoLograrlo_Estado && !isInPeriodoActual ? configMedalla.ComoLograrlo_Titulo : string.Empty,
+                            ModalDescripcion = configMedalla.ComoLograrlo_Estado  && !isInPeriodoActual ? string.Format(configMedalla.ComoLograrlo_Descripcion, string.Format("C{0}", m)) : string.Empty,
                             Valor = string.Format("C{0}", m),
                             Estado = estado,
                             Orden = idx++
@@ -718,7 +704,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             Func<string, string, bool, BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante> funcUltimaMedalla = (logro, indicador, estado) =>
             {
                 var _ultimaMedalla = _funcUltimaMedalla(logro, indicador, estado);
-                if (_ultimaMedalla != null && destacar) _ultimaMedalla.Destacar = true;                
+                if (_ultimaMedalla != null && destacar) _ultimaMedalla.Destacar = true && _ultimaMedalla.Estado;                
                 var _logro = _funcCopyMedalla(_ultimaMedalla, string.Empty, 0);
                 if (_logro != null)
                 {

@@ -30,50 +30,49 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Consultar(string sidx, string sord, int page, int rows, int paisID, string CodigoNivel, string Consulta)
+        public JsonResult Consultar(string sidx, string sord, int page, int rows, string paisID, string CodigoNivel, string Consulta)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return Json(null, JsonRequestBehavior.AllowGet);            
+            var lst = Consulta == "1" ? GetListaBeneficiosByNivel(CodigoNivel) : new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
+            lst = lst ?? new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
+
+            BEGrid grid = new BEGrid
             {
-                var lst = Consulta == "1" ? GetListaBeneficiosByNivel(CodigoNivel) : new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
-                lst = lst ?? new List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
+            IEnumerable<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> items = lst;
 
-                BEGrid grid = new BEGrid
-                {
-                    PageSize = rows,
-                    CurrentPage = page,
-                    SortColumn = sidx,
-                    SortOrder = sord
-                };
-                IEnumerable<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> items = lst;
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                BEPager pag = Util.PaginadorGenerico(grid, lst);
-
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
+            var data = new
+            {
+                total = pag.PageCount,
+                page = pag.CurrentPage,
+                records = pag.RecordCount,
+                rows = from a in items
+                       select new
+                       {
+                           id = a.CodigoBeneficio,
+                           cell = new string[]
                            {
-                               id = a.CodigoBeneficio,
-                               cell = new string[]
-                               {
-                                   a.CodigoBeneficio,                                   
-                                   a.Registro.ToString(),
-                                   a.NombreBeneficio,
-                                   a.Descripcion,
-                                   a.Orden.ToString(),
-                                   a.FlagActivo,
-                                   a.UrlIcono,                                   
-                                }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            return RedirectToAction("AdministrarBeneficios", "CaminoBrillanteAdministrar");
+                               a.CodigoBeneficio,                                   
+                               a.Registro.ToString(),
+                               a.NombreBeneficio,
+                               a.Descripcion,
+                               a.Orden.ToString(),
+                               a.FlagActivo,
+                               a.UrlIcono,                                   
+                            }
+                       }
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        
+            //return RedirectToAction("AdministrarBeneficios", "CaminoBrillanteAdministrar");
         }
 
         [HttpPost]
@@ -150,48 +149,45 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public ActionResult ConsultarMontoExigencia(string sidx, string sord, int page, int rows, AdministrarMontoExigenciaModel model)
+        public JsonResult ConsultarMontoExigencia(string sidx, string sord, int page, int rows, AdministrarMontoExigenciaModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return Json(null, JsonRequestBehavior.AllowGet);
+            var lst = GetIncentivosMontoExigencia(model) ?? new List<AdministrarMontoExigenciaModel>();
+            
+            BEGrid grid = new BEGrid
             {
-                var lst = GetIncentivosMontoExigencia(model) ?? new List<AdministrarMontoExigenciaModel>();
-                
-                BEGrid grid = new BEGrid
-                {
-                    PageSize = rows,
-                    CurrentPage = page,
-                    SortColumn = sidx,
-                    SortOrder = sord
-                };
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
 
-                IEnumerable<AdministrarMontoExigenciaModel> items = lst;
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            IEnumerable<AdministrarMontoExigenciaModel> items = lst;
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                BEPager pag = Util.PaginadorGenerico(grid, lst);
+            BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
+            var data = new
+            {
+                total = pag.PageCount,
+                page = pag.CurrentPage,
+                records = pag.RecordCount,
+                rows = from a in items
+                       select new
+                       {
+                           id = "div" + a.MontoID,
+                           cell = new string[]
                            {
-                               id = "div" + a.MontoID,
-                               cell = new string[]
-                               {
-                                   a.MontoID.ToString(),
-                                   a.AlcansoIncentivo,
-                                   a.CodigoCampania,
-                                   a.CodigoRegion,
-                                   a.CodigoZona,
-                                   a.Monto,
-                                }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            return RedirectToAction("AdministrarMontoExigencia", "CaminoBrillanteAdministrar");
+                               a.MontoID.ToString(),
+                               a.AlcansoIncentivo,
+                               a.CodigoCampania,
+                               a.CodigoRegion,
+                               a.CodigoZona,
+                               a.Monto,
+                            }
+                       }
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GuardarMontoExigencia(AdministrarMontoExigenciaModel model)
@@ -201,6 +197,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CodigoCampania = !string.IsNullOrEmpty(model.CodigoCampania) ? model.CodigoCampania : "0";
                 model.CodigoRegion = !string.IsNullOrEmpty(model.CodigoRegion) ? model.CodigoRegion : "";
                 model.CodigoZona = !string.IsNullOrEmpty(model.CodigoZona) ? model.CodigoZona : "";
+
+                model.CodigoRegion = model.CodigoRegion == "Todos" ? "" : model.CodigoRegion;
+                model.CodigoZona = model.CodigoZona == "Todos" ? "" : model.CodigoZona;
+
                 var entidad = Mapper.Map<BEIncentivosMontoExigencia>(model) ?? new BEIncentivosMontoExigencia();
                 string mensaje = "";
 

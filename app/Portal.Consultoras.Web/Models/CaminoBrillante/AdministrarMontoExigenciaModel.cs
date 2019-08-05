@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string Monto { get; set; }
         public string AlcansoIncentivo { get; set; }
 
-        public int PaisID { set; get; }
+        public string PaisID { set; get; }
         public IEnumerable<PaisModel> listaPaises { set; get; }
         public int CampaniaID { get; set; }
         public IEnumerable<CampaniaModel> listaCampania { set; get; }
