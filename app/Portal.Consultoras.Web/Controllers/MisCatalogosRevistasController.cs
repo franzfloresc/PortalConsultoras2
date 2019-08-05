@@ -105,6 +105,55 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.MensajeRRSS = mensajeRRSS;
 
+
+            var mensajeRRSS = Constantes.CatalogoMensajesDefault.SaludoCorreoPiloto;
+            var mensajePrincipal = "";
+
+            var parametrorBEConfiguracionPaisDatos = new BEConfiguracionPaisDatos();
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                var oBEConfiguracionPais = sv.GetConfiguracionPaisByCode(userData.PaisID, Constantes.ConfiguracionPaisDatos.RD.CompartirCatalogoRedesSociales);
+
+                if (oBEConfiguracionPais.Codigo != null)
+                {
+                    parametrorBEConfiguracionPaisDatos = new BEConfiguracionPaisDatos();
+                    parametrorBEConfiguracionPaisDatos.ConfiguracionPaisID = oBEConfiguracionPais.ConfiguracionPaisID;
+                    parametrorBEConfiguracionPaisDatos.PaisID = userData.PaisID;
+                }
+            }
+
+            if (parametrorBEConfiguracionPaisDatos.PaisID != 0)
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    var parametro = new Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos();
+                    Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] ListaConfiguracionPaisDatos;
+                    parametro.PaisID = userData.PaisID;
+                    parametro.ConfiguracionPaisID = parametrorBEConfiguracionPaisDatos.ConfiguracionPaisID;
+                    ListaConfiguracionPaisDatos = sv.GetConfiguracionPaisDatosAll(parametro);
+                    if (ListaConfiguracionPaisDatos.Any())
+                    {
+                        foreach (var item in ListaConfiguracionPaisDatos)
+                        {
+                            if (item.Codigo == Constantes.ConfiguracionPaisDatos.RD.MensajeCompartirCatalogo)
+                            {
+                                mensajeRRSS = item.Valor1;                                
+                            }
+                             
+                            if (item.Codigo == Constantes.ConfiguracionPaisDatos.RD.MensajePrincipalCatalogo)
+                            {
+                                mensajePrincipal = item.Valor1;
+                            }
+                             
+                        }
+
+                    }
+                }
+            }
+
+
+            ViewBag.MensajeRRSS = mensajeRRSS;
+            ViewBag.MensajePrincipal = mensajePrincipal;
             return View(clienteModel);
         }
 
