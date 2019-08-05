@@ -2822,7 +2822,7 @@ div .ficha__producto__precio__normal {
     .bar-logros span, .bar-logros p {
         display: block;
         text-align: center;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 19px;
     }
 
@@ -2834,6 +2834,7 @@ div .ficha__producto__precio__normal {
         margin-top: 8px;
         display: block;
         font-weight: bold;
+        font-size:20px;
     }
 
 .foto_perfil_home {

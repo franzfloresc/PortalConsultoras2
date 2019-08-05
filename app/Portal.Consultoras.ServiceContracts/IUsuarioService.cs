@@ -286,7 +286,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
 
         [OperationContract]
-        bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
+        string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
             string codigoUsuarioAutenticado, EAplicacionOrigen origen);
 
         [OperationContract]

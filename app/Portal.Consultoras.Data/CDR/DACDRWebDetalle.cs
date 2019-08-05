@@ -25,10 +25,20 @@ namespace Portal.Consultoras.Data.CDR
             Context.Database.AddInParameter(command, "CUV2", DbType.String, entity.CUV2);
             Context.Database.AddInParameter(command, "Cantidad2", DbType.Int32, entity.Cantidad2);
             Context.Database.AddInParameter(command, "GrupoID", DbType.String, entity.GrupoID);
+            Context.Database.AddInParameter(command, "DetalleXML", DbType.Xml, entity.XMLReemplazo);//HD-3703 EINCA
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
             Context.ExecuteNonQuery(command);
 
+            return Convert.ToInt32(command.Parameters["@RetornoID"].Value);
+        }
+
+        public int UpdCDRWebDetalle(BECDRWebDetalle entity) {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCDRWebDetalle");
+            Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
+            Context.Database.AddInParameter(command, "DetalleXML", DbType.Xml, entity.XMLReemplazo);//HD-4017 EINCA 
+            Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
+            Context.ExecuteNonQuery(command);
             return Convert.ToInt32(command.Parameters["@RetornoID"].Value);
         }
 
@@ -67,6 +77,7 @@ namespace Portal.Consultoras.Data.CDR
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCdrWebDetalleCantidadObservado");
             Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
             Context.Database.AddInParameter(command, "Cantidad", DbType.Int32, entity.Cantidad);
+            Context.Database.AddInParameter(command, "DetalleXML", DbType.Xml, entity.XMLReemplazo);//HD-4017 EINCA 
 
             int result = Context.ExecuteNonQuery(command);
 
