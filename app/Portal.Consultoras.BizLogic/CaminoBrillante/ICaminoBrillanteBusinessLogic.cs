@@ -27,5 +27,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);
         void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
         void SetConsultoraAnim(BEUsuario entidad, string key, string value, string repeat);
+        List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(int PaisID, string CodigorRegion, string Zona, long ConsultoraID, int CampaniaID, int PeriodoCB, int NivelCB, decimal PuntajeAcumuladoCB);
     }
 }

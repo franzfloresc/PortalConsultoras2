@@ -517,7 +517,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult CambiarConsultoraPass(string OldPassword, string NewPassword)
         {
-            int rslt = 0;
+            string rslt = string.Empty;
             try
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -528,10 +528,8 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoUsuario).ToList();
                         var contraseniaAnt = lstClave[0].ClaveSecreta;
 
-                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                        rslt = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
-
-                        rslt = result ? 2 : 1;
 
                         var lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoUsuario).ToList();
                         var contraseniaCambiada = lst[0].ClaveSecreta;
@@ -541,13 +539,13 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
-                            rslt = 0;
+                            rslt = "La contraseña anterior ingresada es inválida";
                     }
                 }
                 return Json(new
                 {
                     success = true,
-                    message = rslt
+                    message = string.IsNullOrEmpty(rslt) ? Constantes.MensajesError.CambioSatisfactorioContrasenia : rslt
                 });
             }
             catch (FaultException ex)

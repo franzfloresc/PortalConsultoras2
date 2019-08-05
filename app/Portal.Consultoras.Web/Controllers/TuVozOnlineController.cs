@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -21,14 +20,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             user.EMail = beUsuario.EMail;
-            var provider = new TuVozOnlineProvider
-            {
-                BasePath = _configuracionManagerProvider
-                            .GetConfiguracionManager(Constantes.ConfiguracionManager.QuestionProUrl)
-            };
+            var provider = new TuVozOnlineProvider();
 
-            var config = provider.GetPanelConfig(_tablaLogicaProvider, user.PaisID);
-            var url = provider.GetUrl(user, config.Value, config.Key);
+            var url = await provider.CreateUrl(user);
 
             return Redirect(url);
         }

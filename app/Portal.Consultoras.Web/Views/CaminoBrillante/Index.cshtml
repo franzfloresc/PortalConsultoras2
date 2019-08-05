@@ -161,7 +161,7 @@
                                 <div id="bar-progreso" class="new-bar" data-min="@montoMinimoBarra" data-max="@montoMaximoBarra" data-cur="@montoAlcanzadoBarra">
                                     <div class="box-cent-valor">
                                         <i class="arrowtop"></i>
-                                        @if (showMoneda && montoAlcanzadoBarra > 0)
+                                        @if (showMoneda && montoAlcanzadoBarra >= 0)
                                         {
                                             <div class="box-mostrarvalor">
                                                 <span class="tip-valor">
@@ -234,6 +234,10 @@
                             else
                             {
                                 <span style="display:none"><strong>Acumulaste @Util.EnteroFormat(Convert.ToDecimal(@montoAlcanzadoBarra), @ViewBag.CodigoISODL) pts</strong></span>
+                                if (ViewBag.GranBrillante != null && nivelEvaluacion.Puntaje != null)
+                                {
+                                    <span class="etiq-mant"><i><span class="tope tp-@ViewBag.NivelActual.CodigoNivel"></span></i>Mantienes tu nivel @ViewBag.NivelActual.DescripcionNivel con  @Util.EnteroFormat(Convert.ToDecimal(nivelEvaluacion.Puntaje), @ViewBag.CodigoISODL) pts</span>
+                                }
                                 if (ViewBag.NivelActual.Mensaje != null)
                                 {
                                     <span>@ViewBag.NivelActual.Mensaje</span>

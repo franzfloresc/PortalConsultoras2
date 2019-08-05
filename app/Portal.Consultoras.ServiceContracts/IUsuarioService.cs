@@ -286,7 +286,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
 
         [OperationContract]
-        bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
+        string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
             string codigoUsuarioAutenticado, EAplicacionOrigen origen);
 
         [OperationContract]
@@ -483,6 +483,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(int PaisID, string CodigorRegion, string Zona, long ConsultoraID, int CampaniaID, int PeriodoCB, int NivelCB, decimal PuntajeAcumuladoCB);
+
         #endregion
 
         [OperationContract]

@@ -612,23 +612,6 @@ namespace Portal.Consultoras.Service
             return blUsuario.GetValidarAutoLogin(paisID, codigoUsuario, proveedor);
         }
 
-        public bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
-        {
-            var blUsuario = new BLUsuario();
-            return blUsuario.CambiarContraseniaAleatoria(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
-        }
-
-        public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
-        {
-            var blUsuario = new BLUsuario();
-            return blUsuario.InsUsuarioExternoPais(paisID, entidad);
-        }
-
-        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
-        {
-            var blUsuario = new BLUsuario();
-            return blUsuario.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
-        }
 
         ///<summary>
         ///Verifica si existe el usuario con/sin el ingreso de la clave  
@@ -1019,7 +1002,11 @@ namespace Portal.Consultoras.Service
         {
             _caminoBrillanteBusinessLogic.DelBeneficioCaminoBrillante(paisId, CodigoNivel, CodigoBeneficio);
         }
-        
+
+        public List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(int PaisID, string CodigorRegion, string Zona, long ConsultoraID, int CampaniaID, int PeriodoCB, int NivelCB, decimal PuntajeAcumuladoCB) {
+            return _caminoBrillanteBusinessLogic.GetConfiguracionConsultoraCaminoBrillante(PaisID, CodigorRegion, Zona, ConsultoraID, CampaniaID, PeriodoCB, NivelCB, PuntajeAcumuladoCB);
+        }
+
         #region Exigencia Monto Incentivos
         public List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {
@@ -1114,6 +1101,24 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.ContraseniaRepetida(paisID, codigoUsuario, contrasenia);
+        }
+
+        public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
+        {
+            var blUsuario = new BLUsuario();
+            return blUsuario.InsUsuarioExternoPais(paisID, entidad);
+        }
+
+        public string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            var blUsuario = new BLUsuario();
+            return blUsuario.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        }
+
+        public bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            var blUsuario = new BLUsuario();
+            return blUsuario.CambiarContraseniaAleatoria(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
         }
         #endregion
 

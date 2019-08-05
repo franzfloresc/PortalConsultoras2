@@ -163,7 +163,7 @@ namespace Portal.Consultoras.Web.Providers
                         permiso.ClaseMenu = "";
                         permiso.ClaseMenuItem = "";
                         var urlSplit = permiso.UrlItem.Split('/');
-                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva) + ", '" + permiso.Descripcion + "')";
+                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva) + ", '" + permiso.Descripcion + "')";                                                
 
                         if (permiso.Codigo == Constantes.MenuCodigo.TuVozOnline.ToLower())
                         {

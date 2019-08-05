@@ -31,12 +31,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true);
                
                 var nivelActual = _caminoBrillanteProvider.GetNivelActual();
-
                 ViewBag.NivelActual = nivelActual;
-                if (nivelActual != null) {
-                    if (nivelActual.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante) {
-                        ViewBag.GranBrillante = _caminoBrillanteProvider.GetNivelGranBrillante();
-                    }
+                if (nivelActual != null && nivelActual.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante) {
+                    ViewBag.GranBrillante = _caminoBrillanteProvider.GetNivelGranBrillante();
                 }
 
                 ViewBag.NivelSiguiente = _caminoBrillanteProvider.GetNivelSiguienteConsultora();
@@ -70,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Logros(string opcion)
         {
             if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return _RedirectToAction("Index", "Bienvenida");
-            if (string.IsNullOrEmpty(opcion)) opcion = Constantes.CaminoBrillante.Logros.CRECIMIENTO; //return _RedirectToAction("Index", "Bienvenida");
+            if (string.IsNullOrEmpty(opcion)) opcion = Constantes.CaminoBrillante.Logros.CRECIMIENTO;
 
             var opcionUpper = opcion.ToUpper();
             if (opcionUpper != Constantes.CaminoBrillante.Logros.CRECIMIENTO && opcionUpper != Constantes.CaminoBrillante.Logros.COMPROMISO)

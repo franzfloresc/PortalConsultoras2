@@ -593,37 +593,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData != null)
             {
                 tipoUsuario = userData.TipoUsuario;
-
-                if (userData.EsUsuarioComunidad)
-                {
-                    try
-                    {
-                        ServiceComunidad.BEUsuarioComunidad usuario;
-                        using (var sv = new ServiceComunidad.ComunidadServiceClient())
-                        {
-                            usuario = sv.GetUsuarioInformacion(new ServiceComunidad.BEUsuarioComunidad()
-                            {
-                                UsuarioId = 0,
-                                CodigoUsuario = userData.CodigoUsuario,
-                                Tipo = 3,
-                                PaisId = userData.PaisID,
-                            });
-                        }
-
-                        if (usuario != null)
-                        {
-                            var uniqueId = LithiumSSOClient.SSOClient.ANONYMOUS_UNIQUE_ID;
-                            LithiumSSOClient.SSOClient.writeLithiumCookie(uniqueId, usuario.CodigoUsuario,
-                                usuario.Correo, System.Web.HttpContext.Current.Request,
-                                System.Web.HttpContext.Current.Response);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoUsuario, userData.CodigoISO,
-                            string.Empty);
-                    }
-                }
             }
 
             sessionManager.SetUserData(null);
@@ -1484,6 +1453,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.Direccion = usuario.Direccion;
                     usuarioModel.IPUsuario = GetIpCliente();
                     usuarioModel.AnoCampaniaIngreso = usuario.AnoCampaniaIngreso;
+                    usuarioModel.FechaIngreso = usuario.FechaIngreso;
                     usuarioModel.PrimerNombre = usuario.PrimerNombre;
                     usuarioModel.PrimerApellido = usuario.PrimerApellido;
 
@@ -1679,9 +1649,8 @@ namespace Portal.Consultoras.Web.Controllers
                         var notificacionTask = Task.Run(() => TieneNotificaciones(usuario, usuarioModel.TienePagoEnLinea));
                         var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
                         var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
-                        var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
 
-                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
+                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask);
 
                         usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
                         usuarioModel.TieneNotificaciones = notificacionTask.Result;
@@ -1708,10 +1677,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 ? lista.Find(x => x.TipoLinkID == 303).Url
                                 : null;
                         }
-
-                        usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
-
-
 
                         #endregion
 
@@ -1924,34 +1889,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BETipoLink>, List<TipoLinkModel>>(listModel);
         }
-
-
-        private async Task<bool> EsUsuarioComunidad(ServiceUsuario.BEUsuario usuario)
-        {
-            if (usuario.TipoUsuario != Constantes.TipoUsuario.Consultora) return false;
-
-            ServiceComunidad.BEUsuarioComunidad result = null;
-            try
-            {
-                using (var sv = new ServiceComunidad.ComunidadServiceClient())
-                {
-                    result = await sv.GetUsuarioInformacionAsync(new ServiceComunidad.BEUsuarioComunidad()
-                    {
-                        PaisId = usuario.PaisID,
-                        UsuarioId = 0,
-                        CodigoUsuario = usuario.CodigoUsuario,
-                        Tipo = 3
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoUsuario, usuario.PaisID.ToString(), "LoginController.EsUsuarioComunidad");
-            }
-
-            return result != null;
-        }
-
+        
         private async Task<ServiceUsuario.BEUsuario> ActualizarDatosHana(UsuarioModel model)
         {
             using (var us = new UsuarioServiceClient())

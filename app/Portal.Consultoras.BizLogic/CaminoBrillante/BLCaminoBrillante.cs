@@ -168,7 +168,15 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             };
         }
 
-        private List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(BEUsuario entidad, BEPeriodoCaminoBrillante periodo, NivelConsultoraCaminoBrillante nivelConsultora) {
+        private List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(BEUsuario entidad, BEPeriodoCaminoBrillante periodo, NivelConsultoraCaminoBrillante nivelConsultora)
+        {
+            if (periodo == null || nivelConsultora == null) return new List<BEConfiguracionCaminoBrillante>();
+            int nivelCB = 0;            
+            return GetConfiguracionConsultoraCaminoBrillante(entidad.PaisID, entidad.CodigorRegion, entidad.Zona, entidad.ConsultoraID, entidad.CampaniaID, periodo.Periodo, int.TryParse(nivelConsultora.NivelActual, out nivelCB) ? nivelCB: nivelCB, nivelConsultora.PuntajeAcumulado.HasValue ? nivelConsultora.PuntajeAcumulado.Value : 0);
+        }
+
+
+        private List<BEConfiguracionCaminoBrillante> __GetConfiguracionConsultoraCaminoBrillante(BEUsuario entidad, BEPeriodoCaminoBrillante periodo, NivelConsultoraCaminoBrillante nivelConsultora) {
 
             var periodoActual = (periodo != null ? periodo.Periodo : 0);
             var nivelActual = 0;
@@ -1934,6 +1942,108 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         #endregion
 
         #region Configuracion
+
+        public List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(int PaisID, string CodigorRegion, string Zona, long ConsultoraID, int CampaniaID, int PeriodoCB, int NivelCB, decimal PuntajeAcumuladoCB)
+        {
+
+            //var periodoActual = (periodo != null ? periodo.Periodo : 0);
+            //var nivelActual = 0;
+            //if (nivelConsultora != null) int.TryParse(nivelConsultora.NivelActual, out nivelActual);
+
+            var consultoraMeta = (new DACaminoBrillante(PaisID).GetConsultoraCaminoBrillante(ConsultoraID, PeriodoCB, CampaniaID, NivelCB).MapToCollection<BEConsultoraCaminoBrillanteMeta>(closeReaderFinishing: true) ?? new List<BEConsultoraCaminoBrillanteMeta>()).FirstOrDefault();
+            var montoExigencia = (new DACaminoBrillante(PaisID).GetMontoExigenciaCaminoBrillante(CampaniaID.ToString(), CodigorRegion, Zona).MapToCollection<BEIncentivosMontoExigencia>(closeReaderFinishing: true) ?? new List<BEIncentivosMontoExigencia>()).FirstOrDefault();
+
+            var configs = new List<BEConfiguracionCaminoBrillante>();
+
+            if (consultoraMeta != null)
+            {
+                var isAdded = false;
+                if (consultoraMeta.FlagOnboardingAnim.HasValue)
+                {
+                    if (!consultoraMeta.FlagOnboardingAnim.Value)
+                    {
+                        configs.Add(new BEConfiguracionCaminoBrillante()
+                        {
+                            Codigo = "CB_CON_ONBOARDING_ANIM",
+                            Descripcion = "Flag de Onboarding",
+                            Valor = "1",
+                        });
+                        isAdded = true;
+                    }
+                }
+
+                if (consultoraMeta.FlagOnboardingAnimRepeat.HasValue && !isAdded)
+                {
+                    if (consultoraMeta.FlagOnboardingAnimRepeat.Value)
+                    {
+                        configs.Add(new BEConfiguracionCaminoBrillante()
+                        {
+                            Codigo = "CB_CON_ONBOARDING_ANIM",
+                            Descripcion = "Flag de Onboarding",
+                            Valor = "1",
+                        });
+                    }
+                }
+
+
+                if (consultoraMeta.FlagGananciaAnim.HasValue)
+                {
+                    if (!consultoraMeta.FlagGananciaAnim.Value)
+                    {
+                        configs.Add(new BEConfiguracionCaminoBrillante()
+                        {
+                            Codigo = "CB_CON_GANANCIA_ANIM",
+                            Descripcion = "Flag de Ganancias",
+                            Valor = "1",
+                        });
+                    }
+                }
+
+
+                if (consultoraMeta.FlagCambioNivelAnim.HasValue)
+                {
+                    if (!consultoraMeta.FlagCambioNivelAnim.Value)
+                    {
+                        configs.Add(new BEConfiguracionCaminoBrillante()
+                        {
+                            Codigo = "CB_CON_CAMB_NIVEL_ANIM",
+                            Descripcion = "Flag de Ganancias",
+                            Valor = "1",
+                        });
+                    }
+                }
+
+
+                configs.Add(new BEConfiguracionCaminoBrillante()
+                {
+                    Codigo = "CB_CON_CAMB_NIVEL_VAL",
+                    Descripcion = "Flag de Ganancias",
+                    Valor = "+1",
+                });
+
+            }
+
+            if (montoExigencia != null)
+            {
+                configs.Add(new BEConfiguracionCaminoBrillante()
+                {
+                    Codigo = "CB_MONTO_INCENTIVO",
+                    Descripcion = "Monto Incentivo",
+                    Valor = montoExigencia.Monto.ToString(),
+                });
+                configs.Add(new BEConfiguracionCaminoBrillante()
+                {
+                    Codigo = "CB_MONTO_INCENTIVO_MSG",
+                    Descripcion = "Msg Monto Incentivo",
+                    Valor = montoExigencia.AlcansoIncentivo,
+                });
+            }
+
+            configs.AddRange(GetCaminoBrillanteConfiguracion(PaisID, PuntajeAcumuladoCB, string.Empty));
+
+            return configs;
+        }
+
 
         public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp)
         {
