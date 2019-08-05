@@ -137,6 +137,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal GananciaOtros { get; set; }
 
+        [DataMember]
+        public int EstadoEncuesta { get; set; }// HD-4357
+
         /*HD-4513*/
         [DataMember]
         public bool STPPagoContado { get; set; }

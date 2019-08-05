@@ -22,6 +22,8 @@ using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.Models.DetalleEstrategia;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.Models.Encuesta;
+using Portal.Consultoras.Web.ServiceEncuesta;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -722,6 +724,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
                 .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
                 .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
+            Mapper.CreateMap<BEDataConfigEncuesta, DataConfigEncuestaModel>();
 
             Mapper.CreateMap<Search.ResponseOferta.Estructura.FotosComponente, FotosComponenteModel>();
 

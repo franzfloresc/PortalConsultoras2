@@ -61,50 +61,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
             ViewBag.TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva;
-            var mensajeRRSS = Constantes.CatalogoMensajesDefault.SaludoCorreoPiloto;
-
-            var parametrorBEConfiguracionPaisDatos = new BEConfiguracionPaisDatos();
-            using (SACServiceClient sv = new SACServiceClient())
-            {
-                var oBEConfiguracionPais = sv.GetConfiguracionPaisByCode(userData.PaisID, Constantes.ConfiguracionPaisDatos.RD.CompartirCatalogoRedesSociales);
-
-                if (oBEConfiguracionPais.Codigo != null)
-                {
-                    parametrorBEConfiguracionPaisDatos = new BEConfiguracionPaisDatos();
-                    parametrorBEConfiguracionPaisDatos.ConfiguracionPaisID = oBEConfiguracionPais.ConfiguracionPaisID;
-                    parametrorBEConfiguracionPaisDatos.PaisID = userData.PaisID;
-                }
-            }
-
-            if (parametrorBEConfiguracionPaisDatos.PaisID != 0)
-            {
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    var parametro = new Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos();
-                    Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] ListaConfiguracionPaisDatos;
-                    parametro.PaisID = userData.PaisID;
-                    parametro.ConfiguracionPaisID = parametrorBEConfiguracionPaisDatos.ConfiguracionPaisID;
-                    ListaConfiguracionPaisDatos = sv.GetConfiguracionPaisDatosAll(parametro);
-                    if (ListaConfiguracionPaisDatos.Any())
-                    {
-                        foreach (var item in ListaConfiguracionPaisDatos)
-                        {
-                            if (item.Codigo == Constantes.ConfiguracionPaisDatos.RD.MensajeCompartirCatalogo)
-                            {
-                                mensajeRRSS = item.Valor1;
-                                break;
-                            }
-
-
-                        }
-
-                    }
-                }
-            }
-
-
-            ViewBag.MensajeRRSS = mensajeRRSS;
-
 
             var mensajeRRSS = Constantes.CatalogoMensajesDefault.SaludoCorreoPiloto;
             var mensajePrincipal = "";

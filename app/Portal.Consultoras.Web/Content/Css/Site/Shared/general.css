@@ -1363,7 +1363,7 @@ input[type="checkbox"].switch__control,
 }
 
 .layout__view__breadcrumb {
-    border-right: 1px solid #878787;
+    border-right: 1px solid #000;
     padding-left: 8px;
     padding-right: 8px;
 }
@@ -1375,11 +1375,11 @@ input[type="checkbox"].switch__control,
 .layout__view__breadcrumb,
 .layout__view__breadcrumb a
 {
-    color:#b1b1b1!important;
+    color:#000!important;
 }
 
 .layout__view__breadcrumb--active__view span{
-    color:#878787;
+    color:#000;
 }
 
 .layout__view__breadcrumb a{

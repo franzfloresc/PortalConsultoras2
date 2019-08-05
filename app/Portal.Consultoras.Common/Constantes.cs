@@ -4101,5 +4101,13 @@ namespace Portal.Consultoras.Common
             public const string Sugerido = "Suggested";
             public const string UpSelling = "UpSelling";
         }
+
+        //HD-4357
+        public static class EstadoEncuestaSatisfaccion
+        {
+            public const int NoAplica = -1;
+            public const int Realizada = 1;
+            public const int Pendiente = 0;
+        }
     }
 }
