@@ -859,5 +859,16 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEBuscadorResponse> ObtenerBuscadorComplemento(int paisID, string codigoUsuario, bool suscripcionActiva, List<BEBuscadorResponse> lst, bool isApp);
+
+        [OperationContract]
+        List<BEChatBotListResultados> ChatBotListResultados(int paisID, BEChatBotListResultados entidad);
+
+        [OperationContract]
+        BEChatBotInsertResultadosResponse ChatBotInsertResultados(int paisID, BEChatBotInsertResultadosRequest entidad);
+
+        [OperationContract]
+        bool ChatBotInsertDetalleResultados(int paisID, BEChatBotInsertDetalleResultadosRequest p);
+
+
     }
 }

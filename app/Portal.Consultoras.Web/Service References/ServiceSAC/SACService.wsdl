@@ -437,6 +437,24 @@
   <wsdl:message name="ISACService_ObtenerBuscadorComplemento_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerBuscadorComplementoResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotListResultados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotListResultados" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotListResultados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotListResultadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotInsertResultados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotInsertResultados" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotInsertResultados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotInsertResultadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotInsertDetalleResultados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotInsertDetalleResultados" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotInsertDetalleResultados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotInsertDetalleResultadosResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_SelectBelcorpNoticias_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectBelcorpNoticias" />
   </wsdl:message>
@@ -1722,6 +1740,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" message="tns:ISACService_ObtenerBuscadorComplemento_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerBuscadorComplementoResponse" message="tns:ISACService_ObtenerBuscadorComplemento_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ChatBotListResultados">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ChatBotListResultados" message="tns:ISACService_ChatBotListResultados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ChatBotListResultadosResponse" message="tns:ISACService_ChatBotListResultados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertResultados">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ChatBotInsertResultados" message="tns:ISACService_ChatBotInsertResultados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ChatBotInsertResultadosResponse" message="tns:ISACService_ChatBotInsertResultados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertDetalleResultados">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ChatBotInsertDetalleResultados" message="tns:ISACService_ChatBotInsertDetalleResultados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ChatBotInsertDetalleResultadosResponse" message="tns:ISACService_ChatBotInsertDetalleResultados_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SelectBelcorpNoticias">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticias" message="tns:ISACService_SelectBelcorpNoticias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse" message="tns:ISACService_SelectBelcorpNoticias_OutputMessage" />
@@ -2992,6 +3022,33 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerBuscadorComplemento">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotListResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotListResultados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotInsertResultados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertDetalleResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotInsertDetalleResultados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5120,6 +5177,33 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerBuscadorComplemento">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotListResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotListResultados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotInsertResultados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertDetalleResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotInsertDetalleResultados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

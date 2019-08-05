@@ -507,6 +507,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEPedidoWeb>();
 
+            Mapper.CreateMap<FiltroReporteChatBotModel, BEChatBotListResultados>()
+              .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.Consultora))
+              .ForMember(t => t.FechaInicio, f => f.MapFrom(c => string.IsNullOrEmpty(c.FechaInicio) ? (DateTime?)null : DateTime.Parse(c.FechaInicio)))
+              .ForMember(t => t.FechaFin, f => f.MapFrom(c => string.IsNullOrEmpty(c.FechaFin) ? (DateTime?)null : DateTime.Parse(c.FechaFin)));
+
+
             Mapper.CreateMap<ProductoComplementarioModel, ServiceCDR.BECDRProductoComplementario>();
         }
     }

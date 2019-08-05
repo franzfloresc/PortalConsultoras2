@@ -1665,5 +1665,23 @@ namespace Portal.Consultoras.Service
         {
             return _buscadorBusinessLogic.ObtenerBuscadorComplemento(paisID, codigoUsuario, suscripcionActiva, lst, isApp);
         }
+
+        public List<BEChatBotListResultados> ChatBotListResultados(int paisID, BEChatBotListResultados entidad)
+        {
+            var bl = new BLChatBot();
+            return bl.ChatBotListResultados(paisID, entidad);
+        }
+
+        public BEChatBotInsertResultadosResponse ChatBotInsertResultados(int paisID, BEChatBotInsertResultadosRequest entidad)
+        {
+            var bl = new BLChatBot();
+            return bl.ChatBotInsertResultados(paisID, entidad);
+        }
+
+        public bool ChatBotInsertDetalleResultados(int paisID, BEChatBotInsertDetalleResultadosRequest entidad)
+        {
+            var bl = new BLChatBot();
+            return bl.ChatBotInsertDetalleResultados(paisID, entidad);
+        }
     }
 }
