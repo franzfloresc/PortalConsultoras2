@@ -393,7 +393,8 @@ var EstrategiaAgregarModule = (function () {
             EsEditable: estrategia.esEditable || esEditable,
             SetId: estrategia.setId || 0,
             EsDuoPerfecto: EsDuoPerfecto,
-            ClienteID: _getClienteIdSelected()
+            ClienteID: _getClienteIdSelected(),
+            EsPromocion: estrategia.EsPromocion
         };
 
         if (estrategia.CodigoEstrategia == ConstantesModule.TipoPersonalizacion.Catalogo) {
