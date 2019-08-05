@@ -440,6 +440,9 @@
   <wsdl:message name="ISACService_GetFechasFacturacionConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:GetFechasFacturacionConsultora" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetReporteEncuestaSatisfaccion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteEncuestaSatisfaccionResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetFechasFacturacionConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFechasFacturacionConsultoraResponse" />
   </wsdl:message>
@@ -1728,6 +1731,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" message="tns:ISACService_ObtenerBuscadorComplemento_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerBuscadorComplementoResponse" message="tns:ISACService_ObtenerBuscadorComplemento_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetReporteEncuestaSatisfaccion">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccion" message="tns:ISACService_GetReporteEncuestaSatisfaccion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccionResponse" message="tns:ISACService_GetReporteEncuestaSatisfaccion_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetFechasFacturacionConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFechasFacturacionConsultora" message="tns:ISACService_GetFechasFacturacionConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFechasFacturacionConsultoraResponse" message="tns:ISACService_GetFechasFacturacionConsultora_OutputMessage" />
@@ -3002,6 +3009,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerBuscadorComplemento">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteEncuestaSatisfaccion">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5139,6 +5155,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerBuscadorComplemento">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteEncuestaSatisfaccion">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

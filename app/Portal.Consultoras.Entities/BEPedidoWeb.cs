@@ -139,11 +139,10 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int EstadoEncuesta { get; set; }// HD-4357
-
         /*HD-4513*/
         [DataMember]
         public bool STPPagoContado { get; set; }
-
+        
         [DataMember]
         public double STPTotalPagar { get; set; }
 
@@ -165,6 +164,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string STPDeudaLog { get; set; }
 
+        [DataMember]
+        public bool PrecioRegalo { get; set; }
 
 
 

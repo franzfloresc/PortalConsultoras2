@@ -46,6 +46,7 @@ namespace Portal.Consultoras.Data.Encuesta
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEncuesta");
             Context.Database.AddInParameter(command, "EncuestaId", DbType.Int32, entity.EncuestaId);
+            Context.Database.AddInParameter(command, "EncuestaCalificacionId", DbType.Int32, entity.EncuestaCalificacionId);
             Context.Database.AddInParameter(command, "CanalId", DbType.Int32, entity.CanalId);
             Context.Database.AddInParameter(command, "CodigoCampania", DbType.String, entity.CodigoCampania);
             Context.Database.AddInParameter(command, "CodigoConsultora", DbType.String, entity.CodigoConsultora);

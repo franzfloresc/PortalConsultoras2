@@ -3434,6 +3434,7 @@ namespace Portal.Consultoras.Common
         {
             public const string ExpresionCelular = "^\\d+$";
             public const string CambioCorreoPendiente = "1";
+            public const string CambioCelularPendiente = "1";
 
             private static Dictionary<string, string> _Message;
             public static class Code

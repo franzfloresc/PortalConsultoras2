@@ -249,7 +249,7 @@
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\ArmaTuPackController.cs" />
     <Compile Include="Controllers\FechasFacturacionController.cs" />
-    <Compile Include="Controllers\ReporteConsultoraPedidoSacController.cs" />
+    <Compile Include="Controllers\ReporteConsultoraPedidoSACController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\BundleExtention.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="Controllers\PremioNuevasController.cs" />
@@ -4792,7 +4792,7 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupIncentivo.cshtml" />
     <None Include="Service References\ServiceEncuesta\configuration91.svcinfo" />
     <None Include="Service References\ServiceEncuesta\configuration.svcinfo" />
-    <None Include="Service References\ServiceEncuesta\Reference.svcmap">
+    <None Include="Service References\ServiceEncuesta\Reference.svcmap"/>
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -5212,12 +5212,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService64.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService65.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService66.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
@@ -5963,8 +5957,8 @@
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarMontoExigencia.cshtml" />
-    <Content Include="Views\FechasFacturacion\Index.cshtml" />
     <Content Include="Views\ReporteEncuestaSatisfaccion\Index.cshtml" />
+    <Content Include="Views\FechasFacturacion\Index.cshtml" />
     <Content Include="Views\EncuestaSatisfaccion\_EncuestaSatisfaccion.cshtml" />
     <Content Include="Views\Chatbot\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">

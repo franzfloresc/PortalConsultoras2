@@ -557,6 +557,7 @@ namespace Portal.Consultoras.BizLogic
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
                 var actualizacionEmailTask = Task.Run(() => GetActualizacionEmail(paisID, usuario.CodigoUsuario));
+                var actualizacionCelularTask = Task.Run(() => GetActualizacionCelular(paisID, usuario.CodigoUsuario));
                 var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.ActualizacionDatosEnabled.TablaLogicaId));
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
@@ -588,6 +589,7 @@ namespace Portal.Consultoras.BizLogic
                                 revistaDigitalSuscripcionTask,
                                 cuponTask,
                                 actualizacionEmailTask,
+                                actualizacionCelularTask,
                                 actualizaDatosTask,
                                 actualizaDatosConfigTask,
                                 contratoAceptacionTask,
@@ -636,6 +638,14 @@ namespace Portal.Consultoras.BizLogic
                     usuario.CambioCorreoPendiente = Constantes.ActualizacionDatosValidacion.CambioCorreoPendiente.Equals(resultActualizacionEmail[0]);
                     usuario.CorreoPendiente = resultActualizacionEmail.Length > 1 ? resultActualizacionEmail[1] : string.Empty;
                 }
+
+                if (actualizacionCelularTask.Result != null)
+                {
+                    var resultActualizacionCelular = actualizacionCelularTask.Result.Split('|');
+                    usuario.CambioCelularPendiente = Constantes.ActualizacionDatosValidacion.CambioCelularPendiente.Equals(resultActualizacionCelular[0]);
+                    usuario.CelularPendiente = resultActualizacionCelular.Length > 1 ? resultActualizacionCelular[1] : string.Empty;
+                }
+
                 if (actualizaDatosTask.Result != null)
                 {
                     var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(ConsTablaLogica.ActualizacionDatosEnabled.ActualizaDatosEnabled));
@@ -3815,6 +3825,11 @@ namespace Portal.Consultoras.BizLogic
         public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID)
         {
             return new DAUsuario(paisID).GetConsultoraParticipaEnPrograma(codigoPrograma, codigoConsultora, campaniaID);
+        }
+
+        public string GetActualizacionCelular(int paisID, string codigoUsuario)
+        {
+            return new DAUsuario(paisID).GetActualizacionCelular(codigoUsuario);
         }
 
         public string GetActualizacionEmail(int paisID, string codigoUsuario)

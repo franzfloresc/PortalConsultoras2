@@ -101,7 +101,6 @@ function MostrarBarra(datax, destino) {
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
-
     var TippingPointBarraActive = false;
     if (dataBarra.hasOwnProperty("TippingPointBarra"))
         TippingPointBarraActive = dataBarra.TippingPointBarra.Active;

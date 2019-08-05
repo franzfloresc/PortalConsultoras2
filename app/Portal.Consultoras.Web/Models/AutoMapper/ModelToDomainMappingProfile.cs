@@ -515,7 +515,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
               .ForMember(t => t.FechaInicio, f => f.MapFrom(c => string.IsNullOrEmpty(c.FechaInicio) ? (DateTime?)null : DateTime.Parse(c.FechaInicio)))
               .ForMember(t => t.FechaFin, f => f.MapFrom(c => string.IsNullOrEmpty(c.FechaFin) ? (DateTime?)null : DateTime.Parse(c.FechaFin)));
 
-
+            Mapper.CreateMap<ReporteEncuestaSatisfaccionModel, BEEncuestaReporte>();
             Mapper.CreateMap<ProductoComplementarioModel, ServiceCDR.BECDRProductoComplementario>();
         }
     }
