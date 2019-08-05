@@ -871,7 +871,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         
         [OperationContract]
-        BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual, int cantidadAnterior, int cantidadProxima);
+        BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual);
         [OperationContract]
         BEChatBotInsertResultadosResponse ChatBotInsertResultados(int paisID, BEChatBotInsertResultadosRequest entidad);
 
