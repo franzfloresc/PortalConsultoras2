@@ -411,7 +411,7 @@ namespace Portal.Consultoras.BizLogic
                     return new BEPedidoDetalleResult()
                     {
                         CodigoRespuesta = Constantes.PedidoValidacion.Code.ERROR_MODIFICAR_CONDICION,
-                        MensajeRespuesta = String.Format("Debes eliminar {0} {1} (3) para completar esta acción", cantidafaltante, texto, cuvspromocion)
+                        MensajeRespuesta = String.Format("Debes eliminar {0} {1} ({2}) para completar esta acción", cantidafaltante, texto, cuvspromocion)
                     };
                 }
             }
