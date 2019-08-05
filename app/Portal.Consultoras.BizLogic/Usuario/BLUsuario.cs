@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.ServiceModel;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -2165,13 +2166,27 @@ namespace Portal.Consultoras.BizLogic
             string titulo = "Confirmación de Correo";
             string displayname = usuario.Nombre;
             string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+            string paramQuerystring = String.Empty;
+            string[] parametros = null;
             string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
+            try
+            {
 
-            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), correoNuevo };
-            string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
-            LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
 
-            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
+                parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), correoNuevo };
+                paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
+                MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
+            }
+            catch 
+            {
+
+               StringBuilder sb = new StringBuilder();
+               sb.AppendLine("Tracking EnviarEmailActualizarCorreo;");
+               sb.AppendLine(string.Format("Data:{0}", paramQuerystring));
+               sb.AppendLine(string.Format("Parametros:{0}", string.Join("|", parametros)));
+                LogManager.SaveLog(new ClientInformationException(sb.ToString()), usuario.CodigoUsuario, usuario.CodigoISO);
+            }
+           
 
         }
 
