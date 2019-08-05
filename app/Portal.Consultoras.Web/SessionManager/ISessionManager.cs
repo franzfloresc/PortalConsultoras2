@@ -75,6 +75,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetFlagIsSetsOrPack(bool? flag);
 
+        bool? GetTruequeUnoPorMuchos();
+        void SetTruequeUnoPorMuchos(bool? flag);
+
         #endregion
 
 

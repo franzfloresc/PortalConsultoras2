@@ -5,6 +5,47 @@ namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
+
+        /*HD-4327*/
+        public static class TipoProceso
+        {
+            public const int Regular = 1;
+            public const int DemandaAnticipada = 2;
+            public const int DemandaAnticipadaPRD = 3;
+            public const int FIC = 4;
+            public const int GenerarLideres = 5;
+        }
+
+        public static class MensajeProcesoDescargaregular
+        {
+            public const string Terminado = "El proceso terminó satisfactoriamente";
+            public const string Error = "El proceso tuvo complicaciones";
+            public const string respuestaexito = "a";
+            public const string respuestanoCarga = "b";
+            public const string respuestanoCargaSinDatos = "c";
+            public const string MensajeRetorno = "Se está ejecutando un proceso desde otro punto para otra campaña, espere unos minutos y vuelva a intentarlo.";
+            public const string ExitoDescargaWebDD = " El proceso de descarga de pedidos ha finalizado satisfactoriamente";
+            public const string NingunaDescargaWebDD = " El proceso de descarga de pedidos no se realizó por falta de datos";
+            public const string nombreArchivoCabWeb = "PWC";
+            public const string nombreArchivoCabDD = "PDC";
+            public const string nombreArchivoDetWeb = "PWD";
+            public const string nombreArchivoDetDD = "PDD";
+            public const string origenWeb = "W";
+            public const string origeDD = "D";
+        }
+
+        public static class EstadoValorProcesoDescargaregular
+        {
+            public const int Terminado = 1;
+            public const int Error = 2;
+            public const int EnProceso = 0;
+        }
+
+        /*FIN*/
+
+
+
+
         public static class TipoSeccion
         {
             public const string Video = "01";
@@ -418,6 +459,7 @@ namespace Portal.Consultoras.Common
             public const string CDRWebDatos = "CDRWebDatos";
             public const string CDRExpressMensajes = "CDRExpressMensajes";
             public const string CDRFlagIsSetsOrPacks = "CDRSetsYPacks";
+            public const string CDRFlagTruequeUnoMuchos = "CDRFlagTruequeUnoMuchos";
 
             // Tabla LOgica
             public const string TablaLogicaDatos = "TablaLogicaDatos";
@@ -512,6 +554,10 @@ namespace Portal.Consultoras.Common
             public const string UrlImagenFAVHome = "UrlImagenFAVHome";
             public const string UrlImagenFAVLanding = "UrlImagenFAVLanding";
             public const string UrlPagoLineaChile = "UrlPagoLineaChile";
+            public const string BaseDirectory = @"Uploads\Files\"; /*HD-4327*/
+            public const string Cabecera = "Cabecera"; /*HD-4327*/
+            public const string Detalle = "Detalle"; /*HD-4327*/
+            public const string FechaDefault = "1/01/0001 00:00:00"; /*HD-4327*/
             public const string UrlPoliticasCDR = "UrlPoliticasCDR";
             public const string UrlLogDynamo = "UrlLogDynamo";
             public const string rutaImagenNotFoundAppCatalogo = "rutaImagenNotFoundAppCatalogo";
@@ -531,6 +577,7 @@ namespace Portal.Consultoras.Common
             public const string BelcorpRespondeTEL = "BelcorpRespondeTEL_{0}";
             public const string DES_UBIGEO = "DES_UBIGEO_";
             public const string FechaChat = "FechaChat_";
+            public const string MensajeCantiad = "Excediste el límite de compras de este producto. (Máx.: {0} unidades)";
             public const string MensajeChatBienvenida = " tú eres nuestro ejemplo e inspiración. En un momento uno de nuestros creadores de experiencia te atenderá.";
             public const string PaisesBelcorpChatEMTELCO = "PaisesBelcorpChatEMTELCO";
             public const string UrlBelcorpChat = "UrlBelcorpChat";
@@ -566,8 +613,6 @@ namespace Portal.Consultoras.Common
             public const string UneteMailSubject = "UneteMailSubject";
             public const string WSGEO_Url = "WSGEO_Url";
             public const string UneteURL = "UneteURL";
-            public const string URL_COM_LO = "URL_COM_LO";
-            public const string URL_SB = "URL_SB";
             public const string KeyPaisFormatDecimal = "KeyPaisFormatDecimal";
             public const string PaisesShowRoom = "PaisesShowRoom";
             public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
@@ -595,10 +640,6 @@ namespace Portal.Consultoras.Common
             public const string URL_FAMILIAPROTEGIDA_ = "URL_FAMILIAPROTEGIDA_";
             public const string ProductoSugeridoAppCatalogosNroCampaniasAtras = "ProductoSugeridoAppCatalogosNroCampaniasAtras";
             public const string ConsultoraOnlineEmailDe = "ConsultoraOnlineEmailDe";
-            public const string AMB_COM = "AMB_COM";
-            public const string COM_CLIENT_ID = "COM_CLIENT_ID";
-            public const string URL_COM = "URL_COM";
-            public const string COM_DOMAIN = "COM_DOMAIN";
 
             public const string RDUrlTerminosCondiciones = "UrlTerminosCondiciones";
             public const string RDUrlPreguntasFrecuentes = "UrlPreguntasFrecuentes";
@@ -639,7 +680,6 @@ namespace Portal.Consultoras.Common
             public const string BonificacionesURL = "BonificacionesURL";
             public const string BonificacionesRegiones = "BonificacionesRegiones";
             public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
-            public const string QuestionProUrl = "QuestionProUrl";
             public const string ChatbotSecret = "ChatbotSecret";
             public const string ChatBotPageId = "ChatBotPageId";
             public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
@@ -1201,6 +1241,8 @@ namespace Portal.Consultoras.Common
             public const string mensajeBackOrderMobile = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
         }
 
+
+
         public static class EstadoCDRWeb
         {
             public const int Pendiente = 1;
@@ -1217,6 +1259,10 @@ namespace Portal.Consultoras.Common
             public const string TenerEnCuenta = "TenerEnCuenta";
             public const string Finalizado = "Finalizado";
             public const string MensajeFinalizado = "MensajeFinalizado";
+        }
+
+        public static class MotivoRechazo {
+            public const string NoRecibiProductoEnFactura = "11";
         }
 
         public static class ParametriaCDR
@@ -1656,6 +1702,14 @@ namespace Portal.Consultoras.Common
             public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado {2} unidad(es) para ti. Por favor modifica las unidades ingresadas.";
             public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
             public const string ServicioCatalogoVirtuales = "Por favor vuelva ingresar en unos momentos, ya que el servicio de catálogos virtuales está teniendo problemas.";
+            public const string IngreseLaContrasenia = "- Debe ingresar la Nueva Contraseña.\n";
+            public const string AlMenosTotalCaracteres = "- La Nueva Contraseña debe de tener mínimo 7 caracteres.\n";
+            public const string AlMenosLetraMayuscula = "- La Nueva Contraseña debe de tener al menos una letra en mayúscula.\n";
+            public const string AlMenosLetraMinuscula = "- La Nueva Contraseña debe de tener al menos una letra en minúscula.\n";
+            public const string AlMenosLetra = "- La Nueva Contraseña debe de tener al menos una letra.\n";
+            public const string AlMenosDigito = "- La Nueva Contraseña debe de tener al menos un dígito.\n";
+            public const string AlMenosCaracterEspecial = "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
+            public const string CambioSatisfactorioContrasenia = "Se cambió satisfactoriamente la contraseña.";
         }
 
         public static class MensajesExito
@@ -2053,6 +2107,11 @@ namespace Portal.Consultoras.Common
                     });
                 }
             }
+        }
+
+        public static class Regex
+        {
+            public const string CadenaRegexPassword = "[A-Z]¦[a-z]¦[0-9]¦[°|¬!#@$%^&/()[=¿?¡*+~{};,:._-]¦[a-zA-Z]";
         }
 
         public static class ClienteValidacion

@@ -23,6 +23,7 @@ namespace Portal.Consultoras.Service
         private readonly Bl_Conte.IContenidoAppResumenBusinessLogic _BLContenidoAppResumenBusinessLogic;
         private readonly BLBelcorpResponde _BLBelcorpResponde;
         private readonly BLEncuesta _BLEncuesta;
+        private readonly Bl_Conte.ITuVozOnlineBusinessLogic _blTvoOnline;
 
         public ContenidoService()
         {
@@ -32,6 +33,7 @@ namespace Portal.Consultoras.Service
             _BLContenidoAppResumenBusinessLogic = new Bl_Conte.BLContenidoApp();
             _BLBelcorpResponde = new BLBelcorpResponde();
             _BLEncuesta = new BLEncuesta();
+            _blTvoOnline = new Bl_Conte.BLTuVozOnline();
         }
 
         #region Gestion Banners
@@ -626,6 +628,11 @@ namespace Portal.Consultoras.Service
         public int InsEncuesta(BEEncuestaCalificacion entity, int paisId)
         {
             return _BLEncuesta.InsEncuesta(entity, paisId);
+        }
+        
+        public string GetTvoUrl(BEUsuario user)
+        {
+            return _blTvoOnline.GetUrl(user);
         }
     }
 }

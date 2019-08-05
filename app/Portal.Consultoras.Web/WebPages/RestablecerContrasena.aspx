@@ -112,7 +112,9 @@
     <title>Restablecer Contraseña</title>
 
     <script>
+        var patronRegex = "";
         $(document).ready(function () {
+            patronRegex = $("#txtpatronRegex").val();
             //Asignar hojas de estilo
             if ($('#txtmarca').val() == 'lbel') {
                 $("body").css("visibility", "hidden");
@@ -182,6 +184,7 @@
                         document.getElementById('linkregresarasomosbelcorp').href = result.url;
                     }
                     else {
+                        mostrarMensaje(result.message);
                         closeWaitingDialog();
                         return false;
                     }
@@ -195,10 +198,18 @@
                 return "Ingresa ambos campos de contraseña.";
 
             if (password1.length <= 6)
-                return "La nueva contraseña debe de tener como mínimo 7 caracteres.";
+                return "La Nueva Contraseña debe de tener mínimo 7 caracteres.";
 
             if (password1 != password2)
                 return "Los campos de la nueva contraseña deben ser iguales, verifique.";
+
+            var pDigi = patronRegex.split('¦')[2];
+            if (password1.match(pDigi) == null)
+                return "La Nueva Contraseña debe de tener al menos un dígito.";
+
+            var pLetra = patronRegex.split('¦')[4];
+            if (password1.match(pLetra) == null)
+                return "La Nueva Contraseña debe de tener al menos una letra.";
 
             return "";
         }
@@ -267,6 +278,7 @@
                             <asp:TextBox ID="txtcodigousuario" runat="server" CssClass="txttexto"></asp:TextBox>
                             <asp:TextBox ID="txtcontrasenaanterior" runat="server" CssClass="txttexto"></asp:TextBox>
                             <asp:TextBox ID="txtmarca" runat="server" CssClass="txttexto"></asp:TextBox>
+                            <asp:TextBox ID="txtpatronRegex" runat="server" CssClass="txttexto"></asp:TextBox>
                         </div>
                         <asp:TextBox ID="txtcontrasenanueva1" runat="server" CssClass="campoContrasenia borde_inferior_campo" placeholder="Nueva contraseña" TextMode="Password"></asp:TextBox>
                         <asp:TextBox ID="txtcontrasenanueva2" runat="server" CssClass="campoContrasenia borde_inferior_campo" placeholder="Confirmar contraseña" TextMode="Password"></asp:TextBox>

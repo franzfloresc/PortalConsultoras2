@@ -336,8 +336,8 @@ input[type="checkbox"].switch__control,
 }
 
 .btn__sb--disabled {
-    border: 1px solid #D1D1D4;
-    background-color: #D1D1D4;
+    border: 1px solid #D1D1D4!important;
+    background-color: #D1D1D4!important;
     pointer-events: none;
     cursor: not-allowed;
     color: #909094;
@@ -389,9 +389,9 @@ input[type="checkbox"].switch__control,
         height: auto;
     }
 
-.notificacion__estado--error span{
-    color:#e81c36;
-}
+    .notificacion__estado--error span{
+        color:#e81c36;
+    }
 
 /* FIN - NOTIFICACIONES */
 
@@ -618,6 +618,10 @@ input[type="checkbox"].switch__control,
 
 .full__height{
     height:100%;
+}
+
+.mt-40 {
+    margin-top: 40px;
 }
 
 .mt-40 {

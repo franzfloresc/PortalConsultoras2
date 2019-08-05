@@ -40,6 +40,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
                 model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
                 model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
+                model.FlagTruequeUnoMuchos = _cdrProvider.GetTruequeUnoPorMuchos(userData.PaisID, userData.CodigoConsultora, userData.CodigoISO);
                 model.CantidadReclamosPorPedido = _cdrProvider.GetNroSolicitudesReclamoPorPedido(userData.PaisID, userData.CodigoConsultora, userData.CodigoISO);
                 if (listaCdrWebModel.Any())
                 {
@@ -65,7 +66,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
-        public ActionResult Reclamo(int p = 0, int c = 0,int t = 1)
+        public ActionResult Reclamo(int p = 0, int c = 0, int t = 1)
         {
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             var model = new MisReclamosModel
@@ -78,7 +79,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             _cdrProvider.CargarInformacion(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
             model.ListaCampania = SessionManager.GetCDRCampanias();
             model.CantidadReclamosPorPedido = SessionManager.GetNroPedidosCDRConfig();
-
+            model.FlagTruequeUnoMuchos = (bool)SessionManager.GetTruequeUnoPorMuchos();
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index", "MisReclamos", new { area = "Mobile" });
 
             if (p != 0)
@@ -196,10 +197,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Detalle", "MisReclamos", new { area = "Mobile" });
         }
 
-        public ActionResult Detalle()
+        public ActionResult Detalle(int e = 1)
         {
             var objCdr = SessionManager.GetListaCDRDetalle();
-
             if (objCdr != null)
             {
                 MisReclamosModel obj = new MisReclamosModel
@@ -210,6 +210,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 SessionManager.SetCDRWebDetalle(null);
                 objCdr.ListaDetalle = _cdrProvider.CargarDetalle(obj, userData.PaisID, userData.CodigoISO);
+                objCdr.ListaDetalle.Update(a => a.SolucionSolicitada = _cdrProvider.ObtenerDescripcion(a.CodigoOperacion, Constantes.TipoMensajeCDR.Solucion, userData.PaisID).Descripcion);
+                int cantidadObservadoDetalleReemplazo = 0, cantidadAprobadoDetalleReemplazo = 0;
+                if (objCdr.ListaDetalle != null)
+                {
+                    foreach (var item in objCdr.ListaDetalle)
+                    {
+                        if (item.DetalleReemplazo != null && item.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque)
+                        {
+                            cantidadObservadoDetalleReemplazo += item.DetalleReemplazo.Count(a => a.Estado == Constantes.EstadoCDRWeb.Observado);
+                            cantidadAprobadoDetalleReemplazo += item.DetalleReemplazo.Count(a => a.Estado == Constantes.EstadoCDRWeb.Aceptado);
+                        }
+                    }
+
+                    objCdr.CantidadRechazados = objCdr.ListaDetalle.Count(x => x.Estado == Constantes.EstadoCDRWeb.Observado && string.IsNullOrEmpty(x.XMLReemplazo)) + cantidadObservadoDetalleReemplazo;
+                    objCdr.CantidadAprobados = objCdr.ListaDetalle.Count(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado && string.IsNullOrEmpty(x.XMLReemplazo)) + cantidadAprobadoDetalleReemplazo;
+
+                }
 
                 ViewBag.Origen = objCdr.OrigenCDRDetalle;
                 ViewBag.FormatoCampania = objCdr.FormatoCampaniaID;
@@ -217,10 +234,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 string estadoAprobado = objCdr.CantidadAprobados == 1 ? objCdr.CantidadAprobados + " producto aprobado, " : objCdr.CantidadAprobados + " productos aprobados, ";
                 string estadoRechazado = objCdr.CantidadRechazados == 1 ? objCdr.CantidadRechazados + " rechazado" : objCdr.CantidadRechazados + " rechazados";
-
+                ViewBag.CantidadObservados = objCdr.CantidadRechazados;
                 ViewBag.EstadoProductos = estadoAprobado + estadoRechazado;
                 ViewBag.CDR_ID = objCdr.CDRWebID;
+                ViewBag.Pedido_ID = objCdr.PedidoID;
                 ViewBag.ListaDetalle = objCdr.ListaDetalle;
+                ViewBag.MostrarBotonActualizar = e == Constantes.EstadoCDRWeb.Observado;
             }
 
             return View();
@@ -309,14 +328,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
         }
 
-        public ActionResult GetReclamos(int o = 0) {
+        public ActionResult GetReclamos(int o = 0)
+        {
             SessionManager.SetListaCDRWebCargaInicial(null);
-            var misReclamos =  _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
+            var misReclamos = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
             if (o > 0)
             {
                 misReclamos = misReclamos.Where(a => a.Estado == o).ToList();
             }
-            return PartialView("_ListaMisReclamos",misReclamos);
+            return PartialView("_ListaMisReclamos", misReclamos);
         }
     }
 }
