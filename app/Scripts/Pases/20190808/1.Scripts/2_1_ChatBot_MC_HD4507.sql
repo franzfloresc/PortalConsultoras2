@@ -1,15 +1,15 @@
-GO
+ï»¿GO
 USE BelcorpPeru
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -23,15 +23,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpMexico
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -45,15 +45,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpColombia
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -67,15 +67,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpSalvador
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -89,15 +89,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpPuertoRico
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -111,15 +111,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpPanama
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -133,15 +133,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpGuatemala
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -155,15 +155,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpEcuador
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -177,15 +177,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpDominicana
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -199,15 +199,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpCostaRica
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -221,15 +221,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpChile
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
@@ -243,15 +243,15 @@ INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcio
 GO
 USE BelcorpBolivia
 GO
-INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Númerico','N');
+INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('NÃºmerico','N');
 INSERT INTO [chatbot].[TipoCalificacion] ([Valor],[Abreviatura]) VALUES ('Booleano','B');
 GO
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('WhatsApp','1');
 INSERT INTO [chatbot].[Canal] ([Descripcion],[Tipo]) VALUES ('Facebook','1');
 GO
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Te sientes satisfecha con el servicio?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Resolvimos tu solicitud?');
-INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Te sientes satisfecha con el servicio?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Resolvimos tu solicitud?');
+INSERT INTO [chatbot].[Preguntas](Descripcion) VALUES('Â¿Como te sientes con la actitud mostrada por el agente para atender tu solicitud?');
 
 GO
 INSERT INTO [chatbot].[Calificaciones] ([TipoCalificacionID],[Valor],[Descripcion]) VALUES (1,1,'Muy insatisfecha');
