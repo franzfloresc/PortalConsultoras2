@@ -1,0 +1,369 @@
+﻿@model Portal.Consultoras.Web.Models.ReporteConsultoraPedidoSACModels
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .disabled {
+        background: none repeat scroll 0 0 burlyWood;
+        cursor: default !important;
+    }
+</style>
+
+<script type="text/javascript">
+    var NRO_LOTE = 0;
+    var rutaImagenArchivoClientes = '@Url.Content("~/Content/Images/update.png")';
+    var rutaImagenCalendar = '@Url.Content("~/Content/Images/calendar.png")';
+
+    $(document).ready(function(){
+        fnGrilla();
+        $("#btnDescargar").data('click', false);
+        $("#btnDescargar").click(function () {
+            RealizarDescarga($(this)); 
+        });
+
+        $("#ddlPais").attr("disabled", true);
+
+        $("#ddlCampania").change(function () {
+            cargarLista();
+        });
+    });
+
+
+
+    function cargarLista() {
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'ReporteConsultoraPedidoSAC/CargarLista',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            success: function (data) {
+                if (!checkTimeout(data)) return;
+                closeWaitingDialog();
+                $("#list").GridUnload();
+                fnGrilla();
+            }
+            , error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+    }
+
+
+
+
+    function RealizarDescarga($btnClick) {
+        var vMessage = "";
+
+        if ($("#ddlPais").val() == "") {
+            vMessage += "Debe seleccionar un País";
+        }
+      
+
+        if ($("#ddlCampania").val() == "") {
+            vMessage += "Debe seleccionar una Campaña";
+        }
+
+        if (vMessage != "") {
+            alert(vMessage);
+            return false;
+        }
+        else {
+            if ($btnClick.data('click')) {
+                alert("Esperando finalización de proceso anterior.");
+                return;
+            }
+
+            $btnClick.data('click', true);
+
+            var waiting = {
+                message: 'Espere unos minutos, por favor...',
+                title: 'Ejecutando Proceso'
+            }
+            waitingDialog(waiting);
+
+            var JsonData = {
+                PaisID: $("#ddlPais").val(),
+                CampanaId: $("#ddlCampania").val(),
+                NroLote: NRO_LOTE
+            };
+
+                $.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'ReporteConsultoraPedidoSAC/RealizarDescargaSinMarcar',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(JsonData),
+                    async: true,
+                    success: function (data) {
+                        if (!checkTimeout(data)) return;
+                        closeWaitingDialog();
+                        alert(data.success);
+                        $("#list").GridUnload();
+                        fnGrilla();
+                    }
+                    , complete: function () {
+                        $('#btnDescargar').removeClass('disabled');
+                        $btnClick.data('click', false); // Termino el click
+                    }
+                    , error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            closeWaitingDialog();
+                            alert("Error del Sistema.");
+                        }
+                    }
+                });
+        }
+    }
+
+    function ShowActionsArchivoClientes(cellvalue, options, rowObject) {
+        var Des = "";
+        if (rowObject.NroLote == 0 || rowObject.estadoProcesoGeneral ==1) {
+            Des = "<img   src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' />";
+        } else { 
+            Des = "<img   src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' />";
+            NRO_LOTE = rowObject.NroLote;
+        }
+
+        return Des;
+    }
+
+    function fnGrilla() {
+
+
+        jQuery("#list").jqGrid({
+            url: baseUrl + "ReporteConsultoraPedidoSAC/ObtenerUltimaDescargaPedidoSinMarcar?campaniaID=" + $("#ddlCampania").val(),
+            hidegrid: false,
+            datatype: 'json',
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Fecha/Hora Inicio', 'Fecha/Hora Fin', 'Estado', 'Mensaje', 'Número de pedidos','Archivo Clientes', 'NroLote'],
+            colModel: [
+                { name: 'FechaHoraInicio', index: 'FechaHoraInicio', width: 22, editable: false, resizable: false, align: "center" },
+                { name: 'FechaHoraFin', index: 'FechaHoraFin', width: 22, editable: false, resizable: false, align: "center" },
+                { name: 'Estado', index: 'Estado', width: 15, editable: false, resizable: true, align: "center" },
+                { name: 'Mensaje', index: 'Mensaje', width: 30, editable: false, resizable: true },
+                { name: 'NumeroPedidos', index: 'NumeroPedidos', width: 20, editable: true, resizable: false },
+                { name: 'ArchivoClientes', index: 'ArchivoClientes', width: 22, editable: false, resizable: false, hidden: false, align: "center", formatter: ShowActionsArchivoClientes },
+                { name: 'NroLote', index: 'NroLote', hidden: true, },
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: false,
+                    id: "NroLote"
+                },
+            loadtext: 'Cargando datos...',
+            emptyrecords: 'No hay resultados',
+            height: 'auto',
+            width: 930,
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+                obtenerUltimaDescargaExitosa();
+            },
+            cache: false,
+            cmTemplate: { sortable: false },
+            onCellSelect: function (rowId, iCol, content, event) {
+                if (iCol == 5) ArchivoClientes(rowId);
+            }
+        });
+    }
+
+
+    function obtenerUltimaDescargaExitosa() {
+        waitingDialog({});
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'ReporteConsultoraPedidoSAC/ObtenerUltimaDescargaExitosa',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            cache: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        $("#Campania").text(data.descarga.CampaniaId);
+                        $("#Estado").text(data.descarga.DescripcionEstadoProcesoGeneral);
+                        $("#Fecha").text(data.descarga.FechaProceso);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+    }
+
+
+    function ArchivoClientes(rowId) {
+        
+        var waiting = {
+            message: 'Espere unos minutos, por favor...',
+            title: 'Ejecutando Proceso'
+        }
+        waitingDialog(waiting);
+
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'ReporteConsultoraPedidoSAC/DescargarArchivoClienteSinMarcar',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: "{nroLote: " + rowId + ", campaniaid: " + $("#ddlCampania").val() +  "}",
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.msnRespuesta_ == "a") {
+                        if (data.objPedidosCab_.length > 0) DescargaArchivos(data.objPedidosCab_);
+                        if (data.objPedidosDet_.length > 0) DescargaArchivos(data.objPedidosDet_);
+                    }
+                    if (data.msnRespuesta_ == "b") {
+                        alert("Se está ejecutando un proceso desde otro punto para otra campaña, espere unos minutos y vuelva a intentarlo.");
+                    }
+                    if (data.msnRespuesta_ == "c") {
+                        alert("Los archivos no fueron generados por falta de información");
+                    }
+                    cargarLista();
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+    }
+
+
+    function DescargaArchivos(nameurl) {
+            var request = new XMLHttpRequest();
+            request.responseType = "blob";
+            request.open("GET", baseUrl + 'ReporteConsultoraPedidoSAC/CreateFile?nameurl=' + nameurl);
+            request.onload = function (data) {
+                var url = window.URL.createObjectURL(this.response);
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.href = url;
+                a.download = this.response.name || data.currentTarget.responseURL.replace(/^.*[\\\/]/, '')
+                a.click();
+            }
+            request.send();
+    }
+
+
+
+
+
+
+
+  
+    
+
+
+  
+
+
+
+   
+
+
+
+
+
+
+
+</script>
+
+
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Carga de Pedidos Campaña</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper_reg">
+            <div class="DescargaParams">
+                <div class="celda">
+                    <span>País:</span>
+                    <div class="selectP2 borde_redondeado">
+                        @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), new { id = "ddlPais" })
+                    </div>
+
+                </div>
+               
+                <div class="celda">
+                    <span>Campaña:</span>
+                    <div class="selectP2 borde_redondeado">
+                        @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaCampania, "CampaniaID", "Codigo"), new { id = "ddlCampania" })
+                    </div>
+                </div>
+
+                <div class="celda">
+                    <span></span>
+                    <div class="input_add_alert_left">
+                        <input type="button" name="" id="btnDescargar" value="Descargar" />
+                    </div>
+                </div>
+            </div>
+            <div class="UltimaDescarga">
+                <span>Último proceso de descarga de pedidos</span>
+                <table id="UltimaDescargaInfo">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    <tr>
+                        <td>Campaña</td>
+                        <td><span id="Campania"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Estado</td>
+                        <td><span id="Estado"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Fecha</td>
+                        <td><span id="Fecha"></span></td>
+                    </tr>
+                </table>
+                <div class="textoDescarga">
+                    <img src='@Url.Content("~/Content/Images/indicador.png")' alt="" />
+                    <span>
+                        Podrá realizar descarga de pedidos y generación de archivos solo si no existe algún
+                        proceso en ejecución
+                    </span>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+

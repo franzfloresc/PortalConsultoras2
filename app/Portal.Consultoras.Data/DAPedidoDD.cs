@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@intSEQIDZonaGrupo", DbType.Int32, zonaGrupo);
             Context.Database.AddInParameter(command, "@datFechaFacturacion", DbType.DateTime, fechaFacturacion);
             Context.Database.AddInParameter(command, "@intNroLote", DbType.Int32, nroLote);
-
+                
             return Context.ExecuteDataSet(command);
         }
 
@@ -258,6 +258,20 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
             return Context.ExecuteReader(command);
         }
+
+        #region HD-4327
+        public DataSet GetPedidoDDByFechaFacturacionSinMarcar(string codigoPais, int tipoCronograma, int campanaId, int nroLote, DateTime fechaFacturacion)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ESE_INT_OUT_DD_TRX_PEDIDO_SELECT_SINMARCAR");
+            command.CommandTimeout = 600;
+            Context.Database.AddInParameter(command, "@chrPrefijoPais", DbType.AnsiString, codigoPais);
+            Context.Database.AddInParameter(command, "@intSEQIDZonaGrupo", DbType.Int32, tipoCronograma);
+            Context.Database.AddInParameter(command, "@CampanaId", DbType.Int32, campanaId);
+            Context.Database.AddInParameter(command, "@intNroLote", DbType.Int32, nroLote);
+            Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.Date, fechaFacturacion);
+            return Context.ExecuteDataSet(command);
+        }
+        #endregion
 
     }
 }

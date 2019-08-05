@@ -618,7 +618,7 @@ namespace Portal.Consultoras.Service
             return blUsuario.CambiarContraseniaAleatoria(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
         }
 
-        public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
+        public string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
             var blUsuario = new BLUsuario();
             return blUsuario.InsUsuarioExternoPais(paisID, entidad);

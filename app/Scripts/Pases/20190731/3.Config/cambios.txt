@@ -1,0 +1,15 @@
+1.PortalConsultoras2
+ 	Eliminar keys:
+		QuestionProUrl
+		URL_SB
+		URL_COM
+		COM_CLIENT_ID
+		COM_DOMAIN
+		AMB_COM
+		URL_COM_LO
+		
+	Eliminar bindings:
+		BasicHttpBinding_IComunidadService
+		
+	Eliminar endpoint:
+		BasicHttpBinding_IComunidadService
