@@ -861,6 +861,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEBuscadorResponse> ObtenerBuscadorComplemento(int paisID, string codigoUsuario, bool suscripcionActiva, List<BEBuscadorResponse> lst, bool isApp);
 
+        [OperationContract]
+        BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual);
+
+
         #region EncuestaSatisfaccion
         [OperationContract]
         List<BEEncuestaReporte> GetReporteEncuestaSatisfaccion(BEEncuestaReporte bEncuesta);

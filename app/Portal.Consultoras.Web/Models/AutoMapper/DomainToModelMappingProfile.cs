@@ -280,6 +280,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEMenuMobile, MenuMobileModel>()
                 .ForMember(t => t.MenuPadreDescripcion, f => f.MapFrom(c => c.Descripcion));
+            Mapper.CreateMap<BEMenuExtras, MenuExtrasModel>();
+            Mapper.CreateMap<BEMenuTag, MenuTagModel>();
 
             Mapper.CreateMap<BEBannerInfo, BannerInfoModel>();
             Mapper.CreateMap<BEConfiguracionOfertasHome, ConfiguracionSeccionHomeModel>();

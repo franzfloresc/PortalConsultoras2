@@ -73,6 +73,7 @@
     <Compile Include="BEContenidoAppDeta.cs" />
     <Compile Include="BEContenidoAppList.cs" />
     <Compile Include="BEContenidoApp.cs" />
+    <Compile Include="BEFechaFacturacion.cs" />
     <Compile Include="BEDescargaArchivoSinMarcar.cs" />
     <Compile Include="BEParametroUnete.cs" />
     <Compile Include="BeReporteContrato.cs" />

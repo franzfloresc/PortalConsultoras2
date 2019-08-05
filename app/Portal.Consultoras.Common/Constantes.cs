@@ -176,7 +176,8 @@ namespace Portal.Consultoras.Common
             public const string EstadosUnidos = "EU";
         }
 
-        public static class ConfiguracionOferta
+
+            public static class ConfiguracionOferta
         {
             public const int Web = 1701;
             public const int Liquidacion = 1702;
