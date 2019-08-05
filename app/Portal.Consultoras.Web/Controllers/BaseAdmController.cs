@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceUsuario;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,11 +15,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public readonly ZonificacionProvider _zonificacionProvider;
         protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
+        protected readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public BaseAdmController()
         {
             _zonificacionProvider = new ZonificacionProvider();
             administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         public IEnumerable<PaisModel> DropDowListPaises(int rolId = 0)
@@ -129,7 +133,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
         [HttpGet]
         public async Task<JsonResult> GetZonasByRegion(int PaisID ,int RegionID)
-
         {
             IEnumerable<ZonaModel> lstZonas;
             if (RegionID == -1)
@@ -138,18 +141,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-
                 lstZonas = await _zonificacionProvider.GetZonasByRegionAsync(PaisID, RegionID);
-
-            }
-
-            
-            
+            } 
             return Json(new
             {
-
-                listaZonas = lstZonas.OrderBy(p => p.Codigo),
-           
+                listaZonas = lstZonas.OrderBy(p => p.Codigo),           
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
@@ -166,5 +162,39 @@ namespace Portal.Consultoras.Web.Controllers
                 lstRegion = lstRegiones.OrderBy(p => p.Codigo),
             }, JsonRequestBehavior.AllowGet);
         }
+        #region CaminoBrillante
+        public IEnumerable<NivelCaminoBrillanteModel> DropDowListNivelesCaminoBrillante()
+        {
+            return _caminoBrillanteProvider.GetListaNiveles();
+        }
+
+        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(string codigoNivel)
+        {
+            return _caminoBrillanteProvider.GetListaBeneficiosByNivel(codigoNivel);
+        }
+
+        public List<AdministrarMontoExigenciaModel> GetIncentivosMontoExigencia(AdministrarMontoExigenciaModel model)
+        {
+            return _caminoBrillanteProvider.GetIncentivosMontoExigencia(model);
+        }
+
+        public List<NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante> DropDowListIconosBeneficios()
+        {
+            int cantidad = Constantes.CaminoBrillante.Beneficios.Iconos.Count();
+            var lstIconos = new List<NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante>();
+            for (int i = 1; i <= cantidad; i++)
+            {
+                string index = i < 10 ? "0" + i.ToString() : i.ToString();
+                lstIconos.Add(new NivelCaminoBrillanteModel.IconoBeneficioCaminoBrillante
+                {
+                    CodigoIcono = index,
+                    UrlIcono = Constantes.CaminoBrillante.Beneficios.Iconos[index],
+                });
+            }
+            return lstIconos;
+        }
+
+        #endregion
+
     }
 }

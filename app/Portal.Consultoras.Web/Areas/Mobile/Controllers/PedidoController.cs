@@ -21,10 +21,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class PedidoController : BaseMobileController
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public PedidoController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         #region Acciones
@@ -146,6 +148,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //HD-4513
             var estadoPedido = EsPedidoReservado(configuracionCampania).ToInt();
             ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado();
+
+            
+
             return View("Index", model);
         }
 
@@ -241,9 +246,28 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ? "1"
                     : "0",
                 EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !beConfiguracionCampania.ValidacionAbierta).ToInt()
+
+
             };
 
             model.EstadoPedido = EsPedidoReservado(beConfiguracionCampania).ToInt();
+
+            #region Camino Brillante 
+
+            if (userData.CaminoBrillante)
+            {
+                _caminoBrillanteProvider.LoadCaminoBrillante();
+                var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
+                if (nivelConsultoraCaminoBrillante != null)
+                {
+                    double montoIncentivo = 0;
+                    if (_caminoBrillanteProvider.GetMontoIncentivo(out montoIncentivo))
+                    {
+                        model.montoIncentivo = (decimal)montoIncentivo;
+                    }
+                }
+            }
+            #endregion
 
             ValidarStatusCampania(beConfiguracionCampania);
 

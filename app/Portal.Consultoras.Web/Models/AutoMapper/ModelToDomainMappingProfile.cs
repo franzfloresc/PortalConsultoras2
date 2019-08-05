@@ -11,6 +11,8 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.Models.AdministracionPoput;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -146,7 +148,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<ConfiguracionProgramaNuevasAppModel, BEConfiguracionProgramaNuevasApp>();
 
-            Mapper.CreateMap<AdministrarBelcorpRespondeModel, BEBelcorpResponde>()
+            Mapper.CreateMap<AdministrarBelcorpRespondeModel, ServiceContenido.BEBelcorpResponde>()
                 .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                 .ForMember(t => t.Telefono1, f => f.MapFrom(c => c.Telefono1))
                 .ForMember(t => t.Telefono2, f => f.MapFrom(c => c.Telefono2))
@@ -506,8 +508,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEPedidoWeb>();
-
-            Mapper.CreateMap<ReporteEncuestaSatisfaccionModel, BEEncuestaReporte>();
+            Mapper.CreateMap<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel, BEBeneficioCaminoBrillante>();
+            Mapper.CreateMap<AdministrarMontoExigenciaModel, BEIncentivosMontoExigencia>();
             Mapper.CreateMap<FiltroReporteChatBotModel, BEChatBotListResultados>()
               .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.Consultora))
               .ForMember(t => t.FechaInicio, f => f.MapFrom(c => string.IsNullOrEmpty(c.FechaInicio) ? (DateTime?)null : DateTime.Parse(c.FechaInicio)))

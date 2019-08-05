@@ -9,7 +9,6 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServiceSAC;
 using AutoMapper.Internal;
 
 namespace Portal.Consultoras.Web.Providers
@@ -96,7 +95,6 @@ namespace Portal.Consultoras.Web.Providers
                 return new List<NivelCaminoBrillanteModel>();
             }
         }
-
         #endregion
 
         #region Consultora
@@ -207,6 +205,49 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         /// <summary>
+        /// Obtiene Logros Unificado Consultora
+        /// </summary>
+        public List<LogroCaminoBrillanteModel> GetLogroUnificadoCaminoBrillante()
+        {
+            try
+            {
+                var consultoraCaminoBrillante = GetConsultoraNivelCaminoBrillante();
+                if (consultoraCaminoBrillante == null) return null;
+
+                var result = new List<LogroCaminoBrillanteModel>();
+                result.Add(Mapper.Map<LogroCaminoBrillanteModel>(consultoraCaminoBrillante.ResumenLogros));
+                var logros = Mapper.Map<List<LogroCaminoBrillanteModel>>(consultoraCaminoBrillante.Logros.ToList());
+                var crecimiento = logros.FirstOrDefault(e => e.Id == Constantes.CaminoBrillante.Logros.CRECIMIENTO);
+                if (crecimiento != null) {
+                    if (crecimiento.Indicadores != null) {
+                        if (crecimiento.Indicadores.Count == 2)
+                        {
+                            logros.Remove(crecimiento);
+                            logros.Insert(0, new LogroCaminoBrillanteModel() {
+                                Id = crecimiento.Id,
+                                Descripcion = crecimiento.Descripcion,
+                                Titulo = crecimiento.Titulo,
+                                Indicadores = new List<LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>() { crecimiento.Indicadores[0] }
+                            });
+                            logros.Add(new LogroCaminoBrillanteModel()
+                            {   
+                                Indicadores = new List<LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>() { crecimiento.Indicadores[1] }
+                            });
+                        }
+                    }                    
+                }
+                result.AddRange(logros);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Obtiene el Flag si tiene ofertas especiales
         /// </summary>
         public bool TieneOfertasEspeciales()
@@ -224,11 +265,33 @@ namespace Portal.Consultoras.Web.Providers
                     var beUsuario = Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel);
                     beUsuario.Zona = usuarioModel.CodigoZona;
                     beUsuario.Region = usuarioModel.CodigorRegion;
-                    resumen = svc.GetConsultoraNivelCaminoBrillante(beUsuario);
+                    resumen = svc.GetConsultoraNivelCaminoBrillante(beUsuario, Constantes.CaminoBrillante.Version.VER_02);
                 }
                 sessionManager.SetConsultoraCaminoBrillante(resumen);
             }
             return resumen;
+        }
+
+        /// <summary>
+        /// Obtiene Puntaje Alcanzado
+        /// </summary>
+        public decimal GetPuntajeAlcanzado()
+        {
+            try
+            {
+                var nivelesCB = GetNivelesCaminoBrillante();
+                if (nivelesCB == null ) return 0;
+
+                var nivelBrillante = nivelesCB.Where(x => x.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante).FirstOrDefault();
+                if (nivelBrillante == null) return 0;
+
+                return nivelBrillante.PuntajeAcumulado.HasValue ? nivelBrillante.PuntajeAcumulado.Value :  0;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return 0;
+            }
         }
 
         #endregion
@@ -796,22 +859,39 @@ namespace Portal.Consultoras.Web.Providers
         #region Configuracion
         public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion()
         {
+            /*
             var lst = sessionManager.GetConfiguracionCaminoBrillante();
             if (lst == null || lst.Count == 0)
             {
                 using (var svc = new UsuarioServiceClient())
-                    lst = svc.GetCaminoBrillanteConfiguracion(usuarioModel.PaisID, "0").ToList();
+                    lst = svc.GetCaminoBrillanteConfiguracion(usuarioModel.PaisID, GetPuntajeAlcanzado(), "0").ToList();
 
                 if (lst != null) sessionManager.SetConfiguracionCaminoBrillante(lst);
             }
             return lst;
+            */
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return new List<BEConfiguracionCaminoBrillante>();
+
+                return oConsultora.Configuracion.ToList();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return new List<BEConfiguracionCaminoBrillante>();
+            }
         }
 
-        public NivelCaminoBrillanteModel GetNivelGranBrillante() {
+        public NivelCaminoBrillanteModel GetNivelGranBrillante()
+        {
             var configuracion = GetCaminoBrillanteConfiguracion() ?? new List<BEConfiguracionCaminoBrillante>();
             var config = configuracion.FirstOrDefault(e => e.Codigo == "sb_granBrillante");
-            if (config != null) {
-                return new NivelCaminoBrillanteModel() {
+            if (config != null)
+            {
+                return new NivelCaminoBrillanteModel()
+                {
                     DescripcionNivel = config.Descripcion,
                     MontoMinimo = config.Valor
                 };
@@ -819,5 +899,221 @@ namespace Portal.Consultoras.Web.Providers
             return null;
         }
         #endregion
+
+        #region Mantenedor Beneficios
+        /// <summary>
+        /// Obtiene solamente el listado de niveles para administrador de contenidos.
+        /// </summary>
+        public List<NivelCaminoBrillanteModel> GetListaNiveles()
+        {
+            using (var svc = new UsuarioServiceClient())
+            {
+                return Mapper.Map<List<NivelCaminoBrillanteModel>>(svc.GetNiveles(usuarioModel.PaisID).ToList());
+            }
+        }
+
+        /// <summary>
+        /// Obtiene solamente el listado de Beneficos para administrador de contenidos.
+        /// </summary>
+        public List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(string codigoNivel)
+        {
+            using (var svc = new UsuarioServiceClient())
+            {
+                return Mapper.Map<List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>>(svc.GetBeneficiosCaminoBrillante(usuarioModel.PaisID, codigoNivel).ToList());
+            }
+        }
+
+        public List<AdministrarMontoExigenciaModel> GetIncentivosMontoExigencia(AdministrarMontoExigenciaModel model)
+        {
+            model.CodigoCampania = !string.IsNullOrEmpty(model.CodigoCampania) ? model.CodigoCampania : "";
+            model.CodigoRegion = !string.IsNullOrEmpty(model.CodigoRegion) ? model.CodigoRegion : "";
+            model.CodigoZona = !string.IsNullOrEmpty(model.CodigoZona) ? model.CodigoZona : "";
+            var entidad = Mapper.Map<BEIncentivosMontoExigencia>(model) ?? new BEIncentivosMontoExigencia();
+            using (var svc = new UsuarioServiceClient())
+            {
+                var lst = svc.GetIncentivosMontoExigencia(usuarioModel.PaisID, entidad).ToList();
+                return Mapper.Map<List<AdministrarMontoExigenciaModel>>(lst);
+            }
+        }
+        #endregion
+
+        #region Configuracion Consultora
+
+        /// <summary>
+        /// Obtiene Monto de Incentivo Configurado para la consultora
+        /// </summary>
+        public bool GetMontoIncentivo(out double montoIncentivo) {
+            montoIncentivo = 0;
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return false;
+
+                var config = oConsultora.Configuracion.Where(e => e.Codigo == "CB_MONTO_INCENTIVO").FirstOrDefault() ?? new BEConfiguracionCaminoBrillante();                
+                return double.TryParse(config.Valor, out montoIncentivo);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Flag Animacion Onboarding
+        /// </summary>
+        public bool TieneOnboardingAnim()
+        {
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return false;
+
+                var config = oConsultora.Configuracion.Where(e => e.Codigo == "CB_CON_ONBOARDING_ANIM").FirstOrDefault() ?? new BEConfiguracionCaminoBrillante();
+                return config.Valor == "1";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Flag Animacion Ganancias
+        /// </summary>
+        public bool TieneGananciaAnim()
+        {
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return false;
+
+                var config = oConsultora.Configuracion.Where(e => e.Codigo == "CB_CON_GANANCIA_ANIM").FirstOrDefault() ?? new BEConfiguracionCaminoBrillante();
+                return config.Valor == "1";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Flag Animación Cambio Nivel
+        /// </summary>
+        public bool TieneCambioNivelAnim()
+        {
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return false;
+
+                var config = oConsultora.Configuracion.Where(e => e.Codigo == "CB_CON_CAMB_NIVEL_ANIM").FirstOrDefault() ?? new BEConfiguracionCaminoBrillante();
+                return config.Valor == "1" && CambioNivelConsultora().HasValue;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Value Cambio de Nivel Consultora
+        /// </summary>
+        public int? CambioNivelConsultora()
+        {
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Configuracion == null) return null;
+
+                var config = oConsultora.Configuracion.Where(e => e.Codigo == "CB_CON_CAMB_NIVEL_VAL").FirstOrDefault() ?? new BEConfiguracionCaminoBrillante();
+                var valor = 0;
+                if (int.TryParse(config.Valor, out valor)) {
+                    return valor;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Flags de Animaciones
+        
+        /// <summary>
+        /// Update Flags Animacion Consultora
+        /// </summary>
+        private void SetFlagsAnim(string key, string value, string repeat = null)
+        {
+            try
+            {
+                using (var svc = new UsuarioServiceClient())
+                {
+                    var beUsuario = Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel);
+                    beUsuario.Zona = usuarioModel.CodigoZona;
+                    beUsuario.Region = usuarioModel.CodigorRegion;
+                    svc.SetConsultoraCaminoBrillanteAnim(beUsuario, key, value, repeat);
+                }
+            }
+            catch (Exception ex) {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+            }
+        }
+
+        private void RemoveConfig(string key)
+        {
+            var resumen = sessionManager.GetConsultoraCaminoBrillante();
+            if (resumen != null)
+            {
+                if (resumen.Configuracion != null)
+                {
+                    var animConfig = resumen.Configuracion.FirstOrDefault(e => e.Codigo == key);
+                    if (animConfig != null)
+                    {
+                        var configs = resumen.Configuracion.ToList();
+                        configs.Remove(animConfig);
+                        resumen.Configuracion = configs.ToArray();
+                        sessionManager.SetConsultoraCaminoBrillante(resumen);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// on Showed Onboarding Anim
+        /// </summary>
+        public void OnShowedOnbordingAnimation(bool repeat)
+        {
+            SetFlagsAnim("CB_CON_ONBOARDING_ANIM", "1", repeat ? "1": null);
+            RemoveConfig("CB_CON_ONBOARDING_ANIM");
+        }
+
+        /// <summary>
+        /// on Showed Gesture Anim
+        /// </summary>
+        public void OnShowedGestureAnimation()
+        {
+            SetFlagsAnim("CB_CON_GANANCIA_ANIM", "1");
+            RemoveConfig("CB_CON_GANANCIA_ANIM");
+        }
+
+        /// <summary>
+        /// on Showed Gesture Anim
+        /// </summary>
+        public void OnShowedCambioNivelAnimation()
+        {
+            SetFlagsAnim("CB_CON_CAMB_NIVEL_ANIM", "1");
+            RemoveConfig("CB_CON_CAMB_NIVEL_ANIM");
+        }
+
+        #endregion
+
     }
 }

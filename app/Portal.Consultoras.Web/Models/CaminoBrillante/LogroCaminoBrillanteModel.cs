@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
@@ -16,6 +17,13 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
             public string Titulo { get; set; }
             public string Descripcion { get; set; }
             public List<MedallaCaminoBrillanteModel> Medallas { get; set; }
+            public MedallaCaminoBrillanteModel MedallaDestacada {
+                get
+                {
+                    if (Medallas != null) return Medallas.FirstOrDefault(e => e.Destacar);
+                    return null;
+                }
+            }
 
             public class MedallaCaminoBrillanteModel
             {
@@ -25,6 +33,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 public string Subtitulo { get; set; }
                 public string Valor { get; set; }
                 public bool Estado { get; set; }
+                public bool Destacar { get; set; }
                 public string ModalTitulo { get; set; }
                 public string ModalDescripcion { get; set; }
                 public string UrlMedalla { get { return buildMedalla(Tipo, Valor, Estado, false); } }

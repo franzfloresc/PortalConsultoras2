@@ -243,7 +243,11 @@ namespace Portal.Consultoras.Web.Controllers
                     if (nivelConsultoraCaminoBrillante != null)
                     {
                         model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + nivelConsultoraCaminoBrillante.DescripcionNivel + "</b>");
-                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;                        
+                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;
+                        double montoIncentivo = 0;
+                        if (_caminoBrillanteProvider.GetMontoIncentivo(out montoIncentivo)) {
+                            model.montoIncentivo = (decimal)montoIncentivo;
+                        }                        
                     }
                 }
                 #endregion
