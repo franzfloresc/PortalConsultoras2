@@ -9436,6 +9436,211 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEEncuestaReporte", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Encuesta")]
+    [System.SerializableAttribute()]
+    public partial class BEEncuestaReporte : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CalificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EncuestaResultadoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MotivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegionIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ZonaIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Calificacion {
+            get {
+                return this.CalificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CalificacionField, value) != true)) {
+                    this.CalificacionField = value;
+                    this.RaisePropertyChanged("Calificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoCampania {
+            get {
+                return this.CodigoCampaniaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoCampaniaField, value) != true)) {
+                    this.CodigoCampaniaField = value;
+                    this.RaisePropertyChanged("CodigoCampania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConsultora {
+            get {
+                return this.CodigoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
+                    this.CodigoConsultoraField = value;
+                    this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Consultora {
+            get {
+                return this.ConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConsultoraField, value) != true)) {
+                    this.ConsultoraField = value;
+                    this.RaisePropertyChanged("Consultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EncuestaResultadoId {
+            get {
+                return this.EncuestaResultadoIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EncuestaResultadoIdField, value) != true)) {
+                    this.EncuestaResultadoIdField = value;
+                    this.RaisePropertyChanged("EncuestaResultadoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Motivo {
+            get {
+                return this.MotivoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MotivoField, value) != true)) {
+                    this.MotivoField = value;
+                    this.RaisePropertyChanged("Motivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Region {
+            get {
+                return this.RegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionField, value) != true)) {
+                    this.RegionField = value;
+                    this.RaisePropertyChanged("Region");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RegionID {
+            get {
+                return this.RegionIDField;
+            }
+            set {
+                if ((this.RegionIDField.Equals(value) != true)) {
+                    this.RegionIDField = value;
+                    this.RaisePropertyChanged("RegionID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Zona {
+            get {
+                return this.ZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ZonaField, value) != true)) {
+                    this.ZonaField = value;
+                    this.RaisePropertyChanged("Zona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ZonaID {
+            get {
+                return this.ZonaIDField;
+            }
+            set {
+                if ((this.ZonaIDField.Equals(value) != true)) {
+                    this.ZonaIDField = value;
+                    this.RaisePropertyChanged("ZonaID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEChatBotInsertResultadosResponse", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEChatBotInsertResultadosResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -18450,6 +18655,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerBuscadorComplemento", ReplyAction="http://tempuri.org/ISACService/ObtenerBuscadorComplementoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBuscadorResponse[]> ObtenerBuscadorComplementoAsync(int paisID, string codigoUsuario, bool suscripcionActiva, Portal.Consultoras.Web.ServiceSAC.BEBuscadorResponse[] lst, bool isApp);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccion", ReplyAction="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccionResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte[] GetReporteEncuestaSatisfaccion(Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte bEncuesta);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccion", ReplyAction="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccionResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte[]> GetReporteEncuestaSatisfaccionAsync(Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte bEncuesta);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ChatBotListResultados", ReplyAction="http://tempuri.org/ISACService/ChatBotListResultadosResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEChatBotListResultados[] ChatBotListResultados(int paisID, Portal.Consultoras.Web.ServiceSAC.BEChatBotListResultados entidad);
         
@@ -20046,6 +20257,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBuscadorResponse[]> ObtenerBuscadorComplementoAsync(int paisID, string codigoUsuario, bool suscripcionActiva, Portal.Consultoras.Web.ServiceSAC.BEBuscadorResponse[] lst, bool isApp) {
             return base.Channel.ObtenerBuscadorComplementoAsync(paisID, codigoUsuario, suscripcionActiva, lst, isApp);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte[] GetReporteEncuestaSatisfaccion(Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte bEncuesta) {
+            return base.Channel.GetReporteEncuestaSatisfaccion(bEncuesta);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte[]> GetReporteEncuestaSatisfaccionAsync(Portal.Consultoras.Web.ServiceSAC.BEEncuestaReporte bEncuesta) {
+            return base.Channel.GetReporteEncuestaSatisfaccionAsync(bEncuesta);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEChatBotListResultados[] ChatBotListResultados(int paisID, Portal.Consultoras.Web.ServiceSAC.BEChatBotListResultados entidad) {

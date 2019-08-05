@@ -241,6 +241,7 @@
     <Compile Include="Controllers\CaminoBrillanteAdministrarController.cs" />
     <Compile Include="Controllers\ChatbotController.cs" />
     <Compile Include="Controllers\ConfiguracionZonasModel.cs" />
+    <Compile Include="Controllers\ReporteEncuestaSatisfaccionController.cs" />
     <Compile Include="Controllers\FakeErrorController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
     <Compile Include="Controllers\CaminoBrillanteController.cs" />
@@ -332,6 +333,7 @@
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ReporteConsultoraPedidoSacModels.cs" />
     <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
+    <Compile Include="Models\ReporteEncuestaSatisfaccionModel.cs" />
     <Compile Include="Models\DistanciaLimiteZonaSeccionModel.cs" />
     <Compile Include="Models\FiltroReporteChatBotModel.cs" />
     <Compile Include="Models\LogDetalleParametroUneteModel.cs" />
@@ -5141,6 +5143,9 @@
     <None Include="Service References\ServiceSAC\SACService64.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceSAC\SACService65.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -5883,6 +5888,7 @@
     <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
+    <Content Include="Views\ReporteEncuestaSatisfaccion\Index.cshtml" />
     <Content Include="Views\Chatbot\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

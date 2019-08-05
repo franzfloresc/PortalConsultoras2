@@ -122,6 +122,7 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
+    <Compile Include="Encuesta\BEEncuestaReporte.cs" />
     <Compile Include="Estrategia\EstrategiaComponente.cs" />
     <Compile Include="Oferta\BEConfiguracionOfertasHomeApp.cs" />
     <Compile Include="OpcionesVerificacion\BECodigoGenerado.cs" />

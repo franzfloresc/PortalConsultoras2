@@ -132,6 +132,7 @@
     <Compile Include="Contrato\BLContratoAceptacion.cs" />
     <Compile Include="Contrato\IContratoAceptacionBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
+    <Compile Include="Encuesta\BLEncuesta.cs" />
     <Compile Include="Pedido\BLDireccionEntrega.cs" />
     <Compile Include="Pedido\IDireccionEntregaBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IActivarPremioNuevasBusinessLogic.cs" />
