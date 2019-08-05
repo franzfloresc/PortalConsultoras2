@@ -1,9 +1,7 @@
-﻿GO
-USE BelcorpPeru
+﻿USE [BelcorpBolivia];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -16,13 +14,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpMexico
+USE [BelcorpChile];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -35,13 +31,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpColombia
+USE [BelcorpColombia];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -54,13 +48,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpSalvador
+USE [BelcorpCostaRica];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -73,13 +65,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpPuertoRico
+USE [BelcorpDominicana];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -92,13 +82,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpPanama
+USE [BelcorpEcuador];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -111,13 +99,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpGuatemala
+USE [BelcorpGuatemala];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -130,13 +116,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpEcuador
+USE [BelcorpMexico];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -149,13 +133,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpDominicana
+USE [BelcorpPanama];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -168,13 +150,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpCostaRica
+USE [BelcorpPeru];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -187,13 +167,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpChile
+USE [BelcorpPuertoRico];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -206,13 +184,11 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO
-USE BelcorpBolivia
+USE [BelcorpSalvador];
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER OFF
+IF (OBJECT_ID(N'[chatbot].[UpdateResultados]', 'P') IS NOT NULL)
+  DROP PROCEDURE [chatbot].[UpdateResultados]
 GO
 
 CREATE PROCEDURE [chatbot].[UpdateResultados]
@@ -225,5 +201,4 @@ UPDATE [chatbot].[Resultados]
 		SET FechaFin				= @FechaFin
 		WHERE ResultadosID 			= @ResultadosID
 END
-
 GO

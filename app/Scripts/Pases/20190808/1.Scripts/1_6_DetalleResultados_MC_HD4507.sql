@@ -1,17 +1,18 @@
-﻿GO
-USE BelcorpPeru
+﻿USE [BelcorpBolivia];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -19,26 +20,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpMexico
+USE [BelcorpChile];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -46,26 +48,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpColombia
+USE [BelcorpColombia];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -73,26 +76,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpSalvador
+USE [BelcorpCostaRica];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -100,26 +104,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpPuertoRico
+USE [BelcorpDominicana];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -127,26 +132,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpPanama
+USE [BelcorpEcuador];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -154,26 +160,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpGuatemala
+USE [BelcorpGuatemala];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -181,26 +188,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpEcuador
+USE [BelcorpMexico];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -208,26 +216,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpDominicana
+USE [BelcorpPanama];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -235,26 +244,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpCostaRica
+USE [BelcorpPeru];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -262,26 +272,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpChile
+USE [BelcorpPuertoRico];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -289,26 +300,27 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
-USE BelcorpBolivia
+USE [BelcorpSalvador];
 GO
-IF (EXISTS (SELECT name FROM sys.schemas WHERE name = 'chatbot'))
-DROP SCHEMA [chatbot]
+IF (OBJECT_ID(N'PK_DetalleResultadoID', 'PK') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT PK_DetalleResultadoID;
 GO
-CREATE SCHEMA chatbot;
-
+IF (OBJECT_ID(N'FK_DetalleResultados_ResultadosID', 'F') IS NOT NULL)
+	ALTER TABLE chatbot.DetalleResultados  
+	DROP CONSTRAINT FK_DetalleResultados_ResultadosID,FK_DetalleResultados_PreguntaID,FK_DetalleResultados_CalificacionID;
 GO
 IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES
                  WHERE TABLE_SCHEMA = 'chatbot'
                  AND  TABLE_NAME = 'DetalleResultados'))
-DROP TABLE [chatbot].[DetalleResultados]
+	DROP TABLE [chatbot].[DetalleResultados]
 GO
 create table chatbot.DetalleResultados (
 	DetalleResultadoID int not null identity(1,1),
@@ -316,10 +328,9 @@ create table chatbot.DetalleResultados (
 	PreguntaID int not null,
 	CalificacionID int null,
 	Cualitativo varchar(500) null,
-	PRIMARY KEY (DetalleResultadoID),
-	FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
-	FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
-	FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
+	CONSTRAINT PK_DetalleResultadoID PRIMARY KEY (DetalleResultadoID),
+	CONSTRAINT FK_DetalleResultados_ResultadosID FOREIGN KEY (ResultadosID) REFERENCES chatbot.Resultados(ResultadosID),
+	CONSTRAINT FK_DetalleResultados_PreguntaID FOREIGN KEY (PreguntaID) REFERENCES chatbot.Preguntas(PreguntaID),
+	CONSTRAINT FK_DetalleResultados_CalificacionID FOREIGN KEY (CalificacionID) REFERENCES chatbot.Calificaciones(CalificacionID)
 );
-
 GO
