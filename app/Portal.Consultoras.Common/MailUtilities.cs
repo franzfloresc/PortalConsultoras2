@@ -286,10 +286,7 @@ namespace Portal.Consultoras.Common
             s_html += "<tr>";
             s_html += "<td colspan=\"2\" style=\"height:6px;\"></td>";
             s_html += "</tr>";
-            s_html += "<tr>";
-            s_html += "<td style=\"text-align:center; width:48%; border-right:1px solid #000; padding-right: 13px;\">";
-            s_html += "<a href='http://mandrillapp.com/track/click/30935960/comunidad.somosbelcorp.com?p=eyJzIjoiXzNUbWZ0Uzg5OU1VZW1BWDlrYmNuU3RXN1BjIiwidiI6MSwicCI6IntcInVcIjozMDkzNTk2MCxcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvY29tdW5pZGFkLnNvbW9zYmVsY29ycC5jb21cIixcImlkXCI6XCJmYTI1NjEwYTRmZWM0NzVkYWJiNGYzM2U2OWJlMGQwNVwiLFwidXJsX2lkc1wiOltcIjk0OTg3MDY0MDU4MzkxNDg2ZWFiYTk2MjJiYTdiNTUxZWRlNmM2NzdcIl19In0' style='text-decoration:none'><span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">¿Tienes dudas?</span></a>";
-            s_html += "</td>";
+            s_html += "<tr>";            
             s_html += "<td style=\"text-align:center; width:48%;\">";
             s_html += "<a href='http://belcorpresponde.somosbelcorp.com/' style='text-decoration:none'><span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">Contáctanos</span></a>";
             s_html += "</td>";
@@ -434,9 +431,6 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<table width=\"220\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align:center; padding-top:4px; padding-bottom:5px;\">");
             sBuilder.Append("<tbody>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td align=\"center\" style=\"width:49%; text-align:center; border-right:1px solid #000;\">");
-            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:11.5px; color:#000;\"><a style=\"text-decoration: none;  color: #000;\" href=\"http://comunidad.somosbelcorp.com/\">¿Tienes dudas?</a></span>");
-            sBuilder.Append("</td>");
             sBuilder.Append("<td align=\"center\" style=\"text-align:center;\">");
             sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:11.5px; color:#000;\"><a href=\"http://www.belcorpresponde.com/\" style=\"text-decoration: none; color: #000;\">Contáctanos</a></span>");
             sBuilder.Append("</td>");

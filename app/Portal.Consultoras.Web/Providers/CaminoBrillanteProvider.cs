@@ -887,7 +887,7 @@ namespace Portal.Consultoras.Web.Providers
         public NivelCaminoBrillanteModel GetNivelGranBrillante()
         {
             var configuracion = GetCaminoBrillanteConfiguracion() ?? new List<BEConfiguracionCaminoBrillante>();
-            var config = configuracion.Where(e => e.Codigo == "sb_granBrillante").FirstOrDefault();
+            var config = configuracion.FirstOrDefault(e => e.Codigo == "sb_granBrillante");
             if (config != null)
             {
                 return new NivelCaminoBrillanteModel()

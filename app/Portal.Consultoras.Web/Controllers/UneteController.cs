@@ -1518,7 +1518,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
             int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
-            int PaginaActual, string CodigoConsultora, int? PDigital, int? PTradicional, int MostrarPaso1y2SE = 1)
+            int PaginaActual, string CodigoConsultora, int? PDigital, int? PTradicional, int TipoPago,
+            int MostrarPaso1y2SE = 1 )
         {
 
             using (var sv = new PortalServiceClient())
@@ -1531,7 +1532,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoConsultora,
                     PDigital,
                     PTradicional,
-                    MostrarPaso1y2SE
+                    MostrarPaso1y2SE,
+                    TipoPago
                 ).ToList();
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
@@ -1832,6 +1834,15 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PortalServiceClient())
             {
                 actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoTelefonico, idEstado);
+                ValidacionTelefonicaSolicitudPostulanteBE entidad = new ValidacionTelefonicaSolicitudPostulanteBE();
+                SolicitudPostulante solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+                entidad.SolicitudPostulanteID = solicitudPostulante.SolicitudPostulanteID;
+                entidad.NumeroDocumento = solicitudPostulante.NumeroDocumento;
+                entidad.NumeroCelular = solicitudPostulante.Celular;
+                entidad.TiempoDuracion = 0;
+                entidad.Fuente = "ValidacionEnSAC";
+                entidad = sv.EnviarCodigoVerificacionTelefonica(CodigoISO, entidad);
+                sv.ValidarCodigoVerificacionTelefonica(CodigoISO, id, solicitudPostulante.NumeroDocumento, int.Parse(entidad.Codigo), "SAC");
             }
             var urlClient = string.Format("portal/EventoSPEstadoTelefonico/{0}/{1}/{2}/{3}/{4}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado, (int)Enumeradores.AppFuenteEstadoTelefonico.SAC);
             (new RestApi()).GetAsync<EventoInsert>(urlClient);
