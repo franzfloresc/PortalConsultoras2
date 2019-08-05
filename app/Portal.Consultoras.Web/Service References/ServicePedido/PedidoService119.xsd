@@ -55,6 +55,7 @@
       <xs:element minOccurs="0" name="DescripcionCUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionCortaCUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Detalle" nillable="true" type="tns:ArrayOfBEDemostradoresCaminoBrillante" />
       <xs:element minOccurs="0" name="EsCatalogo" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="FlagSeleccionado" type="xs:boolean" />

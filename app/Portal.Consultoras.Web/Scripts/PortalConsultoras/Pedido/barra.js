@@ -322,24 +322,24 @@ function MostrarBarra(datax, destino) {
         htmlTippintPoint = htmlTippintPoint
             .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
             .replace('{barra_tooltip}',
-                dataTP.ActiveTooltip ?
-                    '<div class="tooltip_regalo_meta_tippingPoint">'
-                    + '<div class="tooltip_producto_regalo_img">'
-                    + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
-                    + '</div>'
-                    + '{barra_tooltip_descripcion}'
-                    + '</div>' :
-                    ''
+            dataTP.ActiveTooltip ?
+                '<div class="tooltip_regalo_meta_tippingPoint">'
+                + '<div class="tooltip_producto_regalo_img">'
+                + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                + '</div>'
+                + '{barra_tooltip_descripcion}'
+                + '</div>' :
+                ''
             )
             .replace('{barra_monto}',
-                dataTP.ActiveMonto ?
-                    '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
-                    ''
+            dataTP.ActiveMonto ?
+                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
+                ''
             )
             .replace('{barra_tooltip_descripcion}',
-                dataTP.ActiveMonto ?
-                    '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
-                    '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+            dataTP.ActiveMonto ?
+                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
             );
     }
 
@@ -406,6 +406,7 @@ function MostrarBarra(datax, destino) {
                 else {
                     if (caminoBrillante == "True") {
                         txtDscto = "";
+                        (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
                     } else {
                         txtDscto = "DSCTO";
                         txtDetalle = indPuntoLimite - 1 != ind ? "" :
@@ -625,6 +626,13 @@ function MostrarBarra(datax, destino) {
     if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
 
+        var montoPedidoIngresado = 0;
+        var valorTexto = $.trim($('#spanPedidoIngresado').text().split(' ')[1]);
+
+        if (valorTexto.length > 0) {
+            montoPedidoIngresado = parseFloat(valorTexto);
+        }
+
         if (TieneMontoMaximo()) { // se trata como tipinpoing
             if (dataBarra.TippingPointBarra.Active != null && dataBarra.TippingPointBarra.Active != false) {
                 document.getElementById('punto_0').style = '';
@@ -645,7 +653,7 @@ function MostrarBarra(datax, destino) {
                     document.getElementById('punto_1').className = 'EscalaDescuento';
                 }
             }
-        } else if (destino == "2") {
+        } else if (montoPedidoIngresado > 0) {
             for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
                 if (x == 0) {
                     if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
@@ -1481,7 +1489,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
         
         return;
     }
-    
+
     if (!TieneMontoMaximo()) {
         showPopupEscalaSiguiente(barra, prevLogro);
     }
@@ -1560,10 +1568,20 @@ function CalculoLlenadoBarra() {
                     AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
             }
             else {
-                if (montoActual < montoMinimo) {
-                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
-                } else
-                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+                if (ConfiguradoRegalo == true) {
+
+                    if (montoActual < montoMinimo) {
+                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
+                    } else
+                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+                }
+                else {
+                    if (montoActual < montoMinimo) {
+                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
+                    } else
+                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+
+                }
             }
 
         }
@@ -2455,7 +2473,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                         } else {
                             if (limite >= 6 && montoMaximo1 == 195000) {
-                               // document.getElementById('divBarraEspacioLimite').style.width = '16%';
+                                // document.getElementById('divBarraEspacioLimite').style.width = '16%';
                                 document.getElementById('barra_0').style.left = '20%';
                                 document.getElementById('punto_0').style.left = '9%';
                                 document.getElementById('punto_1').style.left = '20%';

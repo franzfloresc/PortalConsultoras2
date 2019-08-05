@@ -134,7 +134,9 @@
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
     <Compile Include="Encuesta\BLEncuesta.cs" />
     <Compile Include="Pedido\BLDireccionEntrega.cs" />
+    <Compile Include="Pedido\BLPedidoWebPromocion.cs" />
     <Compile Include="Pedido\IDireccionEntregaBusinessLogic.cs" />
+    <Compile Include="Pedido\IPedidoWebPromocionBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IActivarPremioNuevasBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />

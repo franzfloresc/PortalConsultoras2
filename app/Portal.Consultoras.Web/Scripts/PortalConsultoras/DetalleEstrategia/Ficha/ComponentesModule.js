@@ -115,7 +115,7 @@ var ComponentesModule = (function () {
             $("body").addClass(_elements.body.modalActivadoClass);
             
             $("#DivPopupFichaResumida").css("overflow", "hidden");
-            $(_elements.divElegirOpciones.modalFondo.id)
+            $('#DivPopupFichaResumida ' + _elements.divElegirOpciones.modalFondo.id)
                 .css("opacity", _elements.divElegirOpciones.modalFondo.opacity)
                 .show();
             $(_elements.divElegirOpciones.id)

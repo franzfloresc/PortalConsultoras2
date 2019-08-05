@@ -50,6 +50,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IArmaTuPackBusinessLogic _BLArmaTuPack;
         private readonly IActivarPremioNuevasBusinessLogic _bLActivarPremioNuevas;
         private readonly ICaminoBrillanteBusinessLogic _bLCaminoBrillante;
+        private readonly IPedidoWebPromocionBusinessLogic _bLPedidoWebPromocion;
 
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
@@ -71,7 +72,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLLimiteVenta(),
                                     new BLArmaTuPack(),
                                     new BLActivarPremioNuevas(),
-                                    new BLCaminoBrillante())
+                                    new BLCaminoBrillante(),
+                                    new BLPedidoWebPromocion())
         { }
 
         public BLPedido(IProductoBusinessLogic productoBusinessLogic,
@@ -94,7 +96,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             ILimiteVentaBusinessLogic limiteVentaBusinessLogic,
                             IArmaTuPackBusinessLogic BLArmaTuPack,
                             IActivarPremioNuevasBusinessLogic bLActivarPremioNuevas,
-                            ICaminoBrillanteBusinessLogic bLCaminoBrillante)
+                            ICaminoBrillanteBusinessLogic bLCaminoBrillante,
+                            IPedidoWebPromocionBusinessLogic bLPedidoWebPromocion)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -117,6 +120,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _BLArmaTuPack = BLArmaTuPack;
             _bLActivarPremioNuevas = bLActivarPremioNuevas;
             _bLCaminoBrillante = bLCaminoBrillante;
+            _bLPedidoWebPromocion = bLPedidoWebPromocion;
         }
 
         #region Pedido Registro Insertar-Actualizar-Eliminar
@@ -464,6 +468,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var usuario = pedidoDetalle.Usuario;
 
             var estrategia = PedidoAgregar_FiltrarEstrategiaPedido(pedidoDetalle, usuario.PaisID);
+            pedidoDetalle.Estrategia = estrategia;
 
             if (string.IsNullOrEmpty(estrategia.CUV2))
             {
@@ -479,6 +484,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
             usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
 
             var tipoEstrategia = _tipoEstrategiaBusinessLogic.GetTipoEstrategiaById(usuario.PaisID, estrategia.TipoEstrategiaID);
+
+            #region Promotion
+            var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalle, usuario);
+            if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+            {
+                return validarPromocion;
+            }
+            #endregion
 
             #region Reserva
             if (pedidoDetalle.Reservado && pedidoDetalle.EsDuoPerfecto)
@@ -829,6 +842,38 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
 
+                #region Promotion
+
+                int pedidoId;
+                var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
+
+                if (pedidoDetalle.StockNuevo < 0)
+                {
+                    var CantidadModificada = pedidoDetalle.StockNuevo * -1;
+                    var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, CantidadModificada, pedidoDetalle.Producto.CUV);
+                    if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                    {
+                        return validarPromocion;
+                    }
+                }
+                else
+                {
+                    var pedidoDetalleClone = new BEPedidoDetalle()
+                    {
+                        Producto = new BEProducto()
+                        {
+                            CUV = pedidoDetalle.Producto.CUV
+                        },
+                        Cantidad = pedidoDetalle.StockNuevo
+                    };
+                    var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalleClone, usuario, true);
+                    if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                    {
+                        return validarPromocion;
+                    }
+                }
+                #endregion
+
                 #region MontoMaximo
                 //Monto Máximo
                 var resultado = false;
@@ -1155,6 +1200,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var usuario = pedidoDetalle.Usuario;
             usuario.PaisID = pedidoDetalle.PaisID;
 
+            #region Promotion
+            int pedidoId;
+            var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
+            var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV);
+            if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+            {
+                return validarPromocion;
+            }
+            #endregion
+
             string responseCode;
 
             var lista = new List<BEPedidoWebDetalle>();
@@ -1465,7 +1520,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                         x.EsElecMultipleNuevas,
                                                         x.EsPremioElectivo,
                                                         x.EsCuponIndependiente,
-                                                        null,
                                                         x.EsKitCaminoBrillante || x.EsDemCaminoBrillante);
 
                         var lstCatalogos = Util.GetCodigosCatalogo();

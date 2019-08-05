@@ -44,7 +44,9 @@ namespace Portal.Consultoras.Web.Providers
                             FlagNueva = item.FlagNueva,
                             Cantidad = 1,
                             CUV2 = item.CUV2 ,
-                            DescripcionMarca = item.DescripcionMarca
+                            DescripcionMarca = item.DescripcionMarca,
+                            CodigoEstrategia = item.CodigoEstrategia,
+                            CodigoTipoEstrategia = item.CodigoTipoEstrategia
                         };
 
 

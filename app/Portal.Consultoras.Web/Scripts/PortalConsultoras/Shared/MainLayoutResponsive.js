@@ -54,6 +54,22 @@
             $(_elements.iconoCerrarMenuMobile).on("click", _eventos.CerrarMenuMobile);
             $(_elements.enlaceConSubmenuMobile).on("click", _eventos.AbrirSubmenuMobile);
             $(_elements.itemFooter).on("click", _eventos.ToogleMenuFooter);
+
+            $('#alertDialogMensajes25seg').dialog({
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                closeOnEscape: false,
+                close: function (event, ui) {
+                    HideDialog("alertDialogMensajes25seg");
+                },
+                beforeClose: function (event, ui) {
+                    document.querySelector('.setBottom').style.transition = null
+                },
+                draggable: false,
+                dialogClass: 'setBottom',
+                position: "bottom"
+            });
         },
         SetUrlContactanos : function() {
             if ($(_elements.idUrlContactanos).length) {

@@ -2196,7 +2196,7 @@ namespace Portal.Consultoras.BizLogic
                         return new BEValidacionModificacionPedido
                         {
                             MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Bloqueado,
-                            Mensaje = _tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor
+                            Mensaje = _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.MsjPopupBloqueadas.TablaLogicaId).FirstOrDefault(a => a.Codigo == "01").Valor
                         };
                     }
                     else

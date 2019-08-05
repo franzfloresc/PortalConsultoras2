@@ -7,14 +7,38 @@
         public string _id { get; set; }
         public int EstrategiaId { get; set; }
         public int CodigoEstrategia { get; set; }
+        public string CodigoProducto { get; set; }
+        public string TipoPersonalizacion { get; set; }
         public string CodigoCampania { get; set; }
+
         public bool Activo { get; set; }
+        public bool FlagActivo { get; set; }
+        public bool FlagRecoPerfil { get; set; }
+        public bool FlagMostrarImg { get; set; }
+
         public string CUV2 { get; set; }
+
         public string DescripcionCUV2 { get; set; }
+        public string DescripcionCompleta { get; set; }
+        public string DescripcionCortada { get; set; }
+        public string DescripcionDetalle { get; set; }
+        public string DescripcionResumen { get; set; }
+        public List<string> ListaDescripcionDetalle { get; set; }
+        public List<string> ListaPrecioNiveles { get; set; }
+
         public decimal Precio { get; set; }
         public decimal Precio2 { get; set; }
         public decimal Ganancia { get; set; }
+        public string PrecioTachado { get; set; }
+        public string PrecioVenta { get; set; }
+        public string GananciaString { get; set; }
+
+        public string FotoProducto01 { get; set; }
         public string ImagenURL { get; set; }
+        public string ImagenEstrategia { get; set; }
+        public string ImagenEtiqueta { get; set; }
+        public int TipoEstrategiaImagenMostrar { get; set; }
+
         public int LimiteVenta { get; set; }
         public string TextoLibre { get; set; }
         public bool FlagNueva { get; set; }
@@ -23,46 +47,32 @@
         public bool TieneVariedad { get; set; }
         public List<Componente> Componentes { get; set; }
         public EstrategiaComponenteCabecera Cabecera { get; set; }
-        public List<EstrategiaComponenteSeccion> Secciones { get; set; }        
+        public List<EstrategiaComponenteSeccion> Secciones { get; set; }
+
         public int TipoEstrategiaId { get; set; }
         public string DescripcionTipoEstrategia { get; set; }
         public string CodigoTipoEstrategia { get; set; }
-        public string ImagenEstrategia { get; set; }
-        public bool FlagActivo { get; set; }
-        public bool FlagRecoPerfil { get; set; }
-        public bool FlagMostrarImg { get; set; }
+
         public int MarcaId { get; set; }
         public string MarcaDescripcion { get; set; }
-        public string CodigoProducto { get; set; }
+        public string DescripcionMarca { get; set; }
+
         public bool IndicadorMontoMinimo { get; set; }
         public bool EsSubCampania { get; set; }
+        public bool EsMultiMarca { get; set; }
         public IList<EstrategiaDetalle> EstrategiaDetalle { get; set; }
+        public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
         public int DiaInicio { get; set; }
         public int FlagRevista { get; set; }
-        public int TipoEstrategiaImagenMostrar { get; set; }
         public string Niveles { get; set; }
-        
+
         /// <summary>
         /// Calculo del factor cuadre
         /// </summary>
         public int CantidadPack { get; set; }
 
-        public string FotoProducto01 { get; set; }
-        public string GananciaString { get; set; }
-        public string DescripcionMarca { get; set; }
-        public string PrecioTachado { get; set; }
-        public string PrecioVenta { get; set; }
         public bool TieneStock { get; set; }
-        public string DescripcionCompleta { get; set; }
-        public string DescripcionCortada { get; set; }
-        public string DescripcionDetalle { get; set; }
-        public string DescripcionResumen { get; set; }
-        public string TipoPersonalizacion { get; set; }
-        public bool EsMultiMarca { get; set; }
-        public List<string> ListaDescripcionDetalle { get; set; }
-        public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
-        public List<string> ListaPrecioNiveles { get; set; }
 
-        public string ImagenEtiqueta { get; set; }
+        public string CuvPromocion { get; set; }
     }
 }

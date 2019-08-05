@@ -246,6 +246,7 @@
     <Compile Include="Estrategia\UpSellingMarcaCategoriaDataAccess.cs" />
     <Compile Include="Mobile\DAApp.cs" />
     <Compile Include="PagoEnLinea\DAPagoEnLinea.cs" />
+    <Compile Include="Pedido\DAPedidoWebPromocion.cs" />
     <Compile Include="Pedido\DAPedidoWebSet.cs" />
     <Compile Include="LimiteVenta\DAGestionStock.cs" />
     <Compile Include="ProgramaNuevas\DANivelesProgramaNuevas.cs" />

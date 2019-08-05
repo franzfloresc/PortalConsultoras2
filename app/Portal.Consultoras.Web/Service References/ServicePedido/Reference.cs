@@ -4013,6 +4013,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoSAPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoTipoOfertaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConfiguracionOfertaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4261,6 +4264,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoSAPField, value) != true)) {
                     this.CodigoSAPField = value;
                     this.RaisePropertyChanged("CodigoSAP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoTipoOferta {
+            get {
+                return this.CodigoTipoOfertaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoTipoOfertaField, value) != true)) {
+                    this.CodigoTipoOfertaField = value;
+                    this.RaisePropertyChanged("CodigoTipoOferta");
                 }
             }
         }
@@ -20375,6 +20391,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EsKitNuevaAutoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsPromocionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsSugeridoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -20423,10 +20442,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int PedidoIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEPedidoWebPromocion[] PedidoWebPromocionesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEProducto ProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEInputReservaProl ReservaProlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ReservadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int SetIDField;
@@ -20550,6 +20575,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EsKitNuevaAutoField.Equals(value) != true)) {
                     this.EsKitNuevaAutoField = value;
                     this.RaisePropertyChanged("EsKitNuevaAuto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsPromocion {
+            get {
+                return this.EsPromocionField;
+            }
+            set {
+                if ((this.EsPromocionField.Equals(value) != true)) {
+                    this.EsPromocionField = value;
+                    this.RaisePropertyChanged("EsPromocion");
                 }
             }
         }
@@ -20763,6 +20801,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebPromocion[] PedidoWebPromociones {
+            get {
+                return this.PedidoWebPromocionesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PedidoWebPromocionesField, value) != true)) {
+                    this.PedidoWebPromocionesField = value;
+                    this.RaisePropertyChanged("PedidoWebPromociones");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public Portal.Consultoras.Web.ServicePedido.BEProducto Producto {
             get {
                 return this.ProductoField;
@@ -20784,6 +20835,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ReservaProlField, value) != true)) {
                     this.ReservaProlField = value;
                     this.RaisePropertyChanged("ReservaProl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Reservado {
+            get {
+                return this.ReservadoField;
+            }
+            set {
+                if ((this.ReservadoField.Equals(value) != true)) {
+                    this.ReservadoField = value;
+                    this.RaisePropertyChanged("Reservado");
                 }
             }
         }
@@ -21377,6 +21441,83 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ZonaValidaField.Equals(value) != true)) {
                     this.ZonaValidaField = value;
                     this.RaisePropertyChanged("ZonaValida");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoWebPromocion", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido")]
+    [System.SerializableAttribute()]
+    public partial class BEPedidoWebPromocion : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvCondicionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvPromocionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaID {
+            get {
+                return this.CampaniaIDField;
+            }
+            set {
+                if ((this.CampaniaIDField.Equals(value) != true)) {
+                    this.CampaniaIDField = value;
+                    this.RaisePropertyChanged("CampaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvCondicion {
+            get {
+                return this.CuvCondicionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvCondicionField, value) != true)) {
+                    this.CuvCondicionField = value;
+                    this.RaisePropertyChanged("CuvCondicion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvPromocion {
+            get {
+                return this.CuvPromocionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvPromocionField, value) != true)) {
+                    this.CuvPromocionField = value;
+                    this.RaisePropertyChanged("CuvPromocion");
                 }
             }
         }
@@ -27067,6 +27208,8 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEMisPedidosFacturadosDetalle[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEMisPedidosFacturadosDetalle))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoWebPromocion[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoWebPromocion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoProductoBuscar))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoProducto))]

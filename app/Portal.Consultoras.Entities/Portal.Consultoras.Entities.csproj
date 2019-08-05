@@ -149,7 +149,9 @@
     <Compile Include="PagoEnLinea\BEPagoEnLineaBanco.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaVisa.cs" />
     <Compile Include="Pedido\BEDireccionEntrega.cs" />
+    <Compile Include="Pedido\BEPedidoWebPromocion.cs" />
     <Compile Include="Pedido\BEPedidoReservaResult.cs" />
+    <Compile Include="Pedido\BEPedidoWebPromocionResult.cs" />
     <Compile Include="Producto\BEBuscadorResponse.cs" />
     <Compile Include="ProgramaNuevas\BEPremioNuevas.cs" />
     <Compile Include="LimiteVenta\BERespValidarLimiteVenta.cs" />
@@ -170,6 +172,8 @@
     <Compile Include="Pedido\BEPedidoBarra.cs" />
     <Compile Include="Pedido\BEPedidoBuscar.cs" />
     <Compile Include="ProgramaNuevas\BEConsultoraProgramaNuevas.cs" />
+    <Compile Include="ProlApi\Promocion\PromocionRequest.cs" />
+    <Compile Include="ProlApi\Promocion\PromocionResponse.cs" />
     <Compile Include="ReservaProl\BEMensajeProl.cs" />
     <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
@@ -482,6 +486,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdministracionPoput\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

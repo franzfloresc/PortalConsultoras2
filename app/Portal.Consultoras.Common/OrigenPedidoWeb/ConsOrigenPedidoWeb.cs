@@ -88,6 +88,8 @@ namespace Portal.Consultoras.Common.OrigenPedidoWeb
             public const string FichaCrossSelling = "19";
             public const string CarruselSugeridos = "20";
             public const string FichaSugeridos = "21";
+            public const string PromocionCondicional = "22";
+            public const string PromocionProducto = "23";
         }
 
         public const string IncorrectoDispositivo = "0";
@@ -111,6 +113,17 @@ namespace Portal.Consultoras.Common.OrigenPedidoWeb
                 return Convert.ToInt32(Dispositivo.AppConsultora + Pagina.ArmaTuPackDetalle + Palanca.ArmaTuPack + Seccion.AppCatalogoPendienteDeAprobar);
             }
         }
+        
+        #region VirtualCoach
+        public const int VirtualCoachDesktopPedido = 1231;
+        public const int VirtualCoachMobilePedido = 2231;
+        #endregion
+
+
+        #region OfertaFinal
+        public const int DesktopPedidoOfertaFinal = 1261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
+        public const int MobilePedidoOfertaFinal = 2261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
+        #endregion
 
     }
 }

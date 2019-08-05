@@ -344,6 +344,9 @@
     <Compile Include="Models\Estrategia\FotosComponenteModel.cs" />
     <Compile Include="Models\Search\ResponseOferta\OutputOfertaIncremental.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\FotosComponente.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\Estructura\Estrategia.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\Estructura\PromocionModel.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\OutputPromociones.cs" />
     <Compile Include="Models\Encuesta\EntityBaseModel.cs" />
     <Compile Include="Models\Encuesta\EncuestaModel.cs" />
     <Compile Include="Models\Encuesta\EncuestaCalificacionModel.cs" />
@@ -899,6 +902,7 @@
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\ConsultaProlProvider.cs" />
     <Compile Include="Providers\ConsultoraOnlineProvider.cs" />
+    <Compile Include="Providers\PromocionesProvider.cs" />
     <Compile Include="Providers\VentaIncrementalProvider.cs" />
     <Compile Include="Providers\EncuestaProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
@@ -1510,6 +1514,7 @@
     <Content Include="Content\Css\Site\Ficha\FichaCarrusel.css" />
     <Content Include="Content\Css\Site\FechasFacturacion\fechas-facturacion.css" />
     <Content Include="Content\Css\Site\Ficha\FichaResponsive.css" />
+    <Content Include="Content\Css\Site\Ficha\FichaResponsiveCarrusel.css" />
     <Content Include="Content\Css\Site\Notificacion.css" />
     <Content Include="Content\Css\Site\Esika\nuevo-look-and-feel.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
@@ -1534,6 +1539,7 @@
     <Content Include="Content\Css\Site\Pedido\GananciaEstimada.css" />
     <Content Include="Content\Css\Site\Pedido\ProductosSugeridos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-reserva-pedido.css" />
+    <Content Include="Content\Css\Site\Shared\Buscador\BuscadorCarrusel.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-informacion-regalos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Css\Site\TuVozOnline\TuVozOnline.css" />
@@ -4299,6 +4305,8 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaEnriquecida\FichaEnriquecidaView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsive.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsiveEvents.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Promociones\PromocionesPresenter.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Promociones\PromocionesView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselAyuda.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleModule.js" />
@@ -5267,6 +5275,9 @@
     <None Include="Service References\ServiceUnete\PortalService10.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUnete\PortalService11.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -5923,6 +5934,7 @@
     <Content Include="Views\TuVozOnline\Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <Content Include="Views\CaminoBrillante\Partial\template_kit.cshtml" />
     <Content Include="Views\CaminoBrillante\Partial\template_demostrador.cshtml" />
     <Content Include="Views\AdministrarHistorias\Partials\MantenimientoVideo.cshtml" />
@@ -5956,6 +5968,10 @@
     <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\modal-promociones.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\producto-promocion-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\banner-promocion-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\galeria-template.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarMontoExigencia.cshtml" />
     <Content Include="Views\ReporteEncuestaSatisfaccion\Index.cshtml" />
     <Content Include="Views\FechasFacturacion\Index.cshtml" />

@@ -52,7 +52,7 @@ class CarruselView {
         $(this.divCarruselContenedor).show();
         this.marcarAnalytics(1, data);
     }
-    
+
     setValueAttrHtml(attrObj, value) {
         $(this.divCarruselProducto).attr(attrObj, value);
     }
@@ -156,28 +156,5 @@ class CarruselView {
             return elemento.id === ficha;
         })[0];
     }
-
-    //reorderFichaCarrusel(model){
-    //    var orden = 0;
-    //    var _this = this;
-        
-    //    $.each($(this.divCarruselFicha.ficha), function(indice, elemento){
-    //        $(elemento).css("order", "");
-    //    });
-
-    //    this.divCarrusel.capa.forEach(function (ficha) {
-    //        var encontrado = _this.filterFichaVisible(ficha);
-    //        if (encontrado != undefined) {
-    //            $(encontrado).css("order", orden);
-
-    //            if (orden == 0 && _this.filterFichaVisible(_this.fichaEnriquecida.capa) != undefined) {
-    //                $(_this.fichaEnriquecida.id).css("order", orden + 1);
-    //                orden++;
-    //            }
-
-    //            orden++;
-    //        }
-    //    });
-    //}
 
 }
