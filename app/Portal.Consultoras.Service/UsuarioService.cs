@@ -1098,6 +1098,21 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ContraseniaRepetida(paisID, codigoUsuario, contrasenia);
         }
+
+        public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
     }
