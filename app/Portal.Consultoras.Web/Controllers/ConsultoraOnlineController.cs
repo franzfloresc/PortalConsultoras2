@@ -1815,11 +1815,20 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-        private int GetOrigenPedidoWeb(string flagMedio, int marcaID, int dispositivo, int tipoVista)
+        private int GetOrigenPedidoWeb(string flagMedio, int marcaID, int dispositivo, int tipoVista, string codigoEstrategia = "" )
         {
+
             var modelo = new OrigenPedidoWebModel();
             modelo.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
-            modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaID);
+            if(!string.IsNullOrEmpty(codigoEstrategia))
+            {
+                modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoEstrategia);
+            }
+            else
+            {
+                modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaID);
+            }
+            
 
             if (dispositivo == 1)
             {
@@ -2439,7 +2448,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEMisPedidos pedidoAux = new BEMisPedidos();
             string mensajeR;
-
+            string flagMedio = string.Empty;
             string mensajeaCliente =
                 string.Format(
                     "Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.",
@@ -2488,6 +2497,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         pedido.ClienteId = xclienteId;
                     }
+
+                    flagMedio = pedido.FlagMedio;
                 });
             }
 
@@ -2543,7 +2554,10 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoDetalle.PaisID = userData.PaisID;
                         pedidoDetalle.IPUsuario = GetIPCliente();
 
-                        pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb(Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual, model.MarcaID, parametros.Dispositivo, parametros.OrigenTipoVista);
+                        if(!string.IsNullOrEmpty(flagMedio))
+                        {
+                         pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb(flagMedio , model.MarcaID , parametros.Dispositivo , parametros.OrigenTipoVista, model.CodigoTipoEstrategia);
+                        }
 
                         pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
