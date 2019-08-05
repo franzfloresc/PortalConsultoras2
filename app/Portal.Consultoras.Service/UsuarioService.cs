@@ -1101,17 +1101,20 @@ namespace Portal.Consultoras.Service
 
         public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
         {
-            throw new NotImplementedException();
+            var blUsuario = new BLUsuario();
+            return blUsuario.InsUsuarioExternoPais(paisID, entidad);
         }
 
         public string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
-            throw new NotImplementedException();
+            var blUsuario = new BLUsuario();
+            return blUsuario.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
         }
 
         public bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
-            throw new NotImplementedException();
+            var blUsuario = new BLUsuario();
+            return blUsuario.CambiarContraseniaAleatoria(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
         }
         #endregion
 
