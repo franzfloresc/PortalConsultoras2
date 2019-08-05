@@ -784,12 +784,12 @@ function MostrarBarra(datax, destino) {
 }
 
 function getMessageBarra(tipoMensaje) {
-    if (tipoMensaje == 'Inicio') {
+    if (tipoMensaje == 'Inicio' || tipoMensaje == 'TippingPoint') {
         if (!tpElectivos.loadedPremios) {
             tipoMensaje = '';
         }
         else if (isKitInicio(tpElectivos.premios)) {
-            tipoMensaje = 'KitInicio';
+            tipoMensaje += 'Kit';
         }
     }
 
@@ -2788,11 +2788,11 @@ function buildMessages(premios) {
 
     var textKitInicio = {
         premioElegido: '¡YA ELEGISTE TU PRODUCTO!',
-        puedesElegirPremio: '¡Puedes elegir tu producto del kit de inicio!',
+        puedesElegirPremio: '¡Puedes elegir tu producto del Kit de Inicio!',
         textElegido: 'PRODUCTO ELEGIDO',
         textTienesRegalo: 'TIENES UN PRODUCTO',
         textLlegasteRegalo: 'LLEGASTE A TU PRODUCTO',
-        textAlcanzasteRegalo: '¡Alcanzaste tu producto del kit de inicio!'
+        textAlcanzasteRegalo: '¡Alcanzaste tu producto del Kit de Inicio!'
     };
 
     return isKitInicio(premios) ? textKitInicio : textPremios;
