@@ -96,7 +96,7 @@ namespace Portal.Consultoras.BizLogic.Contenido
             if (tuVozOnline != null)
             {
                 var blUsuario = new BLUsuario();
-                var objUsuario = blUsuario.Select(itmFilter.PaisID, itmFilter.CodigoConsultora);
+                var objUsuario = blUsuario.Select(itmFilter.PaisID, itmFilter.CodigoUsuario);
                 itmFilter.EMailActivo = objUsuario.EMailActivo;
                 itmFilter.DocumentoIdentidad = itmFilter.NumeroDocumento;
                 itmFilter.Segmento = objUsuario.Segmento;
