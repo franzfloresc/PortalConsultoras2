@@ -3103,6 +3103,7 @@ namespace Portal.Consultoras.BizLogic
             objCreden.RecursoApi = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.RECURSO).Select(b => b.Valor).FirstOrDefault();
             objCreden.Mensaje = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE).Select(b => b.Valor).FirstOrDefault();
             objCreden.MensajeOptin = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE_OPTIN).Select(b => b.Valor).FirstOrDefault();
+            objCreden.From = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.FROM).Select(b => b.Valor).FirstOrDefault();
             return objCreden;
         }
 
@@ -3146,7 +3147,8 @@ namespace Portal.Consultoras.BizLogic
                         CodigoIso = oUsu.CodigoIso,
                         EsMobile = oUsu.EsMobile,
                         RequestUrl = oCredencial.RequestUrl,
-                        RecursoApi = oCredencial.RecursoApi
+                        RecursoApi = oCredencial.RecursoApi,
+                        From  = oCredencial.From
                     };
 
                     string requestUrl = ConfigurationManager.AppSettings.Get(Constantes.EnviarSMS.SmsConsultoraWs.urlKey);
