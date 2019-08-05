@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCatalogosIssuu;
 using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ using System.ServiceModel;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using BEConfiguracionPais = Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPais;
+using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPaisDatos;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -58,6 +61,49 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
             ViewBag.TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva;
+            var mensajeRRSS = Constantes.CatalogoMensajesDefault.SaludoCorreoPiloto;
+
+            var parametrorBEConfiguracionPaisDatos = new BEConfiguracionPaisDatos();
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                var oBEConfiguracionPais = sv.GetConfiguracionPaisByCode(userData.PaisID, Constantes.ConfiguracionPaisDatos.RD.CompartirCatalogoRedesSociales);
+
+                if (oBEConfiguracionPais.Codigo != null)
+                {
+                    parametrorBEConfiguracionPaisDatos = new BEConfiguracionPaisDatos();
+                    parametrorBEConfiguracionPaisDatos.ConfiguracionPaisID = oBEConfiguracionPais.ConfiguracionPaisID;
+                    parametrorBEConfiguracionPaisDatos.PaisID = userData.PaisID;
+                }
+            }
+
+            if (parametrorBEConfiguracionPaisDatos.PaisID != 0)
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    var parametro = new Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos();
+                    Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] ListaConfiguracionPaisDatos;
+                    parametro.PaisID = userData.PaisID;
+                    parametro.ConfiguracionPaisID = parametrorBEConfiguracionPaisDatos.ConfiguracionPaisID;
+                    ListaConfiguracionPaisDatos = sv.GetConfiguracionPaisDatosAll(parametro);
+                    if (ListaConfiguracionPaisDatos.Any())
+                    {
+                        foreach (var item in ListaConfiguracionPaisDatos)
+                        {
+                            if (item.Codigo == Constantes.ConfiguracionPaisDatos.RD.MensajeCompartirCatalogo)
+                            {
+                                mensajeRRSS = item.Valor1;
+                                break;
+                            }
+
+
+                        }
+
+                    }
+                }
+            }
+
+
+            ViewBag.MensajeRRSS = mensajeRRSS;
 
             return View(clienteModel);
         }
