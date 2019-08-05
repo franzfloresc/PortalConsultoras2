@@ -3790,6 +3790,8 @@ namespace Portal.Consultoras.Common
                 public const string COMPROMISO = "COMPROMISO";
                 public const string CRECIMIENTO = "CRECIMIENTO";
                 public const string RESUMEN = "RESUMEN";
+                public const string RESUMEN_UNIFICADO = "RESUMEN_UNIFICADO";
+                public const string CONSTANCIA_DETALLADA = "CONSTANCIA_DETALLADA";
 
                 public static class Indicadores
                 {
@@ -3801,6 +3803,7 @@ namespace Portal.Consultoras.Common
                     public const string INCREMENTO_PEDIDO = "INCREMENTO_PEDIDO";
                     public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
                     public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
+                    public const string CONSTANCIA_DETALLADA = "CONSTANCIA_DETALLADA";
 
                     public static Dictionary<string, string> Titulos
                     {
@@ -3901,25 +3904,24 @@ namespace Portal.Consultoras.Common
                     get
                     {
                         return _Iconos ?? (_Iconos = new Dictionary<string, string> {
-                            {"01", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"asesor.svg")},
-                            {"02", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"beneficios.svg")},
-                            {"03", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"brazalete.svg")},
-                            {"04", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"call_center.svg")},
-                            {"05", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"catalogo_revista.svg")},
-                            {"06", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"descuento.svg")},
-                            {"07", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"kit.svg")},
-                            {"08", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"pago_diferido.svg")},
-                            {"09", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"productos_especiales.svg")},
-                            {"10", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"programa_brillante.svg")},
-                            {"11", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"reconocimiento.svg")},
-                            {"12", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"regalo.svg")},
-                            {"13", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"talleres.svg")},
-                            {"14", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"50_de_descuento.svg")},
+                            {"01", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "asesor.svg")},
+                            {"02", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "beneficios.svg")},
+                            {"03", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "brazalete.svg")},
+                            {"04", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "call_center.svg")},
+                            {"05", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "catalogo_revista.svg")},
+                            {"06", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "descuento.svg")},
+                            {"07", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "kit.svg")},
+                            {"08", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "pago_diferido.svg")},
+                            {"09", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "productos_especiales.svg")},
+                            {"10", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "programa_brillante.svg")},
+                            {"11", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "reconocimiento.svg")},
+                            {"12", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "regalo.svg")},
+                            {"13", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "talleres.svg")},
+                            {"14", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "50_de_descuento.svg")},
 
                         });
                     }
                 }
-
             }
 
             public static class Niveles
@@ -4003,7 +4005,16 @@ namespace Portal.Consultoras.Common
                 public const string app_ganancias = "app_ganancias";
                 public const string app_barraMontoAcumulado = "app_barraMonto";
                 public const string app_enterateMas = "app_enterateMas";
+
+                public const string sb_puntajeGranBrillante = "pto_granBrillante";
+                public const string app_puntajeGranBrillante = "pto_granBrillante";
             }
+
+            public static class Version {                
+                public const int VER_01 = 1;
+                public const int VER_02 = 2;
+            }
+
         }
 
         public static class CodigoContenido

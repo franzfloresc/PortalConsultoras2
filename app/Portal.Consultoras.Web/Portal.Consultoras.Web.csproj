@@ -314,6 +314,7 @@
     <Compile Include="Controllers\BuscadorController.cs" />
     <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Controllers\PedidoRegistroController.cs" />
+    <Compile Include="Models\CaminoBrillante\AdministrarMontoExigenciaModel.cs" />
     <Compile Include="Models\ChatBotListResultadosModel.cs" />
     <Compile Include="Models\ChatBotModel.cs" />
     <Compile Include="Models\EventoInsert.cs" />
@@ -328,6 +329,7 @@
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\CaminoBrillante\AdministrarCaminoBrillanteModel.cs" />
     <Compile Include="Models\ChatActivation.cs" />
     <Compile Include="Models\CaminoBrillante\CarruselCaminoBrillante.cs" />
     <Compile Include="Models\ConfirmarPosicionModelPrePostulante.cs" />
@@ -1429,6 +1431,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CaminoBrillante\Content.css" />
     <Content Include="Content\CaminoBrillante\css\estilos.css" />
+    <Content Include="Content\CaminoBrillante\imgs\1.png" />
+    <Content Include="Content\CaminoBrillante\imgs\2.png" />
+    <Content Include="Content\CaminoBrillante\imgs\3.png" />
+    <Content Include="Content\CaminoBrillante\imgs\4.png" />
+    <Content Include="Content\CaminoBrillante\imgs\5.png" />
     <Content Include="Content\CaminoBrillante\imgs\activo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\add-to-cart.svg" />
     <Content Include="Content\CaminoBrillante\imgs\add_to_cart2.svg" />
@@ -1436,10 +1443,15 @@
     <Content Include="Content\CaminoBrillante\imgs\bg-modal.png" />
     <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\corazon.png" />
+    <Content Include="Content\CaminoBrillante\imgs\dedo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\down.svg" />
     <Content Include="Content\CaminoBrillante\imgs\flag.svg" />
     <Content Include="Content\CaminoBrillante\imgs\icon-s.svg" />
     <Content Include="Content\CaminoBrillante\imgs\mobile-logros.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\next.png" />
+    <Content Include="Content\CaminoBrillante\imgs\slid1.png" />
+    <Content Include="Content\CaminoBrillante\imgs\slid2.png" />
+    <Content Include="Content\CaminoBrillante\imgs\slid3.png" />
     <Content Include="Content\CaminoBrillante\imgs\up.svg" />
     <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Css\Button\style.css" />
@@ -4777,6 +4789,7 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PopupIncentivo.cshtml" />
     <None Include="Service References\ServiceEncuesta\configuration91.svcinfo" />
     <None Include="Service References\ServiceEncuesta\configuration.svcinfo" />
     <None Include="Service References\ServiceEncuesta\Reference.svcmap">
@@ -5949,6 +5962,7 @@
     <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
+    <Content Include="Views\CaminoBrillanteAdministrar\AdministrarMontoExigencia.cshtml" />
     <Content Include="Views\FechasFacturacion\Index.cshtml" />
     <Content Include="Views\ReporteEncuestaSatisfaccion\Index.cshtml" />
     <Content Include="Views\EncuestaSatisfaccion\_EncuestaSatisfaccion.cshtml" />

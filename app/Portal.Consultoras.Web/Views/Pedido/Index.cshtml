@@ -36,6 +36,7 @@
     .linea_indicador_barra {
         width: 2px;
     }
+
     .franja_negra {
         background-size: cover;
     }
@@ -458,11 +459,12 @@
                                             </span>
                                         </div>
                                         @*HD-4513*@
-                                        @if (ViewBag.PagoContado){
+                                        @if (ViewBag.PagoContado)
+                                        {
                                             <div class="ganancia-info first-color">
                                                 <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
                                                 <span class="ganancia-total first-color" data-stpdescuento>
-                                                       0.00
+                                                    0.00
                                                 </span>
                                             </div>
                                             <div class="ganancia-info first-color">
@@ -470,13 +472,13 @@
                                                 <span class="ganancia-total first-color" data-stpflete>
                                                     0.00
                                                 </span>
-                                            </div>  
+                                            </div>
                                             <div class="ganancia-info first-color">
                                                 <span class="info_mis_descuentos">(+) Saldo Campaña Anterior:</span>
                                                 <span class="ganancia-total first-color" data-stpdeuda>
                                                     0.00
                                                 </span>
-                                            </div>  
+                                            </div>
                                             <div class="ganancia-info total_a_pagar_wrapper pb-2">
                                                 <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
                                                 <span class="ganancia-total first-color" data-stppagototal>
@@ -1201,6 +1203,7 @@
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupEleccionRegalo.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupPremio.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupDescuento.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupIncentivo.cshtml")
 @Html.Partial("~/Views/Pedido/_PopupRecepcionPedido.cshtml")
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupReservaPedido.cshtml");}
@@ -2101,7 +2104,7 @@
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         //var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
         var cantPedidosPendientes = '@ViewBag.CantPedidosPendientes';
-        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl)); 
+        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl));
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
@@ -2180,7 +2183,10 @@
         @*var ClasPedidoPopupPedidoPend = '@Constantes.ClasificadorPedido.PedidoDetallePoputPendiente';
         var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
         var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';*@
+
         var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
+        var montoIncentivo = '@Model.montoIncentivo';
+
         var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel';/*HD-3710*/
 
     </script>
