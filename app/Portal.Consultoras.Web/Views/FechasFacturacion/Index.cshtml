@@ -4,7 +4,7 @@
 @model BEFechaFacturacion
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
-    ViewBag.Title = "Fechas de Facturación";
+    ViewBag.Title = "Fechas de Campaña";
     var tieneAnteriores = (Model.ListFechaFacturacionAnterior != null ? (Model.ListFechaFacturacionAnterior.Length > 0 ? 1 : 0) : 0);
     var tieneProximas = (Model.ListFechaFacturacionProxima != null ? (Model.ListFechaFacturacionProxima.Length > 0 ? 1 : 0) : 0);
 }
@@ -20,7 +20,7 @@
                 <img class="d-block" src="@Url.Content("~/Content/Images/icono_volver_mobile.svg")" alt="" />
             </a>
             <span class="d-block text-bold">
-                Fechas de facturación
+                FECHAS DE CAMPAÑA
             </span>
         </h1>
     </div>

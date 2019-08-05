@@ -98,13 +98,17 @@
                             else
                             {
                                 @item.Descripcion
-                                foreach (var tag in item.Extras.Tags)
+                                if (item.Extras != null)
                                 {
-                                    if (tag.Tag == "Nuevo" && tag.End >= campaniaCodigo)
+                                    foreach (var tag in item.Extras.Tags)
                                     {
-                                        <span class="d-block tag__sb tag__sb--multimarca tag__sb--nuevoEnlaceMenu">tag.Tag</span>
+                                        if (tag.Tag == "Nuevo" && tag.End >= campaniaCodigo)
+                                        {
+                                            <span class="d-block tag__sb tag__sb--multimarca tag__sb--nuevoEnlaceMenu">tag.Tag</span>
+                                        }
                                     }
                                 }
+
 
                             }
                         </a>
@@ -151,15 +155,20 @@
                                             }
                                         }
                                     }
-                                    @foreach (var tag in subItem.Extras.Tags)
+                                    @if (subItem.Extras != null)
                                     {
-                                        if (tag.Tag == "Nuevo" && tag.End >= campaniaCodigo)
+                                        foreach (var tag in subItem.Extras.Tags)
                                         {
-                                            <span class="d-block tag__sb tag__sb--multimarca tag__sb--nuevoEnlaceMenu">@tag.Tag</span>
-                                            break;
-                                        }
+                                            if (tag.Tag == "Nuevo" && tag.End >= campaniaCodigo)
+                                            {
+                                                <span class="d-block tag__sb tag__sb--multimarca tag__sb--nuevoEnlaceMenu">@tag.Tag</span>
+                                                break;
+                                            }
 
+                                        }
                                     }
+
+
                                 </a>
                             </li>
                         }
