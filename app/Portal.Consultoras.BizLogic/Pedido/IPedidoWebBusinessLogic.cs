@@ -73,6 +73,9 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
+        //BEDescargaArchivoSinMarcar DescargaPedidosClienteSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario );
+        //string DescargaPedidosSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario);
+
         List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top, bool mostrarPaqueteDocumentario);
         void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb BEPedidoWeb);

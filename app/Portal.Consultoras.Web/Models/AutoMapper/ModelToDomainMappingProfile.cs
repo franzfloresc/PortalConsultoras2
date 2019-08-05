@@ -103,6 +103,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.OfertaDelDia, f => f.Ignore())
                 .ForMember(t => t.beOfertaFinal, f => f.Ignore());
 
+            Mapper.CreateMap<UsuarioModel, ServiceContenido.BEUsuario>();
+
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>();
             Mapper.CreateMap<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>();
             Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>()
@@ -341,6 +343,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<MisReclamosModel, ServiceCDR.BECDRWebDetalle>()
                 .ForMember(t => t.CDRWebDetalleID, f => f.MapFrom(c => c.CDRWebDetalleID))
+                .ForMember(t=>t.DetalleReemplazo,f=>f.MapFrom(c=>c.Reemplazo))
                 .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad));
 
             Mapper.CreateMap<RolModel, ServiceSeguridad.BERol>()
@@ -504,6 +507,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEPedidoWeb>();
 
+            Mapper.CreateMap<ProductoComplementarioModel, ServiceCDR.BECDRProductoComplementario>();
         }
     }
 }

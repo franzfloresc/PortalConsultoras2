@@ -242,9 +242,15 @@ namespace Portal.Consultoras.Web.Providers
                 configuracionPaisDatos = sessionManager.GetRevistaDigital().ConfiguracionPaisDatos;
                 modelo.DescripcionMarca = esMobile ? "/Mobile/RevistaDigital/Comprar" : "/RevistaDigital/Comprar";
             }
+            else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos)
+            {
+                configuracionPaisDatos = sessionManager.GetHerramientasVenta().ConfiguracionPaisDatos;
+                modelo.DescripcionMarca = esMobile ? "/Mobile/HerramientasVenta/Comprar" : "/HerramientasVenta/Comprar";
+            }
 
             if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos || 
-                tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos || 
+                tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos ||
+                tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos ||
                 tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
             {
                 modelo.DescripcionCompleta = GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselTitulo, esMobile);

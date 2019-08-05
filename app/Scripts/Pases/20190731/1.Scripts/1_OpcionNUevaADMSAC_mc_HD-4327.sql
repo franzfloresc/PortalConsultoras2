@@ -1,0 +1,536 @@
+﻿use [BelcorpBolivia]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+use [BelcorpChile]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+use [BelcorpColombia]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+use [BelcorpCostaRica]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+use [BelcorpDominicana]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+use [BelcorpEcuador]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+use [BelcorpGuatemala]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+use [BelcorpMexico]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+use [BelcorpPanama]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+use [BelcorpPeru]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+use [BelcorpPuertoRico]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+use [BelcorpSalvador]	
+go
+
+DECLARE @PERMISO AS VARCHAR(128)='Pedidos de campaña'
+DECLARE @PERMISOID AS INT
+
+/*CREAMOS LA NUEVA OPCIÒN EN MENU SAC PARA EL PERFIL ADMSAC*/
+IF NOT EXISTS (SELECT * 
+			   FROM   PERMISO 
+			   WHERE DESCRIPCION =@PERMISO) 
+
+BEGIN
+SELECT TOP 1 @PERMISOID=PERMISOID + 1 FROM PERMISO ORDER BY PERMISOID DESC
+--SELECT 'REGISTRO'
+INSERT INTO PERMISO 
+(
+ PermisoID
+,Descripcion
+,IdPadre
+,OrdenItem
+,UrlItem
+,PaginaNueva
+,Posicion
+,UrlImagen
+,EsSoloImagen
+,EsMenuEspecial
+,EsServicios
+,EsPrincipal
+,Codigo
+)
+SELECT @PERMISOID, 'Pedidos de campaña',81,110, 'ReporteConsultoraPedidoSAC/Index',0, 'Header', '',0,0,0,0,null
+SELECT 'EL REGISTRO FUE REALIZADO'
+END
+ELSE
+BEGIN
+SELECT 'EL REGISTRO NO SE REALIZO'
+END
+SELECT * FROM PERMISO WHERE DESCRIPCION=@PERMISO
+go
+
+
+
+
+
+
+
