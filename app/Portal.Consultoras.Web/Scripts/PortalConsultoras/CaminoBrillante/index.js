@@ -10,7 +10,7 @@ $(document).ready(function () {
         Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
         CargarCarrusel();
     }
-    
+
     if (TieneGanancias == "1") CargarGanancias();
     var nivelactual = $("#hfNivelActual").val();
 
@@ -31,8 +31,8 @@ $(document).ready(function () {
             $(".bord-bot").addClass("centtopacio");
         }
     }
-    
-    for (   var i = 1; i <= nivelactual; i++)
+
+    for (var i = 1; i <= nivelactual; i++)
         $(".pt" + i).addClass("activo");
 
     $(".pt" + nivelactual).addClass("brillante");
@@ -75,7 +75,7 @@ $(document).ready(function () {
         });
     });
 
-    $(".btnemp").click(function () { $("#Modalunbord").hide(); });    
+    $(".btnemp").click(function () { $("#Modalunbord").hide(); });
     $('#btnAceptarOnboardding').click(function () {
         var esChecked = $("#volvermostrar").prop('checked') ? "0" : "1";
         $.ajax({
@@ -88,6 +88,7 @@ $(document).ready(function () {
 
     $("#Modalunbord, #Modalunbordseguir").modal({
         show: false,
+        keyboard: false,
         backdrop: 'static'
     });
 });
@@ -322,7 +323,7 @@ function ArmarMisGanancias(data) {
     var indexSeleccion = -1;
     var colorBar = "#ffdaf3"; var colorBarSelected = "#4f0036";
     var sizeMinBar = 6;
-    
+
     var x = 0;
 
     for (x = 0; x < data.MisGanancias.length; x++) {
@@ -406,7 +407,7 @@ function ArmarMisGanancias(data) {
         options: {
             showAllTooltips: true,
             onClick: function (evt, elements) {
-                
+
                 var datasetIndex;
                 var dataset;
                 if (elements.length) {
@@ -425,7 +426,7 @@ function ArmarMisGanancias(data) {
                 myBar.update();
             },
             tooltips: {
-                 
+
                 mode: 'line',
                 displayColors: false,
                 titleFontSize: 7,
@@ -440,7 +441,7 @@ function ArmarMisGanancias(data) {
                 backgroundColor: 'rgba(255, 255, 255)',
                 titleFontColor: 'rgb(0, 0, 0)',
                 bodyFontColor: 'rgb(0, 0, 0)',
-                fontSize: 7, 
+                fontSize: 7,
                 xPadding: 2,
                 yPadding: 1,
                 yAlign: 'bottom',
@@ -541,7 +542,7 @@ function ArmarMisGanancias(data) {
 }
 
 function ArmarCarrusel(data) {
-    
+
     if (data.Items.length == 0) return;
 
     var htmlDiv = SetHandlebars("#template-carrusel", data);
