@@ -4,26 +4,22 @@ using System.Collections.Generic;
 using Portal.Consultoras.Common;
 using System.Data;
 using System.Linq;
-using System.Configuration;
 using JWT;
-using System;
-using System.Net;
-using Portal.Consultoras.Common.Cryptography;
 
 namespace Portal.Consultoras.BizLogic.Contenido
 {
     public class BLContenidoApp : IContenidoAppResumenBusinessLogic
     {
-        private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+        private readonly ITuVozOnlineBusinessLogic _tuVozOnlineBusinessLogic;
 
-        public BLContenidoApp() : this(new BLTablaLogicaDatos())
+        public BLContenidoApp() : this(new BLTuVozOnline())
         {
 
         }
 
-        public BLContenidoApp(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        public BLContenidoApp(ITuVozOnlineBusinessLogic tuVozOnlineBusinessLogic)
         {
-            _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+            _tuVozOnlineBusinessLogic = tuVozOnlineBusinessLogic;
         }
 
         public void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
@@ -95,52 +91,22 @@ namespace Portal.Consultoras.BizLogic.Contenido
             }
 
             //Personalizacion para URL de tu voz ONLINE
-            var TuVozOnline = listaContenido.FirstOrDefault(x => x.Codigo == Constantes.CodigoContenido.TuVozOnline);
+            var tuVozOnline = listaContenido.FirstOrDefault(x => x.Codigo == Constantes.CodigoContenido.TuVozOnline);
 
-            if (TuVozOnline != null)
+            if (tuVozOnline != null)
             {
-                var config = GetPanelConfig(itmFilter.PaisID);
-                TuVozOnline.DetalleContenido.ForEach(x => {
-                    x.RutaContenido = GetUrl(x.RutaContenido, config.Value, config.Key, itmFilter);
+                var blUsuario = new BLUsuario();
+                var objUsuario = blUsuario.Select(itmFilter.PaisID, itmFilter.CodigoConsultora);
+                itmFilter.EMailActivo = objUsuario.EMailActivo;
+                itmFilter.DocumentoIdentidad = objUsuario.NumeroDocumento;
+
+                var config = _tuVozOnlineBusinessLogic.GetPanelConfig(itmFilter.PaisID);
+                tuVozOnline.DetalleContenido.ForEach(x => {
+                    x.RutaContenido = _tuVozOnlineBusinessLogic.GetUrl(config, itmFilter);
                 });
             }
 
             return listaContenido;
         }
-
-        public KeyValuePair<string, string> GetPanelConfig(int paisId)
-        {
-            var datos = _tablaLogicaDatosBusinessLogic.GetListCache(paisId, ConsTablaLogica.TuVozOnline.Id);
-            var dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.TuVozOnline.PanelId);
-            var panelId = dato != null ? dato.Valor : string.Empty;
-
-            dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.TuVozOnline.PanelKey);
-            var panelKey = dato != null ? dato.Valor : string.Empty;
-
-            return new KeyValuePair<string, string>(panelKey, panelId);
-        }
-
-        public string GetUrl(string baseUrl, string panelId, string panelKey, BEUsuario usuarioItem)
-        {
-            var currentTimeSeconds = Util.ToUnixTimespan(DateTime.Now);
-
-            var parameters = string.Format(Constantes.DatosTuVozOnline.FormatUrl,
-                currentTimeSeconds,
-                usuarioItem.PrimerNombre,
-                usuarioItem.PrimerApellido,
-                usuarioItem.EMail,
-                DateTime.Now.Year,
-                "Yes",
-                usuarioItem.FechaNacimiento,
-                usuarioItem.CodigoISO
-            );
-
-            return string.Format(baseUrl,
-                WebUtility.UrlEncode(DesAlgorithm.Encrypt(parameters, panelKey)),
-                HmacShaAlgorithm.GetHash(parameters, panelKey),
-                panelId
-            );
-        }
-
     }
 }

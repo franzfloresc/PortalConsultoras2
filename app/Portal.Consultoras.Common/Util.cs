@@ -3063,6 +3063,24 @@ namespace Portal.Consultoras.Common
         }
 
         /// <summary>
+        /// Convierte en entero a string con el formato segun el pais
+        /// </summary>
+        /// <param name="valor">Monto a formatear</param>
+        /// <param name="pais">CodigoISO del Pais. Ejm PE</param>
+        /// <returns></returns>
+        public static string EnteroFormat(decimal valor, string pais)
+        {
+            if (string.IsNullOrEmpty(pais)) return "";
+
+            var importe = string.Format("{0:#,##0}", valor);
+            string listaPaises = ParseString(ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "");
+            if (listaPaises.Contains(pais)) importe = importe.Split('.')[0].Replace(",", ".");
+
+            return importe;
+        }
+
+
+        /// <summary>
         /// Convierte el decimal a string con el formato segun el pais
         /// </summary>
         /// <param name="valor">Monto a formatear</param>
@@ -3696,6 +3714,10 @@ namespace Portal.Consultoras.Common
                 case Constantes.PaisID.CostaRica:
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.PuertoRico:
+                    limiteMinimoTelef = 10;
+                    limiteMaximoTelef = 10;
                     break;
                 default:
                     limiteMinimoTelef = 5;

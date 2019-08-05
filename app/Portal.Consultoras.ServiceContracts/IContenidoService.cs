@@ -338,5 +338,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEComunicadoSegmentacion> GetCargaListadoPopupValidador(int PaisID);
         #endregion
+
+        [OperationContract]
+        string GetTvoUrl(BEUsuario user);
     }
 }

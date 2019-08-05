@@ -426,7 +426,6 @@ var EstrategiaAgregarModule = (function () {
 
                 $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
-
                 if (divAgregado != null) {
                     if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
                         divAgregado.each(function (index, element) {
@@ -638,9 +637,16 @@ var EstrategiaAgregarModule = (function () {
                    }
                }
 
-               if (params.EsDuoPerfecto !== 'undefined' && params.EsDuoPerfecto === false) {
-                   AbrirMensaje25seg(mensaje, imagenProducto);
-               }
+                /*HD-4635*/
+
+                if (data.flagCantidaPedido == 0) {
+                    if (params.EsDuoPerfecto !== 'undefined' && params.EsDuoPerfecto === false) {
+                        AbrirMensaje25seg(mensaje, imagenProducto);
+                    }
+                } else {
+                    alert_msg(data.mensajeCantidad);
+                }
+              
                
 
                if (popup) {
@@ -686,6 +692,8 @@ var EstrategiaAgregarModule = (function () {
 
         return false;
     };
+
+   
 
     var analyticsAgregar = function (event, origenPedidoWebEstrategia, estrategia) {
         try {

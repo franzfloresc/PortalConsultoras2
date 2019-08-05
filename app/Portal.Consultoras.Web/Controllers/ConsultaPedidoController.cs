@@ -600,7 +600,6 @@ namespace Portal.Consultoras.Web.Controllers
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
                 HttpContext.Response.End();
-                stream = null;
 
                 return true;
             }
