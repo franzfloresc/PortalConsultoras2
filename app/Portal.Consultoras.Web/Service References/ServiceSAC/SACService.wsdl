@@ -36,9 +36,10 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.BuscadorYFiltros" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Encuesta" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.BuscadorYFiltros" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ISACService_EnviarSolicitudClienteaGZ_InputMessage">
@@ -437,14 +438,35 @@
   <wsdl:message name="ISACService_ObtenerBuscadorComplemento_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerBuscadorComplementoResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_GetFechasFacturacionConsultora_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetFechasFacturacionConsultora" />
+  <wsdl:message name="ISACService_GetReporteEncuestaSatisfaccion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteEncuestaSatisfaccion" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetReporteEncuestaSatisfaccion_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteEncuestaSatisfaccionResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotListResultados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotListResultados" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotListResultados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotListResultadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetFechasFacturacionConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFechasFacturacionConsultora" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetFechasFacturacionConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFechasFacturacionConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotInsertResultados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotInsertResultados" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotInsertResultados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotInsertResultadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotInsertDetalleResultados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotInsertDetalleResultados" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ChatBotInsertDetalleResultados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChatBotInsertDetalleResultadosResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_SelectBelcorpNoticias_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectBelcorpNoticias" />
@@ -1735,9 +1757,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccion" message="tns:ISACService_GetReporteEncuestaSatisfaccion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetReporteEncuestaSatisfaccionResponse" message="tns:ISACService_GetReporteEncuestaSatisfaccion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ChatBotListResultados">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ChatBotListResultados" message="tns:ISACService_ChatBotListResultados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ChatBotListResultadosResponse" message="tns:ISACService_ChatBotListResultados_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetFechasFacturacionConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFechasFacturacionConsultora" message="tns:ISACService_GetFechasFacturacionConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFechasFacturacionConsultoraResponse" message="tns:ISACService_GetFechasFacturacionConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertResultados">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ChatBotInsertResultados" message="tns:ISACService_ChatBotInsertResultados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ChatBotInsertResultadosResponse" message="tns:ISACService_ChatBotInsertResultados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertDetalleResultados">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ChatBotInsertDetalleResultados" message="tns:ISACService_ChatBotInsertDetalleResultados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ChatBotInsertDetalleResultadosResponse" message="tns:ISACService_ChatBotInsertDetalleResultados_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectBelcorpNoticias">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticias" message="tns:ISACService_SelectBelcorpNoticias_InputMessage" />
@@ -3025,8 +3059,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ChatBotListResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotListResultados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFechasFacturacionConsultora">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetFechasFacturacionConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotInsertResultados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertDetalleResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotInsertDetalleResultados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5171,8 +5232,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ChatBotListResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotListResultados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFechasFacturacionConsultora">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetFechasFacturacionConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotInsertResultados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChatBotInsertDetalleResultados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ChatBotInsertDetalleResultados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

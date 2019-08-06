@@ -364,6 +364,7 @@
       <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="BanderaImagen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="BuscadorYFiltrosConfiguracion" nillable="true" type="tns:BEBuscadorYFiltrosConfiguracion" />
+      <xs:element minOccurs="0" name="CambioCelularPendiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="CambioClave" type="xs:boolean" />
       <xs:element minOccurs="0" name="CambioCorreoPendiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="CampanaInvitada" nillable="true" type="xs:string" />
@@ -373,6 +374,7 @@
       <xs:element minOccurs="0" name="CampaniaInicioLider" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CatalogoPersonalizado" type="xs:int" />
       <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CelularPendiente" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClaveSecreta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoClasificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
@@ -439,6 +441,7 @@
       <xs:element minOccurs="0" name="FechaCancelacionSuscripcion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaFinFIC" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaFinFacturacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaIngreso" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaLimPago" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
