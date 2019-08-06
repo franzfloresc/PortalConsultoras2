@@ -1,6 +1,11 @@
 1.PortalConsultoras2
 	Agregar:
 
+	<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="...,LMG"/>
+	<add key="CodigoTipoOfertaPremio" value="044,047,024,046,038,039"/>
+	<add key="RutaServicePROLApi" value="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/BelcorpSupport/api/"/>
+
+
 	-En <system.serviceModel> <bindings> <basicHttpBinding>:
 
         <binding name="BasicHttpBinding_IEncuestaService" closeTimeout="00:10:00"
@@ -22,3 +27,19 @@
 	<endpoint address="<AMBIENTE>/EncuestaService.svc"
         	binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IEncuestaService"
         	contract="ServiceEncuesta.IEncuestaService" name="BasicHttpBinding_IEncuestaService" />
+
+
+2. Personalizacion.Sync/appsettings.json
+	Modificar dentro de "Palancas" y agregar "LMG" a la cadena
+	
+	"Palancas": "...,LMG"
+
+3. Personalizacion.SearchNode/config.js
+	Modificar dentro de "Personalizacion" y "Pum" y agregar "LMG" a la cadena
+
+	constantes: {
+		...
+		Personalizacion: [..., 'LMG'],
+		Pum: [...,'LMG'],
+		...
+	} 
