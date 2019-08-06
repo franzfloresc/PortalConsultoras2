@@ -614,7 +614,6 @@ namespace Portal.Consultoras.Service
             var bl = new BLContenidoAppHistoria();
             return bl.ContenidoAppDetaVideo(paisID, p);
         }
-
         public string GetTvoUrl(BEUsuario user)
         {
             return _blTvoOnline.GetUrl(user);
