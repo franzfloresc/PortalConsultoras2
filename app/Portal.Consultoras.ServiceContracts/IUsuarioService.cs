@@ -483,6 +483,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(int PaisID, string CodigorRegion, string Zona, long ConsultoraID, int CampaniaID, int PeriodoCB, int NivelCB, decimal PuntajeAcumuladoCB);
+
         #endregion
 
         [OperationContract]

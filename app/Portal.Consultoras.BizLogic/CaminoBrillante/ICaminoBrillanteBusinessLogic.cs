@@ -8,24 +8,33 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 {
     public interface ICaminoBrillanteBusinessLogic
     {
+        //Consultora
         List<BENivelCaminoBrillante> GetNiveles(int paisId);
         BEConsultoraCaminoBrillante GetConsultoraNivel(BEUsuario entidad, int origen);
+        //Kits y Demostradores
+        BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad);        
         BEDemostradoresPaginado GetDemostradores(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);
         List<BEKitCaminoBrillante> GetKits(BEUsuario entidad);
+        //Ficha Producto
+        BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV);
+        //Pedido
         void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bePedidoWebDetalle, int paisId, int campaniaId, int nivelId);
         bool UpdEstragiaCaminiBrillante(BEEstrategia estrategia, int paisId, int campaniaId, int nivelId, string cuv);
         string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle);
         BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(BEUsuario entidad, string cuv);
-        BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisId, bool isApp);
-        BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad);
-        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp);
-        BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV);
+        //Beneficios
         List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
         void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad);
+        void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);
+        //Monto Exigencia
         List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
         string InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
-        void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);
         void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+        //Flag Animacion
         void SetConsultoraAnim(BEUsuario entidad, string key, string value, string repeat);
+        //COnfiguracion
+        BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisId, bool isApp);
+        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp);
+        List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(int PaisID, string CodigorRegion, string Zona, long ConsultoraID, int CampaniaID, int PeriodoCB, int NivelCB, decimal PuntajeAcumuladoCB);
     }
 }
