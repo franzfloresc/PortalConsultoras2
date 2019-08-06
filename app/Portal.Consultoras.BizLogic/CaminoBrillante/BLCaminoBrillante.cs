@@ -136,6 +136,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         public BEConsultoraCaminoBrillante GetConsultoraNivel(BEUsuario entidad, int version)
         {
+            try
+            {
+                return GetBEConsultoraCaminoBrillante(entidad, version);
+            }
+            catch(Exception ex)
+            {
+                LogManager.SaveLog(ex, entidad.CodigoConsultora, entidad.PaisID);
+                return null;
+            }
+        }
+
+        private BEConsultoraCaminoBrillante GetBEConsultoraCaminoBrillante(BEUsuario entidad, int version)
+        {
             _providerCaminoBrillante = _providerCaminoBrillante ?? GetCaminoBrillanteProvider(entidad.PaisID);
             if (_providerCaminoBrillante == null) return null;
 
