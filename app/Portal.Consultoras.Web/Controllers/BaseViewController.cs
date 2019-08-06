@@ -150,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(esMobile),
                 FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
                 Success = true,
-                MensajeProductoBloqueado = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile),
+                MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
                 CantidadFilas = 10
             };
 
@@ -182,11 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-        #region ShowRoom
-
-        #endregion
-
+        
         #region Detalle Estrategia  - Ficha
 
         public virtual ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)

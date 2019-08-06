@@ -49,15 +49,21 @@
 
     <!--<FichaPromociones ticket="tesla-178">-->
     <div id="banner-promocion" class="ficha-promociones d-sm-block d-md-none" data-selector="open-modal">
+        {{#if TieneStock}}
         <div class="titulo-promociones">
             <span class="texto-promociones"> Promoción </span>
         </div>
         <div class="descripcion-promociones">
-            <span class="texto-promociones">Lleva un reloj Chronograph comprando uno de estos productos en oferta.</span>
+            {{#if EsPromocion}}
+            <span class="texto-promociones">Conoce aqu&iacute; las condiciones de esta promoción.</span>
+            {{else}}
+            <span class="texto-promociones">¡Aprovecha! Ll&eacute;vate un <b>{{Promocion.DescripcionCompleta}}</b> a solo {{SimboloMoneda}}{{Promocion.PrecioVenta}}. Ent&eacute;rate aqu&iacute;</span>
+            {{/if}}
             <div class="contenedor-imagen">
                 <img src="https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoWebRedes/Esika_Talco_Perfumado_Expression_Cuidado_Personal_FotoProducto.jpg" alt="Texto" class="img-responsive" />
             </div>
         </div>
+        {{/if}}
     </div>
     <!--</FichaPromociones">-->
 
