@@ -2790,7 +2790,7 @@ function buildMessages(premios) {
         premioElegido: '¡YA ELEGISTE TU PRODUCTO!',
         puedesElegirPremio: '¡Puedes elegir tu producto del Kit de Inicio!',
         textElegido: 'PRODUCTO ELEGIDO',
-        textTienesRegalo: 'TIENES UN PRODUCTO',
+        textTienesRegalo: 'TIENES UN PRODUCTO DEL KIT DE INICIO',
         textLlegasteRegalo: 'LLEGASTE A TU PRODUCTO',
         textAlcanzasteRegalo: '¡Alcanzaste tu producto del Kit de Inicio!'
     };
