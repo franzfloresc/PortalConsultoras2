@@ -44,6 +44,16 @@
 		...
 	} 
 
+	Agregar los siguientes key's
+       prol: {
+       		promociones: {
+           		url: 'http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/BelcorpSupport/api/Validacion/BuscarApoyados'
+       		},
+       		apoyados: {
+           		url: 'http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/BelcorpSupport/api/Validacion/BuscarPromocion'
+       		}
+   	}
+
 
 4.- BUSCADOR.SEARCH
  Archivo config.js:	
