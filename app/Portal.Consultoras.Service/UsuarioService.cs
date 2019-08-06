@@ -1002,7 +1002,11 @@ namespace Portal.Consultoras.Service
         {
             _caminoBrillanteBusinessLogic.DelBeneficioCaminoBrillante(paisId, CodigoNivel, CodigoBeneficio);
         }
-        
+
+        public List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(int PaisID, string CodigorRegion, string Zona, long ConsultoraID, int CampaniaID, int PeriodoCB, int NivelCB, decimal PuntajeAcumuladoCB) {
+            return _caminoBrillanteBusinessLogic.GetConfiguracionConsultoraCaminoBrillante(PaisID, CodigorRegion, Zona, ConsultoraID, CampaniaID, PeriodoCB, NivelCB, PuntajeAcumuladoCB);
+        }
+
         #region Exigencia Monto Incentivos
         public List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
         {
