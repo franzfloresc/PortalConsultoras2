@@ -3828,6 +3828,7 @@ namespace Portal.Consultoras.Common
                             public const string PIE = "PIE";
                             public const string TIM = "TIME";
                             public const string PED = "PED";
+                            public const string TXT = "TXT";
                         }
 
                         public static Dictionary<string, string[]> Niveles
@@ -3921,7 +3922,7 @@ namespace Portal.Consultoras.Common
 
             public static class Niveles
             {
-                public const int OfertasEspeciales_TablaLogicaDatos = 16800;
+                public const int OfertasEspeciales_TablaLogicaDatos = 16800;                
 
                 private static Dictionary<string, string[]> _Iconos;
                 private static string path = "CAMINOBRILLANTE/NIVELES/NIVEL_0{0}_{1}.svg";
@@ -4008,6 +4009,29 @@ namespace Portal.Consultoras.Common
             public static class Version {                
                 public const int VER_01 = 1;
                 public const int VER_02 = 2;
+            }
+
+            public static class Mensajes {
+                public const string Estado_Activo = "1";
+                public const string Mensaje_Recurda_Pasar_Pedido = "Recuerda pasar pedido hasta C{0}";
+                public const string Format_Porcentaje = "{0}%";
+                public const string Resumen_Constancia_Periodo = "{0} de {1}";
+                public const string Obtener = "Obtener";
+                public const string Validacion_Monto_Exigencia_Minimo = "El Monto de exigencia debe estar entre el monto mínimo: {0} y primer monto de Escala: {1}";
+            }
+
+            public static class Flags {
+                public const string Mostrar = "1";
+
+                /* Flags de Animaciones */
+                public const string ONBOARDING_ANIM = "CB_CON_ONBOARDING_ANIM";
+                public const string GANANCIA_ANIM = "CB_CON_GANANCIA_ANIM";
+                public const string CAMB_NIVEL_ANIM = "CB_CON_CAMB_NIVEL_ANIM";
+                public const string CAMB_NIVEL_VAL = "CB_CON_CAMB_NIVEL_VAL";
+
+                /* Flags de Pedido */
+                public const string MONTO_INCENTIVO = "CB_MONTO_INCENTIVO";
+                public const string MONTO_INCENTIVO_MSG = "CB_MONTO_INCENTIVO_MSG";
             }
 
         }
