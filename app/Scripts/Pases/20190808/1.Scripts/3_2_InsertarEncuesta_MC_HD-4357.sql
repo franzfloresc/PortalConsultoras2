@@ -6,8 +6,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -23,11 +21,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -35,7 +35,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -59,7 +60,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -86,8 +87,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpMexico
 GO
@@ -97,8 +96,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -114,11 +111,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -126,7 +125,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -150,7 +150,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -177,8 +177,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpColombia
 GO
@@ -188,8 +186,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -205,11 +201,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -217,7 +215,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -241,7 +240,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -268,8 +267,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpSalvador
 GO
@@ -279,8 +276,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -296,11 +291,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -308,7 +305,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -332,7 +330,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -359,8 +357,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpPuertoRico
 GO
@@ -370,8 +366,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -387,11 +381,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -399,7 +395,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -423,7 +420,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -450,8 +447,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpPanama
 GO
@@ -461,8 +456,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -478,11 +471,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -490,7 +485,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -514,7 +510,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -541,8 +537,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpGuatemala
 GO
@@ -552,8 +546,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -569,11 +561,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -581,7 +575,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -605,7 +600,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -632,8 +627,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpEcuador
 GO
@@ -643,8 +636,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -660,11 +651,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -672,7 +665,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -696,7 +690,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -723,8 +717,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpDominicana
 GO
@@ -734,8 +726,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -751,11 +741,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -763,7 +755,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -787,7 +780,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -814,8 +807,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpCostaRica
 GO
@@ -825,8 +816,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -842,11 +831,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -854,7 +845,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -878,7 +870,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -905,8 +897,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpChile
 GO
@@ -916,8 +906,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -933,11 +921,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -945,7 +935,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -969,7 +960,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -996,8 +987,6 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
 
 USE BelcorpBolivia
 GO
@@ -1007,8 +996,6 @@ BEGIN
  DROP PROCEDURE InsertarEncuesta;
 END
 
-GO
-
 CREATE PROCEDURE InsertarEncuesta
 (
 @EncuestaId INT = 0,
@@ -1024,11 +1011,13 @@ AS
 BEGIN
    
   DECLARE @EncuestaResultadoId uniqueidentifier,
-		  @EncuestaMotivoId_Tem INT; --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @EncuestaMotivoId_Tem INT, --Para el caso que el app no manda detalle se inserta el motivo "Sin motivo"
+		  @SeleccionoMotivo INT; --Para evaluar el caso que los motivos vengan vacios
   DECLARE @FlagUsuarioNoRealizoEncuesta BIT = 0;
 
   SET @RetornoID  = 0;
   SET @EncuestaResultadoId = NULL;
+  SET @SeleccionoMotivo = CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END
 
   IF(@CanalId=3)
   BEGIN
@@ -1036,7 +1025,8 @@ BEGIN
 		FROM dbo.EncuestaResultado ER 
 		WHERE ER.CodigoCampania = @CodigoCampania and 
 			ER.CodigoConsultora = @CodigoConsultora
-
+		
+		SET @SeleccionoMotivo=1
 		SELECT @EncuestaMotivoId_Tem=id FROM EncuestaMotivo WHERE EncuestaCalificacionId=@EncuestaCalificacionId AND TipoEncuestaMotivoId=3
   END
   ELSE
@@ -1060,7 +1050,7 @@ BEGIN
 		   SET @EncuestaResultadoId = NEWID();
 
 		  INSERT INTO dbo.EncuestaResultado(Id,EncuestaId,CanalId,CodigoCampania,CodigoConsultora,SeleccionoMotivo,CreatedBy,CreatedHost)
-		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,CASE WHEN @XMLDetalle IS NULL THEN 0 ELSE 1 END,@CreatedBy,@CreateHost);
+		  VALUES(@EncuestaResultadoId,@EncuestaId,@CanalId,@CodigoCampania,@CodigoConsultora,@SeleccionoMotivo,@CreatedBy,@CreateHost);
 	  END
   ELSE 
 	  BEGIN
@@ -1087,6 +1077,3 @@ BEGIN
   END
   SET @RetornoID = 1;
 END
-
-GO
-
