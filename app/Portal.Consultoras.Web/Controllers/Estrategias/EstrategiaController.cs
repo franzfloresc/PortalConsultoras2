@@ -3,14 +3,12 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.ElasticSearch;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.SessionManager;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         public EstrategiaController(ISessionManager sesionManager, ILogManager logManager, TablaLogicaProvider tablaLogicaProvider)
             : base(sesionManager, logManager)
         {
-           
+
         }
 
         #region Metodos Por Palanca
@@ -160,22 +158,22 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 case "1":
                     modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Desktop;
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Home;
-                   
+
                     break;
                 case "11":
                     modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Desktop;
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
-                   
+
                     break;
                 case "2":
                     modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Mobile;
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Home;
-                   
+
                     break;
                 case "21":
                     modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Mobile;
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
-                   
+
                     break;
                 default:
                     if (Request.UrlReferrer != null && isMobile)
@@ -183,7 +181,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Mobile;
                         modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Home;
                     }
-                   
+
                     break;
             }
 
@@ -213,7 +211,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
             }
         }
-        
+
         private JsonResult PreparListaModel(BusquedaProductoModel model, int tipoConsulta)
         {
             try
@@ -283,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                                 item.CodigoEstrategia = Constantes.TipoEstrategiaSet.CompuestaFija;
                         });
 
-                       
+
                         var listaPedido = ObtenerPedidoWebSetDetalleAgrupado();
 
                         listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaEstrategiaOfertas, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo).OrderBy(x => x.TieneStock, false).ToList();
@@ -296,7 +294,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
                 else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos || tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos)
                 {
-                    switch (tipoConsulta) {
+                    switch (tipoConsulta)
+                    {
                         case Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos:
                             listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante(Constantes.CaminoBrillante.TipoOferta.Kit);
                             break;
@@ -722,7 +721,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         #endregion
-        
+
         #region Carrusel Ficha
 
         [HttpPost]
@@ -818,7 +817,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 listaProductos = ValidacionResultadosProductos(listaProductos, tipo).ToList();
                 listaProductos = _consultaProlProvider.ActualizarEstrategiaStockProl(listaProductos,
                     userData.CodigoISO,
-                    userData.CampaniaID, 
+                    userData.CampaniaID,
                     userData.CodigoConsultora,
                     _consultaProlProvider.GetValidarDiasAntesStock(userData));
 
@@ -858,7 +857,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     tipoVentaIncremental == Constantes.TipoVentaIncremental.UpSelling,
                     item.CodigoVariante);
 
-                if(!flagLaMasGanadoras)
+                if (!flagLaMasGanadoras)
                     item.CodigoEstrategia = CambioPalancaMg(item);
             }
 
@@ -875,13 +874,13 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         private string CambioPalancaMg(EstrategiaPersonalizadaProductoModel item)
         {
-                return item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                        && item.MaterialGanancia
-                        && MasGanadoras.TieneMG
-                        && revistaDigital.TieneRDC
-                        && revistaDigital.EsActiva
-                        ? Constantes.TipoEstrategiaCodigo.MasGanadoras
-                        : item.CodigoEstrategia;
+            return item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                    && item.MaterialGanancia
+                    && MasGanadoras.TieneMG
+                    && revistaDigital.TieneRDC
+                    && revistaDigital.EsActiva
+                    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
+                    : item.CodigoEstrategia;
         }
         #endregion
     }
