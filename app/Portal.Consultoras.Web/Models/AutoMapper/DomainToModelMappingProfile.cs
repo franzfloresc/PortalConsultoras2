@@ -727,7 +727,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
                 .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
                 .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
-            Mapper.CreateMap<BEDataConfigEncuesta, DataConfigEncuestaModel>();
+
+            Mapper.CreateMap<ServiceContenido.BEDataConfigEncuesta, DataConfigEncuestaModel>();
+            Mapper.CreateMap<ServiceEncuesta.BEDataConfigEncuesta, DataConfigEncuestaModel>();
 
             Mapper.CreateMap<Search.ResponseOferta.Estructura.FotosComponente, FotosComponenteModel>();
 
