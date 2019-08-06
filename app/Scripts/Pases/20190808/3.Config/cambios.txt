@@ -43,3 +43,25 @@
 		Pum: [...,'LMG'],
 		...
 	} 
+
+
+4.- BUSCADOR.SEARCH
+ Archivo config.js:	
+	Agregar al key constantes.Personalizaciones => "LMG"
+
+5.- BUSCADOR.SYNC
+ Archivo appsettings.json:
+	agregar al key "OrderRules" después de OPM =>
+		{
+        	   "Code": "LMG",
+        	   "Value": 10
+      		},
+
+	agregar a key "ProductSections" después de OPM =>
+		{
+        	    "Code": "LMG",
+        	    "Countries": [{
+            		"Code": "Default",
+            		"Value": "Gana+ / Ofertas"
+          	     }]
+      		},
