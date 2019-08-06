@@ -1,12 +1,6 @@
-﻿GO
-USE BelcorpPeru
+﻿USE [BelcorpBolivia];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -49,17 +43,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpMexico
+USE [BelcorpChile];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -71,7 +58,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -102,17 +89,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpColombia
+USE [BelcorpColombia];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -124,7 +104,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -155,17 +135,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpSalvador
+USE [BelcorpCostaRica];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -177,7 +150,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -208,17 +181,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpPuertoRico
+USE [BelcorpDominicana];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -230,7 +196,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -261,17 +227,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpPanama
+USE [BelcorpEcuador];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -283,7 +242,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -314,17 +273,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpGuatemala
+USE [BelcorpGuatemala];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -336,7 +288,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -367,17 +319,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpEcuador
+USE [BelcorpMexico];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -389,7 +334,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -420,17 +365,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpDominicana
+USE [BelcorpPanama];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -442,7 +380,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -473,17 +411,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpCostaRica
+USE [BelcorpPeru];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -495,7 +426,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -526,17 +457,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpChile
+USE [BelcorpPuertoRico];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -548,7 +472,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -579,17 +503,10 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO
-USE BelcorpBolivia
+USE [BelcorpSalvador];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsuario]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetUsuario]
-GO
-
-CREATE PROCEDURE dbo.GetUsuario
+ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
 BEGIN
@@ -601,7 +518,7 @@ BEGIN
 	if exists(select 1 from ValidacionDatos where TipoEnvio='Email' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckEMAIL=1
 
-	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='S')
+	if exists(select 1 from ValidacionDatos where TipoEnvio='SMS' and CodigoUsuario=@CodigoUsuario and Estado='A')
 		set @flgCheckSMS=1
 	--FIN HD-3897
 
@@ -632,6 +549,4 @@ LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
 LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
 where U.CodigoUsuario = @CodigoUsuario;
 END
-
-
 GO

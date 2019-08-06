@@ -1,13 +1,6 @@
-﻿GO
-USE BelcorpPeru
+﻿USE [BelcorpBolivia];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -23,22 +16,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpMexico
+USE [BelcorpChile];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -54,22 +40,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpColombia
+USE [BelcorpColombia];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -85,22 +64,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpSalvador
+USE [BelcorpCostaRica];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -116,22 +88,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpPuertoRico
+USE [BelcorpDominicana];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -147,22 +112,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpPanama
+USE [BelcorpEcuador];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -178,22 +136,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpGuatemala
+USE [BelcorpGuatemala];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -209,22 +160,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpEcuador
+USE [BelcorpMexico];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -240,22 +184,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpDominicana
+USE [BelcorpPanama];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -271,22 +208,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpCostaRica
+USE [BelcorpPeru];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -302,22 +232,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpChile
+USE [BelcorpPuertoRico];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -333,22 +256,15 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
-USE BelcorpBolivia
+USE [BelcorpSalvador];
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]')
-		   AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[GetMenuMobile_SB2]
-GO
-
-
-CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -364,10 +280,9 @@ SET NOCOUNT ON;
 		,[Version]
 		,EsSB2
 		,Codigo
+		,Extras
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
 	order by Posicion, MenuPadreID, ordenItem
 END
-
-
 GO
