@@ -1894,7 +1894,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var oTablaLogica = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteConfigurar) ?? new List<BETablaLogicaDatos>();
             if (oTablaLogica == null) return null;
 
-            var result =  oTablaLogica.Select(x => new BEConfiguracionCaminoBrillante() { Codigo = x.Codigo, Descripcion = x.Descripcion, Valor = x.Valor });
+            var result =  oTablaLogica.Select(x => new BEConfiguracionCaminoBrillante() { Codigo = x.Codigo, Descripcion = x.Descripcion, Valor = x.Valor }).ToList();
             var nivelBrillante = (GetNivelesCache(paisID) ?? new List<BENivelCaminoBrillante>()).FirstOrDefault(e => e.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante);
 
             if (nivelBrillante != null) {
