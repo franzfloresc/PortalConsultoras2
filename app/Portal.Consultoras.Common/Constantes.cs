@@ -176,7 +176,8 @@ namespace Portal.Consultoras.Common
             public const string EstadosUnidos = "EU";
         }
 
-        public static class ConfiguracionOferta
+
+            public static class ConfiguracionOferta
         {
             public const int Web = 1701;
             public const int Liquidacion = 1702;
@@ -205,23 +206,12 @@ namespace Portal.Consultoras.Common
             public const int IdMaximo = 502;
         }
 
-        [Obsolete("Use ConsTablaLogica")]
-        public static class TablaLogicaDato
-        {
-
-            public const int MensajeActualizarFijo = 16261;
-
-
-            public static class PagoEnLinea
-            {
-                public const decimal MontoMinimoPago = 0.50m;
-            }
-
-
-            public const short CierreSessionValidado = 15301;
-
-
-        }
+        //[Obsolete("Use ConsTablaLogica")]
+        //public static class TablaLogicaDato
+        //{
+        //    // TODO es utilizado en BLUsuario en metodo GetActualizacionEmailySms, los valore de Mensajes Tooltip Perfil empiezan TablaLogicaId = 10
+        //    //public const int MensajeActualizarFijo = 16261;
+        //}
 
         public static class ParametrosNames
         {
@@ -282,12 +272,11 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "030";
 
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
-            public const string MasGanadoras = "201"; // No tiene referecia con BD, caso particular de OfertasParaMi 007
+            public const string MasGanadoras = "LMG"; // No tiene referecia con BD, caso particular de OfertasParaMi 007, GA-252: antes codigo 201
 
 
             public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
             public const string Catalogo = "CAT"; // No tiene referecia con BD, para tenerlo dentro de codigo
-            
             public const string CaminoBrillanteDemostradores = "301"; // No tiene referecia con BD, caso particular
             public const string CaminoBrillanteKits = "302"; // No tiene referecia con BD, caso particular
 
@@ -305,10 +294,10 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SR";
             public const string HerramientasVenta = "HV";
             public const string ArmaTuPack = "ATP";
-
+            public const string MasGanadoras = "LMG";
             public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
             public const string Catalogo = "CAT"; // No tiene referecia con BD, para tenerlo dentro de codigo
-            
+
             public const string CaminoBrillante = "CB";
             public const string CaminoBrillanteDemostradores = "CBD";
             public const string CaminoBrillanteKits = "CBK";
@@ -364,7 +353,6 @@ namespace Portal.Consultoras.Common
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
             public const string MasGanadoras = "Ganadoras";
             public const string Catalogo = "Catalogo"; // No tiene referecia con BD
-            
             public const string CaminoBrillante = "Camino Brillante"; // No tiene referecia con BD
             public const string CaminoBrillanteDemostradores = "CaminoBrillanteDemostradores"; // No tiene referecia con BD
             public const string CaminoBrillanteKits = "CaminoBrillanteKits"; // No tiene referecia con BD
@@ -422,8 +410,8 @@ namespace Portal.Consultoras.Common
                         {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
                         {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
                         {NombrePalanca.Catalogo, TipoEstrategiaCodigo.Catalogo},
-                        {NombrePalanca.CaminoBrillanteDemostradores, TipoEstrategiaCodigo.CaminoBrillanteDemostradores}, 
-                        {NombrePalanca.CaminoBrillanteKits, TipoEstrategiaCodigo.CaminoBrillanteKits}, 
+                        {NombrePalanca.CaminoBrillanteDemostradores, TipoEstrategiaCodigo.CaminoBrillanteDemostradores},
+                        {NombrePalanca.CaminoBrillanteKits, TipoEstrategiaCodigo.CaminoBrillanteKits},
                     });
                 }
             }
@@ -479,7 +467,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedor = "MenuContenedor";
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
-            
+
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
@@ -678,6 +666,7 @@ namespace Portal.Consultoras.Common
             public const string ChatBotPageId = "ChatBotPageId";
             public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
             public const string DefaultPerfilImage = "/Content/Images/icono_avatar.svg";
+            public const string CodigoTipoOfertaPremio = "CodigoTipoOfertaPremio";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -740,6 +729,17 @@ namespace Portal.Consultoras.Common
             public const string MPacksNuevas = "2M0";
         }
 
+        // Seccion BPT, metodo GetPartialSectionBptModel, se puede controlar con el origen pedido web y enviar dispositivo + pagina
+        public static class SectionBpt
+        {
+            public const int SectionBptDesktopPedido = 12;
+            public const int SectionBptDesktopHome = 11;
+            public const int SectionBptDesktopCatalogo = 14;
+            public const int SectionBptMobilePedido = 22;
+            public const int SectionBptMobileHome = 21;
+            public const int SectionBptMobileCatalogo = 24;
+        }
+
         /// <summary>
         /// Los cambios replicarlos en
         /// RevistaDigital-DataLayer.js + ConstantesModule.js + CodigoOrigenPedidoWeb.js
@@ -747,51 +747,51 @@ namespace Portal.Consultoras.Common
         [Obsolete("Use ConsOrigenPedidoWeb")]
         public static class OrigenPedidoWeb
         {
-            public static class Campos
-            {
-                // Primer Dígito
-                public const int PLATAFORMA_INICIO = 0;
-                public const int PLATAFORMA_TAMANO = 1;
-                //  Segundo Dígito
-                public const int PANTALLA_INICIO = 1;
-                public const int PANTALLA_TAMANO = 1;
-                // Tercer Dígito
-                public const int SECCION_DENTRO_DE_PANTALLA_INICIO = 2;
-                public const int SECCION_DENTRO_DE_PANTALLA_TAMANO = 1;
+        //    public static class Campos
+        //    {
+        //        // Primer Dígito
+        //        public const int PLATAFORMA_INICIO = 0;
+        //        public const int PLATAFORMA_TAMANO = 1;
+        //        //  Segundo Dígito
+        //        public const int PANTALLA_INICIO = 1;
+        //        public const int PANTALLA_TAMANO = 1;
+        //        // Tercer Dígito
+        //        public const int SECCION_DENTRO_DE_PANTALLA_INICIO = 2;
+        //        public const int SECCION_DENTRO_DE_PANTALLA_TAMANO = 1;
 
-                // Cuarto Dígito
-                public const int POPUP_INICIO = 3;
-                public const int POPUP_TAMANO = 1;
-            }
+        //        // Cuarto Dígito
+        //        public const int POPUP_INICIO = 3;
+        //        public const int POPUP_TAMANO = 1;
+        //    }
 
-            // Primer Dígito -- Plataforma
-            // 1: Desktop                   2: Mobile
+        //    // Primer Dígito -- Plataforma
+        //    // 1: Desktop                   2: Mobile
 
-            // Segundo Dígito -- Pantalla
-            // 1: Home                      2: Pedido
-            // 3: Liquidacion               4: Catalogo Personalizado
-            // 5: ShowRoom                  6: OfertaParaTi
-            // 7: RevistaDigital            8: GuiaNegocioDigital
-            // 9: General
+        //    // Segundo Dígito -- Pantalla
+        //    // 1: Home                      2: Pedido
+        //    // 3: Liquidacion               4: Catalogo Personalizado
+        //    // 5: ShowRoom                  6: OfertaParaTi
+        //    // 7: RevistaDigital            8: GuiaNegocioDigital
+        //    // 9: General
 
-            // Tercer Dígito -- Sección dentro de la Pantalla
-            // 1: Banners                   2: Ofertas para ti
-            // 3: Catalogo Personalizado    4: Liquidacion
-            // 5: Producto Sugerido         6: Oferta Final
-            // 7: ShowRoom                  8: Consultora Online
-            // 9: Oferta del dia            0: Revista Digital
-            // 1: index
-            // 2: OfertaParaTi Detalle
+        //    // Tercer Dígito -- Sección dentro de la Pantalla
+        //    // 1: Banners                   2: Ofertas para ti
+        //    // 3: Catalogo Personalizado    4: Liquidacion
+        //    // 5: Producto Sugerido         6: Oferta Final
+        //    // 7: ShowRoom                  8: Consultora Online
+        //    // 9: Oferta del dia            0: Revista Digital
+        //    // 1: index
+        //    // 2: OfertaParaTi Detalle
 
-            // Cuarto Dígito
-            // 1. Sin popUp                 2. Con popUp
+        //    // Cuarto Dígito
+        //    // 1. Sin popUp                 2. Con popUp
 
-            public const int SectionBptDesktopPedido = 12; // Seccion BPT, metodo GetPartialSectionBptModel
-            public const int SectionBptDesktopHome = 11; // Seccion BPT, metodo GetPartialSectionBptModel
-            public const int SectionBptDesktopCatalogo = 14; // Seccion BPT, metodo GetPartialSectionBptModel
-            public const int SectionBptMobilePedido = 22; // Seccion BPT, metodo GetPartialSectionBptModel
-            public const int SectionBptMobileHome = 21; // Seccion BPT, metodo GetPartialSectionBptModel
-            public const int SectionBptMobileCatalogo = 24; // Seccion BPT, metodo GetPartialSectionBptModel
+        //    //public const int SectionBptDesktopPedido = 12; // Seccion BPT, metodo GetPartialSectionBptModel
+        //    //public const int SectionBptDesktopHome = 11; // Seccion BPT, metodo GetPartialSectionBptModel
+        //    //public const int SectionBptDesktopCatalogo = 14; // Seccion BPT, metodo GetPartialSectionBptModel
+        //    //public const int SectionBptMobilePedido = 22; // Seccion BPT, metodo GetPartialSectionBptModel
+        //    //public const int SectionBptMobileHome = 21; // Seccion BPT, metodo GetPartialSectionBptModel
+        //    //public const int SectionBptMobileCatalogo = 24; // Seccion BPT, metodo GetPartialSectionBptModel
 
             #region CatalogoPersonalizado
             public const int CatalogoPersonalizadoDesktopHome = 1131;
@@ -802,8 +802,8 @@ namespace Portal.Consultoras.Common
             public const int CatalogoPersonalizadoMobilePopUp = 2432;
             #endregion
 
-            public const int DesktopPedidoOfertaFinal = 1261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
-            public const int MobilePedidoOfertaFinal = 2261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
+        //    //public const int DesktopPedidoOfertaFinal = 1261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
+        //    //public const int MobilePedidoOfertaFinal = 2261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
 
             #region MasVendidos
             public const int MasVendidosDesktopHomeCarrusel = 1151;
@@ -813,398 +813,398 @@ namespace Portal.Consultoras.Common
             public const int MasVendidosMobileProductPageFicha = 2611;
             #endregion
 
-            #region MasGanadoras
-            public const int DesktopContenedorGanadorasCarrusel = 1081401; // Esta en duro en ConstantesModule
-            public const int DesktopContenedorGanadorasFicha = 1081402; // Esta en duro en ConstantesModule
+        //    #region MasGanadoras
+        //    public const int DesktopContenedorGanadorasCarrusel = 1081401; // Esta en duro en ConstantesModule
+        //    public const int DesktopContenedorGanadorasFicha = 1081402; // Esta en duro en ConstantesModule
             public const int DesktopLandingGanadorasGanadorasCarrusel = 1111401; // Esta en duro en ConstantesModule
             public const int DesktopLandingGanadorasGanadorasFicha = 1111402; // Esta en duro en ConstantesModule
-            public const int MobileContenedorGanadorasCarrusel = 2081401; // Esta en duro en ConstantesModule
-            public const int MobileContenedorGanadorasFicha = 2081402; // Esta en duro en ConstantesModule
+        //    public const int MobileContenedorGanadorasCarrusel = 2081401; // Esta en duro en ConstantesModule
+        //    public const int MobileContenedorGanadorasFicha = 2081402; // Esta en duro en ConstantesModule
             public const int MobileLandingGanadorasGanadorasCarrusel = 2111401; // Esta en duro en ConstantesModule
-            public const int MobileLandingGanadorasGanadorasFicha = 2111402; // Esta en duro en ConstantesModule
-            #endregion
+        //    public const int MobileLandingGanadorasGanadorasFicha = 2111402; // Esta en duro en ConstantesModule
+        //    #endregion
 
-            #region Duo Perfecto
+        //    #region Duo Perfecto
             public const int DesktopLandingDuoPerfectoCarrusel = 1141601;
             public const int DesktopLandingDuoPerfectoFicha = 1141602;
             public const int DesktopHomeDuoPerfectoCarrusel = 1011601;
-            public const int DesktopHomeDuoPerfectoFicha = 1011602;
+        //    public const int DesktopHomeDuoPerfectoFicha = 1011602;
             public const int DesktopPedidoDuoPerfectoCarrusel = 1021601;
-            public const int DesktopPedidoDuoPerfectoFicha = 1021602;
+        //    public const int DesktopPedidoDuoPerfectoFicha = 1021602;
             public const int MobileLandingDuoPerfectoCarrusel = 2141601;
-            public const int MobileLandingDuoPerfectoFicha = 2141602;
+        //    public const int MobileLandingDuoPerfectoFicha = 2141602;
             public const int MobileHomeDuoPerfectoCarrusel = 2011601;
-            public const int MobileHomeDuoPerfectoFicha = 2011602;
+        //    public const int MobileHomeDuoPerfectoFicha = 2011602;
             public const int MobilePedidoDuoPerfectoCarrusel = 2021601;
-            public const int MobilePedidoDuoPerfectoFicha = 2021602;
-            #endregion
+        //    public const int MobilePedidoDuoPerfectoFicha = 2021602;
+        //    #endregion
 
-            #region Pack Nuevas
+        //    #region Pack Nuevas
             public const int DesktopLandingPackNuevasCarrusel = 1151701;
             public const int DesktopLandingPackNuevasFicha = 1151702;
             public const int DesktopHomePackNuevasCarrusel = 1011701;
-            public const int DesktopHomePackNuevasFicha = 1011702;
+        //    public const int DesktopHomePackNuevasFicha = 1011702;
             public const int DesktopPedidoPackNuevasCarrusel = 1021701;
-            public const int DesktopPedidoPackNuevasFicha = 1021702;
+        //    public const int DesktopPedidoPackNuevasFicha = 1021702;
             public const int MobileLandingPackNuevasCarrusel = 2151701;
-            public const int MobileLandingPackNuevasFicha = 2151702;
+        //    public const int MobileLandingPackNuevasFicha = 2151702;
             public const int MobileHomePackNuevasCarrusel = 2011701;
-            public const int MobileHomePackNuevasFicha = 2011702;
+        //    public const int MobileHomePackNuevasFicha = 2011702;
             public const int MobilePedidoPackNuevasCarrusel = 2021701;
-            public const int MobilePedidoPackNuevasFicha = 2021702;
-            #endregion
+        //    public const int MobilePedidoPackNuevasFicha = 2021702;
+        //    #endregion
 
             #region VirtualCoach
             public const int VirtualCoachDesktopPedido = 1231;
             public const int VirtualCoachMobilePedido = 2231;
             #endregion
 
-            #region Programa de Nuevas
-            public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
-            #endregion
+        //    #region Programa de Nuevas
+        //    public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
+        //    #endregion
 
-            #region Busqueda y filtros
-            public const int DesktopLandingBuscadorOfertasParaTiCarrusel = 1100001;
-            public const int DesktopLandingBuscadorShowroomCarrusel = 1100101;
-            public const int DesktopLandingBuscadorLanzamientosCarrusel = 1100201;
-            public const int DesktopLandingBuscadorOfertaDelDiaCarrusel = 1100301;
-            public const int DesktopLandingBuscadorGNDCarrusel = 1100501;
-            public const int DesktopLandingBuscadorLiquidacionCarrusel = 1100601;
-            public const int DesktopLandingBuscadorHerramientasDeVentaCarrusel = 1100801;
-            public const int DesktopLandingBuscadorCatalogoLbelCarrusel = 1101101;
-            public const int DesktopLandingBuscadorCatalogoEsikaCarrusel = 1101201;
-            public const int DesktopLandingBuscadorCatalogoCyzoneCarrusel = 1101201;
+        //    #region Busqueda y filtros
+        //    public const int DesktopLandingBuscadorOfertasParaTiCarrusel = 1100001;
+        //    public const int DesktopLandingBuscadorShowroomCarrusel = 1100101;
+        //    public const int DesktopLandingBuscadorLanzamientosCarrusel = 1100201;
+        //    public const int DesktopLandingBuscadorOfertaDelDiaCarrusel = 1100301;
+        //    public const int DesktopLandingBuscadorGNDCarrusel = 1100501;
+        //    public const int DesktopLandingBuscadorLiquidacionCarrusel = 1100601;
+        //    public const int DesktopLandingBuscadorHerramientasDeVentaCarrusel = 1100801;
+        //    public const int DesktopLandingBuscadorCatalogoLbelCarrusel = 1101101;
+        //    public const int DesktopLandingBuscadorCatalogoEsikaCarrusel = 1101201;
+        //    public const int DesktopLandingBuscadorCatalogoCyzoneCarrusel = 1101201;
 
-            public const int MobileLandingBuscadorOfertasParaTiCarrusel = 2100001;
-            public const int MobileLandingBuscadorShowroomCarrusel = 2100101;
-            public const int MobileLandingBuscadorLanzamientosCarrusel = 2100201;
-            public const int MobileLandingBuscadorOfertaDelDiaCarrusel = 2100301;
-            public const int MobileLandingBuscadorGNDCarrusel = 2100501;
-            public const int MobileLandingBuscadorLiquidacionCarrusel = 2100601;
-            public const int MobileLandingBuscadorHerramientasDeVentaCarrusel = 2100801;
-            public const int MobileLandingBuscadorCatalogoLbelCarrusel = 2101101;
-            public const int MobileLandingBuscadorCatalogoEsikaCarrusel = 2101201;
-            public const int MobileLandingBuscadorCatalogoCyzoneCarrusel = 2101301;
-
-
-            public const int DesktopLandingBuscadorOfertasParaTiFicha = 1100002;
-            public const int DesktopLandingBuscadorShowroomFicha = 1100102;
-            public const int DesktopLandingBuscadorLanzamientosFicha = 1100202;
-            public const int DesktopLandingBuscadorOfertaDelDiaFicha = 1100302;
-            public const int DesktopLandingBuscadorGNDFicha = 1100502;
-            public const int DesktopLandingBuscadorHerramientasDeVentaFicha = 1100802;
-
-            public const int MobileLandingBuscadorOfertasParaTiFicha = 2100002;
-            public const int MobileLandingBuscadorShowroomFicha = 2100102;
-            public const int MobileLandingBuscadorLanzamientosFicha = 2100202;
-            public const int MobileLandingBuscadorOfertaDelDiaFicha = 2100302;
-            public const int MobileLandingBuscadorGNDFicha = 2100502;
-            public const int MobileLandingBuscadorHerramientasDeVentaFicha = 2100802;
-
-            public const int DesktopBuscadorGanadorasDesplegable = 1041404;
-            public const int MobileBuscadorGanadorasDesplegable = 2041404;
-
-            public const int DesktopBuscadorGanadorasFicha = 1041402;
-            public const int MobileBuscadorGanadorasFicha = 2041402;
-
-            public const int DesktopBuscadorGanadorasCarrusel = 1101401;
-            public const int MobileBuscadorGanadorasCarrusel = 2101401;
-
-            public const int DesktopLandingBuscadorGanadorasFicha = 1101402;
-            public const int MobileLandingBuscadorGanadorasFicha = 2101402;
+        //    public const int MobileLandingBuscadorOfertasParaTiCarrusel = 2100001;
+        //    public const int MobileLandingBuscadorShowroomCarrusel = 2100101;
+        //    public const int MobileLandingBuscadorLanzamientosCarrusel = 2100201;
+        //    public const int MobileLandingBuscadorOfertaDelDiaCarrusel = 2100301;
+        //    public const int MobileLandingBuscadorGNDCarrusel = 2100501;
+        //    public const int MobileLandingBuscadorLiquidacionCarrusel = 2100601;
+        //    public const int MobileLandingBuscadorHerramientasDeVentaCarrusel = 2100801;
+        //    public const int MobileLandingBuscadorCatalogoLbelCarrusel = 2101101;
+        //    public const int MobileLandingBuscadorCatalogoEsikaCarrusel = 2101201;
+        //    public const int MobileLandingBuscadorCatalogoCyzoneCarrusel = 2101301;
 
 
+        //    public const int DesktopLandingBuscadorOfertasParaTiFicha = 1100002;
+        //    public const int DesktopLandingBuscadorShowroomFicha = 1100102;
+        //    public const int DesktopLandingBuscadorLanzamientosFicha = 1100202;
+        //    public const int DesktopLandingBuscadorOfertaDelDiaFicha = 1100302;
+        //    public const int DesktopLandingBuscadorGNDFicha = 1100502;
+        //    public const int DesktopLandingBuscadorHerramientasDeVentaFicha = 1100802;
 
-            #endregion
+        //    public const int MobileLandingBuscadorOfertasParaTiFicha = 2100002;
+        //    public const int MobileLandingBuscadorShowroomFicha = 2100102;
+        //    public const int MobileLandingBuscadorLanzamientosFicha = 2100202;
+        //    public const int MobileLandingBuscadorOfertaDelDiaFicha = 2100302;
+        //    public const int MobileLandingBuscadorGNDFicha = 2100502;
+        //    public const int MobileLandingBuscadorHerramientasDeVentaFicha = 2100802;
 
-            #region Nuevos Códigos Origen Pedido
+        //    public const int DesktopBuscadorGanadorasDesplegable = 1041404;
+        //    public const int MobileBuscadorGanadorasDesplegable = 2041404;
+
+        //    public const int DesktopBuscadorGanadorasFicha = 1041402;
+        //    public const int MobileBuscadorGanadorasFicha = 2041402;
+
+        //    public const int DesktopBuscadorGanadorasCarrusel = 1101401;
+        //    public const int MobileBuscadorGanadorasCarrusel = 2101401;
+
+        //    public const int DesktopLandingBuscadorGanadorasFicha = 1101402;
+        //    public const int MobileLandingBuscadorGanadorasFicha = 2101402;
+
+
+
+        //    #endregion
+
+        //    #region Nuevos Códigos Origen Pedido
             public const int DesktopHomeOfertasParaTiCarrusel = 1010001;
             public const int DesktopHomeOfertasParaTiFicha = 1010002;
-            public const int DesktopContenedorOfertasParaTiCarrusel = 1080001;
-            public const int DesktopContenedorOfertasParaTiFicha = 1080002;
+        //    public const int DesktopContenedorOfertasParaTiCarrusel = 1080001;
+        //    public const int DesktopContenedorOfertasParaTiFicha = 1080002;
             public const int DesktopLandingOfertasParaTiOfertasParaTiCarrusel = 1070001; // Esta en duro en rdAnalyticsModule
             public const int DesktopLandingOfertasParaTiOfertasParaTiFicha = 1070002;
             public const int DesktopPedidoOfertasParaTiCarrusel = 1020001;
             public const int DesktopPedidoOfertasParaTiFicha = 1020002;
             public const int MobileHomeOfertasParaTiCarrusel = 2010001;
-            public const int MobileHomeOfertasParaTiFicha = 2010002;
+        //    public const int MobileHomeOfertasParaTiFicha = 2010002;
             public const int MobileLandingOfertasParaTiOfertasParaTiCarrusel = 2070001; // Esta en duro en rdAnalyticsModule
-            public const int MobileLandingOfertasParaTiOfertasParaTiFicha = 2070002;
-            public const int AppConsultoraLandingOfertasParaTiOfertasParaTiFicha = 4070002;
+        //    public const int MobileLandingOfertasParaTiOfertasParaTiFicha = 2070002;
+        //    public const int AppConsultoraLandingOfertasParaTiOfertasParaTiFicha = 4070002;
             public const int MobilePedidoOfertasParaTiCarrusel = 2020001;
             public const int MobilePedidoOfertasParaTiFicha = 2020002;
-            public const int AppConsultoraPedidoOfertasParaTiCarrusel = 4020001;
-            public const int AppConsultoraPedidoOfertasParaTiFicha = 4020002;
-            public const int AppConsultoraContenedorOfertasParaTiCarrusel = 4080001;
-            public const int AppConsultoraContenedorOfertasParaTiFicha = 4080002;
-            public const int MobileContenedorOfertasParaTiCarrusel = 2080001;
-            public const int MobileContenedorOfertasParaTiFicha = 2080002;
+        //    public const int AppConsultoraPedidoOfertasParaTiCarrusel = 4020001;
+        //    public const int AppConsultoraPedidoOfertasParaTiFicha = 4020002;
+        //    public const int AppConsultoraContenedorOfertasParaTiCarrusel = 4080001;
+        //    public const int AppConsultoraContenedorOfertasParaTiFicha = 4080002;
+        //    public const int MobileContenedorOfertasParaTiCarrusel = 2080001;
+        //    public const int MobileContenedorOfertasParaTiFicha = 2080002;
 
-            public const int DesktopContenedorLanzamientosCarrusel = 1080201;
-            public const int DesktopContenedorLanzamientosFicha = 1080202; // Esta en duro en rdAnalyticsModule
-            public const int DesktopContenedorLanzamientosCarruselVerMas = 1080205;
-            public const int MobileContenedorLanzamientosFicha = 2080202; // Esta en duro en rdAnalyticsModule
-            public const int AppConsultoraContenedorLanzamientosFicha = 4080202;
-            public const int DesktopHomeOfertaDelDiaBannerSuperior = 1010306; // Esta en duro en ConstantesModule
-            public const int DesktopHomeOfertaDelDiaFicha = 1010302;
+        //    public const int DesktopContenedorLanzamientosCarrusel = 1080201;
+        //    public const int DesktopContenedorLanzamientosFicha = 1080202; // Esta en duro en rdAnalyticsModule
+        //    public const int DesktopContenedorLanzamientosCarruselVerMas = 1080205;
+        //    public const int MobileContenedorLanzamientosFicha = 2080202; // Esta en duro en rdAnalyticsModule
+        //    public const int AppConsultoraContenedorLanzamientosFicha = 4080202;
+        //    public const int DesktopHomeOfertaDelDiaBannerSuperior = 1010306; // Esta en duro en ConstantesModule
+        //    public const int DesktopHomeOfertaDelDiaFicha = 1010302;
 
             public const int DesktopContenedorOfertaDelDiaCarrusel = 1080301;
-            public const int DesktopContenedorOfertaDelDiaFicha = 1080302;
-            public const int DesktopContenedorOfertaDelDiaCarruselVerMas = 1080305;
-            public const int DesktopOtrasOfertaDelDiaBannerSuperior = 1090306; // Esta en duro en ConstantesModule
-            public const int DesktopPedidoOfertaDelDiaBannerSuperior = 1020306; // Esta en duro en ConstantesModule
+        //    public const int DesktopContenedorOfertaDelDiaFicha = 1080302;
+        //    public const int DesktopContenedorOfertaDelDiaCarruselVerMas = 1080305;
+        //    public const int DesktopOtrasOfertaDelDiaBannerSuperior = 1090306; // Esta en duro en ConstantesModule
+        //    public const int DesktopPedidoOfertaDelDiaBannerSuperior = 1020306; // Esta en duro en ConstantesModule
             public const int MobileHomeOfertaDelDiaCarrusel = 2010301;
-            public const int MobileHomeOfertaDelDiaFicha = 2010302;
+        //    public const int MobileHomeOfertaDelDiaFicha = 2010302;
             public const int MobileOtrasOfertaDelDiaFicha = 2090302;
             public const int MobileContenedorOfertaDelDiaCarrusel = 2080301;
-            public const int MobileContenedorOfertaDelDiaFicha = 2080302;
-            public const int AppConsultoraContenedorOfertaDelDiaFicha = 4080302;
+        //    public const int MobileContenedorOfertaDelDiaFicha = 2080302;
+        //    public const int AppConsultoraContenedorOfertaDelDiaFicha = 4080302;
 
             public const int DesktopHomeShowroomCarrusel = 1010101;
-            public const int DesktopHomeShowroomFicha = 1010102;
-            public const int DesktopHomeShowroomCarruselVerMas = 1010105;
-            public const int DesktopContenedorShowroomCarrusel = 1080101;
-            public const int DesktopContenedorShowroomFicha = 1080102;
-            public const int DesktopContenedorShowroomCarruselVerMas = 1080105;
+        //    public const int DesktopHomeShowroomFicha = 1010102;
+        //    public const int DesktopHomeShowroomCarruselVerMas = 1010105;
+        //    public const int DesktopContenedorShowroomCarrusel = 1080101;
+        //    public const int DesktopContenedorShowroomFicha = 1080102;
+        //    public const int DesktopContenedorShowroomCarruselVerMas = 1080105;
             public const int DesktopLandingShowroomShowroomCarrusel = 1050101;
-            public const int DesktopLandingShowroomShowroomFicha = 1050102;
-            public const int DesktopLandingShowroomShowroomCarruselVerMas = 1050105;
+        //    public const int DesktopLandingShowroomShowroomFicha = 1050102;
+        //    public const int DesktopLandingShowroomShowroomCarruselVerMas = 1050105;
             public const int DesktopLandingShowroomShowroomSubCampania = 1050107;
             public const int MobileLandingShowroomShowroomCarrusel = 2050101;
-            public const int MobileLandingShowroomShowroomFicha = 2050102;
-            public const int AppConsultoraLandingShowroomShowroomFicha = 4050102;
+        //    public const int MobileLandingShowroomShowroomFicha = 2050102;
+        //    public const int AppConsultoraLandingShowroomShowroomFicha = 4050102;
             public const int MobileLandingShowroomShowroomSubCampania = 2050107;
-            public const int AppConsultoraLandingShowroomShowroomSubCampania = 4050107;
+        //    public const int AppConsultoraLandingShowroomShowroomSubCampania = 4050107;
 
             public const int DesktopLandingGNDGNDCarrusel = 1060501;
             public const int DesktopLandingGNDGNDFicha = 1060502;
             public const int MobileLandingGNDGNDCarrusel = 2060501;
             public const int MobileLandingGNDGNDFicha = 2060502;
-            public const int AppConsultoraLandingGNDGNDFicha = 4060502;
+        //    public const int AppConsultoraLandingGNDGNDFicha = 4060502;
             public const int DesktopPedidoOfertaFinalCarrusel = 1020401;
             public const int DesktopPedidoOfertaFinalFicha = 1020402;
             public const int MobilePedidoOfertaFinalCarrusel = 2020401;
             public const int MobilePedidoOfertaFinalFicha = 2020402;
-            public const int AppConsultoraPedidoOfertaFinalCarrusel = 4020401;
-            public const int AppConsultoraPedidoOfertaFinalFicha = 4020402;
-            public const int DesktopContenedorHerramientasdeVentaCarrusel = 1080801;
-            public const int DesktopContenedorHerramientasdeVentaFicha = 1080802;
+        //    //public const int AppConsultoraPedidoOfertaFinalCarrusel = 4020401;
+        //    //public const int AppConsultoraPedidoOfertaFinalFicha = 4020402;
+        //    public const int DesktopContenedorHerramientasdeVentaCarrusel = 1080801;
+        //    public const int DesktopContenedorHerramientasdeVentaFicha = 1080802;
             public const int DesktopLandingHerramientasdeVentaHerramientasdeVentaCarrusel = 1000801;
             public const int DesktopLandingHerramientasdeVentaHerramientasdeVentasFicha = 1000802;
             public const int MobileLandingHerramientasdeVentaHerramientasdeVentaCarrusel = 2000801;
-            public const int MobileLandingHerramientasdeVentaHerramientasdeVentaFicha = 2000802;
-            public const int AppConsultoraLandingHerramientasdeVentaHerramientasdeVentaFicha = 4000802;
+        //    public const int MobileLandingHerramientasdeVentaHerramientasdeVentaFicha = 2000802;
+        //    public const int AppConsultoraLandingHerramientasdeVentaHerramientasdeVentaFicha = 4000802;
             public const int DesktopHomeLiquidacionCarrusel = 1010601;
             public const int DesktopLandingLiquidacionLiquidacionCarrusel = 1030601;
             public const int MobileLandingLiquidacionLiquidacionCarrusel = 2030601;
             public const int DesktopPedidoProductoSugeridoCarrusel = 1020701;
             public const int MobilePedidoProductoSugeridoCarrusel = 2020701;
-            public const int DesktopHomeBannersCarrusel = 1010901;
+        //    public const int DesktopHomeBannersCarrusel = 1010901;
             public const int DesktopPedidoDigitado = 10210;
             public const int MobilePedidoDigitado = 20210;
-            public const int AppConsultoraPedidoDigitado = 40210;
-            public const int DesktopBuscadorOfertasParaTiDesplegableBuscador = 1040004;
-            public const int DesktopBuscadorShowroomDesplegableBuscador = 1040104;
-            public const int DesktopBuscadorLanzamientosDesplegableBuscador = 1040204;
-            public const int DesktopBuscadorOfertaDelDiaDesplegableBuscador = 1040304;
-            public const int DesktopBuscadorLiquidacionDesplegableBuscador = 1040604;
-            public const int DesktopBuscadorHerramientasdeVentaDesplegableBuscador = 1040804;
-            public const int DesktopBuscadorGNDDesplegableBuscador = 1040504;
-            public const int DesktopBuscadorCatalogoLbelDesplegableBuscador = 1041104;
-            public const int DesktopBuscadorCatalogoEsikaDesplegableBuscador = 1041204;
-            public const int DesktopBuscadorCatalogoCyzoneDesplegableBuscador = 1041304;
-            public const int DesktopBuscadorOfertasParaTiFicha = 1040002;
-            public const int DesktopBuscadorShowroomFicha = 1040102;
-            public const int DesktopBuscadorLanzamientosFicha = 1040202;
-            public const int DesktopBuscadorOfertaDelDiaFicha = 1040302;
-            public const int DesktopBuscadorGNDFicha = 1040502;
-            public const int DesktopBuscadorHerramientasdeVentaFicha = 1040802;
-            public const int MobileBuscadorOfertasParaTiDesplegableBuscador = 2040004;
-            public const int MobileBuscadorShowroomDesplegableBuscador = 2040104;
-            public const int MobileBuscadorLanzamientosDesplegableBuscador = 2040204;
-            public const int MobileBuscadorOfertaDelDiaDesplegableBuscador = 2040304;
-            public const int MobileBuscadorLiquidacionDesplegableBuscador = 2040604;
-            public const int MobileBuscadorHerramientasdeVentaDesplegableBuscador = 2040804;
-            public const int MobileBuscadorGNDDesplegableBuscador = 2040504;
-            public const int MobileBuscadorCatalogoLbelDesplegableBuscador = 2041104;
-            public const int MobileBuscadorCatalogoEsikaDesplegableBuscador = 2041204;
-            public const int MobileBuscadorCatalogoCyzoneDesplegableBuscador = 2041304;
-            public const int MobileBuscadorOfertasParaTiFicha = 2040002;
-            public const int MobileBuscadorShowroomFicha = 2040102;
-            public const int MobileBuscadorLanzamientosFicha = 2040202;
-            public const int MobileBuscadorOfertaDelDiaFicha = 2040302;
-            public const int MobileBuscadorGNDFicha = 2040502;
-            public const int MobileBuscadorHerramientasdeVentaFicha = 2040802;
+        //    public const int AppConsultoraPedidoDigitado = 40210;
+        //    public const int DesktopBuscadorOfertasParaTiDesplegableBuscador = 1040004;
+        //    public const int DesktopBuscadorShowroomDesplegableBuscador = 1040104;
+        //    public const int DesktopBuscadorLanzamientosDesplegableBuscador = 1040204;
+        //    public const int DesktopBuscadorOfertaDelDiaDesplegableBuscador = 1040304;
+        //    public const int DesktopBuscadorLiquidacionDesplegableBuscador = 1040604;
+        //    public const int DesktopBuscadorHerramientasdeVentaDesplegableBuscador = 1040804;
+        //    public const int DesktopBuscadorGNDDesplegableBuscador = 1040504;
+        //    public const int DesktopBuscadorCatalogoLbelDesplegableBuscador = 1041104;
+        //    public const int DesktopBuscadorCatalogoEsikaDesplegableBuscador = 1041204;
+        //    public const int DesktopBuscadorCatalogoCyzoneDesplegableBuscador = 1041304;
+        //    public const int DesktopBuscadorOfertasParaTiFicha = 1040002;
+        //    public const int DesktopBuscadorShowroomFicha = 1040102;
+        //    public const int DesktopBuscadorLanzamientosFicha = 1040202;
+        //    public const int DesktopBuscadorOfertaDelDiaFicha = 1040302;
+        //    public const int DesktopBuscadorGNDFicha = 1040502;
+        //    public const int DesktopBuscadorHerramientasdeVentaFicha = 1040802;
+        //    public const int MobileBuscadorOfertasParaTiDesplegableBuscador = 2040004;
+        //    public const int MobileBuscadorShowroomDesplegableBuscador = 2040104;
+        //    public const int MobileBuscadorLanzamientosDesplegableBuscador = 2040204;
+        //    public const int MobileBuscadorOfertaDelDiaDesplegableBuscador = 2040304;
+        //    public const int MobileBuscadorLiquidacionDesplegableBuscador = 2040604;
+        //    public const int MobileBuscadorHerramientasdeVentaDesplegableBuscador = 2040804;
+        //    public const int MobileBuscadorGNDDesplegableBuscador = 2040504;
+        //    public const int MobileBuscadorCatalogoLbelDesplegableBuscador = 2041104;
+        //    public const int MobileBuscadorCatalogoEsikaDesplegableBuscador = 2041204;
+        //    public const int MobileBuscadorCatalogoCyzoneDesplegableBuscador = 2041304;
+        //    public const int MobileBuscadorOfertasParaTiFicha = 2040002;
+        //    public const int MobileBuscadorShowroomFicha = 2040102;
+        //    public const int MobileBuscadorLanzamientosFicha = 2040202;
+        //    public const int MobileBuscadorOfertaDelDiaFicha = 2040302;
+        //    public const int MobileBuscadorGNDFicha = 2040502;
+        //    public const int MobileBuscadorHerramientasdeVentaFicha = 2040802;
 
-            public const int MobileContenedorShowroomCarrusel = 2080101;
-            public const int MobileContenedorShowroomFicha = 2080102;
-            public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
+        //    public const int MobileContenedorShowroomCarrusel = 2080101;
+        //    public const int MobileContenedorShowroomFicha = 2080102;
+        //    public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
 
             public const int DesktopPedidoEscogeRegaloCarrusel = 1021801;
             public const int MobilePedidoEscogeRegaloCarrusel = 2021801;
-            #endregion
+        //    #endregion
 
-            #region Producto Recomendado
-            public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
-            public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
+        //    #region Producto Recomendado
+        //    public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
+        //    public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
 
-            public const string SufijoProductoRecomendadoCarrusel = "08";
-            public const string SufijoProductoRecomendadoFicha = "09";
+        //    public const string SufijoProductoRecomendadoCarrusel = "08";
+        //    public const string SufijoProductoRecomendadoFicha = "09";
 
-            public const int DesktopPedidoProductoRecomendadoOpm = 1020008;
-            public const int DesktopPedidoProductoRecomendadoShowRoom = 1020108;
-            public const int DesktopPedidoProductoRecomendadoLan = 1020208;
-            public const int DesktopPedidoProductoRecomendadoOdd = 1020308;
-            public const int DesktopPedidoProductoRecomendadoHv = 1020808;
-            public const int DesktopPedidoProductoRecomendadoGanadoras = 1021408;
-            public const int MobilePedidoProductoRecomendadoOpm = 2020008;
-            public const int MobilePedidoProductoRecomendadoShowRoom = 2020108;
-            public const int MobilePedidoProductoRecomendadoLan = 2020208;
-            public const int MobilePedidoProductoRecomendadoOdd = 2020308;
-            public const int MobilePedidoProductoRecomendadoHv = 2020808;
-            public const int MobilePedidoProductoRecomendadoGanadoras = 2021408;
+        //    public const int DesktopPedidoProductoRecomendadoOpm = 1020008;
+        //    public const int DesktopPedidoProductoRecomendadoShowRoom = 1020108;
+        //    public const int DesktopPedidoProductoRecomendadoLan = 1020208;
+        //    public const int DesktopPedidoProductoRecomendadoOdd = 1020308;
+        //    public const int DesktopPedidoProductoRecomendadoHv = 1020808;
+        //    public const int DesktopPedidoProductoRecomendadoGanadoras = 1021408;
+        //    public const int MobilePedidoProductoRecomendadoOpm = 2020008;
+        //    public const int MobilePedidoProductoRecomendadoShowRoom = 2020108;
+        //    public const int MobilePedidoProductoRecomendadoLan = 2020208;
+        //    public const int MobilePedidoProductoRecomendadoOdd = 2020308;
+        //    public const int MobilePedidoProductoRecomendadoHv = 2020808;
+        //    public const int MobilePedidoProductoRecomendadoGanadoras = 2021408;
 
-            public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
-            public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
+        //    public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
+        //    public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
 
-            public const int AppConsultoraContenedorShowroomFicha = 4080102;
-            public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
-            public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
-            public const int DesktopPedidoProductoRecomendadoHvFicha = 1020809;
-            public const int DesktopPedidoProductoRecomendadoGanadorasFicha = 1021409;
-            public const int MobilePedidoProductoRecomendadoOpmFicha = 2020009;
-            public const int MobilePedidoProductoRecomendadoShowRoomFicha = 2020109;
-            public const int MobilePedidoProductoRecomendadoLanFicha = 2020209;
-            public const int MobilePedidoProductoRecomendadoOddFicha = 2020309;
-            public const int MobilePedidoProductoRecomendadoHvFicha = 2020809;
-            public const int MobilePedidoProductoRecomendadoGanadorasFicha = 2021409;
-            #endregion
+        //    public const int AppConsultoraContenedorShowroomFicha = 4080102;
+        //    public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
+        //    public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
+        //    public const int DesktopPedidoProductoRecomendadoHvFicha = 1020809;
+        //    public const int DesktopPedidoProductoRecomendadoGanadorasFicha = 1021409;
+        //    public const int MobilePedidoProductoRecomendadoOpmFicha = 2020009;
+        //    public const int MobilePedidoProductoRecomendadoShowRoomFicha = 2020109;
+        //    public const int MobilePedidoProductoRecomendadoLanFicha = 2020209;
+        //    public const int MobilePedidoProductoRecomendadoOddFicha = 2020309;
+        //    public const int MobilePedidoProductoRecomendadoHvFicha = 2020809;
+        //    public const int MobilePedidoProductoRecomendadoGanadorasFicha = 2021409;
+        //    #endregion
 
-            #region Pedidos Pendientes
+        //    #region Pedidos Pendientes
 
-            // App Catalogo
-            public const int DesktopPedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 1021110;
-            public const int DesktopPedidoCatalogoEsikaAppCatalogoPendienteDeAprobar = 1021210;
-            public const int DesktopPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 1021310;
-            public const int MobilePedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 2021110;
-            public const int MobilePedidoCatalogoEsikaAppCatalogoPendienteDeAprobar = 2021210;
-            public const int MobilePedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 2021310;
-            public const int AppConsultoraPedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 4021110;
-            public const int AppConsultoraPedidoCatalogoEsikaAppCataogoPendienteDeAprobar = 4021210;
-            public const int AppConsultoraPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 4021310;
+        //    // App Catalogo
+        //    public const int DesktopPedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 1021110;
+        //    public const int DesktopPedidoCatalogoEsikaAppCatalogoPendienteDeAprobar = 1021210;
+        //    public const int DesktopPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 1021310;
+        //    public const int MobilePedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 2021110;
+        //    public const int MobilePedidoCatalogoEsikaAppCatalogoPendienteDeAprobar = 2021210;
+        //    public const int MobilePedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 2021310;
+        //    public const int AppConsultoraPedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 4021110;
+        //    public const int AppConsultoraPedidoCatalogoEsikaAppCataogoPendienteDeAprobar = 4021210;
+        //    public const int AppConsultoraPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 4021310;
 
-            // Catalogo Digital
-            public const int DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 1021111;
-            public const int DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 1021211;
-            public const int DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 1021311;
-            public const int DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobarProducto = 1021113;
-            public const int DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobarProducto = 1021213;
-            public const int DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobarProducto = 1021313;
+        //    // Catalogo Digital
+        //    public const int DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 1021111;
+        //    public const int DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 1021211;
+        //    public const int DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 1021311;
+        //    public const int DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobarProducto = 1021113;
+        //    public const int DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobarProducto = 1021213;
+        //    public const int DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobarProducto = 1021313;
 
-            public const int MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 2021111;
-            public const int MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 2021211;
-            public const int MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 2021311;
-            public const int MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobarProducto = 2021113;
-            public const int MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobarProducto = 2021213;
-            public const int MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobarProducto = 2021313;
+        //    public const int MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 2021111;
+        //    public const int MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 2021211;
+        //    public const int MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 2021311;
+        //    public const int MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobarProducto = 2021113;
+        //    public const int MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobarProducto = 2021213;
+        //    public const int MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobarProducto = 2021313;
 
-            public const int AppConsultoraPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 4021111;
-            public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
-            public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
+        //    public const int AppConsultoraPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 4021111;
+        //    public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
+        //    public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
 
-            // Maquillador Virtual
-            public const int DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobar = 1021112;
-            public const int DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobar = 1021212;
-            public const int DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobar = 1021312;
-            public const int DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobarProducto = 1021114;
-            public const int DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobarProducto = 1021214;
-            public const int DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobarProducto = 1021314;
+        //    // Maquillador Virtual
+        //    public const int DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobar = 1021112;
+        //    public const int DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobar = 1021212;
+        //    public const int DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobar = 1021312;
+        //    public const int DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobarProducto = 1021114;
+        //    public const int DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobarProducto = 1021214;
+        //    public const int DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobarProducto = 1021314;
 
-            public const int MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobar = 2021112;
-            public const int MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobar = 2021212;
-            public const int MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobar = 2021312;
-            public const int MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobarProducto = 2021114;
-            public const int MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobarProducto = 2021214;
-            public const int MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobarProducto = 2021314;
+        //    public const int MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobar = 2021112;
+        //    public const int MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobar = 2021212;
+        //    public const int MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobar = 2021312;
+        //    public const int MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobarProducto = 2021114;
+        //    public const int MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobarProducto = 2021214;
+        //    public const int MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobarProducto = 2021314;
 
-            #endregion
+        //    #endregion
 
-            #region Buscador App
-            public const int AppBuscadorLiquidacionDesplegable = 4040604;
-            public const int AppBuscadorLiquidacionLanding = 4100601;
+        //    #region Buscador App
+        //    public const int AppBuscadorLiquidacionDesplegable = 4040604;
+        //    public const int AppBuscadorLiquidacionLanding = 4100601;
 
-            public const int AppBuscadorCatalogoLbelDesplegable = 4041104;
-            public const int AppBuscadorCatalogoLbelLanding = 4101101;
-            public const int AppBuscadorCatalogoEsikaDesplegable = 4041204;
-            public const int AppBuscadorCatalogoEsikaLanding = 4101201;
-            public const int AppBuscadorCatalogoCyzoneDesplegable = 4041304;
-            public const int AppBuscadorCatalogoCyzoneLanding = 4101301;
+        //    public const int AppBuscadorCatalogoLbelDesplegable = 4041104;
+        //    public const int AppBuscadorCatalogoLbelLanding = 4101101;
+        //    public const int AppBuscadorCatalogoEsikaDesplegable = 4041204;
+        //    public const int AppBuscadorCatalogoEsikaLanding = 4101201;
+        //    public const int AppBuscadorCatalogoCyzoneDesplegable = 4041304;
+        //    public const int AppBuscadorCatalogoCyzoneLanding = 4101301;
 
-            public const int AppBuscadorSRDesplegable = 4040104;
-            public const int AppBuscadorSRLanding = 4100101;
-            public const int AppBuscadorSRDesplegableFicha = 4040102;
-            public const int AppBuscadorSRLandingFicha = 4100102;
-            public const int AppBuscadorSRDesplegableFichaCarrusel = 4040105;
-            public const int AppBuscadorSRLandingFichaCarrusel = 4100105;
+        //    public const int AppBuscadorSRDesplegable = 4040104;
+        //    public const int AppBuscadorSRLanding = 4100101;
+        //    public const int AppBuscadorSRDesplegableFicha = 4040102;
+        //    public const int AppBuscadorSRLandingFicha = 4100102;
+        //    public const int AppBuscadorSRDesplegableFichaCarrusel = 4040105;
+        //    public const int AppBuscadorSRLandingFichaCarrusel = 4100105;
 
-            public const int AppBuscadorLANDesplegable = 4040204;
-            public const int AppBuscadorLANLanding = 4100201;
-            public const int AppBuscadorLANDesplegableFicha = 4040202;
-            public const int AppBuscadorLANLandingFicha = 4100202;
-            public const int AppBuscadorLANDesplegableFichaCarrusel = 4040205;
-            public const int AppBuscadorLANLandingFichaCarrusel = 4100205;
+        //    public const int AppBuscadorLANDesplegable = 4040204;
+        //    public const int AppBuscadorLANLanding = 4100201;
+        //    public const int AppBuscadorLANDesplegableFicha = 4040202;
+        //    public const int AppBuscadorLANLandingFicha = 4100202;
+        //    public const int AppBuscadorLANDesplegableFichaCarrusel = 4040205;
+        //    public const int AppBuscadorLANLandingFichaCarrusel = 4100205;
 
-            public const int AppBuscadorODDDesplegable = 4040304;
-            public const int AppBuscadorODDLanding = 4100301;
-            public const int AppBuscadorODDDesplegableFicha = 4040302;
-            public const int AppBuscadorODDLandingFicha = 4100302;
-            public const int AppBuscadorODDDesplegableFichaCarrusel = 4040305;
-            public const int AppBuscadorODDLandingFichaCarrusel = 4100305;
+        //    public const int AppBuscadorODDDesplegable = 4040304;
+        //    public const int AppBuscadorODDLanding = 4100301;
+        //    public const int AppBuscadorODDDesplegableFicha = 4040302;
+        //    public const int AppBuscadorODDLandingFicha = 4100302;
+        //    public const int AppBuscadorODDDesplegableFichaCarrusel = 4040305;
+        //    public const int AppBuscadorODDLandingFichaCarrusel = 4100305;
 
-            public const int AppBuscadorGNDDesplegable = 4040504;
-            public const int AppBuscadorGNDLanding = 4100501;
-            public const int AppBuscadorGNDDesplegableFicha = 4040502;
-            public const int AppBuscadorGNDLandingFicha = 4100502;
+        //    public const int AppBuscadorGNDDesplegable = 4040504;
+        //    public const int AppBuscadorGNDLanding = 4100501;
+        //    public const int AppBuscadorGNDDesplegableFicha = 4040502;
+        //    public const int AppBuscadorGNDLandingFicha = 4100502;
 
-            public const int AppBuscadorHVDesplegable = 4040804;
-            public const int AppBuscadorHVLanding = 4100801;
-            public const int AppBuscadorHVDesplegableFicha = 4040802;
-            public const int AppBuscadorHVLandingFicha = 4100802;
+        //    public const int AppBuscadorHVDesplegable = 4040804;
+        //    public const int AppBuscadorHVLanding = 4100801;
+        //    public const int AppBuscadorHVDesplegableFicha = 4040802;
+        //    public const int AppBuscadorHVLandingFicha = 4100802;
 
-            public const int AppBuscadorMGDesplegable = 4041404;
-            public const int AppBuscadorMGLanding = 4101401;
-            public const int AppBuscadorMGDesplegableFicha = 4041402;
-            public const int AppBuscadorMGLandingFicha = 4101402;
+        //    public const int AppBuscadorMGDesplegable = 4041404;
+        //    public const int AppBuscadorMGLanding = 4101401;
+        //    public const int AppBuscadorMGDesplegableFicha = 4041402;
+        //    public const int AppBuscadorMGLandingFicha = 4101402;
 
-            public const int AppBuscadorOPTDesplegable = 4040004;
-            public const int AppBuscadorOPTLanding = 4100001;
-            public const int AppBuscadorOPTDesplegableFicha = 4040002;
-            public const int AppBuscadorOPTLandingFicha = 4100002;
-            #endregion
+        //    public const int AppBuscadorOPTDesplegable = 4040004;
+        //    public const int AppBuscadorOPTLanding = 4100001;
+        //    public const int AppBuscadorOPTDesplegableFicha = 4040002;
+        //    public const int AppBuscadorOPTLandingFicha = 4100002;
+        //    #endregion
 
-            public const int MobileArmaTuPackFicha = 2131502;
-            public const int DesktopArmaTuPackFicha = 1131502;
+        //    public const int MobileArmaTuPackFicha = 2131502;
+        //    public const int DesktopArmaTuPackFicha = 1131502;
 
-            #region CaminoBrillante
+        //    #region CaminoBrillante
             public const int CaminoBrillanteDesktopPedido = 1181901;
             public const int CaminoBrillanteMobilePedido = 2181901;
 
-            public const int CaminoBrillanteAppConsultorasPedido = 4181901;
+        //    public const int CaminoBrillanteAppConsultorasPedido = 4181901;
 
-            public const int CaminoBrillanteDesktopPedido_Ficha = 1181902;
-            public const int CaminoBrillanteMobilePedido_Ficha = 2181902;
+        //    public const int CaminoBrillanteDesktopPedido_Ficha = 1181902;
+        //    public const int CaminoBrillanteMobilePedido_Ficha = 2181902;
 
-            public const int CaminoBrillanteDesktopPedido_Carrusel = 1201901; 
+            public const int CaminoBrillanteDesktopPedido_Carrusel = 1201901;
             public const int CaminoBrillanteMobilePedido_Carrusel = 2201901;
 
-            public const int CaminoBrillanteDesktopPedido_Carrusel_Ficha = 1201902;
-            public const int CaminoBrillanteMobilePedido_Carrusel_Ficha = 2201902;
+        //    public const int CaminoBrillanteDesktopPedido_Carrusel_Ficha = 1201902;
+        //    public const int CaminoBrillanteMobilePedido_Carrusel_Ficha = 2201902;
 
-            public const int CaminoBrillanteAppMobilePedido_Home = 4181902;
-            public const int CaminoBrillanteAppMobilePedido_Ficha = 4201901;
-            public const int CaminoBrillanteAppMobilePedido_Carrusel = 4201902;
+        //    public const int CaminoBrillanteAppMobilePedido_Home = 4181902;
+        //    public const int CaminoBrillanteAppMobilePedido_Ficha = 4201901;
+        //    public const int CaminoBrillanteAppMobilePedido_Carrusel = 4201902;
 
-            #endregion
+        //    #endregion
         }
 
         public static class TipoTutorial
@@ -1749,8 +1749,7 @@ namespace Portal.Consultoras.Common
             public const string CaminoBrillanteMsg = "HomeCaminoBrillante";
             public const string ActualizacionDatos = "ACTUALIZACION_DATOS";//HD-4729
         }
-
-
+        
         public static class ConfiguracionPaisComponente
         {
             public static class RD
@@ -1829,6 +1828,9 @@ namespace Portal.Consultoras.Common
                 public const string MCatalogoInscritaNoActiva = "MCatalogoInscritaNoActiva";
                 public const string MCatalogoNoInscritaActiva = "MCatalogoNoInscritaActiva";
                 public const string MCatalogoNoInscritaNoActiva = "MCatalogoNoInscritaNoActiva";
+                public const string CompartirCatalogoRedesSociales = "COMPARTIR_CATALOGO_RRSS";
+                public const string MensajeCompartirCatalogo = "MENSAJE_COMPARTIR";
+                public const string MensajePrincipalCatalogo = "MENSAJE_PRINCIPAL";
                 #endregion
 
                 #region Revista Digital Popup Bloqueado
@@ -2017,13 +2019,10 @@ namespace Portal.Consultoras.Common
             public const int NoPopUp = 3;
         }
 
-        [Obsolete("Use ConsTablaLogica")]
-        public struct TablaLogica
-        {
-            public const short CierreSessionValidado = 153;
-            public const int MsjPopupBloqueadas = 230;
-            public const short ResizeImagenesAppHistorias = 162;
-        }
+        //[Obsolete("Use ConsTablaLogica")]
+        //public struct TablaLogica
+        //{
+        //}
 
         public struct MensajesCDRExpress
         {
@@ -2633,6 +2632,10 @@ namespace Portal.Consultoras.Common
 
                 public const string ERROR_AGREGAR_BACKORDER_NO_PERMITIDO = "2201";
                 public const string ERROR_AGREGAR_BACKORDER = "2202";
+
+                public const string ERROR_AGREGAR_PROMOCION = "4000";
+                public const string ERROR_MODIFICAR_CONDICION = "4001";
+                public const string ERROR_GUARDAR_CONDICION_REGLAS = "4002";
             }
 
             public static Dictionary<string, PedidoValidacionConfiguracion> Configuracion
@@ -2690,7 +2693,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_RESERVA_DEUDA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no reservado, deuda pendiente." } },
                             {Code.ERROR_RESERVA_BACK_ORDER, new PedidoValidacionConfiguracion(){ Mensaje ="No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"} },
                             {Code.ERROR_GUARDAR_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se guardó." } },
-                            {Code.ERROR_RESERVA_ULTIMO_DIA_FACTURACION, new PedidoValidacionConfiguracion(){ Mensaje ="No se puede completar la operación debido a que se encuentra en el último día de facturación." } },
+                            {Code.ERROR_RESERVA_ULTIMO_DIA_FACTURACION, new PedidoValidacionConfiguracion(){ Mensaje ="No se agregó la oferta, recuerda que primero debes seleccionar “Modificar pedido” y luego volver a agregarla." } },
                             {Code.SUCCESS_GUARDAR, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido guardado." } },
                             {Code.SUCCESS_GUARDAR_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido guardado, productos con observaciones." } },
                             {Code.ERROR_GUARDAR_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no guardado, productos con observaciones." } },
@@ -2897,6 +2900,7 @@ namespace Portal.Consultoras.Common
                     public const string RECURSO = "RECURSO";
                     public const string MENSAJE = "MENSAJE";
                     public const string MENSAJE_OPTIN = "MENSAJE_OPTIN";
+                    public const string FROM = "FROM";
                 }
             }
 
@@ -2946,6 +2950,12 @@ namespace Portal.Consultoras.Common
         };
 
         #region PagoEnLinea
+
+
+        public static class PagoEnLineaMonto
+        {
+            public const decimal MontoMinimoPago = 0.50m;
+        }
 
         public static class PagoEnLineaTipoPago
         {
@@ -3326,6 +3336,15 @@ namespace Portal.Consultoras.Common
             /// </summary>
             public const string UrlReporteValidacion = "/api/Reporte/ReporteValidacion/{0}/{1}/{2}";
             #endregion
+
+            public static class Promociones
+            {
+                /// <summary>
+                /// api/Promociones/{isoPais}/{campania}/{cuv}
+                /// </summary>
+                //public static readonly string UrlGetPromociones = "Promociones/{0}/{1}/{2}";
+                public static readonly string UrlGetPromociones = "Promociones/{0}/{1}/{2}/2";
+            }
         }
         public static class OfertaFinalLog
         {
@@ -3429,6 +3448,7 @@ namespace Portal.Consultoras.Common
         {
             public const string ExpresionCelular = "^\\d+$";
             public const string CambioCorreoPendiente = "1";
+            public const string CambioCelularPendiente = "1";
 
             private static Dictionary<string, string> _Message;
             public static class Code
@@ -3785,6 +3805,8 @@ namespace Portal.Consultoras.Common
                 public const string COMPROMISO = "COMPROMISO";
                 public const string CRECIMIENTO = "CRECIMIENTO";
                 public const string RESUMEN = "RESUMEN";
+                public const string RESUMEN_UNIFICADO = "RESUMEN_UNIFICADO";
+                public const string CONSTANCIA_DETALLADA = "CONSTANCIA_DETALLADA";
 
                 public static class Indicadores
                 {
@@ -3796,6 +3818,7 @@ namespace Portal.Consultoras.Common
                     public const string INCREMENTO_PEDIDO = "INCREMENTO_PEDIDO";
                     public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
                     public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
+                    public const string CONSTANCIA_DETALLADA = "CONSTANCIA_DETALLADA";
 
                     public static Dictionary<string, string> Titulos
                     {
@@ -3896,25 +3919,24 @@ namespace Portal.Consultoras.Common
                     get
                     {
                         return _Iconos ?? (_Iconos = new Dictionary<string, string> {
-                            {"01", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"asesor.svg")},
-                            {"02", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"beneficios.svg")},
-                            {"03", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"brazalete.svg")},
-                            {"04", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"call_center.svg")},
-                            {"05", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"catalogo_revista.svg")},
-                            {"06", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"descuento.svg")},
-                            {"07", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"kit.svg")},
-                            {"08", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"pago_diferido.svg")},
-                            {"09", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"productos_especiales.svg")},
-                            {"10", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"programa_brillante.svg")},
-                            {"11", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"reconocimiento.svg")},
-                            {"12", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"regalo.svg")},
-                            {"13", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"talleres.svg")},
-                            {"14", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"50_de_descuento.svg")},
+                            {"01", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "asesor.svg")},
+                            {"02", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "beneficios.svg")},
+                            {"03", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "brazalete.svg")},
+                            {"04", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "call_center.svg")},
+                            {"05", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "catalogo_revista.svg")},
+                            {"06", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "descuento.svg")},
+                            {"07", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "kit.svg")},
+                            {"08", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "pago_diferido.svg")},
+                            {"09", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "productos_especiales.svg")},
+                            {"10", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "programa_brillante.svg")},
+                            {"11", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "reconocimiento.svg")},
+                            {"12", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "regalo.svg")},
+                            {"13", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "talleres.svg")},
+                            {"14", string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "50_de_descuento.svg")},
 
                         });
                     }
                 }
-
             }
 
             public static class Niveles
@@ -3998,7 +4020,16 @@ namespace Portal.Consultoras.Common
                 public const string app_ganancias = "app_ganancias";
                 public const string app_barraMontoAcumulado = "app_barraMonto";
                 public const string app_enterateMas = "app_enterateMas";
+
+                public const string sb_puntajeGranBrillante = "pto_granBrillante";
+                public const string app_puntajeGranBrillante = "pto_granBrillante";
             }
+
+            public static class Version {                
+                public const int VER_01 = 1;
+                public const int VER_02 = 2;
+            }
+
         }
 
         public static class CodigoContenido
@@ -4091,11 +4122,29 @@ namespace Portal.Consultoras.Common
             public const string CatalogoEsika = "13";
         }
 
+        public static class CodigoTipoOferta
+        {
+            public const string Promocion1 = "044";
+            public const string Promocion2 = "047";
+            public const string Promocion3 = "024";
+            public const string Promocion4 = "046";
+            public const string Promocion5 = "038";
+            public const string Promocion6 = "039";
+        }
+
         public static class TipoVentaIncremental
         {
             public const string CrossSelling = "CrossSell";
             public const string Sugerido = "Suggested";
             public const string UpSelling = "UpSelling";
+        }
+
+        //HD-4357
+        public static class EstadoEncuestaSatisfaccion
+        {
+            public const int NoAplica = -1;
+            public const int Realizada = 1;
+            public const int Pendiente = 0;
         }
     }
 }

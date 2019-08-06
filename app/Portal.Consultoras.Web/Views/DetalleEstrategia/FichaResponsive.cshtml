@@ -12,9 +12,9 @@
 
 <style data-ficha-contenido="ofertadeldia-template-style"></style>
 
-<section class="seccion_ficha">
+<section class="seccion_ficha seccion_ficha_sintop" id="seccion_Contenedor_Ficha">
     <div id="ImagenDeFondo" class="imagen_fondo_detalle" @*style="background-image: url('https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424344_dkvuwesndt.png');"*@></div>
-    <div id="ContenedorFicha" class="contenedor_detalle container">
+    <div id="ContenedorFicha" class="contenedor_detalle container tag_nuevo">
         <ul id="breadcrumbs" class="breadcumbs"></ul>
         <div class="row scontenedor_fichas"
              data-item=""
@@ -26,7 +26,7 @@
                 <hidden id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></hidden>
             </div>
             <article id="imagen-estrategia" class="col-12 col-md-5 ficha_producto"></article>
-            <article class="col-12 col-md-7 ficha_detalle">
+            <article class="col-12 col-md-7 ficha_detalle tag_nuevo">
                 <div class="ficha_detalle_cuerpo">
                     <div id="estrategia" class="row contenedor_nombre_precio"></div>
                     <div id="componentes" class="producto_componentes" data-codigovariante="@Model.CodigoVariante"></div>
@@ -46,6 +46,27 @@
             <div class="carousel_ficha carrusel_seccion"></div>
         </div>
     </section>
+
+    <!--<FichaPromociones ticket="tesla-178">-->
+    <div id="banner-promocion" class="ficha-promociones d-sm-block d-md-none" data-selector="open-modal">
+        {{#if TieneStock}}
+        <div class="titulo-promociones">
+            <span class="texto-promociones"> Promoción </span>
+        </div>
+        <div class="descripcion-promociones">
+            {{#if EsPromocion}}
+            <span class="texto-promociones">Conoce aqu&iacute; las condiciones de esta promoción.</span>
+            {{else}}
+            <span class="texto-promociones">¡Aprovecha! Ll&eacute;vate un <b>{{Promocion.DescripcionCompleta}}</b> a solo {{SimboloMoneda}}{{Promocion.PrecioVenta}}. Ent&eacute;rate aqu&iacute;</span>
+            {{/if}}
+            <div class="contenedor-imagen">
+                <img src="https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoWebRedes/Esika_Talco_Perfumado_Expression_Cuidado_Personal_FotoProducto.jpg" alt="Texto" class="img-responsive" />
+            </div>
+        </div>
+        {{/if}}
+    </div>
+    <!--</FichaPromociones">-->
+
     <section class="seccion_ficha" id="divFichaEnriquecida" style="display:none;">
         <div class="contenedor_detalle container">
             <h2 class="titulo_seccion">Detalle de producto</h2>
@@ -84,6 +105,12 @@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/tipos-tonos-seleccionados-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/resumen-componente-template.cshtml")
 
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Promociones/modal-promociones.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Promociones/producto-promocion-template.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Promociones/banner-promocion-template.cshtml")
+
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/galeria-template.cshtml")
+
 @section scripts{
 
     <script type="text/javascript">
@@ -96,7 +123,8 @@
             urlIncremental: '@Url.Action("FichaObtenerProductosIncremental", "Estrategia")'
         };
     </script>
-
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Promociones/PromocionesView.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Promociones/PromocionesPresenter.js")"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Responsive/Ficha")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")

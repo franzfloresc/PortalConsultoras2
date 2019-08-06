@@ -46,6 +46,8 @@ namespace Portal.Consultoras.Web.Models
         public int EstrategiaID { get; set; }
         public string SimboloMoneda { get; set; }
         public bool MaterialGanancia { get; set; }
+        public string CodigoTipoOferta { get; set; }
+        public bool TienePremio { get; set; }
     }
 
     public class OpcionesFiltroResponse

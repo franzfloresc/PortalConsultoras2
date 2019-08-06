@@ -224,8 +224,7 @@ var BuscadorModule = (function () {
             }
             return esAlfaNumerico;
         },
-        EsCantidadCaracteresMenoresACuatro: function (valorBusqueda)
-        {
+        EsCantidadCaracteresMenoresACuatro: function (valorBusqueda) {
             var letrasCaracterMenorACuatro = _config.mostrarPalabrasMenoresACuatro;
             var esMenorACuatro = false;
             var lista = letrasCaracterMenorACuatro.split(',');
@@ -238,10 +237,9 @@ var BuscadorModule = (function () {
             }
             return esMenorACuatro;
         },
-        CargarBusqueda: function (valorBusqueda)
-        {
+        CargarBusqueda: function (valorBusqueda) {
             _funciones.CampoDeBusquedaConCaracteres($("#CampoBuscadorProductos"));
-            if(_config.contadorBusqueda === 0) {
+            if (_config.contadorBusqueda === 0) {
                 _funciones.LlamarAnalyticsBarraBusqueda();
                 _config.contadorBusqueda++;
             }
@@ -295,8 +293,20 @@ var BuscadorModule = (function () {
                                 item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
                             }
                         });
+                        var finalProductos = RedimPromociones(r.productos); //Agregamos promociones
 
-                        SetHandlebars("#js-ResultadoBuscador", r.productos, "#ResultadoBuscador");
+                        SetHandlebars("#js-ResultadoBuscador", finalProductos, "#ResultadoBuscador");
+
+                        if ($('.searchCarousel').length > 0) {
+                            const settings = {
+                                dots: false,
+                                infinite: false,
+                                arrows: true,
+                                prevArrow: '<div class="arrow prev"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
+                                nextArrow: '<div class="arrow next"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
+                            }
+                            $('.searchCarousel').slick(settings); /* [Tesla-178 - Search Carousel] / start carousel */
+                        }
 
                         setTimeout(function () {
                             if ($(".busqueda_sin_resultados").is(":visible")) {
@@ -304,7 +314,12 @@ var BuscadorModule = (function () {
                             }
                             $(".spinner").fadeOut(150);
                             $("#ResultadoBuscador").delay(50);
-                            $("#ResultadoBuscador").fadeIn(100);
+                            $("#ResultadoBuscador").fadeIn(100, function () {
+
+                                if ($('.searchCarousel').length > 0) {
+                                    $('.searchCarousel').slick('setPosition'); /* [Tesla-178 - Search Carousel] / Recalculate position slick */
+                                }
+                            });
                             if (!_config.isMobile) {
                                 $(".lista_resultados_busqueda_productos").animate({
                                     'min-height': $("#ResultadoBuscador").height() + 29
@@ -331,7 +346,7 @@ var BuscadorModule = (function () {
             if ($(".tooltip_informativo_sobre_opcion_busqueda_prod").is(":visible") && !_config.isMobile) {
                 $(".tooltip_informativo_sobre_opcion_busqueda_prod").fadeOut(100);
             }
-           
+
             var key = false;
             $.each(_keys, function (i, value) {
                 if (value.val === event.which) key = true;
@@ -350,16 +365,15 @@ var BuscadorModule = (function () {
             var valorBusqueda = $(this).val();
 
             localStorage.setItem('valorBuscador', valorBusqueda);
-           
+
             if (valorBusqueda.length >= _config.caracteresBuscador && _funciones.EsAlfanumericoLetras(valorBusqueda)) {
-              
+
                 _funciones.CargarBusqueda(valorBusqueda);
             }
-            else if (_funciones.EsCantidadCaracteresMenoresACuatro(valorBusqueda) && _funciones.EsAlfanumericoLetras(valorBusqueda))
-            {
+            else if (_funciones.EsCantidadCaracteresMenoresACuatro(valorBusqueda) && _funciones.EsAlfanumericoLetras(valorBusqueda)) {
                 _funciones.CargarBusqueda(valorBusqueda);
             }
-            else if (valorBusqueda.length == _config.caracteresBuscadorNumerico ) {
+            else if (valorBusqueda.length == _config.caracteresBuscadorNumerico) {
                 _funciones.CargarBusqueda(valorBusqueda);
             }
 
@@ -422,8 +436,9 @@ var BuscadorModule = (function () {
             var OrigenPedidoWeb = $(divPadre).find(".hdBuscadorOrigenPedidoWeb").val();
             var descripcionProducto = $(divPadre).find(".hdBuscadorDescripcion").val();
             var tipoPersonalizacionProducto = $(divPadre).find(".hdBuscadorTipoPersonalizacion").val();
+            var tienePremio = $(divPadre).find(".hdTienePremio").val();
 
-            var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
+            var codigo = ["030", "005", "001", "007", "008", "009", "010", "011", "LMG"];
             var tipoPersonalizacion = ["CAT"];
 
             if (textoBusqueda != "")
@@ -444,11 +459,17 @@ var BuscadorModule = (function () {
 
             UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
             _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);
-            
+
             window.location = UrlDetalle;
 
-            if (!(typeof AnalyticsPortalModule === 'undefined'))
+            if (!(typeof AnalyticsPortalModule === 'undefined')) {
                 AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
+
+                if (typeof tienePremio != "undefined" && tienePremio != null && tienePremio === "true") {
+                    var promoposition = $(divPadre).find(".hdPromoposition").val();
+                    AnalyticsPortalModule.MarcaPromotionClickBuscador(promoposition, descripcionProducto);
+                }
+            }
 
             return true;
         },
@@ -465,16 +486,65 @@ var BuscadorModule = (function () {
         },
         RedireccionarMenuPrincipal: function (e) {
             e.preventDefault();
-             
+
             if (!_config.isMobile) {
-                window.location.href = baseUrl+'Bienvenida';
+                window.location.href = baseUrl + 'Bienvenida';
             }
             else {
-                window.location.href = baseUrl +'Mobile/Bienvenida';
+                window.location.href = baseUrl + 'Mobile/Bienvenida';
             }
         }
     };
 
+    //Realiza un ajuste al resultado del busqueda para agregar promociones si hay en forma de un array.
+    function RedimPromociones(productos) {
+        productos = productos || "";
+        totalItems = productos.length;
+
+        var finalProductos = [];
+        var promociones = [];
+        if (productos !== "") {
+            $.each(productos, function (index, item) {
+                if (item.TienePremio) {
+                    promociones.push(item);
+                }
+            });
+        }
+        var notPromo = productos.filter(function (promo) {
+            return promo.TienePremio == false;
+        });
+
+        //notPromo.push(misPromociones);
+        var promoindex = 0;
+        if (notPromo.length == 1) {
+            promoindex = 1;
+        }
+        else if (notPromo.length == 0) {
+            promoindex = 0;
+        }
+        else {
+            promoindex = 2;
+        }
+
+        if (promociones != null && promociones.length > 0) {
+            $.each(promociones, function (index, value) {
+                value.Promoposition = promoindex + 1;
+                if (!(typeof AnalyticsPortalModule === "undefined")) {
+                    AnalyticsPortalModule.MarcaPromotionViewBuscador(value.Promoposition, value.Descripcion);
+                }
+            });
+        }
+
+        var misPromociones = { "Promociones": promociones };
+        notPromo.insert(promoindex, misPromociones);
+
+        finalProductos = notPromo;
+
+        return finalProductos;
+    }
+    Array.prototype.insert = function (index, item) {
+        this.splice(index, 0, item);
+    };
 
     //Public functions
     function Inicializar() {

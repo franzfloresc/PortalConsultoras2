@@ -228,7 +228,7 @@ var OfertaDelDiaModule = function () {
         }
 
         if (cantidadProductos > 2) {
-            var slidesToShow = 2;
+            var slidesToShow = 3;
             EstablecerLazyCarrusel("#divOddCarrusel");
 
             $("#divOddCarrusel.slick-initialized").slick("unslick");
