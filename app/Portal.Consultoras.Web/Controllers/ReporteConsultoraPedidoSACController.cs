@@ -178,7 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
             string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Constantes.ConfiguracionManager.BaseDirectory);
             if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(headerFile);
+                Directory.CreateDirectory(path);
             }
 
             using (var srv = new PedidoServiceClient())
@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(headerFile);
+                Directory.CreateDirectory(path);
             }
             using (var srv = new PedidoServiceClient())
             {
