@@ -285,7 +285,8 @@ var BuscadorModule = (function () {
 
                         if (!(typeof AnalyticsPortalModule === 'undefined'))
                             AnalyticsPortalModule.MarcaBusquedaSinResultadosBuscador(valorBusqueda);
-                    } else {
+                    }
+                    else {
 
                         $.each(r.productos, function (index, item) {
                             item.posicion = index + 1;
@@ -298,7 +299,7 @@ var BuscadorModule = (function () {
                         SetHandlebars("#js-ResultadoBuscador", finalProductos, "#ResultadoBuscador");
 
                         if ($('.searchCarousel').length > 0) {
-                            const settings = {
+                            var settings = {
                                 dots: false,
                                 infinite: false,
                                 arrows: true,
@@ -335,8 +336,7 @@ var BuscadorModule = (function () {
                     }
                 };
 
-                xhr.then(successBusqueda, function (e) {
-                });
+                xhr.then(successBusqueda, function (e) {});
 
             }, 200);
         }
@@ -560,7 +560,5 @@ var BuscadorModule = (function () {
 })();
 
 $(document).ready(function () {
-
     BuscadorModule.Inicializar();
-
 });
