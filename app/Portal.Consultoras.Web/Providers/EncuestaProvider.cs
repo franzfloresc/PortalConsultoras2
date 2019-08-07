@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     var response = await sv.ObtenerDataEncuestaAsync(paisId, consultoraCodigo, verificarEncuestado);
                     result = Mapper.Map<List<DataConfigEncuestaModel>>(response);
-                    if (result[0].EncuestaId != 0)
+                    if (result.Count > 0 && result[0].EncuestaId != 0)
                         sessionManager.SetDataConfigEncuesta(result);
                     else
                         sessionManager.SetDataConfigEncuesta(null);
