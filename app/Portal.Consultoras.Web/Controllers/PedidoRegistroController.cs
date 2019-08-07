@@ -752,13 +752,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (ReservadoEnHorarioRestringido(out message)) return ErrorJson(message, true);
 
+                var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
                 var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
                     if (!sv.DelPedidoWebDetalleMasivo(usuario, userData.PedidoID)) return ErrorJson(Constantes.MensajesError.Pedido_DeleteAll, true);
                 }
 
-                var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
                 var setIds = pedidoWebDetalle.Select(d => d.SetID);
 
                 var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
