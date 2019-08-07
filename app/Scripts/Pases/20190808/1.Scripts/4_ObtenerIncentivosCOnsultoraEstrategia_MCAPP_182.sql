@@ -24,7 +24,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -348,7 +348,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -672,7 +672,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -996,7 +996,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -1320,7 +1320,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -1644,7 +1644,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -1968,7 +1968,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -2292,7 +2292,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -2616,7 +2616,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -2940,7 +2940,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -3264,7 +3264,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -3588,7 +3588,7 @@ BEGIN
 		FechaVentaRetail DATE NULL,
 		IndicadorPremioAcumulativo BIT NOT NULL,
 		NivelAlcanzado INT NOT NULL,
-		NivelSiguiente INT NOT NULL,
+		NivelSiguiente INT NULL,
 		CampaniaIDPremiacion INT NULL,
 		PuntajeExigido INT NOT NULL,
 		PuntosFaltantesSiguienteNivel INT NOT NULL
@@ -3885,3 +3885,4 @@ BEGIN
 END
 
 GO
+
