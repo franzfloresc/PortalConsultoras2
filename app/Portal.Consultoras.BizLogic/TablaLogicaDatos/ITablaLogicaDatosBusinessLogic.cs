@@ -7,5 +7,6 @@ namespace Portal.Consultoras.BizLogic
     {
         List<BETablaLogicaDatos> GetList(int paisID, short tablaLogicaID);
         List<BETablaLogicaDatos> GetListCache(int paisID, short tablaLogicaID);
+        bool GetTablaLogicaDatoValorBool(int paisId, short tablaLogicaId, string codigo);
     }
 }
