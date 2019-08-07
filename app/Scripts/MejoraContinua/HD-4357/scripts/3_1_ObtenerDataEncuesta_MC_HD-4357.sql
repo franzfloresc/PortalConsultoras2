@@ -30,7 +30,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -108,7 +108,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -186,7 +186,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -264,7 +264,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -342,7 +342,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -420,7 +420,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -498,7 +498,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -576,7 +576,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -654,7 +654,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -732,7 +732,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -810,7 +810,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
@@ -856,6 +856,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 	END
 END
 GO
+
 USE BelcorpSalvador
 GO
 
@@ -896,7 +897,7 @@ DECLARE @vCodigoCampanaia VARCHAR(6) = '';
 		 ORDER BY Campana desc) AS T		 
 	WHERE
 	T.FechaEntregado IS NOT NULL
-	AND DATEADD(DAY ,1, T.FechaEntregado) <= GETDATE()
+	AND DATEDIFF(hour,T.FechaEntregado,GETDATE())>= 24
 	AND NOT EXISTS(
 			  SELECT 
 				   ER.CodigoConsultora
