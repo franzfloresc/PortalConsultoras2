@@ -128,7 +128,7 @@ var ConstantesModule = (function() {
         HV: "HV",
         GND: "GND",
         LAN: "LAN",
-        MG: "MG",
+        MG: "LMG",
         SR: "SR",
         ATP: "ATP",
         DP: "DP",
