@@ -7,6 +7,7 @@ var ConfiguradoRegalo = false;
 var avance = 0;
 var EstadoPedido = EstadoPedido || 0;
 var esPedidoReservado = (EstadoPedido === 1);
+var montoIncentivo = montoIncentivo || 0;
 
 var tieneIncentivo = montoIncentivo >= 1 ? true : false;
 
