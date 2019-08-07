@@ -1,8 +1,10 @@
+using Portal.Consultoras.BizLogic.Encuesta;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Data.ServiceTotalPagarSiccEC;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Encuesta;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
 using System;
@@ -1867,7 +1869,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             else
-            {
+            {                                           
                 var listaPedidosHana = new DAHPedido().GetPedidosIngresadoFacturado(paisID, codigoConsultora);
 
                 using (var reader = new DAPedidoWeb(paisID).GetPedidosIngresado(consultoraID, campaniaID))
@@ -1899,10 +1901,25 @@ namespace Portal.Consultoras.BizLogic
                     return true;
                 });
             }
+            //HD-4357
+            #region Estado Encuesta Satisfacción
+            if (listaPedidosFacturados.Any())
+            {
+                var aux = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.EncuestaSatisfaccion.TablaLogicaId).FirstOrDefault(a => a.TablaLogicaDatosID == ConsTablaLogica.EncuestaSatisfaccion.MisPedidosTop) ?? new BETablaLogicaDatos();
+                int EncuestaTop = string.IsNullOrEmpty(aux.Valor) ? 1 : Convert.ToInt32(aux.Valor);
+                var listaPedidoEncuesta = new BLEncuesta().GetEncuestaByConsultora(new BEEncuestaPedido() { PaisID = paisID, CodigoConsultora = codigoConsultora });
 
+                int index = 1;
+                foreach (var x in listaPedidosFacturados)
+                {
+                    if (x.EstadoPedidoDesc != "FACTURADO") x.EstadoEncuesta = Constantes.EstadoEncuestaSatisfaccion.NoAplica;
+                    else x.EstadoEncuesta = ((index++) > EncuestaTop) ? Constantes.EstadoEncuestaSatisfaccion.NoAplica : (listaPedidoEncuesta.Any(y => y.ConsultoraID == consultoraID && y.CodigoCampania == x.CampaniaID.ToString() && y.FlagTieneEncuesta) ? Constantes.EstadoEncuestaSatisfaccion.Realizada : Constantes.EstadoEncuestaSatisfaccion.Pendiente);
+                }
+            }
+            #endregion
             return listaPedidosFacturados;
         }
-
+            
         public List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora)
         {
             var listaResultado = new List<BEPedidoWeb>();
@@ -2179,7 +2196,7 @@ namespace Portal.Consultoras.BizLogic
                         return new BEValidacionModificacionPedido
                         {
                             MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Bloqueado,
-                            Mensaje = _tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor
+                            Mensaje = _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.MsjPopupBloqueadas.TablaLogicaId).FirstOrDefault(a => a.Codigo == "01").Valor
                         };
                     }
                     else
@@ -2814,7 +2831,7 @@ namespace Portal.Consultoras.BizLogic
                 if (nuevoNroLote > 0)
                 {
 
-                    try { daPedidoWeb.UpdPedidoWebIndicadorEnviadoSinMarcar(nuevoNroLote, false, Constantes.EstadoValorProcesoDescargaregular.Error, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
+                    try { daPedidoWeb.UpdPedidoWebIndicadorEnviadoSinMarcar(nuevoNroLote, Constantes.EstadoValorProcesoDescargaregular.Error, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
                     catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
                 }
 

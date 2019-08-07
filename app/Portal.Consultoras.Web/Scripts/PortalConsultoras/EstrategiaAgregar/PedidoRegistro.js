@@ -17,7 +17,7 @@ var PedidoRegistroModule = function () {
     }
 
     var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
- 
+
 
     var _mensajeCantidad = function (cantidad, inputCantidad) {
         cantidad = cantidad || "";
@@ -35,7 +35,7 @@ var PedidoRegistroModule = function () {
         if (txtMensaje == "") {
             return false;
         }
-        
+
         if (esMobile) {
             messageInfo(txtMensaje);
         }
@@ -177,7 +177,7 @@ var PedidoRegistroModule = function () {
     /* Ini - Region Oferta Liquidacion */
 
     var AgregarProductoOfertaLiquidacion = function (xthis) {
-        
+
         var contenedor = $(xthis).parents('#divVistaPrevia');
 
         var txtCantidad = $(contenedor).find("#txtCantidadPopup");
@@ -385,7 +385,7 @@ var PedidoRegistroModule = function () {
     };
 
     var AgregarProductoOfertaLiquidacionMobile = function (article) {
-        
+
         var cantidad = $(article).find("#txtCantidad").val();
         var CUV = $(article).find(".valorCUV").val();
         var MarcaID = $(article).find(".claseMarcaID").val();
@@ -457,7 +457,7 @@ var PedidoRegistroModule = function () {
                 CargarCantidadProductosPedidos();
 
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
-                
+
                 var imagenProducto = article.find("[data-imagen-producto]").attr("data-imagen-producto");
 
                 var mensaje = '';
@@ -484,7 +484,7 @@ var PedidoRegistroModule = function () {
     };
 
     var AgregarProductoLiquidacionBienvenida = function (contenedor) {
-        
+
         var inputCantidad = $(contenedor).find("[data-input='cantidad']");
         var inputCantidadValor = inputCantidad.val();
         if (_mensajeCantidad(inputCantidadValor, inputCantidad)) {
@@ -574,7 +574,7 @@ var PedidoRegistroModule = function () {
         CerrarLoad();
         if (checkTimeout(data)) AbrirMensaje(data.message);
     };
-    
+
     var _limpiarRecomendados = function () {
         var seccionProductosRecomendados = $('.divProductosRecomendados');
         seccionProductosRecomendados.slideUp(200);
@@ -598,7 +598,7 @@ var PedidoRegistroModule = function () {
     }
 
     var _registroLiquidacion = function (model, cantidad, producto, recomendado) {
-        
+
         model.Cantidad = cantidad;
         var Item = {
             MarcaID: model.MarcaId,
@@ -680,7 +680,7 @@ var PedidoRegistroModule = function () {
     }
 
     var RegistroProductoBuscador = function (divPadre, valueJSON, origenSeccion) {
-        
+
         var model = JSON.parse($(divPadre).find(valueJSON).val());
         var divCantidad = $(divPadre).find("[data-input='cantidad']");
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
@@ -786,7 +786,7 @@ var PedidoRegistroModule = function () {
                         mensaje = _mensajeAgregarPedido.normal;
                     }
 
-                    if (data.flagCantidaPedido == 0) 
+                    if (data.flagCantidaPedido == 0)
                         AbrirMensaje25seg(mensaje, imagenProducto);
                     else
                         alert_msg(data.mensajeCantidad);
@@ -890,7 +890,7 @@ var PedidoRegistroModule = function () {
 
     var _insertarProductoPorUrl = function (model, asyncX, urlMobile) {
         var retorno = new Object();
-        
+
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + _url.urlAgregarUnico,
@@ -975,7 +975,7 @@ var PedidoRegistroModule = function () {
 
     var AgregarProductoPorUrl = function (url, model, divDialog, cerrarSplash, asyncX) {
         AbrirSplash();
-        
+
         divDialog = $.trim(divDialog);
 
         var retorno = {};
@@ -1079,7 +1079,7 @@ var PedidoRegistroModule = function () {
         if (flag == "true") {
             model.EstrategiaID = $("#hdfEstrategiaId").val();
         }
-        
+
         var EsDuoPerfecto = false;
         var CodigoEstrategia = $("#hdTipoEstrategiaCodigo").val();
         if (CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {
@@ -1090,7 +1090,8 @@ var PedidoRegistroModule = function () {
         };
 
         model.EsDuoPerfecto = EsDuoPerfecto;
-        
+        model.EsPromocion = JSON.parse($("#hdEsPromocion").val());
+
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
@@ -1101,7 +1102,7 @@ var PedidoRegistroModule = function () {
             async: true,
             cache: false,
             success: function (data) {
-                
+
                 if (!checkTimeout(data)) {
                     CloseLoading();
                     return false;
@@ -1111,7 +1112,7 @@ var PedidoRegistroModule = function () {
                     $("#btnAgregarProducto").removeAttr("disabled", "disabled");
                     $("#btnAgregarProducto").show();
                     var errorCliente = data.errorCliente || false;
-                    
+
 
                     if (!errorCliente) AbrirMensaje(data.message, data.tituloMensaje);
 
@@ -1132,7 +1133,7 @@ var PedidoRegistroModule = function () {
                 CloseLoading();
 
                 ActualizaGanancias(data);
-                
+
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
 
                     var mensaje = '';
@@ -1164,7 +1165,7 @@ var PedidoRegistroModule = function () {
                 $("#divResumenPedido").show();
                 $("footer").show();
                 $(".footer-page").css({ "margin-bottom": "0px" });
-                
+
                 CargarCarouselEstrategias();
 
                 PedidoOnSuccess();
@@ -1202,14 +1203,14 @@ var PedidoRegistroModule = function () {
 
                 var seccionProductosRecomendados = $('.divProductosRecomendados');
                 seccionProductosRecomendados.slideUp(200);
-                
+
                 if (data.listCuvEliminar != null) {
                     $.each(data.listCuvEliminar, function (i, cuvElem) {
 
                         ActualizarLocalStoragePalancas(cuvElem, false);
                     })
                 }
-              
+
                 var imagenProducto = null;
                 var objDataImg = $('#divProductoInformacion').find('div.producto_por_agregar_imagen').find('img');
                 if (objDataImg !== 'undefined' && objDataImg !== null) {
@@ -1221,8 +1222,8 @@ var PedidoRegistroModule = function () {
 
                 /*HD-4635*/
                 if (data.flagCantidaPedido == 1)
-                   messageInfo(data.mensajeCantidad);
-               
+                    messageInfo(data.mensajeCantidad);
+
             },
             error: function (data, error) {
                 CloseLoading();
@@ -1270,7 +1271,8 @@ var PedidoRegistroModule = function () {
         };
 
         param2.EsDuoPerfecto = EsDuoPerfecto;
-        
+        param2.EsPromocion = JSON.parse($("#hdEsPromocion").val());
+
         AbrirSplash();
         jQuery.ajax({
             type: "POST",
@@ -1310,7 +1312,7 @@ var PedidoRegistroModule = function () {
                 CargarCarouselEstrategias();
                 HideDialog("divVistaPrevia");
                 PedidoOnSuccess();
-                
+
                 if (data.listCuvEliminar != null) {
                     $.each(data.listCuvEliminar, function (i, cuvElem) {
 
@@ -1354,7 +1356,7 @@ var PedidoRegistroModule = function () {
     };
 
     var InsertarProductoPasePedido = function (form) {
-        
+
         var flag = $("#hdfEsBusquedaSR").val();
 
         if (flag == "true") {
@@ -1362,6 +1364,8 @@ var PedidoRegistroModule = function () {
             form.data.EstrategiaID = $("#hdfEstrategiaId").val();
             form.data.DescripcionProd = $("#DescripcionProd").val();
         }
+
+        form.data.EsPromocion = JSON.parse($("#hdEsPromocion").val());
 
         AbrirSplash();
         $.ajax({
@@ -1417,14 +1421,14 @@ var PedidoRegistroModule = function () {
                         mensaje = _mensajeAgregarPedido.normal;
                     }
                     /*HD-4635 20193107*/
-                    if (response.flagCantidaPedido==0)
+                    if (response.flagCantidaPedido == 0)
                         AbrirMensaje25seg(mensaje);
                     else
                         alert_msg(response.mensajeCantidad);
                 }
                 else {
                     var errorCliente = response.errorCliente || false;
-                        if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
+                    if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
 
 
                     else {
@@ -1456,7 +1460,7 @@ var PedidoRegistroModule = function () {
     /* Ini - Region Sugerido */
     var InsertarProductoSugerido = function (model) {
         ShowLoading();
-        
+
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + _url.urlAgregarUnico,
@@ -1565,7 +1569,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
     if (CliDes.length == 0) { CliID = 0; }
 
     var StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
-    
+
     var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
 
     var item = {
@@ -1635,7 +1639,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             else {
                 AbrirMensaje25seg(mensaje);
             }
-            
+
             if ($(rowElement).find(".txtLPCli").val().length == 0) {
                 $(rowElement).find(".hdfLPCliDes").val($("#hdfNomConsultora").val());
                 $(rowElement).find(".txtLPCli").val($("#hdfNomConsultora").val());
@@ -1661,7 +1665,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
             $("#pCantidadProductosPedido").html(totalUnidades);
-            
+
             CargarDetallePedido();
             var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
@@ -1676,7 +1680,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
                 AbrirMensajeImagen(data.mensajeCondicional);
             }
 
-           
+
 
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
@@ -1691,7 +1695,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
 }
 
 function ActualizaGanancias(data) {
-    
+
     data = data || "";
     if (data !== "") {
         $('#div-ganancia-totalMontoGanancia').text(data.PedidoWeb.FormatoTotalMontoGananciaStr);

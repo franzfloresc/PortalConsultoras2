@@ -205,5 +205,6 @@ namespace Portal.Consultoras.Web.Models
         public bool EsBannerProgNuevas { get; set; }
 
         public bool TieneStock { get; set; }
+        public string CodigoTipoEstrategia { get; set; }
     }
 }

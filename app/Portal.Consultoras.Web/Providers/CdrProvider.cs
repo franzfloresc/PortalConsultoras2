@@ -135,7 +135,7 @@ namespace Portal.Consultoras.Web.Providers
                 XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/reemplazos/reemplazo");
                 foreach (XmlNode xmlNode in xmlNodeList)
                 {
-                    BECDRProductoComplementario obj = new BECDRProductoComplementario();
+                    var obj = new ServiceCDR.BECDRProductoComplementario();
                     var cantidad = xmlNode["cantidad"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText);
                     var precio  = xmlNode["precio"].InnerText == "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
                     var estado = xmlNode["estado"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
