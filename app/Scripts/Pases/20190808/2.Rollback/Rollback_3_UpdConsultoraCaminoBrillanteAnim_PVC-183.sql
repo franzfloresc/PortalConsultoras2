@@ -1,4 +1,4 @@
-IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE TYPE = 'P' and id = OBJECT_ID('dbo.UpdConsultoraCaminoBrillanteAnim'))
+﻿IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE TYPE = 'P' and id = OBJECT_ID('dbo.UpdConsultoraCaminoBrillanteAnim'))
 	DROP PROC dbo.UpdConsultoraCaminoBrillanteAnim
 GO
 -- GetConsultoraCaminoBrillante 3897, 201902, 201913, 4

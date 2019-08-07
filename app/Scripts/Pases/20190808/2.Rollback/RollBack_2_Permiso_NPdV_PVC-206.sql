@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 DECLARE @PermisoID int = (select PermisoID from Permiso where Codigo = 'montoexigencia')
