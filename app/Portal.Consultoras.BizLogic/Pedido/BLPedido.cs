@@ -486,10 +486,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var tipoEstrategia = _tipoEstrategiaBusinessLogic.GetTipoEstrategiaById(usuario.PaisID, estrategia.TipoEstrategiaID);
 
             #region Promotion
-            var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalle, usuario);
-            if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+            var ValidarPromociones = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatoValorBool(
+                            usuario.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.Promociones
+                            );
+            if (ValidarPromociones)
             {
-                return validarPromocion;
+                var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalle, usuario);
+                if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                {
+                    return validarPromocion;
+                }
             }
             #endregion
 
@@ -843,33 +851,41 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 pedidoDetalle.PedidoID = pedidoID;
 
                 #region Promotion
+                var ValidarPromociones = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatoValorBool(
+                            usuario.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.Promociones
+                            );
 
-                int pedidoId;
-                var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
+                if (ValidarPromociones)
+                {
+                    int pedidoId;
+                    var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
 
-                if (pedidoDetalle.StockNuevo < 0)
-                {
-                    var CantidadModificada = pedidoDetalle.StockNuevo * -1;
-                    var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, CantidadModificada, pedidoDetalle.Producto.CUV);
-                    if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                    if (pedidoDetalle.StockNuevo < 0)
                     {
-                        return validarPromocion;
-                    }
-                }
-                else
-                {
-                    var pedidoDetalleClone = new BEPedidoDetalle()
-                    {
-                        Producto = new BEProducto()
+                        var CantidadModificada = pedidoDetalle.StockNuevo * -1;
+                        var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, CantidadModificada, pedidoDetalle.Producto.CUV);
+                        if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
                         {
-                            CUV = pedidoDetalle.Producto.CUV
-                        },
-                        Cantidad = pedidoDetalle.StockNuevo
-                    };
-                    var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalleClone, usuario, true);
-                    if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                            return validarPromocion;
+                        }
+                    }
+                    else
                     {
-                        return validarPromocion;
+                        var pedidoDetalleClone = new BEPedidoDetalle()
+                        {
+                            Producto = new BEProducto()
+                            {
+                                CUV = pedidoDetalle.Producto.CUV
+                            },
+                            Cantidad = pedidoDetalle.StockNuevo
+                        };
+                        var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalleClone, usuario, true);
+                        if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                        {
+                            return validarPromocion;
+                        }
                     }
                 }
                 #endregion
@@ -1201,12 +1217,22 @@ namespace Portal.Consultoras.BizLogic.Pedido
             usuario.PaisID = pedidoDetalle.PaisID;
 
             #region Promotion
-            int pedidoId;
-            var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
-            var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV);
-            if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+
+            var ValidarPromociones = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatoValorBool(
+                            usuario.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.Promociones
+                            );
+
+            if (ValidarPromociones)
             {
-                return validarPromocion;
+                int pedidoId;
+                var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
+                var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV);
+                if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                {
+                    return validarPromocion;
+                }
             }
             #endregion
 
