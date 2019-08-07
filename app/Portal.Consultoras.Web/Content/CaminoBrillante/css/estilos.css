@@ -1094,7 +1094,7 @@ div.opOrdenar {
 }
 
 .box-camb .text-bold, .box-incremento .text-bold {
-    font-size: 17px;
+    font-size: 18px;
 }
 
 .box-incremento .text-bold {
@@ -2773,7 +2773,7 @@ div .ficha__producto__precio__normal {
     margin: 6px auto;
     text-align: center;
     font-weight: bold;
-    font-size: 19px;
+    font-size: 24px;
     color: black;
 }
 
@@ -2787,7 +2787,7 @@ div .ficha__producto__precio__normal {
 
 .frase-logros {
     font-style: italic;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 .bar-logros {
@@ -3628,12 +3628,6 @@ div .ficha__producto__precio__normal {
         padding: 0;
     }
 
-    .cambio-crec .itm {
-        width: 18.5%;
-        margin: 0 3%;
-        margin-bottom: 15px;
-        height: 60px;
-    }
 
     .logreg > .text-bold {
         text-align: left;
@@ -3668,8 +3662,13 @@ div .ficha__producto__precio__normal {
     .bigitem .bord:before {
         display: none;
     }
-
-    .right-m .itm {
+    .cambio-crec .itm, .mo-2 .slick-slide .itm {
+        width: 18.5%;
+        margin: 0 3%;
+        margin-bottom: 15px;
+        height: 60px;
+    }
+    .right-m .itm, .slick-slide .right-m .itm {
         width: 25%;
         margin: 0 4%;
         margin-bottom: 15px;
@@ -3707,12 +3706,18 @@ div .ficha__producto__precio__normal {
     .mo-3 {
         margin-bottom:25px;
     }
-        .mo-3:after {
-            content:"";
-            display:block;
-            clear:both;
-        }
-
+    .mo-3:after {
+        content:"";
+        display:block;
+        clear:both;
+    }
+    .frase-logros {
+        font-size: 18px;
+    }
+    .cent-mant .pad-rec {
+        padding-left: 19px;
+    }
+    
 }
 
 
@@ -3781,9 +3786,6 @@ div .ficha__producto__precio__normal {
         width: 96%;
         margin: 0 0;
     }
-
-
-
     .cam-exito a {
         font-size: 13px
     }
@@ -4099,7 +4101,7 @@ div .ficha__producto__precio__normal {
         font-size: 16px;
     }
 }
-@media screen and (max-width:380px) {
+@media screen and (max-width:420px) {
     .box-right-ganancias strong {
         display: block;
         height: 100%;
@@ -4109,18 +4111,18 @@ div .ficha__producto__precio__normal {
         position: absolute;
         z-index: 1;
     }
-        .box-right-ganancias strong i {
-            background: url(/Content/CaminoBrillante/imgs/1.png) no-repeat center center;
-            display: block;
-            background-size: cover;
-            width: 160px;
-            height: 160px;
-            position: absolute;
-            top: 24%;
-            left: 24%;
-            animation: sprite 0.4s alternate infinite ease-in;
-            -webkit-animation: sprite 0.4s alternate infinite ease-in;
-        }
+    .box-right-ganancias strong i {
+        background: url(/Content/CaminoBrillante/imgs/1.png) no-repeat center center;
+        display: block;
+        background-size: cover;
+        width: 160px;
+        height: 160px;
+        position: absolute;
+        top: 24%;
+        left: 24%;
+        animation: sprite 0.4s alternate infinite ease-in;
+        -webkit-animation: sprite 0.4s alternate infinite ease-in;
+    }
     #Modalunbord .slick-next {
         display: none;
     }

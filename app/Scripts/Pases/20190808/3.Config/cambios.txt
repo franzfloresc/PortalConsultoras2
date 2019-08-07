@@ -57,7 +57,7 @@
 
 4.- BUSCADOR.SEARCH
  Archivo config.js:	
-	Agregar al key constantes.Personalizaciones => "LMG"
+	Agregar al key constantes.Personalizacion => "LMG"
 
 5.- BUSCADOR.SYNC
  Archivo appsettings.json:
