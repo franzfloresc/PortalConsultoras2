@@ -1,5 +1,6 @@
-﻿USE [BelcorpBolivia];
+﻿USE BelcorpPeru
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -49,14 +50,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpChile];
+
+USE BelcorpMexico
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -106,14 +115,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpColombia];
+
+USE BelcorpColombia
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -163,14 +180,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpCostaRica];
+
+USE BelcorpSalvador
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -220,14 +245,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpDominicana];
+
+USE BelcorpPuertoRico
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -277,14 +310,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpEcuador];
+
+USE BelcorpPanama
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -334,14 +375,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpGuatemala];
+
+USE BelcorpGuatemala
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -391,14 +440,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpMexico];
+
+USE BelcorpEcuador
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -448,14 +505,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpPanama];
+
+USE BelcorpDominicana
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -505,14 +570,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpPeru];
+
+USE BelcorpCostaRica
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -562,14 +635,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpPuertoRico];
+
+USE BelcorpChile
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -619,14 +700,22 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
-USE [BelcorpSalvador];
+
+USE BelcorpBolivia
 GO
+
 ALTER PROCEDURE dbo.GetUsuario
 	@CodigoUsuario varchar(20)
 AS
@@ -676,9 +765,16 @@ select
 	c.DigitoVerificador
 	,@flgCheckSMS as  FlgCheckSMS --HD-3897
 	,@flgCheckEMAIL as  FlgCheckEMAIL --HD-3897
+	,C.AnoCampanaIngreso AnoCampanaIngreso
+	,ISNULL(c.indicadorConsultoraOficina,0) IndicadorConsultoraOficina
+	,ISNULL(s.descripcion,'') as Segmento
+	,c.FechaIngreso FechaIngreso
 from dbo.Usuario U
 LEFT JOIN ods.Consultora C on U.CodigoConsultora= C.Codigo
-LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID
+LEFT JOIN dbo.ConsultoraAceptaData CAD on CAD.ConsultoraID = C.ConsultoraID 
+LEFT JOIN ods.segmento  s with(nolock) ON C.segmentoid = s.segmentoid
 where U.CodigoUsuario = @CodigoUsuario;
 END
+
 GO
+
