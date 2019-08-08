@@ -1,6 +1,4 @@
-﻿@using Portal.Consultoras.Common
-
-@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
+﻿@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
@@ -20,8 +18,8 @@
              data-item=""
              data-tag-html="@Model.Campania"
              data-OrigenPedidoWeb="@Model.OrigenUrl"
-             data-OrigenPedidoWebAgregar="@Model.OrigenAgregar"
-             data-OrigenPedidoEditar="@Model.CodigoUbigeoPortal">
+             data-OrigenPedidoWebAgregar=""
+             data-OrigenPedidoEditar="">
             <div style="display:none;">
                 <hidden id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></hidden>
             </div>
@@ -29,7 +27,7 @@
             <article class="col-12 col-md-7 ficha_detalle tag_nuevo">
                 <div class="ficha_detalle_cuerpo">
                     <div id="estrategia" class="row contenedor_nombre_precio"></div>
-                    <div id="componentes" class="producto_componentes" data-codigovariante="@Model.CodigoVariante"></div>
+                    <div id="componentes" class="producto_componentes" data-codigovariante=""></div>
                 </div>
                 <div class="fixme_button"></div>
                 <div id="dvContenedorAgregar" class="contenedor_agregar contenedor_fixed"></div>
