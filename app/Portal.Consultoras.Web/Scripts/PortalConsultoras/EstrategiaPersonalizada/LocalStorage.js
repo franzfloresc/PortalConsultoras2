@@ -261,7 +261,7 @@
                 if (updated) localStorage.setItem(nombreKeyLocalStorage, JSON.stringify(data));
 
                 if (!updated && codigoPalanaca == _tipoEstrategia.OfertasParaMi) {
-                    ActualizarCheckAgregado(estrategiaId, campania, "MG", valor);
+                    ActualizarCheckAgregado(estrategiaId, campania, _tipoEstrategia.MasGanadoras, valor);
                 }
             }
 
@@ -349,15 +349,15 @@ function GetProductoStorage(cuv, campania, nombreKey) {
 }
 
 function ActualizarLocalStoragePalancas(cuv, valor) {
-    ActualizarLocalStorageAgregado("RD", cuv, valor);
-    ActualizarLocalStorageAgregado("GND", cuv, valor);
-    ActualizarLocalStorageAgregado("HV", cuv, valor);
-    ActualizarLocalStorageAgregado("LAN", cuv, valor);
-    ActualizarLocalStorageAgregado("MG", cuv, valor);
-    ActualizarLocalStorageAgregado("PN", cuv, valor);
-    ActualizarLocalStorageAgregado("DP", cuv, valor);
-    ActualizarLocalStorageAgregado("CBD", cuv, valor);
-    ActualizarLocalStorageAgregado("CBK", cuv, valor);
+    ActualizarLocalStorageAgregado(ConstantesModule.CodigoPalanca.RD, cuv, valor);
+    ActualizarLocalStorageAgregado(ConstantesModule.CodigoPalanca.GND, cuv, valor);
+    ActualizarLocalStorageAgregado(ConstantesModule.CodigoPalanca.HV, cuv, valor);
+    ActualizarLocalStorageAgregado(ConstantesModule.CodigoPalanca.LAN, cuv, valor);
+    ActualizarLocalStorageAgregado(ConstantesModule.CodigoPalanca.MG, cuv, valor);
+    ActualizarLocalStorageAgregado(ConstantesModule.CodigoPalanca.PN, cuv, valor);
+    ActualizarLocalStorageAgregado(ConstantesModule.CodigoPalanca.DP, cuv, valor);
+    ActualizarLocalStorageAgregado(ConstantesModule.CodigoPalanca.CBD, cuv, valor);
+    ActualizarLocalStorageAgregado(ConstantesModule.CodigoPalanca.CBK, cuv, valor);
 }
 
 function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
