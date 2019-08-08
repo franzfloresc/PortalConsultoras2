@@ -30,7 +30,7 @@ INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion],[Pregunta
 INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion],[PreguntaDescripcion], [CreatedBy],[TipoCalificacion],[CssClass],[Imagen]) VALUES (3, 1,'Regular','¿A qué se debe tu calificación?', N'EINCA',1,'regular','regular.svg');
 INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion],[PreguntaDescripcion], [CreatedBy],[TipoCalificacion],[CssClass],[Imagen]) VALUES (4, 1,'Bueno','¿Qué debemos mejorar?', N'EINCA',1,'bueno','bueno.svg');
 INSERT [dbo].[EncuestaCalificacion] ([Id], [EncuestaId], [Descripcion],[PreguntaDescripcion], [CreatedBy],[TipoCalificacion],[CssClass],[Imagen]) VALUES (5, 1,'Excelente','¿Qué debemos mejorar?', N'EINCA',2,'excelente','excelente.svg');
-ET IDENTITY_INSERT [dbo].[EncuestaCalificacion] OFF
+SET IDENTITY_INSERT [dbo].[EncuestaCalificacion] OFF
 GO
 
 	
