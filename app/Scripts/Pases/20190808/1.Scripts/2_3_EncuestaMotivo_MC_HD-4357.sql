@@ -39,6 +39,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 
 GO
 
@@ -83,7 +84,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 
 USE BelcorpColombia
@@ -127,7 +128,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 
 USE BelcorpSalvador
@@ -171,7 +172,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 
 USE BelcorpPuertoRico
@@ -215,7 +216,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 
 USE BelcorpPanama
@@ -259,7 +260,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 
 USE BelcorpGuatemala
@@ -303,7 +304,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 
 USE BelcorpEcuador
@@ -347,7 +348,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 
 USE BelcorpDominicana
@@ -391,7 +392,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 
 USE BelcorpCostaRica
@@ -435,7 +436,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 
 USE BelcorpChile
@@ -479,7 +480,7 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 
 USE BelcorpBolivia
@@ -523,6 +524,6 @@ INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotiv
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (32, 4,3,'Sin motivo', N'EINCA');
 
 INSERT [dbo].[EncuestaMotivo] ([Id], [EncuestaCalificacionId],[TipoEncuestaMotivoId], [Descripcion], [CreatedBy]) VALUES (33, 5,3,'Sin motivo', N'EINCA');
-
+SET IDENTITY_INSERT [dbo].[EncuestaMotivo] OFF 
 GO
 

@@ -50,7 +50,6 @@ var AnalyticsPortalModule = (function () {
         SR: "SR",
         ODD: "ODD",
         GND: "GND",
-        //MG: "MG",
         Ficha: "FICHA",
         DP: "DP"
     };
@@ -189,7 +188,7 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "11", "CodigoPalanca": "", "TextoList": "Catalogo Lbel" },
             { "Codigo": "12", "CodigoPalanca": "", "TextoList": "Catalogo Esika" },
             { "Codigo": "13", "CodigoPalanca": "", "TextoList": "Catalogo Cyzone" },
-            { "Codigo": "14", "CodigoPalanca": "MG", "TextoList": "Más Ganadoras" },
+            { "Codigo": "14", "CodigoPalanca": "LMG", "TextoList": "Más Ganadoras" },
             { "Codigo": "15", "CodigoPalanca": "ATP", "TextoList": "Arma Tu Pack" },
             { "Codigo": "16", "CodigoPalanca": "DP", "TextoList": "Dúo Perfecto" },
             { "Codigo": "17", "CodigoPalanca": "PN", "TextoList": "Pack de Nuevas" },
