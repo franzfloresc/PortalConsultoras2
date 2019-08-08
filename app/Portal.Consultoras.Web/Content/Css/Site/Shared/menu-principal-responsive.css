@@ -262,6 +262,13 @@
     text-align:center;
 }
 
+.tag__sb--nuevoEnlaceMenu{
+    font-size:12px;
+    margin-left:8px;
+    margin-bottom:0;
+    text-decoration:none;
+}
+
 @media screen and (min-width:1272px) and (max-width:1286px){
 
     .menu__item[data-title="SOCIA EMPRESARIA"] ~ .menu__item, 

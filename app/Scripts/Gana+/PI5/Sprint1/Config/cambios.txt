@@ -1,0 +1,5 @@
+﻿1. Portal.Consultoras.ServiceHost
+
+	Agregar:
+	
+	<add key="RutaServicePROLApi" value="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/BelcorpSupport/api/"/>

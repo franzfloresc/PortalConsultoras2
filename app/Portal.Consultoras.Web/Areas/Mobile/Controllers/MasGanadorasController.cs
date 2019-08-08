@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 var sessionMg = SessionManager.MasGanadoras.GetModel();
-                if (sessionMg.TieneLanding && revistaDigital.EsActiva)
+                if (sessionMg.TieneLanding)
                     return MasGanadorasViewLanding();
             }
             catch (Exception ex)

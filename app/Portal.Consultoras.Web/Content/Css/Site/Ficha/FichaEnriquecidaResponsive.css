@@ -181,6 +181,11 @@
     font-size: 13px;
 }
 
+.precio_para_ti{
+    font-size: 13px;
+    margin-top: 16px;
+}
+
 .descripcion_enriquecida .precio_valorizado {
     padding-top: 3px;
 }

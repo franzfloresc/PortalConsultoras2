@@ -81,6 +81,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string CodigoPalanca { get; set; }
         public int CampaniaID { get; set; }
+        public bool EsPromocion { get; set; }
 
         public object Clone()
         {

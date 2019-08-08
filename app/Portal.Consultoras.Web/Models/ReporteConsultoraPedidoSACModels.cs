@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
-    public class ReporteConsultoraPedidoSACModels
+    public class ReporteConsultoraPedidoSacModels
     {
-        public ReporteConsultoraPedidoSACModels()
+        public ReporteConsultoraPedidoSacModels()
         {
             listaPaises = new List<PaisModel>();
         }

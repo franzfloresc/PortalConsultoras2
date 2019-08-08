@@ -75,12 +75,15 @@ namespace Portal.Consultoras.Web.Providers
             bool mobile,
             bool home,
             bool recomendaciones,
-            bool suscrita)
+            bool suscrita,
+            bool flagLaMasGanadoras = false,
+            bool flagPromocion = false,
+            string CodigoTipoOfertaPremio = "")
         {
             if (productos == null || !productos.Any()) return new List<Productos>();
 
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
-           
+
 
             foreach (var item in productos)
             {
@@ -91,18 +94,38 @@ namespace Portal.Consultoras.Web.Providers
                     labelAgregado = "Agregado";
                 }
 
+                if (!flagLaMasGanadoras)
+                    item.CodigoTipoEstrategia = CambioPalancaMg(item, revistaDigital);
+
                 item.CampaniaID = userData.CampaniaID;
                 item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
-                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, mobile, home, recomendaciones, item.MaterialGanancia,suscrita);
+                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, mobile, home, recomendaciones, item.MaterialGanancia, suscrita);
                 item.Agregado = labelAgregado;
                 item.Stock = !item.Stock;
                 item.DescripcionCompleta = item.Descripcion;
                 item.SimboloMoneda = userData.Simbolo;
+
+                if (flagPromocion && item.CodigoTipoOferta != "")
+                {
+                    item.TienePremio = CodigoTipoOfertaPremio.Contains(item.CodigoTipoOferta);
+                }
             }
 
             return productos;
+        }
+
+        private string CambioPalancaMg(Productos item, RevistaDigitalModel revistaDigital)
+        {
+            var masGanadoras = _sessionManager.MasGanadoras.GetModel();
+            return item.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                    && item.MaterialGanancia
+                    && masGanadoras.TieneMG
+                    && revistaDigital.TieneRDC
+                    && revistaDigital.EsActiva
+                    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
+                    : item.CodigoTipoEstrategia;
         }
 
         private async Task<string> GetPersonalizacion(UsuarioModel usuario, int indicadorConsultoraDummy)
@@ -141,7 +164,7 @@ namespace Portal.Consultoras.Web.Providers
             var configBuscador = _sessionManager.GetBuscadorYFiltrosConfig();
             if (validarIndicadorConsultoraDummy)
             {
-                if (configBuscador == null || 
+                if (configBuscador == null ||
                     configBuscador.IndicadorConsultoraDummy == 0 ||
                     configBuscador.PersonalizacionDummy != null) return result;
                 

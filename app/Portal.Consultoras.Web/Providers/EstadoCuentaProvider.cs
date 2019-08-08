@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -114,5 +115,23 @@ namespace Portal.Consultoras.Web.Providers
             return lst;
         }
 
+        public async Task<BEFechaFacturacion> GetFechasFacturacionConsultora(UsuarioModel userData) {
+            BEFechaFacturacion objBEFechaFacturacion = new BEFechaFacturacion();
+
+            try
+            {
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    objBEFechaFacturacion = sv.GetFechasFacturacionConsultora(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
+                }
+
+            }
+            catch (Exception ex)
+            {                
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return objBEFechaFacturacion;
+        }
     }
 }

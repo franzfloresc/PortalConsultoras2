@@ -246,7 +246,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Pedido/PedidoInfo.css",
                "~/Content/Css/Site/Pedido/EditarProductoFicha.css",
                "~/Content/Css/Site/Notificacion.css",
-               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
+               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css",
+               "~/Content/Css/Site/Shared/Buscador/BuscadorCarrusel.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -280,7 +281,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/buscador-filtros.css",
                "~/Content/Css/Site/Pedido/PedidoInfo.css",
                "~/Content/Css/Site/Pedido/EditarProductoFicha.css",
-               "~/Content/Css/Site/Notificacion.css"
+               "~/Content/Css/Site/Notificacion.css",
+               "~/Content/Css/Site/Shared/Buscador/BuscadorCarrusel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Lbel-Contenedor").Include(
@@ -404,7 +406,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/jquery.rateyo.js",
                 "~/Scripts/jquery.easy-pie-chart.js",
-                "~/Scripts/jquery.custom-scrollbar.js"
+                "~/Scripts/jquery.custom-scrollbar.js",
+                "~/Scripts/PortalConsultoras/EncuestaSatisfaccion/Index.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-CssPedido").Include(
@@ -468,6 +471,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js",
+                "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
@@ -485,7 +489,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
                 "~/Scripts/jquery.rateyo.js",
-                "~/Scripts/jquery.custom-scrollbar.js"
+                "~/Scripts/jquery.custom-scrollbar.js",
+                "~/Scripts/PortalConsultoras/EncuestaSatisfaccion/Index.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/CcsBienvenida").Include(
@@ -1083,7 +1088,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/footer-responsive.css",
                 "~/Content/Css/Site/Menu/MenuContenedorResponsive.css",
                 "~/Content/Css/Site/slick.css",
-                "~/Content/Css/Site/Ficha/PopoverTooltip.css"
+                "~/Content/Css/Site/Ficha/PopoverTooltip.css",
+                "~/Content/Css/Site/Shared/Buscador/BuscadorCarrusel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
@@ -1136,6 +1142,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
                 "~/Scripts/General.js",
                 "~/Scripts/owl.carousel.js",
+                "~/Scripts/chartjs.js",
                 "~/Scripts/PortalConsultoras/CaminoBrillante/index.js",
                 "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"
                 ));
@@ -1219,6 +1226,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/Ficha").Include(
                 "~/Content/Css/Site/styleBase.css",
+                "~/Content/Css/Site/Ficha/FichaResponsiveCarrusel.css",
                 "~/Content/Css/Site/Ficha/FichaResponsive.css",
                 "~/Content/Css/Site/Notificacion.css",
                 "~/Content/Css/Site/Ficha/SeleccionarTipoResponsive.css",

@@ -245,11 +245,25 @@ function SeccionCargarProductos(objConsulta) {
                         console.error(data);
                     }
                 }
+            } else {
+                if (objConsulta.Codigo == CONS_CODIGO_SECCION.ATP) {
+                    MostrarBannerAtp();
+                }
             }
         },
         error: function (error, x) {
         }
     });
+}
+
+function MostrarBannerAtp() {
+    var htmlSeccion = $("[data-seccion=" + CONS_CODIGO_SECCION.ATP + "]");
+    htmlSeccion.find('.atp_main').hide();
+    htmlSeccion.find(".seccion-loading-contenedor").fadeOut();
+    var imageUrl = "../Content/Images/arma_tu_pack/banner-arma-tu-pack-error.jpg";
+    htmlSeccion.find(".container-flex.atp_container").css("background", "url(" + imageUrl + ")");
+    htmlSeccion.find('.atp_alerta').fadeIn();
+    $('#' + CONS_CODIGO_SECCION.ATP).find('.seccion-content-contenedor').fadeIn();
 }
 
 function GetTipoEstrategiaHabilitado(tipoEstrategia) {
@@ -444,6 +458,7 @@ function SeccionMostrarProductos(data) {
     }
     CarruselCiclico = data.Seccion.TipoPresentacion != CONS_TIPO_PRESENTACION.carruselIndividualesv2;
 
+    CarruselCiclico = data.Seccion.TipoPresentacion != CONS_TIPO_PRESENTACION.carruselIndividualesv2;
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {
         RenderCarruselSimple(htmlSeccion, data, CarruselCiclico);
     }
