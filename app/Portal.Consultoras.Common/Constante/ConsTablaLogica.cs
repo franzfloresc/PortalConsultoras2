@@ -21,6 +21,9 @@ namespace Portal.Consultoras.Common
             public const string MisClientes = "MisClientes";
             public const string FichaEnriquecida = "FichaEnriquecida";
             public const string FichaResponsive = "FichaResponsive";
+            public const string PalancaLasMasGanadoras = "LasMasGanadoras";
+            public const string Promociones = "Promociones";
+            public const string PromocionesBuscador = "PromocionesBuscador";
         }
 
         public static class MotivoFlexipago
@@ -553,6 +556,12 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 151;
         }
+        
+        public static class CierreSession
+        {
+            public const int TablaLogicaId = 153;
+            public const short CierreSessionValidado = 15301;
+        }
 
         public static class PilotoCatalogoDigital
         {
@@ -613,6 +622,12 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteFiltro = 174;
             public const short CaminoBrillanteOrden = 175;
             public const short CaminoBrillanteConfigurar = 176;
+            //public const short CaminoBrillanteGranBrillante = 178;
+        }
+
+        public static class MsjPopupBloqueadas
+        {
+            public const int TablaLogicaId = 230;
         }
 
         public static class AdministradorHistoria
@@ -641,5 +656,11 @@ namespace Portal.Consultoras.Common
             public const short Id = 232;
         }
 
+        //HD-4357
+        public static class EncuestaSatisfaccion
+        {
+            public const short TablaLogicaId = 235;
+            public const short MisPedidosTop = 23501;
+        }
     }
 }

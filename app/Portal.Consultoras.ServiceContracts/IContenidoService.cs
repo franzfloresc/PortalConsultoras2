@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Comunicado;
+using Portal.Consultoras.Entities.Encuesta;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -340,6 +341,13 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         [OperationContract]
+        List<BEDataConfigEncuesta> GetEncuestaHome(int paisId, string codigoConsultora, int verificarEncuestado);
+        
+        [OperationContract]
         string GetTvoUrl(BEUsuario user);
+
+        [OperationContract]
+        int InsEncuesta(BEEncuestaCalificacion entity, int paisId);
+
     }
 }

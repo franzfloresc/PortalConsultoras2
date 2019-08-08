@@ -199,6 +199,7 @@
       <xs:element minOccurs="0" name="TipoDocumentoLegal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoMeta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoNacionalidad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoPago" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoPersona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazoId" nillable="true" type="xs:string" />
@@ -412,8 +413,10 @@
       <xs:element minOccurs="0" name="TelefonoFijo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoPago" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoSolicitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoValidacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ValidacionTelefonica" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="VieneDe" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaGZ" nillable="true" type="xs:string" />

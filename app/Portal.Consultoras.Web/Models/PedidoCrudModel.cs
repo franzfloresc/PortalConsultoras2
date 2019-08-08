@@ -57,5 +57,9 @@
 
         public bool EsSuscripcionSE { get; set; }
 
+        public string PedidoWebPromociones { get; set; }
+
+        public bool EsPromocion { get; set; }
+
     }
 }

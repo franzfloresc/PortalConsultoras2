@@ -1,0 +1,180 @@
+﻿USE BelcorpPeru
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpMexico
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpColombia
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpSalvador
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpPuertoRico
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpPanama
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpGuatemala
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpEcuador
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpDominicana
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpCostaRica
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpChile
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+
+USE BelcorpBolivia
+GO
+
+IF(NOT EXISTS(SELECT * FROM MenuApp WHERE VERSIONMENU=9 AND Codigo='MEN_LAT_INFO_CAMP' AND CodigoMenuPadre='MEN_LAT_GRUPO1'))
+BEGIN
+	INSERT MenuApp (Codigo,Descripcion,Orden,CodigoMenuPadre,Posicion,Visible,VersionMenu,VigenciaNueva)
+	VALUES('MEN_LAT_INFO_CAMP','FECHAS DE CAMPAÑA',9,'MEN_LAT_GRUPO1',4,0,9,'2019-09-15')
+
+	UPDATE MenuApp 
+	SET ORDEN=10
+	WHERE CODIGO='MEN_LAT_TUVOZ' AND CodigoMenuPadre='MEN_LAT_GRUPO1'
+END
+
+GO
+

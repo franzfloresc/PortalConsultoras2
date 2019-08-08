@@ -29,6 +29,7 @@ var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
     ValidarKitNuevas();
+
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
@@ -60,6 +61,8 @@ $(document).ready(function () {
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
+
+
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -481,6 +484,8 @@ $(document).ready(function () {
     }
 
 
+
+
     $("#observaciones_alerta").dialog({
         modal: true,
         draggable: false,
@@ -525,7 +530,7 @@ function PreValidarProl() {
         $("#accionIgnorar").show();
         $("#PopupPedidosPendientes").fadeIn(250);
         return false;
-    } else 
+    } else
         IniciarValidarProl();
 }
 
@@ -541,6 +546,7 @@ function IniciarValidarProl() {//Nombre de método enlazado al _PopupPedidosPend
         else EjecutarPROL();
     });
 }
+
 
 function CargarDetallePedido(page, rows, asyncrono) {
     $(".pMontoCliente").css("display", "none");
@@ -1485,6 +1491,7 @@ function ObservacionesProducto(item) {
     $("#OfertaTipoNuevo").val("");
     $("#hdEsDuoPerfecto").val(item.EsDuoPerfecto);
     $("#hdTipoEstrategiaCodigo").val(item.CodigoEstrategia);
+    $("#hdEsPromocion").val(item.EsPromocion);
 
     $("#txtCantidad").removeAttr("disabled");
     if (item.FlagNueva == 1) {
@@ -1671,7 +1678,6 @@ function CerrarProductoAgregado() {
 }
 
 function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, esElecMultipleNuevas) {
-
 
     ValidDeleteElectivoNuevas(
         cuv,
@@ -1925,10 +1931,9 @@ function EjecutarServicioPROL() {
             if (!checkTimeout(response)) return;
             if (!response.success) {
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
-                return false;
+                return;
             }
 
-            //abre el mensaje de la olla
             if (response.mensajeCondicional) {
                 AbrirMensajeImagen(response.mensajeCondicional);
             }
@@ -1938,6 +1943,7 @@ function EjecutarServicioPROL() {
             AnalyticsPortalModule.MarcarGuardaTuPedido();
 
             if (RespuestaEjecutarServicioPROL(response.data)) return;
+
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
         })
         .fail(function (data, error) {
@@ -1974,6 +1980,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(data, inicio) {
+
     if (data.ErrorProl) {
         MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
         return true;
@@ -1990,6 +1997,7 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
     }
     else {
         mensajeBloqueante = false;
+
         if (data.ObservacionRestrictiva) {
             CrearPopupObservaciones(data, inicio);
         }
@@ -1997,6 +2005,7 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
             $('#divMensajeObservacionesPROL').data('prop-NotExito', data.ObservacionRestrictiva);
             data.MostrarMensajeExito = true;
         }
+
     }
 
     AlmacenarRespuestaReservaEnHidden(data);
@@ -2669,12 +2678,12 @@ function CargarProductoAgotados(identificador) {
         CargarFiltrosProductoAgotados();
 
     var data =
-    {
-        cuv: $("#producto-faltante-busqueda-cuv").val(),
-        descripcion: $("#producto-faltante-busqueda-descripcion").val(),
-        categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
-        revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
-    };
+        {
+            cuv: $("#producto-faltante-busqueda-cuv").val(),
+            descripcion: $("#producto-faltante-busqueda-descripcion").val(),
+            categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
+            revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
+        };
 
     AbrirSplash();
     jQuery.ajax({
@@ -2927,11 +2936,16 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 }
 
 function closeDialogObservacionesProl() {
+
     var notExitoFromProl = $('#divMensajeObservacionesPROL').data('prop-NotExito');
+
     if (!notExitoFromProl)
         if (!(typeof AnalyticsPortalModule === 'undefined'))
             AnalyticsPortalModule.MarcaGuardarPedidoExito(arrayProductosGuardadoExito);
+
+
     HideDialog("divObservacionesPROL");
+
 }
 
 function ArmarPopupObsReserva(titulo, mensaje) {
@@ -2963,13 +2977,13 @@ function InsertarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, es
     var _cuvprecio = esAceptado == true ? precio : DecimalToStringFormat($("#txtPrecioR").val());
     waitingDialog({});
     var model =
-    {
-        CUV: cuvbuscado,
-        CUVSugerido: cuvSugerido,
-        PrecioUnidad: _cuvprecio,
-        Cantidad: cantidad,
-        CuvEsAceptado: esAceptado
-    };
+        {
+            CUV: cuvbuscado,
+            CUVSugerido: cuvSugerido,
+            PrecioUnidad: _cuvprecio,
+            Cantidad: cantidad,
+            CuvEsAceptado: esAceptado
+        };
 
     jQuery.ajax({
         type: "POST",

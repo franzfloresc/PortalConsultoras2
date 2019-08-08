@@ -151,7 +151,7 @@
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
         var ocultarGrupoEstrategia = codigo != _codigoTipoEstrategia.ArmaTuPack;
-        console.log('ocultarGrupoEstrategia', ocultarGrupoEstrategia);
+
         var parametros = {
             estrategiaId: estrategiaId,
             codigoTipoEstrategia: codigo
@@ -328,8 +328,7 @@
             $("#hdImagenDetalleAnterior").val("");
             $("#imgProductoDetalle").attr("src", admConfig.Config.imagenProductoVacio);
         }
-
-        /*INI ATP*/
+        
         //Descriptivos por default
         var newTitulo = "Registro / Edición de Productoss";
         var newLabel0 = "Descripcion1:";
@@ -337,7 +336,6 @@
         var newLabel2 = '¿Activar Oferta?:';
 
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ArmaTuPack) {
-            //Descriptivo para Grupos ATP
             newTitulo = "Edición de grupos";
             newLabel0 = "Nombre de Grupos:";
             newLabel1 = ' ';
@@ -351,9 +349,7 @@
         $('#spDescripcion1').html(newLabel0);
         $('#spMarcaProducto').html(newLabel1);
         $('#spActivarOferta').html(newLabel2);
-
-        /*INI ATP*/
-
+        
         showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
     }
 

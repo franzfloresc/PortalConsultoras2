@@ -143,7 +143,8 @@ var AnalyticsPortalModule = (function () {
         IdBannerGanadorasVerMas: "000123",
         IdBannerArmaTuPack: "000124",
         // Fin - Analytics Ofertas
-        IdBennerDuoPerfecto: "347301"
+        IdBennerDuoPerfecto: "347301",
+        IdBannerPromocionBuscador: "23456"
     };
 
     var _origenPedidoWebEstructura = {
@@ -215,8 +216,14 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "18", "TextoList": "Carrusel CrossSelling" },
             { "Codigo": "19", "TextoList": "Ficha CrossSelling" },
             { "Codigo": "20", "TextoList": "Carrusel Sugeridos" },
-            { "Codigo": "21", "TextoList": "Ficha Sugeridos" }
+            { "Codigo": "21", "TextoList": "Ficha Sugeridos" },
+            { "Codigo": "22", "TextoList": "Promocion Condicional" },
+            { "Codigo": "23", "TextoList": "Promocion Producto", "TextoListOpcional": "Ficha - promoción"}
         ]
+    }
+
+    var _OrigenPedidoSeccion = {
+        PromocionProducto: "23"
     }
 
     var _urlPaginas = [
@@ -436,6 +443,17 @@ var AnalyticsPortalModule = (function () {
         texto += (texto != "" ? (pagina != "" ? separador : "") : "") + pagina;
         texto += (texto != "" ? (palanca != "" ? separador : "") : "") + palanca;
         texto += (texto != "" ? (seccion != "" ? separador : "") : "") + seccion;
+
+        //Promociones
+        if (origenEstructura.Seccion) {
+            if (origenEstructura.Seccion === _OrigenPedidoSeccion.PromocionProducto) {
+                var obj = _origenPedidoWebEstructura.Seccion.find(function (element) {
+                    return element.Codigo == origenEstructura.Seccion;
+                });
+
+                texto = obj.TextoListOpcional;
+            }
+        }
 
         return texto;
     }
@@ -1221,6 +1239,27 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    var marcaPromotionViewBuscador = function (position, name) {
+        try {
+            dataLayer.push({
+                'event': _evento.promotionView,
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': _constantes.IdBannerPromocionBuscador,
+                                'name': name,
+                                'position': 'Buscador - ' + position,
+                                'creative': 'Banner Promoción'
+                            }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Evento Promotion View
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -1297,6 +1336,27 @@ var AnalyticsPortalModule = (function () {
 
         } catch (e) {
             document.location = url;
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    var marcaPromotionClickBuscador = function (position, name) {
+        try {
+            dataLayer.push({
+                'event': _evento.promotionClick,
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': _constantes.IdBannerPromocionBuscador,
+                                'name': name,
+                                'position': 'Buscador - ' + position,
+                                'creative': 'Banner Promoción'
+                            }]
+                    }
+                }
+            });
+        } catch (e) {
             console.log(_texto.excepcion + e);
         }
     }
@@ -1402,6 +1462,21 @@ var AnalyticsPortalModule = (function () {
             else if (modelo.TipoShowPanelTono == modelo.Const.TipoShowMedioPanel.Cambio) {
                 modeloMarcar.action = 'Panel Tono - Cambiar opción';
             }
+
+            return marcarVirtualEvent(modeloMarcar);
+        } catch (e) {
+            console.log('virtual Event Ficha - ' + _texto.excepcion, e);
+        }
+        return false;
+    };
+
+    var virtualEventFichaClickSeccionPromocion = function (modelo) {
+        try {
+            var modeloMarcar = {
+                category: _texto.fichaProducto,
+                action: 'Click en Promoción',
+                label: modelo.label
+            };
 
             return marcarVirtualEvent(modeloMarcar);
         } catch (e) {
@@ -2750,6 +2825,7 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Virtual Event Ficha
         VirtualEventFichaAplicarSeleccionTono: virtualEventFichaAplicarSeleccionTono,
         VirtualEventFichaMostrarPanelTono: VirtualEventFichaMostrarPanelTono,
+        VirtualEventFichaClickSeccionPromocion: virtualEventFichaClickSeccionPromocion,
         // Fin - Analytics Virtual Event Ficha
 
         // Ini - Analytics Evento Product Impression
@@ -2763,6 +2839,7 @@ var AnalyticsPortalModule = (function () {
         MarcaPromotionView: marcaPromotionView,
         MarcaPromotionViewCarrusel: marcaPromotionViewCarrusel,
         MarcaPromotionViewArmaTuPack: marcaPromotionViewArmaTuPack,
+        MarcaPromotionViewBuscador: marcaPromotionViewBuscador,
         // Fin - Analytics Evento Promotion View
 
         // Ini - Metodos Iniciales
@@ -2871,6 +2948,7 @@ var AnalyticsPortalModule = (function () {
         MarcaFichaResumidaClickDetalleCliente: marcaFichaResumidaClickDetalleCliente,
         MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar,
         MarcaPromotionClickArmaTuPack: marcaPromotionClickArmaTuPack,
+        MarcaPromotionClickBuscador: marcaPromotionClickBuscador,
         MarcaEligeloClickArmaTuPack: marcaEligeloClickArmaTuPack,
         MarcaEliminaClickArmaTuPack: marcaEliminaClickArmaTuPack,
         //MarcarAddCarArmaTuPack: marcarAddCarArmaTuPack,

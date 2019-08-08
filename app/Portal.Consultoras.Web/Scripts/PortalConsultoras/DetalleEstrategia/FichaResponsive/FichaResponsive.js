@@ -33,6 +33,13 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
     fichaEnriquecidaView: fichaEnriquecidaView
 });
 
+var promocionesView = PromocionesView();
+var promocionesPresenter = PromocionesPresenter({
+    promocionesView: promocionesView,
+    analyticsPortalModule: analyticsPortal
+});
+promocionesView.setPresenter(promocionesPresenter);
+
 var estrategia = {};
 
 $(document).ready(function () {
@@ -63,8 +70,8 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
 
         estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
         componentesPresenter.onEstrategiaModelLoaded(estrategia);
-
         fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+        promocionesPresenter.onEstrategiaModelLoaded(estrategia);
     }
     catch (error) {
         GeneralModule.consoleLog(error);

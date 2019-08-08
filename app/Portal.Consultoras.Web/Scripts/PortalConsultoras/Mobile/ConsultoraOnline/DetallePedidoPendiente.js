@@ -590,7 +590,10 @@ function ContinuarPedido(option) {
 	            }
                 CloseLoading();
                 if (response.success) {
-                    document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra?option=' + option;
+                    //HD-4734
+                    if (response.result.ListaCatalogo.length == 0 || response.result.ListaGana.length == 0) AceptarPedidoPendienteDirecto(response.result.ListaGana,option);
+                    else
+                        document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra?option=' + option;
                 }
                 else {
                     alert(response.message);
@@ -617,6 +620,125 @@ function ContinuarPedido(option) {
         $('#mensajepedido').show();
         setTimeout(function () { $('#mensajepedido').hide(); }, 2000);
     }
+}
+
+function AceptarPedidoPendienteDirecto(listaGana, option) {
+
+    var accionTipo = "";
+    if (listaGana.length != 0) accionTipo = "ingrgana";
+    else accionTipo = "ingrped";
+
+    var pedido = {
+        Accion: 2,
+        Dispositivo: glbDispositivo,
+        AccionTipo: accionTipo,
+        ListaGana: accionTipo== 'ingrgana' ? listaGana : [],
+        OrigenTipoVista: gTipoVista
+    }
+
+    ShowLoading({});
+
+    $.ajax({
+        type: 'POST',
+        url: '/ConsultoraOnline/AceptarPedidoPendiente',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(pedido),
+        async: true,
+        success: function (response) {
+
+            /** Analytics **/
+            var textoAccionTipo = accionTipo === "ingrgana" ? "Acepto Todo el Pedido - Por Gana +" : "Acepto Todo el Pedido - Por catálogo";
+            if (option === "P") //Producto
+                MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 2", textoAccionTipo);
+            if (option === "C") //Cliente
+                MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 2", textoAccionTipo);
+            /** Fin Analytics **/
+
+            CloseLoading();
+            if (checkTimeout(response)) {
+                if (response.success) {
+
+                    var mensajeConfirmacion = (accionTipo == "ingrgana") ? "Has atendido el pedido por Gana+." : "Has atendido el pedido por Catálogo.";
+                    $("#mensajeConfirmacion").html(mensajeConfirmacion);
+
+                    $('#popuplink').click();
+                    if (!response.continuarExpPendientes) {
+                        $("#btnIrPEdidoAprobar").hide();
+                        $("#btnIrPedido").removeClass("action-btn_refuse");
+                        $("#btnIrPedido").addClass("action-btn_continue");
+                        $("#btnIrPedido").addClass("active");
+                    } else {
+                        $("#btnIrPEdidoAprobar").show();
+                        $("#btnIrPedido").removeClass("action-btn_continue");
+                        $("#btnIrPedido").removeClass("active");
+                        $("#btnIrPedido").addClass("action-btn_refuse");
+                    }
+
+                    /**  Si fue exitos debe enviar los siguiente eventos Analytics **/
+
+                    var lstproduct = [];
+                    var listProductos = [];
+                    var pedidoSessionJson = JSON.parse(response.PedidosSesion);
+
+                    if (response.ListaGana !== null) {
+                        listProductos = response.ListaGana || [];
+                    } else {
+                        listProductos = pedidoSessionJson[0].DetallePedido || [];
+                    }
+                    if (listProductos.length > 0) {
+                        listProductos.forEach(function (product) {
+                            var itemProduct = {};
+                            if (accionTipo == "ingrgana") {  //por Gana+
+                                itemProduct = {
+                                    "id": product.CUV2,
+                                    "name": product.DescripcionCUV2,
+                                    "price": product.PrecioString,
+                                    "brand": product.DescripcionMarca,
+                                    "category": "(not available)",
+                                    "variant": "Estándar",
+                                    "quantity": product.Cantidad
+                                };
+                            } else {        //Por Catálogo
+                                itemProduct = {
+                                    "id": product.CUV,
+                                    "name": product.Producto,
+                                    "price": product.PrecioTotal.toFixed(2),
+                                    "brand": product.Marca,
+                                    "category": "(not available)",
+                                    "variant": "Estándar",
+                                    "quantity": product.Cantidad
+                                };
+                            }
+                            lstproduct.push(itemProduct);
+
+                        });
+
+                        AnalyticsMarcacionPopupConfirmacion(accionTipo === "ingrgana" ? "Por Gana+" : "Por catálogo", lstproduct);
+                    }
+                    $("#aprobarPedido").show();
+                    return false;
+                }
+                else {
+                    if (response.code == 1) {
+                        AbrirMensaje(response.message);
+                    }
+                    else if (response.code == 2) {
+                        AbrirMensaje(response.message);
+                    }
+                }
+            }
+        },
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+                AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+            }
+        }
+    });
+
+
+
 }
 
 function RechazarTodo(option) {
@@ -656,7 +778,13 @@ function MarcaAnalyticsClienteProducto(action, label) {
 		}
 	
 }
+function AnalyticsMarcacionPopupConfirmacion(strTipo, prod) {
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickTabPedidosPendientes("Pop up Pedido Aprobado", strTipo);
 
+        AnalyticsPortalModule.ClickVistaAddToCardPedidoPendiente(strTipo, prod);
+    }
+}
 function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
     var obj = {
         pedidoId: pedidoId,

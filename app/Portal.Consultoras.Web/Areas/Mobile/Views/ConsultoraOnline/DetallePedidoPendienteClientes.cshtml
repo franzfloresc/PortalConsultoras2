@@ -259,6 +259,64 @@
 <!-- / modal -->
 <!-- / Agregado desplegado con tooltips y modals -->
 
+<!-- modal -->
+<div id="aprobarPedido" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <!-- dialog -->
+    <div class="modal-dialog" style="max-width: 100%;">
+
+        <!-- content -->
+        <div class="modal-content">
+
+            <!-- header -->
+            <div class="modal-header">
+                <div class="" style="display: flex; justify-content: flex-end; width:100%">
+
+
+                </div>
+            </div>
+            <!-- header -->
+            <!-- body -->
+            <div class="modal-body" style=" margin-top: 76px;">
+                <div class="vc-box--action" style="display: flex; justify-content: center; align-items: center; width:100%">
+                    <img src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="error">
+                </div>
+                <p class="text-center text-18 text-700 text-black" style=" width: 85%; margin: 0 auto;">¡Pedido aprobado!</p>
+                <p class="text-center text-14 text-black mt-16 mb-24" id="mensajeConfirmacion">Has atendido el pedido por Gana+.</p>
+                <!--
+                - Si elige Gana+: "Has atendido el pedido por Gana+."
+
+                - Si elige Catálogo: "Has atendido el pedido por catálogo."
+
+                - Si ya lo tiene en stock: "Recuerda atenderlo con los productos que tienes en stock."
+                -->
+                <div class="row justify-content-center ">
+                    <div class="col-10 mb-16">
+                        <div class="vc-box text-14 text-700">
+                            <a id="btnIrPEdidoAprobar" href="/Mobile/ConsultoraOnline/Pendientes" class="action-btn action-btn_continue active">Ver pedidos por aprobar</a>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-10">
+                        <div class="vc-box text-14 text-700">
+                            <a id="btnIrPedido" href="/Mobile/Pedido/Detalle" class="action-btn action-btn_refuse " >Ir a mis pedidos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- body -->
+            <!-- footer -->
+
+        </div>
+        <!-- footer -->
+
+    </div>
+    <!-- content -->
+
+</div>
+<!-- / modal -->
+<!-- /Paso 2  -->
+
 @section scripts {
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
