@@ -740,10 +740,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }));
             }
           
-         return lastResult;
-            
-           
-            
+            return lastResult;
         }
 
         private string GetObservacionesProlPorCuv(string cuv)
