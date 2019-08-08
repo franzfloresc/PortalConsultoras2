@@ -1301,6 +1301,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             _menuProvider.UrlGenerator = Url;
+
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
             var menuWeb = BuildMenu(userData, revistaDigital);
             var descLiqWeb = "";

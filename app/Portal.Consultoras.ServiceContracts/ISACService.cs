@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.Encuesta;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -859,5 +860,24 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEBuscadorResponse> ObtenerBuscadorComplemento(int paisID, string codigoUsuario, bool suscripcionActiva, List<BEBuscadorResponse> lst, bool isApp);
+
+
+        #region EncuestaSatisfaccion
+        [OperationContract]
+        List<BEEncuestaReporte> GetReporteEncuestaSatisfaccion(BEEncuestaReporte bEncuesta);
+        #endregion
+        [OperationContract]
+        List<BEChatBotListResultados> ChatBotListResultados(int paisID, BEChatBotListResultados entidad);
+
+        
+        [OperationContract]
+        BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual);
+        [OperationContract]
+        BEChatBotInsertResultadosResponse ChatBotInsertResultados(int paisID, BEChatBotInsertResultadosRequest entidad);
+
+        [OperationContract]
+        bool ChatBotInsertDetalleResultados(int paisID, BEChatBotInsertDetalleResultadosRequest p);
+
+
     }
 }

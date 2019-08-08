@@ -21,6 +21,7 @@
       <xs:element minOccurs="0" name="PDigital" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="PTradicional" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="PrefijoISOPais" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoPagoId" type="xs:int" />
       <xs:element minOccurs="0" name="page" type="xs:int" />
       <xs:element minOccurs="0" name="rows" type="xs:int" />
       <xs:element minOccurs="0" name="sidx" nillable="true" type="xs:string" />
@@ -127,6 +128,7 @@
       <xs:element minOccurs="0" name="TelefonoCelular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoPago" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazoId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TituloPostulantesNuevasApp" nillable="true" type="xs:string" />

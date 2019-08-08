@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class PedidoFICController : BaseMobileController
     {
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider = new CaminoBrillanteProvider();
+
         #region Acciones
 
         public ActionResult Index()
@@ -114,6 +117,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.DataBarra = GetDataBarra2(true, true);
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
+
+            #region Camino Brillante 
+
+            if (userData.CaminoBrillante)
+            {
+                _caminoBrillanteProvider.LoadCaminoBrillante();
+                var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
+                if (nivelConsultoraCaminoBrillante != null)
+                {
+                    double montoIncentivo = 0;
+                    if (_caminoBrillanteProvider.GetMontoIncentivo(out montoIncentivo))
+                    {
+                        model.montoIncentivo = (decimal)montoIncentivo;
+                    }
+                }
+            }
+            #endregion
 
             return View("Index", model);
 
@@ -240,6 +260,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var splited = model.DescripcionCampaniaActual.Split('-');
             var campania = Convert.ToInt32(splited[1]) + 1;
             ViewBag.DescripcionCampaniaActual = splited[0] + "-0" + campania;
+
+            
 
             return View(model);
         }

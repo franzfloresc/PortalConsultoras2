@@ -1,36 +1,37 @@
 ﻿var scrollBeneficios = true
 var scrollLogros = true
+var tamañoFont = $("#fontGanancia").val()
 
 $(document).ready(function () {
+
     Carusel();
-    if ($("#template-kit").length > 0) {
+    if (TineCarrusel == "1" && $("#template-kit").length > 0) {
         Handlebars.registerPartial("kit_template", $("#template-kit").html());
         Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+        CargarCarrusel();
     }
-    if (TineCarrusel == "1") CargarCarrusel();
 
     if (TieneGanancias == "1") CargarGanancias();
     var nivelactual = $("#hfNivelActual").val();
 
     //Barra monto Acumulado
     if (TieneMontoAcumulado == '1') {
+
         var progreso = $("#bar-progreso");
         if (progreso.length > 0) {
             var maxBar = $(progreso).data("max");
             var curBar = $(progreso).data("cur");
-            var perc = (curBar / maxBar) * 100;
+            var perc = Math.min((curBar / maxBar) * 100, 100);
             $('.new-bar').width(perc + '%');
             var minBar = $(progreso).data("min");
-            var percTope = (minBar / maxBar) * 100;
-            $('.progress-barnew .tope').css("left", percTope + '%');            
+            var percTope = Math.min((minBar / maxBar) * 100, 100);
+            $('.progress-barnew .tope').css("left", percTope + '%');
         }
-        if (nivelactual == '5') {
+        if (nivelactual == '1' || nivelactual == '5') {
             $(".bord-bot").addClass("centtopacio");
         }
     }
-    //fin
 
-    
     for (var i = 1; i <= nivelactual; i++)
         $(".pt" + i).addClass("activo");
 
@@ -45,10 +46,63 @@ $(document).ready(function () {
     });
 
     $('#loadingScreen').hide();
+
+    $('.regulardoc').slick({
+        dots: true,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 4500,
+        fade: true,
+    });
+
+    $('.slick-next').click(function () {
+        $('.regulardoc').slick('slickPause');
+    });
+
+    if (TieneGananciaAnim == 'True') {
+        $(".box-right-ganancias").append("<strong><i></i></strong>");
+    }
+
+    $('.box-right-ganancias strong').click(function () {
+        $(this).hide();
+        $('.box-right-ganancias strong i').hide();
+        //alert("Clikeado");
+        $.ajax({
+            type: 'POST',
+            url: urlAnims + '?key=Gesture&repeat=0',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+        });
+    });
+
+    $(".btnemp").click(function () { $("#Modalunbord").hide(); });
+    $('#btnAceptarOnboardding').click(function () {
+        var esChecked = $("#volvermostrar").prop('checked') ? "0" : "1";
+        $.ajax({
+            type: 'POST',
+            url: urlAnims + '?key=Onbording&repeat=' + esChecked,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+        });
+    });
+
+    $("#Modalunbord, #Modalunbordseguir").modal({
+        show: false,
+        keyboard: false,
+        backdrop: 'static'
+    });
 });
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
+    if (TieneOnboardingAnim === 'True') {
+        $('#Modalunbord').modal('show');
+    }
+});
 
+
+
+$(window).on("load", function () {
+    TagNivelBeneficios('Mi Nivel');
 });
 
 $(window).on("scroll", function () {
@@ -143,8 +197,9 @@ function TagVerTodos(MisLogros) {
     });
 }
 
-function TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva ) {
-   
+
+function TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva) {
+
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
@@ -164,7 +219,7 @@ function TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva ) 
     $("#" + codigoNivel).attr('src', urlImagenActiva);
 
 }
- 
+
 function TagMostrarPopupNivel(nivelConsultora, codigoNivel, urlImagenActiva) {
 
     TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva);
@@ -188,7 +243,6 @@ function MostrarSecciones(nivelSeleccionado) {
         $('.tab-content').removeClass('current');
         $(".urlImagenActiva").hide();
     }
-
 }
 
 function TagClickBotonVerOfertas() {
@@ -269,6 +323,7 @@ function ArmarMisGanancias(data) {
     var indexSeleccion = -1;
     var colorBar = "#ffdaf3"; var colorBarSelected = "#4f0036";
     var sizeMinBar = 6;
+
     var x = 0;
 
     for (x = 0; x < data.MisGanancias.length; x++) {
@@ -352,6 +407,7 @@ function ArmarMisGanancias(data) {
         options: {
             showAllTooltips: true,
             onClick: function (evt, elements) {
+
                 var datasetIndex;
                 var dataset;
                 if (elements.length) {
@@ -360,28 +416,32 @@ function ArmarMisGanancias(data) {
                     backgroundColors[indexSeleccion] = colorBar;
                     // Reset old state
                     dataset = myBar.data.datasets[datasetIndex];
+
                     dataset.backgroundColor = backgroundColors.slice();
                     dataset.hoverBackgroundColor = dataset.backgroundColor;
 
                     dataset.backgroundColor[index] = colorBarSelected;
                     dataset.hoverBackgroundColor[index] = colorBarSelected;
                 }
-
                 myBar.update();
             },
             tooltips: {
+
                 mode: 'line',
                 displayColors: false,
-                titleFontSize: 9,
+                titleFontSize: 7,
+
+                bodyFontSize: tamañoFont,
+
                 titleFontFamily: 'Helvetica',
                 titleFontStyle: 'normal',
                 titleMarginBottom: 1,
                 cornerRadius: 0,
-                backgroundColor: 'transparent',
                 color: 'rgb(0, 0, 0)',
+                backgroundColor: 'rgba(255, 255, 255)',
                 titleFontColor: 'rgb(0, 0, 0)',
                 bodyFontColor: 'rgb(0, 0, 0)',
-                fontSize: 9, 
+                fontSize: 7,
                 xPadding: 2,
                 yPadding: 1,
                 yAlign: 'bottom',
@@ -412,7 +472,7 @@ function ArmarMisGanancias(data) {
                         padding: 0,
 
                         fontColor: "#000",
-                        fontSize: 14
+                        fontSize: 12
                     },
 
                     gridLines: {
@@ -425,11 +485,11 @@ function ArmarMisGanancias(data) {
                     }
                 }],
                 xAxes: [{
-
+                    categoryPercentage: 1.1,
                     ticks: {
 
                         fontColor: "#000",
-                        fontSize: 14
+                        fontSize: 12
                     },
                     barPercentage: 0.6,
                     gridLines: {
@@ -452,14 +512,18 @@ function ArmarMisGanancias(data) {
             title: {
                 display: true
             },
-            responsive: true 
+            responsive: true,
+            showAllTooltips: true
         }
     });
 
-    var item = data.MisGanancias[indexSeleccion];
-    $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
-    $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
-    $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
+    if (indexSeleccion > -1) {
+        var item = data.MisGanancias[indexSeleccion];
+        //var iteminicial = data.MisGanancias[0];
+        $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
+        $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
+        $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
+    }
 
     $("#titulo-ganancia").text(data.Titulo);
     $("#titulo-subtitulo").text(data.SubTitulo);
@@ -478,7 +542,9 @@ function ArmarMisGanancias(data) {
 }
 
 function ArmarCarrusel(data) {
+
     if (data.Items.length == 0) return;
+
     var htmlDiv = SetHandlebars("#template-carrusel", data);
     $('#carrusel').append(htmlDiv);
     $('#carrusel').show();

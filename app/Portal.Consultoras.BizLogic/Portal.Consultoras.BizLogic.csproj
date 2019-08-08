@@ -96,6 +96,7 @@
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
     <Compile Include="BLCategoria.cs" />
     <Compile Include="BLActivarPremioNuevas.cs" />
+    <Compile Include="BLChatBot.cs" />
     <Compile Include="BLContenidoAppHistoria.cs" />
     <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
@@ -131,8 +132,11 @@
     <Compile Include="Contrato\BLContratoAceptacion.cs" />
     <Compile Include="Contrato\IContratoAceptacionBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
+    <Compile Include="Encuesta\BLEncuesta.cs" />
     <Compile Include="Pedido\BLDireccionEntrega.cs" />
+    <Compile Include="Pedido\BLPedidoWebPromocion.cs" />
     <Compile Include="Pedido\IDireccionEntregaBusinessLogic.cs" />
+    <Compile Include="Pedido\IPedidoWebPromocionBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IActivarPremioNuevasBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />

@@ -72,7 +72,7 @@ var ConstantesModule = (function() {
         ShowRoom: "030",
 
         RevistaDigital: "101", // No tiene referencia con BD, caso particular de OfertasParaMi 007
-        MasGanadoras: "201", // No tiene referecia con BD, caso particular de OfertasParaMi 007
+        MasGanadoras: "LMG", // No tiene referecia con BD, caso particular de OfertasParaMi 007
 
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",

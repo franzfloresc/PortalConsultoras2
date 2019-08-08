@@ -1,0 +1,134 @@
+﻿<!-- HD-4357 - ENCUESTA DE SATISFACCIÓN -->
+
+<link href="@Url.Content("~/Content/Css/Site/EncuestaSatisfaccion/encuesta-satisfaccion.css")" rel="stylesheet" />
+
+<div id="PopUpEncuesta" class="d-flex flex-row flex-wrap justify-content-center align-items-center bg__popup__encuestaSatisfaccion__desktop">
+    <section id="EncuestaSatisfaccion" class="d-flex flex-row flex-wrap justify-content-center align-items-start seccion__encuesta__satisfaccion seccion__encuesta__satisfaccion--ocultar">
+        <a href="#" title="Cerrar" class="d-block enlace__cerrar__encuesta__satisfaccion" onclick="EncuestaSatisfaccion.Funciones.CerrarEncuesta();">
+            <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+        </a>
+        <a href="#" title="Cerrar" class="d-block enlace__volver__atras__encuesta__satisfaccion" style="display:none;">
+            <img src="@Url.Content("~/Content/Images/btn-back.svg")" alt="Volver atrás" />
+        </a>
+        <section id="Paso1" class="d-flex flex-row flex-wrap justify-content-center align-content-center encuesta__satisfaccion__eleccionMotivo__wrapper encuesta__satisfaccion__eleccionMotivo__wrapper--mostrar">
+            <h2 class="d-block text-center text-bold seccion__encuesta__satisfaccion__titulo">
+                ¿Qué te pareció el servicio de la <span id="numCampania">C07</span>?
+            </h2>
+            <div class="d-flex flex-row flex-wrap justify-content-center encuesta__satisfaccion__estados__wrapper">
+                <ul id="listaCalificacion" class="d-flex flex-row flex-nowrap justify-content-evenly align-items-center encuesta__satisfaccion__estados__lista">
+                    @*listar calificaciones aquí*@
+                </ul>
+            </div>
+            <section class="d-flex flex-row flex-wrap seccion__encuesta__satisfaccion__motivosCalificacion">
+                <h2  class="d-block text-bold seccion__encuesta__satisfaccion__titulo seccion__encuesta__satisfaccion__titulo--motivoCalificacion"><span id="lblPreguntaCalificacion">¿A qué se debe tu calificación?</span></h2>
+                <div class="d-flex flex-row flex-wrap justify-content-center encuesta__satisfaccion__motivosCalificacion__wrapper">
+                    <ul id="ListaMotivo" class="d-flex flex-row flex-wrap justify-content-between align-items-center encuesta__satisfaccion__motivosCalificacion__lista">
+                        @*listar motivos aquí*@
+                    </ul>
+                    <div class="d-flex flex-row justify-content-start align-items-center form__group__fields">
+                        <input id="chkOtroMotivoCalificacion" type="checkbox" onclick="EncuestaSatisfaccion.Funciones.MostrarOcultarOtro(this);" class="d-none field__checkbox__sb field__checkbox__sb--otroMotivoCalificacion">
+                        <label for="chkOtroMotivoCalificacion" class="d-inline-block border-radius-4 text-center label__checkbox__sb"></label>
+                        <span class="d-inline-block motivo__adicional__otro">Otro</span>
+                    </div>
+                    <div id="divInconvenienteOSugerencia" class="d-flex flex-row justify-content-start form__group__fields form__group__fields--motivoCalificacionAdicionalWrapper" style="display:none;">
+                        <input id="txtOtroMotivoCalificacion" type="text" class="d-block w-100 p-0 text__field__sb" placeholder="¿Tuviste algún inconveniente?">
+                    </div>
+                </div>
+            </section>
+            <button id="btnConfirmaMotivo" class="d-block center-block border-radius-4 text-bold btn__sb btn__sb--disabled btn__sb__primary btn__sb__primary--multimarca btn__sb--confirmar">
+                Confirmar
+            </button>
+        </section>
+        <section id="PrecargaEncuesta" class="spinner__wrapper spinner__wrapper--encuestaSatisfaccion">
+            <div class="d-block center-block spinner__animacion">
+                <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="precarga__spinner">
+                    <symbol id="s--circle">
+                        <circle r="9" cx="15" cy="15"></circle>
+                    </symbol>
+                    <g class="spinner__circulos">
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <p class="w-100 d-block center-block text-center text-bold spinner__texto spinner__texto--encuestaSatisfaccion">
+                Cargando
+            </p>
+        </section>
+        <section id="Paso2" class="d-flex flex-row flex-wrap justify-content-center align-content-center encuesta__satisfaccion__agradecimiento__wrapper">
+            <div class="d-block center-block encuesta__satisfaccion__iconoAgradecimiento">
+                <img src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡Gracias por tu opinión!" />
+            </div>
+            <h3 class="d-block text-center encuesta__satisfaccion__titulo__agradecimiento">¡Gracias por tu opinión!</h3>
+            <p class="d-block text-center encuesta__satisfaccion__mensaje__agradecimiento">
+                Tu información es valiosa para<br />mejorar nuestro servicio
+            </p>
+        </section>
+    </section>
+    <input type="hidden" id="hdfCalificacionId" value="0" />
+    <input type="hidden" id="hdfEncuestaId" value="0" />
+    <input type="hidden" id="hdfCodigoCampania" value="" />
+</div>
+
+
+
+<script id="template-encuesta-calificacion" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <li class="d-inline-block encuesta__satisfaccion__estado encuesta__satisfaccion__estado--{{item.EstiloCalificacion}}">
+        <a data-codigo="{{item.EncuestaCalificacionId}}" data-tipocalificacion="{{item.TipoCalificacion}}" onclick="EncuestaSatisfaccion.Funciones.ObtenerMotivoPorCalificacion(this);" class="d-block encuesta__satisfaccion__estado__enlace" title="{{item.Descripcion}}">
+            <span class="d-block text-center encuesta__satisfaccion__estado__imagen">
+                <img src="@Url.Content("~/Content/Images/EncuestaSatisfaccion/{{item.ImagenCalificacion}}")" alt="Pésimo" />
+            </span>
+            <span class="d-block text-center text-bold encuesta__satisfaccion__estado__descrip">
+                {{item.Descripcion}}
+            </span>
+        </a>
+    </li>
+    {{/each}}
+</script>
+
+<script id="template-encuesta-motivo" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <li class="d-inline-block encuesta__satisfaccion__motivoCalificacion">
+        <input id="{{item.EncuestaMotivoId}}" name="{{item.EncuestaMotivoId}}" type="checkbox" onchange="EncuestaSatisfaccion.Funciones.ActivarODeshabilitarBotonConfirmar();" class="d-none field__checkbox__sb" value="" />
+        <label for="{{item.EncuestaMotivoId}}" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoCalificacion">
+            {{item.Descripcion}}
+        </label>
+    </li>
+    {{/each}}
+</script>
+    <!-- FIN - HD-4357 - ENCUESTA DE SATISFACCIÓN -->

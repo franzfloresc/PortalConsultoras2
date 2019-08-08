@@ -474,8 +474,6 @@ namespace Portal.Consultoras.Web.Providers
 
             try
             {
-                const int SHOWROOM_ESTADO_ACTIVO = 1;
-
                 _sessionManager.SetEsShowRoom("0");
                 _sessionManager.SetMostrarShowRoomProductos("0");
                 _sessionManager.SetMostrarShowRoomProductosExpiro("0");
