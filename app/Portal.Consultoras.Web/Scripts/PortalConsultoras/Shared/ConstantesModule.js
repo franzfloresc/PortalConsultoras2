@@ -80,7 +80,7 @@ var ConstantesModule = (function() {
         CaminoBrillanteKits: "036", // No tiene referecia con BD, GCP
         
         Catalogo: "CAT", // No tiene referecia con BD
-        Liquidacion = "LIQ", // No tiene referecia con BD
+        Liquidacion: "LIQ", // No tiene referecia con BD
 
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
