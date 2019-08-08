@@ -30,13 +30,14 @@
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd5" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Encuesta" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd10" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IContenidoService_EliminarArchivoCsvValidador_InputMessage">
@@ -56,6 +57,24 @@
   </wsdl:message>
   <wsdl:message name="IContenidoService_GetCargaListadoPopupValidador_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCargaListadoPopupValidadorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetEncuestaHome_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEncuestaHome" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetEncuestaHome_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEncuestaHomeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetTvoUrl_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTvoUrl" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetTvoUrl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTvoUrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_InsEncuesta_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsEncuesta" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_InsEncuesta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsEncuestaResponse" />
   </wsdl:message>
   <wsdl:message name="IContenidoService_SelectBanner_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectBanner" />
@@ -580,6 +599,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidador" message="tns:IContenidoService_GetCargaListadoPopupValidador_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidadorResponse" message="tns:IContenidoService_GetCargaListadoPopupValidador_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetEncuestaHome">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetEncuestaHome" message="tns:IContenidoService_GetEncuestaHome_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetEncuestaHomeResponse" message="tns:IContenidoService_GetEncuestaHome_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTvoUrl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetTvoUrl" message="tns:IContenidoService_GetTvoUrl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetTvoUrlResponse" message="tns:IContenidoService_GetTvoUrl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsEncuesta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/InsEncuesta" message="tns:IContenidoService_InsEncuesta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/InsEncuestaResponse" message="tns:IContenidoService_InsEncuesta_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SelectBanner">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/SelectBanner" message="tns:IContenidoService_SelectBanner_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/SelectBannerResponse" message="tns:IContenidoService_SelectBanner_OutputMessage" />
@@ -943,6 +974,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetCargaListadoPopupValidador">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEncuestaHome">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetEncuestaHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTvoUrl">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetTvoUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsEncuesta">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/InsEncuesta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1739,6 +1797,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetCargaListadoPopupValidador">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEncuestaHome">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetEncuestaHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTvoUrl">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetTvoUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsEncuesta">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/InsEncuesta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

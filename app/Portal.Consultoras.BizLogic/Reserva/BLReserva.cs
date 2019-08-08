@@ -62,7 +62,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
-            if (usuario.AutorizaPedido == "0") return _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor;
+            if (usuario.AutorizaPedido == "0") return _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, ConsTablaLogica.MsjPopupBloqueadas.TablaLogicaId).FirstOrDefault(a => a.Codigo == "01").Valor;
 
             if (usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
 

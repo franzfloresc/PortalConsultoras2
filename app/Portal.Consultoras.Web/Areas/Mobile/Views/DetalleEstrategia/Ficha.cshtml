@@ -1,5 +1,4 @@
-﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.CustomHelpers
+﻿@using Portal.Consultoras.Web.CustomHelpers
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
@@ -21,11 +20,6 @@
     /* Fin - Para ocultar botón de chat Messenger en la vista de Ficha de Producto */
 
 </style>
-
-@*@if (Model.NoEsCampaniaActual)
-    {
-        @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
-    }*@
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")

@@ -132,6 +132,7 @@ namespace Portal.Consultoras.BizLogic
 
             productos.Update(p =>
             {
+                p.CodigoTipoOferta = p.CodigoTipoOferta.Trim();
                 if (p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom)
                 {
                     p.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;

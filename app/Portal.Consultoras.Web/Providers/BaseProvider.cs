@@ -37,8 +37,13 @@ namespace Portal.Consultoras.Web.Providers
 
             if (string.IsNullOrEmpty(rutaImagen))
                 return ruta;
+
             string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
             string soloExtension = Path.GetExtension(rutaImagen);
+            var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
+
+            if (rutaImagen.ToLower().Contains(valorAppCatalogo))
+                ruta = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, soloImagen + rutaNombreExtension + soloExtension);
 
             if (isProductoSugerido)
                 ruta = ConfigCdn.GetUrlFileCdnMatrizCampania(codigoIso, soloImagen + rutaNombreExtension + soloExtension,campaniaid: campaniaid);

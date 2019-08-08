@@ -32,6 +32,9 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         private bool RequiereAprobacionSACField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool RequiereAprobacionSACFraudeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RespuestaEstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -82,6 +85,19 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
                 if ((this.RequiereAprobacionSACField.Equals(value) != true)) {
                     this.RequiereAprobacionSACField = value;
                     this.RaisePropertyChanged("RequiereAprobacionSAC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool RequiereAprobacionSACFraude {
+            get {
+                return this.RequiereAprobacionSACFraudeField;
+            }
+            set {
+                if ((this.RequiereAprobacionSACFraudeField.Equals(value) != true)) {
+                    this.RequiereAprobacionSACFraudeField = value;
+                    this.RaisePropertyChanged("RequiereAprobacionSACFraude");
                 }
             }
         }
@@ -224,6 +240,9 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Condicionada = 33,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        CondicionadaPagoContado = 34,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

@@ -30,5 +30,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string UrlImagen { get; set; }
         public string UrlItem { get; set; }
         public string Version { get; set; }
+        public MenuExtrasModel Extras { get; set; }
+    }
+
+    [Serializable()]
+    public class MenuExtrasModel
+    {
+        public List<MenuTagModel> Tags { get; set; }
+    }
+    [Serializable()]
+    public class MenuTagModel
+    {
+        public string Tag { get; set; }
+        public int End { get; set; }
     }
 }

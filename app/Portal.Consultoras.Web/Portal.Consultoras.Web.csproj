@@ -28,7 +28,8 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
     <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -189,6 +190,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\FechaFacturacionController.cs" />
     <Compile Include="Areas\Mobile\Controllers\IncentivosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BonificacionesController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
@@ -238,12 +240,15 @@
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\CaminoBrillanteAdministrarController.cs" />
+    <Compile Include="Controllers\ChatbotController.cs" />
     <Compile Include="Controllers\ConfiguracionZonasModel.cs" />
+    <Compile Include="Controllers\ReporteEncuestaSatisfaccionController.cs" />
     <Compile Include="Controllers\FakeErrorController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
     <Compile Include="Controllers\CaminoBrillanteController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\ArmaTuPackController.cs" />
+    <Compile Include="Controllers\FechasFacturacionController.cs" />
     <Compile Include="Controllers\ReporteConsultoraPedidoSACController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\BundleExtention.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
@@ -310,6 +315,8 @@
     <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Controllers\PedidoRegistroController.cs" />
     <Compile Include="Models\CaminoBrillante\AdministrarMontoExigenciaModel.cs" />
+    <Compile Include="Models\ChatBotListResultadosModel.cs" />
+    <Compile Include="Models\ChatBotModel.cs" />
     <Compile Include="Models\EventoInsert.cs" />
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
     <Compile Include="Infraestructure\Route\RedirectRoute.cs" />
@@ -328,13 +335,25 @@
     <Compile Include="Models\ConfirmarPosicionModelPrePostulante.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
-    <Compile Include="Models\ReporteConsultoraPedidoSACModels.cs" />
+    <Compile Include="Models\ReporteConsultoraPedidoSacModels.cs" />
     <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
+    <Compile Include="Models\ReporteEncuestaSatisfaccionModel.cs" />
     <Compile Include="Models\DistanciaLimiteZonaSeccionModel.cs" />
+    <Compile Include="Models\FiltroReporteChatBotModel.cs" />
     <Compile Include="Models\LogDetalleParametroUneteModel.cs" />
     <Compile Include="Models\Estrategia\FotosComponenteModel.cs" />
     <Compile Include="Models\Search\ResponseOferta\OutputOfertaIncremental.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\FotosComponente.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\Estructura\Estrategia.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\Estructura\PromocionModel.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\OutputPromociones.cs" />
+    <Compile Include="Models\Encuesta\EntityBaseModel.cs" />
+    <Compile Include="Models\Encuesta\EncuestaModel.cs" />
+    <Compile Include="Models\Encuesta\EncuestaCalificacionModel.cs" />
+    <Compile Include="Models\Encuesta\EncuestaMotivoModel.cs" />
+    <Compile Include="Models\Encuesta\EncuestaResultadoModel.cs" />
+    <Compile Include="Models\Encuesta\EncuestaResultadoDetalle.cs" />
+    <Compile Include="Models\Encuesta\DataConfigEncuestaModel.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\CDRProductoRespuestaServicioModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
@@ -883,7 +902,9 @@
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\ConsultaProlProvider.cs" />
     <Compile Include="Providers\ConsultoraOnlineProvider.cs" />
+    <Compile Include="Providers\PromocionesProvider.cs" />
     <Compile Include="Providers\VentaIncrementalProvider.cs" />
+    <Compile Include="Providers\EncuestaProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
@@ -946,6 +967,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\ServiceContenido\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceEncuesta\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -1476,6 +1502,7 @@
     <Content Include="Content\Css\Site\Contenedor\BannerInteractivo.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\filtros-busqueda.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
+    <Content Include="Content\Css\Site\EncuestaSatisfaccion\encuesta-satisfaccion.css" />
     <Content Include="Content\Css\Site\EscalaDescuentos\escala-descuentos.css" />
     <Content Include="Content\Css\Site\Esika\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Esika\campania-navidenia.css" />
@@ -1483,7 +1510,9 @@
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
     <Content Include="Content\Css\Site\Esika\marca-pais-responsive.css" />
     <Content Include="Content\Css\Site\Ficha\FichaCarrusel.css" />
+    <Content Include="Content\Css\Site\FechasFacturacion\fechas-facturacion.css" />
     <Content Include="Content\Css\Site\Ficha\FichaResponsive.css" />
+    <Content Include="Content\Css\Site\Ficha\FichaResponsiveCarrusel.css" />
     <Content Include="Content\Css\Site\Notificacion.css" />
     <Content Include="Content\Css\Site\Esika\nuevo-look-and-feel.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
@@ -1508,6 +1537,7 @@
     <Content Include="Content\Css\Site\Pedido\GananciaEstimada.css" />
     <Content Include="Content\Css\Site\Pedido\ProductosSugeridos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-reserva-pedido.css" />
+    <Content Include="Content\Css\Site\Shared\Buscador\BuscadorCarrusel.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-informacion-regalos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Css\Site\TuVozOnline\TuVozOnline.css" />
@@ -1516,7 +1546,15 @@
     <Content Include="Content\Images\alerta-icono.png" />
     <Content Include="Content\Images\add-to-cart-disable.png" />
     <Content Include="Content\Images\add-to-cart-white.png" />
+    <Content Include="Content\Images\btn-back.svg" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\bueno.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\encuesta_realizada.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\encuesta_pendiente.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\excelente.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\mal.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\pesimo.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\regular.svg" />
     <Content Include="Content\Images\etiqueta_nuevo.svg" />
     <Content Include="Content\Images\Esika\club-gana-mas.gif" />
     <Content Include="Content\Images\Esika\favicon.ico" />
@@ -4109,6 +4147,7 @@
     <Content Include="LBelConmigo.html" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
+    <Content Include="Scripts\AdminChatBot\ChatBot.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmComponente.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmEstrategiaConfig.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmEstrategiaGrupo.js" />
@@ -4258,6 +4297,8 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaEnriquecida\FichaEnriquecidaView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsive.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsiveEvents.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Promociones\PromocionesPresenter.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Promociones\PromocionesView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselAyuda.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleModule.js" />
@@ -4270,6 +4311,7 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ResumenOpcionesModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\OpcionesSeleccionadasModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\TituloOpcionesSeleccionadasModule.js" />
+    <Content Include="Scripts\PortalConsultoras\EncuestaSatisfaccion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregar.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregarProvider.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\PedidoRegistro.js" />
@@ -4282,6 +4324,7 @@
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\api.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
     <Content Include="Scripts\knockout.extensions.js" />
+    <Content Include="Scripts\PortalConsultoras\FechasFacturacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Login\ActualizarContrasenia.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
@@ -4747,6 +4790,18 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupIncentivo.cshtml" />
+    <None Include="Service References\ServiceContenido\ContenidoService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceEncuesta\configuration91.svcinfo" />
+    <None Include="Service References\ServiceEncuesta\configuration.svcinfo" />
+    <None Include="Service References\ServiceEncuesta\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService65.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
     <None Include="Service References\ServiceUnete\configuration.svcinfo" />
     <None Include="Service References\ServiceUnete\Reference.svcmap">
@@ -4763,6 +4818,7 @@
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoPendienteClientes.cshtml" />
     <Content Include="Areas\Mobile\Views\Incentivos\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Incentivos\IndexExterno.cshtml" />
+    <Content Include="Areas\Mobile\Views\FechaFacturacion\Index.cshtml" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.wsdl" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.xsd">
       <SubType>Designer</SubType>
@@ -4894,6 +4950,16 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceContenido\ContenidoService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceEncuesta\EncuestaService.wsdl" />
+    <None Include="Service References\ServiceEncuesta\EncuestaService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceEncuesta\EncuestaService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceEncuesta\EncuestaService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceODS\ODSService.wsdl" />
@@ -5199,6 +5265,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService11.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService2.xsd">
@@ -5857,6 +5926,7 @@
     <Content Include="Views\TuVozOnline\Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <Content Include="Views\CaminoBrillante\Partial\template_kit.cshtml" />
     <Content Include="Views\CaminoBrillante\Partial\template_demostrador.cshtml" />
     <Content Include="Views\AdministrarHistorias\Partials\MantenimientoVideo.cshtml" />
@@ -5890,7 +5960,15 @@
     <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\modal-promociones.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\producto-promocion-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\banner-promocion-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\galeria-template.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarMontoExigencia.cshtml" />
+    <Content Include="Views\ReporteEncuestaSatisfaccion\Index.cshtml" />
+    <Content Include="Views\FechasFacturacion\Index.cshtml" />
+    <Content Include="Views\EncuestaSatisfaccion\_EncuestaSatisfaccion.cshtml" />
+    <Content Include="Views\Chatbot\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -6196,6 +6274,7 @@
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Buscador\" />
     <Folder Include="Views\Campania\" />
+    <Folder Include="Views\Chatbot\Partials\" />
     <Folder Include="Views\Comun\" />
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaGrupo\" />
@@ -6317,6 +6396,7 @@
     <WCFMetadataStorage Include="Service References\ServiceCDR\" />
     <WCFMetadataStorage Include="Service References\ServiceCliente\" />
     <WCFMetadataStorage Include="Service References\ServiceContenido\" />
+    <WCFMetadataStorage Include="Service References\ServiceEncuesta\" />
     <WCFMetadataStorage Include="Service References\ServiceEvaluacionCrediticia\" />
     <WCFMetadataStorage Include="Service References\ServiceODS\" />
     <WCFMetadataStorage Include="Service References\ServiceOferta\" />

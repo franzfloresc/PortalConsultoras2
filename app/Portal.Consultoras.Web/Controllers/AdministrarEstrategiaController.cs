@@ -753,7 +753,8 @@ namespace Portal.Consultoras.Web.Controllers
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
-                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom))
+                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom ||
+                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.MasGanadoras))
                 {
                     error.Append("| region codigo_estrategia y variedad");
                     respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidad);
@@ -1490,12 +1491,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(CampaniaID)) {
-                    return Json(
-                        new { total = 1, page = 1, records = 0, rows = new List<ServicePedido.BEEstrategia>() },
-                        JsonRequestBehavior.AllowGet
-                    );
-                }
+                if (string.IsNullOrEmpty(CampaniaID))
+                    return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
 
                 var entidad = new ServicePedido.BEEstrategia()
                 {
@@ -1540,10 +1537,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(
-                    new { total = 1, page = 1, records = 0, rows = new List<ServicePedido.BEEstrategia>() },
-                    JsonRequestBehavior.AllowGet
-                );
+                return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
             }
         }
 
