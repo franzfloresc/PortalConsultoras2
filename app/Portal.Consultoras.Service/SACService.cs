@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using Portal.Consultoras.BizLogic.Encuesta;
+using Portal.Consultoras.Entities.Encuesta;
 
 namespace Portal.Consultoras.Service
 {
@@ -58,7 +60,9 @@ namespace Portal.Consultoras.Service
         private readonly IBuscadorBusinessLogic _buscadorBusinessLogic;
 
         private readonly BLCategoria _blCategoria;
-        private readonly BLCatalogo _bLCatalogo;  
+        private readonly BLCatalogo _bLCatalogo;
+
+        private readonly BLEncuesta _bLEncuesta;
 
         public SACService() : this(new BLComunicado(), new BLBuscador())
         {
@@ -98,6 +102,8 @@ namespace Portal.Consultoras.Service
             _blAdministrarEstrategia = new BLAdministrarEstrategia();
             _blCategoria = new BLCategoria();
             _bLCatalogo = new BLCatalogo();
+            _bLEncuesta = new BLEncuesta();
+
         }
 
         public SACService(IComunicadoBusinessLogic comunicadoBusinessLogic,
@@ -1664,6 +1670,37 @@ namespace Portal.Consultoras.Service
         public List<BEBuscadorResponse> ObtenerBuscadorComplemento(int paisID, string codigoUsuario, bool suscripcionActiva, List<BEBuscadorResponse> lst, bool isApp)
         {
             return _buscadorBusinessLogic.ObtenerBuscadorComplemento(paisID, codigoUsuario, suscripcionActiva, lst, isApp);
+        }
+
+        #region HD-4639
+        public BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual)
+        {
+            return BLEstadoCuenta.GetFechasFacturacionConsultora(paisID, consultora, campaniaActual);
+        }
+        #endregion
+        #region EncuestaSatisfaccion
+        public List<BEEncuestaReporte> GetReporteEncuestaSatisfaccion(BEEncuestaReporte bEncuesta)
+        {
+            return _bLEncuesta.GetReporteEncuestaSatisfaccion(bEncuesta);
+        }
+
+        #endregion
+        public List<BEChatBotListResultados> ChatBotListResultados(int paisID, BEChatBotListResultados entidad)
+        {
+            var bl = new BLChatBot();
+            return bl.ChatBotListResultados(paisID, entidad);
+        }
+
+        public BEChatBotInsertResultadosResponse ChatBotInsertResultados(int paisID, BEChatBotInsertResultadosRequest entidad)
+        {
+            var bl = new BLChatBot();
+            return bl.ChatBotInsertResultados(paisID, entidad);
+        }
+
+        public bool ChatBotInsertDetalleResultados(int paisID, BEChatBotInsertDetalleResultadosRequest entidad)
+        {
+            var bl = new BLChatBot();
+            return bl.ChatBotInsertDetalleResultados(paisID, entidad);
         }
     }
 }

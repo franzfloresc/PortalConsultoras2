@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using Portal.Consultoras.Web.ServiceUsuario;
-using System.Linq;
-using System;
-using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using Portal.Consultoras.Web.ServicePedido;
+﻿using AutoMapper;
+using AutoMapper.Internal;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.ServiceODS;
-using AutoMapper.Internal;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -559,7 +559,7 @@ namespace Portal.Consultoras.Web.Providers
                                 GananciaCampaniaFormat = Util.DecimalToStringFormat(e.GananciaCampania, usuarioModel.CodigoISO),
                                 GananciaPeriodo = e.GananciaPeriodo,
                                 GananciaPeriodoFormat = Util.DecimalToStringFormat(e.GananciaPeriodo, usuarioModel.CodigoISO),
-                                FlagSeleccionMisGanancias = e.FlagSeleccionMisGanancias.HasValue ? e.FlagSeleccionMisGanancias.Value : false
+                                FlagSeleccionMisGanancias = e.FlagSeleccionMisGanancias.HasValue && e.FlagSeleccionMisGanancias.Value
                             }).ToList()
             };
             return misGanancias;
@@ -833,27 +833,7 @@ namespace Portal.Consultoras.Web.Providers
                 Hermanos = ToEstrategiaComponenteModelList(e)
             };
         }
-
-        /// <summary>
-        /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
-        /// Nota: Alinear con BLCaminoBrillante.IsOrigenPedidoCaminoBrillante
-        /// </summary>
-        //public bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb) {
-        //    return origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel ||
-        //            origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel
-        //            ;
-        //}
-
+        
         #endregion
 
         #region Configuracion

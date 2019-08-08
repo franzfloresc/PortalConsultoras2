@@ -59,6 +59,7 @@
       <xs:element minOccurs="0" name="DescripcionBloqueo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoEncuesta" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoPedido" type="xs:short" />
       <xs:element minOccurs="0" name="EstadoPedidoDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaFacturado" nillable="true" type="xs:string" />
@@ -85,6 +86,7 @@
       <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioRegalo" type="xs:boolean" />
       <xs:element minOccurs="0" name="RecogerDNI" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RecogerNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RutaPaqueteDocumentario" nillable="true" type="xs:string" />

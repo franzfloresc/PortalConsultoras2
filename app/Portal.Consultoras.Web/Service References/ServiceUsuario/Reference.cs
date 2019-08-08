@@ -5441,6 +5441,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltrosConfiguracion BuscadorYFiltrosConfiguracionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool CambioCelularPendienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool CambioClaveField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5466,6 +5469,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CelularPendienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ClaveSecretaField;
@@ -6291,6 +6297,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CambioCelularPendiente {
+            get {
+                return this.CambioCelularPendienteField;
+            }
+            set {
+                if ((this.CambioCelularPendienteField.Equals(value) != true)) {
+                    this.CambioCelularPendienteField = value;
+                    this.RaisePropertyChanged("CambioCelularPendiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool CambioClave {
             get {
                 return this.CambioClaveField;
@@ -6403,6 +6422,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.CelularField, value) != true)) {
                     this.CelularField = value;
                     this.RaisePropertyChanged("Celular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CelularPendiente {
+            get {
+                return this.CelularPendienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CelularPendienteField, value) != true)) {
+                    this.CelularPendienteField = value;
+                    this.RaisePropertyChanged("CelularPendiente");
                 }
             }
         }
@@ -18379,6 +18411,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceUsuario.IUsuarioService")]
     public interface IUsuarioService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2Response")]
+        bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2Response")]
+        System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContrasenia2Async(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizad" +
             "o", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizad" +
             "oResponse")]
@@ -18697,6 +18735,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetActualizacionEmail", ReplyAction="http://tempuri.org/IUsuarioService/GetActualizacionEmailResponse")]
         System.Threading.Tasks.Task<string> GetActualizacionEmailAsync(int paisID, string codigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetActualizacionCelular", ReplyAction="http://tempuri.org/IUsuarioService/GetActualizacionCelularResponse")]
+        string GetActualizacionCelular(int paisID, string codigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetActualizacionCelular", ReplyAction="http://tempuri.org/IUsuarioService/GetActualizacionCelularResponse")]
+        System.Threading.Tasks.Task<string> GetActualizacionCelularAsync(int paisID, string codigoUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetActualizacionEmailySms", ReplyAction="http://tempuri.org/IUsuarioService/GetActualizacionEmailySmsResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario);
         
@@ -18908,12 +18952,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContraseniaResponse")]
         System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContraseniaAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2Response")]
-        bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2Response")]
-        System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContrasenia2Async(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
@@ -19467,6 +19505,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 base(binding, remoteAddress) {
         }
         
+        public bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
+            return base.Channel.ProcesaEnvioEmailCambiaContrasenia2(paisID, oUsu);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContrasenia2Async(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
+            return base.Channel.ProcesaEnvioEmailCambiaContrasenia2Async(paisID, oUsu);
+        }
+        
         public bool ProcesaEnviarMailActualizaContraseniaFinalizado(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, bool esOk) {
             return base.Channel.ProcesaEnviarMailActualizaContraseniaFinalizado(paisID, oUsu, esOk);
         }
@@ -19875,6 +19921,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetActualizacionEmailAsync(paisID, codigoUsuario);
         }
         
+        public string GetActualizacionCelular(int paisID, string codigoUsuario) {
+            return base.Channel.GetActualizacionCelular(paisID, codigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetActualizacionCelularAsync(int paisID, string codigoUsuario) {
+            return base.Channel.GetActualizacionCelularAsync(paisID, codigoUsuario);
+        }
+        
         public Portal.Consultoras.Web.ServiceUsuario.BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario) {
             return base.Channel.GetActualizacionEmailySms(paisID, codigoUsuario);
         }
@@ -20153,14 +20207,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContraseniaAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
             return base.Channel.ProcesaEnvioEmailCambiaContraseniaAsync(paisID, oUsu);
-        }
-        
-        public bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
-            return base.Channel.ProcesaEnvioEmailCambiaContrasenia2(paisID, oUsu);
-        }
-        
-        public System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContrasenia2Async(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
-            return base.Channel.ProcesaEnvioEmailCambiaContrasenia2Async(paisID, oUsu);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

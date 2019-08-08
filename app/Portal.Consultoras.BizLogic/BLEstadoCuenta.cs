@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -43,5 +44,42 @@ namespace Portal.Consultoras.BizLogic
             var daEstadoCuenta = new DAEstadoCuenta(PaisId);
             return daEstadoCuenta.GetDeudaActualConsultora(consultoraId);
         }
+
+        public BEFechaFacturacion GetFechasFacturacionConsultora(int paisID, string consultora, int campaniaActual)
+        {
+            BEFechaFacturacion objBEFechaFacturacion = new BEFechaFacturacion();
+            List<BEFechaFacturacion> fechaFacturacionActual = new List<BEFechaFacturacion>();
+            List<BEFechaFacturacion> fechaFacturacionAnterior = new List<BEFechaFacturacion>();
+            List<BEFechaFacturacion> fechaFacturacionproxima = new List<BEFechaFacturacion>();
+            var daConsultora = new DAConsultora(paisID);
+            using (IDataReader reader = daConsultora.GetFechasFacturacionConsultora(consultora, campaniaActual))
+            {
+                while (reader.Read())
+                {
+                    fechaFacturacionActual.Add(new BEFechaFacturacion(reader));
+                }
+                reader.NextResult();
+
+                while (reader.Read())
+                {
+                    fechaFacturacionproxima.Add(new BEFechaFacturacion(reader));
+                }
+
+                reader.NextResult();
+
+                while (reader.Read())
+                {
+                    fechaFacturacionAnterior.Add(new BEFechaFacturacion(reader));
+                }
+
+                objBEFechaFacturacion.ListFechaFacturacionActual = fechaFacturacionActual;
+                objBEFechaFacturacion.ListFechaFacturacionProxima = fechaFacturacionproxima;
+                objBEFechaFacturacion.ListFechaFacturacionAnterior = fechaFacturacionAnterior;
+
+            }
+
+            return objBEFechaFacturacion;
+        }
+
     }
 }
