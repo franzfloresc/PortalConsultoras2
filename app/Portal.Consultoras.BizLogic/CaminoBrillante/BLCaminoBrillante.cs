@@ -14,7 +14,7 @@ using System.Globalization;
 using System.Linq;
 
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
-{
+{ 
     public class BLCaminoBrillante : ICaminoBrillanteBusinessLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;

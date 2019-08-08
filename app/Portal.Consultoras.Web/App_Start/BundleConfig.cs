@@ -1164,6 +1164,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/Bundle/Js/bootstrap").Include(
                "~/Scripts/bootstrap.js"));
             #endregion
+
             #region ArmaTuPack
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
