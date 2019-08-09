@@ -317,7 +317,6 @@ namespace Portal.Consultoras.Web.Providers
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("Tracking ConsultaProlProvider_ActualizarComponenteStockPROL:");
                 sb.AppendLine("Method: Post");
-                sb.AppendLine(string.Format("Url:{0}", WebConfig.RutaServiceConsultaPROL));
                 sb.AppendLine(string.Format("Parametros:{0}", jsonParameters));
                 sb.AppendLine("Response: Null content");
 
