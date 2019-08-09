@@ -147,6 +147,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 bool esMultimarca = false;
                 string mensaje = "";
+
+                if (codigoEstrategia == Constantes.TipoEstrategiaCodigo.MasGanadoras)
+                {
+                    var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
+                    if (!flagLaMasGanadoras)
+                        codigoEstrategia = Constantes.TipoEstrategiaCodigo.OfertasParaMi;
+                }
+
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
    
                 return Json(new

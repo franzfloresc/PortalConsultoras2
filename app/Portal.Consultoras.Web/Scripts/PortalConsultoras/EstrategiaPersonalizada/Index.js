@@ -28,7 +28,7 @@ var CONS_CODIGO_SECCION = {
     OPT: "OPT",
     DES: "DES-NAV",
     HV: "HV",
-    MG: 'MG',
+    MG: 'LMG',
     ATP: 'ATP',
     DP: 'DP'
 };
@@ -661,7 +661,7 @@ function CheckClickCarrousel(action, source, seccionName) {
 function CallAnalitycsClickArrow(seccionName, sliderWay, clickedSlider) {
 
     if (sliderWay !== 0 && clickedSlider !== 0) {
-        if (seccionName === "MG") {
+        if (seccionName === "LMG") {
             if (typeof AnalyticsPortalModule !== "undefined") {
                 AnalyticsPortalModule.ClickArrowMG(sliderWay);
             }
