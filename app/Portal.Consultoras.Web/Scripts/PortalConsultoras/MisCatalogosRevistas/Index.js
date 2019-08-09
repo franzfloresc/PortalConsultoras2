@@ -1038,16 +1038,12 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
 function ocultarTooltipCompartirCatalogo(e) {
 
     var compartirCatalogoArea = $('.compartir__catalogo__area');
-    var tooltipOpcionesCompartirCatalogoParteSuperior = $('#btnCompartir').next();
-    var tooltipOpcionesCompartirCatalogoParteInferior = $('#btnCompartirActual').next();
+    var tooltipOpcionesCompartirCatalogo = $('#btnCompartir').next();
 
-    if (tooltipOpcionesCompartirCatalogoParteSuperior.css('display') == 'flex' || tooltipOpcionesCompartirCatalogoParteInferior.css('display') == 'flex') {
+    if (tooltipOpcionesCompartirCatalogo.css('display') == 'flex') {
         if ((!compartirCatalogoArea.is(e.target) && compartirCatalogoArea.has(e.target).length === 0)) {
-            if (tooltipOpcionesCompartirCatalogoParteSuperior.is(':visible')) {
-                tooltipOpcionesCompartirCatalogoParteSuperior.fadeOut(100);
-                $('.btn_chat_messenger').fadeIn(100);
-            } else {
-                tooltipOpcionesCompartirCatalogoParteInferior.fadeOut(100);
+            if (tooltipOpcionesCompartirCatalogo.is(':visible')) {
+                tooltipOpcionesCompartirCatalogo.fadeOut(100);
                 $('.btn_chat_messenger').fadeIn(100);
             }
         }

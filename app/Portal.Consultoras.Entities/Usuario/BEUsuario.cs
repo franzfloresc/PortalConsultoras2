@@ -935,6 +935,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CorreoPendiente { get; set; }
         [DataMember]
+        public bool CambioCelularPendiente { get; set; }
+        [DataMember]
+        public string CelularPendiente { get; set; }
+        [DataMember]
         public bool PuedeActualizarEmail { get; set; }
         [DataMember]
         public bool PuedeActualizarCelular { get; set; }

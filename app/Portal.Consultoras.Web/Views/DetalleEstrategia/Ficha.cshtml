@@ -1,13 +1,10 @@
-﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Providers
-@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
+﻿@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 
 @Html.Partial("FichaTemplate")
-@*@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)*@
 
 @section scripts{
 
@@ -20,7 +17,6 @@
     var modelCampania = "@Model.Campania";
     var modelCuv = "@Model.Cuv";
     var modelOrigen = "@Model.OrigenUrl";
-    var urlSinImagenTiposyTonos = '@System.Configuration.ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos)';
     </script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/Ficha.js"></script>
 }

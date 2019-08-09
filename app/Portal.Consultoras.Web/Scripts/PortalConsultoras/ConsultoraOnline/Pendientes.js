@@ -40,17 +40,27 @@ function bindElments() {
     });
 }
 
-function AceptarPedidoPendiente() {
+function AceptarPedidoPendiente(listaGana) {
+    var accionTipo = "";
+    if (listaGana) {
+        if (listaGana.length != 0) accionTipo = "ingrgana";
+        else accionTipo = "ingrped";
+    } else {
+        listaGana = $("#list-ofertas-ganamas").data('listagana');
+        var btn = $('.btnAccion a.ghost')[0];
+        accionTipo = $(btn).parent().data('accion');
+    }
 
-    var btn = $('.btnAccion a.ghost')[0];
-    var accionTipo = $(btn).parent().data('accion');
 
-    if (btn) {
+    
+
+
+    if (accionTipo) {
         var pedido = {
             Accion: 2,
             Dispositivo: glbDispositivo,
             AccionTipo: accionTipo,
-            ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $("#list-ofertas-ganamas").data('listagana') : [],
+            ListaGana: accionTipo == 'ingrgana' ? listaGana: [],
             OrigenTipoVista: gTipoVista
         }
 
@@ -65,7 +75,7 @@ function AceptarPedidoPendiente() {
             success: function (response) {
                 /** Analytics **/
 
-                MarcaAnalyticsClienteProducto($(btn).parent().data('accion') == "ingrgana" ? "Acepto Todo el Pedido - Por Gana+" : "Acepto Todo el Pedido - Por catálogo");
+                MarcaAnalyticsClienteProducto(accionTipo == "ingrgana" ? "Acepto Todo el Pedido - Por Gana+" : "Acepto Todo el Pedido - Por catálogo");
                 /** Fin Analytics **/
 
                 closeWaitingDialog();
@@ -77,7 +87,10 @@ function AceptarPedidoPendiente() {
                             var mensajeConfirmacion = (accionTipo == "ingrgana") ? "Has atendido el pedido por Gana+." : "Has atendido el pedido por Catálogo.";
                             $("#mensajeConfirmacion").html(mensajeConfirmacion);
 
-                            $("#contenedor-paso-2").hide();
+                            //HD-4734
+                            if ($("#contenedor-paso-2").css('display') == "block") $("#contenedor-paso-2").hide();
+                            else $("#contenedor-paso-1").hide();
+                           
                             $("#modal-confirmacion").show();
                             $("body").css('overflow', 'hidden');
                             if (!response.continuarExpPendientes) {
@@ -110,7 +123,7 @@ function AceptarPedidoPendiente() {
                             if (listProductos.length > 0) {
                                 listProductos.forEach(function (product) {
                                     var itemProduct = {};
-                                    if ($(btn).parent().data('accion') == "ingrgana") {  //por Gana+
+                                    if (accionTipo == "ingrgana") {  //por Gana+
                                         itemProduct = {
                                             "id": product.CUV2,
                                             "name": product.DescripcionCUV2,
@@ -136,7 +149,7 @@ function AceptarPedidoPendiente() {
 
                                 });
 
-                                AnalyticsMarcacionPopupConfirmacion($(btn).parent().data('accion') === "ingrgana" ? "Por Gana+" : "Por catálogo", lstproduct);
+                                AnalyticsMarcacionPopupConfirmacion(accionTipo === "ingrgana" ? "Por Gana+" : "Por catálogo", lstproduct);
                             }
                         } else {
                             $('#popuplink').click();
@@ -514,8 +527,8 @@ function ContinuarPedido() {
 
                     MarcaAnalyticsClienteProducto('Continuar');
 
-                    $('#Paso1-Clientes').hide();
-                    $('#Paso1-Productos').hide();
+                    //$('#Paso1-Clientes').hide();
+                    //$('#Paso1-Productos').hide();
 
                     var newListaCatalogo = [];
                     if (response.result.ListaCatalogo && response.result.ListaCatalogo.length > 0) {
@@ -538,10 +551,21 @@ function ContinuarPedido() {
                         }
                     }
 
-                    $('#contenedor-paso-2').show();
-                    cargarGaleria()
-                    bindElments();
-                    return false;
+
+
+                    //HD-4734
+
+                    if (response.result.ListaGana.length == 0 || response.result.ListaCatalogo.length == 0) {
+                        AceptarPedidoPendiente(response.result.ListaGana);
+                    } else {
+                        $('#Paso1-Clientes').hide();
+                        $('#Paso1-Productos').hide();
+                        $('#contenedor-paso-2').show(); 
+                        cargarGaleria()
+                        bindElments();
+                        return false;
+                    }
+                    
                 }
                 else {
                     alert(response.message);

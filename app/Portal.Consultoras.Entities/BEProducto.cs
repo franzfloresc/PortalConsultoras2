@@ -140,6 +140,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int Cantidad { get; set; }
 
+        [DataMember]
+        public string CodigoTipoOferta { get; set; }
+
         public BEProducto(IDataRecord row)
         {
             CUV = row.ToString("CUV");
@@ -182,8 +185,8 @@ namespace Portal.Consultoras.Entities
             EstrategiaID = row.ToInt32("EstrategiaID", 0);
             CodigoEstrategia = row.ToString("CodigoEstrategia");
             EstrategiaIDSicc = row.ToInt32("EstrategiaIDSicc");
-
             Cantidad = row.ToInt32("Cantidad");
+            CodigoTipoOferta = row.ToString("CodigoTipoOferta", string.Empty);
         }
 
         //Refactor Inheritance

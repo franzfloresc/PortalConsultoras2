@@ -557,6 +557,7 @@ namespace Portal.Consultoras.BizLogic
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
                 var actualizacionEmailTask = Task.Run(() => GetActualizacionEmail(paisID, usuario.CodigoUsuario));
+                var actualizacionCelularTask = Task.Run(() => GetActualizacionCelular(paisID, usuario.CodigoUsuario));
                 var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.ActualizacionDatosEnabled.TablaLogicaId));
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
@@ -588,6 +589,7 @@ namespace Portal.Consultoras.BizLogic
                                 revistaDigitalSuscripcionTask,
                                 cuponTask,
                                 actualizacionEmailTask,
+                                actualizacionCelularTask,
                                 actualizaDatosTask,
                                 actualizaDatosConfigTask,
                                 contratoAceptacionTask,
@@ -636,6 +638,14 @@ namespace Portal.Consultoras.BizLogic
                     usuario.CambioCorreoPendiente = Constantes.ActualizacionDatosValidacion.CambioCorreoPendiente.Equals(resultActualizacionEmail[0]);
                     usuario.CorreoPendiente = resultActualizacionEmail.Length > 1 ? resultActualizacionEmail[1] : string.Empty;
                 }
+
+                if (actualizacionCelularTask.Result != null)
+                {
+                    var resultActualizacionCelular = actualizacionCelularTask.Result.Split('|');
+                    usuario.CambioCelularPendiente = Constantes.ActualizacionDatosValidacion.CambioCelularPendiente.Equals(resultActualizacionCelular[0]);
+                    usuario.CelularPendiente = resultActualizacionCelular.Length > 1 ? resultActualizacionCelular[1] : string.Empty;
+                }
+
                 if (actualizaDatosTask.Result != null)
                 {
                     var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(ConsTablaLogica.ActualizacionDatosEnabled.ActualizaDatosEnabled));
@@ -3103,6 +3113,7 @@ namespace Portal.Consultoras.BizLogic
             objCreden.RecursoApi = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.RECURSO).Select(b => b.Valor).FirstOrDefault();
             objCreden.Mensaje = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE).Select(b => b.Valor).FirstOrDefault();
             objCreden.MensajeOptin = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE_OPTIN).Select(b => b.Valor).FirstOrDefault();
+            objCreden.From = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.FROM).Select(b => b.Valor).FirstOrDefault();
             return objCreden;
         }
 
@@ -3146,7 +3157,8 @@ namespace Portal.Consultoras.BizLogic
                         CodigoIso = oUsu.CodigoIso,
                         EsMobile = oUsu.EsMobile,
                         RequestUrl = oCredencial.RequestUrl,
-                        RecursoApi = oCredencial.RecursoApi
+                        RecursoApi = oCredencial.RecursoApi,
+                        From  = oCredencial.From
                     };
 
                     string requestUrl = ConfigurationManager.AppSettings.Get(Constantes.EnviarSMS.SmsConsultoraWs.urlKey);
@@ -3815,6 +3827,11 @@ namespace Portal.Consultoras.BizLogic
             return new DAUsuario(paisID).GetConsultoraParticipaEnPrograma(codigoPrograma, codigoConsultora, campaniaID);
         }
 
+        public string GetActualizacionCelular(int paisID, string codigoUsuario)
+        {
+            return new DAUsuario(paisID).GetActualizacionCelular(codigoUsuario);
+        }
+
         public string GetActualizacionEmail(int paisID, string codigoUsuario)
         {
             return new DAUsuario(paisID).GetActualizacionEmail(codigoUsuario);
@@ -3835,7 +3852,9 @@ namespace Portal.Consultoras.BizLogic
             oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
-            oMensaje.MensajeFijo = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarFijo).Select(b => b.Valor).FirstOrDefault();
+
+            //TODO: no tiene sentido en Constantes.cs el valor de  MensajeActualizarFijo = 16261, mientras que los demas son TablaLogicaId = 10
+            //oMensaje.MensajeFijo = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarFijo).Select(b => b.Valor).FirstOrDefault();
 
             return oMensaje;
         }

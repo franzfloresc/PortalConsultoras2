@@ -7,6 +7,7 @@
 
     var _elements = {
         htmlAttrView: {
+            idMain: '#seccion_Contenedor_Ficha',
             origenPedidoWebAgregar: 'data-OrigenPedidoWebAgregar',
             origenPedidoEditar: 'data-OrigenPedidoEditar',
             codigovariante: 'data-codigovariante'            
@@ -27,7 +28,7 @@
             templateId: "#estrategia-template",
             id: "#estrategia",
             background: "#ImagenDeFondo",
-            stamp: ".ficha_detalle",
+            stamp: ".tag_nuevo",
         },
         compartirEstrategia: {
             templateId: "#compartir-estrategia-template",
@@ -42,6 +43,10 @@
             templateId: "#agregar-estrategia-template",
             id: "#dvContenedorAgregar",
             contenedor: "#ContenedorAgregado"
+        },
+        galeria: {
+            templateId: "#galeria-template",
+            id: "#contenedor-galeria"
         }
     };
 
@@ -52,14 +57,13 @@
 
     var _renderEstrategia = function (estrategia) {
         SetHandlebars(_elements.imagenEstrategia.templateId, estrategia, _elements.imagenEstrategia.id);
-
+        _renderGaleria(estrategia, false);
 
         $('.slider-for').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: false,
             asNavFor: '.slider-nav',
-            
             infinite: false,
             dots: false,
             fade: true,
@@ -73,20 +77,19 @@
                         fade: false
                     }
                 }
-            ]     
-        })                 
-        
+            ]
+        });
+
         $('.slider-nav').slick({
-            slidesToShow: 10,
+            slidesToShow: 5,
             slidesToScroll: 1,
-            
             asNavFor: '.slider-for',
             dots: false,
             infinite: false,
-            arrows: false,
-            centerMode: true,
             focusOnSelect: true,
-            vertical: true
+            vertical: true,
+            prevArrow: '<div class="arrow prev arrow_vertical"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
+            nextArrow: '<div class="arrow next arrow_vertical"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
         });
 
         SetHandlebars(_elements.estrategia.templateId, estrategia, _elements.estrategia.id);
@@ -244,13 +247,20 @@
     };
 
     var _setValueAttrElementHtml = function (attrObj, value) {
-        $("[" + attrObj + "]").attr(attrObj, value);
+        $(_elements.htmlAttrView.idMain + " [" + attrObj + "]").attr(attrObj, value);
     };
 
     var _setEstrategiaAtributosHtml = function (estrategia) {
         _setValueAttrElementHtml(_elements.htmlAttrView.origenPedidoWebAgregar, estrategia.OrigenAgregar);
         _setValueAttrElementHtml(_elements.htmlAttrView.origenPedidoEditar, estrategia.CodigoUbigeoPortal);
         _setValueAttrElementHtml(_elements.htmlAttrView.codigovariante, estrategia.CodigoVariante);
+    };
+
+    var _renderGaleria = function (objeto, esFichaEnriquecida) {
+        objeto.EsFichaEnriquecida = esFichaEnriquecida;
+
+        SetHandlebars(_elements.galeria.templateId, objeto, _elements.galeria.id);
+        return true;
     };
 
     return {

@@ -98,6 +98,8 @@ namespace Portal.Consultoras.BizLogic
             return selConsultorasCodigo;
         }
 
+    
+
         public List<BEConsultora> SelectConsultoraByID(int paisID, Int64 ConsultoraID)
         {
             List<BEConsultora> consultora = new List<BEConsultora>();
