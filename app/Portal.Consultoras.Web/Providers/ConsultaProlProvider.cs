@@ -319,7 +319,6 @@ namespace Portal.Consultoras.Web.Providers
                 sb.AppendLine("Method: Post");
                 sb.AppendLine(string.Format("Parametros:{0}", jsonParameters));
                 sb.AppendLine("Response: Null content");
-
                 var taskApi = Task.Run(() => RespMSConsultaProl(jsonParameters, requestUrl, "post", codigoConsultora, paisISO));
                 Task.WhenAll(taskApi);
                 string content = taskApi.Result;
