@@ -15,18 +15,20 @@
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre", Model.PaisID), "-- Seleccionar --", new { id = "ddlPais" })
                 </div>
+                <span class="color_red" style="width:5px;">*</span>
                 <div class="titB">Campaña:</div>
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.CodigoCampania, new SelectList(Model.listaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
                 </div>
+                <span class="color_red" style="width:5px;">*</span>
             </div>
 
             <div class="div-3">
                 <div class="titG">Región:</div>
                 <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaRegiones, "RegionID", "Codigo"), "-- Todas --", new { id = "ddlRegion" })
+                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.listaRegiones, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
                 </div>
-
+                <span class="color_red" style="width:5px;">*</span>
                 <div class="titB">Zona:</div>
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Nombre"), "-- Todas --", new { id = "ddlZona" })
@@ -77,6 +79,11 @@
 
            if (jQuery.trim($("#ddlCampania").val()) == "") {
                 alert("Debe seleccionar una Campania, verifique");
+                return false;
+            }
+
+           if (jQuery.trim($("#ddlRegion").val()) == "") {
+                alert("Debe seleccionar una Región, verifique");
                 return false;
             }
 
