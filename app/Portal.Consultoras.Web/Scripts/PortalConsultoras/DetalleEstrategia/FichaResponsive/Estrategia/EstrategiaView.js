@@ -7,6 +7,7 @@
 
     var _elements = {
         htmlAttrView: {
+            idMain: '#seccion_Contenedor_Ficha',
             origenPedidoWebAgregar: 'data-OrigenPedidoWebAgregar',
             origenPedidoEditar: 'data-OrigenPedidoEditar',
             codigovariante: 'data-codigovariante'            
@@ -246,7 +247,7 @@
     };
 
     var _setValueAttrElementHtml = function (attrObj, value) {
-        $("[" + attrObj + "]").attr(attrObj, value);
+        $(_elements.htmlAttrView.idMain + " [" + attrObj + "]").attr(attrObj, value);
     };
 
     var _setEstrategiaAtributosHtml = function (estrategia) {

@@ -245,11 +245,10 @@ var menuModule = (function () {
 
         if (typeof AnalyticsPortalModule !== "undefined") {
             titulo = titulo || "";
-            var OrigenPedidoWeb = "";
             var texto = _sectionClickTexto(elem);
             var clicEnBanner = false;
 
-            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(elem), false);
+            var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(elem), false);
 
             if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.Ganadoras) > 0) {
                 if (titulo === "BannerMG") {
