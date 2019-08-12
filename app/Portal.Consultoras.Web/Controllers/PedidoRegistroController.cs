@@ -713,8 +713,8 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
 
                 var message = !errorServer ? "OK"
-                    : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.";
-
+                    : tipo.Length > 1 ? tipo : Constantes.MensajesError.Pedido_DeleteAll;
+               
                 //Validar si el cuv sigue agregado
                 var EsAgregado = ValidarEsAgregado(pedidoAgrupado);
                 lastResult = new Tuple<bool, JsonResult>(!errorServer, Json(new
@@ -749,7 +749,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lastResult = new Tuple<bool, JsonResult>(false, Json(new
                 {
                     success = false,
-                    message ="Ocurrió un error al ejecutar la operación.",
+                    message = Constantes.MensajesError.Pedido_DeleteAll,
                 }));
             }
           
