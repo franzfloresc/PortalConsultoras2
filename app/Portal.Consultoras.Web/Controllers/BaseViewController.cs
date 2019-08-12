@@ -528,7 +528,8 @@ namespace Portal.Consultoras.Web.Controllers
             // validar stock del CUV padre
             var lstModelo = new List<DetalleEstrategiaFichaModel>();
             lstModelo.Add(modelo);
-            lstModelo = _ofertaPersonalizadaProvider.ActualizarEstrategiaStockProl(lstModelo, userData);
+            //por ahora no validar stock con prol hasta que definan nueva logica
+            //lstModelo = _ofertaPersonalizadaProvider.ActualizarEstrategiaStockProl(lstModelo, userData);
             modelo.TieneStock = lstModelo.First(x => x.CUV2 == modelo.CUV2).TieneStock;
 
             // validar stock de los CUV componentes
