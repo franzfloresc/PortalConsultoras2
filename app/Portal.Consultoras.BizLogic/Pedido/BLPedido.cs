@@ -50,6 +50,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IArmaTuPackBusinessLogic _BLArmaTuPack;
         private readonly IActivarPremioNuevasBusinessLogic _bLActivarPremioNuevas;
         private readonly ICaminoBrillanteBusinessLogic _bLCaminoBrillante;
+        private readonly IPedidoWebPromocionBusinessLogic _bLPedidoWebPromocion;
 
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
@@ -71,7 +72,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLLimiteVenta(),
                                     new BLArmaTuPack(),
                                     new BLActivarPremioNuevas(),
-                                    new BLCaminoBrillante())
+                                    new BLCaminoBrillante(),
+                                    new BLPedidoWebPromocion())
         { }
 
         public BLPedido(IProductoBusinessLogic productoBusinessLogic,
@@ -94,7 +96,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             ILimiteVentaBusinessLogic limiteVentaBusinessLogic,
                             IArmaTuPackBusinessLogic BLArmaTuPack,
                             IActivarPremioNuevasBusinessLogic bLActivarPremioNuevas,
-                            ICaminoBrillanteBusinessLogic bLCaminoBrillante)
+                            ICaminoBrillanteBusinessLogic bLCaminoBrillante,
+                            IPedidoWebPromocionBusinessLogic bLPedidoWebPromocion)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -117,6 +120,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _BLArmaTuPack = BLArmaTuPack;
             _bLActivarPremioNuevas = bLActivarPremioNuevas;
             _bLCaminoBrillante = bLCaminoBrillante;
+            _bLPedidoWebPromocion = bLPedidoWebPromocion;
         }
 
         #region Pedido Registro Insertar-Actualizar-Eliminar
@@ -464,6 +468,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var usuario = pedidoDetalle.Usuario;
 
             var estrategia = PedidoAgregar_FiltrarEstrategiaPedido(pedidoDetalle, usuario.PaisID);
+            pedidoDetalle.Estrategia = estrategia;
 
             if (string.IsNullOrEmpty(estrategia.CUV2))
             {
@@ -479,6 +484,22 @@ namespace Portal.Consultoras.BizLogic.Pedido
             usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
 
             var tipoEstrategia = _tipoEstrategiaBusinessLogic.GetTipoEstrategiaById(usuario.PaisID, estrategia.TipoEstrategiaID);
+
+            #region Promotion
+            var ValidarPromociones = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatoValorBool(
+                            usuario.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.Promociones
+                            );
+            if (ValidarPromociones)
+            {
+                var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalle, usuario);
+                if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                {
+                    return validarPromocion;
+                }
+            }
+            #endregion
 
             #region Reserva
             if (pedidoDetalle.Reservado && pedidoDetalle.EsDuoPerfecto)
@@ -570,6 +591,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 ConsecutivoNueva = usuario.ConsecutivoNueva
             };
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+
+            /*HD-4635*/
+            int flagCantidadMayor = 0;
+            string mensajeCantidadMayor = string.Empty;
+            foreach (var item in lstDetalle)
+            {
+                if (item.CUV == cuvSet)
+                    if ((item.Cantidad + pedidoDetalle.Cantidad) > 99)
+                    {
+                        pedidoDetalle.Cantidad = 99 - item.Cantidad;
+                        flagCantidadMayor = 1;
+                        mensajeCantidadMayor = string.Format(Constantes.ConfiguracionManager.MensajeCantiad, 99);
+                    }
+            }
 
             #region UnidadesPermitidas
 
@@ -783,6 +818,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             response.ListaMensajeCondicional.AddRange(ListaMensajeCondicional);
             response.CUV = cuvSet;
             response.PedidoWeb = pedidoWeb;
+            response.mensajeCantidadMayor = mensajeCantidadMayor;/*HD-4635*/
+            response.flagCantidadMayor = flagCantidadMayor;/*HD-4635*/
             SetMontosTotalesProl(response, listObjMontosProl);
             return response;
         }
@@ -812,6 +849,46 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var lstDetalleApp = new List<BEPedidoDetalle>();
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
+
+                #region Promotion
+                var ValidarPromociones = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatoValorBool(
+                            usuario.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.Promociones
+                            );
+
+                if (ValidarPromociones)
+                {
+                    int pedidoId;
+                    var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
+
+                    if (pedidoDetalle.StockNuevo < 0)
+                    {
+                        var CantidadModificada = pedidoDetalle.StockNuevo * -1;
+                        var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, CantidadModificada, pedidoDetalle.Producto.CUV);
+                        if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                        {
+                            return validarPromocion;
+                        }
+                    }
+                    else
+                    {
+                        var pedidoDetalleClone = new BEPedidoDetalle()
+                        {
+                            Producto = new BEProducto()
+                            {
+                                CUV = pedidoDetalle.Producto.CUV
+                            },
+                            Cantidad = pedidoDetalle.StockNuevo
+                        };
+                        var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnAgregar(lstDetalleAgrupado, pedidoDetalleClone, usuario, true);
+                        if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                        {
+                            return validarPromocion;
+                        }
+                    }
+                }
+                #endregion
 
                 #region MontoMaximo
                 //Monto Máximo
@@ -1023,14 +1100,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var lstDetalle = new List<BEPedidoWebDetalle>();
 
                 //Eliminar Detalle
-                var responseCode = Constantes.PedidoValidacion.Code.SUCCESS;
-                var respuesta = new BEPedidoDetalleResult();
+                BEPedidoDetalleResult respuesta;
                 BEPedidoWeb pedidoWeb = null;
                 if (pedidoDetalle.Producto == null)
                 {
-                    responseCode = await DeleteAll(usuario, pedidoDetalle);
+                    var responseCode = await DeleteAll(usuario, pedidoDetalle);
                     List<BEMensajeProl> listaMensajeCondicional;
                     UpdateProlCrud(usuario, lstDetalle, out listaMensajeCondicional, out pedidoWeb);
+                    respuesta = PedidoDetalleRespuesta(responseCode);
+                    respuesta.PedidoWeb = pedidoWeb ?? respuesta.PedidoWeb;
+
+                    return respuesta;
                 }
                 else
                 {
@@ -1055,10 +1135,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 PedidoAgregar_DesReservarPedido(lstDetalle, pedidoDetalle.Producto, usuario);
-                var request = PedidoDetalleRespuesta(responseCode);
-                request.PedidoWeb = pedidoWeb ?? respuesta.PedidoWeb;
 
-                return request;
+                return respuesta;
             }
             catch (Exception ex)
             {
@@ -1137,6 +1215,26 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var usuario = pedidoDetalle.Usuario;
             usuario.PaisID = pedidoDetalle.PaisID;
+
+            #region Promotion
+
+            var ValidarPromociones = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatoValorBool(
+                            usuario.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.Promociones
+                            );
+
+            if (ValidarPromociones)
+            {
+                int pedidoId;
+                var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
+                var validarPromocion = _bLPedidoWebPromocion.ValidarPromocionesEnModificar(lstDetalleAgrupado, usuario, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV);
+                if (!validarPromocion.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                {
+                    return validarPromocion;
+                }
+            }
+            #endregion
 
             string responseCode;
 
@@ -1448,7 +1546,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                         x.EsElecMultipleNuevas,
                                                         x.EsPremioElectivo,
                                                         x.EsCuponIndependiente,
-                                                        null,
                                                         x.EsKitCaminoBrillante || x.EsDemCaminoBrillante);
 
                         var lstCatalogos = Util.GetCodigosCatalogo();
@@ -1488,8 +1585,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     else pedido.TippingPoint = tippingPoint.MontoVentaExigido;
 
                     var lstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
-                    if (lstEstrategia.Any() && lstDetalle.Any()) lstDetalle.ForEach(p => p.EsPremioElectivo = lstEstrategia.Any(c => c.CUV2 == p.CUV));
-                    
+                    if (lstEstrategia.Any())
+                    {
+                        pedido.PrecioRegalo = !lstEstrategia.Any(x => (x.Precio2 == 0 ? x.PrecioUnitario : x.Precio2) == 0);
+                        if (lstDetalle.Any())
+                            lstDetalle.ForEach(p => p.EsPremioElectivo = lstEstrategia.Any(c => c.CUV2 == p.CUV));
+                    }
+
                 }
 
                 //Duo Perfecto
@@ -1500,7 +1602,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         detalle.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, detalle.CUV);
                     });
                 }
-                
+
                 //Web set y detalle
                 lstDetalle.Where(filtro => filtro.SetID > 0).Update(detalle =>
                 {

@@ -257,13 +257,6 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        public CountryResponse()
-        {
-        }
-
-        /// <summary>
-        ///     Constructor
-        /// </summary>
         [Constructor]
         public CountryResponse(
             Continent continent = null,
@@ -280,19 +273,6 @@ namespace MaxMind.Util
 
     public abstract class AbstractCountryResponse : AbstractResponse
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="AbstractCountryResponse" /> class.
-        /// </summary>
-        protected AbstractCountryResponse()
-        {
-            Continent = new Continent();
-            Country = new Country();
-            MaxMind = new MaxMind();
-            RegisteredCountry = new Country();
-            RepresentedCountry = new RepresentedCountry();
-            Traits = new Traits();
-        }
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="AbstractCountryResponse" /> class.
         /// </summary>
@@ -405,13 +385,6 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        public MaxMind()
-        {
-        }
-
-        /// <summary>
-        ///     Constructor
-        /// </summary>
         [Constructor]
         public MaxMind([Parameter("queries_remaining")] int? queriesRemaining = null)
         {
@@ -450,7 +423,7 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        public Country(int? confidence = null, int? geoNameId = null, string isoCode = null,
+        public Country(int? confidence, int? geoNameId = null, string isoCode = null,
             IDictionary<string, string> names = null, IEnumerable<string> locales = null)
             : base(geoNameId, names, locales)
         {
@@ -463,7 +436,7 @@ namespace MaxMind.Util
         /// </summary>
         [Constructor]
         public Country(
-            int? confidence = null,
+            int? confidence,
             // See note in City model
             [Parameter("geoname_id")] long? geoNameId = null,
             [Parameter("iso_code")] string isoCode = null,
@@ -581,7 +554,7 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        public Continent(string code = null, int? geoNameId = null, IDictionary<string, string> names = null,
+        public Continent(string code, int? geoNameId = null, IDictionary<string, string> names = null,
             IEnumerable<string> locales = null)
             : base(geoNameId, names, locales)
         {
@@ -593,7 +566,7 @@ namespace MaxMind.Util
         /// </summary>
         [Constructor]
         public Continent(
-            string code = null,
+            string code,
             // See note in City model
             [Parameter("geoname_id")] long? geoNameId = null,
             IDictionary<string, string> names = null,
@@ -621,7 +594,7 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        public RepresentedCountry(string type = null, int? confidence = null, int? geoNameId = null,
+        public RepresentedCountry(string type, int? confidence = null, int? geoNameId = null,
             string isoCode = null, IDictionary<string, string> names = null, IEnumerable<string> locales = null)
             : base(confidence, geoNameId, isoCode, names, locales)
         {
@@ -633,7 +606,7 @@ namespace MaxMind.Util
         /// </summary>
         [Constructor]
         public RepresentedCountry(
-            string type = null,
+            string type,
             int? confidence = null,
             // See note in City model
             [Parameter("geoname_id")] long? geoNameId = null,
@@ -654,13 +627,6 @@ namespace MaxMind.Util
     }
     public class Traits
     {
-        /// <summary>
-        ///     Constructor
-        /// </summary>
-        public Traits()
-        {
-        }
-
         /// <summary>
         ///     Constructor
         /// </summary>

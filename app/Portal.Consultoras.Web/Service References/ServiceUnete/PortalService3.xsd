@@ -134,6 +134,7 @@
       <xs:element minOccurs="0" name="TipoDocumentoLegal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoMeta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoNacionalidad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoPago" type="xs:int" />
       <xs:element minOccurs="0" name="TipoPersona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoSolicitud" nillable="true" type="xs:string" />
@@ -218,6 +219,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
+  <xs:complexType name="UbigeoSV">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UbigeoTemplate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CANTON_CENTRO_POBLADO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DEPARTAMENTO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MUNICIPIO" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UbigeoSV" nillable="true" type="tns:UbigeoSV" />
   <xs:complexType name="UbigeoPA">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:UbigeoTemplate">
@@ -245,19 +259,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="UbigeoGT" nillable="true" type="tns:UbigeoGT" />
-  <xs:complexType name="UbigeoSV">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:UbigeoTemplate">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CANTON_CENTRO_POBLADO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DEPARTAMENTO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="MUNICIPIO" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="UbigeoSV" nillable="true" type="tns:UbigeoSV" />
   <xs:complexType name="ArrayOfUbigeoTemplate">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
@@ -286,38 +287,19 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ApellidoMaterno" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ApellidoPaterno" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaDeRegistro" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultoraRecomienda" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPostal" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoSeccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTerritorio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EstadoGEO" type="xs:int" />
-      <xs:element minOccurs="0" name="EstadoPostulante" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="EstadoPrePostulante" type="xs:int" />
       <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IpOrigen" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="LugarHijo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="LugarPadre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreConsultoraRecomienda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NroRegistros" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="Rechazo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RespuestaGEO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SolicitudPrePostulanteID" type="xs:int" />
       <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="VieneDe" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Zonificacion" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="SolicitudPrePostulante" nillable="true" type="tns:SolicitudPrePostulante" />
@@ -507,6 +489,76 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="KitInicioDetalle" nillable="true" type="tns:KitInicioDetalle" />
+  <xs:complexType name="CampaniaFelicitacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FinPrimeraCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FinSegundaCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FinTerceraCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InicioSegundaCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InicioTerceraCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimeraCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegundaCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TerceraCampania" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CampaniaFelicitacion" nillable="true" type="tns:CampaniaFelicitacion" />
+  <xs:complexType name="SolicitudPrePostulanteFS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApellidoMaterno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ApellidoPaterno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaDeRegistro" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultoraRecomienda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPostal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoSeccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTerritorio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoGEO" type="xs:int" />
+      <xs:element minOccurs="0" name="EstadoPostulante" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EstadoPrePostulante" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IpOrigen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LugarHijo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LugarPadre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreConsultoraRecomienda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NroRegistros" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="Rechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RespuestaGEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SolicitudPrePostulanteID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VieneDe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Zonificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SolicitudPrePostulanteFS" nillable="true" type="tns:SolicitudPrePostulanteFS" />
+  <xs:complexType name="SolicitudPrePostulanteRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Rol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TextoBusqueda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoFiltro" type="xs:int" />
+      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SolicitudPrePostulanteRequest" nillable="true" type="tns:SolicitudPrePostulanteRequest" />
+  <xs:complexType name="ArrayOfSolicitudPrePostulanteFS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPrePostulanteFS" nillable="true" type="tns:SolicitudPrePostulanteFS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSolicitudPrePostulanteFS" nillable="true" type="tns:ArrayOfSolicitudPrePostulanteFS" />
   <xs:complexType name="ArrayOfFraudeDireccion">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="FraudeDireccion" nillable="true" type="tns:FraudeDireccion" />
@@ -524,22 +576,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FraudeDireccion" nillable="true" type="tns:FraudeDireccion" />
-  <xs:complexType name="SolicitudPrePostulanteRequest">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Rol" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TextoBusqueda" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoFiltro" type="xs:int" />
-      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SolicitudPrePostulanteRequest" nillable="true" type="tns:SolicitudPrePostulanteRequest" />
-  <xs:complexType name="ArrayOfSolicitudPrePostulante">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPrePostulante" nillable="true" type="tns:SolicitudPrePostulante" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfSolicitudPrePostulante" nillable="true" type="tns:ArrayOfSolicitudPrePostulante" />
 </xs:schema>

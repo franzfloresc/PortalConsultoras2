@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCatalogosIssuu;
 using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ using System.ServiceModel;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using BEConfiguracionPais = Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPais;
+using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPaisDatos;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -45,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
-            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
+            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.SectionBpt.SectionBptDesktopCatalogo);
 
             ViewBag.Piloto = GetTienePiloto(userData.PaisID);
             ViewBag.Piloto = (ViewBag.Piloto == "1") ? ((ViewBag.Piloto == userData.AutorizaPedido) ? "1" : "0") : "0";
@@ -59,6 +62,54 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
             ViewBag.TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva;
 
+            var mensajeRRSS = Constantes.CatalogoMensajesDefault.SaludoCorreoPiloto;
+            var mensajePrincipal = "";
+
+            var parametrorBEConfiguracionPaisDatos = new BEConfiguracionPaisDatos();
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                var oBEConfiguracionPais = sv.GetConfiguracionPaisByCode(userData.PaisID, Constantes.ConfiguracionPaisDatos.RD.CompartirCatalogoRedesSociales);
+
+                if (oBEConfiguracionPais.Codigo != null)
+                {
+                    parametrorBEConfiguracionPaisDatos = new BEConfiguracionPaisDatos();
+                    parametrorBEConfiguracionPaisDatos.ConfiguracionPaisID = oBEConfiguracionPais.ConfiguracionPaisID;
+                    parametrorBEConfiguracionPaisDatos.PaisID = userData.PaisID;
+                }
+            }
+
+            if (parametrorBEConfiguracionPaisDatos.PaisID != 0)
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    var parametro = new Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos();
+                    Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] ListaConfiguracionPaisDatos;
+                    parametro.PaisID = userData.PaisID;
+                    parametro.ConfiguracionPaisID = parametrorBEConfiguracionPaisDatos.ConfiguracionPaisID;
+                    ListaConfiguracionPaisDatos = sv.GetConfiguracionPaisDatosAll(parametro);
+                    if (ListaConfiguracionPaisDatos.Any())
+                    {
+                        foreach (var item in ListaConfiguracionPaisDatos)
+                        {
+                            if (item.Codigo == Constantes.ConfiguracionPaisDatos.RD.MensajeCompartirCatalogo)
+                            {
+                                mensajeRRSS = item.Valor1;                                
+                            }
+                             
+                            if (item.Codigo == Constantes.ConfiguracionPaisDatos.RD.MensajePrincipalCatalogo)
+                            {
+                                mensajePrincipal = item.Valor1;
+                            }
+                             
+                        }
+
+                    }
+                }
+            }
+
+
+            ViewBag.MensajeRRSS = mensajeRRSS;
+            ViewBag.MensajePrincipal = mensajePrincipal;
             return View(clienteModel);
         }
 
@@ -456,11 +507,6 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td colspan=\"2\" style=\"height:6px;\"></td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
-                    mailBody += "<td style=\"text-align:center; width:48%; border-right:1px solid #000;\">";
-                    mailBody += "<a href=\"http://comunidad.somosbelcorp.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">¿Tienes dudas?</span>";
-                    mailBody += "</a>";
-                    mailBody += "</td>";
                     mailBody += "<td style=\"text-align:center; width:48%;\">";
                     mailBody += "<a href=\"http://belcorpresponde.somosbelcorp.com\" style=\"width:100%; display:block;\">";
                     mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">Cont&aacute;ctanos</span>";
@@ -700,11 +746,6 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td colspan=\"2\" style=\"height:6px;\"></td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
-                    mailBody += "<td style=\"text-align:center; width:48%; border-right:1px solid #000;\">";
-                    mailBody += "<a href=\"http://comunidad.somosbelcorp.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">¿Tienes dudas?</span>";
-                    mailBody += "</a>";
-                    mailBody += "</td>";
                     mailBody += "<td style=\"text-align:center; width:48%;\">";
                     mailBody += "<a href=\"http://belcorpresponde.somosbelcorp.com\" style=\"width:100%; display:block;\">";
                     mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">Cont&aacute;ctanos</span>";

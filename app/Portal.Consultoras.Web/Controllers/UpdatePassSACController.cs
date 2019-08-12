@@ -151,14 +151,14 @@ namespace Portal.Consultoras.Web.Controllers
                         var result = sv.CambiarClaveUsuario(model.PaisID, codigoIso, model.CodigoConsultora,
                             model.Clave, "", userData.CodigoUsuario, EAplicacionOrigen.ActualizarClaveSAC);
 
-                        if (result)
+                        if (string.IsNullOrEmpty(result))
                         {
                             registraDynamo(model);
 
                             return Json(new
                             {
                                 success = true,
-                                message = "La contraseña ha sido cambiada de forma correcta."
+                                message = Constantes.MensajesError.CambioSatisfactorioContrasenia
                             });
                         }
                         else
@@ -166,7 +166,7 @@ namespace Portal.Consultoras.Web.Controllers
                             return Json(new
                             {
                                 success = false,
-                                message = "error al cambiar clave, inténtelo mas tarde.",
+                                message = result,
                                 extra = ""
                             });
                         }

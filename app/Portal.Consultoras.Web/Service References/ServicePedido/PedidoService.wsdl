@@ -32,21 +32,21 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd15" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd16" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OrdenYFiltros" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd17" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd18" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd19" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd15" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd16" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd17" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OrdenYFiltros" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd18" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd19" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoService_UpdDatoRecogerPor_InputMessage">
@@ -60,6 +60,42 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetCuvSuscripcionSE_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCuvSuscripcionSEResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DescargaPedidosSinMarcar_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargaPedidosSinMarcar" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DescargaPedidosSinMarcar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargaPedidosSinMarcarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DescargaPedidosWebSinMarcar_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargaPedidosWebSinMarcar" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DescargaPedidosWebSinMarcar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargaPedidosWebSinMarcarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerUltimaDescargaPedidoSinMarcar_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimaDescargaPedidoSinMarcar" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerUltimaDescargaPedidoSinMarcar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimaDescargaPedidoSinMarcarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerultimaLlamadaPedidodescargavalidador_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerultimaLlamadaPedidodescargavalidador" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerultimaLlamadaPedidodescargavalidador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerultimaLlamadaPedidodescargavalidadorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerUltimaDescargaSinMarcar_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimaDescargaSinMarcar" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerUltimaDescargaSinMarcar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimaDescargaSinMarcarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetRutaPedidoDescargaSinMarcar_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRutaPedidoDescargaSinMarcar" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetRutaPedidoDescargaSinMarcar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRutaPedidoDescargaSinMarcarResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertKitSE_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertKitSE" />
@@ -2656,6 +2692,30 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCuvSuscripcionSE" message="tns:IPedidoService_GetCuvSuscripcionSE_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCuvSuscripcionSEResponse" message="tns:IPedidoService_GetCuvSuscripcionSE_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="DescargaPedidosSinMarcar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DescargaPedidosSinMarcar" message="tns:IPedidoService_DescargaPedidosSinMarcar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DescargaPedidosSinMarcarResponse" message="tns:IPedidoService_DescargaPedidosSinMarcar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DescargaPedidosWebSinMarcar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DescargaPedidosWebSinMarcar" message="tns:IPedidoService_DescargaPedidosWebSinMarcar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DescargaPedidosWebSinMarcarResponse" message="tns:IPedidoService_DescargaPedidosWebSinMarcar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaPedidoSinMarcar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcar" message="tns:IPedidoService_ObtenerUltimaDescargaPedidoSinMarcar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcarResponse" message="tns:IPedidoService_ObtenerUltimaDescargaPedidoSinMarcar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerultimaLlamadaPedidodescargavalidador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerultimaLlamadaPedidodescargavalidador" message="tns:IPedidoService_ObtenerultimaLlamadaPedidodescargavalidador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerultimaLlamadaPedidodescargavalidadorResponse" message="tns:IPedidoService_ObtenerultimaLlamadaPedidodescargavalidador_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaSinMarcar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaSinMarcar" message="tns:IPedidoService_ObtenerUltimaDescargaSinMarcar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaSinMarcarResponse" message="tns:IPedidoService_ObtenerUltimaDescargaSinMarcar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRutaPedidoDescargaSinMarcar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetRutaPedidoDescargaSinMarcar" message="tns:IPedidoService_GetRutaPedidoDescargaSinMarcar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetRutaPedidoDescargaSinMarcarResponse" message="tns:IPedidoService_GetRutaPedidoDescargaSinMarcar_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertKitSE">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertKitSE" message="tns:IPedidoService_InsertKitSE_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertKitSEResponse" message="tns:IPedidoService_InsertKitSE_OutputMessage" />
@@ -4394,6 +4454,60 @@
     </wsdl:operation>
     <wsdl:operation name="GetCuvSuscripcionSE">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuvSuscripcionSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargaPedidosSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DescargaPedidosSinMarcar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargaPedidosWebSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DescargaPedidosWebSinMarcar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaPedidoSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerultimaLlamadaPedidodescargavalidador">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerultimaLlamadaPedidodescargavalidador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaSinMarcar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRutaPedidoDescargaSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetRutaPedidoDescargaSinMarcar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8295,6 +8409,60 @@
     </wsdl:operation>
     <wsdl:operation name="GetCuvSuscripcionSE">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuvSuscripcionSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargaPedidosSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DescargaPedidosSinMarcar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargaPedidosWebSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DescargaPedidosWebSinMarcar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaPedidoSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerultimaLlamadaPedidodescargavalidador">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerultimaLlamadaPedidodescargavalidador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaSinMarcar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRutaPedidoDescargaSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetRutaPedidoDescargaSinMarcar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

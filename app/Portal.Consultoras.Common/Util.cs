@@ -768,7 +768,7 @@ namespace Portal.Consultoras.Common
             body.Append("<HTML>" + head + "<body topmargin='0' leftmargin='0' marginheight='0' marginwidth='0' style='font-family:Lato, Arial, Helvetica, Arial, sans-serif;'> ");
 
             body.Append(String.Format(strMensaje, logo.ContentId));
- 
+
             body.Append("</body></HTML>");
 
 
@@ -3063,6 +3063,24 @@ namespace Portal.Consultoras.Common
         }
 
         /// <summary>
+        /// Convierte en entero a string con el formato segun el pais
+        /// </summary>
+        /// <param name="valor">Monto a formatear</param>
+        /// <param name="pais">CodigoISO del Pais. Ejm PE</param>
+        /// <returns></returns>
+        public static string EnteroFormat(decimal valor, string pais)
+        {
+            if (string.IsNullOrEmpty(pais)) return "";
+
+            var importe = string.Format("{0:#,##0}", valor);
+            string listaPaises = ParseString(ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "");
+            if (listaPaises.Contains(pais)) importe = importe.Split('.')[0].Replace(",", ".");
+
+            return importe;
+        }
+
+
+        /// <summary>
         /// Convierte el decimal a string con el formato segun el pais
         /// </summary>
         /// <param name="valor">Monto a formatear</param>
@@ -3697,6 +3715,10 @@ namespace Portal.Consultoras.Common
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 8;
                     break;
+                case Constantes.PaisID.PuertoRico:
+                    limiteMinimoTelef = 10;
+                    limiteMaximoTelef = 10;
+                    break;
                 default:
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 15;
@@ -3913,6 +3935,7 @@ namespace Portal.Consultoras.Common
                         {
                             switch (tipoEstrategiaCodigo)
                             {
+                                case Constantes.TipoEstrategiaCodigo.MasGanadoras:
                                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                                 case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                                 case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
@@ -3947,7 +3970,7 @@ namespace Portal.Consultoras.Common
 
         public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
             bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion, string tipoEstrategiaCodigo,
-            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec, bool esCuponIndependiente, int? OrigenPedidoWeb = null,
+            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec, bool esCuponIndependiente,
             bool esCaminoBrillante = false)
         {
             if (esPremioElec) return lista[Constantes.NuevoCatalogoProducto.ESPREMIOELEC];
@@ -3987,38 +4010,35 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                switch (origenPedido)
+                var modeloOrigen = UtilOrigenPedidoWeb.GetModelo(origenPedido);
+
+                if (modeloOrigen.Palanca == ConsOrigenPedidoWeb.Palanca.OfertaFinal
+                    || origenPedido == ConsOrigenPedidoWeb.DesktopPedidoOfertaFinal
+                    || origenPedido == ConsOrigenPedidoWeb.MobilePedidoOfertaFinal)
                 {
-                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
-                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
-                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
-                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
-                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
-                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
-                        result = "";
-                        break;
-                    default:
-                        result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
+                    result = "";
+                }
+                else
+                {
+                    result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
 
-                        if (result == "") result = descripcion;
+                    if (result == "") result = descripcion;
 
-                        if (string.IsNullOrWhiteSpace(result))
+                    if (string.IsNullOrWhiteSpace(result))
+                    {
+                        switch (ofertaId)
                         {
-                            switch (ofertaId)
-                            {
-                                case Constantes.TipoOferta.Liquidacion:
-                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
-                                    break;
-                                case Constantes.TipoOferta.Flexipago:
-                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
-                                    break;
-                                default:
-                                    result = "";
-                                    break;
-                            }
+                            case Constantes.TipoOferta.Liquidacion:
+                                result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                                break;
+                            case Constantes.TipoOferta.Flexipago:
+                                result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
+                                break;
+                            default:
+                                result = "";
+                                break;
                         }
-
-                        break;
+                    }
                 }
             }
 
@@ -4079,7 +4099,7 @@ namespace Portal.Consultoras.Common
         public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
         {
             var tipoPersonalizacion = string.Empty;
-            
+
             switch (codigoEstrategia)
             {
                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
@@ -4114,6 +4134,9 @@ namespace Portal.Consultoras.Common
                     break;
                 case Constantes.TipoEstrategiaCodigo.Catalogo:
                     tipoPersonalizacion = Constantes.TipoEstrategiaCodigo.Catalogo;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.MasGanadoras:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.MasGanadoras;
                     break;
                 case Constantes.TipoEstrategiaCodigo.CaminoBrillanteDemostradores:
                     tipoPersonalizacion = Constantes.ConfiguracionPais.CaminoBrillanteDemostradores;
@@ -4220,6 +4243,21 @@ namespace Portal.Consultoras.Common
                 Constantes.ODSCodigoCatalogo.CatalogoEsika,
             };
         }
+
+        public static List<string> GetCodigosPromocion()
+        {
+            var lista = new List<string>
+            {
+                Constantes.CodigoTipoOferta.Promocion1,
+                Constantes.CodigoTipoOferta.Promocion2,
+                Constantes.CodigoTipoOferta.Promocion3,
+                Constantes.CodigoTipoOferta.Promocion4,
+                Constantes.CodigoTipoOferta.Promocion5,
+                Constantes.CodigoTipoOferta.Promocion6
+            };
+            return lista;
+        }
+
     }
 
     public class SimpleCrypto

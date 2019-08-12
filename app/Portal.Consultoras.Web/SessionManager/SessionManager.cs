@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
+using Portal.Consultoras.Web.Models.Encuesta;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -153,6 +154,20 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRFlagIsSetsOrPacks] = flag;
         }
+
+        public bool? GetTruequeUnoPorMuchos()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.CDRFlagTruequeUnoMuchos];
+            if (val == null) return null;
+            return (bool)val;
+        }
+
+        public void SetTruequeUnoPorMuchos(bool? flag)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRFlagTruequeUnoMuchos] = flag;
+        }
+
+        
 
         #endregion
 
@@ -1430,6 +1445,17 @@ namespace Portal.Consultoras.Web.SessionManager
         public string GetChatbotToken()
         {
             return (string)HttpContext.Current.Session["ChatbotToken"];
+        }
+
+        public void SetDataConfigEncuesta(List<DataConfigEncuestaModel> dataConfigEncuesta) { 
+            HttpContext.Current.Session["DataConfigEncuesta"] = dataConfigEncuesta;
+        }
+
+        public List<DataConfigEncuestaModel> GetDataConfigEncuesta()
+        {
+           var data = HttpContext.Current.Session["DataConfigEncuesta"];
+            if (data == null)  return null;
+            return (List<DataConfigEncuestaModel>)data;
         }
     }
 }

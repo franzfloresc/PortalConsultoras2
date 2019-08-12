@@ -27,7 +27,7 @@
         <div class="wrapper_content_actualizar_correo w-100-mobile">
             <div class="correo_actualizado text-center correo_actualizado_paddingMobile">
                 <div runat="server" id="divHeadSuccess">
-                    <div>
+                    <div style="margin-bottom:8px;">
                         <img src="../Content/Images/mobile/img-emoticons/1f64c.png"  />
                     </div>
                     <h1 class="titulo_correo_actualizado text-uppercase">
@@ -47,11 +47,11 @@
                 </p>
                 <div runat="server" id="divFootSuccess" >
                     <div class="noShowPhone" >                
-                        <asp:HyperLink ID="linkMainPage" runat="server" CssClass="btn_acept text-uppercase text-bold default-background-color">IR A SOMOS BELCORP</asp:HyperLink>
+                        <asp:HyperLink ID="linkMainPage" runat="server" CssClass="btn_acept text-uppercase text-bold multimarca-background-color">IR A SOMOS BELCORP</asp:HyperLink>
                         <p class="mensaje_app_esika_conmigo" >Tambien te recomendamos descargar el <asp:HyperLink ID="linkAppEsikaConmigo" CssClass="altLink" runat="server"></asp:HyperLink></p>
                     </div>
                     <div class="showPhone" >
-                        <asp:HyperLink ID="btnAppEsikaConmigo" runat="server" CssClass="btn_acept text-uppercase text-bold default-background-color"></asp:HyperLink>
+                        <asp:HyperLink ID="btnAppEsikaConmigo" runat="server" CssClass="btn_acept text-uppercase text-bold multimarca-background-color"></asp:HyperLink>
                         <p class="mensaje_app_esika_conmigo" >O puedes ingresar a la <asp:HyperLink ID="linkSomosBelcorp" CssClass="altLink" runat="server">versión web aquí</asp:HyperLink></p>
                     </div>
                 </div>

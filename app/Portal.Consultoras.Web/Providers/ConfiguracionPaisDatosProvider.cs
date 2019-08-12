@@ -87,17 +87,17 @@ namespace Portal.Consultoras.Web.Providers
         {
             switch (seccion)
             {
-                case Constantes.OrigenPedidoWeb.SectionBptDesktopHome:
+                case Constantes.SectionBpt.SectionBptDesktopHome:
                     return ObtenerKeyHomePorEstado(estado, false);
-                case Constantes.OrigenPedidoWeb.SectionBptDesktopPedido:
+                case Constantes.SectionBpt.SectionBptDesktopPedido:
                     return ObtenerKeyPedidoPorEstado(estado, false);
-                case Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo:
+                case Constantes.SectionBpt.SectionBptDesktopCatalogo:
                     return ObtenerKeyCatalogoPorEstado(estado, false);
-                case Constantes.OrigenPedidoWeb.SectionBptMobileHome:
+                case Constantes.SectionBpt.SectionBptMobileHome:
                     return ObtenerKeyHomePorEstado(estado, true);
-                case Constantes.OrigenPedidoWeb.SectionBptMobilePedido:
+                case Constantes.SectionBpt.SectionBptMobilePedido:
                     return ObtenerKeyPedidoPorEstado(estado, true);
-                case Constantes.OrigenPedidoWeb.SectionBptMobileCatalogo:
+                case Constantes.SectionBpt.SectionBptMobileCatalogo:
                     return ObtenerKeyCatalogoPorEstado(estado, true);
                 default:
                     return ObtenerKeyHomePorEstado(estado, false);
@@ -242,9 +242,15 @@ namespace Portal.Consultoras.Web.Providers
                 configuracionPaisDatos = sessionManager.GetRevistaDigital().ConfiguracionPaisDatos;
                 modelo.DescripcionMarca = esMobile ? "/Mobile/RevistaDigital/Comprar" : "/RevistaDigital/Comprar";
             }
+            else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos)
+            {
+                configuracionPaisDatos = sessionManager.GetHerramientasVenta().ConfiguracionPaisDatos;
+                modelo.DescripcionMarca = esMobile ? "/Mobile/HerramientasVenta/Comprar" : "/HerramientasVenta/Comprar";
+            }
 
             if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos || 
-                tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos || 
+                tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos ||
+                tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos ||
                 tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
             {
                 modelo.DescripcionCompleta = GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselTitulo, esMobile);

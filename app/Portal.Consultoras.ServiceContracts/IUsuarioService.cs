@@ -286,7 +286,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
 
         [OperationContract]
-        bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
+        string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
             string codigoUsuarioAutenticado, EAplicacionOrigen origen);
 
         [OperationContract]
@@ -417,6 +417,9 @@ namespace Portal.Consultoras.ServiceContracts
         string GetActualizacionEmail(int paisID, string codigoUsuario);
 
         [OperationContract]
+        string GetActualizacionCelular(int paisID, string codigoUsuario);
+
+        [OperationContract]
         BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario);
 
         [OperationContract]
@@ -455,10 +458,38 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Camino Brillante
         [OperationContract]
-        BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad);
+        BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad, int origen);
 
         [OperationContract]
-        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp);
+        void SetConsultoraCaminoBrillanteAnim(BEUsuario entidad, string key, string value, string repeat);
+
+        [OperationContract]
+        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp);
+
+        [OperationContract]
+        List<BENivelCaminoBrillante> GetNiveles(int paisID);
+
+        [OperationContract]
+        List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
+
+        [OperationContract]
+        void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad);
+
+        [OperationContract]        
+        void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);        
+        
+        [OperationContract]
+        List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        string InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(int PaisID, string CodigorRegion, string Zona, long ConsultoraID, int CampaniaID, int PeriodoCB, int NivelCB, decimal PuntajeAcumuladoCB);
+
         #endregion
 
         [OperationContract]
@@ -472,7 +503,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ValidaEstadoPopup(int PaisID);
-
 
         [OperationContract]
         List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario);
