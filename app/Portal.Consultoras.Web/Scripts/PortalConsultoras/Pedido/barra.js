@@ -2677,7 +2677,7 @@ function AgregarPremio(premio) {
         TipoEstrategiaID: premio.TipoEstrategiaID,
         MarcaID: premio.MarcaID,
         FlagNueva: $.trim(premio.FlagNueva),
-        OrigenPedidoWeb: parseInt(PedidoEscogeRegaloCarrusel) /*HD-3710*/
+        OrigenPedidoWeb: parseInt(PedidoEscogeRegaloCarrusel)
     };
 
     return InsertarPremio(params);

@@ -71,10 +71,7 @@ $(document).ready(function () {
     });
     
     ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) }, 1);
-    //FIN HD-4200
-
-
-
+   
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
             event.preventDefault();
