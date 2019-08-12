@@ -815,11 +815,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     return Json(new { success = false });
 
                 listaProductos = ValidacionResultadosProductos(listaProductos, tipo).ToList();
-                listaProductos = _consultaProlProvider.ActualizarEstrategiaStockProl(listaProductos,
-                    userData.CodigoISO,
-                    userData.CampaniaID,
-                    userData.CodigoConsultora,
-                    _consultaProlProvider.GetValidarDiasAntesStock(userData));
+                // por ahora no validar stock con prol hasta que definan nueva logica
+                //listaProductos = _consultaProlProvider.ActualizarEstrategiaStockProl(listaProductos,
+                //    userData.CodigoISO,
+                //    userData.CampaniaID,
+                //    userData.CodigoConsultora,
+                //    _consultaProlProvider.GetValidarDiasAntesStock(userData));
 
                 return Json(new
                 {
