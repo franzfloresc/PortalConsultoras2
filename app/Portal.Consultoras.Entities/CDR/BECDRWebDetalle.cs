@@ -67,14 +67,14 @@ namespace Portal.Consultoras.Entities.CDR
         public string CUVReemplazo { get; set; }
 
         [DataMember]
-        public string XMLReemplazo { get; set; } //HD-4017 EINCA
+        public string XMLReemplazo { get; set; }
 
         [DataMember]
-        public ICollection<BECDRProductoComplementario> DetalleReemplazo { get; set; } //HD-4017 EINCA
+        public ICollection<BECDRProductoComplementario> DetalleReemplazo { get; set; }
 
         public BECDRWebDetalle()
         {
-            DetalleReemplazo = new HashSet<BECDRProductoComplementario>();//HD-4017 EINCA
+            DetalleReemplazo = new HashSet<BECDRProductoComplementario>();
         }
 
         public BECDRWebDetalle(IDataRecord row)
@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Entities.CDR
             TipoMotivoRechazo = row.ToInt32("TipoMotivoRechazo");
             GrupoID = row.ToString("GrupoID");
             CUVReemplazo = row.ToString("CUVReemplazo");
-            XMLReemplazo = row.ToString("DetalleReemplazo"); //HD-3703 EINCA            
+            XMLReemplazo = row.ToString("DetalleReemplazo")
         }
     }
 

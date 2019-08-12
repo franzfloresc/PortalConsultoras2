@@ -138,14 +138,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             ViewBag.DataBarra = GetDataBarra(true, true);
-            ViewBag.CodigoConsultora = userData.CodigoConsultora;  /*HD-4288*/ 
+            ViewBag.CodigoConsultora = userData.CodigoConsultora;
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
             ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
             ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(true);
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
-
-            //HD-4513
+            
             var estadoPedido = EsPedidoReservado(configuracionCampania).ToInt();
             ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado();
 
@@ -403,7 +402,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
             ViewBag.DataBarra = GetDataBarra(true, true);//OG
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
-            //HD-4513
             ViewBag.PagoContado = model.EstadoPedido == 1 && GetPagoContado();
             return View(model);
         }
@@ -584,8 +582,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.GananciaRevista = pedidoWeb.GananciaRevista;
             model.GananciaWeb = pedidoWeb.GananciaWeb;
             model.GananciaOtros = pedidoWeb.GananciaOtros;
-
-            //HD-4513
+            
             #region Consultora Pago Contado
             var estadoPedido = EsPedidoReservado(beConfiguracionCampania).ToInt();
             ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado();

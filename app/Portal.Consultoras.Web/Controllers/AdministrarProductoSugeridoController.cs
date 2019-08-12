@@ -101,11 +101,9 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 a.ProductoSugeridoID.ToString(),
                                 a.CampaniaID.ToString(),
-                                //INI HD-4289
                                 a.ConfiguracionZona,
                                 a.ConfiguracionZona.Replace(",",", "),
                                 a.ConfiguracionZona.Substring(0,Math.Min(a.ConfiguracionZona.Length,19)).Replace(",",", "),
-                                //FIN HD-4289
                                 a.CUV,
                                 a.CUVSugerido,
                                 a.Orden.ToString(),
@@ -327,8 +325,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (arrayProducto == null || arrayProducto.Length == 0) return null;
             return arrayProducto[0].Imagen;
         }
-
-        //INI HD-4289
+        
         public JsonResult CargarArbolRegionesZonas(int? pais)
         {
             if (pais.GetValueOrDefault() == 0)
@@ -361,7 +358,5 @@ namespace Portal.Consultoras.Web.Controllers
                                     }).ToArray();
             return Json(tree, JsonRequestBehavior.AllowGet);
         }
-
-        //FIN HD-4289
     }
 }

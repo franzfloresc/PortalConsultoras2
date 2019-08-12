@@ -167,7 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(new { }, JsonRequestBehavior.AllowGet);
             }
-            //return Json(new { data = _caminoBrillanteProvider.GetLogroCaminoBrillante(category.ToUpper()) }, JsonRequestBehavior.AllowGet);
+
             return Json(new { data = _caminoBrillanteProvider.GetLogroUnificadoCaminoBrillante() }, JsonRequestBehavior.AllowGet);
         }
 
