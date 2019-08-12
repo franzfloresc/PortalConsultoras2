@@ -1447,8 +1447,8 @@
             $('#imagenProducto02').val("");
             var ImagenMuestraMobile = $("#ContenedorImagenMobile");
             var DivlblArchivoCargadoMobile = $("#DivlblArchivoCargadoMobile");
-            ImagenMuestraMobile[0].style['display'] = "none";  /*HD-4144*/
-            DivlblArchivoCargadoMobile[0].style['display'] = 'block';  /*HD-4144*/
+            ImagenMuestraMobile[0].style['display'] = "none";
+            DivlblArchivoCargadoMobile[0].style['display'] = 'block';
     }
 
     function formatearArchivo(val, options, rowObject) {
@@ -1595,14 +1595,12 @@
             var DivlblArchivoCargado = $("#DivlblArchivoCargado");
             var contenedorArchivoCargado2 = $('#contenedorArchivoCargado2');
             
-            /*HD-4144 - Inicializamos los campos usados para mobile*/
             $("#divOpcionesDispositivo")[0].style['display'] = "none";
             if (id == 150) {  
             $("#divOpcionesDispositivo")[0].style['display'] = "block";
             $('#ddlUrlMobile').val("0");
             $('#img02').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")' + "");
             cargarDatosMobileGenerales();
-            /*HD-4144 - FIN*/
             }
 
             //Variable global Operacion indica si actualiza grilla o subgrilla
@@ -1685,7 +1683,7 @@
             var PaginaNueva = subgrid.jqGrid('getCell', bannerId, 'PaginaNueva');
             var TituloComentario = subgrid.jqGrid('getCell', bannerId, 'TituloComentario');
             var TextoComentario = subgrid.jqGrid('getCell', bannerId, 'TextoComentario');
-            /*HD-4144 - Inicializamos los campos usados para mobile*/
+
             $("#divOpcionesDispositivo")[0].style['display'] = "none";
             if (GrupoBannerId == 150) {
                 $("#divOpcionesDispositivo")[0].style['display'] = "block";
@@ -1697,7 +1695,6 @@
                 var ArchivoMobile = subgrid.jqGrid('getCell', bannerId, 'ArchivoMobile');
                 cargarDatosMobileGenerales();   
             }
-             /*HD-4144 - Fin*/
 
             var TipoAccion = subgrid.jqGrid('getCell', bannerId, 'TipoAccion');
             var TextoCUVpedido = subgrid.jqGrid('getCell', bannerId, 'CuvPedido');
@@ -1799,14 +1796,12 @@
             FormatearImagenes('#lblArchivoCargado2');
             FormatearImagenes('#hdArchivoRutaCompleto');
             if (GrupoBannerId == 150) {
-                /*HD-4144*/
                 $('#lblArchivoCargadoMobile').text(ArchivoMobile.length > 0 ? ArchivoMobile : 'Ingresar Imagen mobile');
                 FormatearImagenes('#lblArchivoCargado');
                 $('#hdArchivoRutaCompletoMobile').val(ArchivoRutaCompletoMobile);
                 FormatearImagenes('#lblArchivoCargadoMobile');
                 FormatearImagenes('#lblArchivoCargadoMobile2');
                 FormatearImagenes('#hdArchivoRutaCompletoMobile');
-                /*HD-4144*/
             }
             $('#txtTituloComentario').val(TituloComentario);
             $('#txtTextoComentario').val(TextoComentario);
@@ -2213,7 +2208,7 @@
         @Html.HiddenFor(model => model.Ancho, new { id = "hdAncho" })
         @Html.HiddenFor(model => model.Alto, new { id = "hdAlto" })
         @Html.HiddenFor(model => model.ImagenActualizar, new { id = "imagenProducto01" })
-        @Html.HiddenFor(model => model.ImagenActualizarMobile, new { id = "imagenProducto02" }) /*HD-4144*/
+        @Html.HiddenFor(model => model.ImagenActualizarMobile, new { id = "imagenProducto02" })
         @Html.HiddenFor(model => model.Accion, new { id = "hdnAccion" })
         <div class="Content_modal">
             <div class="div-3" id="divOpcionesDispositivo">

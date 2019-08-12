@@ -138,8 +138,8 @@ namespace Portal.Consultoras.Entities
         public decimal GananciaOtros { get; set; }
 
         [DataMember]
-        public int EstadoEncuesta { get; set; }// HD-4357
-        /*HD-4513*/
+        public int EstadoEncuesta { get; set; }
+
         [DataMember]
         public bool STPPagoContado { get; set; }
         
@@ -215,7 +215,6 @@ namespace Portal.Consultoras.Entities
             GananciaRevista = row.ToDecimal("GananciaRevista");
             GananciaWeb = row.ToDecimal("GananciaWeb");
             GananciaOtros = row.ToDecimal("GananciaOtros");
-            /*HD-4513*/
             STPPagoTotalSinDeuda = DataRecord.HasColumn(row, "PagoTotalSinDeuda") ?row.ToDouble("PagoTotalSinDeuda") :0;
             STPPagoTotal = DataRecord.HasColumn(row, "PagoTotal") ? row.ToDouble("PagoTotal") : 0;
             STPDescuento = DataRecord.HasColumn(row, "TotalDescuento") ? row.ToDouble("TotalDescuento") : 0;

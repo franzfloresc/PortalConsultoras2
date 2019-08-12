@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return lst;
         }
-        /*HD-4144*/
+
         public List<BEContenidoAppDetaAct> GetContenidoAppDetaAct(int paisId,int parent)
         {
             List<BEContenidoAppDetaAct> lst;

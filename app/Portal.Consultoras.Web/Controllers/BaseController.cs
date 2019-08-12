@@ -1564,8 +1564,6 @@ namespace Portal.Consultoras.Web.Controllers
             return r;
         }
 
-        /*HD-4513*/
-
         #region Pago Contado
         public bool GetPagoContado()
         {

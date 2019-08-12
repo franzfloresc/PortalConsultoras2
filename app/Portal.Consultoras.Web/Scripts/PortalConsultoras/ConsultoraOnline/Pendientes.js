@@ -86,8 +86,7 @@ function AceptarPedidoPendiente(listaGana) {
 
                             var mensajeConfirmacion = (accionTipo == "ingrgana") ? "Has atendido el pedido por Gana+." : "Has atendido el pedido por Catálogo.";
                             $("#mensajeConfirmacion").html(mensajeConfirmacion);
-
-                            //HD-4734
+                            
                             if ($("#contenedor-paso-2").css('display') == "block") $("#contenedor-paso-2").hide();
                             else $("#contenedor-paso-1").hide();
                            
@@ -550,10 +549,6 @@ function ContinuarPedido() {
                             $('[data-ganancia-gana]').hide();
                         }
                     }
-
-
-
-                    //HD-4734
 
                     if (response.result.ListaGana.length == 0 || response.result.ListaCatalogo.length == 0) {
                         AceptarPedidoPendiente(response.result.ListaGana);

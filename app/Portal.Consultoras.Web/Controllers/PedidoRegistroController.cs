@@ -397,8 +397,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP : null;
 
                     ObtenerPedidoWeb();
-
-                    //HD-4513
+                    
                     #region Consultora Pago Contado
 
                     var dataBarra = GetDataBarra();

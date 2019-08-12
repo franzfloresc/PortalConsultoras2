@@ -272,15 +272,9 @@
             }
 
             CargarCampaniaModal(Id, 'ddlCampania, ddlCampaniaModal');
-            //INI HD-4289
             ConfigurarArbol();
-            //FIN HD-4289
-
-
         });
-
-
-        //INI HD-4289
+        
         $("#chkSeleccionar").click(function () {
             if (this.checked)
                 $.jstree._reference($("#arbolRegionZona")).check_all();
@@ -293,7 +287,6 @@
             else
                 $.jstree._reference($("#arbolRegionZonaModal")).uncheck_all();
         });
-        //FIN HD-4289
 
         $("#btnBuscar").click(function () {
             var msjex = "";
@@ -301,10 +294,9 @@
                 msjex += " - Debe seleccionar un país.\n";
             if ($("#ddlCampania").val() == "")
                 msjex += " - Debe seleccionar un campaña.\n";
-            //INI HD-4289
+
             if ($("#ddlPais").val() != "" && GetZonas($("#arbolRegionZona")) == "")
                 msjex += "- Debe indicar la zona(s).\n";
-            //FIN HD-4289
 
             if (msjex != "") {
                 alert("Faltan ingresar datos obligatorios.");
@@ -327,10 +319,8 @@
 
             $("#ddlCampaniaModal").val($.trim($("#ddlCampania").val()));
             $("#txtCUVModal").val($.trim($("#txtCUVAgotado").val()));
-
-            //INI HD-4289
+            
             ConfigurarArbolModal("");
-            //FIN HD-4289
             showDialog("DialogRegistroProductoSugerido");
         });
 
@@ -448,9 +438,7 @@
                 CampaniaID: ($("#ddlCampania").val() || "0"),
                 CUV: $.trim($("#txtCUVAgotado").val()),
                 CUVSugerido: $.trim($("#txtCUVSugerido").val()),
-                //INI HD-4289
                 ConfiguracionZona: zonas
-                //FIN HD-4289
             }
         $("#list").jqGrid("GridUnload");
 
@@ -467,11 +455,9 @@
             colModel: [
                 { name: 'ProductoSugeridoID', index: 'ProductoSugeridoID', width: 0, key: true, hidden: true },
                 { name: 'CampaniaID', index: 'CampaniaID', width: 40, align: 'center', resizable: false },
-                //INI HD-4289
                 { name: 'ConfiguracionZona', index: 'ConfiguracionZona', width: 0, hidden: true },
                 { name: 'TextConfiguracionZonaTodo', index: 'TextConfiguracionZona', width: 0, hidden: true },
                 { name: 'TextConfiguracionZona', index: 'TextConfiguracionZona', width: 350, align: 'center', editable: true, resizable: false, formatter: ShowActionZona},
-                //FIN HD-4289
                 { name: 'CUV', index: 'CUV', width: 50, align: 'center', resizable: false },
                 { name: 'CUVSugerido', index: 'CUVSugerido', width: 50, align: 'center', resizable: false },
                 { name: 'Orden', index: 'Orden', width: 35, align: 'center', resizable: false },
@@ -617,10 +603,7 @@
             closeWaitingDialog();
 
         });
-    }
-    //INI HD-4289
-
- 
+    } 
 
     function ConfigurarArbol() {
         var pais = $("#PaisIDUser").val() || 0;
@@ -716,7 +699,6 @@
     }
 
     function GetZonas(obj) {
-        //var obj = $("#arbolRegionZona");
         var zonas = "";
         $.jstree._reference(obj).get_checked(null, true).each(function () {
             if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
@@ -730,7 +712,7 @@
 
         return zonas;
     }
-    //FIN HD-4289
+
     function CargarImagenSugerido() {
         LimpiarDatosMatrizComercial();
         $("#matriz-imagenes-paginacion").empty();
@@ -813,11 +795,10 @@
 
         if (jQuery.trim($('#txtOrdenModal').val()) == "")
             vMessage += "- Debe ingresar el orden.\n";
-
-        //INI HD-4289
+        
         if (GetZonas($("#arbolRegionZonaModal")) == "")
             vMessage += "- Debe indicar la zona(s).\n";
-        //FIN HD-4289
+
         if (vMessage != "") {
             vMessage = "La información ingresada se encuentra incompleta. Por favor, revisar." + "\n" + vMessage;
         }
@@ -838,9 +819,7 @@
             PaisID: paisID,
             ImagenAppCatalogo : $("#chkImagenProductoAppCatalogo").prop("checked"),
 			MostrarAgotado: $('#chkMostrarAgotado').length ? $('#chkMostrarAgotado').attr('checked') ? 1 : 0 : 0,
-            //INI HD-4289
             ConfiguracionZona: GetZonas($("#arbolRegionZonaModal"))
-            //FIN HD-4289
         };
         jQuery.ajax({
             type: 'POST',
@@ -922,11 +901,11 @@
                 if (data) {
                     $('#hdIdSugerido').val(jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID'));
                     $('#ddlCampaniaModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CampaniaID'));
-                    //INI HD-4289
+
                     var zonas = jQuery("#list").jqGrid('getCell', rowPk, 'ConfiguracionZona');
                     $('#ConfiguracionZonaModal').val(zonas);
                     ConfigurarArbolModal(zonas);
-                    //FIN HD-4289
+
                     $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUV'));
                     $('#txtCUVSugeridoModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUVSugerido'));
                     $('#txtOrdenModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'Orden'));

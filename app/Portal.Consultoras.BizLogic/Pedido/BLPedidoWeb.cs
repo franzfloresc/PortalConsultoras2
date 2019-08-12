@@ -1901,7 +1901,7 @@ namespace Portal.Consultoras.BizLogic
                     return true;
                 });
             }
-            //HD-4357
+
             #region Estado Encuesta Satisfacción
             if (listaPedidosFacturados.Any())
             {
@@ -3102,7 +3102,7 @@ namespace Portal.Consultoras.BizLogic
                 lista.Add(Constantes.ODSCodigoCatalogo.WebPortalFFVV);
             return lista;
         }
-        /*HD-4513*/
+
         #region Consultora Pago Contado
         public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
         {
@@ -3202,7 +3202,7 @@ namespace Portal.Consultoras.BizLogic
         public int Size
         {
             get { return size; }
-            set { size = value; } /*HD-4327*/
+            set { size = value; }
         }
     }
 

@@ -418,8 +418,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool PuedeConfirmarAllEmail { get; set; }
         public bool PuedeConfirmarAllSms { get; set; }
-
-        /*HD-4513*/
+        
         public bool PagoContado { get; set; }
     }
 }
