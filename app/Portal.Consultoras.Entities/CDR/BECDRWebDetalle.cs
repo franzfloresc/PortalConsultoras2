@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Entities.CDR
             TipoMotivoRechazo = row.ToInt32("TipoMotivoRechazo");
             GrupoID = row.ToString("GrupoID");
             CUVReemplazo = row.ToString("CUVReemplazo");
-            XMLReemplazo = row.ToString("DetalleReemplazo")
+            XMLReemplazo = row.ToString("DetalleReemplazo");
         }
     }
 
