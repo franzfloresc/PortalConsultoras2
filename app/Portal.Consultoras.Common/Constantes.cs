@@ -1737,7 +1737,7 @@ namespace Portal.Consultoras.Common
             public const string BuscadorYFiltros = "B&F";
             public const string ProgramaNuevas = "PN";
             public const string ElecMultiple = "DP";
-            public const string MasGanadoras = "MG";
+            public const string MasGanadoras = "LMG";
             public const string Recomendaciones = "RECOMDS";
             public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
             public const string Datami = "DATAMI";

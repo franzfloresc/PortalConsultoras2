@@ -2070,12 +2070,41 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoModelo.PaginaDe = "0";
                 }
 
+                /* HD-4513 */
+                var objDataBarra = GetDataBarra(true, true);
+
+                #region Consultora Pago Contado
+
+                var estadoPedido = EsPedidoReservado().ToInt();
+                if (estadoPedido == 1 && GetPagoContado())
+                {
+                    var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
+                    {
+                        PaisID = userData.PaisID,
+                        ConsultoraID = userData.ConsultoraID,
+                        CodigoConsultora = userData.CodigoConsultora,
+                        CampaniaID = userData.CampaniaID,
+                        STPTotalPagar = Convert.ToDouble(objDataBarra.TotalPedido - objDataBarra.MontoDescuento),
+                        olstBEPedidoWebDetalle = lstPedidoWebDetalle.ToArray()
+
+                    };
+
+
+                    var resultPagoContado = GetConfPagoContado(PagoContadoPrm);
+                    objDataBarra.STPDescuento = Util.DoubleToStringFormat(resultPagoContado.STPDescuento, userData.CodigoISO);
+                    objDataBarra.STPFlete = Util.DoubleToStringFormat(resultPagoContado.STPGastTransporte, userData.CodigoISO);
+                    objDataBarra.STPPagoTotal = Util.DoubleToStringFormat(resultPagoContado.STPPagoTotal, userData.CodigoISO);
+                    objDataBarra.STPDeuda = Util.DoubleToStringFormat(resultPagoContado.STPDeuda, userData.CodigoISO);
+                }
+
+                #endregion
+
                 return Json(new
                 {
                     success = true,
                     message = "OK",
                     data = pedidoModelo,
-                    dataBarra = GetDataBarra(true, true)
+                    dataBarra = objDataBarra
                 });
             }
             catch (Exception ex)
@@ -2578,8 +2607,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-
-
                 /*HD-4635*/
                 GetValidaActualizaPedido();
                 var listaDetalle = GetPedidoWebDetalle(mobil);
@@ -2642,12 +2669,41 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
                 model.Simbolo = userData.Simbolo;
 
+                var databarra = GetDataBarra(true, false, true);
+                //HD-4513
+
+                #region Consultora Pago Contado
+
+                var estadoPedido = EsPedidoReservado().ToInt();
+                if (estadoPedido == 1 && GetPagoContado())
+                {
+                    var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
+                    {
+                        PaisID = userData.PaisID,
+                        ConsultoraID = userData.ConsultoraID,
+                        CodigoConsultora = userData.CodigoConsultora,
+                        CampaniaID = userData.CampaniaID,
+                        STPTotalPagar = Convert.ToDouble(model.TotalConDescuento),
+                        olstBEPedidoWebDetalle = listaDetalle.ToArray()
+
+                    };
+
+
+                    var resultPagoContado = UpdConfPagoContado(PagoContadoPrm);
+                    databarra.STPDescuento = Util.DoubleToStringFormat(resultPagoContado.STPDescuento, userData.CodigoISO);
+                    databarra.STPFlete = Util.DoubleToStringFormat(resultPagoContado.STPGastTransporte, userData.CodigoISO);
+                    databarra.STPPagoTotal = Util.DoubleToStringFormat(resultPagoContado.STPPagoTotal, userData.CodigoISO);
+                    databarra.STPDeuda = Util.DoubleToStringFormat(resultPagoContado.STPDeuda, userData.CodigoISO);
+                }
+
+                #endregion
+
                 return Json(new
                 {
                     success = true,
                     message = "OK",
                     data = model,
-                    dataBarra = GetDataBarra(true, false, true)
+                    dataBarra = databarra
                 });
             }
             catch (Exception ex)

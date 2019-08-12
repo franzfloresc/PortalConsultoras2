@@ -264,6 +264,8 @@ var EstrategiaAgregarModule = (function () {
 
         var $btnAgregar = $(event.target);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
+        var estrategia = estrategiaResponsive || getEstrategia($btnAgregar, origenPedidoWebEstrategia);
+        origenPedidoWebEstrategia = _codigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origenPedidoWebEstrategia, estrategia.CodigoEstrategia);
 
         if (AnalyticsPortalModule != 'undefined') {
             var estrategiaAnalytics;
@@ -289,8 +291,6 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
         }
-
-        var estrategia = estrategiaResponsive || getEstrategia($btnAgregar, origenPedidoWebEstrategia);
 
         if (typeof FichaVerDetalle !== 'undefined') {
             if (typeof FichaVerDetalle.GetOrigenPedidoWebDetalle !== 'undefined') {
@@ -397,7 +397,7 @@ var EstrategiaAgregarModule = (function () {
             EsPromocion: estrategia.EsPromocion
         };
 
-        if (estrategia.CodigoEstrategia == ConstantesModule.TipoPersonalizacion.Catalogo) {
+        if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.Catalogo) {
             params.PrecioUnidad = estrategia.Precio2;
         };
 

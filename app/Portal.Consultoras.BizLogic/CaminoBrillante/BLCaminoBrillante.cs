@@ -565,7 +565,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 if (DateTime.TryParseExact(strFechaIngreso, formatFecha, CultureInfo.InvariantCulture, DateTimeStyles.None, out anioIngreso))
                 {
-                    aniosConsultora = Math.Max(0, DateTime.Today.AddTicks(-anioIngreso.Ticks).Year - 1);
+                    if (DateTime.Today.Ticks > anioIngreso.Ticks)
+                        aniosConsultora = Math.Max(0, DateTime.Today.AddTicks(-anioIngreso.Ticks).Year - 1);
                 }
 
                 if (aniosConsultora > 0)
@@ -1069,7 +1070,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 if (DateTime.TryParseExact(strFechaIngreso, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out anioIngreso))
                 {
-                    aniosConsultora = Math.Max(0, DateTime.Today.AddTicks(-anioIngreso.Ticks).Year - 1);
+                    if(DateTime.Today.Ticks > anioIngreso.Ticks)
+                        aniosConsultora = Math.Max(0, DateTime.Today.AddTicks(-anioIngreso.Ticks).Year - 1);
                 }
             }
 

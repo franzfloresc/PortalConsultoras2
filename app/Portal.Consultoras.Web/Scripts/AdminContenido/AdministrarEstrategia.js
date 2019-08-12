@@ -1586,7 +1586,7 @@
 
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo") || "";
 
-        if (codigo.in(
+        if (!codigo.in(
             _codigoTipoEstrategia.OfertaParaTi,
             _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
             _codigoTipoEstrategia.LosMasVendidos,
