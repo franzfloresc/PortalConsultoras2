@@ -598,8 +598,22 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString());
                 SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
 
+                var enableSetYpacks = _tablaLogicaProvider.GetTablaLogicaDatoValor(userData.PaisID,
+                    ConsTablaLogica.Cdr.TablaLogicaId, ConsTablaLogica.Cdr.SetsOrPacks);
+
+                if (enableSetYpacks == "0" && isSetsOrPack)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "¡Lo sentimos!, No puede realizar esta operación.",
+                        data = respuestaServiceCdr,
+                        flagSetsOrPack = false,
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 //reemplazar si tiene cuv reemplazo
-                if (respuestaServiceCdr.Any() && isSetsOrPack)
+                if (isSetsOrPack && respuestaServiceCdr.Length > 0)
                 {
                     var cantidad = respuestaServiceCdr[0].LProductosComplementos.Count();
                     var arrComplementarios = new ProductosComplementos[cantidad];

@@ -4,6 +4,7 @@
 
         if (!$(e.target).hasClass('active')) {
             $(e.target).addClass('active');
+            $(e.target).removeClass('btn--estadoAceptado');
             $(e.target).html('Elegir');
         }
         else {
@@ -11,6 +12,7 @@
             $('.btnAccion').find('span').html('Elegir');
 
             $(e.target).removeClass('active');
+            $(e.target).addClass('btn--estadoAceptado');
             $(e.target).html('Elegido');
         }
 
