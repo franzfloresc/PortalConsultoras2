@@ -881,7 +881,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region Producto SUgerido
 
         [OperationContract]
-        IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
+        IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, BEProductoSugerido entidad);
 
         [OperationContract]
         BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv);
@@ -949,6 +949,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID);
+
+
 
         [OperationContract]
         void DeshacerUltimaDescargaPedido(int PaisID);
@@ -1305,6 +1307,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
 
+
+
         [OperationContract]
         bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
 
@@ -1356,8 +1360,49 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
 
+        #region HD-4327
+      
+        [OperationContract]
+        BEDescargaArchivoSinMarcar DescargaPedidosSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario);
+
+
+        [OperationContract]
+        string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote);
+
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int paisID, int campaniaID);
+
+        [OperationContract]
+        int ObtenerultimaLlamadaPedidodescargavalidador(int paisID);
+
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID);
+
+        [OperationContract]
+        string GetRutaPedidoDescargaSinMarcar(int campaniaid, int paisID, string tipo, string path);
+
+        
+        #endregion
 
         [OperationContract]
         bool InsertKitSE(BEUsuario usuario);
+
+        #region HD-4288 - Switch Consultora 100%
+        [OperationContract]
+        int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID);
+        [OperationContract]
+        int DeshacerRecepcionPedido(int pedidoID, int paisID);
+        [OperationContract]
+        BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID);
+        #endregion
+
+        /*HD-4513*/
+        #region Consultora Pago Contado
+        [OperationContract]
+        BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb);
+
+        [OperationContract]
+        BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb);
+        #endregion
     }
 }

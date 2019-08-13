@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
@@ -102,7 +103,7 @@ namespace Portal.Consultoras.BizLogic
             using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
             {
                 daPedidoFicDetalle.DelPedidoFICDetalleMasivo(CampaniaID, PedidoID);
-                daPedidoFic.UpdPedidoFICByEstadoConTotalesMasivo(CampaniaID, PedidoID, 201, false, 0, 0);
+                daPedidoFic.UpdPedidoFICByEstadoConTotalesMasivo(CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, false, 0, 0);
                 oTransactionScope.Complete();
             }
 

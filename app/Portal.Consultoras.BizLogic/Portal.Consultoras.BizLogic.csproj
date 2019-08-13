@@ -96,6 +96,7 @@
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
     <Compile Include="BLCategoria.cs" />
     <Compile Include="BLActivarPremioNuevas.cs" />
+    <Compile Include="BLChatBot.cs" />
     <Compile Include="BLContenidoAppHistoria.cs" />
     <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
@@ -118,17 +119,24 @@
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
     <Compile Include="Configuracion\BLConfiguracionPaisDatos.cs" />
+    <Compile Include="Configuracion\BLConfiguracionPaisFFVV.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
+    <Compile Include="Configuracion\IConfiguracionPaisFFVVDatosBusinessLogic.cs" />
     <Compile Include="Contenido\BLBelcorpResponde.cs" />
     <Compile Include="Contenido\BLContenidoApp.cs" />
+    <Compile Include="Contenido\BLTuVozOnline.cs" />
     <Compile Include="Contenido\IBelcorpRespondeBusinessLogic.cs" />
     <Compile Include="Contenido\IContenidoAppResumenBusinessLogic.cs" />
+    <Compile Include="Contenido\ITuVozOnlineBusinessLogic.cs" />
     <Compile Include="Contrato\BLContratoAceptacion.cs" />
     <Compile Include="Contrato\IContratoAceptacionBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
+    <Compile Include="Encuesta\BLEncuesta.cs" />
     <Compile Include="Pedido\BLDireccionEntrega.cs" />
+    <Compile Include="Pedido\BLPedidoWebPromocion.cs" />
     <Compile Include="Pedido\IDireccionEntregaBusinessLogic.cs" />
+    <Compile Include="Pedido\IPedidoWebPromocionBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IActivarPremioNuevasBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
@@ -371,6 +379,9 @@
     <Content Include="Templates\mailing_pago_en_linea.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Templates\mailing_pedido_pendiente_aceptado_rechazado.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\mailing_proceso_actualizar_misdatos.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -378,6 +389,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\mailing_proceso_Pin_Autenticacion.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\mailing_proceso_actualiza_contrasenia.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\mailing_proceso_Pin_Autenticacion2.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\mailing_proceso_recuperar_contrasenia.html">

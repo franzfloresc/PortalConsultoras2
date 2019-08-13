@@ -46,7 +46,7 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return retorno;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return 0;
             }

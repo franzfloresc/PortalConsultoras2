@@ -175,7 +175,7 @@ $(document).ready(function () {
         width: 400,
         draggable: true,
         buttons: {
-            "Aceptar": function () {
+            "Entendido": function () {
                 HideDialog("alertDialogMensajes");
             }
         }
@@ -210,40 +210,7 @@ $(document).ready(function () {
         draggable: true,
         title: "Fe de Erratas"
     });
-
-    $('#divRegistroComunidad').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        close: function (event, ui) {
-            HideDialog("divRegistroComunidad");
-        },
-        width: 760,
-        heigth: 500,
-        draggable: true,
-        title: "Comunidad Somos Belcorp"
-    });
-
-    $('#DialogMensajesCom').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        close: function (event, ui) {
-            HideDialog("DialogMensajesCom");
-        },
-        width: 400,
-        draggable: true,
-        title: "Comunidad SomosBelcorp",
-        buttons:
-        {
-            "Aceptar": function () {
-                HideDialog("DialogMensajesCom");
-            }
-        }
-    });
-
+    
     $('#divMensajeConfirmacion').dialog({
         autoOpen: false,
         resizable: false,
@@ -340,9 +307,7 @@ $(document).ready(function () {
         }
 
         if (habilitarChatBot === 'True') {
-            if (typeof FB !== "undefined") {
-                FB.CustomerChat.showDialog();
-            }
+            AbrirChatBot();
         }
 
         return false;
@@ -371,27 +336,11 @@ function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
 
-        //$('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-        //$('#dialog_ErrorMainLayout').show();
-
-        //$('#dialog_ErrorMainLayout .btn_ok').off('click');
-        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
-
-        //$('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
-        //    $('#dialog_ErrorMainLayout').hide();
-        //    if ($.isFunction(fnAceptar)) fnAceptar();
-        //});
-
-        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
-        //    $('#dialog_ErrorMainLayout').hide();
-        //    if ($.isFunction(fnAceptar)) fnAceptar();
-        //});
-
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(message);
-        if (msjBloq != "") {
-            alert_msg_bloqueadas(msjBloq);
-        } else {
+        if (window.matchMedia("(max-width:991px)").matches) {
+            $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(message);
+            $('#popupInformacionSB2Error').show();
+        }
+        else {
             $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
             $('#dialog_ErrorMainLayout').show();
 
@@ -408,7 +357,6 @@ function messageInfoError(message, titulo, fnAceptar) {
                 if ($.isFunction(fnAceptar)) fnAceptar();
             });
         }
-        //FIN HD-3693
 
 
     }
@@ -448,8 +396,17 @@ function CargarResumenCampaniaHeader(showPopup) {
                     });
 
                     if (data.ultimosTresPedidos.length == 0) {
+                        var textoSinPedido = "";
                         $('#carrito_items').hide();
                         $('#SinProductos').show();
+                        if (data.cantidadPedidosPendientes > 0) {
+                            textoSinPedido = 'Tienes ' + data.cantidadPedidosPendientes + ((data.cantidadPedidosPendientes > 1) ? ' Pedidos pendientes' : ' Pedido pendiente') + ',<br />';
+                            $('#linkPendientesSinProductos').css('display', 'block');
+                        } else {
+                            textoSinPedido = 'Todavía no has agregado<br/> ningún producto a tu<br/>pedido.';
+                            $('#linkPendientesSinProductos').css('display', 'none');
+                        }
+                        $('#textoSinProductos').html(textoSinPedido);
                     } else {
                         $('#carrito_items').show();
                         $('#SinProductos').hide();
@@ -469,7 +426,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58
+    var sparam = localStorage.getItem('KeyPseudoParam');
     $.ajax({
         type: 'GET',
         url: baseUrl + "Notificaciones/GetNotificacionesSinLeer?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",
@@ -560,151 +517,9 @@ function SeparadorMiles(pnumero) {
     else return resultado;
 }
 
-function ValidarCorreoComunidad(tipo) {
-    $.ajaxSetup({
-        cache: false
-    });
-    var result = true;
-    if (tipo == 2) {
-
-        if ($('#txtUsuarioComunidad').val() == 'Tu apodo en la comunidad') {
-            $('#ErrorUsuario').css({ "display": "block" });
-            $('#ES_Usuario').css({ "display": "block" });
-            $('#ErrorUsuario').html("Debe ingresar un apodo.");
-            result = false;
-        }
-
-
-        if ($('#txtNuevoCorreoComunidad').val() == 'Correo electrónico') {
-            $('#ErrorCorreo').css({ "display": "block" });
-            $('#ES_Correo').css({ "display": "block" });
-            $('#ErrorCorreo').html("Debe ingresar su correo.");
-            result = false;
-        }
-        else {
-            if (!ValidarCorreo($('#txtNuevoCorreoComunidad').val())) {
-                $('#ErrorCorreo').css({ "display": "block" });
-                $('#ES_Correo').css({ "display": "block" });
-                $('#ErrorCorreo').html("El formato del correo es incorrecto.");
-                $('#ErrorCorreo').css({ "color": "red" });
-                result = false;
-            }
-
-        }
-
-        if (result) {
-            if ($('#ErrorUsuario').html() != 'Apodo Disponible.' || $('#ErrorCorreo').html() != 'Correo Disponible.')
-                return;
-            var params = {
-                usuario: $("#txtUsuarioComunidad").val(),
-                correo: $("#txtNuevoCorreoComunidad").val()
-            };
-
-            waitingDialog({});
-            jQuery.ajax({
-                type: 'POST',
-                url: baseUrl + 'Bienvenida/RegistrarUsuarioComunidad',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(params),
-                async: true,
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        closeWaitingDialog();
-                        if (data.success == true) {
-                            $('#divRegistroComunidad').dialog('option', 'width', 540);
-                            $("#divRegistroComunidad").dialog("option", "position", "center");
-                            $("#divRegCom_Form").css({ "display": "none" });
-                            $("#divMenCom_Form").css({ "display": "block" });
-
-                            dataLayer.push({
-                                'event': 'virtualEvent',
-                                'category': 'Formulario',
-                                'action': 'Crear cuenta',
-                                'label': 'Mi comunidad'
-                            });
-
-                        } else {
-                            alert_msg_com(data.message);
-                        }
-                    }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        closeWaitingDialog();
-                    }
-                }
-            });
-        }
-    } else {
-
-        if ($('#txtCorreoComunidad').val() == 'Correo electrónico') {
-            $('#ErrorCorreoC').css({ "display": "block" });
-            $('#ES_CorreoC').css({ "display": "block" });
-            $('#ErrorCorreoC').html("Debe ingresar su correo.");
-            result = false;
-        }
-        else {
-            if (!ValidarCorreo($('#txtCorreoComunidad').val())) {
-                $('#ErrorCorreoC').css({ "display": "block" });
-                $('#ES_CorreoC').css({ "display": "block" });
-                $('#ErrorCorreoC').html("El formato del correo es incorrecto.");
-                $('#ErrorCorreoC').css({ "color": "red" });
-                result = false;
-            }
-        }
-
-        if (result) {
-            if ($('#ErrorCorreo').html() != '')
-                return;
-
-
-
-            waitingDialog({});
-            jQuery.ajax({
-                type: 'POST',
-                url: baseUrl + 'Bienvenida/ValidarCorreoComunidad',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({
-                    correo: $("#txtCorreoComunidad").val()
-                }),
-                async: true,
-                success: function (data) {
-
-                    if (checkTimeout(data)) {
-                        closeWaitingDialog();
-                        if (data.success == true) {
-
-                            dataLayer.push({
-                                'event': 'virtualEvent',
-                                'category': 'Formulario',
-                                'action': 'Ingresar',
-                                'label': 'Mi comunidad'
-                            });
-
-                            $('#divRegistroComunidad').dialog('option', 'width', 540);
-                            $("#divRegistroComunidad").dialog("option", "position", "center");
-                            $("#divRegCom_Form").css({ "display": "none" });
-                            $("#divMenCom_Form").css({ "display": "block" });
-                        } else {
-                            alert_msg_com(data.message);
-                        }
-                    }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        closeWaitingDialog();
-                    }
-                }
-            });
-        }
-    }
-}
-
 function alert_msg(message, titulo, funcion) {
     titulo = titulo || "MENSAJE";
-    $('#alertDialogMensajes .terminos_title_2').html(titulo);
+    //$('#alertDialogMensajes .terminos_title_2').html(titulo);***HD-4450
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     if (typeof funcion == "function") {
         $("#alertDialogMensajes").dialog("option", "buttons", {
@@ -712,106 +527,6 @@ function alert_msg(message, titulo, funcion) {
         });
     }
     showDialogSinScroll("alertDialogMensajes");
-}
-
-function alert_msg_com(message) {
-    $('#DialogMensajesCom .message_text').html(message);
-    $('#DialogMensajesCom').dialog('open');
-}
-
-
-function AbrirModalRegistroComunidad() {
-
-    if (gTipoUsuario == '2') {
-        URL = 'http://comunidad.somosbelcorp.com/';
-        window.open(URL, '_blank');
-        return false;
-    }
-    $.ajaxSetup({
-        cache: false
-    });
-    $('#divRegistroComunidad').dialog('option', 'width', 760);
-    $("#divRegistroComunidad").dialog("option", "position", "center");
-    $("#divRegCom_Form").css({ "display": "block" });
-    $("#divMenCom_Form").css({ "display": "none" });
-    showDialog("divRegistroComunidad");
-    SendPushMiComunidad();
-
-    return false;
-}
-
-function OpenUrl(url, newPage) {
-    if (newPage) {
-        window.open(url, '_blank');
-        return;
-    }
-
-    window.location.href = url;
-}
-
-function SendPushMiComunidad() {
-    dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '/mi-comunidad/formulario-de-registro', 'pageTitle': 'Mi comunidad – Formulario de registro' });
-}
-
-function ValidarUsuarioIngresado(usuario) {
-    $.ajaxSetup({
-        cache: false
-    });
-    $('#ValUsuario').css({ "display": "block" });
-    $('#ErrorUsuario').css({ "display": "none" });
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Bienvenida/ValidarUsuarioIngresado",
-        data: "{'usuario': '" + usuario + "'}",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            $('#ValUsuario').css({ "display": "none" });
-            $('#ErrorUsuario').css({ "display": "block" });
-            $('#ES_Usuario').css({ "display": "block" });
-
-            if (data.success == true) {
-                $('#ErrorUsuario').html("Este apodo ya existe.");
-                $('#ErrorUsuario').css({ "color": "red" });
-            } else {
-                $('#ErrorUsuario').html("Apodo Disponible.");
-                $('#ErrorUsuario').css({ "color": "green" });
-            }
-        },
-        error: function (result) {
-            alert('Ocurrió un error al intentar validar el usuario. Por favor, volver a intentar.');
-        }
-    });
-}
-
-function ValidarCorreoIngresado(correo) {
-    $.ajaxSetup({
-        cache: false
-    });
-    $('#ValCorreo').css({ "display": "block" });
-    $('#ErrorCorreo').css({ "display": "none" });
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Bienvenida/ValidarCorreoIngresado",
-        data: "{'correo': '" + correo + "'}",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            $('#ValCorreo').css({ "display": "none" });
-            $('#ErrorCorreo').css({ "display": "block" });
-            $('#ES_Correo').css({ "display": "block" });
-            if (data.success == true) {
-                $('#ErrorCorreo').html("Este correo ya existe.");
-                $('#ErrorCorreo').css({ "color": "red" });
-            } else {
-                $('#ErrorCorreo').html("Correo Disponible.");
-                $('#ErrorCorreo').css({ "color": "green" });
-            }
-        },
-        error: function (result) {
-            alert('Ocurrió un error al intentar validar el correo. Por favor, volver a intentar.');
-        }
-    });
 }
 
 function ValidarCorreo(correo) {
@@ -1289,9 +1004,3 @@ function OcultarChatEmtelco() {
         $(".CMXD-help").hide();
     }
 }
-//INI HD-3693
-function alert_msg_bloqueadas(message) {
-    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
-    $('#PopupBloqueoPorSistema').show();
-}
-//FIN HD-3693

@@ -61,13 +61,20 @@
     <Compile Include="AsesoraOnline\BEAsesoraOnline.cs" />
     <Compile Include="Auditoria.cs" />
     <Compile Include="BEBuscadorYFiltros.cs" />
+    <Compile Include="BEChatBotInsertDetalleResultadosRequest.cs" />
+    <Compile Include="BEChatBotInsertResultadosRequest.cs" />
+    <Compile Include="BEChatBotInsertResultadosResponse.cs" />
+    <Compile Include="BEChatBotListResultados.cs" />
+    <Compile Include="BEConfiguracionPaisFFVVDatos.cs" />
     <Compile Include="BEContenidoAppDetaAct.cs" />
     <Compile Include="BEContenidoAppHistoria.cs" />
-    <Compile Include="BEBeneficiosCaminoBrillante.cs" />
     <Compile Include="BEContenidoAppDetalle.cs" />
     <Compile Include="BEContenidoAppDeta.cs" />
     <Compile Include="BEContenidoAppList.cs" />
     <Compile Include="BEContenidoApp.cs" />
+    <Compile Include="BEDescargaArchivoSinMarcar.cs" />
+    <Compile Include="BEParametroUnete.cs" />
+    <Compile Include="BEFechaFacturacion.cs" />
     <Compile Include="BeReporteContrato.cs" />
     <Compile Include="BEContrato.cs" />
     <Compile Include="BEReporteRevisionIncidencias.cs" />
@@ -86,13 +93,16 @@
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
     <Compile Include="BEParametrosLider.cs" />
+    <Compile Include="BETvoPanelConfig.cs" />
     <Compile Include="BEValidacionDatos.cs" />
     <Compile Include="BEPremiosProgramaNuevas.cs" />
+    <Compile Include="BETemplateSinMarcar.cs" />
     <Compile Include="BuscadorYFiltros\BEBuscadorYFiltrosConfiguracion.cs" />
     <Compile Include="BuscadorYFiltros\BEFiltroBuscador.cs" />
     <Compile Include="CaminoBrillante\BEConfiguracionCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEConsultoraCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEDesmostradoresCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEIncentivosMontoExigencia.cs" />
     <Compile Include="CaminoBrillante\BEOfertaCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEOrdenFiltrosCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEKitsHistoricoConsultora.cs" />
@@ -113,6 +123,15 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
+    <Compile Include="Encuesta\BEEncuestaPedido.cs" />
+    <Compile Include="Encuesta\BEEncuestaReporte.cs" />
+    <Compile Include="Encuesta\BEDataConfigEncuesta.cs" />
+    <Compile Include="Encuesta\BEEncuesta.cs" />
+    <Compile Include="Encuesta\BEEncuestaCalificacion.cs" />
+    <Compile Include="Encuesta\BEEncuestaMotivo.cs" />
+    <Compile Include="Encuesta\BEEncuestaResultado.cs" />
+    <Compile Include="Encuesta\BEEncuestaResultadoDetalle.cs" />
+    <Compile Include="Encuesta\BEEntityBase.cs" />
     <Compile Include="Estrategia\EstrategiaComponente.cs" />
     <Compile Include="Oferta\BEConfiguracionOfertasHomeApp.cs" />
     <Compile Include="OpcionesVerificacion\BECodigoGenerado.cs" />
@@ -130,7 +149,9 @@
     <Compile Include="PagoEnLinea\BEPagoEnLineaBanco.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaVisa.cs" />
     <Compile Include="Pedido\BEDireccionEntrega.cs" />
+    <Compile Include="Pedido\BEPedidoWebPromocion.cs" />
     <Compile Include="Pedido\BEPedidoReservaResult.cs" />
+    <Compile Include="Pedido\BEPedidoWebPromocionResult.cs" />
     <Compile Include="Producto\BEBuscadorResponse.cs" />
     <Compile Include="ProgramaNuevas\BEPremioNuevas.cs" />
     <Compile Include="LimiteVenta\BERespValidarLimiteVenta.cs" />
@@ -151,6 +172,8 @@
     <Compile Include="Pedido\BEPedidoBarra.cs" />
     <Compile Include="Pedido\BEPedidoBuscar.cs" />
     <Compile Include="ProgramaNuevas\BEConsultoraProgramaNuevas.cs" />
+    <Compile Include="ProlApi\Promocion\PromocionRequest.cs" />
+    <Compile Include="ProlApi\Promocion\PromocionResponse.cs" />
     <Compile Include="ReservaProl\BEMensajeProl.cs" />
     <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
@@ -463,6 +486,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdministracionPoput\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

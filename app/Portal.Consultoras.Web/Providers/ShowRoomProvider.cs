@@ -474,8 +474,6 @@ namespace Portal.Consultoras.Web.Providers
 
             try
             {
-                const int SHOWROOM_ESTADO_ACTIVO = 1;
-
                 _sessionManager.SetEsShowRoom("0");
                 _sessionManager.SetMostrarShowRoomProductos("0");
                 _sessionManager.SetMostrarShowRoomProductosExpiro("0");
@@ -1063,10 +1061,12 @@ namespace Portal.Consultoras.Web.Providers
                 StringContent httpContent = new StringContent(jsonParametros, Encoding.UTF8, "application/json");
                 HttpResponseMessage httpResponse = null;
                 string requestUrl = requestUrlParam;
+                string _requestCompleteTracking = string.Empty;
 
                 if (responseType.Equals(Constantes.MetodosHTTP.Get))
                 {
                     string completeRequestUrl = string.Format("{0}{1}", requestUrl, jsonParametros);
+                    _requestCompleteTracking = System.IO.Path.Combine(url, completeRequestUrl);
                     httpResponse = await client.GetAsync(completeRequestUrl);
                 }
                 else if (responseType.Equals(Constantes.MetodosHTTP.Put))
@@ -1084,7 +1084,25 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (httpResponse != null && !httpResponse.IsSuccessStatusCode)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(new Exception("ShowRoomProvider_RespSBMicroservicios:" + httpResponse.StatusCode.ToString()), userData.CodigoConsultora, userData.CodigoISO);
+                    StringBuilder sb = new StringBuilder();
+                    string _urlTracking = "";
+                    sb.AppendLine("Tracking RespSBMicroservicios:");
+                    if (responseType.Equals(Constantes.MetodosHTTP.Get))
+                    {
+                        _urlTracking = _requestCompleteTracking;
+                        sb.AppendLine(string.Format("{0}:{1}", "Method", responseType));
+                        sb.AppendLine(string.Format("{0}:{1}", "Url", _urlTracking));
+                    }
+                    else
+                    {
+                        _urlTracking = url;
+                        sb.AppendLine(string.Format("{0}:{1}", "Method", responseType));
+                        sb.AppendLine(string.Format("{0}:{1}", "Url", _urlTracking));
+                        sb.AppendLine(string.Format("{0}:{1}", "parametros", jsonParametros));
+
+                    }
+                    sb.AppendLine(string.Format("{0}:{1}", "Error", "ShowRoomProvider_RespSBMicroservicios:" + httpResponse.StatusCode.ToString()));
+                    LogManager.LogManager.LogErrorWebServicesBus(new ClientInformationException(sb.ToString()), userData.CodigoConsultora, userData.CodigoISO);
                     return string.Empty;
                 }
 

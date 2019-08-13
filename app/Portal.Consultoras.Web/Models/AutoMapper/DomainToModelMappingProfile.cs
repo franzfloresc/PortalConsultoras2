@@ -22,6 +22,8 @@ using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.Models.DetalleEstrategia;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.Models.Encuesta;
+using Portal.Consultoras.Web.ServiceEncuesta;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -278,6 +280,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEMenuMobile, MenuMobileModel>()
                 .ForMember(t => t.MenuPadreDescripcion, f => f.MapFrom(c => c.Descripcion));
+            Mapper.CreateMap<BEMenuExtras, MenuExtrasModel>();
+            Mapper.CreateMap<BEMenuTag, MenuTagModel>();
 
             Mapper.CreateMap<BEBannerInfo, BannerInfoModel>();
             Mapper.CreateMap<BEConfiguracionOfertasHome, ConfiguracionSeccionHomeModel>();
@@ -592,8 +596,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CuvProducto))
                 .ForMember(t => t.TipoOfertaSisId, f => f.MapFrom(c => c.TipoOfertaSisId));
 
-            Mapper.CreateMap<ServicePedido.BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>();
-
+            Mapper.CreateMap<ServicePedido.BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>();           
             Mapper.CreateMap<ServicePedido.BEShowRoomNivel, ShowRoomNivelModel>()
                 .ForMember(t => t.NivelId, f => f.MapFrom(c => c.NivelId))
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
@@ -712,8 +715,32 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.MarcaDescripcion))
                 .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
                 .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
+                .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta))
+                .ForMember(t => t.CuvPromocion, f => f.MapFrom(c => c.CuvPromocion));
+
+            Mapper.CreateMap<Search.ResponseOferta.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>()
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CodigoCampania))
+                .ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva ? 1 : 0))
+                .ForMember(t => t.Hermanos, f => f.MapFrom(c => c.Componentes))
+                .ForMember(t => t.CodigoVariante, f => f.MapFrom(c => c.CodigoEstrategia))
+                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.MarcaDescripcion))
+                .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
+                .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
                 .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
 
+            Mapper.CreateMap<ServiceContenido.BEDataConfigEncuesta, DataConfigEncuestaModel>();
+            Mapper.CreateMap<ServiceEncuesta.BEDataConfigEncuesta, DataConfigEncuestaModel>();
+
+            Mapper.CreateMap<Search.ResponseOferta.Estructura.FotosComponente, FotosComponenteModel>();
+
+            Mapper.CreateMap<Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>()
+               .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CodigoCampania))
+               .ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva ? 1 : 0))
+               .ForMember(t => t.CodigoVariante, f => f.MapFrom(c => c.CodigoEstrategia))
+               .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.MarcaDescripcion))
+               .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
+               .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
+               .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
 
             #region Camino Brillante
 
@@ -730,12 +757,18 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEOfertaCaminoBrillante, DemostradorCaminoBrillanteModel>();
             Mapper.CreateMap<BEOfertaCaminoBrillante, OfertaCaminoBrillanteModel>();
             Mapper.CreateMap<BECarruselCaminoBrillante, CarruselCaminoBrillanteModel>();
+            Mapper.CreateMap<BEIncentivosMontoExigencia, AdministrarMontoExigenciaModel>();
             #endregion
 
             #region Historial
-            Mapper.CreateMap<BEContenidoAppDetaAct, AdministrarHistorialDetaActModel>();
+            Mapper.CreateMap<ServiceZonificacion.BEContenidoAppDetaAct, AdministrarHistorialDetaActModel>();
             #endregion
 
+            #region ChatBot
+            Mapper.CreateMap<BEChatBotListResultados, ChatBotListResultadosModel>();
+            #endregion
+
+            Mapper.CreateMap<ServiceCDR.BECDRProductoComplementario, ProductoComplementarioModel>();
         }
     }
 }

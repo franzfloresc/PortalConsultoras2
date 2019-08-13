@@ -14,15 +14,6 @@
                  xfbml            : true,
                  version          : 'v3.3'
              });
-
-             FB.Event.subscribe('customerchat.load', function() {
-                 setTimeout(function () {
-                     $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
-                     $('body').on('click', '.icono_chat_sb', function (e) {
-                         FB.CustomerChat.showDialog();
-                     });
-                 }, 2000);
-             });
          };
      </script>
  }

@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Entities.ReservaProl;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Pedido
@@ -12,6 +13,7 @@ namespace Portal.Consultoras.Entities.Pedido
             Producto = new BEProducto();
             Usuario = new BEUsuario();
             Estrategia = new BEEstrategia();
+            IsPedidoPendiente = false;
         }
 
         [DataMember]
@@ -72,8 +74,15 @@ namespace Portal.Consultoras.Entities.Pedido
         public BEInputReservaProl ReservaProl { get; set; }
         [DataMember]
         public string IngresoExternoOrigen { get; set; }
-
+        [DataMember]
+        public List<BEPedidoWebPromocion> PedidoWebPromociones { get; set; }
+        [DataMember]
+        public bool IsPedidoPendiente { get; set; }
+        [DataMember]
         public bool Reservado { get; set; }
+
+        [DataMember]
+        public bool EsPromocion { get; set; }
         public object Clone()
         {
             return this.MemberwiseClone();

@@ -21,10 +21,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class PedidoController : BaseMobileController
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public PedidoController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         #region Acciones
@@ -110,7 +112,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
             model.TieneMasVendidos = userData.TieneMasVendidos;
-            model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptMobilePedido);
+            model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.SectionBpt.SectionBptMobilePedido);
             var isMobileApp = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion", false) != null;
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             model.ClienteId = mobileConfiguracion.ClienteID;
@@ -136,12 +138,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             ViewBag.DataBarra = GetDataBarra(true, true);
-
+            ViewBag.CodigoConsultora = userData.CodigoConsultora;  /*HD-4288*/ 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
             ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
             ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(true);
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
+
+            //HD-4513
+            var estadoPedido = EsPedidoReservado(configuracionCampania).ToInt();
+            ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado();
+
+            
+
             return View("Index", model);
         }
 
@@ -237,9 +246,28 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ? "1"
                     : "0",
                 EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !beConfiguracionCampania.ValidacionAbierta).ToInt()
+
+
             };
 
             model.EstadoPedido = EsPedidoReservado(beConfiguracionCampania).ToInt();
+
+            #region Camino Brillante 
+
+            if (userData.CaminoBrillante)
+            {
+                _caminoBrillanteProvider.LoadCaminoBrillante();
+                var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
+                if (nivelConsultoraCaminoBrillante != null)
+                {
+                    double montoIncentivo = 0;
+                    if (_caminoBrillanteProvider.GetMontoIncentivo(out montoIncentivo))
+                    {
+                        model.montoIncentivo = (decimal)montoIncentivo;
+                    }
+                }
+            }
+            #endregion
 
             ValidarStatusCampania(beConfiguracionCampania);
 
@@ -287,6 +315,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
             }
+
+            model.EsDiaProl = userData.DiaPROL;
 
             var pedidoWeb = ObtenerPedidoWeb();
             var pedidoModel = new PedidoSb2Model
@@ -367,13 +397,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
                 ViewBag.ColorFondo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
             }
-            //model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
+
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
             ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
-
             ViewBag.DataBarra = GetDataBarra(true, true);//OG
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
+            //HD-4513
+            ViewBag.PagoContado = model.EstadoPedido == 1 && GetPagoContado();
             return View(model);
         }
 
@@ -554,6 +585,33 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.GananciaWeb = pedidoWeb.GananciaWeb;
             model.GananciaOtros = pedidoWeb.GananciaOtros;
 
+            //HD-4513
+            #region Consultora Pago Contado
+            var estadoPedido = EsPedidoReservado(beConfiguracionCampania).ToInt();
+            ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado();
+            if (ViewBag.PagoContado)
+            {
+                var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
+                {
+                    PaisID = userData.PaisID,
+                    ConsultoraID = userData.ConsultoraID,
+                    CodigoConsultora = userData.CodigoConsultora,
+                    CampaniaID = userData.CampaniaID,
+                    STPTotalPagar = Convert.ToDouble(model.Total),
+                    olstBEPedidoWebDetalle = lstPedidoWebDetalle.ToArray()
+
+                };
+
+
+                var resultPagoContado = GetConfPagoContado(PagoContadoPrm);
+                model.STPDescuento =  Util.DoubleToStringFormat(resultPagoContado.STPDescuento, userData.CodigoISO);
+                model.STPFlete = Util.DoubleToStringFormat(resultPagoContado.STPGastTransporte, userData.CodigoISO);
+                model.STPPagoTotal = Util.DoubleToStringFormat(resultPagoContado.STPPagoTotal, userData.CodigoISO);
+                model.STPDeuda = Util.DoubleToStringFormat(resultPagoContado.STPDeuda, userData.CodigoISO);
+            }
+            
+            #endregion
+
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             model.HoraCierre = Util.FormatearHora(sp);
@@ -714,16 +772,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return resultado;
         }
-
-        /// <summary>
-        /// Requerimiento TESLA-28
-        /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
-        /// </summary>
-        /// <returns></returns>
-        //private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
-        //{
-        //    return pedidoWeb.GananciaRevista.HasValue &&
-        //           pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
-        //}
+        
     }
+
 }

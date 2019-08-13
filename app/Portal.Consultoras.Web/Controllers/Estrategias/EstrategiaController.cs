@@ -3,7 +3,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.ElasticSearch;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -25,7 +24,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         protected CarruselUpSellingProvider _carruselUpSellingProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
-       
+        protected VentaIncrementalProvider _ventaIncrementalProvider;
+        protected ConsultaProlProvider _consultaProlProvider;
 
         public EstrategiaController()
         {
@@ -34,12 +34,14 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             _configuracionOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
             _carruselUpSellingProvider = new CarruselUpSellingProvider();
             _caminoBrillanteProvider = new CaminoBrillanteProvider();
+            _ventaIncrementalProvider = new VentaIncrementalProvider();
+            _consultaProlProvider = new ConsultaProlProvider();
         }
 
         public EstrategiaController(ISessionManager sesionManager, ILogManager logManager, TablaLogicaProvider tablaLogicaProvider)
             : base(sesionManager, logManager)
         {
-           
+
         }
 
         #region Metodos Por Palanca
@@ -156,22 +158,22 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 case "1":
                     modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Desktop;
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Home;
-                   
+
                     break;
                 case "11":
                     modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Desktop;
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
-                   
+
                     break;
                 case "2":
                     modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Mobile;
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Home;
-                   
+
                     break;
                 case "21":
                     modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Mobile;
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
-                   
+
                     break;
                 default:
                     if (Request.UrlReferrer != null && isMobile)
@@ -179,7 +181,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Mobile;
                         modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Home;
                     }
-                   
+
                     break;
             }
 
@@ -210,31 +212,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
-        /// <summary>
-        /// Obtener oferta de ficha
-        /// </summary>
-        /// <param name="cuv"></param>
-        /// <param name="campania"></param>
-        /// <param name="codigoISO"></param>
-        /// <returns></returns>
-        //[HttpPost]
-        //public JsonResult ObtenerOfertaFicha(string cuv, string campania, string tipoEstrategia)
-        //{
-        //    string message;
-        //    try
-        //    {
-        //        DetalleEstrategiaFichaModel model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
-        //        return Json(new { success = true, data = model, message }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
-        //    }
-        //}
-
-        /// <summary>
-        /// Función unificada
-        /// </summary>
         private JsonResult PreparListaModel(BusquedaProductoModel model, int tipoConsulta)
         {
             try
@@ -304,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                                 item.CodigoEstrategia = Constantes.TipoEstrategiaSet.CompuestaFija;
                         });
 
-                       
+
                         var listaPedido = ObtenerPedidoWebSetDetalleAgrupado();
 
                         listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaEstrategiaOfertas, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo).OrderBy(x => x.TieneStock, false).ToList();
@@ -317,7 +294,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
                 else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos || tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos)
                 {
-                    switch (tipoConsulta) {
+                    switch (tipoConsulta)
+                    {
                         case Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos:
                             listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante(Constantes.CaminoBrillante.TipoOferta.Kit);
                             break;
@@ -450,7 +428,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     case Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos:
                         {
                             var session = SessionManager.MasGanadoras.GetModel();
-                            var tieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal);
+                            var tieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal, Constantes.ConfiguracionPais.MasGanadoras);
                             if (!tieneLanding)
                             {
                                 session.TieneLanding = tieneLanding;
@@ -463,14 +441,14 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     case Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos:
                         {
                             var session = SessionManager.ShowRoom;
-                            session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal);
+                            session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal, Constantes.ConfiguracionPais.ShowRoom);
                             break;
                         }
 
                     case Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos:
                         {
                             var session = SessionManager.GetRevistaDigital();
-                            session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal);
+                            session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal, Constantes.ConfiguracionPais.RevistaDigital);
                             break;
                         }
 
@@ -495,12 +473,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
-        private bool ActualizarSession_TieneLanding(bool tieneLanding, int cantidadTotal)
+        private bool ActualizarSession_TieneLanding(bool tieneLanding, int cantidadTotal, string codigoConfiguracionOfertasHome)
         {
             if (tieneLanding)
             {
                 var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
-                var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionSeccionHomeModel();
+                var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == codigoConfiguracionOfertasHome) ?? new ConfiguracionSeccionHomeModel();
                 var cantidad = entConf.CantidadMostrar;
                 if (cantidadTotal <= cantidad)
                 {
@@ -744,31 +722,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         #endregion
 
-        //[HttpPost]
-        //public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
-        //{
-        //    if (modelo != null)
-        //    {
-        //        modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
-        //        modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
-        //        modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
-        //        modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
-        //        modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
-        //        modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
-        //        modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
-        //        modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
-        //        modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-        //        modelo.FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, modelo.FotoProducto01);
-        //    }
-
-        //    SessionManager.SetProductoTemporal(modelo);
-
-        //    return Json(new
-        //    {
-        //        success = true
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
         #region Carrusel Ficha
 
         [HttpPost]
@@ -830,22 +783,16 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     return FichaObtenerProductosCarrusel(cuvExcluido, palanca);
                 }
 
-                var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(cuvExcluido, codigosProductos, precioProducto);
+                var listaProductos = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(cuvExcluido, codigosProductos, precioProducto);
+                if (!listaProductos.Any())
+                    return Json(new { success = false });
 
-                if (!dataProductosCarruselUpSelling.success)
-                {
-                    return Json(new OutputProductosUpSelling()
-                    {
-                        result = new List<EstrategiaPersonalizadaProductoModel>()
-                    });
-                }
-
-                var listaProductosValidados = ValidacionResultadosProductos(dataProductosCarruselUpSelling.result).ToList();
-                var listaOfertasModel = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductosValidados, true);
+                listaProductos = ValidacionResultadosProductos(listaProductos, Constantes.TipoVentaIncremental.UpSelling).ToList();
+                listaProductos = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductos, true);
                 return Json(new
                 {
                     success = true,
-                    result = listaOfertasModel
+                    result = listaProductos
                 });
             }
             catch (Exception ex)
@@ -855,11 +802,46 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
-        private IList<EstrategiaPersonalizadaProductoModel> ValidacionResultadosProductos(IList<EstrategiaPersonalizadaProductoModel> estrategiaPersonalizadaProductoModels)
+        [HttpPost]
+        public async Task<JsonResult> FichaObtenerProductosIncremental(string cuv, string tipo)
         {
+            try
+            {
+                if (cuv.IsNullOrEmptyTrim() || !_ventaIncrementalProvider.ValidarActivacion(userData.PaisID, tipo))
+                    return Json(new { success = false });
+
+                var listaProductos = await _ventaIncrementalProvider.ObtenerProductosIncremental(cuv, tipo);
+                if (!listaProductos.Any())
+                    return Json(new { success = false });
+
+                listaProductos = ValidacionResultadosProductos(listaProductos, tipo).ToList();
+                // por ahora no validar stock con prol hasta que definan nueva logica
+                //listaProductos = _consultaProlProvider.ActualizarEstrategiaStockProl(listaProductos,
+                //    userData.CodigoISO,
+                //    userData.CampaniaID,
+                //    userData.CodigoConsultora,
+                //    _consultaProlProvider.GetValidarDiasAntesStock(userData));
+
+                return Json(new
+                {
+                    success = true,
+                    result = listaProductos
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
+        }
+
+
+        private IList<EstrategiaPersonalizadaProductoModel> ValidacionResultadosProductos(IList<EstrategiaPersonalizadaProductoModel> estrategiaPersonalizadaProductoModels, string tipoVentaIncremental)
+        {
+            var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
+
             if (!estrategiaPersonalizadaProductoModels.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
-            var pedidos = SessionManager.GetDetallesPedido();
-            var sessionMg = SessionManager.MasGanadoras.GetModel();
+            var pedidos = SessionManager.GetDetallesPedidoSetAgrupado();
 
             foreach (var item in estrategiaPersonalizadaProductoModels)
             {
@@ -869,25 +851,15 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 item.CampaniaID = userData.CampaniaID;
                 item.PrecioVenta = Util.DecimalToStringFormat(item.Precio2.ToDecimal(), userData.CodigoISO);
                 item.PrecioTachado = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO);
-                item.ClaseBloqueada = "";
-                item.ClaseEstrategia = "revistadigital-landing";
                 item.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
                     item.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? 1 : 0,
                     item.CodigoEstrategia,
                     userData.esConsultoraLider,
-                    true,
+                    tipoVentaIncremental == Constantes.TipoVentaIncremental.UpSelling,
                     item.CodigoVariante);
 
-                //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
-                item.CodigoEstrategia =
-                    item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                    && item.MaterialGanancia
-                    && sessionMg.TieneMG
-                    && revistaDigital.TieneRDC
-                    && revistaDigital.EsActiva
-                    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
-                    : item.CodigoEstrategia;
-
+                if (!flagLaMasGanadoras)
+                    item.CodigoEstrategia = CambioPalancaMg(item);
             }
 
             estrategiaPersonalizadaProductoModels = estrategiaPersonalizadaProductoModels
@@ -899,6 +871,17 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 .ToList();
 
             return estrategiaPersonalizadaProductoModels;
+        }
+
+        private string CambioPalancaMg(EstrategiaPersonalizadaProductoModel item)
+        {
+            return item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                    && item.MaterialGanancia
+                    && MasGanadoras.TieneMG
+                    && revistaDigital.TieneRDC
+                    && revistaDigital.EsActiva
+                    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
+                    : item.CodigoEstrategia;
         }
         #endregion
     }

@@ -10,7 +10,6 @@ var listaLAN = listaLAN || "LANLista";
 
 var CONS_TIPO_PRESENTACION = {
     CarruselSimple: 1,
-    //CarruselPrevisuales: 2,
     SimpleCentrado: 3,
     Banners: 4,
     ShowRoom: 5,
@@ -29,9 +28,9 @@ var CONS_CODIGO_SECCION = {
     OPT: "OPT",
     DES: "DES-NAV",
     HV: "HV",
-    MG: 'MG',
+    MG: 'LMG',
     ATP: 'ATP',
-    DP: 'DP' //HD-3473 EINCA 
+    DP: 'DP'
 };
 
 var listaSeccion = {};
@@ -126,7 +125,7 @@ function SeccionCargarProductos(objConsulta) {
         $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
-    //HD-3473 EINCA 
+
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.DP) {
         AnalyticsPortalModule.MarcaPromotionViewBanner('Contenedor - Inicio');
     }
@@ -246,11 +245,25 @@ function SeccionCargarProductos(objConsulta) {
                         console.error(data);
                     }
                 }
+            } else {
+                if (objConsulta.Codigo == CONS_CODIGO_SECCION.ATP) {
+                    MostrarBannerAtp();
+                }
             }
         },
         error: function (error, x) {
         }
     });
+}
+
+function MostrarBannerAtp() {
+    var htmlSeccion = $("[data-seccion=" + CONS_CODIGO_SECCION.ATP + "]");
+    htmlSeccion.find('.atp_main').hide();
+    htmlSeccion.find(".seccion-loading-contenedor").fadeOut();
+    var imageUrl = "../Content/Images/arma_tu_pack/banner-arma-tu-pack-error.jpg";
+    htmlSeccion.find(".container-flex.atp_container").css("background", "url(" + imageUrl + ")");
+    htmlSeccion.find('.atp_alerta').fadeIn();
+    $('#' + CONS_CODIGO_SECCION.ATP).find('.seccion-content-contenedor').fadeIn();
 }
 
 function GetTipoEstrategiaHabilitado(tipoEstrategia) {
@@ -360,7 +373,6 @@ function SeccionMostrarProductos(data) {
                 .replace('#PrecioTotal', variablesPortal.SimboloMoneda + " " + data.lista[0].PrecioVenta);
 
             pSubtitulo.html(subTitulo);
-            //btnRedirect.attr('data-cuv', data.lista[0].CUV2);
 
             if (data.estaEnPedido) {
                 btnRedirect.attr('data-popup', true);
@@ -371,9 +383,8 @@ function SeccionMostrarProductos(data) {
                 btnRedirect.html(btnRedirect.data('crea'));
             }
             $('#' + data.Seccion.Codigo).find('.seccion-content-contenedor').fadeIn();
-            //Analytics ATP
+
             if (!(typeof AnalyticsPortalModule === 'undefined'))
-            //data.estaEnPedido = false is new and true is modified
             {
                 var codigoubigeoportal = $('#' + data.Seccion.Codigo).attr('data-codigoubigeoportal');
                 AnalyticsPortalModule.MarcaPromotionViewArmaTuPack(codigoubigeoportal, data.lista[0], data.estaEnPedido);
@@ -388,11 +399,6 @@ function SeccionMostrarProductos(data) {
         || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
         || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
         || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
-        if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
-            || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
-            || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
-            CarruselCiclico = false;
-        }
 
         if (data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
@@ -418,6 +424,7 @@ function SeccionMostrarProductos(data) {
             else {
                 if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
                     || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
+                    || data.Seccion.Codigo === CONS_CODIGO_SECCION.HV
                     || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
                     $("#" + data.Seccion.Codigo).find(sElementos.verMas).show();
                     if (data.objBannerCajaProducto != undefined) {
@@ -449,7 +456,9 @@ function SeccionMostrarProductos(data) {
     if (data.Seccion.TemplateProducto == "#producto-landing-template") {
         EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
     }
+    CarruselCiclico = data.Seccion.TipoPresentacion != CONS_TIPO_PRESENTACION.carruselIndividualesv2;
 
+    CarruselCiclico = data.Seccion.TipoPresentacion != CONS_TIPO_PRESENTACION.carruselIndividualesv2;
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {
         RenderCarruselSimple(htmlSeccion, data, CarruselCiclico);
     }
@@ -652,7 +661,7 @@ function CheckClickCarrousel(action, source, seccionName) {
 function CallAnalitycsClickArrow(seccionName, sliderWay, clickedSlider) {
 
     if (sliderWay !== 0 && clickedSlider !== 0) {
-        if (seccionName === "MG") {
+        if (seccionName === "LMG") {
             if (typeof AnalyticsPortalModule !== "undefined") {
                 AnalyticsPortalModule.ClickArrowMG(sliderWay);
             }

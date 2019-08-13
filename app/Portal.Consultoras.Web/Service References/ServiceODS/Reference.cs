@@ -50,6 +50,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string CodigoSAPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoTipoOfertaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConfiguracionOfertaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -298,6 +301,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.CodigoSAPField, value) != true)) {
                     this.CodigoSAPField = value;
                     this.RaisePropertyChanged("CodigoSAP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoTipoOferta {
+            get {
+                return this.CodigoTipoOfertaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoTipoOfertaField, value) != true)) {
+                    this.CodigoTipoOfertaField = value;
+                    this.RaisePropertyChanged("CodigoTipoOferta");
                 }
             }
         }
@@ -1563,10 +1579,16 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private int IdEstadoDatamartField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IndicadorConsultoraDigitalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IndicadorPROLField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool IndicadorPasoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IndicadorRecepcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string KitNuevaField;
@@ -1621,6 +1643,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ZonaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nombreYApellidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string numeroDocumentoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -1841,6 +1869,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IndicadorConsultoraDigital {
+            get {
+                return this.IndicadorConsultoraDigitalField;
+            }
+            set {
+                if ((this.IndicadorConsultoraDigitalField.Equals(value) != true)) {
+                    this.IndicadorConsultoraDigitalField = value;
+                    this.RaisePropertyChanged("IndicadorConsultoraDigital");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string IndicadorPROL {
             get {
                 return this.IndicadorPROLField;
@@ -1862,6 +1903,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.IndicadorPasoPedidoField.Equals(value) != true)) {
                     this.IndicadorPasoPedidoField = value;
                     this.RaisePropertyChanged("IndicadorPasoPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IndicadorRecepcion {
+            get {
+                return this.IndicadorRecepcionField;
+            }
+            set {
+                if ((this.IndicadorRecepcionField.Equals(value) != true)) {
+                    this.IndicadorRecepcionField = value;
+                    this.RaisePropertyChanged("IndicadorRecepcion");
                 }
             }
         }
@@ -2096,6 +2150,32 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.ZonaIDField.Equals(value) != true)) {
                     this.ZonaIDField = value;
                     this.RaisePropertyChanged("ZonaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nombreYApellido {
+            get {
+                return this.nombreYApellidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nombreYApellidoField, value) != true)) {
+                    this.nombreYApellidoField = value;
+                    this.RaisePropertyChanged("nombreYApellido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string numeroDocumento {
+            get {
+                return this.numeroDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.numeroDocumentoField, value) != true)) {
+                    this.numeroDocumentoField = value;
+                    this.RaisePropertyChanged("numeroDocumento");
                 }
             }
         }
@@ -4526,6 +4606,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private bool AceptoContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivaNotificacionesWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4545,6 +4628,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceODS.BEBuscadorYFiltrosConfiguracion BuscadorYFiltrosConfiguracionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool CambioCelularPendienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool CambioClaveField;
@@ -4572,6 +4658,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CelularPendienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ClaveSecretaField;
@@ -4772,6 +4861,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private System.DateTime FechaFinFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaIngresoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaInicioFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4955,6 +5047,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string NombrePaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool NotificacionesWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NovedadBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4983,6 +5078,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PROLSinStockField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PagoContadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PaisField;
@@ -5284,6 +5382,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActivaNotificacionesWhatsapp {
+            get {
+                return this.ActivaNotificacionesWhatsappField;
+            }
+            set {
+                if ((this.ActivaNotificacionesWhatsappField.Equals(value) != true)) {
+                    this.ActivaNotificacionesWhatsappField = value;
+                    this.RaisePropertyChanged("ActivaNotificacionesWhatsapp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool Activo {
             get {
                 return this.ActivoField;
@@ -5370,6 +5481,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.BuscadorYFiltrosConfiguracionField, value) != true)) {
                     this.BuscadorYFiltrosConfiguracionField = value;
                     this.RaisePropertyChanged("BuscadorYFiltrosConfiguracion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CambioCelularPendiente {
+            get {
+                return this.CambioCelularPendienteField;
+            }
+            set {
+                if ((this.CambioCelularPendienteField.Equals(value) != true)) {
+                    this.CambioCelularPendienteField = value;
+                    this.RaisePropertyChanged("CambioCelularPendiente");
                 }
             }
         }
@@ -5487,6 +5611,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.CelularField, value) != true)) {
                     this.CelularField = value;
                     this.RaisePropertyChanged("Celular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CelularPendiente {
+            get {
+                return this.CelularPendienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CelularPendienteField, value) != true)) {
+                    this.CelularPendienteField = value;
+                    this.RaisePropertyChanged("CelularPendiente");
                 }
             }
         }
@@ -6350,6 +6487,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaIngreso {
+            get {
+                return this.FechaIngresoField;
+            }
+            set {
+                if ((this.FechaIngresoField.Equals(value) != true)) {
+                    this.FechaIngresoField = value;
+                    this.RaisePropertyChanged("FechaIngreso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.DateTime FechaInicioFacturacion {
             get {
                 return this.FechaInicioFacturacionField;
@@ -7143,6 +7293,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool NotificacionesWhatsapp {
+            get {
+                return this.NotificacionesWhatsappField;
+            }
+            set {
+                if ((this.NotificacionesWhatsappField.Equals(value) != true)) {
+                    this.NotificacionesWhatsappField = value;
+                    this.RaisePropertyChanged("NotificacionesWhatsapp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int NovedadBuscador {
             get {
                 return this.NovedadBuscadorField;
@@ -7268,6 +7431,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.PROLSinStockField.Equals(value) != true)) {
                     this.PROLSinStockField = value;
                     this.RaisePropertyChanged("PROLSinStock");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PagoContado {
+            get {
+                return this.PagoContadoField;
+            }
+            set {
+                if ((this.PagoContadoField.Equals(value) != true)) {
+                    this.PagoContadoField = value;
+                    this.RaisePropertyChanged("PagoContado");
                 }
             }
         }

@@ -4,6 +4,7 @@
 
         if (!$(e.target).hasClass('active')) {
             $(e.target).addClass('active');
+            $(e.target).removeClass('btn--estadoAceptado');
             $(e.target).html('Elegir');
         }
         else {
@@ -11,16 +12,15 @@
             $('.btnAccion').find('span').html('Elegir');
 
             $(e.target).removeClass('active');
+            $(e.target).addClass('btn--estadoAceptado');
             $(e.target).html('Elegido');
         }
 
         if ($('.btnAccion span.active').length == $('.btnAccion span').length) {
             $('#btnAceptarPedido a').removeClass('active');
-            // $('#btnAceptarPedido a').html('Elegido');
         }
         else {
             $('#btnAceptarPedido a').addClass('active');
-            //   $('#btnAceptarPedido a').html('Elegir');
         }
 
         e.preventDefault();
@@ -158,8 +158,6 @@ function AceptarPedidoPendiente(id, tipo) {
                             AbrirMensaje(response.message);
                         }
                         else if (response.code == 2) {
-                            //$('#MensajePedidoReservado').text(response.message);
-                            //$('#AlertaPedidoReservado').show();
                             AbrirMensaje(response.message);
                         }
                     }

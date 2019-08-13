@@ -1,4 +1,6 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
@@ -9,21 +11,25 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
+    [UniqueSession("UniqueRouteFichaResponsive", UniqueRoute.IdentifierKey, "/g/")]
+    [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class DetalleEstrategiaController : BaseViewController
     {
         public DetalleEstrategiaController() : base()
         {
-
+            //
         }
 
         public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
             : base(sesionManager, logManager, ofertaPersonalizadaProvider, ofertaViewProvider)
         {
+            //
         }
 
         public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
             : base(sesionManager, logManager, estrategiaComponenteProvider)
         {
+            //
         }
         
         [HttpGet]
@@ -141,6 +147,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 bool esMultimarca = false;
                 string mensaje = "";
+
+                if (codigoEstrategia == Constantes.TipoEstrategiaCodigo.MasGanadoras)
+                {
+                    var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
+                    if (!flagLaMasGanadoras)
+                        codigoEstrategia = Constantes.TipoEstrategiaCodigo.OfertasParaMi;
+                }
+
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
    
                 return Json(new
@@ -163,5 +177,34 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+
+        [HttpPost]
+        public JsonResult ObtenerEstrategiaMongo(string palanca, int campaniaId, string cuv)
+        {
+            try
+            {
+                var modelo = GetEstrategiaMongo(palanca, campaniaId, cuv);
+                
+                if (modelo != null)
+                {
+                    return Json(new
+                    {
+                        success = !modelo.Error,
+                        data = modelo
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(new
+            {
+                success = false
+            }, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

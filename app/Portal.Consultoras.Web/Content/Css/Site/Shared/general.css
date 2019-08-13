@@ -148,12 +148,12 @@ button:focus{
     border-bottom: 1px solid #b4b4b4;
     height: 40px;
     background-color: transparent;
-    position:relative;
-    z-index:2;
-    font-size:14px;
-    color:#000;
-    outline:none;
-    order:0;
+    position: relative;
+    z-index: 2;
+    font-size: 14px;
+    color: #000;
+    outline: none;
+    order: 0;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -221,11 +221,24 @@ button:focus{
 
 /* VALIDATION MESSAGE */
 
-.validation__message {
-    color: #e81c36;
-    font-size: 11px;
-    margin-top: 4px;
+.validation__message,
+.validation__field{
+    font-size:11px;
+    margin-top:4px;
 }
+
+.validation__field {
+    color: #808080;
+}
+    
+    .validation__message,
+    .validation__error{
+        color:#e81c36;
+    }
+
+    .validation__success{
+        color:#569c04;
+    }
 
 /* FIN - VALIDATION MESSAGE */
 
@@ -326,13 +339,13 @@ input[type="checkbox"].switch__control,
         color:#000;
     }
 
-    .btn__sb--disabled {
-        border: 1px solid #D1D1D4!important;
-        background-color: #D1D1D4!important;
-        pointer-events: none;
-        cursor: not-allowed;
-        color: #909094;
-    }
+.btn__sb--disabled {
+    border: 1px solid #D1D1D4!important;
+    background-color: #D1D1D4!important;
+    pointer-events: none;
+    cursor: not-allowed;
+    color: #909094;
+}
 
 @media screen and (max-width:991px){
 
@@ -363,23 +376,23 @@ input[type="checkbox"].switch__control,
     transition: all 0.3s ease;
 }
 
-    .notificacion__estado--exito span {
-        color: #569c04;
-    }
+.notificacion__estado--exito span {
+    color: #569c04;
+}
 
-    .notificacion__estado__img {
-        display: block;
-        width: 20px;
-        height: 20px;
-        margin-top: -1.2px;
-        margin-right: 4px;
-        margin-bottom: 0 !important;
-    }
+.notificacion__estado__img {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-top: -1.2px;
+    margin-right: 4px;
+    margin-bottom: 0 !important;
+}
 
-        .notificacion__estado__img img {
-            width: 100%;
-            height: auto;
-        }
+    .notificacion__estado__img img {
+        width: 100%;
+        height: auto;
+    }
 
     .notificacion__estado--error span{
         color:#e81c36;
@@ -389,7 +402,7 @@ input[type="checkbox"].switch__control,
 
 /* TAGS */
 
-.tag_sb {
+.tag__sb {
     display: inline-block;
     border-radius: 10.5px;
     width: auto;
@@ -401,19 +414,114 @@ input[type="checkbox"].switch__control,
     padding-right: 8px;
 }
 
-    .tag_sb--standard {
-        background-color: #000;
+    .tag__sb--standard,
+    .tag__sb--multimarca{
         color: #FFF;
     }
 
+    .tag__sb--standard{
+        background-color: #000;
+    }
+
+    .tag__sb--multimarca{
+        background-color:#B9007E;
+    }
+
 /* FIN - TAGS */
+
+/* TABS */
+
+.tabs__wrapper__sb,
+.nav__tabs__sb,
+.nav__tab__sb__link,
+.tabs__content__sb__wrapper,
+.tab__content__sb {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.nav__tabs__sb{
+    justify-content:space-between;
+    align-items:flex-start;
+    border-top:1px solid #f5f5f5;
+    margin-bottom:0;
+}
+
+    .nav__tab__sb {
+        display: inline-block;
+        flex: 1 0 0;
+    }
+
+    .nav__tab__sb__link {
+        justify-content: center;
+        align-items: center;
+        min-height: 38px;
+        border-bottom: 2px solid #FFF;
+        color: #808080 !important;
+        -moz-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+
+        .nav__tab__sb__link:hover,
+        .nav__tab__sb__link.nav__tab__sb__link--active {
+            color: #B9007E !important;
+            border-bottom: 2px solid #B9007E;
+        }
+
+.tabs__content__sb__wrapper{
+    background-color:#f5f5f5;
+    min-height:200px;
+    padding-top:16px;
+    padding-bottom:16px;
+}
+
+    .tab__content__sb{
+        padding-left:16px;
+        padding-right:16px;
+    }
+
+/* FIN - TABS */
+
+/* CARDS */
+
+.card__sb__container,
+.card__sb {
+    display: flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+}
+
+.card__sb__container {
+    width: 100%;
+    margin-bottom:0;
+}
+
+    .card__sb{
+        flex:0 0 100%;
+        max-width:100%;
+        min-height:105px;
+        background-color:#FFF;
+        padding:16px;
+        margin-bottom:16px;
+    }
+
+        .card__sb:last-child{
+            margin-bottom:0;
+        }
+
+/* FIN - CARDS */
 
 /* FIN - COMPONENTES UI */
 
 /* HELPERS CSS (DESKTOP) */
 
-.ml-0{
-    margin-left:0;
+.ml-0 {
+    margin-left: 0;
 }
 
 .mr-0{
@@ -468,12 +576,16 @@ input[type="checkbox"].switch__control,
     display:flex;
 }
 
+.text-thin {
+    font-weight: 300;
+}
+
 .text-bold{
     font-weight:700;
 }
 
-.text-thin{
-    font-weight:300;
+.text-black {
+    font-weight: 900;
 }
 
 .text-underline{
@@ -525,6 +637,10 @@ input[type="checkbox"].switch__control,
     margin-top: 40px;
 }
 
+.mt-40 {
+    margin-top: 40px;
+}
+
 .z__index__modal__nivel__alto {
     z-index: 2147483647;
 }
@@ -534,7 +650,7 @@ input[type="checkbox"].switch__control,
 /* ESTILOS MODIFICADORES JQUERY UI (PRECARGA PÁGINA RESULTADOS VERSIÓN DESKTOP) */
 
 .ui-widget-overlay {
-    z-index: 99999999 !important;
+    z-index: 99999999!important;
 }
 
 .ui-dialog.ui-widget-content {
@@ -542,7 +658,7 @@ input[type="checkbox"].switch__control,
     background: #FFFFFF !important;
     color: #555 !important;
     border-radius: 0;
-    z-index: 999999999 !important; /* cambio de equipo gana mas */
+    z-index: 999999999 !important;
     /*z-index: 999999910 !important;*/  /* cambio de equipo ? */
 }
 
@@ -1025,7 +1141,7 @@ input[type="checkbox"].switch__control,
     font-weight: normal;
     color: #000;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 25px !important;
 }
 
 .btn_ok {
@@ -1134,7 +1250,7 @@ input[type="checkbox"].switch__control,
 }
 
 .layout__view__breadcrumb {
-    border-right: 1px solid #878787;
+    border-right: 1px solid #000;
     padding-left: 8px;
     padding-right: 8px;
 }
@@ -1146,11 +1262,11 @@ input[type="checkbox"].switch__control,
 .layout__view__breadcrumb,
 .layout__view__breadcrumb a
 {
-    color:#b1b1b1!important;
+    color:#000!important;
 }
 
 .layout__view__breadcrumb--active__view span{
-    color:#878787;
+    color:#000;
 }
 
 .layout__view__breadcrumb a{
@@ -1225,58 +1341,39 @@ input[type="checkbox"].switch__control,
 
 /* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
 
-.fb_dialog_content {
-    position: relative !important;
-}
-
-.icono_chat_sb {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
+.btn_chat_messenger {
+    display:block;
+    background-color: #FFF;
+    border-radius: 50%;
     width: 60px;
     height: 60px;
-    background-color: #FFF;
-    background-image: url(/Content/Images/icono-chat-sb.svg);
-    background-repeat: no-repeat;
-    background-position: center;
+    padding: 0px;
+    position: fixed;
+    bottom: 18pt;
+    right: 18pt;
+    top: auto;
+    z-index: 1000;
+    padding: 13px 17px 13px 17px;
+    -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
     cursor: pointer;
-    border-radius: 100%;
-    z-index: 2000;
 }
 
-.fb_dialog_content iframe {
-    display: none !important;
+    .btn_chat_messenger img{
+        width:100%;
+        height:auto;
+    }
+
+.fb_dialog {
+    left: -200pt;
 }
 
-@media screen and (max-width:991px){
+@media screen and (max-width:991px) {
 
-    .fb_dialog_content{
-        display:none;
+    .btn_chat_messenger{
+        z-index:4000;
     }
-
-    .btn_chat_messenger_mobile {
-        background-color: #FFF;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        padding: 0px;
-        position: fixed;
-        bottom: 18pt;
-        right: 18pt;
-        top: auto;
-        z-index: 2147483647;
-        padding: 13px 17px 13px 17px;
-        -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
-        -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
-        box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
-        cursor: pointer;
-    }
-
-        .btn_chat_messenger_mobile img {
-            width: 100%;
-            height: auto;
-        }
 
 }
 

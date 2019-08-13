@@ -163,7 +163,6 @@
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
-    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
     @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
 
@@ -177,10 +176,6 @@
     @Scripts.Render("~/Bundle/Js/Mobile/MobileLayout")
 
     <script type="text/javascript">
-        var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
-        var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
-        var urlValidarCorreoIngresado = '@Url.Action("ValidarCorreoIngresado", "Bienvenida", new { area = "" })';
-        var urlValidarUsuarioIngresado = '@Url.Action("ValidarUsuarioIngresado", "Bienvenida", new { area = "" })';
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
         var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
@@ -511,9 +506,10 @@
     @if (!esIngresoUnico)
     {
         <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
-        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" style="display: none;" href="javascript: AbrirChatBot()">
+        <a title="Chat Messenger" class="d-block btn_chat_messenger" style="display:none;" href="javascript: AbrirChatBot()">
             <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
         </a>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.ui.touch-punch.min.js")"></script>
     }
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
@@ -529,7 +525,6 @@
         pixelAnalytics.invocarPageViewPixelById();
     </script>
     <script type="text/javascript" id="lightning_bolt" src="//cdn-akamai.mookie1.com/LB/LightningBolt.js"></script>
-
     <script>
         $.ajaxSetup({
             beforeSend: function (xhr, settings) {

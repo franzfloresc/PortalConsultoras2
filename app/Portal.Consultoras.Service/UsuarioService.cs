@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.CDR;
+using Portal.Consultoras.BizLogic.Configuracion;
 using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Common;
@@ -611,17 +612,6 @@ namespace Portal.Consultoras.Service
             return blUsuario.GetValidarAutoLogin(paisID, codigoUsuario, proveedor);
         }
 
-        public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
-        {
-            var blUsuario = new BLUsuario();
-            return blUsuario.InsUsuarioExternoPais(paisID, entidad);
-        }
-
-        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
-        {
-            var blUsuario = new BLUsuario();
-            return blUsuario.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
-        }
 
         ///<summary>
         ///Verifica si existe el usuario con/sin el ingreso de la clave  
@@ -728,6 +718,11 @@ namespace Portal.Consultoras.Service
         public BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo)
         {
             return new BLUsuario().ActualizarEmail(usuario, correoNuevo);
+        }
+
+        public BERespuestaServicio ActualizarEmailSinEnvioCorreo(BEUsuario usuario, string correoNuevo)
+        {
+            return new BLUsuario().ActualizarEmailSinEnvioCorreo(usuario, correoNuevo);
         }
 
         public BERespuestaServicio RegistrarEnvioSms(
@@ -894,6 +889,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetActualizacionEmail(paisID, codigoUsuario);
         }
 
+        public string GetActualizacionCelular(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetActualizacionCelular(paisID, codigoUsuario);
+        }
+
         public BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
@@ -975,14 +976,58 @@ namespace Portal.Consultoras.Service
         
         #region Camino Brillante
 
-        public BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad) {
-            return _caminoBrillanteBusinessLogic.GetConsultoraNivel(entidad);
+        public BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad, int origen) {
+            return _caminoBrillanteBusinessLogic.GetConsultoraNivel(entidad, origen);
         }
 
-        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp)
-        {
-            return _caminoBrillanteBusinessLogic.GetCaminoBrillanteConfiguracion(paisID, esApp);
+        public void SetConsultoraCaminoBrillanteAnim(BEUsuario entidad, string key, string value, string repeat) {
+            _caminoBrillanteBusinessLogic.SetConsultoraAnim(entidad, key, value, repeat);
         }
+
+        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp)
+        {
+            return _caminoBrillanteBusinessLogic.GetCaminoBrillanteConfiguracion(paisID, puntosAlcanzados, esApp);
+        }
+
+        public List<BENivelCaminoBrillante> GetNiveles(int paisID)
+        {
+            return _caminoBrillanteBusinessLogic.GetNiveles(paisID);
+        }
+
+        public List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel)
+        {
+            return _caminoBrillanteBusinessLogic.GetBeneficiosCaminoBrillante(paisID, codigoNivel);
+        }
+
+        public void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad)
+        {
+            _caminoBrillanteBusinessLogic.InsBeneficioCaminoBrillante(paisId, entidad);
+        }
+
+        public void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio)
+        {
+            _caminoBrillanteBusinessLogic.DelBeneficioCaminoBrillante(paisId, CodigoNivel, CodigoBeneficio);
+        }
+
+        public List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(int PaisID, string CodigorRegion, string Zona, long ConsultoraID, int CampaniaID, int PeriodoCB, int NivelCB, decimal PuntajeAcumuladoCB) {
+            return _caminoBrillanteBusinessLogic.GetConfiguracionConsultoraCaminoBrillante(PaisID, CodigorRegion, Zona, ConsultoraID, CampaniaID, PeriodoCB, NivelCB, PuntajeAcumuladoCB);
+        }
+
+        #region Exigencia Monto Incentivos
+        public List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            return _caminoBrillanteBusinessLogic.GetIncentivosMontoExigencia(paisId, entidad);
+        }
+        public string InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            return _caminoBrillanteBusinessLogic.InsIncentivosMontoExigencia(paisId, entidad);
+        }
+        public void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad)
+        {
+            _caminoBrillanteBusinessLogic.DelIncentivosMontoExigencia(paisId, entidad);
+        }
+        #endregion
+
         #endregion
 
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
@@ -1021,6 +1066,67 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ListarValidacionDatos(beValidacionDatos);
         }
 
+        #region Cambiar_conraseña_por_defecto
+        public List<BEConfiguracionPaisFFVVDatos> GetConfiguracionPaisFFVV(BEConfiguracionPaisFFVVDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisFFVV();
+            return bl.GetList(entidad);
+        }
+
+        public List<BEParametroUnete> GetListZonasUnete(BEParametroUnete entidad)
+        {
+            var bl = new BLConfiguracionPaisFFVV();
+            return bl.GetListZonasUnete(entidad);
+        }
+
+        public BEUsuarioDatos GetActualizarContraseniaDefault(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetActualizarContraseniaDefault(paisID, codigoUsuario);
+        }
+
+        public bool ProcesaEnvioEmailCambiaContrasenia(int paisID, BEUsuarioDatos oUsu)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ProcesaEnvioEmailCambiaContrasenia(paisID, oUsu);
+        }
+
+        public bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, BEUsuarioDatos oUsu)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ProcesaEnvioEmailCambiaContrasenia2(paisID, oUsu);
+        }
+
+        public bool ProcesaEnviarMailActualizaContraseniaFinalizado(int paisID, BEUsuarioDatos oUsu, bool esOk)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ProcesaEnviarMailActualizaContraseniaFinalizado(paisID, oUsu, esOk);
+        }
+
+        public bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ContraseniaRepetida(paisID, codigoUsuario, contrasenia);
+        }
+
+        public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
+        {
+            var blUsuario = new BLUsuario();
+            return blUsuario.InsUsuarioExternoPais(paisID, entidad);
+        }
+
+        public string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            var blUsuario = new BLUsuario();
+            return blUsuario.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        }
+
+        public bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            var blUsuario = new BLUsuario();
+            return blUsuario.CambiarContraseniaAleatoria(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        }
+        #endregion
 
     }
 }

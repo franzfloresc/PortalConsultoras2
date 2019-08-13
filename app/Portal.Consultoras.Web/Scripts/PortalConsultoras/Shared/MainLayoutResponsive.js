@@ -6,7 +6,8 @@
         enlaceConSubmenuMobile: ".menu__link--conSubmenuMobile",
         itemFooter: ".layout__footer--mobile .footer__item__title",
         idUrlContactanos: "#urlContactanos",
-        belcorpResponde: "·aBelcorpResponde"
+        belcorpResponde: "·aBelcorpResponde",
+        btnChatMessenger: ".btn_chat_messenger"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches
@@ -18,6 +19,8 @@
                     left: 0 + "%"
                 },
                 150);
+            $(_elements.btnChatMessenger).css('z-index', '999');
+
         },
         CerrarMenuMobile: function(e) {
             e.preventDefault();
@@ -26,6 +29,7 @@
                 },
                 150);
             $(_elements.enlaceConSubmenuMobile).next().slideUp(80);
+            $(_elements.btnChatMessenger).css('z-index', '');
         },
         AbrirSubmenuMobile: function(e) {
             e.preventDefault();
@@ -50,6 +54,22 @@
             $(_elements.iconoCerrarMenuMobile).on("click", _eventos.CerrarMenuMobile);
             $(_elements.enlaceConSubmenuMobile).on("click", _eventos.AbrirSubmenuMobile);
             $(_elements.itemFooter).on("click", _eventos.ToogleMenuFooter);
+
+            $('#alertDialogMensajes25seg').dialog({
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                closeOnEscape: false,
+                close: function (event, ui) {
+                    HideDialog("alertDialogMensajes25seg");
+                },
+                beforeClose: function (event, ui) {
+                    document.querySelector('.setBottom').style.transition = null
+                },
+                draggable: false,
+                dialogClass: 'setBottom',
+                position: "bottom"
+            });
         },
         SetUrlContactanos : function() {
             if ($(_elements.idUrlContactanos).length) {
@@ -61,7 +81,7 @@
     //Public functions
     function Inicializar() {
         _funciones.InicializarEventos();
-        if (_config.isMobile) {
+        if (_config.isMobile && typeof esAppMobile === 'undefined') {
             document.getElementById("pUrlProductosPedido").href = "/Mobile/Pedido/Detalle";
         }
         _funciones.SetUrlContactanos();

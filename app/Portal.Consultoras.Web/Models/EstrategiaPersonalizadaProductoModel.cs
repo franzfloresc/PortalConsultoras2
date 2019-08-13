@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Models
             ListaDescripcionDetalle = new List<string>();
             Hermanos = new List<EstrategiaComponenteModel>();
             ListaPrecioNiveles = new List<string>();
+            Condiciones = new List<EstrategiaPersonalizadaProductoModel>();
         }
 
         // Mejorar para solo utilizar un solo array de string
@@ -81,10 +82,7 @@ namespace Portal.Consultoras.Web.Models
         public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
         // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
         public int TipoEstrategiaID { get; set; }
-
-        //public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
-
-
+        
         public bool EsBannerProgNuevas { get; set; } // Se usa para mostrar carrusel en el carrusel de Ofertas
         public string CodigoPalanca { get; set; } // codigo donde se van a mostrar los productos
 
@@ -103,5 +101,13 @@ namespace Portal.Consultoras.Web.Models
         /// Tipo Oferta Camino Brillante
         /// </summary>
         public int TipoOfertaCaminoBrillante { get; set; }
+
+        public string CuvPromocion { get; set; }
+
+        public bool EsPromocion { get; set; }
+
+        public EstrategiaPersonalizadaProductoModel Promocion { get; set; }
+
+        public List<EstrategiaPersonalizadaProductoModel> Condiciones { get; set; }
     }
 }

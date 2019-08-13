@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Comunicado;
+using Portal.Consultoras.Entities.Encuesta;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -305,6 +306,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID);
 
+        [OperationContract]
+        int ContenidoAppDetaVideo(int paisID, BEContenidoAppDeta p);
+
         #region Gestor de Poputs
         [OperationContract]
         List<BEComunicado> GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID);
@@ -335,5 +339,15 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEComunicadoSegmentacion> GetCargaListadoPopupValidador(int PaisID);
         #endregion
+
+        [OperationContract]
+        List<BEDataConfigEncuesta> GetEncuestaHome(int paisId, string codigoConsultora, int verificarEncuestado);
+        
+        [OperationContract]
+        string GetTvoUrl(BEUsuario user);
+
+        [OperationContract]
+        int InsEncuesta(BEEncuestaCalificacion entity, int paisId);
+
     }
 }

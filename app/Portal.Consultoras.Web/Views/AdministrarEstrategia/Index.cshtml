@@ -157,7 +157,7 @@
             <h3>Producto</h3>
             <div class="div-3">
                 <div class="input_horizontal">
-                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" style="display:none;" />
                     @if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
                     {
                         <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo masivo" />
@@ -577,7 +577,7 @@
                     <div id="fpPopupImagenProductoDetalle">
                         <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
-                            var uploader = new qq.FileUploader({
+                            new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
                                 element: document.getElementById('fpPopupImagenProductoDetalle'),
                                 action: '@Url.Action("ImageMatrizUpload", "FileUpload")',

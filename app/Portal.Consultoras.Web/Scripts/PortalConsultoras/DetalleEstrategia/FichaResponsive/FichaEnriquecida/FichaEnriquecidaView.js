@@ -16,6 +16,10 @@
         },
         carruselVideo: {
             id: "#carrusel-video"
+        },
+        galeria: {
+            templateId: "#galeria-template",
+            id: "#contenedor-enriquecido-galeria"
         }
     };
 
@@ -78,6 +82,8 @@
     var _renderFichaEnriquecida = function (componente, popup) {
         var contenedor = popup ? _elements.tabsComponente.contenedorPopup : _elements.tabsComponente.id;
         SetHandlebars(_elements.tabsComponente.templateId, componente, contenedor);
+        _renderGaleria(componente, true);
+
         _util.setCarrusel(_elements.carruselVideo.id);
         _util.setYoutubeId();
         _util.setYoutubeApi();
@@ -96,6 +102,45 @@
         _renderFichaEnriquecida(data, true);
         $("body").css("overflow", "hidden");
         $(_elements.popup.id).show();
+
+        if ($(".slider-nav-detail").length > 0) {
+            $('.slider-nav-detail').slick({
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                asNavFor: '.slider-for-detail',
+                dots: false,
+                infinite: false,
+                arrows: true,
+                focusOnSelect: true,
+                vertical: true,
+                prevArrow: '<div class="arrow prev arrow_vertical" style="left: 16%;"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
+                nextArrow: '<div class="arrow next arrow_vertical" style="left: 16%;"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
+            });
+        }
+        if ($(".slider-for-detail").length > 0) {
+            $('.slider-for-detail').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                asNavFor: '.slider-nav-detail',
+
+                infinite: false,
+                dots: false,
+                fade: true,
+                cssEase: 'linear',
+                responsive: [
+
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            dots: true,
+                            fade: false
+                        }
+                    }
+                ]
+            })
+        }
+
         return true;
     };
 
@@ -112,7 +157,14 @@
             setTimeout(_reloadCarruselVideos, 50);
         }
         return true;
-    }
+    };
+
+    var _renderGaleria = function (objeto, esFichaEnriquecida) {
+        objeto.EsFichaEnriquecida = esFichaEnriquecida;
+
+        SetHandlebars(_elements.galeria.templateId, objeto, _elements.galeria.id);
+        return true;
+    };
 
     return {
         renderFichaEnriquecida: _renderFichaEnriquecida,

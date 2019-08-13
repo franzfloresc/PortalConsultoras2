@@ -171,7 +171,7 @@
     }
 
 .descripcion_enriquecida {
-    align-items: flex-end;
+    align-items: center;
     display: flex;
 }
 
@@ -179,6 +179,11 @@
     line-height: normal;
     padding-bottom: 4px;
     font-size: 13px;
+}
+
+.precio_para_ti{
+    font-size: 13px;
+    margin-top: 16px;
 }
 
 .descripcion_enriquecida .precio_valorizado {
@@ -310,7 +315,7 @@
 
     .descripcion_enriquecida {
         order: 2;
-        margin: 15px 0 15px 0;
+        margin: 45px 0 15px 0;
     }
 
     .button_volver {

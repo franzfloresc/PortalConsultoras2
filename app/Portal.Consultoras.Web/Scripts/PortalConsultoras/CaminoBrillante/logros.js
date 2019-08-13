@@ -1,20 +1,23 @@
 ﻿$(document).ready(function () {
-    cargarLogros(categoriaLogro)
+    //cargarLogros(categoriaLogro)
+    //cargarLogros("RESUMEN")
+    cargarLogros()
 });
 
-function cargarLogros(category) {
+function cargarLogros(/*category*/) {
     waitingDialog();
     $.ajax({
         type: 'GET',
         url: urlGetLogros,
-        data: { category: category},
+        //data: { category: category},
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
                 var htmlDiv = SetHandlebars("#template-logros", data.data);
-                $('#logros').append(htmlDiv);
-                $('#logros').show();                
+                $('#logros').append(htmlDiv);                
+                onRenderedTemplate(data.data);
+                $('#logros').show();
              }
         },
         error: function (data, error) { },

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -18,6 +19,8 @@ namespace Portal.Consultoras.Web.Providers
         protected ISessionManager sessionManager;
         protected readonly ConfiguracionManagerProvider _configuracionManager;
         protected readonly EventoFestivoProvider _eventoFestivo;
+
+        public UrlHelper UrlGenerator { get; set; }
 
         public MenuProvider(ConfiguracionManagerProvider configuracionManagerProvider,
             EventoFestivoProvider eventoFestivo) : this(SessionManager.SessionManager.Instance)
@@ -160,23 +163,12 @@ namespace Portal.Consultoras.Web.Providers
                         permiso.ClaseMenu = "";
                         permiso.ClaseMenuItem = "";
                         var urlSplit = permiso.UrlItem.Split('/');
-                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva) + ", '" + permiso.Descripcion + "')";
+                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva) + ", '" + permiso.Descripcion + "')";                                                
 
-                        if (description == "MI COMUNIDAD")
+                        if (permiso.Codigo == Constantes.MenuCodigo.TuVozOnline.ToLower())
                         {
-                            if (!userSession.EsUsuarioComunidad)
-                            {
-                                permiso.OnClickFunt = "AbrirModalRegistroComunidad()";
-                            }
-                            else
-                            {
-                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva) + " , '" + permiso.Descripcion + "')";
-                            }
-                        }
-
-                        if (description == "TU VOZ ONLINE")
-                        {
-                            permiso.OnClickFunt = "OpenUrl('" + permiso.UrlItem + "'," + Convert.ToInt32(permiso.PaginaNueva) + ")";
+                            var urlCallback = UrlGenerator.Action("RequiereNuevaPagina", "TuVozOnline", new { area = ""});
+                            permiso.OnClickFunt = "OpenUrlCallbackNewPage('" + permiso.UrlItem + "','" + urlCallback + "'," + Convert.ToInt32(permiso.PaginaNueva) + ")";
                         }
 
                         if (description == "SOCIA EMPRESARIA")
@@ -410,6 +402,13 @@ namespace Portal.Consultoras.Web.Providers
                 if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
                     menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital, true);
+                }
+
+                if (menu.Codigo == Constantes.MenuCodigo.TuVozOnline.ToLower())
+                {
+                    var urlCallback = UrlGenerator.Action("RequiereNuevaPagina", "TuVozOnline", new { area = ""});
+                    menu.OnClickFunt = "onclick=\"OpenUrlCallbackNewPage('" + menu.UrlItem + "','" + urlCallback + "'," + Convert.ToInt32(menu.PaginaNueva) + ");\"";
+                    menu.UrlItem = "javascript:;";
                 }
 
                 listadoMenuFinal.Add(menu);

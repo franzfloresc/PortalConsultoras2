@@ -30,15 +30,22 @@
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd5" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Encuesta" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd10" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IContenidoService_EliminarArchivoCsvValidador_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarArchivoCsvValidador" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_EliminarArchivoCsvValidador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarArchivoCsvValidadorResponse" />
+  </wsdl:message>
   <wsdl:message name="IContenidoService_CargaEstadoValidadorDatos_InputMessage">
     <wsdl:part name="parameters" element="tns:CargaEstadoValidadorDatos" />
   </wsdl:message>
@@ -50,6 +57,24 @@
   </wsdl:message>
   <wsdl:message name="IContenidoService_GetCargaListadoPopupValidador_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCargaListadoPopupValidadorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetEncuestaHome_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEncuestaHome" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetEncuestaHome_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEncuestaHomeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetTvoUrl_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTvoUrl" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetTvoUrl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTvoUrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_InsEncuesta_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsEncuesta" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_InsEncuesta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsEncuestaResponse" />
   </wsdl:message>
   <wsdl:message name="IContenidoService_SelectBanner_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectBanner" />
@@ -519,6 +544,12 @@
   <wsdl:message name="IContenidoService_GetContenidoAppDetaActList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetContenidoAppDetaActListResponse" />
   </wsdl:message>
+  <wsdl:message name="IContenidoService_ContenidoAppDetaVideo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ContenidoAppDetaVideo" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_ContenidoAppDetaVideo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ContenidoAppDetaVideoResponse" />
+  </wsdl:message>
   <wsdl:message name="IContenidoService_GetListaPopup_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListaPopup" />
   </wsdl:message>
@@ -555,13 +586,11 @@
   <wsdl:message name="IContenidoService_EliminarArchivoCsv_OutputMessage">
     <wsdl:part name="parameters" element="tns:EliminarArchivoCsvResponse" />
   </wsdl:message>
-  <wsdl:message name="IContenidoService_EliminarArchivoCsvValidador_InputMessage">
-    <wsdl:part name="parameters" element="tns:EliminarArchivoCsvValidador" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_EliminarArchivoCsvValidador_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EliminarArchivoCsvValidadorResponse" />
-  </wsdl:message>
   <wsdl:portType name="IContenidoService">
+    <wsdl:operation name="EliminarArchivoCsvValidador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador" message="tns:IContenidoService_EliminarArchivoCsvValidador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidadorResponse" message="tns:IContenidoService_EliminarArchivoCsvValidador_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="CargaEstadoValidadorDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos" message="tns:IContenidoService_CargaEstadoValidadorDatos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse" message="tns:IContenidoService_CargaEstadoValidadorDatos_OutputMessage" />
@@ -569,6 +598,18 @@
     <wsdl:operation name="GetCargaListadoPopupValidador">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidador" message="tns:IContenidoService_GetCargaListadoPopupValidador_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidadorResponse" message="tns:IContenidoService_GetCargaListadoPopupValidador_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEncuestaHome">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetEncuestaHome" message="tns:IContenidoService_GetEncuestaHome_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetEncuestaHomeResponse" message="tns:IContenidoService_GetEncuestaHome_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTvoUrl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetTvoUrl" message="tns:IContenidoService_GetTvoUrl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetTvoUrlResponse" message="tns:IContenidoService_GetTvoUrl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsEncuesta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/InsEncuesta" message="tns:IContenidoService_InsEncuesta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/InsEncuestaResponse" message="tns:IContenidoService_InsEncuesta_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectBanner">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/SelectBanner" message="tns:IContenidoService_SelectBanner_InputMessage" />
@@ -882,6 +923,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetContenidoAppDetaActList" message="tns:IContenidoService_GetContenidoAppDetaActList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetContenidoAppDetaActListResponse" message="tns:IContenidoService_GetContenidoAppDetaActList_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ContenidoAppDetaVideo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ContenidoAppDetaVideo" message="tns:IContenidoService_ContenidoAppDetaVideo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ContenidoAppDetaVideoResponse" message="tns:IContenidoService_ContenidoAppDetaVideo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetListaPopup">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetListaPopup" message="tns:IContenidoService_GetListaPopup_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetListaPopupResponse" message="tns:IContenidoService_GetListaPopup_OutputMessage" />
@@ -906,13 +951,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/EliminarArchivoCsv" message="tns:IContenidoService_EliminarArchivoCsv_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvResponse" message="tns:IContenidoService_EliminarArchivoCsv_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="EliminarArchivoCsvValidador">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador" message="tns:IContenidoService_EliminarArchivoCsvValidador_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidadorResponse" message="tns:IContenidoService_EliminarArchivoCsvValidador_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IContenidoService" type="tns:IContenidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EliminarArchivoCsvValidador">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CargaEstadoValidadorDatos">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos" style="document" />
       <wsdl:input>
@@ -924,6 +974,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetCargaListadoPopupValidador">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEncuestaHome">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetEncuestaHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTvoUrl">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetTvoUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsEncuesta">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/InsEncuesta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1633,6 +1710,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ContenidoAppDetaVideo">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/ContenidoAppDetaVideo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetListaPopup">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetListaPopup" style="document" />
       <wsdl:input>
@@ -1680,15 +1766,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarArchivoCsv">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/EliminarArchivoCsv" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarArchivoCsvValidador">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1700,6 +1777,15 @@
   <wsdl:binding name="BasicHttpsBinding_IContenidoService" type="tns:IContenidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IContenidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EliminarArchivoCsvValidador">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CargaEstadoValidadorDatos">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos" style="document" />
       <wsdl:input>
@@ -1711,6 +1797,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetCargaListadoPopupValidador">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEncuestaHome">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetEncuestaHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTvoUrl">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetTvoUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsEncuesta">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/InsEncuesta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2420,6 +2533,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ContenidoAppDetaVideo">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/ContenidoAppDetaVideo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetListaPopup">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetListaPopup" style="document" />
       <wsdl:input>
@@ -2467,15 +2589,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarArchivoCsv">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/EliminarArchivoCsv" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarArchivoCsvValidador">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
