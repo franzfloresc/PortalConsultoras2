@@ -1575,6 +1575,7 @@
     <Content Include="Content\Images\flecha_despliegue_campo_select.svg" />
     <Content Include="Content\Images\hands-up-icon.png" />
     <Content Include="Content\Images\icono_advertencia_notificacion_multimarca.svg" />
+    <Content Include="Content\Images\icono_check_gris.svg" />
     <Content Include="Content\Images\icono_edit.svg" />
     <Content Include="Content\Images\icono_foco_activo.svg" />
     <Content Include="Content\Images\icono_mail_cdr_activo.svg" />
