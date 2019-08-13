@@ -58,7 +58,6 @@
     }
 
     var _codigoTipoEstrategia = ConstantesModule.TipoEstrategia;
-
     //var _idEstrategia = {
     //    OfertaParaTi: 4,
     //    PackNuevas: 6,
