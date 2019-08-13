@@ -6,6 +6,20 @@
     jQuery(document).ready(function () {
         fnGrilla();
 
+        $("#txtMontoExigencia").keypress(function (event) {
+            if ((event.charCode == 44 || event.charCode == 46)  && $("#txtMontoExigencia").val().length == 0) {
+                $("#txtMontoExigencia").val("0")
+                return true
+            }
+            if (event.charCode >= 48 && event.charCode <= 57 || (event.charCode == 44 || event.charCode == 46)) {
+                return true;
+            }
+            else {
+                alert('Ingrese solo números')
+                return false;
+            }             
+        });
+
         $("#btnBuscar").click(function () {
             if ($("#ddlPais").val() == "") {
                 alert("Debe seleccionar el País, verifique.");
@@ -377,7 +391,7 @@
             <div class="div-3">
                 <div id="lblSelecciona" class="titG" style="width:420px;"><b>Ingresa el monto de exigencia para la campaña seleccionada:</b></div>
                 <div class="selectP2 borde_redondeado" style="float:right; margin-right:227px">
-                    <input id="txtMontoExigencia" type="text" maxlength="10" />
+                    <input id="txtMontoExigencia" text" maxlength="10" />
                 </div>
             </div>
             <div class="div-3">
