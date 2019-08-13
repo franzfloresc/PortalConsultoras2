@@ -1,4 +1,0 @@
-1.PortalConsultoras2
-	Add:
-	<add key="NEOGRID_URL" value="https://e-prod.factura-core.com/facturaportal/public/portal/"/>
-	<add key="NEOGRID_KEY" value="SB2zJUVlmvGDErd0"/>
