@@ -42,7 +42,7 @@
 <!-- Agregado desplegado con tooltips y modals -->
 <div class="container-flex pending d-flex flex-column vh-100 fix">
     <!-- Pending title   -->
-    <div class="container pending-top">
+    <div class="container pending-top flex-nowrap pending-top--title">
         <div class="row align-items-center mb-1">
             <div class="col-10">
                 <h2 class="attend-title">Paso 1: Acepta los pedidos que deseas atender</h2>
@@ -59,7 +59,7 @@
         <!--  Pending subtitle  -->
         <div class="pending-subtitle pending-bgGray">
             <div class="container">
-                <div class="row align-items-center">
+                <div class="row flex-nowrap align-items-center">
                     <div class="col">
                     <div class="mtb-16">
                         <h3 class="text-14 text-700 m-0">Producto pedido:</h3>
@@ -78,7 +78,7 @@
             <div id="vp_pedido_@item.PedidoId" class="container vc-box vc-box--shadow pedidos">
                 <!--   Order title   -->
 
-                <div class="row align-items-start">
+                <div class="row flex-nowrap align-items-start">
                     <div class="col-9">
                         <div class=" vc-box">
                             <div class="vc-box--header">
@@ -111,7 +111,7 @@
                 </div>
                 <!--  /Order title   -->
                 <!--   Order Action   -->
-                <div class="row align-items-center">
+                <div class="row flex-nowrap align-items-center">
                     <div class="col-4">
                         <div class="vc-box ipt-tel">
                             <input  data-cantNew="@item.DetallePedido[0].Cantidad" type="tel" maxlength="2" value="@item.CantidadTotal" placeholder="1" class="text-center text-14 text-700 ValidaNumeral ValidaPasteNumeral ValidaValor">

@@ -15,18 +15,18 @@ function bindElments() {
 
         var btn = $(this).find('.dark-color');
         if (btn) {
-            if (!btn.hasClass('ghost')) {
-                $('.btnAccion').find('a').removeClass('ghost');
+            if (!btn.hasClass('ghost--estadoAceptado')) {
+                $('.btnAccion').find('a').removeClass('ghost--estadoAceptado');
                 $('.btnAccion').find('a').html('Elegir');
-                btn.addClass('ghost');
+                btn.addClass('ghost--estadoAceptado');
                 btn.html('Elegido');
             } else {
-                btn.removeClass('ghost');
+                btn.removeClass('ghost--estadoAceptado');
                 btn.html('Elegir');
             }
         }
 
-        if ($('.btnAccion a.ghost').length == $('.ghost a').length) {
+        if ($('.btnAccion a.ghost--estadoAceptado').length == $('.ghost--estadoAceptado a').length) {
             $('#btnAceptarPedido span').removeClass('second-color');
             $('#btnAceptarPedido span').addClass('disabled');
         }
@@ -47,7 +47,7 @@ function AceptarPedidoPendiente(listaGana) {
         else accionTipo = "ingrped";
     } else {
         listaGana = $("#list-ofertas-ganamas").data('listagana');
-        var btn = $('.btnAccion a.ghost')[0];
+        var btn = $('.btnAccion a.ghost--estadoAceptado')[0];
         accionTipo = $(btn).parent().data('accion');
     }
 
@@ -316,13 +316,13 @@ function OcultarMensajedeRechazoPedido(cuv) {
 
 function AceptarPedidoProducto(id) {
     var aceptado = '#aceptar_' + id;
-    if ($(aceptado).hasClass("ghost")) {
-        $(aceptado).removeClass('ghost');
+    if ($(aceptado).hasClass("ghost--estadoAceptado")) {
+        $(aceptado).removeClass('ghost--estadoAceptado');
         $(aceptado).text('Aceptar');
     }
     else {
-        $(aceptado).addClass('ghost');
-        $(aceptado).text('Aceptado');
+        $(aceptado).addClass('ghost--estadoAceptado');
+        $(aceptado).text('Está aceptado');
 
         MarcaAnalyticsClienteProducto("Aceptado");
     }
@@ -495,7 +495,7 @@ function ContinuarPedido() {
 
     $paso1.find('.pedidos').each(function () {
 
-        if ($(this).find('a[id*="aceptar_"]').hasClass('ghost')) {
+        if ($(this).find('a[id*="aceptar_"]').hasClass('ghost--estadoAceptado')) {
             var pedidoId = $(this).find(".pedidoId").val();
             var cuv = $(this).find(".cuv").val();
             var cantNew = $(this).find('[data-cantNew]').val();

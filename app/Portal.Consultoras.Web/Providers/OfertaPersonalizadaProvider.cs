@@ -584,7 +584,8 @@ namespace Portal.Consultoras.Web.Providers
                     return e;
                 }).ToList();
             }
-            listEstrategia = ActualizarEstrategiaStockProl(listEstrategia, userData);
+            // por ahora no validar stock con prol hasta que definan nueva logica
+            //listEstrategia = ActualizarEstrategiaStockProl(listEstrategia, userData);
             return listEstrategia;
         }
 
@@ -627,7 +628,8 @@ namespace Portal.Consultoras.Web.Providers
             // validar stock con PROL
             if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
             {
-                listEstrategia = ActualizarEstrategiaStockProl(listEstrategia, userData);
+                // por ahora no validar stock con prol hasta que definan nueva logica
+                //listEstrategia = ActualizarEstrategiaStockProl(listEstrategia, userData);
             }
 
             return listEstrategia;

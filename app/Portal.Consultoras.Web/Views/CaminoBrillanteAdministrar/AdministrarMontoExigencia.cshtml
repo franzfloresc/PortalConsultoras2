@@ -6,6 +6,20 @@
     jQuery(document).ready(function () {
         fnGrilla();
 
+        $("#txtMontoExigencia").keypress(function (event) {
+            if ((event.charCode == 44 || event.charCode == 46)  && $("#txtMontoExigencia").val().length == 0) {
+                $("#txtMontoExigencia").val("0")
+                return true
+            }
+            if (event.charCode >= 48 && event.charCode <= 57 || (event.charCode == 44 || event.charCode == 46)) {
+                return true;
+            }
+            else {
+                alert('Ingrese solo números')
+                return false;
+            }             
+        });
+
         $("#btnBuscar").click(function () {
             if ($("#ddlPais").val() == "") {
                 alert("Debe seleccionar el País, verifique.");
