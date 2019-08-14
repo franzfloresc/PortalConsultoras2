@@ -35,7 +35,7 @@
 
         <!-- Menú Tabs -->
         <div class="vc-tabs">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <ul class="nav nav-tabs flex-nowrap" id="myTab" role="tablist">
                 <li class="nav-item active">
                     <a class="nav-link " id="cliente-tab" onclick="javascript:PedidosPendientesVistaCliente();" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">Vista por cliente</a>
                 </li>
@@ -56,7 +56,7 @@
                     {
                         <div class="cursor onClient container vc-box vc-box--shadow" onclick="DetallePedidoPendiente(@item.PedidoId)">
                             <!--   Pedidos   -->
-                            <div class="row align-items-center">
+                            <div class="row flex-nowrap align-items-center">
                                 <div class="col-8">
                                     <div class="vc-box">
                                         <div class="vc-box--header">
@@ -96,7 +96,7 @@
                     @foreach (var item2 in Model.ListaProductos)
                     {
                         <div class="container vc-box">
-                            <div class="row align-items-start  ">
+                            <div class="row flex-nowrap align-items-start">
                                 <div class="col no-padd">
                                     <div class="vc-box">
                                         <img src="@item2.Url" class="vc-box--img">
@@ -129,7 +129,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <hr>
                         </div>
                     }
