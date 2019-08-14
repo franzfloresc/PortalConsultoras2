@@ -5,6 +5,7 @@
     ViewBag.Title = "Administración de Producto Sugerido";
 }
 
+
 @Html.HiddenFor(model => model.PaisIDUser)
 
 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
@@ -17,6 +18,7 @@
 <script src="@Url.Content("~/Scripts/AdminContenido/DescripcionComercial.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercialFileUpload.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/ProductoSugerido.js")" type="text/javascript"></script>
+
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="@Url.Content("~/Content/Css/Toast/jquery.toast.min.css")" rel="stylesheet" />
 
@@ -41,6 +43,26 @@
                 </div>
                 <span class="color_red" style="width:5px;">*</span>
             </div>
+            @* INI HD-4289 *@
+            <div class="div-3">
+                <div class="titG">Región/Zona:</div>
+                <div class="treeview_content borde_redondeado">
+                    <div id="arbolRegionZona" class="demo JERarbolRegionZona">
+                    </div>
+                </div>
+                <span class="color_red" style="width:5px;margin-top: 200px;">*</span>
+                <div style="float:left">
+                    <label id="lblSeleccionar">
+                        <input type="checkbox" id="chkSeleccionar" />
+
+                    </label>
+                </div>
+
+                <div style="float:left; margin-top:10px">
+                    Seleccionar todo
+                </div>
+            </div>
+            @* FIN HD-4289 *@
             <div class="div-3">
                 <div class="titG">
                     CUV Agotado:
@@ -98,6 +120,25 @@
             </div>
             <span class="color_red" style="width: 5px;">*</span>
         </div>
+        @* INI HD-4289 *@
+        <div class="div-3">
+            <div class="titG">Región/Zona:</div>
+            <div class="treeview_content borde_redondeado">
+                <div id="arbolRegionZonaModal" class="demo JERarbolRegionZona">
+                </div>
+            </div>
+            <span class="color_red" style="width:5px;margin-top: 200px;">*</span>
+            <div style="float:left">
+                <label>
+                    <input type="checkbox" id="chkSeleccionarModal" />
+
+                </label>
+            </div>
+            <div style="float:left; margin-top:10px">
+                Seleccionar todo
+            </div>
+        </div>
+        @* FIN HD-4289 *@
         <div class="div-3">
             <div class="titG">CUV Agotado:</div>
             <div class="selectP2 borde_redondeado">
@@ -206,7 +247,7 @@
             getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnico", "MatrizComercial")',
             numeroImagenesPorPagina: numeroImagenesPorPagina,
             expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico),
-                actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")'
+            actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")'
         });
         CargarDialog();
         CargarEventos();
@@ -224,12 +265,35 @@
 
         $('#ddlPais').change(function () {
             var Id = $(this).val() || "";
+            $("#arbolRegionZona").html("");
             if (Id == "") {
                 LimpiarDependencias('ddlCampania');
                 return false;
             }
+
             CargarCampaniaModal(Id, 'ddlCampania, ddlCampaniaModal');
+            //INI HD-4289
+            ConfigurarArbol();
+            //FIN HD-4289
+
+
         });
+
+
+        //INI HD-4289
+        $("#chkSeleccionar").click(function () {
+            if (this.checked)
+                $.jstree._reference($("#arbolRegionZona")).check_all();
+            else
+                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+        });
+        $("#chkSeleccionarModal").click(function () {
+            if (this.checked)
+                $.jstree._reference($("#arbolRegionZonaModal")).check_all();
+            else
+                $.jstree._reference($("#arbolRegionZonaModal")).uncheck_all();
+        });
+        //FIN HD-4289
 
         $("#btnBuscar").click(function () {
             var msjex = "";
@@ -237,6 +301,10 @@
                 msjex += " - Debe seleccionar un país.\n";
             if ($("#ddlCampania").val() == "")
                 msjex += " - Debe seleccionar un campaña.\n";
+            //INI HD-4289
+            if ($("#ddlPais").val() != "" && GetZonas($("#arbolRegionZona")) == "")
+                msjex += "- Debe indicar la zona(s).\n";
+            //FIN HD-4289
 
             if (msjex != "") {
                 alert("Faltan ingresar datos obligatorios.");
@@ -260,6 +328,9 @@
             $("#ddlCampaniaModal").val($.trim($("#ddlCampania").val()));
             $("#txtCUVModal").val($.trim($("#txtCUVAgotado").val()));
 
+            //INI HD-4289
+            ConfigurarArbolModal("");
+            //FIN HD-4289
             showDialog("DialogRegistroProductoSugerido");
         });
 
@@ -315,20 +386,20 @@
             title: "Ingreso/Edición Reemplazos Sugeridos",
             open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
-                {
-                    "Guardar": function () {
-                        var vMessage = RegistroValidar();
-                        if (vMessage != "") {
-                            alert(vMessage);
-                            return false;
-                        }
-
-                        RegistrarProductoSugerido();
-                    },
-                    "Cancelar": function () {
-                        HideDialog("DialogRegistroProductoSugerido");
+            {
+                "Guardar": function () {
+                    var vMessage = RegistroValidar();
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
                     }
+
+                    RegistrarProductoSugerido();
+                },
+                "Cancelar": function () {
+                    HideDialog("DialogRegistroProductoSugerido");
                 }
+            }
         });
 
         $('#divVistaPrevia').dialog({
@@ -340,19 +411,19 @@
             draggable: false,
             title: "Vista previa",
             buttons:
-                {
-                    "Cerrar": function () {
-                        if (isVistaPreviaOpened) {
-                            var params = { idMatrizComercial: $('#hdnIdMatrizComercial').val() };
-                            productoSugeridoObj.obtenerImagenes(params, 1, true).done(function () {
-                                showDialog("matriz-comercial-dialog");
-                                closeWaitingDialog();
-                            });
-                        }
-                        isVistaPreviaOpened = false;
-                        HideDialog("divVistaPrevia");
+            {
+                "Cerrar": function () {
+                    if (isVistaPreviaOpened) {
+                        var params = { idMatrizComercial: $('#hdnIdMatrizComercial').val() };
+                        productoSugeridoObj.obtenerImagenes(params, 1, true).done(function () {
+                            showDialog("matriz-comercial-dialog");
+                            closeWaitingDialog();
+                        });
                     }
+                    isVistaPreviaOpened = false;
+                    HideDialog("divVistaPrevia");
                 }
+            }
         });
     }
 
@@ -370,30 +441,45 @@
     }
 
     function fnGrilla() {
+
+            var zonas = GetZonas($("#arbolRegionZona"));
+            var item = {
+                PaisID: $("#ddlPais").val(),
+                CampaniaID: ($("#ddlCampania").val() || "0"),
+                CUV: $.trim($("#txtCUVAgotado").val()),
+                CUVSugerido: $.trim($("#txtCUVSugerido").val()),
+                //INI HD-4289
+                ConfiguracionZona: zonas
+                //FIN HD-4289
+            }
+        $("#list").jqGrid("GridUnload");
+
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarProductoSugerido/Consultar",
             hidegrid: false,
             datatype: 'json',
-            postData: ({
-                PaisID: function () { return $("#ddlPais").val() },
-                CampaniaID: function () { return ($("#ddlCampania").val() || "0"); },
-                CUVAgotado: function () { return $.trim($("#txtCUVAgotado").val()); },
-                CUVSugerido: function () { return $.trim($("#txtCUVSugerido").val()); }
-            }),
-            mtype: 'GET',
-            contentType: "application/json; charset=utf-8",
-            colNames: ['Id', 'Campaña', 'CUV Agotado', 'CUV Sugerido', 'Orden', 'ImagenProducto', 'Estado', 'MostrarAgotado', 'Foto', 'Opciones'],
+            postData: {
+                obj: JSON.stringify(item)
+
+            } ,
+            mtype: 'POST',
+            colNames: ['Id', 'Campaña', 'ConfiguracionZona', 'Código Zona text','Código Zona', 'CUV Agotado', 'CUV Sugerido', 'Orden', 'ImagenProducto', 'Estado', 'MostrarAgotado', 'Foto', 'Opciones'],
             colModel: [
-                { name: 'ProductoSugeridoID', index: 'ProductoSugeridoID', key: true, hidden: true },
-                { name: 'CampaniaID', index: 'CampaniaID', width: 50, align: 'center', resizable: false },
-                { name: 'CUV', index: 'CUV', width: 80, align: 'center', resizable: false },
-                { name: 'CUVSugerido', index: 'CUVSugerido', width: 80, align: 'center', resizable: false },
+                { name: 'ProductoSugeridoID', index: 'ProductoSugeridoID', width: 0, key: true, hidden: true },
+                { name: 'CampaniaID', index: 'CampaniaID', width: 40, align: 'center', resizable: false },
+                //INI HD-4289
+                { name: 'ConfiguracionZona', index: 'ConfiguracionZona', width: 0, hidden: true },
+                { name: 'TextConfiguracionZonaTodo', index: 'TextConfiguracionZona', width: 0, hidden: true },
+                { name: 'TextConfiguracionZona', index: 'TextConfiguracionZona', width: 350, align: 'center', editable: true, resizable: false, formatter: ShowActionZona},
+                //FIN HD-4289
+                { name: 'CUV', index: 'CUV', width: 50, align: 'center', resizable: false },
+                { name: 'CUVSugerido', index: 'CUVSugerido', width: 50, align: 'center', resizable: false },
                 { name: 'Orden', index: 'Orden', width: 35, align: 'center', resizable: false },
-                { name: 'ImagenProducto', index: 'ImagenProducto', hidden: true },
-                { name: 'Estado', index: 'Estado', hidden: true },
-                { name: 'MostrarAgotado', index: 'MostrarAgotado', hidden: true},
+                { name: 'ImagenProducto', index: 'ImagenProducto', width: 0,  hidden: true },
+                { name: 'Estado', index: 'Estado', width: 0,  hidden: true },
+                { name: 'MostrarAgotado', index: 'MostrarAgotado', width: 0,  hidden: true},
                 { name: 'Imagen', index: 'Imagen', width: 55, align: 'center', resizable: false, formatter: ShowImage },
-                { name: 'Options', index: 'Options', width: 60, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
+                { name: 'Options', index: 'Options', width: 40, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
             jsonReader:
             {
@@ -405,6 +491,7 @@
                 cell: "cell",
                 id: "id"
             },
+            contentType: "application/json",
             pager: jQuery('#pager'),
             loadtext: 'Cargando datos...',
             recordtext: "{0} - {1} de {2} Registros",
@@ -430,7 +517,7 @@
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
 
         function ShowImage(cellvalue, options, rowObject) {
-            var image = $.trim(rowObject[5]);
+            var image = $.trim(rowObject[8]);
             var filename = image.replace(/^.*[\\\/]/, '');
             image = '<img src="' + (filename != "" ? image : imageUrlVacio) + '" alt="" width="70px" height="60px" title="" border="0" />';
             return image;
@@ -442,7 +529,37 @@
 
             return Edit + Del;
         };
+
+        function ShowActionZona(cellvalue, options, rowObject) {
+            var cellValueInt = parseInt(cellvalue);
+
+            if (rowObject[3] != rowObject[4]) {
+                var Edit = rowObject[4] + "&nbsp;<a class='jqGridMessageZona' href='javascript:;' onclick=\"VerMas(this,'" + rowObject[3] + "','" + rowObject[4] + "');\" > ...Ver mas" + "</a>";
+            }
+            else {
+                var Edit = rowObject[3];
+            }
+            return Edit;
+        };
+
+
+
     }
+
+    function VerMas(object, CodigoCompleto, CodigoIncompleto) {
+        var td = object.parentElement;
+        td.innerHTML = CodigoCompleto + "&nbsp;<a href='javascript:;' onclick=\"VerMenos(this,'" + CodigoCompleto + "','" + CodigoIncompleto + "');\" > ...Ver menos" + "</a>";
+
+
+        return false;
+    }
+    function VerMenos(object, CodigoCompleto, CodigoIncompleto) {
+        var td = object.parentElement;
+        td.innerHTML = CodigoIncompleto + "&nbsp;<a href='javascript:;'  onclick=\"VerMas(this,'" + CodigoCompleto + "','" + CodigoIncompleto + "');\" > ...Ver mas" + "</a>";
+        return false;
+    }
+
+
 
 </script>
 <script type="text/javascript" id="js-Registro">
@@ -501,7 +618,119 @@
 
         });
     }
+    //INI HD-4289
 
+ 
+
+    function ConfigurarArbol() {
+        var pais = $("#PaisIDUser").val() || 0;
+
+
+        $.ajaxSetup({
+            cache: false
+        });
+        $("#arbolRegionZona").jstree({
+            json_data: {
+                ajax: {
+                    url: baseUrl + "AdministrarProductoSugerido/CargarArbolRegionesZonas",
+                    data: function (n) {
+                        return { pais: pais};
+                    },
+                    type: "GET",
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { },
+                    success: function (data, textStatus, jqXHR) { },
+                    complete: function () {
+                        $("#arbolRegionZona").jstree("set_theme", "apple", "@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")");
+
+                        $.jstree._reference($("#arbolRegionZona")).check_all();
+                        $("#chkSeleccionar").attr("checked", true);
+                    }
+                }
+            },
+            "themes": {
+                "theme": "apple",
+                "dots": true,
+                "icons": false
+            },
+            plugins: ["themes", "json_data", "ui", "checkbox"]
+        });
+        return false;
+    }
+
+
+    function ConfigurarArbolModal(strZonas) {
+        var pais = $("#PaisIDUser").val() || 0;
+
+
+        $.ajaxSetup({
+            cache: false
+        });
+        $("#arbolRegionZonaModal").jstree({
+            json_data: {
+                ajax: {
+                    url: baseUrl + "AdministrarProductoSugerido/CargarArbolRegionesZonas",
+                    data: function (n) {
+                        return { pais: pais};
+                    },
+                    type: "GET",
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { },
+                    success: function (data, textStatus, jqXHR) { },
+                    complete: function () {
+                        $("#arbolRegionZonaModal").jstree("set_theme", "apple", "@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")");
+
+                        if (strZonas != "") {
+                            $.jstree._reference($("#arbolRegionZonaModal")).uncheck_all();
+                            var strZonasArreglo = strZonas.split(",");
+                            for (i = 0; i < strZonasArreglo.length; i++) {
+                                $("#arbolRegionZonaModal").jstree("check_node", "#" + strZonasArreglo[i], true);
+                            }
+
+                            $.jstree._reference($("#arbolRegionZonaModal")).get_unchecked(null, true).each(function () {
+                                if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                                    return true;
+                                }
+                                $("#chkSeleccionarModal").attr("checked", false);
+                            });
+                           
+                        } else {
+                            $.jstree._reference($("#arbolRegionZonaModal")).check_all();
+                            $.jstree._reference($("#arbolRegionZonaModal")).get_checked(null, true).each(function () {
+                                if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                                    return true;
+                                }
+                            });
+                            $("#chkSeleccionarModal").attr("checked", true);
+                        }
+                        $('#arbolRegionZonaModal').jstree('close_all');
+                    }
+                }
+            },
+            "themes": {
+                "theme": "apple",
+                "dots": true,
+                "icons": false
+            },
+            plugins: ["themes", "json_data", "ui", "checkbox"]
+        });
+        return false;
+    }
+
+    function GetZonas(obj) {
+        //var obj = $("#arbolRegionZona");
+        var zonas = "";
+        $.jstree._reference(obj).get_checked(null, true).each(function () {
+            if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                return true;
+            }
+            zonas += this.id + ",";
+        });
+        if (zonas != "") {
+            zonas = zonas.substring(0, zonas.length - 1);
+        }
+
+        return zonas;
+    }
+    //FIN HD-4289
     function CargarImagenSugerido() {
         LimpiarDatosMatrizComercial();
         $("#matriz-imagenes-paginacion").empty();
@@ -585,6 +814,10 @@
         if (jQuery.trim($('#txtOrdenModal').val()) == "")
             vMessage += "- Debe ingresar el orden.\n";
 
+        //INI HD-4289
+        if (GetZonas($("#arbolRegionZonaModal")) == "")
+            vMessage += "- Debe indicar la zona(s).\n";
+        //FIN HD-4289
         if (vMessage != "") {
             vMessage = "La información ingresada se encuentra incompleta. Por favor, revisar." + "\n" + vMessage;
         }
@@ -603,7 +836,11 @@
             DescripcionComercial: $('#txtDescripcionProductoComercial').val(),
             ImagenProducto: imagen,
             PaisID: paisID,
-            MostrarAgotado: $('#chkMostrarAgotado').length ? $('#chkMostrarAgotado').attr('checked') ? 1 : 0 : 0
+            ImagenAppCatalogo : $("#chkImagenProductoAppCatalogo").prop("checked"),
+			MostrarAgotado: $('#chkMostrarAgotado').length ? $('#chkMostrarAgotado').attr('checked') ? 1 : 0 : 0,
+            //INI HD-4289
+            ConfiguracionZona: GetZonas($("#arbolRegionZonaModal"))
+            //FIN HD-4289
         };
         jQuery.ajax({
             type: 'POST',
@@ -680,10 +917,16 @@
             var params = { paisID: paisID, campaniaID: campaniaID, cuv: cuv };
             productoSugeridoObj.limpiarFiltrosNemotecnico();
 
+
             productoSugeridoObj.obtenerMatriz(params).done(function (data) {
                 if (data) {
                     $('#hdIdSugerido').val(jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID'));
                     $('#ddlCampaniaModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CampaniaID'));
+                    //INI HD-4289
+                    var zonas = jQuery("#list").jqGrid('getCell', rowPk, 'ConfiguracionZona');
+                    $('#ConfiguracionZonaModal').val(zonas);
+                    ConfigurarArbolModal(zonas);
+                    //FIN HD-4289
                     $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUV'));
                     $('#txtCUVSugeridoModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUVSugerido'));
                     $('#txtOrdenModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'Orden'));

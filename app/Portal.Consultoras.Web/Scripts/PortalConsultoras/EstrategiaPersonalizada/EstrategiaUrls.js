@@ -1,10 +1,6 @@
 ﻿
 var FichaVerDetalle = (function () {
 
-    //var estrategiaAgregar = EstrategiaAgregarModule;
-    //var analyticsPortal = AnalyticsPortalModule;
-    //var codigoOrigenPedidoWeb = CodigoOrigenPedidoWeb;
-
     var onClickFichaDetalle = function (e) {
         //el objeto e debe ser establecido con target  (e.target)
         var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
@@ -31,6 +27,27 @@ var FichaVerDetalle = (function () {
 
         if (!(typeof AnalyticsPortalModule === 'undefined')) {
             AnalyticsPortalModule.MarcaVerDetalleProducto(e, OrigenPedidoWeb, UrlDetalle);
+        }
+
+        if (typeof LocalStorageListado != 'undefined') {
+
+            var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(OrigenPedidoWeb);
+            if (origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling
+                || origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
+
+                var palanca = getPalanca(codigoEstrategia, OrigenPedidoWeb, false);
+                var modeloEstrategiaTemporal = {
+                    Origen: OrigenPedidoWeb,
+                    Cuv: codigoCuv,
+                    Palanca: palanca,
+                    Estrategia: infoCuvItem
+                };
+                LocalStorageListado(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, modeloEstrategiaTemporal);
+            }
+            else {
+                LocalStorageListado(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, null, 2);
+            }
+
         }
 
         window.location = UrlDetalle;
@@ -60,7 +77,6 @@ var FichaVerDetalle = (function () {
             return url;
         }
 
-        origenPedidoWeb = origenPedidoWeb || -1;
         esUrl = esUrl === undefined || esUrl;
         if (esUrl) {
             url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
@@ -69,6 +85,8 @@ var FichaVerDetalle = (function () {
         switch (codigoEstrategia) {
 
             case ConstantesModule.TipoEstrategia.OfertaParaTi:
+            case ConstantesModule.TipoEstrategia.PackAltoDesembolso:
+            case ConstantesModule.TipoEstrategia.RevistaDigital:
                 url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
                 break;
             case ConstantesModule.TipoEstrategia.PackNuevas:
@@ -82,33 +100,27 @@ var FichaVerDetalle = (function () {
                 break;
             case ConstantesModule.TipoEstrategia.OfertasParaMi:
                 {
-                    if (origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasFicha
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasFicha
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasFicha
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingBuscadorGanadorasFicha
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasFicha
-                        || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingBuscadorGanadorasFicha
-                    )
-                        url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
-                    else
+                    //if (origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasFicha
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasFicha
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasFicha
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingBuscadorGanadorasFicha
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasFicha
+                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingBuscadorGanadorasFicha
+                    //)
+                    //    url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
+                    //else
                         url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
                 }
-                break;
-            case ConstantesModule.TipoEstrategia.PackAltoDesembolso:
-                url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
-                break;
-            case ConstantesModule.TipoEstrategia.RevistaDigital:
-                url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
                 break;
             case ConstantesModule.TipoEstrategia.LosMasVendidos:
                 url += ConstantesModule.TipoEstrategiaTexto.LosMasVendidos;
@@ -140,6 +152,12 @@ var FichaVerDetalle = (function () {
             case ConstantesModule.TipoEstrategia.NotParticipaProgramaNuevas:
                 url += ConstantesModule.TipoEstrategiaTexto.NotParticipaProgramaNuevas;
                 break;
+            case ConstantesModule.TipoEstrategia.CaminoBrillanteDemostradores:
+                url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteDemostradores;
+                break;
+            case ConstantesModule.TipoEstrategia.CaminoBrillanteKits:
+                url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteKits;
+                break;
             case ConstantesModule.TipoEstrategia.MasGanadoras:
                 url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
                 break;
@@ -154,19 +172,34 @@ var FichaVerDetalle = (function () {
         return url;
     }
 
+    var getUrlTipoPersonalizacion = function (tipoPersonalizacion) {
+
+        var url = "";
+
+        if (tipoPersonalizacion == null || typeof tipoPersonalizacion === "undefined") {
+            return url;
+        }
+
+        url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
+
+        switch (tipoPersonalizacion) {
+
+            case ConstantesModule.TipoPersonalizacion.Catalogo:
+                url += ConstantesModule.TipoPersonalizacionTexto.Catalogo + "/";
+                break;
+
+            default:
+                url = "";
+        }
+
+        return url;
+    }
+
     return {
         OnClickFichaDetalle: onClickFichaDetalle,
         GetOrigenPedidoWebDetalle: getOrigenPedidoWebDetalle,
-        GetPalanca: getPalanca
+        GetPalanca: getPalanca,
+        GetUrlTipoPersonalizacion: getUrlTipoPersonalizacion
     }
 
 })();
-
-//function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigoEstrategia) {
-//    var UrlDetalle = GetPalanca(codigoEstrategia);
-//    if (UrlDetalle == "") return false;
-//    UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-//    window.location = UrlDetalle;
-//    return true;
-//}
-

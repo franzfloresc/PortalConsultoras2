@@ -65,7 +65,7 @@ else
                 <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" style="display: none;" id="volverBienvenida">Volver</a>
                 <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = "Mobile"})" title="Editar imagen" class="icono_camara multimarca-background-color"></a>
                 <div class="contenedor_foto_consultora">
-                    <img src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="Imagen Consultora" />
+                    <img src="@ViewBag.FotoPerfil" class="ImageLoadPhotoUser" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="Imagen Consultora" />
                 </div>
             </div>
             <div class="datos_consultora">
@@ -245,12 +245,36 @@ else
                                             <span class="text-bold">Editar</span>
                                         </a>
                                         <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su celular -->
-                                        <button id="btn_confirmar_dato_sms"  type="button" style="display:none;" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato"
+                                        <button id="btn_confirmar_dato_sms" type="button" style="display:none;" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato"
                                                 onclick="location.href='@Url.Action("ConfirmarCelular", "MiPerfil", new { area = "Mobile" })'">
                                             Confirmar
                                         </button>
                                         <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su celular -->
                                     </div>
+                                    <!--INI HD-4358 -->
+                                    @{
+                                        var itemNotiWsp = Model.UsuarioOpciones.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.NotificarWhatsApp);
+
+                                    }
+                                    @if (itemNotiWsp != null)
+                                    {
+                                        var readOnlyNotiWsp = string.IsNullOrEmpty(Model.Celular);
+                                        var checkNotiWsp = !string.IsNullOrEmpty(Model.Celular) && itemNotiWsp.CheckBox;
+
+                                        <div class="permisos_cuenta_opciones notificaciones__whatsapp__checkbox">
+                                            <div class="d-flex permiso_cuenta_opcion">
+                                                <div class="permiso_cuenta_opcion_descripcion">
+                                                    @itemNotiWsp.Descripcion
+                                                </div>
+                                                <div class="grupo_form_permiso_cuenta">
+                                                    <input class="optCelCheckbox permiso_cuenta_opcion_checkbox" type="checkbox" data-tipoOpcion="@itemNotiWsp.OpcionesUsuarioId" name="@itemNotiWsp.Codigo" id="@itemNotiWsp.Codigo" checked="@checkNotiWsp" disabled="@readOnlyNotiWsp" style="display:none;" />
+                                                    <label for="@itemNotiWsp.Codigo" class="permiso_cuenta_opcion_label"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                    <!--FIN HD-4358 -->
                                 </div>
                                 <!-- FIN -->
                                 <div class="grupo_form_cambio_datos">
@@ -361,6 +385,9 @@ else
                     <div class="permisos_cuenta_opciones divCheckbox">
                         @foreach (var item in Model.UsuarioOpciones)
                         {
+                            /* HD-4358 */
+                            if (item.OpcionesUsuarioId != Constantes.OpcionesUsuario.NotificarWhatsApp)
+                            {
                             <div class="permiso_cuenta_opcion">
                                 <div class="permiso_cuenta_opcion_descripcion">
                                     @item.Opcion
@@ -371,6 +398,7 @@ else
                                     <label for="@item.Codigo" class="permiso_cuenta_opcion_label"></label>
                                 </div>
                             </div>
+                            }
                         }
                     </div>
                 </div>
@@ -454,6 +482,6 @@ else
             @:var Ubigeos = { Ubigeo1: '@Model.DireccionEntrega.Ubigeo1', Ubigeo2: '@Model.DireccionEntrega.Ubigeo2', Ubigeo3 :'@Model.DireccionEntrega.Ubigeo3'};
         }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initMapa&libraries=places,directions"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASf07-AjkagP_ZIxkztOzO5tYujICf6D0&callback=initMapa&libraries=places,directions"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")?v=4"></script>
 }

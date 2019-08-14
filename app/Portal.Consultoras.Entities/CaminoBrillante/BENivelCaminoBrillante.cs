@@ -26,6 +26,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// Indica el monto Maximo del siguiente nivel
         /// </summary>
         public decimal? MontoFaltante { get; set; }
+        /// <summary>
+        /// Indica el monto Acumulado
+        /// </summary>
+        public decimal? MontoAcumulado { get; set; }
         /// <summary>   
         /// Indica si tendra ofertas o no
         /// </summary>
@@ -50,12 +54,20 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// Puntaje Acumulado
         /// </summary>
         public int? PuntajeAcumulado { get; set; }
+        /// <summary>
+        /// Mensaje Nivel
+        /// </summary>
+        public string Mensaje { get; set; }
 
     }
 
     [DataContract]
     public class BEBeneficioCaminoBrillante
     {
+        [DataMember]
+        [Column("Registro")]
+        public int Registro { get; set; }
+
         [DataMember]
         [Column("CodigoNivel")]
         public string CodigoNivel { get; set; }
@@ -73,8 +85,16 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public string Descripcion { get; set; }
 
         [DataMember]
+        [Column("Orden")]
+        public int Orden { get; set; }
+
+        [DataMember]
         [Column("Icono")]
         public string Icono { get; set; }
+
+        [DataMember]
+        [Column("Estado")]
+        public bool Estado { get; set; }
     }
 
 }

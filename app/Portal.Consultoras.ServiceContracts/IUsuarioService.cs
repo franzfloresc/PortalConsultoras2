@@ -286,9 +286,11 @@ namespace Portal.Consultoras.ServiceContracts
         int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
 
         [OperationContract]
-        bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
+        string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
             string codigoUsuarioAutenticado, EAplicacionOrigen origen);
 
+        [OperationContract]
+        bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen);
 
         [OperationContract]
         int ExisteUsuario(int paisId, string codigoUsuario, string clave);
@@ -330,6 +332,9 @@ namespace Portal.Consultoras.ServiceContracts
         BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo);
 
         [OperationContract]
+        BERespuestaServicio ActualizarEmailSinEnvioCorreo(BEUsuario usuario, string correoNuevo);
+
+        [OperationContract]
         BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo);
 
         [OperationContract]
@@ -362,10 +367,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
             bool usuarioPrueba, int aceptacionConsultoraDA);
-        
+
         [OperationContract]
         BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
-        
+
         #region TerminosCondiciones
         [OperationContract]
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
@@ -412,6 +417,9 @@ namespace Portal.Consultoras.ServiceContracts
         string GetActualizacionEmail(int paisID, string codigoUsuario);
 
         [OperationContract]
+        string GetActualizacionCelular(int paisID, string codigoUsuario);
+
+        [OperationContract]
         BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario);
 
         [OperationContract]
@@ -422,7 +430,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
-        
+
         [OperationContract]
         string ActualizarNovedadBuscador(int paisID, string codigoUsuario);
 
@@ -450,11 +458,42 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Camino Brillante
         [OperationContract]
-        BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad);
+        BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad, int origen);
+
+        [OperationContract]
+        void SetConsultoraCaminoBrillanteAnim(BEUsuario entidad, string key, string value, string repeat);
+
+        [OperationContract]
+        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, decimal puntosAlcanzados, string esApp);
+
+        [OperationContract]
+        List<BENivelCaminoBrillante> GetNiveles(int paisID);
+
+        [OperationContract]
+        List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
+
+        [OperationContract]
+        void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad);
+
+        [OperationContract]        
+        void DelBeneficioCaminoBrillante(int paisId, string CodigoNivel, string CodigoBeneficio);        
+        
+        [OperationContract]
+        List<BEIncentivosMontoExigencia> GetIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        string InsIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        void DelIncentivosMontoExigencia(int paisId, BEIncentivosMontoExigencia entidad);
+
+        [OperationContract]
+        List<BEConfiguracionCaminoBrillante> GetConfiguracionConsultoraCaminoBrillante(int PaisID, string CodigorRegion, string Zona, long ConsultoraID, int CampaniaID, int PeriodoCB, int NivelCB, decimal PuntajeAcumuladoCB);
+
         #endregion
 
         [OperationContract]
-        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario,string tipoEnvio1, string tipoEnvio2);
+        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
 
         [OperationContract]
         int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual);
@@ -465,7 +504,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ValidaEstadoPopup(int PaisID);
 
-
         [OperationContract]
         List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario);
 
@@ -474,5 +512,26 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania);
+
+        [OperationContract]
+        List<BEConfiguracionPaisFFVVDatos> GetConfiguracionPaisFFVV(BEConfiguracionPaisFFVVDatos entidad);
+
+        [OperationContract]
+        List<BEParametroUnete> GetListZonasUnete(BEParametroUnete entidad);
+
+        [OperationContract]
+        BEUsuarioDatos GetActualizarContraseniaDefault(int paisID, string codigoUsuario);
+
+        [OperationContract]
+        bool ProcesaEnvioEmailCambiaContrasenia(int paisID, BEUsuarioDatos oUsu);
+
+        [OperationContract]
+        bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, BEUsuarioDatos oUsu);
+
+        [OperationContract]
+        bool ProcesaEnviarMailActualizaContraseniaFinalizado(int paisID, BEUsuarioDatos oUsu, bool esOk);
+
+        [OperationContract]
+        bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia);
     }
 }

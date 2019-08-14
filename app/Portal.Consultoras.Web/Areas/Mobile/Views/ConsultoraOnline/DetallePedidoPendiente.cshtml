@@ -42,7 +42,7 @@
 <!-- Agregado desplegado con tooltips y modals -->
 <div class="container-flex pending d-flex flex-column vh-100">
     <!-- Pending title   -->
-    <div class="container pending-top">
+    <div class="container pending-top flex-nowrap pending-top--title">
         <div class="row align-items-center mb-1">
             <div class="col-10">
                 <h2 class="attend-title">Paso 1: Acepta los pedidos que deseas atender</h2>
@@ -60,7 +60,7 @@
         <!--  Pending subtitle  -->
         <div class="pending-subtitle pending-bgGray">
             <div class="container">
-                <div class="row align-items-center">
+                <div class="row flex-nowrap align-items-center">
                     <div class="col">
                         <div class="mtb-16">
                             <p class="text-14">@solicitud.Cliente</p>
@@ -85,7 +85,7 @@
                 <div id="vc_pedido_@item.CUV" class="container vc-box vc-box--shadow pedidos">
                     <!--   Order title   -->
 
-                    <div class="row align-items-start">
+                    <div class="row flex-nowrap align-items-start">
                         <div class="col-9">
                             <div class=" vc-box">
                                 <div class="vc-box--header">
@@ -110,7 +110,7 @@
                     </div>
                     <!--  /Order title   -->
                     <!--   Order Action   -->
-                    <div class="row align-items-center">
+                    <div class="row flex-nowrap align-items-center">
                         <div class="col-4">
                             <div class="vc-box ipt-tel">
                                 <input data-cantNew="@item.Cantidad" type="tel" maxlength="2" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700 ValidaNumeral ValidaPasteNumeral ValidaValor">
@@ -160,6 +160,64 @@
         <!-- / Orders    -->
 
     </div>
+
+<!-- modal -->
+<div id="aprobarPedido" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <!-- dialog -->
+    <div class="modal-dialog" style="max-width: 100%;">
+
+        <!-- content -->
+        <div class="modal-content">
+
+            <!-- header -->
+            <div class="modal-header">
+                <div class="" style="display: flex; justify-content: flex-end; width:100%">
+
+
+                </div>
+            </div>
+            <!-- header -->
+            <!-- body -->
+            <div class="modal-body" style=" margin-top: 76px;">
+                <div class="vc-box--action" style="display: flex; justify-content: center; align-items: center; width:100%">
+                    <img src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="error">
+                </div>
+                <p class="text-center text-18 text-700 text-black" style=" width: 85%; margin: 0 auto;">¡Pedido aprobado!</p>
+                <p class="text-center text-14 text-black mt-16 mb-24" id="mensajeConfirmacion">Has atendido el pedido por Gana+.</p>
+                <!--
+                - Si elige Gana+: "Has atendido el pedido por Gana+."
+
+                - Si elige Catálogo: "Has atendido el pedido por catálogo."
+
+                - Si ya lo tiene en stock: "Recuerda atenderlo con los productos que tienes en stock."
+                -->
+                <div class="row justify-content-center ">
+                    <div class="col-10 mb-16">
+                        <div class="vc-box text-14 text-700">
+                            <a id="btnIrPEdidoAprobar" href="/Mobile/ConsultoraOnline/Pendientes" class="action-btn action-btn_continue active">Ver pedidos por aprobar</a>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-10">
+                        <div class="vc-box text-14 text-700">
+                            <a id="btnIrPedido" href="/Mobile/Pedido/Detalle" class="action-btn action-btn_refuse "  >Ir a mis pedidos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- body -->
+            <!-- footer -->
+
+        </div>
+        <!-- footer -->
+
+    </div>
+    <!-- content -->
+
+</div>
+<!-- / modal -->
+<!-- /Paso 2  -->
 
 
 

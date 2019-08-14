@@ -29,18 +29,36 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerificacion" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerificacion" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Search.RequestRecomendacion" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Search.RequestRecomendacion.Estructura" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContrasenia2" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContrasenia2Response" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnviarMailActualizaContraseniaFinalizado" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnviarMailActualizaContraseniaFinalizadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ContraseniaRepetida_InputMessage">
+    <wsdl:part name="parameters" element="tns:ContraseniaRepetida" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ContraseniaRepetida_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ContraseniaRepetidaResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudCdrVisualizacion" />
   </wsdl:message>
@@ -94,6 +112,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_CambiarClaveUsuario_OutputMessage">
     <wsdl:part name="parameters" element="tns:CambiarClaveUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_CambiarContraseniaAleatoria_InputMessage">
+    <wsdl:part name="parameters" element="tns:CambiarContraseniaAleatoria" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_CambiarContraseniaAleatoria_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CambiarContraseniaAleatoriaResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ExisteUsuario_InputMessage">
     <wsdl:part name="parameters" element="tns:ExisteUsuario" />
@@ -172,6 +196,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarEmailSinEnvioCorreo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEmailSinEnvioCorreo" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarEmailSinEnvioCorreo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEmailSinEnvioCorreoResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarEmailWS_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEmailWS" />
@@ -323,6 +353,12 @@
   <wsdl:message name="IUsuarioService_GetActualizacionEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetActualizacionEmailResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetActualizacionCelular_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActualizacionCelular" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetActualizacionCelular_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActualizacionCelularResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetActualizacionEmailySms_InputMessage">
     <wsdl:part name="parameters" element="tns:GetActualizacionEmailySms" />
   </wsdl:message>
@@ -407,6 +443,66 @@
   <wsdl:message name="IUsuarioService_GetConsultoraNivelCaminoBrillante_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultoraNivelCaminoBrillanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_SetConsultoraCaminoBrillanteAnim_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetConsultoraCaminoBrillanteAnim" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_SetConsultoraCaminoBrillanteAnim_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetConsultoraCaminoBrillanteAnimResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetCaminoBrillanteConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCaminoBrillanteConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetCaminoBrillanteConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCaminoBrillanteConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetNiveles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNiveles" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetNiveles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNivelesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetBeneficiosCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBeneficiosCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetBeneficiosCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBeneficiosCaminoBrillanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsBeneficioCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsBeneficioCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsBeneficioCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsBeneficioCaminoBrillanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_DelBeneficioCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelBeneficioCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_DelBeneficioCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelBeneficioCaminoBrillanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetIncentivosMontoExigencia_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIncentivosMontoExigencia" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetIncentivosMontoExigencia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIncentivosMontoExigenciaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsIncentivosMontoExigencia_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsIncentivosMontoExigencia" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsIncentivosMontoExigencia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsIncentivosMontoExigenciaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_DelIncentivosMontoExigencia_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelIncentivosMontoExigencia" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_DelIncentivosMontoExigencia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelIncentivosMontoExigenciaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionConsultoraCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionConsultoraCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionConsultoraCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionConsultoraCaminoBrillanteResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarValidacionDatos_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarValidacionDatos" />
   </wsdl:message>
@@ -448,6 +544,30 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetSolicitudesPedidoPendiente_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSolicitudesPedidoPendienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisFFVV_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisFFVV" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisFFVV_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisFFVVResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetListZonasUnete_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListZonasUnete" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetListZonasUnete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListZonasUneteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetActualizarContraseniaDefault_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActualizarContraseniaDefault" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetActualizarContraseniaDefault_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActualizarContraseniaDefaultResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContrasenia" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContraseniaResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
@@ -960,6 +1080,18 @@
     <wsdl:part name="parameters" element="tns:GetDatosConsultoraHanaResponse" />
   </wsdl:message>
   <wsdl:portType name="IUsuarioService">
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2Response" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnviarMailActualizaContraseniaFinalizado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizado" message="tns:IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizadoResponse" message="tns:IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ContraseniaRepetida">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ContraseniaRepetida" message="tns:IUsuarioService_ContraseniaRepetida_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ContraseniaRepetidaResponse" message="tns:IUsuarioService_ContraseniaRepetida_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage" />
@@ -995,6 +1127,10 @@
     <wsdl:operation name="CambiarClaveUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" message="tns:IUsuarioService_CambiarClaveUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse" message="tns:IUsuarioService_CambiarClaveUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CambiarContraseniaAleatoria">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria" message="tns:IUsuarioService_CambiarContraseniaAleatoria_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoriaResponse" message="tns:IUsuarioService_CambiarContraseniaAleatoria_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ExisteUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ExisteUsuario" message="tns:IUsuarioService_ExisteUsuario_InputMessage" />
@@ -1047,6 +1183,10 @@
     <wsdl:operation name="ActualizarEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmail" message="tns:IUsuarioService_ActualizarEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailResponse" message="tns:IUsuarioService_ActualizarEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailSinEnvioCorreo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo" message="tns:IUsuarioService_ActualizarEmailSinEnvioCorreo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreoResponse" message="tns:IUsuarioService_ActualizarEmailSinEnvioCorreo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmailWS">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailWS" message="tns:IUsuarioService_ActualizarEmailWS_InputMessage" />
@@ -1148,6 +1288,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizacionEmail" message="tns:IUsuarioService_GetActualizacionEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizacionEmailResponse" message="tns:IUsuarioService_GetActualizacionEmail_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetActualizacionCelular">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizacionCelular" message="tns:IUsuarioService_GetActualizacionCelular_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizacionCelularResponse" message="tns:IUsuarioService_GetActualizacionCelular_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetActualizacionEmailySms">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizacionEmailySms" message="tns:IUsuarioService_GetActualizacionEmailySms_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizacionEmailySmsResponse" message="tns:IUsuarioService_GetActualizacionEmailySms_OutputMessage" />
@@ -1204,6 +1348,46 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillante" message="tns:IUsuarioService_GetConsultoraNivelCaminoBrillante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillanteResponse" message="tns:IUsuarioService_GetConsultoraNivelCaminoBrillante_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SetConsultoraCaminoBrillanteAnim">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/SetConsultoraCaminoBrillanteAnim" message="tns:IUsuarioService_SetConsultoraCaminoBrillanteAnim_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SetConsultoraCaminoBrillanteAnimResponse" message="tns:IUsuarioService_SetConsultoraCaminoBrillanteAnim_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCaminoBrillanteConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion" message="tns:IUsuarioService_GetCaminoBrillanteConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracionResponse" message="tns:IUsuarioService_GetCaminoBrillanteConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNiveles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetNiveles" message="tns:IUsuarioService_GetNiveles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetNivelesResponse" message="tns:IUsuarioService_GetNiveles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBeneficiosCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante" message="tns:IUsuarioService_GetBeneficiosCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillanteResponse" message="tns:IUsuarioService_GetBeneficiosCaminoBrillante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsBeneficioCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante" message="tns:IUsuarioService_InsBeneficioCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillanteResponse" message="tns:IUsuarioService_InsBeneficioCaminoBrillante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DelBeneficioCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante" message="tns:IUsuarioService_DelBeneficioCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillanteResponse" message="tns:IUsuarioService_DelBeneficioCaminoBrillante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIncentivosMontoExigencia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigencia" message="tns:IUsuarioService_GetIncentivosMontoExigencia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigenciaResponse" message="tns:IUsuarioService_GetIncentivosMontoExigencia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsIncentivosMontoExigencia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia" message="tns:IUsuarioService_InsIncentivosMontoExigencia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigenciaResponse" message="tns:IUsuarioService_InsIncentivosMontoExigencia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DelIncentivosMontoExigencia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/DelIncentivosMontoExigencia" message="tns:IUsuarioService_DelIncentivosMontoExigencia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/DelIncentivosMontoExigenciaResponse" message="tns:IUsuarioService_DelIncentivosMontoExigencia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionConsultoraCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionConsultoraCaminoBrillante" message="tns:IUsuarioService_GetConfiguracionConsultoraCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionConsultoraCaminoBrillanteResponse" message="tns:IUsuarioService_GetConfiguracionConsultoraCaminoBrillante_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ActualizarValidacionDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos" message="tns:IUsuarioService_ActualizarValidacionDatos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse" message="tns:IUsuarioService_ActualizarValidacionDatos_OutputMessage" />
@@ -1231,6 +1415,22 @@
     <wsdl:operation name="GetSolicitudesPedidoPendiente">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendiente" message="tns:IUsuarioService_GetSolicitudesPedidoPendiente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendienteResponse" message="tns:IUsuarioService_GetSolicitudesPedidoPendiente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisFFVV">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV" message="tns:IUsuarioService_GetConfiguracionPaisFFVV_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVVResponse" message="tns:IUsuarioService_GetConfiguracionPaisFFVV_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListZonasUnete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetListZonasUnete" message="tns:IUsuarioService_GetListZonasUnete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetListZonasUneteResponse" message="tns:IUsuarioService_GetListZonasUnete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActualizarContraseniaDefault">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefault" message="tns:IUsuarioService_GetActualizarContraseniaDefault_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefaultResponse" message="tns:IUsuarioService_GetActualizarContraseniaDefault_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContraseniaResponse" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -1575,6 +1775,33 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarioService" type="tns:IUsuarioService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia2">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnviarMailActualizaContraseniaFinalizado">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContraseniaRepetida">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ContraseniaRepetida" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
       <wsdl:input>
@@ -1649,6 +1876,15 @@
     </wsdl:operation>
     <wsdl:operation name="CambiarClaveUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarContraseniaAleatoria">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1766,6 +2002,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailSinEnvioCorreo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1998,6 +2243,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetActualizacionCelular">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizacionCelular" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetActualizacionEmailySms">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizacionEmailySms" style="document" />
       <wsdl:input>
@@ -2124,6 +2378,96 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetConsultoraCaminoBrillanteAnim">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SetConsultoraCaminoBrillanteAnim" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCaminoBrillanteConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNiveles">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetNiveles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBeneficiosCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsBeneficioCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelBeneficioCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIncentivosMontoExigencia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsIncentivosMontoExigencia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelIncentivosMontoExigencia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/DelIncentivosMontoExigencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionConsultoraCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionConsultoraCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarValidacionDatos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos" style="document" />
       <wsdl:input>
@@ -2180,6 +2524,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetSolicitudesPedidoPendiente">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisFFVV">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListZonasUnete">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetListZonasUnete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActualizarContraseniaDefault">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefault" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2956,6 +3336,33 @@
   <wsdl:binding name="BasicHttpsBinding_IUsuarioService" type="tns:IUsuarioService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IUsuarioService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia2">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnviarMailActualizaContraseniaFinalizado">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContraseniaRepetida">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ContraseniaRepetida" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
       <wsdl:input>
@@ -3030,6 +3437,15 @@
     </wsdl:operation>
     <wsdl:operation name="CambiarClaveUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarContraseniaAleatoria">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3147,6 +3563,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailSinEnvioCorreo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3379,6 +3804,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetActualizacionCelular">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizacionCelular" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetActualizacionEmailySms">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizacionEmailySms" style="document" />
       <wsdl:input>
@@ -3505,6 +3939,96 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetConsultoraCaminoBrillanteAnim">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SetConsultoraCaminoBrillanteAnim" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCaminoBrillanteConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNiveles">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetNiveles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBeneficiosCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsBeneficioCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelBeneficioCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/DelBeneficioCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIncentivosMontoExigencia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetIncentivosMontoExigencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsIncentivosMontoExigencia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsIncentivosMontoExigencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelIncentivosMontoExigencia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/DelIncentivosMontoExigencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionConsultoraCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionConsultoraCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarValidacionDatos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos" style="document" />
       <wsdl:input>
@@ -3561,6 +4085,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetSolicitudesPedidoPendiente">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisFFVV">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListZonasUnete">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetListZonasUnete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActualizarContraseniaDefault">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefault" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

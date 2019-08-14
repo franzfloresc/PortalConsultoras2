@@ -25,21 +25,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
 
-        //public ActionResult Detalle(string cuv, int campaniaId)
-        //{
-        //    try
-        //    {
-
-        //        return RDDetalleModel(cuv, campaniaId);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //    }
-
-        //    return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
-        //}
-
         public ActionResult Informacion(string tipo)
         {
             try

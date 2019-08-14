@@ -50,7 +50,6 @@ namespace Portal.Consultoras.Web.Models
             this.ValidacionAbierta = false;
             this.MenuNotificaciones = 0;
             this.TieneNotificaciones = 0;
-            this.EsUsuarioComunidad = false;
             this.SegmentoConstancia = string.Empty;
             this.SeccionAnalytics = string.Empty;
             this.DescripcionNivel = string.Empty;
@@ -72,6 +71,7 @@ namespace Portal.Consultoras.Web.Models
             this.CodigoClasificacion = string.Empty;
             this.CodigoSubClasificacion = string.Empty;
             this.DescripcionSubclasificacion = string.Empty;
+            this.TieneActualizacionDatos = false;
         }
 
         public string Celular { get; set; }
@@ -196,6 +196,7 @@ namespace Portal.Consultoras.Web.Models
         public bool HabilitarRestriccionHoraria { get; set; }
 
         public string AnoCampaniaIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; }
         public string PrimerNombre { get; set; }
         public string PrimerApellido { get; set; }
 
@@ -258,7 +259,6 @@ namespace Portal.Consultoras.Web.Models
             return false;
         }
         public DateTime FechaPromesaEntrega { get; set; }
-        public bool EsUsuarioComunidad { get; set; }
         public string SegmentoConstancia { get; set; }
         public string SeccionAnalytics { get; set; }
         public string DescripcionNivel { get; set; }
@@ -351,6 +351,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoPrograma { get; set; }
         public int ConsecutivoNueva { get; set; }
         public bool TieneDireccionEntrega { get; set; }
+        public bool TieneActualizacionDatos { get; set; }
 
         public DateTime FechaHoy
         {
@@ -417,5 +418,8 @@ namespace Portal.Consultoras.Web.Models
 
         public bool PuedeConfirmarAllEmail { get; set; }
         public bool PuedeConfirmarAllSms { get; set; }
+
+        /*HD-4513*/
+        public bool PagoContado { get; set; }
     }
 }

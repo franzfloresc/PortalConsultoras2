@@ -262,6 +262,13 @@
     text-align:center;
 }
 
+.tag__sb--nuevoEnlaceMenu{
+    font-size:12px;
+    margin-left:8px;
+    margin-bottom:0;
+    text-decoration:none;
+}
+
 @media screen and (min-width:1272px) and (max-width:1286px){
 
     .menu__item[data-title="SOCIA EMPRESARIA"] ~ .menu__item, 
@@ -541,4 +548,21 @@
         position:relative;
     }
 
+    .foto_usuaria_mobile {
+        width: 77px;
+        height: 76px;
+        border-radius: 100px;
+        position: relative;
+        background-color: rgba(229,229,229,1);
+        background-image: url('/Content/Images/icono_avatar.svg');
+        background-repeat: no-repeat;
+        background-position: center 12px;
+        background-size: 75%;
+        border-radius: 100%;
+        overflow: hidden;
+    }
+
+        .foto_usuaria_mobile img {
+            width: 100%;
+        }
 }

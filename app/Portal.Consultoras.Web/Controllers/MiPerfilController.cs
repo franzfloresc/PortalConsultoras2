@@ -2,7 +2,6 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Linq;
 using System.Web;
@@ -15,14 +14,12 @@ using AutoMapper;
 using System.ServiceModel;
 using Portal.Consultoras.Web.Infraestructure.Sms;
 using System.Collections.Generic;
-using Portal.Consultoras.Web.ServiceUnete;
 using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MiPerfilController : BaseController
     {
-        protected MiPerfilProvider _miperfil;
         private readonly ZonificacionProvider _zonificacionProvider;
 
         public MiPerfilController()
@@ -32,15 +29,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public async Task<ActionResult> Index()
         {
-            BEUsuario beusuario;
             var model = new MisDatosModel();
-            _miperfil = new MiPerfilProvider();
 
-            using (var sv = new UsuarioServiceClient())
-            {
-                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
-            }
-
+            var beusuario = await _miPerfilProvider.GetUsuario(userData.PaisID, userData.CodigoUsuario);
             if (beusuario == null)
             {
                 return View(model);
@@ -129,7 +120,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
+            model.UsuarioOpciones = _miPerfilProvider.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
             model.TieneDireccionEntrega = userData.TieneDireccionEntrega;
             model.TienePermisosCuenta = model.UsuarioOpciones.Count > 0;
             model.CodigoConsultoraAsociada = userData.CodigoConsultora;
@@ -238,8 +229,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IsConfirmarCel = 0;
             ViewBag.Celular = userData.Celular;
 
-            var numero = 0;
-            var valida = false;
+            int numero;
+            bool valida;
             Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             ViewBag.IniciaNumeroCelular = valida ? numero : -1;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
@@ -398,7 +389,7 @@ namespace Portal.Consultoras.Web.Controllers
                 User = userData,
                 Mobile = EsDispositivoMovil()
             };
-            string tipoEnvio = Constantes.TipoEnvio.SMS.ToString();
+            string tipoEnvio = Constantes.TipoEnvio.SMS;
             result = await sender.Send(celular);
             ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
             return Json(result);
@@ -526,7 +517,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult CambiarConsultoraPass(string OldPassword, string NewPassword)
         {
-            int rslt = 0;
+            string rslt = string.Empty;
             try
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -537,10 +528,8 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoUsuario).ToList();
                         var contraseniaAnt = lstClave[0].ClaveSecreta;
 
-                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                        rslt = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
-
-                        rslt = result ? 2 : 1;
 
                         var lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoUsuario).ToList();
                         var contraseniaCambiada = lst[0].ClaveSecreta;
@@ -550,13 +539,13 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
-                            rslt = 0;
+                            rslt = "La contraseña anterior ingresada es inválida";
                     }
                 }
                 return Json(new
                 {
                     success = true,
-                    message = rslt
+                    message = string.IsNullOrEmpty(rslt) ? Constantes.MensajesError.CambioSatisfactorioContrasenia : rslt
                 });
             }
             catch (FaultException ex)
@@ -691,7 +680,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> RegistrarPerfil(MisDatosModel model)
         {
-            string resultado = string.Empty;
             JsonResult response;
 
             try
@@ -720,7 +708,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ActualizarSMS(userData.PaisID, userData.CodigoUsuario, userData.Celular, model.Celular);
                 ActualizarFijo(userData.PaisID, userData.CodigoUsuario, userData.Telefono, model.Telefono);
                 ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario, model.EMail, model.Celular, model.Telefono);
-                resultado = await _miPerfilProvider.RegistrarAsync(model);
+                var resultado = await _miPerfilProvider.RegistrarAsync(model);
                 ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
                 var lst = resultado.Split('|');
 

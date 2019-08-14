@@ -32,5 +32,26 @@ namespace Portal.Consultoras.BizLogic
         {
             return CacheManager<List<BETablaLogicaDatos>>.ValidateDataElement(paisID, ECacheItem.TablaLogicaDatos, tablaLogicaID.ToString(), () => GetList(paisID, tablaLogicaID));
         }
+
+        public bool GetTablaLogicaDatoValorBool(int paisId, short tablaLogicaId, string codigo)
+        {
+            var valor = GetTablaLogicaDatoValorCodigo(paisId, tablaLogicaId, codigo);
+            return valor == "1";
+        }
+
+        private string GetTablaLogicaDatoValorCodigo(int paisId, short tablaLogicaId, string codigo)
+        {
+            var datos = GetListCache(paisId, tablaLogicaId);
+            return GetValueByCode(datos, codigo);
+        }
+
+        private string GetValueByCode(List<BETablaLogicaDatos> datos, string codigo)
+        {
+            datos = datos ?? new List<BETablaLogicaDatos>();
+
+            var par = datos.FirstOrDefault(d => d.Codigo == codigo) ?? new BETablaLogicaDatos();
+
+            return Util.Trim(par.Valor);
+        }
     }
 }

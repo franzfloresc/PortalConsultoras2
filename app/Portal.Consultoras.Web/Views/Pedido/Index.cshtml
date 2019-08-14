@@ -36,6 +36,10 @@
     .linea_indicador_barra {
         width: 2px;
     }
+
+    .franja_negra {
+        background-size: cover;
+    }
 </style>
 
 <div class="franja_negra franja_negra--nuevoLookAndFeelEsika" style="background-image: url(@ViewBag.UrlFranjaNegra);"></div>
@@ -74,6 +78,7 @@
             <input type="hidden" id="hdfDescripcionCategoria" />
             <input type="hidden" id="hdfDescripcionEstrategia" />
             <input type="hidden" id="hdfDescripcionMarca" />
+            <input type="hidden" id="hdCodigoConsultora" value="@ViewBag.CodigoConsultora" />
             <input type="hidden" id="hdfCUV" />
             <input type="hidden" id="hdfClienteDescripcion" />
             <input type="hidden" id="hdnRegistrosPaginar" value="@Model.Registros" name="Registros" />
@@ -102,6 +107,7 @@
             <input id="hdEsOfertaIndependiente" type="hidden" value="0" />
             <input id="hdTipoEstrategiaCodigo" type="hidden" value="0" />
             <input id="hdEsDuoPerfecto" type="hidden" value="0" />
+            <input id="hdEsPromocion" type="hidden" value="false" name="EsPromocion"/>
             <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
             <div class="pedido_ingreso_datos campo_codigo">
@@ -333,6 +339,29 @@
                 var TotalMontoGanancia = @Model.MontoAhorroCatalogo + @Model.GananciaRevista + @Model.GananciaWeb + @Model.GananciaOtros;
             }
             <div class="caja_guardar_pedido">
+                <!-- HD-4288 - SWITCH CONSULTORA 100% DIGITAL -->
+                <div class="d-block contenedor_info_recepcion_pedido" style="display:none">
+                    <div class="border-radius-4">
+                        <div class="d-block w-100 switch__control__contenedor">
+                            <span class="switch__control__descrip">Autorizo que otra persona reciba por mí este pedido</span>
+                            <label class="switch__control__wrapper">
+                                <input type="checkbox" class="switch__control">
+                                <span class="switch__slider"></span>
+                            </label>
+                        </div>
+                        <!-- Esta sección aparece una vez que se llena los datos de la persona que recibirá el pedido en el popup de recepción de pedido (id="PopupRecepcionPedido") -->
+                        <div class="d-block w-100 info_recepcion_pedido" style="display:none;">
+                            <p class="text-bold">Lo va a recibir:</p>
+                            <p class="datos__receptor__pedido">
+                                <span class="d-block"></span>
+                                <span class="d-block"></span>
+                            </p>
+                            <button onclick="javascript:$('#PopupRecepcionPedido').fadeIn(100);" class="d-block w-100 border-radius-4 text-center text-bold btn__sb btn__sb__secondary btn__sb--cambiarPersona">Cambia de persona</button>
+                        </div>
+                        <!-- Fin - Esta sección aparece una vez que se llena los datos de la persona que recibirá el pedido en el popup de recepción de pedido (id="PopupRecepcionPedido") -->
+                    </div>
+                </div>
+                <!-- FIN - HD-4288 - SWITCH CONSULTORA 100% DIGITAL -->
                 <div class="contenedor_guardadoPedido">
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
@@ -431,6 +460,35 @@
 
                                             </span>
                                         </div>
+                                        @*HD-4513*@
+                                        @if (ViewBag.PagoContado)
+                                        {
+                                            <div class="ganancia-info first-color">
+                                                <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
+                                                <span class="ganancia-total first-color" data-stpdescuento>
+                                                    0.00
+                                                </span>
+                                            </div>
+                                            <div class="ganancia-info first-color">
+                                                <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
+                                                <span class="ganancia-total first-color" data-stpflete>
+                                                    0.00
+                                                </span>
+                                            </div>
+                                            <div class="ganancia-info first-color">
+                                                <span class="info_mis_descuentos">(+) Saldo Campaña Anterior:</span>
+                                                <span class="ganancia-total first-color" data-stpdeuda>
+                                                    0.00
+                                                </span>
+                                            </div>
+                                            <div class="ganancia-info total_a_pagar_wrapper pb-2">
+                                                <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
+                                                <span class="ganancia-total first-color" data-stppagototal>
+                                                    0.00
+                                                </span>
+                                            </div>
+                                        }
+
                                         @*@if (!Model.IsShowGananciaConsultora)
                                             {
                                                 <div class="ganancia-info">
@@ -495,11 +553,11 @@
                         <div class="boton_guardarPedido">
                             @if (Model.EstadoPedido == 1)
                             {
-                                <button class="btn_ModificaPedido" onclick="javascript:ModificarPedido();" class="info_copy default-background-color">@Model.Prol</button>
+                                <button class="btn_ModificaPedido" onclick="javascript:ConfirmarModificar();" class="info_copy default-background-color">@Model.Prol</button>
                             }
                             else
                             {
-                                <button id="btnValidarPROL" class="info_copy default-background-color">@Model.Prol</button>}
+                                <button id="btnValidarPROL" onclick="javascript: PreValidarProl();" class="info_copy default-background-color">@Model.Prol</button>}
 
                         </div>
                     </div>
@@ -1073,7 +1131,8 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                <div style="margin-left:27px; margin-right:27px; position:relative;">
+                <div id="ProductoSugeridoCarruselWrapper" style="margin-left:27px; margin-right:27px; position:relative;">
+                    <div class="producto_imagen_zoom"></div>
                     <div class="slider center" id="divCarruselSugerido" style="float:left;height:auto;">
                     </div>
                     <div class="clear"></div>
@@ -1146,6 +1205,8 @@
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupEleccionRegalo.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupPremio.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupDescuento.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupIncentivo.cshtml")
+@Html.Partial("~/Views/Pedido/_PopupRecepcionPedido.cshtml")
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupReservaPedido.cshtml");}
 
@@ -1625,7 +1686,7 @@
             </div>
             <div>
                 <div class="producto_imagen">
-                    <img src="{{ImagenProductoSugerido}}" alt="" />
+                    <img src="{{ImagenProductoSugerido}}" alt="" class="producto_imagen_thumbnail" />
                 </div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
@@ -2013,6 +2074,8 @@
 
 </script>
 
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidoGuardado.cshtml", new ViewDataDictionary { { "isMobile", false } })
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidosPendientes.cshtml", new ViewDataDictionary { { "isMobile", false } })
 @section scripts{
 
     <script type="text/javascript">
@@ -2042,7 +2105,8 @@
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new {area = ""})';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         //var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
-        var cantPedidosPendientes = '@ViewBag.CantPedidoPendientes';
+        var cantPedidosPendientes = '@ViewBag.CantPedidosPendientes';
+        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl));
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
@@ -2121,7 +2185,10 @@
         @*var ClasPedidoPopupPedidoPend = '@Constantes.ClasificadorPedido.PedidoDetallePoputPendiente';
         var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
         var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';*@
+
         var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
+        var montoIncentivo = '@Model.montoIncentivo';
+
         var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel';/*HD-3710*/
 
     </script>
@@ -2132,12 +2199,10 @@
             mobileDevice = true;
         </script>
     }
-    @*@if (ViewBag.MostrarPedidosPendientes == "1")
-        {
-            <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
-        }*@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ProductoSugeridoZoom.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/PopupRecepcionPedido.js")"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Pedido/ArmaTuPack")

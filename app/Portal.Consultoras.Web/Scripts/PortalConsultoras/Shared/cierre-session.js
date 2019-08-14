@@ -1,9 +1,6 @@
 ﻿var expiredSession = false;
 
 $(function() {
-    //if (noPedidoReservado()) {
-    //    registerCloseEvent();
-    //}
     configureTimeoutPopup();
 
     $(document).ajaxComplete(function( event, xhr, settings ) {

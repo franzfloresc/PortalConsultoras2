@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="foto_usuaria_mobile">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
+                    <img id="imgFotoUsuario" class="ImageLoadPhotoUser" src="@ViewBag.FotoPerfil" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
                 </div>
 
             }
@@ -147,9 +147,9 @@
 
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
-                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.MobileRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
-                </div>
+                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
+                        ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.MobileRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
+                    </div>
                 }
                 else
                 {
@@ -501,35 +501,38 @@
 @if (esDigital)
 {
     /* INI HD-4086 */
-    if(Model.CodigoISO == Constantes.CodigosISOPais.Peru) { 
-    <div class="wrapper_resumen_mobile">
-        <div class="comartir_home_mobile">
-            INCENTIVOS
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Peru)
+    {
+        <div class="wrapper_resumen_mobile">
+            <div class="comartir_home_mobile">
+                INCENTIVOS
+                <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+                   class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">VER MAS</a>
+            </div>
             <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
-               class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">VER MAS</a>
+               class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">
+                <div class="imagen_catalogo bonificaciones_digital"></div>
+            </a>
+            <hr class="clear" />
+            <div class="linea_separadora_mobile"></div>
         </div>
-        <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
-           class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">
-            <div class="imagen_catalogo bonificaciones_digital"></div>
-        </a>
-        <hr class="clear" />
-        <div class="linea_separadora_mobile"></div>
-    </div>
-   /* FIN HD-4086 */
-  } else{
-    <div class="wrapper_resumen_mobile">
-        <div class="comartir_home_mobile">
-            BONIFICACIONES
+        /* FIN HD-4086 */
+    }
+    else
+    {
+        <div class="wrapper_resumen_mobile">
+            <div class="comartir_home_mobile">
+                BONIFICACIONES
+                <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+                   class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">VER MAS</a>
+            </div>
             <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
-               class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">VER MAS</a>
+               class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">
+                <div class="imagen_catalogo bonificaciones_digital"></div>
+            </a>
+            <hr class="clear" />
+            <div class="linea_separadora_mobile"></div>
         </div>
-        <a role = "link" region= "Central" parent= "Comparte tus Catálogos" title= "Comparte tus Catálogos"
-           class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">
-            <div class="imagen_catalogo bonificaciones_digital"></div>
-        </a>
-        <hr class="clear" />
-        <div class="linea_separadora_mobile"></div>
-    </div>
     }
 }
 
@@ -849,10 +852,12 @@
 
 <!--FIN-->
 <!-- POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE  -->
-
 <!-- POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
 @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupActualizacionCorreo.cshtml")
 <!-- FIN - POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
+<!-- HD-4357 - ENCUESTA DE SATISFACCIÓN -->
+@Html.Partial("~/Views/EncuestaSatisfaccion/_EncuestaSatisfaccion.cshtml")
+<!-- FIN - HD-4357 - ENCUESTA DE SATISFACCIÓN -->
 
 <div class="contenedor_fondo_popup" id="popupVerificacionCorreoElectronicoPendiente" style="display:none;">
     <div class="popup_correo_pendiente_de_confirmar w-100 text-center">
@@ -886,6 +891,15 @@
 
 @section scripts{
     <script type="text/javascript">
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-r.svg")',
+        ];
+        var noIniciarLluvia = true;
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         @*var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';*@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -943,7 +957,12 @@
         var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "Mobile" })';
         var appVersion = navigator.appVersion;
         var arrayPaisNoBannerLiq = ['@Constantes.CodigosISOPais.Peru'];
+        var urlObtenerDataEncuesta = '@Url.Action("ObtenerDataEncuesta", "Bienvenida", new { area = "" })';
+        var urlGrabarEncuesta = '@Url.Action("GrabarEncuesta", "Bienvenida", new { area = "" })';
+        var lanzarEncuesta = true;
     </script>
+
     @Scripts.Render("~/Bundle/Js/Mobile/Bienvenida")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
 
 }

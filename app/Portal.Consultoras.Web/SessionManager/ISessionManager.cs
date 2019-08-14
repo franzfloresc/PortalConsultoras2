@@ -17,6 +17,7 @@ using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
+using Portal.Consultoras.Web.Models.Encuesta;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -73,6 +74,9 @@ namespace Portal.Consultoras.Web.SessionManager
         bool? GetFlagIsSetsOrPack();
 
         void SetFlagIsSetsOrPack(bool? flag);
+
+        bool? GetTruequeUnoPorMuchos();
+        void SetTruequeUnoPorMuchos(bool? flag);
 
         #endregion
 
@@ -221,11 +225,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListadoEstadoCuenta(List<EstadoCuentaModel> model);
 
         List<EstadoCuentaModel> GetListadoEstadoCuenta();
-
-        //void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
-
-        //EstrategiaPersonalizadaProductoModel GetProductoTemporal();
-
+        
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
 
         Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
@@ -528,5 +528,11 @@ namespace Portal.Consultoras.Web.SessionManager
         
         void SetFiltrosCaminoBrillante(BEOrdenFiltroConfiguracion val);
         BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante();
+
+        void SetConfiguracionCaminoBrillante(List<BEConfiguracionCaminoBrillante> val);
+        List<BEConfiguracionCaminoBrillante> GetConfiguracionCaminoBrillante();
+
+        void SetDataConfigEncuesta(List<DataConfigEncuestaModel> dataConfigEncuesta);
+        List<DataConfigEncuestaModel> GetDataConfigEncuesta();
     }
 }

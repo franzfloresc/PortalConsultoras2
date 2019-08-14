@@ -168,7 +168,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return detallesPedidoWeb;
         }
-        
+
         public bool TienePedidoReservado(UsuarioModel user)
         {
             using (var sv = new PedidoServiceClient())
@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool RequiereCierreSessionValidado(TablaLogicaProvider provider, int paisId)
         {
-            var value = provider.GetTablaLogicaDatoValor(paisId, Constantes.TablaLogica.CierreSessionValidado, Constantes.TablaLogicaDato.CierreSessionValidado, true);
+            var value = provider.GetTablaLogicaDatoValor(paisId, ConsTablaLogica.CierreSession.TablaLogicaId, ConsTablaLogica.CierreSession.CierreSessionValidado, true);
             return value == "1";
         }
 
@@ -273,7 +273,7 @@ namespace Portal.Consultoras.Web.Providers
 
             descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
                 item.FlagConsultoraOnline, item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID,
-                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo, item.EsCuponIndependiente, item.OrigenPedidoWeb,
+                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo, item.EsCuponIndependiente,
                 item.EsKitCaminoBrillante || item.EsDemCaminoBrillante);
 
             return descripcion;
@@ -447,18 +447,56 @@ namespace Portal.Consultoras.Web.Providers
                 var consultoraSE = Mapper.Map<BEPedidoWeb>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    lista=sv.GetCuvSuscripcionSE(consultoraSE).ToList();
+                    lista = sv.GetCuvSuscripcionSE(consultoraSE).ToList();
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                lista=null;
+                lista = null;
             }
 
             return lista ?? new List<BEProducto>();
         }
         #endregion Suscripcion SE
+
+
+
+        #region HD-4288 - Switch Consultora 100%
+        public virtual int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisId)
+        {
+            int result = 0;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                result = pedidoServiceClient.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID, paisId);
+            }
+
+            return result;
+        }
+
+        public virtual int DeshacerRecepcionPedido(int pedidoID, int paisId)
+        {
+            int result = 0;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                result = pedidoServiceClient.DeshacerRecepcionPedido(pedidoID, paisId);
+            }
+
+            return result;
+        }
+
+        public virtual BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisId)
+        {
+            BEConsultora objConsultoraFicticiaModel;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                objConsultoraFicticiaModel = pedidoServiceClient.VerificarConsultoraDigital(codigoConsultora, pedidoID, paisId);
+            }
+
+            return objConsultoraFicticiaModel;
+        }
+
+        #endregion
 
     }
 }

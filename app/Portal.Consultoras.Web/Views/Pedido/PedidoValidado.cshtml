@@ -68,6 +68,9 @@
         lbl1Ganancia = "Mis descuentos";
         lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
     }
+
+    var siPagoAlContado = ViewBag.PagoContado ? "modificarPosicionSiPagoAlContado" : "";
+
 }
 <div class="franja_negra pedidoReservado" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="wrapper_general2">
@@ -130,7 +133,7 @@
                 <div class="caja_montos PedidoValidado">
                     <div style="position:relative;">
                         <!-- <NuevaExperiencia ticket="tesla-98"> -->
-                        <div class="ganancia-estimada">
+                        <div class="ganancia-estimada @siPagoAlContado">
                             <div class="panel-toggle">
                                 <div class="toggle-header">
                                     <div class="toggle-switch closed">
@@ -142,7 +145,7 @@
                                             @(cabezaEscala):
                                         </span>
                                         <span id="div-ganancia-total" class="ganancia-total accent-color">
-                                            @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">@Model.FormatoTotalMontoGanancia</span>
+                                            @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">&nbsp;@Model.FormatoTotalMontoGanancia</span>
                                         </span>
                                     </div>
                                 </div>
@@ -152,7 +155,7 @@
                                             Catálogo
                                         </span>
                                         <span class="ganancia-total first-color">
-                                            @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@Model.FormatoMontoAhorroCatalogo</span>
+                                            @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">&nbsp;@Model.FormatoMontoAhorroCatalogo</span>
                                         </span>
                                     </div>
                                     <div class="toggle-info">
@@ -160,7 +163,7 @@
                                             Guía de negocio
                                         </span>
                                         <span class="ganancia-total first-color">
-                                            @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@Model.FormatoGananciaRevista</span>
+                                            @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">&nbsp;@Model.FormatoGananciaRevista</span>
                                         </span>
                                     </div>
                                     <div class="toggle-info">
@@ -168,7 +171,7 @@
                                             @ViewBag.LabelGananciaWeb
                                         </span>
                                         <span class="ganancia-total first-color">
-                                            @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@Model.FormatoGananciaWeb</span>
+                                            @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">&nbsp;@Model.FormatoGananciaWeb</span>
                                         </span>
                                     </div>
                                     <div class="toggle-info">
@@ -176,7 +179,7 @@
                                             Otros
                                         </span>
                                         <span class="ganancia-total first-color">
-                                            @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@Model.FormatoGananciaOtros</span>
+                                            @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">&nbsp;@Model.FormatoGananciaOtros</span>
                                         </span>
                                     </div>
                                 </div>
@@ -214,16 +217,43 @@
                                     </span>
                                 </div>
                                 <div class="ganancia-info pb-2">
-                                    <span class="ganancia-titulo titulo-up titulo-700">
-                                        MONTO TOTAL :
+                                    <span class="ganancia-titulo titulo-700">
+                                        Monto Total :
                                     </span>
                                     <span class="ganancia-total first-color">
-                                        <i>S/.</i> <span id="sTotal" data-pedidocondescuento="">0000.00</span>
+                                        <i>@Model.Simbolo</i> <span id="sTotal" data-pedidocondescuento="">0000.00</span>
                                     </span>
                                 </div>
+                            @*HD-4513*@
+                            @if (ViewBag.PagoContado){
+                                <div class="ganancia-info first-color">
+                                   <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
+                                   <span class="ganancia-total first-color" data-stpdescuento>
+                                        S/. 0000.00
+                                    </span>
+                                </div>
+                                <div class="ganancia-info first-color">
+                                   <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
+                                   <span class="ganancia-total first-color" data-stpflete>
+                                        S/. 0000.00
+                                    </span>
+                                </div>  
+                                <div class="ganancia-info first-color">
+                                   <span class="info_mis_descuentos">(+) Saldo Campaña Anterior:</span>
+                                   <span class="ganancia-total first-color" data-stpdeuda>
+                                        S/. 0000.00
+                                    </span>
+                                </div>  
+                                <div class="ganancia-info total_a_pagar_wrapper pb-2">
+                                    <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
+                                   <span class="ganancia-total first-color" data-stppagototal>
+                                        S/. 0000.00
+                                    </span>
+                                </div>
+                            }
                             </div>
                         </div>
-
+                               
                         <!-- <NuevaExperiencia  ticket="tesla-98" descripcion="ocultado para cuando se implemente la logica de la nueva vista"> -->                        
                         @*<hr class="clear" />
                         <hr class="separador_montos" />
@@ -252,7 +282,9 @@
                                 <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
                                 <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                             </div>
-                        </div>
+                          
+                        </div> 
+                          
                         <div class="caja_montos_cantidades">
 
                             <div class="caja_montos_cantidades_sinDescuento">
@@ -277,7 +309,7 @@
                                     @Model.Simbolo
                                     <span id="spnMontoGanancia">@ViewBag.GananciaEstimada</span>
                                 </b>
-                            </p>
+                            </p> 
                         </div>*@
                         <!-- <NuevaExperiencia> -->
                     </div>
@@ -603,7 +635,6 @@
         </tr>
     </table>
 </script>
-
 @section scripts{
     <script type="text/javascript">
         var correoElectronico = '@Model.eMail';

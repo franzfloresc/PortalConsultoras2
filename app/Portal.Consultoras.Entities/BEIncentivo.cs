@@ -37,6 +37,10 @@ namespace Portal.Consultoras.Entities
         public string ArchivoPDF { set; get; }
         [DataMember]
         public string Url { set; get; }
+        [DataMember]
+        public string Zona { set; get; }
+        [DataMember]
+        public string Segmento { set; get; }
 
         public BEIncentivo()
         {
@@ -59,6 +63,8 @@ namespace Portal.Consultoras.Entities
             ArchivoPortada = row.ToString("ArchivoPortada");
             ArchivoPDF = row.ToString("ArchivoPDF");
             Url = row.ToString("Url");
+            Zona = row.ToString("Zona");
+            Segmento = row.ToString("Segmento");
         }
     }
 }

@@ -28,6 +28,7 @@ using Portal.Consultoras.Web.Providers;
 using System.Threading.Tasks;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -36,6 +37,11 @@ namespace Portal.Consultoras.Web.Controllers
         public string CodigoISO
         {
             get { return userData.CodigoISO; }
+        }
+
+        public string Usuario
+        {
+            get { return userData.UsuarioNombre; }
         }
 
         public ActionResult InscribePostulante()
@@ -1187,6 +1193,162 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        #region DistanciaLimite
+        public ActionResult DistanciaLimiteZonaSeccion()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("DistanciaLimiteZonaSeccion", null);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ConsultarDistanciaLimiteZonaSeccion(DistanciaLimiteZonaSeccionModelSAC model)
+        {
+            model.CodigoISO = CodigoISO;
+            using (var sv = new PortalServiceClient())
+            {
+                var data = sv.ConsultarDistanciaLimiteZonaSeccion(model);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public ActionResult ExportarExcelDistanciaLimiteZonaSeccion()
+        {
+            ServiceUnete.ParametroUneteCollection lstSelect;
+            using (var sv = new PortalServiceClient())
+            {
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.DistanciaLimiteZonaSeccion, 0);
+            }
+
+            List<DistanciaLimiteZonaSeccionModel> items = new List<DistanciaLimiteZonaSeccionModel>();
+            foreach (var item in lstSelect)
+            {
+                var objNivel = new DistanciaLimiteZonaSeccionModel
+                {
+                    DistanciaLimite = item.Valor.ToString(),
+                    ZonaSeccion = item.Nombre
+                };
+                items.Add(objNivel);
+            }
+
+            Dictionary<string, string> dic =
+                new Dictionary<string, string> { { "ZonaSeccion", "ZonaSeccion" }, { "DistanciaLimite", "DistanciaLimite" } };
+
+            string fecha = String.Format("{0:dd-mm-yyyy_hhmmss}", System.DateTime.Now);
+            Util.ExportToExcel("ReporteDistanciaLimite_" + fecha, items, dic);
+            return View();
+        }
+
+        public ActionResult ExportarExcelHistoricoDistanciaLimiteZonaSeccion()
+        {
+            ServiceUnete.LogDetalleParametroUneteCollection lstSelect;
+            using (var sv = new PortalServiceClient())
+            {
+                lstSelect = sv.ObtenerLogDetalleParametroUnete(CodigoISO, EnumsTipoParametro.DistanciaLimiteZonaSeccion, 0);
+            }
+
+            List<LogDetalleParametroUneteModel> items = new List<LogDetalleParametroUneteModel>();
+            foreach (var item in lstSelect)
+            {
+                var objLog = new LogDetalleParametroUneteModel
+                {
+                    CodigoUsuario = item.CodigoUsuario.ToString(),
+                    Fecha = item.Fecha,
+                    Hora = item.Hora,
+                    Nombre = item.Nombre,
+                    Valor = item.Valor,
+                    IdCarga = item.IdCarga
+                };
+                items.Add(objLog);
+            }
+
+            Dictionary<string, string> dic =
+                new Dictionary<string, string>
+                { { "CodigoUsuario", "CodigoUsuario" }, { "Fecha", "Fecha" }, {"Hora", "Hora"}, {"Nombre", "Nombre" },
+                    {"Valor", "Valor" }, {"IdCarga", "IdCarga" } };
+
+            string fecha = String.Format("{0:dd-mm-yyyy_hhmmss}", System.DateTime.Now);
+            Util.ExportToExcel("HistoricoCambios_" + fecha, items, dic);
+            return View();
+        }
+
+        [HttpPost]
+        public string DistanciaLimiteZonaSeccionInsertar(HttpPostedFileBase uplArchivo, DistanciaLimiteZonaSeccionModel model)
+        {
+            model.CodigoISO = CodigoISO;
+            UsuarioModel oUsuarioModel = SessionManager.GetUserData();
+
+            try
+            {
+                if (uplArchivo == null)
+                {
+                    return "El archivo especificado no existe.";
+                }
+                if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+                {
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
+                }
+
+                string fileextension = Util.Trim(Path.GetExtension(uplArchivo.FileName));
+                if (!fileextension.ToLower().Equals(".xlsx"))
+                {
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                }
+
+                string fileName = Guid.NewGuid().ToString();
+                string pathfaltante = Server.MapPath("~/Content/ArchivoDistanciaLimite");
+                Directory.CreateDirectory(pathfaltante);
+                var finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                uplArchivo.SaveAs(finalPath);
+
+                bool isCorrect = false;
+                DistanciaLimiteZonaSeccionModel prod = new DistanciaLimiteZonaSeccionModel();
+                IList<DistanciaLimiteZonaSeccionModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref isCorrect);
+                System.IO.File.Delete(finalPath);
+                if (!isCorrect) return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+
+                var listaValida = lista.Where(i => i.DistanciaLimite != null && i.ZonaSeccion != null).ToList();
+                if (listaValida.Count == 0) return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+
+                List<ParametroUnete> listafinal = new List<ParametroUnete>();
+                int distanciaLimiteItem = 0;
+                foreach (var item in listaValida)
+                {
+                    int.TryParse(item.DistanciaLimite, out distanciaLimiteItem);
+                    if (distanciaLimiteItem <= 0) return "Error en distancia límite. Sólo se permiten valores numéricos enteros positivos.";
+
+                    var parametroTodos = new ParametroUnete
+                    {
+                        Nombre = item.ZonaSeccion,
+                        Descripcion = "Distancia límite",
+                        Valor = distanciaLimiteItem,
+                        FK_IdTipoParametro = EnumsTipoParametro.DistanciaLimiteZonaSeccion.ToInt(),
+                        Estado = 1
+                    };
+                    listafinal.Add(parametroTodos);
+                }
+                if (listafinal.Count == 0) return "No se Guardo ningun registro";
+
+                using (var sv = new PortalServiceClient())
+                {
+                    sv.InsertarDistanciaLimiteZonaSeccion(model.CodigoISO, listafinal.ToArray(), oUsuarioModel.CodigoUsuario);
+                }
+                return "Se realizo satisfactoriamente la carga de datos.";                
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+        }
+
+        #endregion DistanciaLimite
+
         public ActionResult NivelesGeograficos()
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("NivelesGeograficos", null);
@@ -1356,7 +1518,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
             int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
-            int PaginaActual, string CodigoConsultora, int? PDigital, int? PTradicional, int MostrarPaso1y2SE = 1)
+            int PaginaActual, string CodigoConsultora, int? PDigital, int? PTradicional, int TipoPago,
+            int MostrarPaso1y2SE = 1 )
         {
 
             using (var sv = new PortalServiceClient())
@@ -1369,7 +1532,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoConsultora,
                     PDigital,
                     PTradicional,
-                    MostrarPaso1y2SE
+                    MostrarPaso1y2SE,
+                    TipoPago
                 ).ToList();
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
@@ -1670,13 +1834,24 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PortalServiceClient())
             {
                 actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoTelefonico, idEstado);
+                ValidacionTelefonicaSolicitudPostulanteBE entidad = new ValidacionTelefonicaSolicitudPostulanteBE();
+                SolicitudPostulante solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+                entidad.SolicitudPostulanteID = solicitudPostulante.SolicitudPostulanteID;
+                entidad.NumeroDocumento = solicitudPostulante.NumeroDocumento;
+                entidad.NumeroCelular = solicitudPostulante.Celular;
+                entidad.TiempoDuracion = 0;
+                entidad.Fuente = "ValidacionEnSAC";
+                entidad = sv.EnviarCodigoVerificacionTelefonica(CodigoISO, entidad);
+                sv.ValidarCodigoVerificacionTelefonica(CodigoISO, id, solicitudPostulante.NumeroDocumento, int.Parse(entidad.Codigo), "SAC");
             }
+            var urlClient = string.Format("portal/EventoSPEstadoTelefonico/{0}/{1}/{2}/{3}/{4}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado, (int)Enumeradores.AppFuenteEstadoTelefonico.SAC);
+            (new RestApi()).GetAsync<EventoInsert>(urlClient);
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA TELEFONICA", "ASIGNAR");
             return Json(actualizado, JsonRequestBehavior.AllowGet);
         }
 
-public ActionResult MostrarMensajeBuro(string respuestaBuro)
-		{
+        public ActionResult MostrarMensajeBuro(string respuestaBuro)
+        {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("MensajeRespuestaBuro", "&respuestaBuro=" + respuestaBuro);
             return PartialView("~/Views/Unete/_MensajeRespuestaBuro.cshtml");
         }
@@ -1685,9 +1860,21 @@ public ActionResult MostrarMensajeBuro(string respuestaBuro)
         public JsonResult ConsultarEstadoCrediticia(int id, int idEstado)
         {
             bool actualizado;
-            using (var sv = new PortalServiceClient())
+            if (CodigoISO.Equals(PaisesCodigoIso.Colombia))
             {
-                actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoBurocrediticio, idEstado);
+                int idEstadoBuro = Util.convertirAEstadoBuro(idEstado);
+                using (var sv = new PortalServiceClient())
+                {
+                    actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoBurocrediticio, idEstadoBuro);
+                }
+                var urlClient = string.Format("portal/EventoSPEstadoBuro/{0}/{1}/{2}/{3}/{4}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado, Usuario);
+                 (new RestApi()).GetAsync<EventoInsert>(urlClient);
+            }
+            else {
+                using (var sv = new PortalServiceClient())
+                {
+                    actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoBurocrediticio, idEstado);
+                }
             }
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA CREDITICIA", "ASIGNAR");
             return Json(actualizado, JsonRequestBehavior.AllowGet);
@@ -1889,6 +2076,12 @@ public ActionResult MostrarMensajeBuro(string respuestaBuro)
                 "&id=" + id + "&nombreCompleto=" + nombreCompleto + "&celular=" + celular + "&pintarMalaZonificacion=" +
                 pintarMalaZonificacion);
             return PartialView("_ConsultarUbicacion");
+        }
+
+        public ActionResult PosibleFraudeUbicaciones(string nombre, string numDocu, string direccion, decimal x, decimal y, long solPostulanteId)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("PosibleFraudeUbicaciones", string.Format("&nombre={0}&numDocu={1}&direccion={2}&x={3}&y={4}&solPostulanteId={5}", nombre, numDocu, direccion, x, y, solPostulanteId));
+            return PartialView("_PosibleFraudeUbicaciones");
         }
 
 
@@ -3025,6 +3218,110 @@ public ActionResult MostrarMensajeBuro(string respuestaBuro)
         }
 
         #endregion Kit Inicio
+
+        [HttpPost]
+        public JsonResult ConsultarSolicitudPrePostulante(GestionaPrePostulanteModelSAC model)
+        {
+            var result = new paginacionGrid();
+            try
+            {
+                model.CodigoIso = CodigoISO;
+                using (var sv = new PortalServiceClient())
+                {
+
+                    result = sv.ConsultarSolicitudPrePostulante(model);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ConsultarUbicacionPrePostulante(int id, string nombreCompleto, string celular)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarUbicacionPrePostulante",
+                "&id=" + id + "&nombreCompleto=" + nombreCompleto + "&celular=" + celular);
+            return PartialView("_ConsultarUbicacionPrePostulante");
+        }
+
+
+        [HttpPost]
+        public ActionResult GrabarDatosDireccionPrePostulante(EditarDireccionModel model)
+        {
+           
+            ViewBag.HTMLSACUnete = PostHTMLSACUnete("GrabarDatosDireccionPrePostulante", model);
+
+            RegistrarLogGestionSacUnete(model.SolicitudPrePostulanteID.ToString(), "CONSULTAR UBICACION PRE POSTULANTE", "GRABAR DIRECCION PREPOSTULANTE");
+            return PartialView("_TemplateMensaje");
+        }
+
+        [HttpPost]
+        public int RechazarSolicitudPrePostulante( string codigoISO, int solicitudPrePostulanteID)
+        {
+            int result = 0;
+
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                   result= sv.RechazarSolicitudPrePostulante(codigoISO, solicitudPrePostulanteID);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorUtilities.AddLog(ex);
+            }
+                
+            return result;
+        }
+
+        public ActionResult EditarDireccionManualmentePrePostulante(int id)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("EditarDireccionManualmentePrePostulante", "&id=" + id);
+            return PartialView("_EditarDireccionManualmente");
+        }
+
+        [HttpPost]
+        public ActionResult EditarDireccionManualmentePrePostulante(EditarDireccionManualmenteModel model)
+        {
+            ViewBag.HTMLSACUnete = PostHTMLSACUnete("EditarDireccionManualmentePrePostulante", model);
+            RegistrarLogGestionSacUnete(model.SolicitudPrePostulanteID.ToString(), "CONSULTAR UBICACION", "EDITAR DIRECCION MANUALMENTE");
+            return PartialView("_EditarDireccionManualmente");
+        }
+
+        public ActionResult ConfirmarPosicionPrePostulante(int id, decimal latitud,
+           decimal longitud, string direccionCorrecta, string direccionCadena, string region, string comuna,
+           string codregion, string codzona, string codseccion, string codterritorio, string direccion)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConfirmarPosicionPrePostulante",
+                "&id=" + id +
+                "&latitud=" + latitud +
+                "&longitud=" + longitud +
+                "&direccionCorrecta=" + direccionCorrecta +
+                "&direccionCadena=" + direccionCadena +
+                "&region=" + region +
+                "&comuna=" + comuna +
+                "&codregion=" + codregion +
+                "&codzona=" + codzona +
+                "&codseccion=" + codseccion +
+                "&codterritorio=" + codterritorio +
+                "&direccion=" + direccion);
+
+            return PartialView("_ConfirmarPosicionPrePostulante");
+        }
+
+        [HttpPost]
+        public JsonResult ConsultarUbicacionPrePostulante(ConfirmarPosicionModelPrePostulante model)
+        {
+            var response = PostHTMLSACUnete("ConsultarUbicacionPrePostulante", model);
+            RegistrarLogGestionSacUnete(model.id.ToString(), "CONSULTAR UBICACION PRE POSTULANTE", "GRABAR POSICION PREPOSTULANTE");
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
+        }
     }
 
     public class ParameterPagodeKit

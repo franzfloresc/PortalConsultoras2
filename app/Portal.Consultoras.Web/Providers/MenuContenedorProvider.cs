@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public MenuContenedorModel UpdateCodigoCampaniaIdOrigenByContenedorPath(MenuContenedorModel menuActivo, string contenedorPath, RevistaDigitalModel revistaDigital, int CampaniaID, int NroCampanias, HttpRequestBase Request, string CodigoConsultora, string CodigoISO, int limiteElectivos, bool esMobile)
         {
-            menuActivo.MostrarMenuFlotante = true;
+            menuActivo.MostrarMenuFlotante = !(contenedorPath == "/detalle/caminobrillantedemostradores" || contenedorPath == "/detalle/caminobrillantekits");
             switch (contenedorPath)
             {
                 case Constantes.UrlMenuContenedor.Inicio:
@@ -496,18 +496,11 @@ namespace Portal.Consultoras.Web.Providers
                         if (!listProgNuevas.Any()) continue;
 
                         break;
-
                     case Constantes.ConfiguracionPais.MasGanadoras:
-                        if (!revistaDigital.EsActiva)
-                        {
-                            continue;
-                        }
-
                         config.UrlMenu = config.EsAncla
                             ? config.UrlMenu
                             : sessionManager.MasGanadoras.GetModel().TieneLanding ? "MasGanadoras" : "#";
                         break;
-
                     case Constantes.ConfiguracionPais.ArmaTuPack:
 
                         var sessionAtp = sessionManager.GetArmaTuPack();

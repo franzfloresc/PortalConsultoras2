@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -243,13 +244,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
                 #endregion
-
-
-                var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
-
+                
                 #region VirtualCoach
-                if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
-                    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachMobilePedido)
+                if (model.OrigenPedidoWeb == ConsOrigenPedidoWeb.VirtualCoachDesktopPedido ||
+                    model.OrigenPedidoWeb == ConsOrigenPedidoWeb.VirtualCoachMobilePedido)
                 {
                     var ficha = SessionManager.GetFichaProductoTemporal();
                     if (ficha == null)
@@ -313,10 +311,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var esCaminoBrillante = false;
                 #region Camino Brillante
-                //if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
-                //    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido)
-                if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertasEspeciales)
+                if (UtilOrigenPedidoWeb.EsCaminoBrillante(model.OrigenPedidoWeb))
                 {
+                    model.CuvTonos = Util.Trim(model.CUV);
                     esCaminoBrillante = true;
                     SessionManager.SetDemostradoresCaminoBrillante(null);
                 }
@@ -363,6 +360,12 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.OrigenSolicitud = "WebMobile";
                 pedidoDetalle.EsDuoPerfecto = model.EsDuoPerfecto;
                 pedidoDetalle.IngresoExternoOrigen = Constantes.IngresoExternoOrigen.Portal;
+
+                if (!string.IsNullOrEmpty(model.PedidoWebPromociones)) {
+                    pedidoDetalle.PedidoWebPromociones = JsonConvert.DeserializeObject<List<BEPedidoWebPromocion>>(model.PedidoWebPromociones).ToArray();
+                }
+                pedidoDetalle.EsPromocion = model.EsPromocion;
+
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
                 {
@@ -373,10 +376,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
-                if (pedidoDetalleResult.CodigoRespuesta == Constantes.PedidoValidacion.Code.ERROR_CONSULTORA_BLOQUEADA)
-                    pedidoDetalleResult.MensajeRespuesta = Constantes.TipoPopupAlert.Bloqueado + pedidoDetalleResult.MensajeRespuesta;
-
-                var esReservado =
+				var esReservado =
                     pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR)
                     || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR);
 
@@ -390,20 +390,51 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetMisPedidosDetallePorCampania(null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
+
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                     var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                     var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
                     var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP : null;
 
                     ObtenerPedidoWeb();
+
+                    //HD-4513
+                    #region Consultora Pago Contado
+
+                    var dataBarra = GetDataBarra();
+                    var estadoPedido = EsPedidoReservado().ToInt();
+                    ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado() && IsMobile();
+                    if (ViewBag.PagoContado)
+                    {
+                        var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
+                        {
+                            PaisID = userData.PaisID,
+                            ConsultoraID = userData.ConsultoraID,
+                            CodigoConsultora = userData.CodigoConsultora,
+                            CampaniaID = userData.CampaniaID,
+                            STPTotalPagar = Convert.ToDouble(dataBarra.TotalPedido - dataBarra.MontoDescuento),
+                            olstBEPedidoWebDetalle = pedidoWebDetalle.ToArray()
+                        };
+
+                        var resultPagoContado = UpdConfPagoContado(PagoContadoPrm);
+                        dataBarra.STPDescuento = Util.DoubleToStringFormat(resultPagoContado.STPDescuento, userData.CodigoISO);
+                        dataBarra.STPFlete = Util.DoubleToStringFormat(resultPagoContado.STPGastTransporte, userData.CodigoISO);
+                        dataBarra.STPPagoTotal = Util.DoubleToStringFormat(resultPagoContado.STPPagoTotal, userData.CodigoISO);
+                        dataBarra.STPDeuda = Util.DoubleToStringFormat(resultPagoContado.STPDeuda, userData.CodigoISO);
+                    }
+
+                    #endregion
+
                     return Json(new
                     {
                         success = true,
                         message = pedidoDetalleResult.MensajeRespuesta,
+                        flagCantidaPedido = pedidoDetalleResult.flagCantidadMayor,
+                        mensajeCantidad= pedidoDetalleResult.mensajeCantidadMayor,
                         tituloMensaje = pedidoDetalleResult.TituloMensaje,
                         mensajeAviso = pedidoDetalleResult.MensajeAviso,
                         errorInsertarProducto = "0",
-                        DataBarra = GetDataBarra(),
+                        DataBarra = dataBarra,
                         data = pedidoDetalleResult.PedidoWebDetalle,
                         cantidadTotalProductos = CantidadTotalProductos,
                         total = Total,
@@ -411,7 +442,8 @@ namespace Portal.Consultoras.Web.Controllers
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
                         mensajeCondicional,
                         EsReservado = esReservado,
-                        PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
+                        PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb
+                        )
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -420,6 +452,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = false,
                         message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
+                        flagCantidaPedido = 0,
+                        mensajeCantidadMayor=string.Empty,
                         tituloMensaje = pedidoDetalleResult.TituloMensaje,
                         mensajeAviso = pedidoDetalleResult.MensajeAviso,
                         errorInsertarProducto = "1",
@@ -441,13 +475,16 @@ namespace Portal.Consultoras.Web.Controllers
         private PedidoSb2Model ActualizaModeloPedidoSb2Model(BEPedidoWeb pedidoWeb)
         {
             var pedidoSb2Model = new PedidoSb2Model();
-            pedidoSb2Model.FormatoTotalGananciaRevistaStr = Util.DecimalToStringFormat(pedidoWeb.GananciaRevista, userData.CodigoISO);
-            pedidoSb2Model.FormatoTotalGananciaWebStr = Util.DecimalToStringFormat(pedidoWeb.GananciaWeb, userData.CodigoISO);
-            pedidoSb2Model.FormatoTotalGananciaOtrosStr = Util.DecimalToStringFormat(pedidoWeb.GananciaOtros, userData.CodigoISO);
+            if (pedidoWeb != null)
+            {
+                pedidoSb2Model.FormatoTotalGananciaRevistaStr = Util.DecimalToStringFormat(pedidoWeb.GananciaRevista, userData.CodigoISO);
+                pedidoSb2Model.FormatoTotalGananciaWebStr = Util.DecimalToStringFormat(pedidoWeb.GananciaWeb, userData.CodigoISO);
+                pedidoSb2Model.FormatoTotalGananciaOtrosStr = Util.DecimalToStringFormat(pedidoWeb.GananciaOtros, userData.CodigoISO);
 
-            pedidoSb2Model.FormatoTotalMontoAhorroCatalogoStr = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
-            var totalSumarized = pedidoWeb.GananciaOtros + pedidoWeb.GananciaWeb + pedidoWeb.GananciaRevista + pedidoWeb.MontoAhorroCatalogo;
-            pedidoSb2Model.FormatoTotalMontoGananciaStr = Util.DecimalToStringFormat(totalSumarized, userData.CodigoISO);
+                pedidoSb2Model.FormatoTotalMontoAhorroCatalogoStr = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
+                var totalSumarized = pedidoWeb.GananciaOtros + pedidoWeb.GananciaWeb + pedidoWeb.GananciaRevista + pedidoWeb.MontoAhorroCatalogo;
+                pedidoSb2Model.FormatoTotalMontoGananciaStr = Util.DecimalToStringFormat(totalSumarized, userData.CodigoISO);
+            }
 
             return pedidoSb2Model;
         }
@@ -563,6 +600,7 @@ namespace Portal.Consultoras.Web.Controllers
                 txtBuildCliente.Append(PedidoWebTotalClienteFormato(model.ClienteID_, pedidoWebDetalle));
 
                 ObtenerPedidoWeb();
+                var dataBarra = GetDataBarra();
 
                 return Json(new
                 {
@@ -576,7 +614,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = "",
                     tipo = "U",
                     modificoBackOrder = pedidoDetalleResult.ModificoBackOrder,
-                    DataBarra = GetDataBarra(),
+                    DataBarra = dataBarra,
                     cantidadTotalProductos = CantidadTotalProductos,
                     mensajeCondicional,
                     EsReservado = esReservado,

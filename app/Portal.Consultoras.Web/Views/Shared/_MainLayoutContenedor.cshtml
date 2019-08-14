@@ -189,10 +189,11 @@
             </footer>
         </div>
     </div>
-
+    <a title="Chat Messenger" class="d-block btn_chat_messenger" style="display:none;" href="javascript: AbrirChatBot()">
+        <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+    </a>
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpRegistroComunidad.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHiddenSoloDesktop.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHidden.cshtml")
@@ -249,6 +250,7 @@
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
         var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
         var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>

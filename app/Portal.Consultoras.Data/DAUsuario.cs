@@ -991,6 +991,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteScalar(command).ToString();
         }
 
+        public string GetActualizacionCelular(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetActualizacionCelular");
+            Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario );
+            return Context.ExecuteScalar(command).ToString();
+        }
+
         public IDataReader GetActualizacionEmailySms(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GetActualizarEmailySms");
@@ -1077,7 +1084,22 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        #region VerificaCambioClaveUnete
+        public IDataReader GetUsuarioCambioClave(string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioCambioClave");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);            
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader ContraseniaRepetida(string codigoUsuario, string contrasenia)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ContraseniaRepetida");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, contrasenia);
 
+            return Context.ExecuteReader(command);
+        }
+        #endregion
 
     }
 }

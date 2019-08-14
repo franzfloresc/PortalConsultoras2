@@ -23,7 +23,9 @@ var ConstantesModule = (function() {
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
         SR: "ShowRoom",
-        DuoPerfecto: "DuoPerfecto" //HD-3473 EINCA
+        DuoPerfecto: "DuoPerfecto",
+        CaminoBrillanteDemostradores: "CaminoBrillanteDemostradores",
+        CaminoBrillanteKits: "CaminoBrillanteKits"
     }
 
     var _keysLocalStorage = {
@@ -32,10 +34,15 @@ var ConstantesModule = (function() {
         Lanzamiento: "LANLista",
         RevistaDigital: "RDLista",
         Ganadoras: "MGLista",
-        //INI HD-3908
         PackNuevas: "PNLista",
-        DuoPerfecto: "DPLista"
-        //FIN HD-3908
+        DuoPerfecto: "DPLista",
+        CaminoBrillanteDemostradores: "CBDLista",
+        CaminoBrillanteKits: "CBKLista",
+        EstrategiaTemporal: 'EstrategiaTemporal',
+        DescripcionProductoCatalogo: function (codigoCampania, codigoCuv) {
+            var key = 'producto-catalogo-descripcion-' + codigoCampania + '-' + codigoCuv;
+            return key;
+        }
     }
 
     var _codigoVariedad = {
@@ -65,13 +72,28 @@ var ConstantesModule = (function() {
         ShowRoom: "030",
 
         RevistaDigital: "101", // No tiene referencia con BD, caso particular de OfertasParaMi 007
-        MasGanadoras: "201", // No tiene referecia con BD, caso particular de OfertasParaMi 007
+        MasGanadoras: "LMG", // No tiene referecia con BD, caso particular de OfertasParaMi 007
+
+        DuoPerfecto: "034",
+
+        CaminoBrillanteDemostradores: "035", // No tiene referecia con BD, GCP
+        CaminoBrillanteKits: "036", // No tiene referecia con BD, GCP
+        
+        Catalogo: "CAT", // No tiene referecia con BD
+        Liquidacion: "LIQ", // No tiene referecia con BD
 
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
-        NotParticipaProgramaNuevas: "0",
-        DuoPerfecto: "034" //HD-3473 EINCA
+        NotParticipaProgramaNuevas: "0"
     }
+
+    var _tipoPersonalizacion = {
+        Catalogo: "CAT",
+    };
+
+    var _tipoPersonalizacionTexto = {
+        Catalogo: "Catalogo",
+    };
 
     var _diccionarioTipoEstrategia = [
         { codigo: _codigoTipoEstrategia.OfertaParaTi, texto: _codigoTipoEstrategiaTexto.OfertaParaTi },
@@ -81,15 +103,15 @@ var ConstantesModule = (function() {
         { codigo: _codigoTipoEstrategia.OfertasParaMi, texto: _codigoTipoEstrategiaTexto.OfertasParaMi },
         { codigo: _codigoTipoEstrategia.PackAltoDesembolso, texto: _codigoTipoEstrategiaTexto.PackAltoDesembolso },
         { codigo: _codigoTipoEstrategia.OfertaDelDia, texto: _codigoTipoEstrategiaTexto.OfertaDelDia },
-        {
-            codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
-            texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada
-        },
+        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada },
         { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaNegocio },
         { codigo: _codigoTipoEstrategia.HerramientasVenta, texto: _codigoTipoEstrategiaTexto.HerramientasVenta },
         { codigo: _codigoTipoEstrategia.ShowRoom, texto: _codigoTipoEstrategiaTexto.ShowRoom },
         { codigo: _codigoTipoEstrategia.RevistaDigital, texto: _codigoTipoEstrategiaTexto.RevistaDigital },
         { codigo: _codigoTipoEstrategia.MasGanadoras, texto: _codigoTipoEstrategiaTexto.Ganadoras },
+        { codigo: _tipoPersonalizacion.Catalogo, texto: _tipoPersonalizacionTexto.Catalogo },
+        { codigo: _codigoTipoEstrategia.CaminoBrillanteDemostradores, texto: _codigoTipoEstrategiaTexto.CaminoBrillanteDemostradores },
+        { codigo: _codigoTipoEstrategia.CaminoBrillanteKits, texto: _codigoTipoEstrategiaTexto.CaminoBrillanteKits }
     ];
 
     var _configuracionOferta = {
@@ -110,13 +132,13 @@ var ConstantesModule = (function() {
         HV: "HV",
         GND: "GND",
         LAN: "LAN",
-        MG: "MG",
+        MG: "LMG",
         SR: "SR",
         ATP: "ATP",
         DP: "DP",
-        //INI HD-3908
-        PN: "PN"
-        //FIN HD-3908
+        PN: "PN",
+        CBD: "CBD",
+        CBK: "CBK"
     };
 
     var _urlObtenerEstrategia = {
@@ -125,13 +147,26 @@ var ConstantesModule = (function() {
         Lanzamiento: "/Estrategia/LANObtenerProductos",
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
         HerrameintasVenta: "/Estrategia/HVObtenerProductos",
-        MasGanadoras: "/Estrategia/MGObtenerProductos"
+        MasGanadoras: "/Estrategia/MGObtenerProductos",
+        CaminoBrillanteDemostradores: "/Estrategia/CBDObtenerProductos",
+        CaminoBrillanteKits: "/Estrategia/CBKObtenerProductos"
     };
 
     // en AnalyticsPortal.js tambiar actualizar los valores
-
-
+    
     var _origenPedidoWeb = {
+
+        CaminoBrillanteDesktopPedido : "1181901",
+        CaminoBrillanteMobilePedido : "2181901",
+        CaminoBrillanteAppConsultorasPedido: "4181901",
+        CaminoBrillanteDesktopPedido_Ficha : "1181902",
+        CaminoBrillanteMobilePedido_Ficha : "2181902",
+        CaminoBrillanteDesktopPedido_Carrusel: "1201901",
+        CaminoBrillanteMobilePedido_Carrusel: "2201901",
+        CaminoBrillanteAppMobilePedido_Home: "4181902",
+        CaminoBrillanteAppMobilePedido_Ficha: "4201901",
+        CaminoBrillanteAppMobilePedido_Carrusel: "4201902",
+
         DesktopHomeOfertaDeliaBannerSuperior: "1010306",
         DesktopPedidoOfertaDelDiaBannerSuperior: "1020306",
         DesktopOtrasOfertaDelDiaBannerSuperior: "1090306",
@@ -164,20 +199,12 @@ var ConstantesModule = (function() {
         Activo: 1,
         Inactivo: 2
     };
-
-    var _urlDetalleEstrategia = {
-        obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
-        obtenerComponenteDetalle: '/DetalleEstrategia/ObtenerComponenteDetalle',
-        obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
-        //obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
-    }
-
+    
     var _urlPedido = {
         cargarDetallePedido: '/Pedido/CargarDetallePedido',
         ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
         updatePostulanteMensaje: '/Pedido/UpdatePostulanteMensaje'
-    }
+    };
 
     var _getTipoPersonalizacionByTipoEstrategia = function(codigoTipoEstrategia) {
 
@@ -195,19 +222,26 @@ var ConstantesModule = (function() {
     var _mensajeAgregarPedido = {
         normal: '¡Listo! Agregaste con éxito a tu pedido.',
         reservado: '¡Listo! Agregaste con éxito a tu pedido reservado.'
-    }
+    };
 
     var _mensajeModificarPedido = {
         normal: '¡Listo! Tu pedido ha sido modificado',
         reservado: '¡Listo! Tu pedido reservado ha sido modificado'
-    }
+    };
+
     var _tiempo = {
         ToolTip: 2500
-    }
+    };
 
     var _tipoSeccion = {
         Video: "01",
         Texto: "02"
+    };
+
+    var _tipoVentaIncremental = {
+        CrossSelling: "CrossSell",
+        Sugerido: "Suggested",
+        UpSelling: "UpSelling"
     }
 
     return {
@@ -221,13 +255,15 @@ var ConstantesModule = (function() {
         TipoAccionNavegar: _tipoAccionNavegar,
         EditarItemPedido: _editarItemPedido,
         UrlObtenerEstrategia: _urlObtenerEstrategia,
-        UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
         MensajeAgregarPedido: _mensajeAgregarPedido,
         MensajeModificarPedido: _mensajeModificarPedido,
         Tiempo: _tiempo,
-        TipoSeccion: _tipoSeccion
+        TipoSeccion: _tipoSeccion,
+        TipoVentaIncremental: _tipoVentaIncremental,
+        TipoPersonalizacion: _tipoPersonalizacion,
+        TipoPersonalizacionTexto: _tipoPersonalizacionTexto
     }
 })();

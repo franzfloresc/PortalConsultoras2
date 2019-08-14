@@ -115,7 +115,7 @@ var ComponentesModule = (function () {
             $("body").addClass(_elements.body.modalActivadoClass);
             
             $("#DivPopupFichaResumida").css("overflow", "hidden");
-            $(_elements.divElegirOpciones.modalFondo.id)
+            $('#DivPopupFichaResumida ' + _elements.divElegirOpciones.modalFondo.id)
                 .css("opacity", _elements.divElegirOpciones.modalFondo.opacity)
                 .show();
             $(_elements.divElegirOpciones.id)
@@ -154,24 +154,9 @@ var ComponentesModule = (function () {
 
                 _applySelectedAnalytics(componente, _const.tipoShowMedioPanel.Cambio);
                 return true;
-
-                //if (componente.FactorCuadre === 1) {
-                //    AnalyticsPortalModule.MarcarCambiarOpcion(_estrategia);
-                //} else {
-                //    AnalyticsPortalModule.MarcarCambiarOpcionVariasOpciones(_estrategia);
-                //}
-
-                //return false;
-
             }
         }
         _applySelectedAnalytics(componente, _const.tipoShowMedioPanel.Elige);
-
-        //if (componente.FactorCuadre === 1) {
-        //    AnalyticsPortalModule.MarcarPopupEligeUnaOpcion(_estrategia);
-        //} else {
-        //    AnalyticsPortalModule.MarcarPopupEligeXOpciones(_estrategia);
-        //}
     };
     
     var _applySelectedAnalytics = function (componente, tipo) {
@@ -239,7 +224,6 @@ var ComponentesModule = (function () {
 
                 var callFromSeleccionarPaletaOpcion = true;
                 ResumenOpcionesModule.AplicarOpciones(callFromSeleccionarPaletaOpcion);
-                //AnalyticsPortalModule.MarcarImagenProducto(_estrategia, componente.resumenAplicados);
 
                 return false;
             }

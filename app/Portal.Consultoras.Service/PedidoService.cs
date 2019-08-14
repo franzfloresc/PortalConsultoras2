@@ -1636,9 +1636,9 @@ namespace Portal.Consultoras.Service
 
         #region Producto Sugerido
 
-        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
+        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, BEProductoSugerido entidad)
         {
-            return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
+            return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, entidad);
         }
 
         public BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv)
@@ -1764,6 +1764,8 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
         }
+
+    
 
         public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID)
         {
@@ -2425,6 +2427,7 @@ namespace Portal.Consultoras.Service
             }
         }
 
+       
         public BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
         {
             return blEstrategia.GetEstrategiaPremiosTippingPoint(paisID, codigoPrograma, anioCampana, codigoNivel);
@@ -2467,6 +2470,15 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetFiltrosCaminoBrillante(paisID, isApp);
         }
 
+        public BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad)
+        {
+            return _caminoBrillanteBusinessLogic.GetCarruselCaminoBrillante(entidad);
+        }
+
+        public BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV) {
+            return _caminoBrillanteBusinessLogic.GetOfertaCaminoBrillante(entidad, CUV);
+        }
+
         #endregion
 
         public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)
@@ -2479,9 +2491,97 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetCuvSuscripcionSE(bEPedidoWeb);
         }
 
-        public bool InsertKitSE(BEUsuario usuario)
+ 			public bool InsertKitSE(BEUsuario usuario)
         {
             return _pedidoBusinessLogic.InsertKitSE(usuario);
         }
+
+        //FIN HD-4200
+
+
+        #region HD-4327
+
+        public BEDescargaArchivoSinMarcar DescargaPedidosSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
+        {
+            try
+            {
+                return BLPedidoWeb.DescargaPedidosSinMarcar(paisID, campaniaid, nroLote, codigoUsuario);
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw new FaultException("Error desconocido.");
+            }
+        }
+
+        public string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote)
+        {
+            try
+            {
+                return BLPedidoWeb.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, nroLote);
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new FaultException("Error desconocido.");
+            }
+        }
+
+        public BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int paisID, int campaniaID)
+        {
+            return BLPedidoWeb.ObtenerUltimaDescargaPedidoSinMarcar(paisID, campaniaID);
+        }
+
+        public BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID)
+        {
+            return BLPedidoWeb.ObtenerUltimaDescargaSinMarcar(paisID);
+        }
+
+        public int ObtenerultimaLlamadaPedidodescargavalidador(int paisID)
+        {
+            return BLPedidoWeb.ObtenerultimaLlamadaPedidodescargavalidador(paisID);
+        }
+        #endregion
+
+        #region HD-4288 - Switch Consultora 100%
+        public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)
+        {
+            return BLPedidoWeb.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID, paisID);
+        }
+
+        public int DeshacerRecepcionPedido(int pedidoID, int paisID)
+        {
+            return BLPedidoWeb.DeshacerRecepcionPedido(pedidoID, paisID);
+        }
+
+        public BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID)
+        {
+            return BLPedidoWeb.VerificarConsultoraDigital(codigoConsultora, pedidoID, paisID);
+        }
+        #endregion
+        /*HD-4513*/
+        #region Consultora Pago Contado
+        public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb)
+        {
+            return _pedidoWebBusinessLogic.UpdPedidoTotalPagoContado(bEPedidoWeb);
+        }
+
+        public BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb)
+        {
+            return _pedidoWebBusinessLogic.GetPedidoTotalPagoContado(bEPedidoWeb);
+        }
+
+        public string GetRutaPedidoDescargaSinMarcar(int campaniaid, int paisID, string tipo, string path)
+        {
+            return BLPedidoWeb.GetRutaPedidoDescargaSinMarcar(campaniaid, paisID, tipo, path);
+        }
+        #endregion
     }
 }

@@ -287,18 +287,10 @@ function ProcesarAceptarPedido(pedido) {
                     }
                     else if (response.code == 2) {
 
-                        //INI HD-3693
-                        //$('#MensajePedidoReservado').text(response.message);
-                        //$('#AlertaPedidoReservado').show();
-                        var msjBloq = validarpopupBloqueada(response.message);
-                        if (msjBloq != "") {
-                            alert_msg_bloqueadas(msjBloq);
-                        }
-                        else {
+              
+                        $('#MensajePedidoReservado').text(response.message);
+                        $('#AlertaPedidoReservado').show();
 
-                            $('#MensajePedidoReservado').text(response.message);
-                            $('#AlertaPedidoReservado').show();
-                        }
                     }
                 }
             }
@@ -464,7 +456,8 @@ function AceptarPedidoProducto(id, option) {
         $(texto).removeClass('text-white');
         $(texto).addClass('text-black');
         $(aceptado).removeClass('active');
-        $(aceptado).text('Aceptado');
+        $(aceptado).addClass('btn--estadoAceptado');
+        $(aceptado).text('Está aceptado');
 
         if (option === "P") //Producto
         {
@@ -479,8 +472,8 @@ function AceptarPedidoProducto(id, option) {
         $(texto).removeClass('text-black');
         $(texto).addClass('text-white');
         $(aceptado).addClass('active');
+        $(aceptado).removeClass('btn--estadoAceptado');
         $(aceptado).text('Aceptar');
-        //document.location.href = urlPedido;
         
     }
 
@@ -504,10 +497,8 @@ function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo)
             CloseLoading();
 
             if (response.success) {
-
-                //vPendientes = response.Pendientes;
+                
                 SeRechazoConExito();
-                // document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
             }
             else {
                 alert(response.message);
@@ -564,10 +555,8 @@ function ContinuarPedido(option) {
     $('.pedidos').each(function () {
 
         if ($(this).find('a[id*="aceptar_"]').hasClass('active') == false) {
-            //$(aceptado).addClass('active');
             var pedidoId = $(this).find(".pedidoId").val();
             var cuv = $(this).find(".cuv").val();
-            //var cantidad = $(this).find(".cantidad").val();
             var cantNew = $(this).find('[data-cantNew]').val();
 
             var detalle = {
@@ -590,7 +579,6 @@ function ContinuarPedido(option) {
             url: "/ConsultoraOnline/ContinuarPedidos",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            //data: JSON.stringify(lstDetalle),
             data: JSON.stringify(obj),
             success: function (response) {
 	            //marcacion analytics de Continuar
@@ -604,7 +592,10 @@ function ContinuarPedido(option) {
 	            }
                 CloseLoading();
                 if (response.success) {
-                    document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra?option=' + option;
+                    //HD-4734
+                    if (response.result.ListaCatalogo.length == 0 || response.result.ListaGana.length == 0) AceptarPedidoPendienteDirecto(response.result.ListaGana,option);
+                    else
+                        document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra?option=' + option;
                 }
                 else {
                     alert(response.message);
@@ -631,6 +622,125 @@ function ContinuarPedido(option) {
         $('#mensajepedido').show();
         setTimeout(function () { $('#mensajepedido').hide(); }, 2000);
     }
+}
+
+function AceptarPedidoPendienteDirecto(listaGana, option) {
+
+    var accionTipo = "";
+    if (listaGana.length != 0) accionTipo = "ingrgana";
+    else accionTipo = "ingrped";
+
+    var pedido = {
+        Accion: 2,
+        Dispositivo: glbDispositivo,
+        AccionTipo: accionTipo,
+        ListaGana: accionTipo== 'ingrgana' ? listaGana : [],
+        OrigenTipoVista: gTipoVista
+    }
+
+    ShowLoading({});
+
+    $.ajax({
+        type: 'POST',
+        url: '/ConsultoraOnline/AceptarPedidoPendiente',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(pedido),
+        async: true,
+        success: function (response) {
+
+            /** Analytics **/
+            var textoAccionTipo = accionTipo === "ingrgana" ? "Acepto Todo el Pedido - Por Gana +" : "Acepto Todo el Pedido - Por catálogo";
+            if (option === "P") //Producto
+                MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 2", textoAccionTipo);
+            if (option === "C") //Cliente
+                MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 2", textoAccionTipo);
+            /** Fin Analytics **/
+
+            CloseLoading();
+            if (checkTimeout(response)) {
+                if (response.success) {
+
+                    var mensajeConfirmacion = (accionTipo == "ingrgana") ? "Has atendido el pedido por Gana+." : "Has atendido el pedido por Catálogo.";
+                    $("#mensajeConfirmacion").html(mensajeConfirmacion);
+
+                    $('#popuplink').click();
+                    if (!response.continuarExpPendientes) {
+                        $("#btnIrPEdidoAprobar").hide();
+                        $("#btnIrPedido").removeClass("action-btn_refuse");
+                        $("#btnIrPedido").addClass("action-btn_continue");
+                        $("#btnIrPedido").addClass("active");
+                    } else {
+                        $("#btnIrPEdidoAprobar").show();
+                        $("#btnIrPedido").removeClass("action-btn_continue");
+                        $("#btnIrPedido").removeClass("active");
+                        $("#btnIrPedido").addClass("action-btn_refuse");
+                    }
+
+                    /**  Si fue exitos debe enviar los siguiente eventos Analytics **/
+
+                    var lstproduct = [];
+                    var listProductos = [];
+                    var pedidoSessionJson = JSON.parse(response.PedidosSesion);
+
+                    if (response.ListaGana !== null) {
+                        listProductos = response.ListaGana || [];
+                    } else {
+                        listProductos = pedidoSessionJson[0].DetallePedido || [];
+                    }
+                    if (listProductos.length > 0) {
+                        listProductos.forEach(function (product) {
+                            var itemProduct = {};
+                            if (accionTipo == "ingrgana") {  //por Gana+
+                                itemProduct = {
+                                    "id": product.CUV2,
+                                    "name": product.DescripcionCUV2,
+                                    "price": product.PrecioString,
+                                    "brand": product.DescripcionMarca,
+                                    "category": "(not available)",
+                                    "variant": "Estándar",
+                                    "quantity": product.Cantidad
+                                };
+                            } else {        //Por Catálogo
+                                itemProduct = {
+                                    "id": product.CUV,
+                                    "name": product.Producto,
+                                    "price": product.PrecioTotal.toFixed(2),
+                                    "brand": product.Marca,
+                                    "category": "(not available)",
+                                    "variant": "Estándar",
+                                    "quantity": product.Cantidad
+                                };
+                            }
+                            lstproduct.push(itemProduct);
+
+                        });
+
+                        AnalyticsMarcacionPopupConfirmacion(accionTipo === "ingrgana" ? "Por Gana+" : "Por catálogo", lstproduct);
+                    }
+                    $("#aprobarPedido").show();
+                    return false;
+                }
+                else {
+                    if (response.code == 1) {
+                        AbrirMensaje(response.message);
+                    }
+                    else if (response.code == 2) {
+                        AbrirMensaje(response.message);
+                    }
+                }
+            }
+        },
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+                AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+            }
+        }
+    });
+
+
+
 }
 
 function RechazarTodo(option) {
@@ -670,7 +780,13 @@ function MarcaAnalyticsClienteProducto(action, label) {
 		}
 	
 }
+function AnalyticsMarcacionPopupConfirmacion(strTipo, prod) {
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickTabPedidosPendientes("Pop up Pedido Aprobado", strTipo);
 
+        AnalyticsPortalModule.ClickVistaAddToCardPedidoPendiente(strTipo, prod);
+    }
+}
 function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
     var obj = {
         pedidoId: pedidoId,
@@ -789,29 +905,9 @@ function SeRechazoConExito() {
 
 function CerrarModalMotivosRechazo() {
     if ($('#MotivosRechazo-Paso2').is(':visible')) {
-        //$('#hdPedidoId').val('');
-        //$('#hdMotivoRechazoId').val('');
-        //$('#txtOtroMotivo').val('');
-        //$('#MotivosRechazo-Paso1').css('display', '');
-        //$('#MotivosRechazo-Paso2').css('display', 'none');
-        //$('[name="motivoRechazo"]').prop('checked', false);
-        //$('#OtroMotivo').prop('checked', false);
-        //$('#OtroMotivo').trigger("change");
-        //$('#MotivosRechazo').hide();
 
-        //$('#rechazarTodop').addClass('hide');
-        //$("#Paso1-Productos").hide();
-        //$('body').removeClass('visible');
-        //$(".modal-fondo").hide();
-
-        //document.location.href = '/ConsultoraOnline/Pendientes';
         document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
-
-        //var Pendientes = JSON.parse(vPendientes) || [];
-        //RenderizarPendientes(Pendientes);
-        //cambiaTabs();
-
-
+        
     } else {
         $('#MotivosRechazo').fadeOut(100);
     }

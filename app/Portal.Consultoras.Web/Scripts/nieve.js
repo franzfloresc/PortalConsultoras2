@@ -23,12 +23,15 @@ var objects = new Array(),
     winOffset = 0,
     winHeightSR, winWidthSR, togvis, moz = (document.getElementById && !document.all) ? 1 : 0;
 
+var i;
+
 function mostrarLluvia() {
     fallingObjects = new Array();
     objects = new Array();
 
     closeImagenRain = 0;
     if (listaIconoLluvia != null) {
+        var par = 0;
         $.each(listaIconoLluvia, function (index, value) {
             newObject(value, heightIcon, widthIcon);
         });
@@ -46,7 +49,7 @@ function mostrarLluvia() {
     }
 
     winSize();
-    for (var i = 0; i < numObjects; i++) {
+    for (i = 0; i < numObjects; i++) {
         fallObject(i, parseInt(Math.random() * fallingObjects.length), 1);
     }
 
@@ -92,7 +95,7 @@ function fallObject(num, vari, nu) {
 }
 
 function fall() {
-    for (var i = 0; i < numObjects; i++) {
+    for (i = 0; i < numObjects; i++) {
         var fallingObject = document.getElementById('fO' + i);
         if (!fallingObject) continue;
 
@@ -104,11 +107,10 @@ function fall() {
         objects[i][4] += objects[i][3];
         var k = (100 - (objects[i][1] * 100 / winHeightSR)) / 100;
         k = Math.round(k * 100) / 100;
-        with (fallingObject.style) {
-            top = objects[i][1] + winOffset + 'px';
-            left = objects[i][0] + (objects[i][2] * Math.cos(objects[i][4])) + 'px';
-            opacity = k;
-        }
+
+        fallingObject.style.top = objects[i][1] + winOffset + 'px';
+        fallingObject.style.left = objects[i][0] + (objects[i][2] * Math.cos(objects[i][4])) + 'px';
+        fallingObject.style.opacity = k;
     }
 
     if (closeImagenRain == 0) {

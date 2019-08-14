@@ -21,6 +21,9 @@ namespace Portal.Consultoras.Common
             public const string MisClientes = "MisClientes";
             public const string FichaEnriquecida = "FichaEnriquecida";
             public const string FichaResponsive = "FichaResponsive";
+            public const string PalancaLasMasGanadoras = "LasMasGanadoras";
+            public const string Promociones = "Promociones";
+            public const string PromocionesBuscador = "PromocionesBuscador";
         }
 
         public static class MotivoFlexipago
@@ -553,6 +556,12 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 151;
         }
+        
+        public static class CierreSession
+        {
+            public const int TablaLogicaId = 153;
+            public const short CierreSessionValidado = 15301;
+        }
 
         public static class PilotoCatalogoDigital
         {
@@ -575,10 +584,11 @@ namespace Portal.Consultoras.Common
             public const string Cod01 = "01";
         }
 
-        public static class NroSolicitudePedido
+        public static class ConfigCdr
         {
             public const int TablaLogicaId = 161;
-            public const string Cod01 = "01";
+            public const string NroSolicitudPorPedido = "01";
+            public const string TruequeUnoMuchos = "02";
         }
 
         public static class ResizeImagenesAppGana
@@ -611,6 +621,13 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteEnterateMas = 173;
             public const short CaminoBrillanteFiltro = 174;
             public const short CaminoBrillanteOrden = 175;
+            public const short CaminoBrillanteConfigurar = 176;
+            //public const short CaminoBrillanteGranBrillante = 178;
+        }
+
+        public static class MsjPopupBloqueadas
+        {
+            public const int TablaLogicaId = 230;
         }
 
         public static class AdministradorHistoria
@@ -622,6 +639,8 @@ namespace Portal.Consultoras.Common
             public const short TablaLogicaId = 15;
             public const string FuncionalidadUpSelling = "FuncionalidadUpSelling";
             public const string CantidadProductosUpSelling = "CantidadProductosUpSelling";
+            public const string FuncionalidadCrossSelling = "FuncionalidadCrossSelling";
+            public const string FuncionalidadSugerido = "FuncionalidadSugerido";
         }
 
         public static class TuVozOnline
@@ -629,7 +648,25 @@ namespace Portal.Consultoras.Common
             public const short Id = 172;
             public const string PanelId = "PANEL_ID";
             public const string PanelKey = "PANEL_KEY";
+            public const string PanelUrl = "PANEL_URL";
         }
 
+        public static class PagoContado
+        {
+            public const short Id = 232;
+        }
+
+        //HD-4357
+        public static class EncuestaSatisfaccion
+        {
+            public const short TablaLogicaId = 235;
+            public const short MisPedidosTop = 23501;
+        }
+
+        public static class Cdr
+        {
+            public const short TablaLogicaId = 110;
+            public const short SetsOrPacks = 11001;
+        }
     }
 }
