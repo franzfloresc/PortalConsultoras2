@@ -38,12 +38,6 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     if (reader.Read()) usuario = new BEUsuario(reader, true);
                 }
                 usuario = usuario ?? new BEUsuario();
-                BEConfiguracionCampania configuracion = null;
-                using (IDataReader reader = new DAPedidoWeb(paisId).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
-                {
-                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
-                }
-                usuario.IndicadorGPRSB = configuracion == null ? 0 : configuracion.IndicadorGPRSB;
 
                 usuario.PaisID = paisId;
                 usuario.ConsultoraID = consultoraID;
@@ -64,7 +58,13 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             if (usuario.AutorizaPedido == "0") return _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, ConsTablaLogica.MsjPopupBloqueadas.TablaLogicaId).FirstOrDefault(a => a.Codigo == "01").Valor;
 
-            if (usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
+            BEConfiguracionCampania configuracion = null;
+            using (IDataReader reader = new DAPedidoWeb(usuario.PaisID).GetEstadoPedido(usuario.CampaniaID, usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+            {
+                configuracion = MapUtil.MapToObject<BEConfiguracionCampania>(reader, false, true);
+            }
+            if (configuracion.IndicadorGPRSB == 1) return string.Format(Constantes.MensajePedidoBloqueado.GPR, usuario.CampaniaID.Substring(4, 2));
+            if (configuracion.IndicadorEnviado) return Constantes.MensajePedidoBloqueado.Facturado;
 
             var codigoUsuario = usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociada : usuario.CodigoUsuario;
             bool validacionAbierta = tipo == "PV";

@@ -4172,5 +4172,13 @@ namespace Portal.Consultoras.Common
             public const int Realizada = 1;
             public const int Pendiente = 0;
         }
+                
+        public static class MensajePedidoBloqueado
+        {
+            public const string Horario = "En este momento nos encontramos facturando tu pedido de C-{0}. Todos los códigos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!";
+            public const string Reservado = "Ya tienes un pedido reservado para esta campaña.";
+            public const string GPR = "En este momento nos encontramos facturando tu pedido de C-{0}, inténtalo más tarde.";
+            public const string Facturado = "Estamos facturando tu pedido.";
+        }
     }
 }
