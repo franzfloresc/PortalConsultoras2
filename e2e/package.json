@@ -1,0 +1,23 @@
+{
+  "name": "Portal-SomosBelcorp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "codeceptjs run --grep @Login --reporter mochawesome",
+    "testallure": "codeceptjs run --grep @Login --plugins allure",
+    "allure": "allure serve report",
+    "format": "prettier --write src/**/*.js"
+  },
+  "keywords": [],
+  "author": "H0h4mmed Estrada",
+  "license": "ISC",
+  "dependecies": {
+    "codeceptjs": "^2.1.0",
+    "mochawesome": "^3.1.1",
+    "puppeteer": "^1.11.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
+}
