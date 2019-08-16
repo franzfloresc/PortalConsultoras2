@@ -77,7 +77,6 @@ function Inicializar() {
                 return false;
             CodigoIngresado = $("#1" + a + "Digito").val() + $("#2" + a + "Digito").val() + $("#3" + a + "Digito").val() + $("#4" + a + "Digito").val() + $("#5" + a + "Digito").val() + $("#6" + a + "Digito").val();
             $('#btnConfirmarCambioPassword').removeClass('btn__sb--disabled');
-            //VerificarCodigo(CodigosmsIngresado);
         });
 
 
@@ -250,8 +249,7 @@ function VerificarCodigo(CodIngresado) {
                 $("#Paso2ActualizacionPassword").show();
                 return false;
             }
-            //$(".seccion").hide();
-            //$("#Paso3").show();
+
             CambiarContrasenia();
         },
         error: function (data, error) {
@@ -292,11 +290,7 @@ function CambiarContrasenia() {
                     } else if (data.message == "2") {
                         $("#Contrasenia").val('');
                         $("#ConfirmaContrasenia").val('');
-
-                        //$(".campos_cambiarContrasenia").fadeOut(200);
-                        //$(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
-                        //$(".campos_actualizarDatos").delay(200);
-                        //$(".campos_actualizarDatos").fadeIn(200);
+                        
                         $(".seccion").hide();
                         $("#Paso3").show();
                         AbrirAlert('Se cambió satisfactoriamente la contraseña');

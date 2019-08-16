@@ -155,9 +155,7 @@
                 irVista(config.VistaActual);
 
             }
-            //FIN HD-3897
-            
-            /*HD-4520*/
+
             $(".infoActual").css("display", "none");
             if (config.CorreoActual.length > 0) {
                 $(".infoActual").css("display", "block");

@@ -26,9 +26,7 @@ namespace Portal.Consultoras.Web.Models
         public bool CuvEsAceptado { get; set; }
         public int Cantidad { get; set; }
         public decimal PrecioUnidad { get; set; }
-        //INI HD-4289
         public string ConfiguracionZona { get; set; }
-        //FIN HD-4289
         public bool ImagenAppCatalogo { get; set; }
     }
 }

@@ -68,7 +68,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.Accion == "Insertar")
                 {
-                    /*HD-4144*/
                     for (int i = 0; i < listImagenActualizar.Count; i++)
                     {
                         if (listImagenActualizar[i] != null)
@@ -150,7 +149,6 @@ namespace Portal.Consultoras.Web.Controllers
                 obeBanner.TipoAccion = model.TipoAccion;
                 obeBanner.CuvPedido = model.CUV;
                 obeBanner.CantCuvPedido = model.cantidadPedido;
-                /*HD-4144*/
                 obeBanner.URLMobile = model.URLMobile=="0" ? null : model.URLMobile;
                
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
@@ -826,8 +824,8 @@ namespace Portal.Consultoras.Web.Controllers
                 obe.CuvPedido ?? string.Empty,
                 obe.CantCuvPedido.ToString(),
                 obe.ArchivoMobile.Length > 0 ? obe.ArchivoMobile.Substring(obe.Archivo.LastIndexOf("/") + 1):string.Empty,
-                obe.URLMobile?? string.Empty,/*HD-4144*/
-                obe.ArchivoMobile?? string.Empty,/*HD-4144*/
+                obe.URLMobile?? string.Empty,
+                obe.ArchivoMobile?? string.Empty,
             };
 
             foreach (BEPais obePais in lstPais)

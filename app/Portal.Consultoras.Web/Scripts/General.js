@@ -942,9 +942,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
         var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0]);
         var _newTopDialog = _topWithoutPXAfterCreateDialog + 200;
         var _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px';
-
-        //CerrarLoad();
-
+        
         $("body").css("overflow", "hidden");
 
         setTimeout(function () {
@@ -1233,8 +1231,7 @@ function ActualizarGanancia(data) {
     $("[data-cantidadproducto]").html(data.CantidadProductos);
     $("[data-montoahorrocatalogo]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroCatalogoStr);
     $("[data-montoahorrorevista]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroRevistaStr);
-
-    /*HD-4513*/
+    
     $("[data-stpdescuento]").html(variablesPortal.SimboloMoneda + " " +(data.STPDescuento || "00.0"));
     $("[data-stpflete]").html(variablesPortal.SimboloMoneda + " " + (data.STPFlete || "00.0"));
     $("[data-stpdeuda]").html(variablesPortal.SimboloMoneda + " " + (data.STPDeuda || "00.0"));

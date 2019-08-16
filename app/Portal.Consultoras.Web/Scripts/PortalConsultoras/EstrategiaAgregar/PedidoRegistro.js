@@ -748,9 +748,6 @@ var PedidoRegistroModule = function () {
                     }
 
                     if (_mensajeRespuestaError(data)) {
-                        //if (!IsNullOrEmpty(data.message)) {
-                        //    AbrirMensaje(data.message);
-                        //} *** HD-4450
                         return false;
                     }
 
@@ -1219,8 +1216,7 @@ var PedidoRegistroModule = function () {
 
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
-
-                /*HD-4635*/
+                
                 if (data.flagCantidaPedido == 1)
                     messageInfo(data.mensajeCantidad);
 
@@ -1420,7 +1416,7 @@ var PedidoRegistroModule = function () {
                     } else {
                         mensaje = _mensajeAgregarPedido.normal;
                     }
-                    /*HD-4635 20193107*/
+
                     if (response.flagCantidaPedido == 0)
                         AbrirMensaje25seg(mensaje);
                     else

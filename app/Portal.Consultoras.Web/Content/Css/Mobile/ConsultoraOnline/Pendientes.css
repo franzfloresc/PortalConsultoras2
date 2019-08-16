@@ -205,6 +205,9 @@ button {
     padding-top: 8px;
     border-bottom: 1px solid #d1d1d4;
 }
+    .pending-top--title{
+        min-height:66px;
+    }
 .pending-subtitle {
   /* border-top: 1px solid #d1d1d4; */
   border-bottom: 1px solid #d1d1d4;
@@ -606,3 +609,29 @@ button {
 .btn_chat_messenger {
     display: none !important;
 }
+
+.btn--estadoAceptado {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #d8d8d8;
+    color: #898989 !important;
+    border: 1px solid #898989;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+    .btn--estadoAceptado:before {
+        display: block;
+        width: 17px;
+        height: 17px;
+        margin-right: 5px;
+        content: "";
+        background-image: url('/Content/Images/icono_check_gris.svg');
+        background-repeat: no-repeat;
+        background-size: 17px;
+        background-position: left center;
+    }

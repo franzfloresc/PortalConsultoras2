@@ -413,10 +413,7 @@ var AnalyticsPortalModule = (function () {
         }
         else {
             pagina = _getTextoPaginaSegunOrigen(origenEstructura);
-
-            //if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel) {
-            //    seccion = _getTextoSeccionSegunOrigen(origenEstructura);
-            //}
+            
         }
 
         if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaUpselling
@@ -692,44 +689,6 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    //var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
-    //    try {
-
-    //        var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
-
-    //        var textoPagina = _getTextoPaginaSegunOrigen(origenEstructura);
-
-    //        if (textoPagina === "Landing Buscador") {
-    //            var model = {
-    //                'DescripcionCompleta': estrategia.DescripcionCompleta,
-    //                'CUV': estrategia.CUV2,
-    //                'Precio': estrategia.Precio2,
-    //                'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
-    //                'MarcaId': estrategia.MarcaID,
-    //                'Cantidad': estrategia.Cantidad,
-    //                'Palanca': estrategia.Palanca
-    //            };
-    //            var valorBuscar = localStorage.getItem('valorBuscador');
-    //            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
-    //            return;
-    //        }
-
-    //        var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
-
-    //        var marco = false;
-    //        var marcarTipoTono = origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle;
-    //        if (marcarTipoTono) {
-    //            marco = marcarAddToCartListaTipoTono(estrategia, parametroList);
-    //        }
-    //        else {
-    //            marco = marcarAddToCart(estrategia, parametroList);
-    //        }
-
-    //    } catch (e) {
-
-    //    }
-    //}
-
     var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
         try {
 
@@ -765,7 +724,6 @@ var AnalyticsPortalModule = (function () {
             }
             else {
                 marco = marcarAddToCart(estrategia, parametroList);
-                //marco = marcaAnadirCarrito(codigoOrigenPedido, estrategia);
             }
 
             return marco;
@@ -1063,7 +1021,7 @@ var AnalyticsPortalModule = (function () {
                     }
                 },
                 'eventCallback': function () {
-                    //console.log('msg');
+
                 }
             });
         } catch (e) {
@@ -1418,8 +1376,7 @@ var AnalyticsPortalModule = (function () {
             "action": modelo.action,
             "label": modelo.label
         };
-
-        // console.log(_evento.virtualEvent, objMarcar);
+        
         dataLayer.push(objMarcar);
 
         return true;
@@ -1544,19 +1501,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     };
-
-    //var _getPalancaBySeccion = function (codigoSeccion) {
-    //    try {
-
-    //        var seccion = _constantes.seccionesPalanca.find(function (element) {
-    //            return element.CodigoSeccion == codigoSeccion;
-    //        });
-    //        return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //};
-
+    
     var getPalancaByOrigenPedido = function (codigoOrigenPedido) {
         try {
             codigoOrigenPedido = codigoOrigenPedido || "";
@@ -1658,75 +1603,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-
-    //var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
-    //    try {
-    //        var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
-
-    //        var pagina = _constantes.paginas.find(function (element) {
-    //            return element.CodigoPagina == codigoPagina;
-    //        });
-
-    //        if (pagina == undefined) {
-    //            return false;
-    //        }
-
-    //        //Marcar analytics cuando es Ganadoras en ficha y 
-    //        var estoyEnLaFicha = typeof fichaModule !== "undefined";
-
-    //        var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
-    //        var seccion = _constantes.secciones.find(function (element) {
-    //            return element.CodigoSeccion == codigoSeccion;
-    //        });
-
-    //        if (seccion == undefined) {
-    //            return false;
-    //        }
-
-    //        var model = {
-    //            'DescripcionCompleta': estrategia.DescripcionCompleta,
-    //            'CUV': estrategia.CUV2,
-    //            'Precio': estrategia.Precio2,
-    //            'DescripcionMarca': estrategia.CUV2,
-    //            'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
-    //            'MarcaId': estrategia.MarcaID,
-    //            'Cantidad': estrategia.Cantidad,
-    //            'Palanca': estrategia.Palanca
-    //        };
-
-    //        var _pagina = pagina.Pagina;
-    //        var valorBuscar = localStorage.getItem('valorBuscador');
-
-    //        if (_pagina === "Landing Buscador") {
-    //            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
-    //            return;
-    //        }
-
-    //        if (pagina.Pagina.includes("Landing"))
-    //            _pagina = "Landing";
-
-    //        switch (_pagina) {
-    //            case "Buscador":
-    //            case "Landing Buscador":
-    //                AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
-    //                break;
-    //            case "Home":
-    //                seccion.Seccion == "Banner Superior"
-    //                    ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia)
-    //                    : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia);
-    //                break;
-    //            // Inicio Analytics Oferta Miguel
-    //            case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-    //            case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-    //            case "Pedido": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-    //            // Fin Analytics Oferta Miguel
-    //        }
-
-    //    } catch (e) {
-
-    //    }
-    //}
-
+    
     var marcaEligeUnaOpcion = function (url, textobusqueda) {
         try {
             localStorage.setItem('valorBuscador', textobusqueda);
@@ -2345,31 +2222,7 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Rama TiposAnalytics
     ////////////////////////////////////////////////////////////////////////////////////////
-
-    //var marcarImagenProducto = function (opcion, detalle) {
-    //    try {
-    //        dataLayer.push({
-    //            "event": _evento.virtualEvent,
-    //            "category": _texto.contenedorfichaProducto,
-    //            "action": 'Seleccionar imagen del producto',
-    //            "label": opcion.DescripcionCompleta + " - " + detalle[0].NombreBulk
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
-    //var marcarPopupEligeUnaOpcion = function (opcion) {
-    //    try {
-    //        dataLayer.push({
-    //            'event': _evento.virtualEvent,
-    //            'category': _texto.contenedorfichaProducto,
-    //            'action': 'Ver Popup Elige 1 opción',
-    //            'label': opcion.DescripcionCompleta
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
+    
     var marcarCerrarPopupEligeUnaOpcion = function (opcion) {
         try {
             dataLayer.push({
@@ -2394,18 +2247,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    //var marcarBotonAplicarSeleccion = function (estrategia, componentes) {
-    //    try {
-    //        dataLayer.push({
-    //            'event': _evento.virtualEvent,
-    //            'category': 'Contenedor - Pop up Elige 1 opción',
-    //            'action': 'Aplicar selección',
-    //            'label': estrategia.DescripcionCompleta + '-' + componentes.resumenAplicados[0].NombreBulk
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
+ 
     var marcarEliminarOpcionSeleccionada = function (estrategia, nombreComponentes) {
         try {
             var textoCategory = "Contenedor - Pop up Elige 1 opción";
@@ -2419,49 +2261,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    //var marcarCambiarOpcion = function (opcion) {
-
-    //    var codUbigeo = opcion.CodigoUbigeoPortal || "";
-    //    if (codUbigeo !== "") {
-    //        if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
-    //            var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
-    //            try {
-    //                dataLayer.push({
-    //                    'event': _evento.virtualEvent,
-    //                    'category': textoCategory,
-    //                    'action': 'Ver Popup Cambiar opciones',
-    //                    'label': opcion.DescripcionCompleta
-    //                });
-    //            } catch (e) {
-    //                console.log(_texto.excepcion + e);
-    //            }
-    //        }
-
-    //    } else {  //Cambia Opcione normal
-    //        try {
-    //            dataLayer.push({
-    //                'event': _evento.virtualEvent,
-    //                'category': _texto.contenedorfichaProducto,
-    //                'action': 'Cambiar opción',
-    //                'label': opcion.DescripcionCompleta
-    //            });
-    //        } catch (e) {
-    //            console.log(_texto.excepcion + e);
-    //        }
-    //    }
-    //}
-    //var marcarPopupEligeXOpciones = function (opcion) {
-    //    try {
-    //        dataLayer.push({
-    //            'event': _evento.virtualEvent,
-    //            'category': _texto.contenedorfichaProducto,
-    //            'action': 'Ver Popup Elige más de una opción',
-    //            'label': opcion.DescripcionCompleta
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
+    
     var marcarPopupCerrarEligeXOpciones = function (opcion) {
         try {
             dataLayer.push({
@@ -2486,18 +2286,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    //var marcarPopupBotonAplicarSeleccionVariasOpciones = function (componentes_Concatenados) {
-    //    try {
-    //        dataLayer.push({
-    //            'event': _evento.virtualEvent,
-    //            'category': 'Contenedor - Pop up Elige más de una opción',
-    //            'action': 'Aplicar selección',
-    //            'label': componentes_Concatenados
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
+    
     var marcarEliminarOpcionSeleccionadaVariasOpciones = function (estrategia, nombreComponentes) {
         try {
 
@@ -2524,38 +2313,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    //var marcarCambiarOpcionVariasOpciones = function (opcion) {
-
-    //    try {
-    //        var codUbigeo = opcion.CodigoUbigeoPortal || "";
-
-    //        if (codUbigeo !== "") {
-    //            if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
-    //                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
-    //                try {
-    //                    dataLayer.push({
-    //                        'event': _evento.virtualEvent,
-    //                        'category': textoCategory,
-    //                        'action': 'Ver Popup Cambiar opciones',
-    //                        'label': opcion.DescripcionCompleta
-    //                    });
-    //                } catch (e) {
-    //                    console.log(_texto.excepcion + e);
-    //                }
-    //            }
-
-    //        } else { //Cambia Opcione normal
-    //            dataLayer.push({
-    //                'event': _evento.virtualEvent,
-    //                'category': 'Contenedor - Ficha de producto',
-    //                'action': 'Cambiar opciones',
-    //                'label': opcion.DescripcionCompleta
-    //            });
-    //        }
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
+    
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Rama TiposAnalytics
@@ -2585,34 +2343,7 @@ var AnalyticsPortalModule = (function () {
     function clickArrowMG(direction) {
         _virtualEventPush(_getDirection(direction));
     }
-
-    //function clickOnBreadcrumb(url, codigoPalanca, titulo) {
-    //    try {
-    //        if (codigoPalanca === _codigoSeccion.MG)
-    //            dataLayer.push({
-    //                "event": _evento.virtualEvent,
-    //                "category": _texto.fichaProducto,
-    //                "action": 'Breadcrumb - Clic en Botón',
-    //                "label": titulo || "",
-    //                'eventCallback': function () {
-    //                    document.location = url;
-    //                }
-    //            });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
-
-    //function clickTabGanadoras(codigo) {
-    //    if (codigo === _codigoSeccion.MG)
-    //        dataLayer.push({
-    //            "event": _evento.virtualEvent,
-    //            "category": fnObtenerContenedor(),
-    //            "action": 'Clic tab',
-    //            "label": 'Las Más Ganadoras'
-    //        });
-    //}
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Ganadoras
     ////////////////////////////////////////////////////////////////////////////////////////

@@ -456,7 +456,8 @@ function AceptarPedidoProducto(id, option) {
         $(texto).removeClass('text-white');
         $(texto).addClass('text-black');
         $(aceptado).removeClass('active');
-        $(aceptado).text('Aceptado');
+        $(aceptado).addClass('btn--estadoAceptado');
+        $(aceptado).text('Está aceptado');
 
         if (option === "P") //Producto
         {
@@ -471,6 +472,7 @@ function AceptarPedidoProducto(id, option) {
         $(texto).removeClass('text-black');
         $(texto).addClass('text-white');
         $(aceptado).addClass('active');
+        $(aceptado).removeClass('btn--estadoAceptado');
         $(aceptado).text('Aceptar');
         
     }
@@ -590,7 +592,7 @@ function ContinuarPedido(option) {
 	            }
                 CloseLoading();
                 if (response.success) {
-                    //HD-4734
+
                     if (response.result.ListaCatalogo.length == 0 || response.result.ListaGana.length == 0) AceptarPedidoPendienteDirecto(response.result.ListaGana,option);
                     else
                         document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra?option=' + option;

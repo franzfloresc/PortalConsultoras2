@@ -71,10 +71,7 @@ $(document).ready(function () {
     });
     
     ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) }, 1);
-    //FIN HD-4200
-
-
-
+   
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
             event.preventDefault();
@@ -167,7 +164,6 @@ function GetProductoEntidad(detalleId, setId) {
 }
 
 function UpdateLiquidacionEvento(evento) {
-    debugger;
     var target = $(evento.currentTarget);
     var targetRow = $(evento.currentTarget).closest(".contenedor_items_pedido");
     var id = $.trim(target.attr("data-pedidodetalleid")) || "0";
@@ -742,11 +738,10 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
                 return false;
 
             if (data.success != true) {
-                debugger;
                 messageInfoError(data.message);
                 /*  INICIO -  TESLA-320   */
                 $(cantidadElement).val(CantidadAnti);
-            /*  FIN -  TESLA-320   */
+                /*  FIN -  TESLA-320   */
                 return false;
             }
 

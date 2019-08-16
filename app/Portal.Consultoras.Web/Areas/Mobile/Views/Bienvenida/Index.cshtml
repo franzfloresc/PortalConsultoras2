@@ -40,9 +40,7 @@
         }
     </style>
     @Styles.Render("~/Bundle/Css/Desktop/CcsBienvenida")
-    @*INI HD-3908*@
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
-    @*FIN HD-3908*@
 }
 
 <div id="tutorialesMobile" style="display:none;">
@@ -500,7 +498,6 @@
 
 @if (esDigital)
 {
-    /* INI HD-4086 */
     if (Model.CodigoISO == Constantes.CodigosISOPais.Peru)
     {
         <div class="wrapper_resumen_mobile">
@@ -516,7 +513,6 @@
             <hr class="clear" />
             <div class="linea_separadora_mobile"></div>
         </div>
-        /* FIN HD-4086 */
     }
     else
     {
@@ -901,7 +897,6 @@
         ];
         var noIniciarLluvia = true;
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
-        @*var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';*@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var ViewBagRutaChile = '@Model.RutaChile';
         var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
@@ -926,7 +921,6 @@
         var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
         var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
-        @*var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';*@
 
         var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel';

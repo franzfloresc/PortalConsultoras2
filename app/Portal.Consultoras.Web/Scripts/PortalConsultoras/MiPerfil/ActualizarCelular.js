@@ -38,8 +38,7 @@
         function getIsConfirmar() {
             return localData.IsConfirmar;
         }
-
-        /*HD-4520*/
+        
         function getReenvioCelular() {
             return $('#reenvioCelular');
         }
@@ -97,7 +96,6 @@
         function inicializarEventos() {
             var body = $('body');
             
-            /*HD-4520*/
              $(".infoActual").css("display", "none");
             if (actualizaCelularData.celular.length > 0) {
                 $(".infoActual").css("display", "block");
@@ -341,7 +339,7 @@
                     clearInterval(interval);
                     counterElement.text("00:00");
                     resetSmsCode();
-                    HiddenEnviarCelular();//HD-4520
+                    HiddenEnviarCelular();
                 }
             }, cantMsInterval);
         }
@@ -351,9 +349,7 @@
             counterElement.text('03:00');
             stepCounter(3 * 60000);
         }
-
-
-        /*HD-4520*/
+        
         function HiddenEnviarCelular() {
             me.Elements.getReenvioCelular().css("display", "block");
             me.Elements.getcodigoSmsCaducidad().css("display", "none"); 
