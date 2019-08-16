@@ -1,4 +1,6 @@
-﻿using Portal.Consultoras.Data;
+﻿using Newtonsoft.Json;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 
@@ -19,6 +21,8 @@ namespace Portal.Consultoras.BizLogic
                     while (reader.Read())
                     {
                         var entidad = new BEMenuMobile(reader);
+                        var extrasJson = reader.ToString("Extras");
+                        entidad.Extras = string.IsNullOrEmpty(extrasJson) ? new BEMenuExtras() : JsonConvert.DeserializeObject<BEMenuExtras>(extrasJson);
                         items.Add(entidad);
                     }
                 }

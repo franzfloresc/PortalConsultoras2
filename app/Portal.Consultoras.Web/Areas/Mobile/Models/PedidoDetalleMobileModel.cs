@@ -219,6 +219,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
                     return Util.DecimalToStringFormat(Decimal.Zero, CodigoISO);
             }
         }
+        #region CaminoBrillante
+        public decimal montoIncentivo { get; set; }
+        #endregion
 
 
     }

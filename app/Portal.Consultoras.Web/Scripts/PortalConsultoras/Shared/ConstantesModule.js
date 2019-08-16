@@ -72,15 +72,19 @@ var ConstantesModule = (function() {
         ShowRoom: "030",
 
         RevistaDigital: "101", // No tiene referencia con BD, caso particular de OfertasParaMi 007
-        MasGanadoras: "201", // No tiene referecia con BD, caso particular de OfertasParaMi 007
+        MasGanadoras: "LMG", // No tiene referecia con BD, caso particular de OfertasParaMi 007
 
-        ProgramaNuevasRegalo: "044",
-        ParticipaProgramaNuevas: "1",
-        NotParticipaProgramaNuevas: "0",
         DuoPerfecto: "034",
 
         CaminoBrillanteDemostradores: "035", // No tiene referecia con BD, GCP
-        CaminoBrillanteKits: "036" // No tiene referecia con BD, GCP
+        CaminoBrillanteKits: "036", // No tiene referecia con BD, GCP
+        
+        Catalogo: "CAT", // No tiene referecia con BD
+        Liquidacion: "LIQ", // No tiene referecia con BD
+
+        ProgramaNuevasRegalo: "044",
+        ParticipaProgramaNuevas: "1",
+        NotParticipaProgramaNuevas: "0"
     }
 
     var _tipoPersonalizacion = {
@@ -128,7 +132,7 @@ var ConstantesModule = (function() {
         HV: "HV",
         GND: "GND",
         LAN: "LAN",
-        MG: "MG",
+        MG: "LMG",
         SR: "SR",
         ATP: "ATP",
         DP: "DP",

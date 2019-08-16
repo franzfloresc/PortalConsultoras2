@@ -1076,11 +1076,11 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public int UpdPedidoWebIndicadorEnviadoSinMarcar(int nuevoNroLote, bool FirmarPedido, byte Estado, string Mensaje, string mensajeExcepcion, string NombreArchivoCabecera, string NombreArchivoDetalle, string NombreServer)
+        public int UpdPedidoWebIndicadorEnviadoSinMarcar(int nuevoNroLote, byte Estado, string Mensaje, string mensajeExcepcion, string NombreArchivoCabecera, string NombreArchivoDetalle, string NombreServer)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebIndicadorEnviadoSinMarcar");
             Context.Database.AddInParameter(command, "@NuevoNroLote", DbType.Int32, nuevoNroLote);
-            Context.Database.AddInParameter(command, "@FirmarPedido", DbType.Boolean, FirmarPedido);
+            Context.Database.AddInParameter(command, "@FirmarPedido", DbType.Boolean, false);
             Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
             Context.Database.AddInParameter(command, "@Mensaje", DbType.String, Mensaje);
             Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);

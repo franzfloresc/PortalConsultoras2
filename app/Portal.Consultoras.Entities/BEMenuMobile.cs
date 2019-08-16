@@ -1,5 +1,5 @@
 ﻿using Portal.Consultoras.Common;
-using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -38,6 +38,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Codigo { get; set; }
 
+        [DataMember]
+        public BEMenuExtras Extras { get; set; }
+
         public BEMenuMobile() { }
         public BEMenuMobile(IDataRecord row)
         {
@@ -50,7 +53,24 @@ namespace Portal.Consultoras.Entities
             PaginaNueva = row.ToBoolean("PaginaNueva");
             Posicion = row.ToString("Posicion");
             Version = row.ToString("Version");
-            Codigo = row.ToString("Codigo");
+            Codigo = row.ToString("Codigo");            
+          
         }
     }
+
+    [DataContract]
+    public class BEMenuExtras {
+        [DataMember]
+        public List<BEMenuTag> Tags { get; set; }
+    }
+
+    [DataContract]
+    public class BEMenuTag
+    {
+        [DataMember]
+        public string Tag { get; set; }
+        [DataMember]
+        public int End { get; set; }
+    }
+
 }

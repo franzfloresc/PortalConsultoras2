@@ -24,6 +24,8 @@ namespace Portal.Consultoras.Entities
         public string RequestUrl { get; set; }
         [DataMember]
         public string RecursoApi { get; set; }
+        [DataMember]
+        public string From { get; set; }
 
         public BEEnviarSms()
         {}

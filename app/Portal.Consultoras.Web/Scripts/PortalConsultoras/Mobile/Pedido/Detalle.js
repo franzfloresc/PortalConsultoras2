@@ -742,6 +742,9 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
             if (data.success != true) {
                 messageInfoError(data.message);
+                /*  INICIO -  TESLA-320   */
+                $(cantidadElement).val(CantidadAnti);
+            /*  FIN -  TESLA-320   */
                 return false;
             }
 
@@ -1047,7 +1050,7 @@ function ArmarPopupObsReserva(esIconCheck, titulo, mensaje) {
     objIcon.addClass(esIconCheck ? 'check_icono_mobile' : 'exclamacion_icono_mobile');
 }
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {
-    if (typeof esAviso === 'undefined') esAviso = false;
+    if (typeof esAviso !== 'undefined') esAviso = false;
     ArmarPopupObsReserva(false, esAviso ? 'AVISO' : 'ERROR', mensajePedido);
 
     $('#popup-observaciones-prol').show();

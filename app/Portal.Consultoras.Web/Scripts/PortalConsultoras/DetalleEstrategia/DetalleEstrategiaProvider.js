@@ -284,6 +284,12 @@ var DetalleEstrategiaProvider = function () {
             }
         }
 
+        estrategia.Promocion = estrategia.Promocion || {};
+        estrategia.Condiciones = estrategia.Condiciones || [];
+        if (estrategia.EsPromocion) {
+            estrategia.MostrarPromociones || false;
+            estrategia.Promocion.Condiciones = estrategia.Promocion.Condiciones || [];
+        }
 
         return estrategia;
     };

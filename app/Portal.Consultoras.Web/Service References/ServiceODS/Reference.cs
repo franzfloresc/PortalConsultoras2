@@ -50,6 +50,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string CodigoSAPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoTipoOfertaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConfiguracionOfertaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -298,6 +301,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.CodigoSAPField, value) != true)) {
                     this.CodigoSAPField = value;
                     this.RaisePropertyChanged("CodigoSAP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoTipoOferta {
+            get {
+                return this.CodigoTipoOfertaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoTipoOfertaField, value) != true)) {
+                    this.CodigoTipoOfertaField = value;
+                    this.RaisePropertyChanged("CodigoTipoOferta");
                 }
             }
         }
@@ -4614,6 +4630,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private Portal.Consultoras.Web.ServiceODS.BEBuscadorYFiltrosConfiguracion BuscadorYFiltrosConfiguracionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool CambioCelularPendienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool CambioClaveField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4639,6 +4658,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CelularPendienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ClaveSecretaField;
@@ -4837,6 +4859,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaFinFacturacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaInicioFacturacionField;
@@ -5461,6 +5486,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CambioCelularPendiente {
+            get {
+                return this.CambioCelularPendienteField;
+            }
+            set {
+                if ((this.CambioCelularPendienteField.Equals(value) != true)) {
+                    this.CambioCelularPendienteField = value;
+                    this.RaisePropertyChanged("CambioCelularPendiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool CambioClave {
             get {
                 return this.CambioClaveField;
@@ -5573,6 +5611,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.CelularField, value) != true)) {
                     this.CelularField = value;
                     this.RaisePropertyChanged("Celular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CelularPendiente {
+            get {
+                return this.CelularPendienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CelularPendienteField, value) != true)) {
+                    this.CelularPendienteField = value;
+                    this.RaisePropertyChanged("CelularPendiente");
                 }
             }
         }
@@ -6431,6 +6482,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.FechaFinFacturacionField.Equals(value) != true)) {
                     this.FechaFinFacturacionField = value;
                     this.RaisePropertyChanged("FechaFinFacturacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaIngreso {
+            get {
+                return this.FechaIngresoField;
+            }
+            set {
+                if ((this.FechaIngresoField.Equals(value) != true)) {
+                    this.FechaIngresoField = value;
+                    this.RaisePropertyChanged("FechaIngreso");
                 }
             }
         }

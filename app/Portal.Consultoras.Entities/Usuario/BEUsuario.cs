@@ -81,6 +81,10 @@ namespace Portal.Consultoras.Entities
             IndicadorConsultoraDigital = row.ToInt32("IndicadorConsultoraDigital");
             FlgCheckSMS = row.ToBoolean("FlgCheckSMS");
             FlgCheckEMAIL = row.ToBoolean("FlgCheckEMAIL");
+            AnoCampaniaIngreso = row.ToString("AnoCampanaIngreso");
+            EsConsultoraOficina = row.ToBoolean("IndicadorConsultoraOficina");
+            Segmento = row.ToString("Segmento");
+            FechaIngreso = row.ToDateTime("FechaIngreso");
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
@@ -930,6 +934,10 @@ namespace Portal.Consultoras.Entities
         public bool CambioCorreoPendiente { get; set; }
         [DataMember]
         public string CorreoPendiente { get; set; }
+        [DataMember]
+        public bool CambioCelularPendiente { get; set; }
+        [DataMember]
+        public string CelularPendiente { get; set; }
         [DataMember]
         public bool PuedeActualizarEmail { get; set; }
         [DataMember]

@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Pedido;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -1817,11 +1816,20 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-        private int GetOrigenPedidoWeb(string flagMedio, int marcaID, int dispositivo, int tipoVista)
+        private int GetOrigenPedidoWeb(string flagMedio, int marcaID, int dispositivo, int tipoVista, string codigoEstrategia = "" )
         {
+
             var modelo = new OrigenPedidoWebModel();
             modelo.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
-            modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaID);
+            if(!string.IsNullOrEmpty(codigoEstrategia))
+            {
+                modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoEstrategia);
+            }
+            else
+            {
+                modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaID);
+            }
+            
 
             if (dispositivo == 1)
             {
@@ -2440,11 +2448,22 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult AceptarPedidoPendiente(ConsultoraOnlinePedidoModel parametros)
         {
             BEMisPedidos pedidoAux = new BEMisPedidos();
+            string mensajeR;
+            string flagMedio = string.Empty;
             string mensajeaCliente =
                 string.Format(
                     "Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.",
                     userData.NombreConsultora);
-           
+            var noPasa = ReservadoEnHorarioRestringido(out mensajeR);
+            if (noPasa)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensajeR,
+                    code = 2
+                }, JsonRequestBehavior.AllowGet);
+            }
 
             var pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
 
@@ -2479,6 +2498,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         pedido.ClienteId = xclienteId;
                     }
+
+                    flagMedio = pedido.FlagMedio;
                 });
             }
 
@@ -2534,7 +2555,10 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoDetalle.PaisID = userData.PaisID;
                         pedidoDetalle.IPUsuario = GetIPCliente();
                         pedidoDetalle.OrigenSolicitud = "WebMobile";
-                        pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb(Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual, model.MarcaID, parametros.Dispositivo, parametros.OrigenTipoVista);
+                        if(!string.IsNullOrEmpty(flagMedio))
+                        {
+                         pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb(flagMedio , model.MarcaID , parametros.Dispositivo , parametros.OrigenTipoVista, model.CodigoTipoEstrategia);
+                        }
 
                         pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
@@ -3015,6 +3039,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             String cliente = pedido.Cliente.Split(' ').First();
             
+            StringBuilder mensajecliente = new StringBuilder();
 
             try
             {

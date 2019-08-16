@@ -70,6 +70,8 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+  
+
         public IDataReader GetConsultoraByCodigo(string codigo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraByCodigoConsultora");
@@ -83,6 +85,14 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraIdByCodigo");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
             return Convert.ToInt64(Context.ExecuteScalar(command));
+        }
+
+        public IDataReader GetFechasFacturacionConsultora(string consultora, int campaniaActual)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFechasFacturacionConsultora");
+            Context.Database.AddInParameter(command, "@Consultora", DbType.String, consultora);
+            Context.Database.AddInParameter(command, "@CampaniaActual", DbType.Int64, campaniaActual);
+            return Context.ExecuteReader(command);
         }
 
         public IDataReader GetConsultoraDatoSAC(string paisID, string codigoConsultora, string documento)

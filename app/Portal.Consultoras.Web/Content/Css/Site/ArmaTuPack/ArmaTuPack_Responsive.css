@@ -1,7 +1,4 @@
-﻿.content_responsive {
-    margin-top: 112px;
-}
-
+﻿
 .banner_armaTuPack {
     background-color: #e70002;
     padding: 30px;
@@ -416,9 +413,6 @@ footer {
 }
 
 @media screen and (min-width:768px) {
-    .content_responsive {
-        /*margin-top: 142px;*/
-    }
 
     #grupos {
         margin-bottom: 135px;

@@ -36,6 +36,7 @@
     .linea_indicador_barra {
         width: 2px;
     }
+
     .franja_negra {
         background-size: cover;
     }
@@ -106,6 +107,7 @@
             <input id="hdEsOfertaIndependiente" type="hidden" value="0" />
             <input id="hdTipoEstrategiaCodigo" type="hidden" value="0" />
             <input id="hdEsDuoPerfecto" type="hidden" value="0" />
+            <input id="hdEsPromocion" type="hidden" value="false" name="EsPromocion"/>
             <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
             <div class="pedido_ingreso_datos campo_codigo">
@@ -202,6 +204,7 @@
         <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
         <input type="hidden" id="hdfTotal" value="@Model.Total" />
         <input type="hidden" id="hdfTotalCliente" value="@Model.TotalCliente" />
+
         <div class="content_T_T" style="position:relative; z-index:100">
             <div class="bloque_left"></div>
             @*<div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
@@ -377,7 +380,7 @@
                                                     @(cabezaEscala):
                                                 </span>
                                                 <span id="div-ganancia-total" class="ganancia-total accent-color">
-                                                    @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">&nbsp;@Model.FormatoTotalMontoGanancia</span>
+                                                    @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">@Model.FormatoTotalMontoGanancia</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -387,7 +390,7 @@
                                                     Catálogo
                                                 </span>
                                                 <span class="ganancia-total first-color">
-                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">&nbsp;@Model.FormatoMontoAhorroCatalogo</span>
+                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@Model.FormatoMontoAhorroCatalogo</span>
                                                 </span>
                                             </div>
                                             <div class="toggle-info">
@@ -395,7 +398,7 @@
                                                     Guía de negocio
                                                 </span>
                                                 <span class="ganancia-total first-color">
-                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">&nbsp;@Model.FormatoGananciaRevista</span>
+                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@Model.FormatoGananciaRevista</span>
                                                 </span>
                                             </div>
                                             <div class="toggle-info">
@@ -403,7 +406,7 @@
                                                     @ViewBag.LabelGananciaWeb
                                                 </span>
                                                 <span class="ganancia-total first-color">
-                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">&nbsp;@Model.FormatoGananciaWeb</span>
+                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@Model.FormatoGananciaWeb</span>
                                                 </span>
                                             </div>
                                             <div class="toggle-info">
@@ -411,7 +414,7 @@
                                                     Otros
                                                 </span>
                                                 <span class="ganancia-total first-color">
-                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">&nbsp;@Model.FormatoGananciaOtros</span>
+                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@Model.FormatoGananciaOtros</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -458,11 +461,12 @@
                                             </span>
                                         </div>
                                         @*HD-4513*@
-                                        @if (ViewBag.PagoContado){
+                                        @if (ViewBag.PagoContado)
+                                        {
                                             <div class="ganancia-info first-color">
                                                 <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
                                                 <span class="ganancia-total first-color" data-stpdescuento>
-                                                       0.00
+                                                    0.00
                                                 </span>
                                             </div>
                                             <div class="ganancia-info first-color">
@@ -470,13 +474,13 @@
                                                 <span class="ganancia-total first-color" data-stpflete>
                                                     0.00
                                                 </span>
-                                            </div>  
+                                            </div>
                                             <div class="ganancia-info first-color">
                                                 <span class="info_mis_descuentos">(+) Saldo Campaña Anterior:</span>
                                                 <span class="ganancia-total first-color" data-stpdeuda>
                                                     0.00
                                                 </span>
-                                            </div>  
+                                            </div>
                                             <div class="ganancia-info total_a_pagar_wrapper pb-2">
                                                 <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
                                                 <span class="ganancia-total first-color" data-stppagototal>
@@ -1201,6 +1205,7 @@
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupEleccionRegalo.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupPremio.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupDescuento.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupIncentivo.cshtml")
 @Html.Partial("~/Views/Pedido/_PopupRecepcionPedido.cshtml")
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupReservaPedido.cshtml");}
@@ -2101,7 +2106,7 @@
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         //var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
         var cantPedidosPendientes = '@ViewBag.CantPedidosPendientes';
-        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl)); 
+        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl));
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
@@ -2180,7 +2185,10 @@
         @*var ClasPedidoPopupPedidoPend = '@Constantes.ClasificadorPedido.PedidoDetallePoputPendiente';
         var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
         var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';*@
+
         var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
+        var montoIncentivo = '@Model.montoIncentivo';
+
         var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel';/*HD-3710*/
 
     </script>

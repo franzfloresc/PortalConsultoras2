@@ -87,8 +87,9 @@ namespace Portal.Consultoras.Web.Providers
             if (ofertasDelDia.Any())
             {
                 ofertasDelDia.ForEach(x => x.TieneStock = true);
-                var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(model);
-                ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockProl(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora, validarDias);
+                // por ahora no validar stock con prol hasta que definan nueva logica
+                //var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(model);
+                //ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockProl(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora, validarDias);
             }
 
             return ofertasDelDia;

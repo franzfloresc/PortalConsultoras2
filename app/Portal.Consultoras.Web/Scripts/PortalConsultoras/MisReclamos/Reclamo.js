@@ -775,7 +775,6 @@ function CargarPropuesta(codigoSsic) {
         if (data.success == false) {
             return false;
         }
-        console.log(data.texto);
         $("#MensajeTenerEncuenta").fadeIn(100);
         $('#spnMensajeTenerCuenta').html(data.texto);
     });
