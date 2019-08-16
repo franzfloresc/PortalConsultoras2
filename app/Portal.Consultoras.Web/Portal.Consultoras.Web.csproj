@@ -332,6 +332,7 @@
     <Compile Include="Models\CaminoBrillante\AdministrarCaminoBrillanteModel.cs" />
     <Compile Include="Models\ChatActivation.cs" />
     <Compile Include="Models\CaminoBrillante\CarruselCaminoBrillante.cs" />
+    <Compile Include="Models\MiAcademia\ServRespMiAcademiaModel.cs" />
     <Compile Include="Models\ConfirmarPosicionModelPrePostulante.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
@@ -1091,6 +1092,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\ServiceLMS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ServiceLMS_QA\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -6042,6 +6048,11 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
+    <Content Include="Web References\ServiceLMS_QA\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\ServiceLMS_QA\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -6388,6 +6399,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServiceLMS_ws_server</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServiceLMS_QA\</RelPath>
+      <UpdateFromURL>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Portal_Consultoras_Web_ServiceLMS_QA_ws_server</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>

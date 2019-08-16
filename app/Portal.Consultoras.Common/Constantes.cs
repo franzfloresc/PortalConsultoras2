@@ -603,13 +603,15 @@ namespace Portal.Consultoras.Common
             public const string WebTrackingConfirmacion = "WebTrackingConfirmacion";
             public const string URL_ABCProductos = "URL_ABCProductos";
             public const string secret_key = "secret_key";
-            public const string UrlLMS = "UrlLMS";
-            public const string CursosMarquesina = "CursosMarquesina";
-            public const string UrlCursoMiAcademiaVideo = "UrlCursoMiAcademiaVideo";
-            public const string UrlCursoMiAcademiaPdf = "UrlCursoMiAcademiaPdf";
-            public const string UrlMisCursos = "UrlMisCursos";
+            public const string UrlBaseMiAcademia = "UrlBaseMiAcademia";
+            public const string RelUrlMiAcademia = "RelUrlMiAcademia";
+            public const string ParamAcadListCurso = "ParamAcadListCurso";
+            public const string ParamAcadCurso = "ParamAcadCurso";
+            public const string ParamAcadVideo = "ParamAcadVideo";
+            public const string ParamAcadPdf = "ParamAcadPdf";
+            public const string RelUrlMisCursos = "RelUrlMisCursos";
             public const string TokenMisCursos = "TokenMisCursos";
-            public const string UrlCursoMiAcademia = "UrlCursoMiAcademia";
+            public const string RelUrlCursoMiAcademia = "RelUrlCursoMiAcademia";
             public const string URL_FAMILIAPROTEGIDA_ = "URL_FAMILIAPROTEGIDA_";
             public const string ProductoSugeridoAppCatalogosNroCampaniasAtras = "ProductoSugeridoAppCatalogosNroCampaniasAtras";
             public const string ConsultoraOnlineEmailDe = "ConsultoraOnlineEmailDe";
@@ -3770,6 +3772,21 @@ namespace Portal.Consultoras.Common
             public const string FormatUrl = "{0}|{1}|{2}|{3}|Year={4}|Active={5}|Birthdate={6:dd-MM-yyyy}|Country={7}";
         }
 
+        public static class MiAcademia
+        {
+            public static class ParamUrl
+            {
+                public const string Usuario = "usuario";
+                public const string Token = "token";
+                public const string CodClasif = "codcla";
+                public const string CodSubClasif = "codsub";
+                public const string DescSubClasif = "desc";
+                public const string Curso = "course";
+                public const string Video = "video";
+                public const string Pdf = "pdf";
+            }
+        }
+        
         /// <summary>
         /// Contiene los valores de los codigo de catalogo segun ODS.Catalogo.
         /// </summary>

@@ -11,5 +11,7 @@ namespace Portal.Consultoras.Web.Models.MiAcademia
         public string CodigoSubClasificacion { get; set; }
         public string DescripcionSubClasificacion { get; set; }
         public int IdCurso { get; set; }
+        public bool FlagVideo { get; set; }
+        public bool FlagPdf { get; set; }
     }
 }

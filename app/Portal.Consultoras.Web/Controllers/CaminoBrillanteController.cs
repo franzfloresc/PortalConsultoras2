@@ -226,25 +226,13 @@ namespace Portal.Consultoras.Web.Controllers
             if(nivelCB == null) return _RedirectToAction("Index", "Bienvenida");
             switch (nivelCB.EnterateMas ) {
                 case 1:
+                    var isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+                    var resultToken = _miAcademiaProvider.GetToken(userData, isoUsuario);
+                    if (!resultToken.Success) return _RedirectToAction("Index", "Bienvenida");
 
-                    string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                    string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
-                    var svcLms = new ws_server();
-                    var getUser = svcLms.ws_serverget_user(isoUsuario, userData.CampaniaID.ToString(), key);
-                    var token = getUser.token;
-
-                    var paramMiAcademia = new Models.MiAcademia.ParamUrlMiAcademiaModel()
-                    {
-                        Token = token,
-                        IsoUsuario = isoUsuario
-                    };
-                    
-                    if (!string.IsNullOrEmpty(nivelCB.EnterateMasParam))
-                    {
-                        paramMiAcademia.IdCurso = int.Parse(nivelCB.EnterateMasParam);
-                    }
-                                       
-                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, paramMiAcademia));
+                    int idCurso = !string.IsNullOrEmpty(nivelCB.EnterateMasParam) ? int.Parse(nivelCB.EnterateMasParam) : 0;
+                    var parametroUrl = _miAcademiaProvider.NewParametroUrl(userData, isoUsuario, resultToken.Data, idCurso);
+                    return Redirect(_miAcademiaProvider.GetUrlMiAcademia(parametroUrl));
                 case 2:
                     return Redirect(_issuuProvider.GetStringIssuRevista(nivelCB.EnterateMasParam, true));
             }
