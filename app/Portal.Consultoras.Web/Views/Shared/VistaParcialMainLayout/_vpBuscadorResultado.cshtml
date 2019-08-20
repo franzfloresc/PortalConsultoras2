@@ -1,5 +1,6 @@
 ﻿<script id="js-ResultadoBuscador" type="text/x-handlebars-template">
     {{#each this as |item|}}
+    {{#IsNullOrEmpty CUV '!='}}
     <div class="resultado_busqueda_producto {{#if Stock}} resultado_busqueda_producto--agotado {{/if}} ml-0 mr-0" data-item="ProductoBuscador">
         <div style="display:none;">
             <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
@@ -20,6 +21,7 @@
             <input type="hidden" class="hdBuscadorOrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
             <input type="hidden" class="hdBuscadorTipoPersonalizacion" value="{{TipoPersonalizacion}}" />
             <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
+            <input type="hidden" class="hdTienePremio" value="{{TienePremio}}" />
             <div data-imagen-producto="{{Imagen}}"></div>
         </div>
         <div class="resultado_busqueda_img_prod redireccionarFicha pl-0 pr-0">
@@ -90,6 +92,60 @@
             {{/if_eq}}
         </div>
     </div>
+
+    {{/IsNullOrEmpty}}
+
+    {{#IsNullOrEmpty Promociones '!='}}
+    <!-- <NuevaExperiencia equipo="tesla" tipo="carrusel" ticket="tesla-178" -->
+    <div class="content-searchCarousel"> 
+        <div class="ribbon-promo">
+            <span class="promo-text">Promoción</span>
+        </div>
+        <div class="searchCarousel-container">
+            <div class="searchCarousel">
+                {{#each Promociones as |item1|}}
+                <div class="promo-carrusel {{#if Stock}} promo-carrusel--agotado {{/if}}" data-item="ProductoBuscador">
+                    <div style="display:none;">
+                        <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
+                        <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
+                        <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
+                        <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
+                        <input type="hidden" class="hdBuscadorCodigoPalanca" value="{{TipoEstrategiaId}}" />
+                        <input type="hidden" class="hdBuscadorMarcaId" value="{{MarcaId}}" />
+                        <input type="hidden" class="hdBuscadorDescripcion" value="{{Descripcion}}" />
+                        <input type="hidden" class="hdBuscadorDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                        <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
+                        <input type="hidden" class="hdBuscadorValorizado" value="{{Valorizado}}" />
+                        <input type="hidden" class="hdBuscadorPosicion" value="{{posicion}}" />
+                        <input type="hidden" class="hdBuscadorLimiteVenta" value="{{LimiteVenta}}" />
+                        <input type="hidden" class="hdBuscadorCantidadesAgregadas" value="{{CantidadesAgregadas}}" />
+                        <input type="hidden" class="hdBuscadorCodigoTipoEstrategia" value="{{CodigoTipoEstrategia}}" />
+                        <input type="hidden" class="hdBuscadorCampaniaID" value="{{CampaniaID}}" />
+                        <input type="hidden" class="hdBuscadorOrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
+                        <input type="hidden" class="hdBuscadorTipoPersonalizacion" value="{{TipoPersonalizacion}}" />
+                        <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
+                        <input type="hidden" class="hdPromoposition" value="{{Promoposition}}" />
+                        <input type="hidden" class="hdTienePremio" value="{{TienePremio}}" />
+                        <div data-imagen-producto="{{Imagen}}"></div>
+                    </div>
+
+                    <div class="searchCarousel-content redireccionarFicha">
+                        <div class="searchCarousel-description">
+                            <span class="description-text">¡Aprovecha! Ll&eacute;vate un(a) <b>{{Descripcion}}</b> a solo {{PrecioString}}. Ent&eacute;rate aqu&iacute;</span>
+                        </div>
+                        <div class="searchCarousel-image">
+                            <img class="img-responsive" src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
+                        </div>
+                    </div>
+
+
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        </div>
+    <!-- </NuevaExperiencia>-->
+    {{/IsNullOrEmpty}}
     {{/each}}
 
     @if (ViewBag.MostrarBotonVerTodos == true)

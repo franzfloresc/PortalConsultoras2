@@ -226,7 +226,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.DataBarra = GetDataBarra(true, true);
 
-
                 userData.PedidoID = 0;
                 if (model.PedidoWebDetalle.Count != 0
                     && userData.PedidoID == 0)
@@ -294,11 +293,23 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
-                var cantidad = ObtenerCantidadPedidosPendientes();
-                if (cantidad > 0)
+
+                if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
-                    ViewBag.MostrarPedidosPendientes = "1";
-                    ViewBag.CantPedidosPendientes = cantidad;
+                    var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
+                    if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
+                    {
+                        using (var svc = new UsuarioServiceClient())
+                        {
+                            var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                            if (cantPedidosPendientes > 0)
+                            {
+                                ViewBag.MostrarPedidosPendientes = "1";
+                                ViewBag.CantPedidosPendientes = cantPedidosPendientes;
+
+                            }
+                        }
+                    }
                 }
 
                 #endregion
@@ -308,7 +319,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
-                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopPedido);
+                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.SectionBpt.SectionBptDesktopPedido);
 
                 ViewBag.NombreConsultora = userData.Sobrenombre;
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -337,6 +348,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Camino Brillante 
                 ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();
+
+                if (userData.CaminoBrillante)
+                {
+                    _caminoBrillanteProvider.LoadCaminoBrillante();
+                    var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
+                    if (nivelConsultoraCaminoBrillante != null)
+                    {
+                        double montoIncentivo = 0;
+                        if (_caminoBrillanteProvider.GetMontoIncentivo(out montoIncentivo))
+                        {
+                            model.montoIncentivo = (decimal)montoIncentivo;
+                        }
+                    }
+                }
                 #endregion
 
                 ViewBag.PagoContado = model.EstadoPedido == 1 && GetPagoContado();
@@ -924,7 +949,8 @@ namespace Portal.Consultoras.Web.Controllers
                 EsCuponNuevas = listCuvNuevasValidas.Contains(prod.CUV.Trim()),
                 CodigoProducto = prod.CodigoProducto,
                 CodigoCatalago = prod.CodigoCatalogo,
-                EstrategiaIDSicc = prod.EstrategiaIDSicc
+                EstrategiaIDSicc = prod.EstrategiaIDSicc,
+                EsPromocion = Util.GetCodigosPromocion().Contains(prod.CodigoTipoOferta)
             }));
             return productosModel;
         }
@@ -1063,8 +1089,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoPalanca = (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
                     CampaniaID = userModel.CampaniaID,
                     EsDuoPerfecto = producto.FlagNueva == "1" && esDuoPerfecto,
-                    CodigoEstrategia = producto.TipoEstrategiaCodigo
-
+                    CodigoEstrategia = producto.TipoEstrategiaCodigo,
+                    EsPromocion = Util.GetCodigosPromocion().Contains(producto.CodigoTipoOferta)
 
                 });
             }
@@ -1537,7 +1563,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (resultado.RefreshPedido) SessionManager.SetPedidoWeb(null);
                 }
                 SessionManager.SetUserData(userData);
-           
+
                 var listPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var model = new PedidoSb2Model
                 {
@@ -1573,8 +1599,6 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
-
-
                 return Json(new
                 {
                     success = true,
@@ -1594,7 +1618,6 @@ namespace Portal.Consultoras.Web.Controllers
                     permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
                     mensajeCondicional,
                     UltimoDiaFacturacion = (userData.FechaFacturacion == Util.GetDiaActual(userData.ZonaHoraria))
-                  
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2048,12 +2071,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 /* HD-4513 */
-                var objDataBarra=GetDataBarra(true, true);
+                var objDataBarra = GetDataBarra(true, true);
 
                 #region Consultora Pago Contado
 
-                var estadoPedido= EsPedidoReservado().ToInt();
-                if (estadoPedido == 1 && GetPagoContado()) {
+                var estadoPedido = EsPedidoReservado().ToInt();
+                if (estadoPedido == 1 && GetPagoContado())
+                {
                     var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
                     {
                         PaisID = userData.PaisID,
@@ -2065,13 +2089,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                     };
 
-                
+
                     var resultPagoContado = GetConfPagoContado(PagoContadoPrm);
                     objDataBarra.STPDescuento = Util.DoubleToStringFormat(resultPagoContado.STPDescuento, userData.CodigoISO);
                     objDataBarra.STPFlete = Util.DoubleToStringFormat(resultPagoContado.STPGastTransporte, userData.CodigoISO);
                     objDataBarra.STPPagoTotal = Util.DoubleToStringFormat(resultPagoContado.STPPagoTotal, userData.CodigoISO);
                     objDataBarra.STPDeuda = Util.DoubleToStringFormat(resultPagoContado.STPDeuda, userData.CodigoISO);
                 }
+
                 #endregion
 
                 return Json(new
@@ -2582,8 +2607,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-
-
                 /*HD-4635*/
                 GetValidaActualizaPedido();
                 var listaDetalle = GetPedidoWebDetalle(mobil);
@@ -2648,7 +2671,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var databarra = GetDataBarra(true, false, true);
                 //HD-4513
+
                 #region Consultora Pago Contado
+
                 var estadoPedido = EsPedidoReservado().ToInt();
                 if (estadoPedido == 1 && GetPagoContado())
                 {

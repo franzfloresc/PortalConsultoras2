@@ -19,11 +19,11 @@
 
     var _showPopupFichaEnriquecida = function (grupo, cuv) {
         var _estrategia = _estrategiaModel();
-        var _componente = _estrategia.Hermanos.filter(function(hermano){
+        var _componente = _estrategia.Hermanos.filter(function (hermano) {
             return hermano.Grupo === grupo && hermano.Cuv === cuv;
         })[0];
 
-        if(_componente === undefined) throw("componente doesn't exist.");
+        if (_componente === undefined) throw ("componente doesn't exist.");
 
         _config.fichaEnriquecidaView.showPopup(_componente);
 

@@ -22,8 +22,11 @@ var getUrl;
 var moneda = ($('#moneda').val());
 
 $(document).ready(function () {
-    Handlebars.registerPartial("kit_template", $("#template-kit").html());
-    Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());    
+    if ($("#template-kit").length > 0) {
+        Handlebars.registerPartial("kit_template", $("#template-kit").html());
+        Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+    }
+
     getUrl = getGET();
     Inicializar();
 

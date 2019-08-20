@@ -1,0 +1,77 @@
+1.PortalConsultoras2
+	Agregar:
+
+	<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="...,LMG"/>
+	<add key="CodigoTipoOfertaPremio" value="044,047,024,046,038,039"/>
+	<add key="RutaServicePROLApi" value="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/BelcorpSupport/api/"/>
+
+
+	-En <system.serviceModel> <bindings> <basicHttpBinding>:
+
+        <binding name="BasicHttpBinding_IEncuestaService" closeTimeout="00:10:00"
+          openTimeout="00:10:00" receiveTimeout="00:10:00" sendTimeout="00:10:00"
+          allowCookies="false" bypassProxyOnLocal="false" hostNameComparisonMode="StrongWildcard"
+          maxBufferPoolSize="2147483647" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647"
+          textEncoding="utf-8" transferMode="Streamed" useDefaultWebProxy="true"
+          messageEncoding="Text">
+          <readerQuotas maxDepth="32" maxStringContentLength="2147483647"
+            maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+          <security mode="None">
+            <transport clientCredentialType="None" proxyCredentialType="None"
+              realm="" />
+            <message clientCredentialType="UserName" algorithmSuite="Default" />
+          </security>
+        </binding>
+
+	-En <system.serviceModel> <bindings> <client>: (Según AMBIENTE colocar la ruta en Address)
+	<endpoint address="<AMBIENTE>/EncuestaService.svc"
+        	binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IEncuestaService"
+        	contract="ServiceEncuesta.IEncuestaService" name="BasicHttpBinding_IEncuestaService" />
+
+
+2. Personalizacion.Sync/appsettings.json
+	Modificar dentro de "Palancas" y agregar "LMG" a la cadena
+	
+	"Palancas": "...,LMG"
+
+3. Personalizacion.SearchNode/config.js
+	Modificar dentro de "Personalizacion" y "Pum" y agregar "LMG" a la cadena
+
+	constantes: {
+		...
+		Personalizacion: [..., 'LMG'],
+		Pum: [...,'LMG'],
+		...
+	} 
+
+	Agregar los siguientes key's
+       prol: {
+       		promociones: {
+           		url: 'http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/BelcorpSupport/api/Validacion/BuscarApoyados'
+       		},
+       		apoyados: {
+           		url: 'http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/BelcorpSupport/api/Validacion/BuscarPromocion'
+       		}
+   	}
+
+
+4.- BUSCADOR.SEARCH
+ Archivo config.js:	
+	Agregar al key constantes.Personalizacion => "LMG"
+
+5.- BUSCADOR.SYNC
+ Archivo appsettings.json:
+	agregar al key "OrderRules" después de OPM =>
+		{
+        	   "Code": "LMG",
+        	   "Value": 10
+      		},
+
+	agregar a key "ProductSections" después de OPM =>
+		{
+        	    "Code": "LMG",
+        	    "Countries": [{
+            		"Code": "Default",
+            		"Value": "Gana+ / Ofertas"
+          	     }]
+      		},

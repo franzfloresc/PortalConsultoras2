@@ -1,8 +1,10 @@
-﻿@model Portal.Consultoras.Web.Models.UpdatePassSACModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.UpdatePassSACModel
 @{
     ViewBag.Title = "Index";
 }
 <script>
+    var patronRegex = '@Html.Raw(Constantes.Regex.CadenaRegexPassword)';
     jQuery(document).ready(function () {
 
         $("#btnAceptar").click(function () {
@@ -16,37 +18,49 @@
     function ResetPass() {
         var PaisID = $('#ddlPais').val();
         var CodigoConsultora = $('#txtConsultora').val();
-        var Clave = $('#txtPass').val();
-        var Clave2 = $('#txtPass2').val();
+        var newPassword01 = $("#txtPass").val();
+        var newPassword02 = $("#txtPass2").val();
+        var vMessage = "";
 
-        if (PaisID == "0") {
-            alert('Debe Seleccionar Pais.');
+        if (PaisID == "0")
+            vMessage += '- Debe Seleccionar Pais.\n';
+
+        if (CodigoConsultora == "")
+            vMessage += '- Debe ingresar el código de consultora.\n';
+
+        if (newPassword01 == "")
+            vMessage += "- Debe ingresar la Nueva Contraseña.\n";
+
+        if (newPassword02 == "")
+            vMessage += "- Debe repetir la Nueva Contraseña.\n";
+
+        if (newPassword01 != "" && newPassword02 != "") {
+            if (newPassword01 != newPassword02)
+                vMessage += "- Los campos de la nueva contraseña deben ser iguales, verifique.\n";
+        }
+
+        if (newPassword01.length <= 6)
+            vMessage += "- La Nueva Contraseña debe de tener mínimo 7 caracteres.\n";
+
+        var pDigi = patronRegex.split('¦')[2];
+        if (newPassword01.match(pDigi) == null) {
+            vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
+        }
+
+        var pLetra = patronRegex.split('¦')[4];
+        if (newPassword01.match(pLetra) == null) {
+            vMessage += "- La Nueva Contraseña debe de tener al menos una letra.\n";
+        }
+
+        if (vMessage != "") {
+            alert(vMessage);
             return false;
         }
-        if (CodigoConsultora == "") {
-            alert('Debe ingresar el código de consultora.');
-            return false;
-        }
-        if (Clave == "") {
-            alert('Debe ingresar la contraseña.');
-            return false;
-        }
-        if (Clave2 == "") {
-            alert('Debe confirmar la contraseña.');
-            return false;
-        }
-        if (Clave != Clave2) {
-            alert('Las contraseñas ingresadas no coinciden.');
-            return false;
-        }
-        if (Clave.length < 4) {
-            alert('La contraseña debe tener como mínimo 4 digitos.');
-            return false;
-        }
+
         var item = {
             PaisID: PaisID,
             CodigoConsultora: CodigoConsultora,
-            Clave: Clave
+            Clave: newPassword01
         };
         waitingDialog({});
 

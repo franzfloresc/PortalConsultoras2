@@ -43,7 +43,7 @@
     margin-top: 22px;
 }
 
-.btn_pedidos_por_aprobar{
+.btn_pedidos_por_aprobar {
     display: inline-block;
     color: #FFF;
     font-size: 14px;
@@ -52,7 +52,8 @@
     padding-left: 10px;
     padding-right: 10px;
     height: 40px;
-    line-height: 40px;
+    line-height: 38px;
+    margin-bottom: 8px;
 }
 
 .contenedor_items_pedido {

@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaTipoPresentacion = ListTipoPresentacion();
             model.ListaConfiguracionPais = ListarConfiguracionPais();
             model.ListaTipoEstrategia = ListTipoEstrategia();
-            
+
             return PartialView("Partials/MantenimientoOfertasHome", model);
         }
 
@@ -261,7 +261,7 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje
                     });
                 }
-               
+
                 model.AdministrarOfertasHomeAppModel.AppBannerInformativo = model.AdministrarOfertasHomeAppModel.AppBannerInformativo ?? string.Empty;
                 model.AdministrarOfertasHomeAppModel.AppColorFondo = model.AdministrarOfertasHomeAppModel.AppColorFondo ?? string.Empty;
                 model.AdministrarOfertasHomeAppModel.AppColorTexto = model.AdministrarOfertasHomeAppModel.AppColorTexto ?? string.Empty;
@@ -273,12 +273,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Codigo == Constantes.TipoPersonalizacion.ArmaTuPack)
                     model.MobileImagenFondo = model.DesktopImagenFondo;
 
+                var entidad = Mapper.Map<BEConfiguracionOfertasHome>(model);
+
                 using (var sv = new SACServiceClient())
                 {
-                    var entidad = Mapper.Map<BEConfiguracionOfertasHome>(model);
                     sv.UpdateConfiguracionOfertasHome(entidad);
                 }
-                
+
                 return Json(new
                 {
                     success = true,
@@ -291,7 +292,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = ex.StackTrace,
+                    message = Constantes.MensajesError.ErrorGenerico
                 });
             }
         }
@@ -337,7 +338,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Mapper.Map<IList<BEConfiguracionOfertasHome>, IEnumerable<AdministrarOfertasHomeModel>>(lst);
         }
-        
+
         private IEnumerable<TipoEstrategiaModel> ListTipoEstrategia()
         {
             var lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);

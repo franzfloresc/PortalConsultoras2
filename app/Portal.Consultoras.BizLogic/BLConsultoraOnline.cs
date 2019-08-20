@@ -255,7 +255,8 @@ namespace Portal.Consultoras.BizLogic
                         TipoEstrategiaImagenMostrar = 6,
                         EsSubCampania = Convert.ToInt32(item.EsSubCampania),
                         Niveles = item.Niveles,
-                        CantidadPack = item.CantidadPack
+                        CantidadPack = item.CantidadPack,
+                        CodigoTipoEstrategia = item.CodigoTipoEstrategia
                     };
                     estrategia.TipoEstrategia = new BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };
 
