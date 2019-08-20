@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Providers
 
     class MiAcademiaServQa : IMiAcademiaServ
     {
-        private ServiceLMS_QA.ws_server svc;
+        private readonly ServiceLMS_QA.ws_server svc;
 
         public MiAcademiaServQa() { svc = new ServiceLMS_QA.ws_server(); }
 
@@ -159,12 +159,16 @@ namespace Portal.Consultoras.Web.Providers
             return new ServRespMiAcademiaModel { CreateUserCod = result.codigo, Token = result.token };
         }
 
-        public void Dispose() { svc.Dispose(); }
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing) { svc.Dispose(); }
     }
 
     class MiAcademiaServPrd : IMiAcademiaServ
     {
-        private ServiceLMS.ws_server svc;
+        private readonly ServiceLMS.ws_server svc;
 
         public MiAcademiaServPrd() { svc = new ServiceLMS.ws_server(); }
 
@@ -193,7 +197,11 @@ namespace Portal.Consultoras.Web.Providers
             );
             return new ServRespMiAcademiaModel { CreateUserCod = result.codigo, Token = result.token };
         }
-
-        public void Dispose() { svc.Dispose(); }
+        
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing) { svc.Dispose(); }
     }
 }
