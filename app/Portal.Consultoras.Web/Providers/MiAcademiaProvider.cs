@@ -163,7 +163,7 @@ namespace Portal.Consultoras.Web.Providers
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        public void Dispose(bool disposing) { svc.Dispose(); }
+        protected virtual void Dispose(bool disposing) { svc.Dispose(); }
     }
 
     class MiAcademiaServPrd : IMiAcademiaServ
@@ -202,6 +202,6 @@ namespace Portal.Consultoras.Web.Providers
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        public void Dispose(bool disposing) { svc.Dispose(); }
+        protected virtual void Dispose(bool disposing) { svc.Dispose(); }
     }
 }
