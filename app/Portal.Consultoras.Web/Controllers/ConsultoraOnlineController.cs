@@ -857,7 +857,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.EsKitNueva = model.EsKitNueva;
                 pedidoDetalle.OfertaWeb = model.OfertaWeb;
                 pedidoDetalle.IsPedidoPendiente = IsPedidoPendiente;
-                pedidoDetalle.OrigenSolicitud = "WebMobile";
+                pedidoDetalle.OrigenSolicitud = "WebMobile-ConsultoraOnline";
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
                 if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
@@ -2554,7 +2554,7 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoDetalle.Cantidad = model.Cantidad == 0 ? 1 : Convert.ToInt32(model.Cantidad);
                         pedidoDetalle.PaisID = userData.PaisID;
                         pedidoDetalle.IPUsuario = GetIPCliente();
-                        pedidoDetalle.OrigenSolicitud = "WebMobile";
+                        pedidoDetalle.OrigenSolicitud = "WebMobile-ConsultoraOnline";
                         if(!string.IsNullOrEmpty(flagMedio))
                         {
                          pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb(flagMedio , model.MarcaID , parametros.Dispositivo , parametros.OrigenTipoVista, model.CodigoTipoEstrategia);
