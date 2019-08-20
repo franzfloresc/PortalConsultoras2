@@ -405,15 +405,21 @@ namespace Portal.Consultoras.Web.Providers
 
         public void CargarEventoPersonalizacion(UsuarioModel model)
         {
+
+            if (model == null)
+            {
+                return;
+            }
+
             string _codigoConsultora = model.GetCodigoConsultora();
             if (string.IsNullOrWhiteSpace(_codigoConsultora))
                 return;
-            var configEstrategiaSR = new ConfigModel();
+            ConfigModel configEstrategiaSR= null;
             try
             {
                 configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
 
-                if (model == null || configEstrategiaSR.CargoEntidadEventoPersonalizacion)
+                if (configEstrategiaSR.CargoEntidadEventoPersonalizacion)
                 {
                     return;
                 }
