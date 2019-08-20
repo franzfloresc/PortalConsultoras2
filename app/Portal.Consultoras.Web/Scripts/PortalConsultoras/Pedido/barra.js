@@ -409,7 +409,6 @@ function MostrarBarra(datax, destino) {
                 else {
                     if (caminoBrillante == "True") {
                         txtDscto = "";
-                        (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
                     } else {
                         txtDscto = "DSCTO";
                         txtDetalle = indPuntoLimite - 1 != ind ? "" :
@@ -1570,46 +1569,14 @@ function CalculoLlenadoBarra() {
     var AvancePorcentaje = 0;
 
     if (TieneMontoMaximo()) { // se trata como tipinpoing
-        if (ConfiguradoRegalo == true) {
-            if (montoActual < montoMinimo) {
-                AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
-            }
-            else {
-
-                AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
-
-            }
-
-        } else {
-
-            if (TippingPointBarraActive) {
-                if (montoActual < montoTipipoing) {
-                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoTipipoing);
-                }
-                else
-                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
-            }
-            else {
-                if (ConfiguradoRegalo == true) {
-
-                    if (montoActual < montoMinimo) {
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
-                    } else
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
-                }
-                else {
-                    if (montoActual < montoMinimo) {
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
-                    } else
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
-
-                }
-            }
-
+        if (!ConfiguradoRegalo && TippingPointBarraActive) {
+            if (montoActual < montoTipipoing) AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoTipipoing);
+            else AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
         }
-
-
-
+        else {
+            if (montoActual < montoMinimo) AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
+            else AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+        }        
     }
     else { // se trata como escala de descuento
 

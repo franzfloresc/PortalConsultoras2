@@ -509,11 +509,8 @@ function ArmarMisGanancias(data) {
                     else e.target.style.cursor = 'default';
                 }
             },
-            title: {
-                display: true
-            },
-            responsive: true,
-            showAllTooltips: true
+            title: { display: true },
+            responsive: true
         }
     });
 
