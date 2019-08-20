@@ -5,14 +5,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -24,14 +24,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -43,14 +43,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -62,14 +62,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -81,14 +81,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -100,14 +100,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -119,14 +119,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -138,14 +138,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -157,14 +157,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -176,14 +176,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -195,14 +195,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
@@ -214,14 +214,14 @@ ALTER PROCEDURE GPR.ActualizarIndicadorGPRPedidosRechazados
 	@PedidoId int
 AS
 BEGIN
-	update dbo.PedidoWeb with(nolock)
+	update dbo.PedidoWeb
 	set
-		PW.IndicadorEnviado = 0, 
-		PW.GPRSB = 2,
-		PW.EstadoPedido = 201,
-		PW.MontoTotalProl = 0,			
-		PW.ValidacionAbierta = 0,
-		PW.ModificaPedidoReservado = 0
+		IndicadorEnviado = 0, 
+		GPRSB = 2,
+		EstadoPedido = 201,
+		MontoTotalProl = 0,			
+		ValidacionAbierta = 0,
+		ModificaPedidoReservado = 0
 	where CampaniaId = @Campania and PedidoId = @PedidoId;
 END
 GO
