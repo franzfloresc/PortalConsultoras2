@@ -414,7 +414,7 @@ namespace Portal.Consultoras.Web.Providers
             string _codigoConsultora = model.GetCodigoConsultora();
             if (string.IsNullOrWhiteSpace(_codigoConsultora))
                 return;
-            ConfigModel configEstrategiaSR= null;
+            ConfigModel configEstrategiaSR= new ConfigModel();
             try
             {
                 configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
