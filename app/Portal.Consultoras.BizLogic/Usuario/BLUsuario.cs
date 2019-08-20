@@ -2176,12 +2176,11 @@ namespace Portal.Consultoras.BizLogic
             string displayname = usuario.Nombre;
             string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
             string paramQuerystring = String.Empty;
-            string[] parametros = null;
+            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), correoNuevo };
             string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
 
             try
             {
-                parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), correoNuevo };
                 paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
                 MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
             }
