@@ -161,16 +161,14 @@
     var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
     var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
 
-        var IsoPais = '@ViewBag.CodigoISODL';
-
-     //INI SALUD-58
+    var IsoPais = '@ViewBag.CodigoISODL';
+        
     var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
     var pseudoParamNotif = '@ViewBag.PseudoParamNotif';
     var inicial = localStorage.getItem('KeyPseudoParam');
     if (inicial === 'undefinied' || inicial === undefined || inicial === null)
         localStorage.setItem('KeyPseudoParam', pseudoParamNotif); //se almacena por primera vez
-    //FIN SALUD-58
-
+    
     //Postulante
     var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
 

@@ -71,6 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SortOrder = sord
             };
             IEnumerable<BEEncuestaReporte> items = lst;
+            System.Web.HttpContext.Current.Session["ListaReporteEncuesta"] = items.ToList();
 
             items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
             BEPager pag = Util.PaginadorGenerico(grid, lst);
@@ -96,7 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                        }
             };
-            System.Web.HttpContext.Current.Session["ListaReporteEncuesta"] = items.ToList();
+            
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

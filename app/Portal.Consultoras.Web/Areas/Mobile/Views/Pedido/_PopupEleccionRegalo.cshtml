@@ -7,7 +7,7 @@
             <img src="@Url.Content("~/Content/Images/icono_regalo.png")" alt="Elige tu regalo" />
         </div>
         <h2 class="titulo_popup_eleccion_regalo_programaNuevas">
-            <span class="mensaje_titulo_popup_eleccion_regalo">¡Puedes elegir tu regalo del Programa de Nuevas ahora!</span>
+            <span class="mensaje_titulo_popup_eleccion_regalo"></span>
             <span class="mensaje_subtitulo_regalo"></span>
         </h2>
     </div>
@@ -27,9 +27,9 @@
         <div class="img_regalo_carousel">
             <img data-lazy="{{ImagenURL}}" alt="{{DescripcionResumen}}" />
         </div>
-        <div class="marca_producto text-uppercase">
+        @*<div class="marca_producto text-uppercase">
             {{DescripcionMarca}}
-        </div>
+        </div>*@
         <div class="descrip_regalo_carousel">
             <label title="{{DescripcionResumen}}">{{DescripcionResumen}}</label>
         </div>

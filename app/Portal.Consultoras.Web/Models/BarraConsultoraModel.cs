@@ -40,7 +40,6 @@ namespace Portal.Consultoras.Web.Models
 
         public BarraTippingPoint TippingPointBarra  { get; set; }
 
-        /*HD-4513*/
         public string STPDescuento { get; set; }
         public string STPFlete { get; set; }
         public string STPPagoTotal { get; set; }

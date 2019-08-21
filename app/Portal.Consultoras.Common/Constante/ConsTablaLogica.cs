@@ -318,13 +318,7 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 88;
         }
-
-        // utilizar TablaLogicaId = 100
-        //public static class OfertasParaTiPorDefecto
-        //{
-        //    public const int TablaLogicaId = 89;
-        //}
-
+        
         public static class PersonalizacionOdd
         {
             public const int TablaLogicaId = 93;
@@ -622,7 +616,6 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteFiltro = 174;
             public const short CaminoBrillanteOrden = 175;
             public const short CaminoBrillanteConfigurar = 176;
-            //public const short CaminoBrillanteGranBrillante = 178;
         }
 
         public static class MsjPopupBloqueadas
@@ -655,12 +648,17 @@ namespace Portal.Consultoras.Common
         {
             public const short Id = 232;
         }
-
-        //HD-4357
+        
         public static class EncuestaSatisfaccion
         {
             public const short TablaLogicaId = 235;
             public const short MisPedidosTop = 23501;
+        }
+
+        public static class Cdr
+        {
+            public const short TablaLogicaId = 110;
+            public const short SetsOrPacks = 11001;
         }
     }
 }

@@ -44,5 +44,8 @@
     <Setting Name="Portal_Consultoras_Web_ServicesCalculosPROL_ServicesCalculoPrecioNiveles" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx</Value>
     </Setting>
+    <Setting Name="Portal_Consultoras_Web_ServiceLMS_QA_ws_server" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

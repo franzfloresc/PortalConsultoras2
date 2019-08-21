@@ -119,8 +119,10 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
+                string _codigoConsultora = model.GetCodigoConsultora();
+                if (string.IsNullOrWhiteSpace(_codigoConsultora))
+                    return null;
 
-                
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
                     bool eventoConsultoraNull = false;
@@ -373,8 +375,10 @@ namespace Portal.Consultoras.Web.Providers
 
         public void CargarEventoConsultora(UsuarioModel model)
         {
+            string _codigoConsultora = model.GetCodigoConsultora();
+            if(string.IsNullOrWhiteSpace(_codigoConsultora))
+                return;
             var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
-
             try
             {
                 if (!configEstrategiaSR.CargoEntidadEventoConsultora)
@@ -401,15 +405,15 @@ namespace Portal.Consultoras.Web.Providers
 
         public void CargarEventoPersonalizacion(UsuarioModel model)
         {
-            var configEstrategiaSR = new ConfigModel();
+            if (model == null) return;
+            string _codigoConsultora = model.GetCodigoConsultora();
+            if (string.IsNullOrWhiteSpace(_codigoConsultora)) return;
+
+            ConfigModel configEstrategiaSR= new ConfigModel();
             try
             {
                 configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
-
-                if (model == null || configEstrategiaSR.CargoEntidadEventoPersonalizacion)
-                {
-                    return;
-                }
+                if (configEstrategiaSR.CargoEntidadEventoPersonalizacion) return;
 
                 _sessionManager.SetEsShowRoom("0");
                 _sessionManager.SetMostrarShowRoomProductos("0");

@@ -1577,7 +1577,6 @@ function EliminarDetalle(el) {
     messageConfirmacion("", msg, functionEliminar);
 }
 
-//HD-4017 EINCA
 function AgregarCUVTrueque() {
     $("#contenedorCuvTrueque").append($("#template-cuv-cambio").html());
 }
@@ -1632,7 +1631,6 @@ function BuscarInfoCUV(e) {
     });
 }
 
-//HD-4017 EINCA
 function EliminarCUVTrueque(el) {
     if ($("#contenedorCuvTrueque .item-producto-cambio").length > 1) {
         $(el).parent().parent().remove();

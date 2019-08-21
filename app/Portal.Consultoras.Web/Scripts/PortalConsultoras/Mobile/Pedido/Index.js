@@ -129,7 +129,6 @@ $(document).ready(function () {
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
         localStorage.setItem("CodigoConsultora", document.getElementById("hdCodigoConsultora").value);
-        /*HD-4288*/
     });
 
     $("#txtCodigoProducto").on("keyup", function () {
