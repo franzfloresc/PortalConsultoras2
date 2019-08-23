@@ -100,26 +100,7 @@ var FichaVerDetalle = (function () {
                 break;
             case ConstantesModule.TipoEstrategia.OfertasParaMi:
                 {
-                    //if (origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingBuscadorGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingBuscadorGanadorasFicha
-                    //)
-                    //    url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
-                    //else
-                        url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
+                    url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
                 }
                 break;
             case ConstantesModule.TipoEstrategia.LosMasVendidos:

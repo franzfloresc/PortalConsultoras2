@@ -30,6 +30,7 @@ Thumbs.db
 *.obj
 *.exe
 !/app/tools/BundleAnalyser/*.exe
+!/app/tools/FileConvertUtf8/*.exe
 *.pdb
 *.user
 *.aps
@@ -80,5 +81,6 @@ node_modules/
 /app/tools/*
 !/app/tools/BundleAnalyser/
 !/app/tools/BundleAnalyser/es/
+!/app/tools/FileConvertUtf8/
 !/app/tools/packages.config
 /app/UpgradeLog.htm

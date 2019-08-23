@@ -1221,7 +1221,7 @@ namespace Portal.Consultoras.Data
         }
 
         #endregion
-        /*HD-4513*/
+
         #region Consultora Pago Contado
         public void UpdLogConsultoraPagoContado(BEPedidoWeb bEPedidoWeb)
         {

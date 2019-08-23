@@ -42,9 +42,7 @@
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';     
         var codigoISO_MB = '@ViewBag.CodigoISODL';
-        /* INI HD-4086 */
         var urlIncentivos = ((codigoISO_MB == 'CO' || codigoISO_MB == 'PE') ? '@Url.Action("Index", "Incentivos")' : '@Url.Action("Index", "Bonificaciones")');  
-        /* FIN HD-4086 */
         var anioActual = '@DateTime.Now.Year';
         var urlS3Raiz = '@ViewBag.UrlRaizS3';
     </script>

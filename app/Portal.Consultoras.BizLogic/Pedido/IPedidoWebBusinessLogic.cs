@@ -77,8 +77,7 @@ namespace Portal.Consultoras.BizLogic
         void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb BEPedidoWeb);
         BEPedidoWeb GetPedidoWebConCalculosGanancia(BEUsuario usuario, decimal montoAhorroCatalogo, decimal montoAhorroRevista, decimal montoDescuento, decimal montoEscala, List<BEPedidoWebDetalle> pedidoWebSetDetalleAgrupado);
-
-        /*HD-4513*/
+        
         #region Consultora Pago Contado
         BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb);
         BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb);

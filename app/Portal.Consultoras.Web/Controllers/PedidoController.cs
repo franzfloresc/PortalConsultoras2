@@ -2010,7 +2010,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
-            //HD-4513
+
             var estadoPedido = EsPedidoReservado(obeConfiguracionCampania).ToInt();
             ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado();
 
@@ -2069,8 +2069,7 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoModelo.Pagina = "0";
                     pedidoModelo.PaginaDe = "0";
                 }
-
-                /* HD-4513 */
+                
                 var objDataBarra = GetDataBarra(true, true);
 
                 #region Consultora Pago Contado
@@ -2607,7 +2606,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                /*HD-4635*/
                 GetValidaActualizaPedido();
                 var listaDetalle = GetPedidoWebDetalle(mobil);
 
@@ -2670,7 +2668,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Simbolo = userData.Simbolo;
 
                 var databarra = GetDataBarra(true, false, true);
-                //HD-4513
 
                 #region Consultora Pago Contado
 

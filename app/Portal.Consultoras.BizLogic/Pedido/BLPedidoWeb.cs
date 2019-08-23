@@ -1901,7 +1901,7 @@ namespace Portal.Consultoras.BizLogic
                     return true;
                 });
             }
-            //HD-4357
+
             #region Estado Encuesta Satisfacción
             if (listaPedidosFacturados.Any())
             {
@@ -2189,10 +2189,8 @@ namespace Portal.Consultoras.BizLogic
 
                 if (usuario != null)
                 {
-
                     if (usuario.AutorizaPedido == "0")
                     {
-
                         return new BEValidacionModificacionPedido
                         {
                             MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Bloqueado,
@@ -2206,8 +2204,6 @@ namespace Portal.Consultoras.BizLogic
                             configuracion = reader.MapToObject<BEConfiguracionCampania>(true);
                         }
                     }
-
-
                 }
 
                 if (configuracion != null)
@@ -2217,7 +2213,7 @@ namespace Portal.Consultoras.BizLogic
                         return new BEValidacionModificacionPedido
                         {
                             MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
-                            Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, inténtalo más tarde", campania.Substring(4, 2))
+                            Mensaje = string.Format(Constantes.MensajePedidoBloqueado.GPR, campania.Substring(4, 2))
                         };
                     }
                     if (validarFacturado && configuracion.IndicadorEnviado)
@@ -2225,7 +2221,7 @@ namespace Portal.Consultoras.BizLogic
                         return new BEValidacionModificacionPedido
                         {
                             MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Facturado,
-                            Mensaje = "Estamos facturando tu pedido."
+                            Mensaje = Constantes.MensajePedidoBloqueado.Facturado
                         };
                     }
                     if (validarReservado && EsPedidoReservado(configuracion))
@@ -2233,7 +2229,7 @@ namespace Portal.Consultoras.BizLogic
                         return new BEValidacionModificacionPedido
                         {
                             MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
-                            Mensaje = "Ya tienes un pedido reservado para esta campaña."
+                            Mensaje = Constantes.MensajePedidoBloqueado.Reservado
                         };
                     }
                 }
@@ -2291,7 +2287,7 @@ namespace Portal.Consultoras.BizLogic
             if (!enHorarioRestringido) return null;
 
             var horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
-            return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los códigos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
+            return string.Format(Constantes.MensajePedidoBloqueado.Horario, campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
         }
 
         public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
@@ -3102,7 +3098,7 @@ namespace Portal.Consultoras.BizLogic
                 lista.Add(Constantes.ODSCodigoCatalogo.WebPortalFFVV);
             return lista;
         }
-        /*HD-4513*/
+
         #region Consultora Pago Contado
         public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
         {
@@ -3202,7 +3198,7 @@ namespace Portal.Consultoras.BizLogic
         public int Size
         {
             get { return size; }
-            set { size = value; } /*HD-4327*/
+            set { size = value; }
         }
     }
 

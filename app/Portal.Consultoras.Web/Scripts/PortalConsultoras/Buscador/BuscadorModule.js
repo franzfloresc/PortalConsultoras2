@@ -513,8 +513,7 @@ var BuscadorModule = (function () {
         var notPromo = productos.filter(function (promo) {
             return promo.TienePremio == false;
         });
-
-        //notPromo.push(misPromociones);
+        
         var promoindex = 0;
         if (notPromo.length == 1) {
             promoindex = 1;

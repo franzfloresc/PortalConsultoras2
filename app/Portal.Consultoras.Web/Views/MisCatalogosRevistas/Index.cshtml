@@ -398,24 +398,17 @@ else
 
     <script type="text/javascript" id="js-ready-Catalogo">
         var urlCatalogoPiloto = '@Html.Raw(ViewBag.UrlCatalogoPiloto)';
-        /* INI HD-4248 */
         var urlCatalogoPiloto_WSP = '@Html.Raw(ViewBag.UrlCatalogoPiloto_WSP)';
         var urlCatalogoPiloto_FB = '@Html.Raw(ViewBag.UrlCatalogoPiloto_FB)';
         var urlCatalogoPiloto_MSN = '@Html.Raw(ViewBag.UrlCatalogoPiloto_MSN)';
         var urlCatalogoPiloto_EMAIL = '@Html.Raw(ViewBag.UrlCatalogoPiloto_EMAIL)';
-        /* FIN HD-4248 */
-
 
         var piloto = '@ViewBag.Piloto';
         var TieneSeccionRevista =  ('@ViewBag.TieneSeccionRevista').toLocaleLowerCase();
          if (!JSON.parse(TieneSeccionRevista)) {
              $('#catalog').css('max-width', '100%');
              $('#catalog').css('flex', '0 0 100%');
-
-
         };
-
-
 
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
@@ -426,7 +419,6 @@ else
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var valContenidoCorreoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreo)';
-        @*var valContenidoCorreoPilotoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreoPiloto)';*@
         var valContenidoCorreoPilotoDefecto = '@Html.Raw(ViewBag.MensajeRRSS)';
         var RevistaCodigoIssuu = {
             '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',

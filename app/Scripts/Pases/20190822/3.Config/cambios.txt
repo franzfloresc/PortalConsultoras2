@@ -1,0 +1,27 @@
+1.PortalConsultoras2
+	Agregar:
+		<add key="UrlBaseMiAcademia" value="http://qasucb.cyzone.com/moodleventas/" /> (Diferente en PRD)
+		<add key="RelUrlMiAcademia" value="auth/consultoralogin/ingresar.php" />
+		<add key="ParamAcadListCurso" value="codcla,codsub,desc" />
+		<add key="ParamAcadCurso" value="course" />
+		<add key="ParamAcadVideo" value="video" />
+		<add key="ParamAcadPdf" value="pdf" />
+		<add key="RelUrlMisCursos" value="local/cursosconsultoras/?isocodconsultora={0}" />
+		<add key="RelUrlCursoMiAcademia" value="course/view.php?id={0}" />
+		
+		Dentro de Portal.Consultoras.Web.Properties.Settings:
+			<setting name="Portal_Consultoras_Web_ServiceLMS_QA_ws_server" serializeAs="String">
+				<value>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php</value>
+			</setting>
+			
+	Modificar:
+		<add key="secret_key" value="21bd0f96bda37549de67a058115a2f9d" />
+		<customErrors mode="On" defaultRedirect="CustomError.html" redirectMode="ResponseRedirect"/> (Sólo en PRD)
+		
+	Eliminar:
+		key "UrlLMS"
+		key "CursosMarquesina"
+		key "UrlCursoMiAcademia"
+		key "UrlCursoMiAcademiaVideo"
+		key "UrlCursoMiAcademiaPdf"
+		key "UrlMisCursos"

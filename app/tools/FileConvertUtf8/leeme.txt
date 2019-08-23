@@ -1,0 +1,11 @@
+*****************************
+Consideraciones
+*****************************
+   configuracion  FileConvertUtf8.exe.config:
+   1>       <add key="caracterIncorreto" value="_"/>  
+   1>       define que caracter generara que un nombre en la base de datos es incorrecto, ejemplo : BelcorpPeru = Correto , BelcorpPeru_MC = Incorrecto.
+   2>  <add key="ModoSB" value="1"/>         
+   2>   valor = 1 determina que el aplicativo se adapta a la logica de validacion de sb(validar cantidad de use, nombre de base de datos).
+   2>   valor !=1  omite la validación del archivo , como por ejemplo cuantos use existen, si el nombre de la base de datos contiene un caracter incorrecto. 
+   3>    <add key="TotalPaises" value="12"/>
+   3>    determina si la cantidad de use son iguales al número de paises.

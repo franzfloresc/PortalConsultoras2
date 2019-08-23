@@ -66,7 +66,7 @@ $(document).ready(function () {
     $('.box-right-ganancias strong').click(function () {
         $(this).hide();
         $('.box-right-ganancias strong i').hide();
-        //alert("Clikeado");
+
         $.ajax({
             type: 'POST',
             url: urlAnims + '?key=Gesture&repeat=0',
@@ -509,17 +509,14 @@ function ArmarMisGanancias(data) {
                     else e.target.style.cursor = 'default';
                 }
             },
-            title: {
-                display: true
-            },
-            responsive: true,
-            showAllTooltips: true
+            title: { display: true },
+            responsive: true
         }
     });
 
     if (indexSeleccion > -1) {
         var item = data.MisGanancias[indexSeleccion];
-        //var iteminicial = data.MisGanancias[0];
+
         $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
         $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
         $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);

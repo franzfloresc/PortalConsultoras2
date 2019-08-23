@@ -257,14 +257,13 @@
         };
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var OrigenDesktopODD = 0;
-
-        //INI SALUD-58
+        
         var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
         var pseudoParamNotif = '@ViewBag.PseudoParamNotif';
         var inicial = localStorage.getItem('KeyPseudoParam');
         if (inicial === 'undefinied' || inicial === undefined || inicial === null)
             localStorage.setItem('KeyPseudoParam', pseudoParamNotif); //se almacena por primera vez
-        //FIN SALUD-58
+
     </script>
     @RenderSection("scripts", required: false)
 
