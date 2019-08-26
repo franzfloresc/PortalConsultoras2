@@ -536,7 +536,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             var limiteJetlore = int.Parse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreOfertaFinal));
 
-            var listPedido = ObtenerPedidoWebDetalle();
+            var listPedido = ObtenerPedidoWebDetalle();            
 
             decimal descuentoprol = 0;
 
@@ -594,8 +594,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         imagenUrl = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, imagenUrl);
                     }
                     p.ImagenProductoSugerido = imagenUrl;
-                    p.ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, userData.CodigoISO);
-                    p.ImagenProductoSugeridoMedium = _baseProvider.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, userData.CodigoISO);
+                    p.ImagenProductoSugeridoSmall = Util.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, userData.CodigoISO);
+                    p.ImagenProductoSugeridoMedium = Util.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, userData.CodigoISO);
                     p.TipoCross = tipoCross;
                 });
             }
@@ -663,8 +663,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             FlagNueva = beProducto.FlagNueva,
                             TipoEstrategiaID = beProducto.TipoEstrategiaID,
                             ImagenProductoSugerido = beProducto.ImagenProductoSugerido ?? "",
-                            ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, userData.CodigoISO, campaniaId, isProductoSugerido: true),
-                            ImagenProductoSugeridoMedium = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, userData.CodigoISO, campaniaId, isProductoSugerido: true),
+                            ImagenProductoSugeridoSmall = Util.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, userData.CodigoISO, campaniaId, isProductoSugerido: true),
+                            ImagenProductoSugeridoMedium = Util.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, userData.CodigoISO, campaniaId, isProductoSugerido: true),
                             CodigoProducto = beProducto.CodigoProducto,
                             TieneStockPROL = true
                         });

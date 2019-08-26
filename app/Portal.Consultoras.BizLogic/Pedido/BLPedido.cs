@@ -591,7 +591,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 ConsecutivoNueva = usuario.ConsecutivoNueva
             };
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-            
+
             int flagCantidadMayor = 0;
             string mensajeCantidadMayor = string.Empty;
             foreach (var item in lstDetalle)
@@ -2210,6 +2210,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 }
 
+                var campaniaProductoBuscar = productoBuscar.Usuario.CampaniaID.ToString();
+
                 foreach (var producto in listaProductos)
                 {
                     var tieneStockProl = true;
@@ -2241,8 +2243,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             FlagNueva = producto.FlagNueva,
                             TipoEstrategiaID = producto.TipoEstrategiaID,
                             ImagenProductoSugerido = producto.ImagenProductoSugerido ?? string.Empty,
-                            ImagenProductoSugeridoSmall = Util.ObtenerRutaImagenResize(producto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, productoBuscar.Usuario.CodigoISO),
-                            ImagenProductoSugeridoMedium = Util.ObtenerRutaImagenResize(producto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, productoBuscar.Usuario.CodigoISO),
+                            ImagenProductoSugeridoSmall = Util.ObtenerRutaImagenResize(producto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, productoBuscar.Usuario.CodigoISO, campaniaProductoBuscar, true),
+                            ImagenProductoSugeridoMedium = Util.ObtenerRutaImagenResize(producto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, productoBuscar.Usuario.CodigoISO, campaniaProductoBuscar, true),
                             CodigoProducto = producto.CodigoProducto
                         });
                     }
