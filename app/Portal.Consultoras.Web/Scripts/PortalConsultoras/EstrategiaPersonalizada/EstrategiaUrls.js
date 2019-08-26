@@ -33,7 +33,7 @@ var FichaVerDetalle = (function () {
 
             var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(OrigenPedidoWeb);
             if (origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling
-                || origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
+                || origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselSugeridos) {
 
                 var palanca = getPalanca(codigoEstrategia, OrigenPedidoWeb, false);
                 var modeloEstrategiaTemporal = {
@@ -99,28 +99,7 @@ var FichaVerDetalle = (function () {
                 url += ConstantesModule.TipoEstrategiaTexto.Lanzamiento;
                 break;
             case ConstantesModule.TipoEstrategia.OfertasParaMi:
-                {
-                    //if (origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingBuscadorGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasFicha
-                    //    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingBuscadorGanadorasFicha
-                    //)
-                    //    url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
-                    //else
-                        url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
-                }
+                url += ConstantesModule.TipoEstrategiaTexto.OfertasParaMi;
                 break;
             case ConstantesModule.TipoEstrategia.LosMasVendidos:
                 url += ConstantesModule.TipoEstrategiaTexto.LosMasVendidos;
