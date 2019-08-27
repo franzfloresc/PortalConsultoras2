@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapMvcAttributeRoutes();
-
+            routes.Redirect("WebPages/IngresoComunidad.aspx").ToUrl("~/");
             routes.MapRoute(
                 name: "ConsultoraOnlinePaginaPedido",
                 url: "ConsultoraOnline/MisPedidos/Page/{Pagina}",
