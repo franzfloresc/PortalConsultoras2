@@ -1763,7 +1763,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.AutorizaPedido = usuario.AutorizaPedido;
                     usuarioModel.PuedeConfirmarAllEmail = usuario.PuedeConfirmarAllEmail;
                     usuarioModel.PuedeConfirmarAllSms = usuario.PuedeConfirmarAllSms;
-                    /*HD-4513*/
                     usuarioModel.PagoContado = usuario.PagoContado;
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
@@ -2336,7 +2335,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
 
                                 break;
-                            //HD-4729
                             case Constantes.ConfiguracionPais.ActualizacionDatos:
                                 usuarioModel.TieneActualizacionDatos = c.Estado;
                                 break;
@@ -3567,20 +3565,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var sv = new UsuarioServiceClient())
                 {
-                    //if (cambioCorreoNuevo == true && oUsu.Correo.ToLower() != emailNuevo.Trim().ToLower())
-                    //{
-                    //    oUsu.Correo = emailNuevo.Trim();
-                    //    existeCorreoRegistrado = await svc.ValidarEmailConsultoraAsync(paisID, oUsu.Correo, oUsu.CodigoUsuario);
-                    //    if (existeCorreoRegistrado > 0)
-                    //    {
-                    //        return Json(new
-                    //        {
-                    //            success = false,
-                    //            menssage = "error: El correo ya se encuentra registrado por otro usuario",
-                    //            correo = oUsu.Correo,
-                    //        }, JsonRequestBehavior.AllowGet);
-                    //    }
-                    //}
                     if (cambioCorreoNuevo == true && oUsu.Correo.ToLower() != emailNuevo.Trim().ToLower())
                     {
                         oUsu.Correo = emailNuevo.Trim();

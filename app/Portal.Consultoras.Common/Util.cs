@@ -3859,6 +3859,15 @@ namespace Portal.Consultoras.Common
 
                 return response.GetResponseStream();
             }
+
+            public static string AddParamsToUrl(string url, Dictionary<string, string> dicParam)
+            {
+                var uriBuilder = new UriBuilder(url);
+                var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+                dicParam.ForEach(p => query.Add(p.Key, p.Value));
+                uriBuilder.Query = query.ToString();
+                return uriBuilder.ToString();
+            }
         }
 
 

@@ -58,20 +58,7 @@
     }
 
     var _codigoTipoEstrategia = ConstantesModule.TipoEstrategia;
-    //var _idEstrategia = {
-    //    OfertaParaTi: 4,
-    //    PackNuevas: 6,
-    //    Lanzamiento: 9,
-    //    OfertasParaMi: 10,
-    //    PackAltoDesembolso: 11,
-    //    OfertaDelDia: 7,
-    //    GuiaDeNegocio: 12,
-    //    LosMasVendidos: 20,
-    //    HerramientaVenta: 13,
-    //    ShowRoom: 30,
-    //    LasMasGanadoras: 10
-    //}
-
+    
     var _editData = {};
     var _idImagen = 0;
 
@@ -519,8 +506,7 @@
                 $('#seccionTallaColor').show();
             }
             /*END ATP*/
-
-            //var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
+            
             var aux2 = $("#hdEstrategiaCodigo").val();
 
             if (aux2 == _codigoTipoEstrategia.OfertaParaTi
@@ -544,7 +530,6 @@
 
             // ya no existe 
             if (aux2 == _codigoTipoEstrategia.OfertaParaTi
-                //|| aux1 == "5"
                 || aux2 == _codigoTipoEstrategia.Lanzamiento
                 || aux2 == _codigoTipoEstrategia.OfertasParaMi
                 || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
@@ -1600,22 +1585,7 @@
             _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
             return false;
         }
-
-        //var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id") || "";
-        //if (!estrategiaId.in(_idEstrategia.OfertaParaTi,
-        //    _idEstrategia.GuiaDeNegocio,
-        //    _idEstrategia.LosMasVendidos,
-        //    _idEstrategia.Lanzamiento,
-        //    _idEstrategia.OfertasParaMi,
-        //    _idEstrategia.PackAltoDesembolso,
-        //    _idEstrategia.OfertaDelDia,
-        //    _idEstrategia.ShowRoom,
-        //    _idEstrategia.HerramientaVenta,
-        //    _idEstrategia.MasGanadoras)) {
-        //    _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
-        //    return false;
-        //}
-
+        
         return true;
     }
 
@@ -3039,7 +3009,6 @@
             $("#ddlEtiqueta2").children("option").show();
 
             if (aux2 == _codigoTipoEstrategia.OfertaParaTi
-                //|| aux1 == "5"
                 || aux2 == _codigoTipoEstrategia.Lanzamiento
                 || aux2 == _codigoTipoEstrategia.OfertasParaMi
                 || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
@@ -3056,12 +3025,6 @@
                 $("#hdnEtiqueta1").val("5");
                 $("#hdnEtiqueta2").val("5");
             }
-            //else if (aux1 == "2") {
-            //    $("#ddlEtiqueta1").children("option").hide();
-            //    $("#ddlEtiqueta1").children("option[data-id='4']").show();
-
-            //    $("#hdnEtiqueta1").val("4");
-            //}
 
             if (aux2 == _codigoTipoEstrategia.PackNuevas) {
                 $(".OfertaUltimoMinuto").hide();
@@ -3619,7 +3582,6 @@
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
-                //$("#btnNuevo").show();
 
                 if (aux2 == _codigoTipoEstrategia.HerramientasVenta) $('#btnNuevo').show();
                 if (aux2 !== _codigoTipoEstrategia.HerramientasVenta) $("#btnActualizarTonos").show();

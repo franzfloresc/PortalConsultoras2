@@ -591,8 +591,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 ConsecutivoNueva = usuario.ConsecutivoNueva
             };
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-
-            /*HD-4635*/
+            
             int flagCantidadMayor = 0;
             string mensajeCantidadMayor = string.Empty;
             foreach (var item in lstDetalle)
@@ -818,8 +817,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             response.ListaMensajeCondicional.AddRange(ListaMensajeCondicional);
             response.CUV = cuvSet;
             response.PedidoWeb = pedidoWeb;
-            response.mensajeCantidadMayor = mensajeCantidadMayor;/*HD-4635*/
-            response.flagCantidadMayor = flagCantidadMayor;/*HD-4635*/
+            response.mensajeCantidadMayor = mensajeCantidadMayor;
+            response.flagCantidadMayor = flagCantidadMayor;
             SetMontosTotalesProl(response, listObjMontosProl);
             return response;
         }

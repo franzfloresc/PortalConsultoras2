@@ -81,8 +81,7 @@ namespace Portal.Consultoras.Entities
         public int PaisID { get; set; }
         [DataMember]
         public string CodigoUbigeo { get; set; }
-
-        // HD-4288
+        
         [DataMember]
         public string nombreYApellido { get; set; }
 

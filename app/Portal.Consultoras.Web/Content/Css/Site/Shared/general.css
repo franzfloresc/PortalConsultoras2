@@ -1391,10 +1391,38 @@ input[type="checkbox"].switch__control,
 
 /* FIN - CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
 
+/* SALUD-249 - VISTA ERROR GENERAL */
+
+.error__view{
+    font-family:'Lato', sans-serif;
+}
+
+    .error__view__icon {
+        flex: 0 0 80px;
+        max-width: 80px;
+        height:80px;
+        margin-bottom:16px;
+    }
+
+        .error__view__icon img{
+            height:auto;
+        }
+
+    .error__view__title{
+        font-size:20px;
+        margin-bottom:8px;
+    }
+
+    .error__view__message{
+        font-size:14px;
+        margin-bottom:0;
+    }
+
+/* FIN - SALUD-249 - VISTA ERROR GENERAL */
+
 @media screen and (max-width:991px) {
 
     /* HELPERS CSS (MOBILE) */
-
     .mostrarEnMobile{
         display:block;
     }

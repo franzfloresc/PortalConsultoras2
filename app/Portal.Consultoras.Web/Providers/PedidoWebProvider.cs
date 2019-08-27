@@ -143,6 +143,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? "Para mí" : item.Nombre;
+                    
                     item.DescripcionOferta = ObtenerDescripcionOferta(item, pedidoValidado, suscripcionActiva, userData.NuevasDescripcionesBuscador);
                 }
 
@@ -269,9 +270,12 @@ namespace Portal.Consultoras.Web.Providers
 
         private string ObtenerDescripcionOferta(BEPedidoWebDetalle item, bool pedidoValidado, bool suscripcion, Dictionary<string, string> lista)
         {
-            var descripcion = "";
+            if (item.EsPremioElectivo && item.PrecioUnidad > 0)
+            {
+                return lista[Constantes.NuevoCatalogoProducto.KitInicio];
+            }
 
-            descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
+            var descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
                 item.FlagConsultoraOnline, item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID,
                 item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo, item.EsCuponIndependiente,
                 item.EsKitCaminoBrillante || item.EsDemCaminoBrillante);

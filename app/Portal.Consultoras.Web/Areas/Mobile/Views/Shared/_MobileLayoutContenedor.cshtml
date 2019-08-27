@@ -179,16 +179,13 @@
         @*var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';*@
         var baseUrl = "@Url.Content("~")";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
-
-        //INI SALUD-58
+        
         var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
         var pseudoParamNotif = '@ViewBag.PseudoParamNotif';
         var inicial = localStorage.getItem('KeyPseudoParam');
         if (inicial === 'undefinied' || inicial === undefined || inicial === null)
             localStorage.setItem('KeyPseudoParam', pseudoParamNotif); //se almacena por primera vez
-         //FIN SALUD-58
-
-
+         
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         //var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';

@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ConsultaProl;
 using Portal.Consultoras.Web.ServiceOferta;
@@ -313,6 +314,11 @@ namespace Portal.Consultoras.Web.Providers
 
                 string requestUrl = Constantes.ConsultaPROL.ConsultaStockProl;
                 string jsonParameters = JsonConvert.SerializeObject(stock);
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("Tracking ConsultaProlProvider_ActualizarComponenteStockPROL:");
+                sb.AppendLine("Method: Post");
+                sb.AppendLine(string.Format("Parametros:{0}", jsonParameters));
+                sb.AppendLine("Response: Null content");
                 var taskApi = Task.Run(() => RespMSConsultaProl(jsonParameters, requestUrl, "post", codigoConsultora, paisISO));
                 Task.WhenAll(taskApi);
                 string content = taskApi.Result;
@@ -320,7 +326,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (respuesta.Count == 0)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(new Exception("ConsultaProlProvider_ActualizarComponenteStockPROL: Null content"), codigoConsultora, paisISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(new ClientInformationException(sb.ToString()), codigoConsultora, paisISO);
                 }
                 else
                 {
