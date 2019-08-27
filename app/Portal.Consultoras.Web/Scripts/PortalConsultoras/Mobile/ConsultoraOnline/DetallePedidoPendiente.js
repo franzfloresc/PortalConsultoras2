@@ -592,7 +592,7 @@ function ContinuarPedido(option) {
 	            }
                 CloseLoading();
                 if (response.success) {
-                    //HD-4734
+
                     if (response.result.ListaCatalogo.length == 0 || response.result.ListaGana.length == 0) AceptarPedidoPendienteDirecto(response.result.ListaGana,option);
                     else
                         document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra?option=' + option;

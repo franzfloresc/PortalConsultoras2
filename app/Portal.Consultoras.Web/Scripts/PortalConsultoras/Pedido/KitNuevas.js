@@ -8,9 +8,9 @@ function ValidarKitNuevas(fnSuccess) {
         success: function (data) {
             if (!checkTimeout(data)) return false;
 
-            if (!data.success) messageInfo('Ocurrió un error al intentar cargar el Kit de Nuevas.');
+            if (!data.success) AbrirMensaje('Ocurrió un error al intentar cargar el Kit de Nuevas.');
             else if ($.isFunction(fnSuccess)) fnSuccess();
         },
-        error: function () { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
+        error: function () { AbrirMensaje('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
     });
 }

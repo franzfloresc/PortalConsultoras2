@@ -71,8 +71,6 @@ namespace Portal.Consultoras.Web.Controllers
                        }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
-        
-            //return RedirectToAction("AdministrarBeneficios", "CaminoBrillanteAdministrar");
         }
 
         [HttpPost]

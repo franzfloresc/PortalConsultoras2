@@ -2495,10 +2495,7 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoBusinessLogic.InsertKitSE(usuario);
         }
-
-        //FIN HD-4200
-
-
+        
         #region HD-4327
 
         public BEDescargaArchivoSinMarcar DescargaPedidosSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
@@ -2566,7 +2563,7 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.VerificarConsultoraDigital(codigoConsultora, pedidoID, paisID);
         }
         #endregion
-        /*HD-4513*/
+
         #region Consultora Pago Contado
         public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb)
         {
