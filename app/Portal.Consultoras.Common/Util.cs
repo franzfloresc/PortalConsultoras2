@@ -1044,7 +1044,7 @@ namespace Portal.Consultoras.Common
         }
 
         public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null)
-        {            
+        {
             if (string.IsNullOrEmpty(strPara))
                 return false;
 
@@ -1060,7 +1060,7 @@ namespace Portal.Consultoras.Common
             string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-            MailMessage objMail = new MailMessage();           
+            MailMessage objMail = new MailMessage();
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
@@ -1086,11 +1086,11 @@ namespace Portal.Consultoras.Common
 
             try
             {
-                objClient.Send(objMail);                
+                objClient.Send(objMail);
             }
             catch (Exception ex)
             {
-                
+
                 throw new ClientInformationException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
@@ -3600,23 +3600,27 @@ namespace Portal.Consultoras.Common
             return GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
         }
 
-        public static string ObtenerRutaImagenResize(string rutaImagen, string rutaNombreExtension, string codigoIso)
+        public static string ObtenerRutaImagenResize(string rutaImagen, string rutaNombreExtension, string codigoIso, string campaniaid = null, bool isProductoSugerido = false)
         {
             string ruta = "";
 
             if (string.IsNullOrEmpty(rutaImagen))
                 return ruta;
 
+            string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+            string soloExtension = Path.GetExtension(rutaImagen);
             var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
 
             if (rutaImagen.ToLower().Contains(valorAppCatalogo))
-            {
-                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
-                string soloExtension = Path.GetExtension(rutaImagen);
-
                 ruta = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, soloImagen + rutaNombreExtension + soloExtension);
-            }
-            else
+
+            if (isProductoSugerido)
+                ruta = ConfigCdn.GetUrlFileCdnMatrizCampania(codigoIso, soloImagen + rutaNombreExtension + soloExtension, campaniaid: campaniaid);
+
+            if (string.IsNullOrEmpty(ruta))
+                ruta = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, soloImagen + rutaNombreExtension + soloExtension);
+
+            if (string.IsNullOrEmpty(ruta))
             {
                 ruta = Util.GenerarRutaImagenResize(rutaImagen, rutaNombreExtension);
             }
