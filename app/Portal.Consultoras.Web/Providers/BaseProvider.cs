@@ -29,35 +29,7 @@ namespace Portal.Consultoras.Web.Providers
             if (listaPaises == "" || isoPais == "") return ",|.|2";
             if (listaPaises.Contains(isoPais)) return ".|,|0";
             return ",|.|2";
-        }
-
-        public string ObtenerRutaImagenResize(string rutaImagen, string rutaNombreExtension, string codigoIso,string campaniaid = null, bool isProductoSugerido = false)
-        {
-            string ruta = "";
-
-            if (string.IsNullOrEmpty(rutaImagen))
-                return ruta;
-
-            string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
-            string soloExtension = Path.GetExtension(rutaImagen);
-            var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
-
-            if (rutaImagen.ToLower().Contains(valorAppCatalogo))
-                ruta = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, soloImagen + rutaNombreExtension + soloExtension);
-
-            if (isProductoSugerido)
-                ruta = ConfigCdn.GetUrlFileCdnMatrizCampania(codigoIso, soloImagen + rutaNombreExtension + soloExtension,campaniaid: campaniaid);
-
-            if (string.IsNullOrEmpty(ruta))
-                ruta = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, soloImagen + rutaNombreExtension + soloExtension);
-
-            if (string.IsNullOrEmpty(ruta))
-            {
-                ruta = Util.GenerarRutaImagenResize(rutaImagen, rutaNombreExtension);
-            }
-
-            return ruta;
-        }
+        }      
         
         public string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes, DateTime fechaInicioCampania, bool esMobile)
         {
