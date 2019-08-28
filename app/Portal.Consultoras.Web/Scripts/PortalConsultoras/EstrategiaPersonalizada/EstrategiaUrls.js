@@ -33,7 +33,7 @@ var FichaVerDetalle = (function () {
 
             var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(OrigenPedidoWeb);
             if (origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling
-                || origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
+                || origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselSugeridos) {
 
                 var palanca = getPalanca(codigoEstrategia, OrigenPedidoWeb, false);
                 var modeloEstrategiaTemporal = {
@@ -99,9 +99,7 @@ var FichaVerDetalle = (function () {
                 url += ConstantesModule.TipoEstrategiaTexto.Lanzamiento;
                 break;
             case ConstantesModule.TipoEstrategia.OfertasParaMi:
-                {
-                    url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
-                }
+                url += ConstantesModule.TipoEstrategiaTexto.OfertasParaMi;
                 break;
             case ConstantesModule.TipoEstrategia.LosMasVendidos:
                 url += ConstantesModule.TipoEstrategiaTexto.LosMasVendidos;

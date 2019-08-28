@@ -4153,6 +4153,7 @@
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
     <Content Include="LBelConmigo.html" />
     <Content Include="Pdto.aspx" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\AdminChatBot\ChatBot.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmComponente.js" />
