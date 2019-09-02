@@ -9,11 +9,12 @@ module.exports = {
     this.locator = config.locator;
   },
 
-  LoginPage(Pais, Usuario, Password) {
+  async LoginPage(Pais, Usuario, Password) {
     this.ValidacionInicialLogin();
     this.IngresarCredenciales(Pais, Usuario, Password);
     this.ClickBotonLogin();
     this.ValidacionFinalLogin();
+    await this.SiPopUp_Cerrar();
   },
 
   ValidacionInicialLogin() {
