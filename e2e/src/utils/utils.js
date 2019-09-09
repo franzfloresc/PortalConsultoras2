@@ -15,5 +15,23 @@ function fnGetFiles(dir, filter = "", files_) {
   return files_;
 }
 
+function fechaFormateada(){
+
+  var fecha=new Date().toLocaleString();
+  var find='[: ]';
+  var re=new RegExp(find,'g');
+  fecha=fecha.replace(re,'-');
+
+  return fecha;
+}
+
+function nomFichero(seccion){
+  var nombre="";
+  nombre=nombre.concat(seccion,"-", this.fechaFormateada(), ".png");
+
+  return nombre;
+}
 
 module.exports.fnGetFiles = fnGetFiles;
+module.exports.fechaFormateada=fechaFormateada;
+module.exports.nomFichero=nomFichero;

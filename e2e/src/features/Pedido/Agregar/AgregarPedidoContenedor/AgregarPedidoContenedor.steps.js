@@ -8,11 +8,14 @@ Given(
   async function(Pais, Usuario, Password) {
     login.Constructor();
     await login.LoginPage(Pais, Usuario, Password);
+    await login.SiPopUp_Cerrar();
+    login.ValidacionFinalLogin();
   }
 );
 
 When("Me dirijo al contenedor de Palancas", async function() {
   home.Constructor();
+  home.ValidacionHome();
   await home.irContenedor();
 });
 
@@ -69,6 +72,6 @@ Then(
 );
 
 Then("Ingresar a pase pedido del Contenedor", async function() {
-  await pedido.irPasePedido();
-  pedido.vaciarPasePedido();
+  pedido.irPasePedido();
+  await pedido.vaciarPasePedido();
 });

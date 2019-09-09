@@ -10,15 +10,21 @@ Given(
   }
 );
 
-When("Me encuentro en la seccion indicada", async function() {});
+When("Me encuentro en la seccion indicada", async function() {
+  await login.SiPopUp_Cerrar();
+  login.ValidacionFinalLogin();
+});
 
 When(
   "Agrego un cuv {string}, {int} veces de la seccion {string}",
   async function(CUV, Cantidad, Seccion) {
-    home.Constructor(Seccion, CUV, Cantidad);
+
     pedido.Constructor();
     pedido.guardarValorEsperado(Cantidad);
     await pedido.capturarCantInicial();
+    home.Constructor3(Seccion, CUV, Cantidad);
+    home.ValidacionHome();
+
     await home.BuscarElemento();
     await home.AgregarElemento();
     await pedido.ValidacionMsjProdAdd();
@@ -35,7 +41,7 @@ When(
     pedido.Constructor();
 
     for (i = 0; i < listaCUVS.length; i++) {
-      home.Constructor(Seccion, listaCUVS[i], listaCantidades[i]);
+      home.Constructor3(Seccion, listaCUVS[i], listaCantidades[i]);
       await home.BuscarElemento();
       pedido.guardarValorEsperado(listaCantidades[i]);
       await pedido.capturarCantInicial();
@@ -52,6 +58,6 @@ Then("Visualizare en mi carrito los productos que agregue", async function() {
 });
 
 Then("Ingresar a pase pedido", async function() {
-  await pedido.irPasePedido();
-  pedido.vaciarPasePedido();
+  pedido.irPasePedido();
+  await pedido.vaciarPasePedido();
 });

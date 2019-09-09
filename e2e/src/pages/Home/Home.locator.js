@@ -24,11 +24,23 @@ config = {
         xpath: `${seccion}//div[@role='option' and @data-item-cuv='${cuv}']//a[@class='menos js-no-popup']`
       };
     },
+    btnVerDetalle:(seccion, cuv)=>{
+      return {
+        xpath:`${seccion}//div[@role='option' and @data-item-cuv='${cuv}']//a[contains(text(),'VER DETALLE')]`
+      };
+    },
+        
     popupAgregado: {
       xpath: "//div[text()='¡Listo! Agregaste con éxito a tu pedido.']"
     },
-    lblContenedorItems: { xpath: "//div[@id='carrito_items']" },
-    btnIrContenedor: { xpath: "//a[@id='lnk-pri-ofertas']" }
+
+    lblContenedorItems: { 
+      xpath: "//div[@id='carrito_items']" 
+    },
+
+    btnIrContenedor: { 
+      xpath: "//a[@id='lnk-pri-ofertas']" 
+    }
   }
 };
 

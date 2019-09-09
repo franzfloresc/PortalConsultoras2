@@ -15,7 +15,7 @@ Scenario Outline: Agregar una oferta desde seccion Oferta Del Dia del Contenedor
 
 Examples:
   | Pais | Usuario   | Password | Seccion | CUV   | Cantidad |
-  | PE   | 008424152 | 07635789 | ODD     | 62101 | 5        |
+  | PE   | 008424152 | 07635789 | ODD     | 62108 | 5        |
 
 @ODD @VariosCuvs @CPA023
 Scenario Outline: Agregar varias ofertas desde seccion Oferta Del Dia del Contenedor
@@ -25,8 +25,8 @@ Scenario Outline: Agregar varias ofertas desde seccion Oferta Del Dia del Conten
   Then Ingresar a pase pedido del Contenedor
 
 Examples:
-  | Pais | Usuario   | Password | Seccion | CUVS         | Cantidades |
-  | PE   | 008424152 | 07635789 | ODD     | 62098,62101  | 5,6        |
+  | Pais | Usuario         | Password | Seccion | CUVS         | Cantidades |
+  | PE   | usuariopruebape | 1234567  | ODD     | 61999,62100  | 5,6        |
 
 @SR @UnCuv @CPA024
 Scenario Outline: Agregar una oferta desde seccion ShowRoom del Contenedor

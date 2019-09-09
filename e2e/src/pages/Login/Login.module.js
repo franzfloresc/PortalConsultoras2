@@ -1,6 +1,7 @@
 const I = actor();
-let wait = { retries: 5, minTimeout: 2000 };
 const config = require("./Login.locator");
+const utils=require("./../../utils/utils");
+let wait = { retries: 5, minTimeout: 2000 };
 let locator = config.locator;
 
 module.exports = {
@@ -9,15 +10,18 @@ module.exports = {
     this.locator = config.locator;
   },
 
-  async LoginPage(Pais, Usuario, Password) {
+  LoginPage(Pais, Usuario, Password) {
     this.ValidacionInicialLogin();
     this.IngresarCredenciales(Pais, Usuario, Password);
     this.ClickBotonLogin();
     this.ValidacionFinalLogin();
-    await this.SiPopUp_Cerrar();
   },
 
   ValidacionInicialLogin() {
+
+    var archivo=utils.nomFichero("Login");
+    var ruta="./../report/".concat(archivo);
+
     I.retry(wait).say("Validación inicial antes del Login");
     I.retry(wait).see("¡Bienvenida");
     I.retry(wait).seeElement(locator.listPais);
@@ -25,6 +29,9 @@ module.exports = {
     I.retry(wait).seeElement(locator.fieldContrasenia);
     I.retry(wait).seeElement(locator.btnLogin);
     I.retry(wait).seeElement(locator.btnLoginFB);
+
+    I.saveScreenshot(archivo);
+    I.addMochawesomeContext(ruta);
   },
 
   /**

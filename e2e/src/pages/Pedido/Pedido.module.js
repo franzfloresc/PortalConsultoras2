@@ -1,6 +1,7 @@
 const I = actor();
 const config = require("./Pedido.locator");
 const assert = require("assert");
+const utils=require("./../../utils/utils");
 let wait = { retries: 5, minTimeout: 2000 };
 let locator = config.locator;
 let intCantIni = 0;
@@ -13,21 +14,42 @@ module.exports = {
   },
 
   ValidacionMsjProdAdd() {
+
     I.retry(wait).say(
       "Se validará que haya aparecido el popup de Producto Agregado"
     );
     I.retry(wait).seeElement(locator.popupAgregado);
+    var archivo=utils.nomFichero("ProductoAgregado");
+    var ruta="./../report/".concat(archivo);
+    I.saveScreenshot(archivo);
+    I.addMochawesomeContext(ruta);
     I.retry(wait).dontSeeElement(locator.popupAgregado);
+
   },
 
-  async irPasePedido() {
+  irPasePedido() {
     I.moveCursorTo(locator.lblCarritoCompras);
     I.retry(wait).click(locator.btnIrVerPedido);
   },
 
-  vaciarPasePedido() {
+  async vaciarPasePedido() {
+    var contenido="";
+
     I.wait(1);
-    I.retry(wait).click(locator.btnEliminarPedido);
+    var archivo=utils.nomFichero("PasePedido");
+    var ruta="./../report/".concat(archivo);
+    I.saveScreenshot(archivo);
+    I.addMochawesomeContext(ruta);
+
+    do{
+
+      I.retry(wait).click(locator.btnEliminarPedido);
+      contenido=await I.grabCssPropertyFrom(
+        locator.popupEliminarPedido,"display"
+      );
+
+    }while((contenido[0])=="none");
+
     I.retry(wait).click(locator.btnEliminarSi);
   },
 
@@ -47,6 +69,6 @@ module.exports = {
   },
 
   ValidacionCantCarrito() {
-    assert(intValorEsperado == intCantFin - intCantIni);
+    assert(intValorEsperado == (intCantFin - intCantIni));
   }
 };

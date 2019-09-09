@@ -26,4 +26,4 @@ Scenario Outline: Agregar varias ofertas desde seccion Home
 
 Examples:
   | Pais | Usuario         | Password | Seccion | CUVS        | Cantidades |
-  | PE   | usuariopruebape | 1234567  | Dorada  | 44826,48385 | 5,6      |
+  | PE   | usuariopruebape | 1234567  | Dorada  | 48385,48385 | 5,6      |

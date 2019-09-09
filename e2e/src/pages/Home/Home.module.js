@@ -1,25 +1,39 @@
 const I = actor();
-let wait = { retries: 5, minTimeout: 2000 };
 const config = require("./Home.locator");
+const utils=require("./../../utils/utils");
+let wait = { retries: 5, minTimeout: 2000 };
 let locator = config.locator;
 let locatorSeccion = "";
 
 module.exports = {
-  /**
-   * Constructor de clase para sección Home.
-   */
-  Constructor(Seccion, CUV, Cantidad) {
+
+  Constructor(){
+    this.locator=config.locator;
+    console.log("constructor vacio");
+  },
+
+  Constructor3(Seccion, CUV, Cantidad) {    
     this.locator = config.locator;
     this.Seccion = Seccion;
     this.CUV = CUV;
     this.Cantidad = Cantidad;
+},
+
+  Constructor2(Seccion, CUV){
+    this.locator=config.locator; 
+    this.Seccion=Seccion;
+    this.CUV=CUV;
   },
 
   /**
    * Validación inicial de URL.
    */
-  async ValidacionHome() {
+  ValidacionHome() {
+    var archivo=utils.nomFichero("Home");
+    var ruta="./../report/".concat(archivo);
     I.seeInCurrentUrl("/Bienvenida");
+    I.saveScreenshot(archivo);
+    I.addMochawesomeContext(ruta);
   },
 
   /**
@@ -60,13 +74,25 @@ module.exports = {
     } while (contenido == "true");
   },
 
-  async AgregarElemento() {
+  VerDetalleElemento(){
+    I.wait(1);
+    I.click(locator.btnVerDetalle(locatorSeccion.xpath, this.CUV));
+  },
+  
+  AgregarElemento() {
+    console.log("Cantidad: ", this.Cantidad);
     for (var i = 1; i < this.Cantidad; i++) {
       //El carrito ya parte de 1 elemento.
       I.click(locator.btnSubirCant(locatorSeccion.xpath, this.CUV));
       I.wait(1);
     }
-    await I.click(locator.btnAgregar(locatorSeccion.xpath, this.CUV));
+
+    var archivo=utils.nomFichero("AgregandoElemento");
+    var ruta="./../report/".concat(archivo);
+    I.saveScreenshot(archivo);
+    I.addMochawesomeContext(ruta);
+
+    I.click(locator.btnAgregar(locatorSeccion.xpath, this.CUV));
   },
 
   /**
