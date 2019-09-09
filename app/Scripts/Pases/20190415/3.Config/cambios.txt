@@ -1,3 +1,0 @@
-1.MS Search
-	Modificar:
-		Personalizacion: ['GND', 'LAN', 'ODD', 'OPM', 'SR', 'HV', 'MG', 'ATP', 'RD']
