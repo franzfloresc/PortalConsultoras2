@@ -1,0 +1,26 @@
+{
+  "name": "Portal-SomosBelcorp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "codeceptjs run --grep @Login --reporter mochawesome",
+    "testallure": "codeceptjs run --grep @Login --plugins allure",
+    "allure": "allure serve report",
+    "format": "prettier --write src/**/*.js",
+    "gherkin-lint": "node ./node_modules/gherkin-lint/dist/main.js -c ./.gherkin-lintrc.json ./src/features/**"
+  },
+  "keywords": [],
+  "author": "H0h4mmed Estrada",
+  "license": "ISC",
+  "dependencies": {
+    "codeceptjs": "^2.1.0",
+    "mochawesome": "^3.1.1",
+    "puppeteer": "^1.11.0"
+  },
+  "devDependencies": {
+    "gherkin": "^5.1.0",
+    "gherkin-lint": "^3.3.6",
+    "prettier": "^1.18.2"
+  }
+}
