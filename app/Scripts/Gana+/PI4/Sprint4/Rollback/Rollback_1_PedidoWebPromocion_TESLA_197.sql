@@ -1,7 +1,0 @@
-USE [BelcorpPeru_GANAMAS]
-GO
-
-IF EXISTS (
-SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PedidoWebPromocion') AND TYPE = 'U')
-   DROP TABLE DBO.PedidoWebPromocion
-GO
