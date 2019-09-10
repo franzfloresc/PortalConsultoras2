@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Results>
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://osb.soa.galileo.ebel:8102/belcorp/services/proxy/ffvv/PedidoPS?wsdl" filename="PedidoBS.wsdl" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://osb.soa.galileo.ebel:8102/belcorp/services/proxy/ffvv/PedidoPS?SCHEMA%2Fbelcorp%2Finterfaces%2Fxsd%2Fcanonical%2FPedido" filename="PedidoPS.xsd" />
-  </Results>
-</DiscoveryClientResultsFile>

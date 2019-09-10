@@ -1,3 +1,0 @@
-1.SB2 Web
-	Actualizar:
-		<add key="CursosMarquesina" value="http://miscursos.somosbelcorp.com/auth/consultoralogin/ingresar.php?usuario={0}&amp;token={1}&amp;codcla={2}&amp;codsub={3}&amp;desc={4}&amp;course={5}" />
